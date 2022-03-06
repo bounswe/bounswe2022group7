@@ -2,6 +2,9 @@
 Welcome to the GitHub repository of Group 7, we are computer engineering students at Boğaziçi University taking Fundamentals of Software Engineering (CMPE352) in Spring term of 2022. Wiki containing weekly meeting notes, member profiles, researchs and templates can be found [here](https://github.com/bounswe/bounswe2022group7/wiki).
 
 ### Members
+
+![meeting](assets/group7-meeting.png)
+
 * [Ali Can Milani](https://github.com/bounswe/bounswe2022group7/wiki/Ali-Can-Milani)
 * [Atilla Türkmen](https://github.com/bounswe/bounswe2022group7/wiki/Atilla-T%C3%BCrkmen)
 * [Aziza Mankenova](https://github.com/bounswe/bounswe2022group7/wiki/Aziza-Mankenova)
