@@ -16,4 +16,5 @@ Welcome to the GitHub repository of Group 7, we are computer engineering student
 * [Mehmet Emin İpekdal](https://github.com/bounswe/bounswe2022group7/wiki/Mehmet-Emin-%C4%B0pekdal)
 * [Musa Şimşek](https://github.com/bounswe/bounswe2022group7/wiki/Musa-%C5%9Eim%C5%9Fek)
 * [Rafet Oğuz Pançuk](https://github.com/bounswe/bounswe2022group7/wiki/Rafet-O%C4%9Fuz-Pan%C3%A7uk)
+[Hasan Bingölbali](https://github.com/bounswe/bounswe2022group7/wiki/Hasan-Bingolbali)
 
