@@ -2,6 +2,10 @@ __pycache__
 # Ignore files related to API keys
 .env
 
+# Ignore IDE specific directories
+.vscode
+.idea
+
 # Ignore files/folders macOS could create in the directory
 .DS_Store
 .AppleDouble
