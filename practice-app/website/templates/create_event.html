@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Event {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    add_element("h2", "Enter New Event Information")
+
+    // url parameter in the action field will 
+    // be passed to the template from Flask
+    // back-end. We can maybe use "url_for"
+    // instead. Needs to be updated after the
+    // back-end is built.
+
+    add_element("div",
+    `
+    <form action="{{url}}" method="post">
+        <p>Title:       <input type="text" name="title"></p>
+        <p>Description: <input type="text" name="description"></p>
+        <p>Poster Link: <input type="text" name="poster_link"></p>
+        <p>Time:        <input type="time" name="time"></p>
+        <p>Location (Leave empty if online):            <input type="text" name="location"></p>
+        <p>Collaborators (Seperate names with space):   <input type="text" name="collaborators"></p>
+        <input type="submit" value="Create Event">
+    </form>
+    `)
+
+    
+</script>
+
+{% endblock %}
