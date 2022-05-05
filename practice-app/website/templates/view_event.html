@@ -10,11 +10,10 @@
 
     var mainContainer = document.getElementById("mainContainer");
 
-    function add_div(elementType, innerHTML) {
-        var div = document.createElement(elementType)
-        console.log(innerHTML)
-        div.innerHTML = innerHTML
-        mainContainer.appendChild(div);
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
     }
 
     // ONLY EDIT BELOW THIS COMMENT WHEN
@@ -40,13 +39,21 @@
     });
     */
 
-    add_div("div", event_data["title"])
-    add_div("div", event_data["description"])
-    add_div("div", "<img src=\"" + event_data["poster_link"] + "\">")
-    add_div("div", event_data["time"])
-    add_div("div", event_data["title"])
-    add_div("div", event_data["location"])
-    add_div("div", event_data["collaborators"])
+    add_element("h1", "Event Title: " + event_data["title"])
+    
+    add_element("h2", "Description")
+    add_element("div", event_data["description"])
+
+    add_element("h2", "Poster")
+    add_element("div", "<img src=\"" + event_data["poster_link"] + "\">")
+
+    add_element("h2", "Collaborators")
+    add_element("div", event_data["collaborators"].map(collaborator => "<li>" + collaborator + "</li>").join(''))
+
+    add_element("h2", "Location & Time")
+    add_element("div", "<b>Time:</b>" + event_data["time"])
+    add_element("div", "<b>Location:</b>" +event_data["location"])
+    
     
 </script>
 
