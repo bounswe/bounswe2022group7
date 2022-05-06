@@ -67,3 +67,93 @@ class Participants(db.Model):
             "event_id": self.event_id,
             "user_id": self.user_id
         }
+
+
+class ArtItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150))
+    description = db.Column(db.Text)
+    creator_artist = db.Column(db.Integer, db.ForeignKey("artist.id"))
+    content_uri = db.Column(db.String)
+    creation_date = db.Column(db.Date)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "creator_artist": self.creator_artist,
+            "content_uri": self.content_uri,
+            "creation_date": self.creation_date
+        }
+
+
+"""
+The database model for the discussion posts that are created under the separate forum page.
+"""
+
+
+class ForumPost(db.Model):
+    __tablename__ = 'forum_post'
+    id = db.Column(db.Integer, primary_key=True)
+    creator = db.Column(db.Integer, db.ForeignKey("user.id"))
+    title = db.Column(db.Text)
+    description = db.Column(db.Text)
+    content_uri = db.Column(db.String)
+    creation_date = db.Column(db.Date)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "creator": self.creator,
+            "title": self.title,
+            "description": self.description,
+            "content_uri": self.content_uri,
+            "creation_date": self.creation_date
+        }
+
+
+"""
+The database model for the comments under forum posts.
+"""
+
+
+class PostComment(db.Model):
+    parent_post = db.Column(db.Integer, db.ForeignKey("forum_post.id"))
+    id = db.Column(db.Integer, primary_key=True)
+    creator = db.Column(db.Integer, db.ForeignKey("user.id"))
+    text = db.Column(db.Text)
+    content_uri = db.Column(db.String)
+    creation_date = db.Column(db.Date)
+
+    def serialize(self):
+        return {
+            "parent_post": self.parent_post,
+            "id": self.id,
+            "creator": self.creator,
+            "text": self.text,
+            "content_uri": self.content_uri,
+            "creation_date": self.creation_date
+        }
+
+
+"""
+The database model for the comments under event pages.
+"""
+
+
+class EventDiscussionComment(db.Model):
+    event = db.Column(db.Integer, db.ForeignKey("event.id"))
+    id = db.Column(db.Integer, primary_key=True)
+    creator = db.Column(db.Integer, db.ForeignKey("user.id"))
+    text = db.Column(db.Text)
+    creation_date = db.Column(db.Date)
+
+    def serialize(self):
+        return {
+            "event": self.event,
+            "id": self.id,
+            "creator": self.creator,
+            "text": self.text,
+            "creation_date": self.creation_date
+        }
