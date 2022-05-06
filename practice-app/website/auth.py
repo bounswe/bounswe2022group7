@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user, login_required, logout_user, current_user
 from . import db
 from .models import User
 
@@ -37,8 +38,22 @@ def signup():
 
 @auth.route('/login', methods=['POST'])
 def login():
-    pass
+    data = request.get_json()
+    email = data['email']
+    password = data['password']
+    remember = True if data['remember'] == 'true' else False
+
+    user = User.query.filter_by(email=email).first()
+    if not user or not check_password_hash(user.password, password):
+        return {'error': 'Incorrect email or password.'}, 401
+    
+    login_user(user, remember=remember)
+    return {
+        'email': user.email,
+    }, 200
 
 @auth.route('/logout')
+@login_required
 def logout():
-    pass
+    logout_user()
+    return {'message': 'logout successfull', 'email': current_user.email }, 200
