@@ -38,8 +38,8 @@ class Event(db.Model):
     event_time = db.Column(db.Date)
     formatted_address = db.Column(db.Text)
     entered_address = db.Column(db.Text)
-    longitude = db.Column(db.Float())
-    latitude = db.Column(db.Float())
+    longitude = db.Column(db.Float)
+    latitude = db.Column(db.Float)
     creator_artist = db.Column(db.Integer, db.ForeignKey("artist.id"))
     description = db.Column(db.Text)
 
