@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
             "password": self.password,
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "is_verified": self.is_verified,
+            "is_verified": self.is_verified
         }
 
 
@@ -28,7 +28,7 @@ class Artist(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "artisitic_values": self.artisitic_values,
+            "artisitic_values": self.artisitic_values
         }
 
 
@@ -53,16 +53,17 @@ class Event(db.Model):
             "longitude": self.longitude,
             "latitude": self.latitude,
             "creator_artist": self.creator_artist,
-            "description": self.description,
+            "description": self.description
         }
 
 
 class Participants(db.Model):
-    event_id = db.Column(db.Integer, db.ForeignKey("event.id"), primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey(
+        "event.id"), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), primary_key=True)
 
     def serialize(self):
         return {
             "event_id": self.event_id,
-            "user_id": self.user_id,
+            "user_id": self.user_id
         }
