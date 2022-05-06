@@ -41,7 +41,7 @@ def login():
     data = request.get_json()
     email = data['email']
     password = data['password']
-    remember = True if data['remember'] == 'true' else False
+    remember = data['remember']
 
     user = User.query.filter_by(email=email).first()
     if not user or not check_password_hash(user.password, password):
@@ -55,5 +55,6 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
+    email = current_user.email
     logout_user()
-    return {'message': 'logout successfull', 'email': current_user.email }, 200
+    return {'message': 'logout successfull', 'email': email}, 200
