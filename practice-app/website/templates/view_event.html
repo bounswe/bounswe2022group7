@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Event {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    // When the api is completed, replace the hardcoded event_data
+    // object below with the commented fetch block bewlo event_data.
+    event_data = {
+        "title": "Practice Event",
+        "description": "This event is part of an example created to showcase how the frontend will be implemented.",
+        "poster_link": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7d/Lenna_%28test_image%29.png/220px-Lenna_%28test_image%29.png",
+        "time": "04-05-2022 15:20:00",
+        "location": "Istanbul",
+        "collaborators":["Kevin", "Dave"],
+    }
+    /*
+    fetch(url)
+    .then(function (response) {
+        // The JSON data will arrive here
+    })
+    .catch(function (err) {
+        // If an error occured, you will catch it here
+    });
+    */
+
+    add_element("h1", "Event Title: " + event_data["title"])
+    
+    add_element("h2", "Description")
+    add_element("div", event_data["description"])
+
+    add_element("h2", "Poster")
+    add_element("div", "<img src=\"" + event_data["poster_link"] + "\">")
+
+    add_element("h2", "Collaborators")
+    add_element("div", event_data["collaborators"].map(collaborator => "<li>" + collaborator + "</li>").join(''))
+
+    add_element("h2", "Location & Time")
+    add_element("div", "<b>Time:</b>" + event_data["time"])
+    add_element("div", "<b>Location:</b>" +event_data["location"])
+    
+    
+</script>
+
+{% endblock %}

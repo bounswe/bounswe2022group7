@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Practice App</title>
+    </head>
+
+    <body>
+
+        <nav>
+            <h1>
+                Practice App - {% block functionality %}{% endblock %}
+            </h1>
+        </nav>
+        
+        <hr>
+
+        <div style="width: 100%; display: table;">
+            <div style="display: table-row">
+
+                <div style="width: 15%; display: table-cell;">
+                    Links to the functionalities
+                </div>
+
+                <div style="display: table-cell;"> 
+                    {% block content %}{% endblock %}
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            
+        </div>
+    </body>
+
+</html>
