@@ -40,7 +40,7 @@ class Event(db.Model):
     entered_address = db.Column(db.Text)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
-    creator_artist = db.Column(db.Integer, db.ForeignKey("artist.user_id"))
+    creator_artist = db.Column(db.Integer, db.ForeignKey("artist.id"))
     description = db.Column(db.Text)
 
     def serialize(self):
