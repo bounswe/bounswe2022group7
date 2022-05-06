@@ -22,12 +22,12 @@ class User(db.Model, UserMixin):
 
 
 class Artist(db.Model):
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), primary_key=True)
+    id = db.Column(db.Integer, db.ForeignKey("user.id"), primary_key=True)
     artisitic_values = db.Column(db.Float)
 
     def serialize(self):
         return {
-            "event_id": self.event_id,
+            "id": self.id,
             "artisitic_values": self.artisitic_values,
         }
 
