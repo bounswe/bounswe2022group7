@@ -19,24 +19,31 @@
     // ONLY EDIT BELOW THIS COMMENT WHEN
     // IMPLEMENTING DIFFERENT FEATURES
 
-    add_element("h2", "Enter New Event Information")
+    add_element("h2", "Enter New Event Information")   
 
-    // url parameter in the action field will 
-    // be passed to the template from Flask
-    // back-end. We can maybe use "url_for"
-    // instead. Needs to be updated after the
-    // back-end is built.
+    function submitform() {
+        var form = document.getElementById('myForm');
+        var formData = new FormData(form)
+
+        url = "/api/create_event"
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(response => response.json()).then(json => console.log(json))
+    }
 
     add_element("div",
     `
-    <form action="{{url}}" method="post">
+    <form id="myForm">
         <p>Title:       <input type="text" name="title"></p>
         <p>Description: <input type="text" name="description"></p>
         <p>Poster Link: <input type="text" name="poster_link"></p>
-        <p>Time:        <input type="time" name="time"></p>
-        <p>Location (Leave empty if online):            <input type="text" name="location"></p>
-        <p>Collaborators (Seperate names with space):   <input type="text" name="collaborators"></p>
-        <input type="submit" value="Create Event">
+        <p>Date:        <input type="date" name="date"></p>
+        <p>City:        <input type="text" name="city"></p>
+        <input type="button" value="Create Event" onclick="submitform()">
     </form>
     `)
 
