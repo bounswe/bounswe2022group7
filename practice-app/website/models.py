@@ -35,25 +35,21 @@ class Artist(db.Model):
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
-    event_time = db.Column(db.Date)
-    formatted_address = db.Column(db.Text)
-    entered_address = db.Column(db.Text)
-    longitude = db.Column(db.Float)
-    latitude = db.Column(db.Float)
-    creator_artist = db.Column(db.Integer, db.ForeignKey("artist.id"))
     description = db.Column(db.Text)
-
+    poster_link = db.Column(db.Text)
+    date = db.Column(db.Date)
+    city = db.Column(db.Text)
+    creator_artist = db.Column(db.Integer, db.ForeignKey("artist.id"))
+    
     def serialize(self):
         return {
             "id": self.id,
             "title": self.title,
-            "event_time": self.event_time,
-            "formatted_address": self.formatted_address,
-            "entered_address": self.entered_address,
-            "longitude": self.longitude,
-            "latitude": self.latitude,
+            "description": self.description,
+            "poster_link": self.poster_link,
+            "date": self.date,
+            "city": self.city,
             "creator_artist": self.creator_artist,
-            "description": self.description
         }
 
 
