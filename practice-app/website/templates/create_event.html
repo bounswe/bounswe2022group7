@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Event {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    add_element("h2", "Enter New Event Information")   
+
+    function submitform() {
+        var form = document.getElementById('myForm');
+        var formData = new FormData(form)
+
+        url = "/api/create_event"
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(response => response.json()).then(json => console.log(json))
+    }
+
+    add_element("div",
+    `
+    <form id="myForm">
+        <p>Title:       <input type="text" name="title"></p>
+        <p>Description: <input type="text" name="description"></p>
+        <p>Poster Link: <input type="text" name="poster_link"></p>
+        <p>Date:        <input type="date" name="date"></p>
+        <p>City:        <input type="text" name="city"></p>
+        <input type="button" value="Create Event" onclick="submitform()">
+    </form>
+    `)
+
+    
+</script>
+
+{% endblock %}
