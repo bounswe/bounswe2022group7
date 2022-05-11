@@ -5,9 +5,25 @@ from ..models import ForumPost
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import json
+import requests
 
 forum = Blueprint('forum', __name__)
 
+
+def bad_word_check(body):
+    url = "https://community-purgomalum.p.rapidapi.com/json"
+
+    querystring = {"text":body}
+
+    header = {
+	    "X-RapidAPI-Host": "community-purgomalum.p.rapidapi.com",
+	    "X-RapidAPI-Key": "818ef66db1msh776544fab719fb2p1d8998jsn85fa7e0d9fca"
+    }
+
+    response = requests.request("GET", url, headers=header, params=querystring)
+
+    return response.json()
+    
 
 @forum.route('/forum_get', methods=["GET"])
 def forum_get():
@@ -16,20 +32,23 @@ def forum_get():
     return jsonify(results=list(result))
 
 
+
+
 @forum.route('/forum_post', methods=["POST"])
 def forum_post():
 
     body = request.json
 
     title = body["title"]
-    description = body["description"]
+    description = bad_word_check(body["description"])
     content_uri = body["content_uri"]
     creator = body["creator"]
+    
 
     new_post = ForumPost(
         creator=creator,
         title=title,
-        description=description,
+        description=description["result"],
         content_uri=content_uri,
         creation_date=date.today()
     )
