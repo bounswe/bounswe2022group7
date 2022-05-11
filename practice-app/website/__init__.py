@@ -22,9 +22,11 @@ def create_app():
 
     from .views import views
     from .api.event import event
+    from .api.participants import participants
 
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(event, url_prefix="/api/")
+    app.register_blueprint(participants, url_prefix="/api/")
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
