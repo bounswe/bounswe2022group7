@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  version: '0.0.1'
+  title: 'Practice-app'
+  license:
+    name: MIT
+servers:
+  - url: '127.0.0.1:5000'
+paths:
+    /participants:
+        get:
+            summary: 'Lists the participants of an event'
+            operationId: view_participants
+            tags:
+                - event
+            parameters:
+                - name: event_id
+                  in: query
+                  description: ID of the event
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                '200':
+                    description: 'Lists the participants of the event.'
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Participant'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error' 
+
+    /participants/add:
+        post:
+            summary: 'Adds the given participants to event'
+            operationId: add_participant
+            tags:
+                - event
+            requestBody:
+                content:
+                    'application/json':
+                        schema:
+                            $ref: '#/components/schemas/AddParticipant'
+            responses:
+                '200':
+                    description: 'Sample response: Successfully added to event.'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SuccessResponse'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /participants/remove:
+        post:
+            summary: 'Removes the given participants from event'
+            operationId: remove_participant
+            tags:
+                - event
+            requestBody:
+                content:
+                    'application/json':
+                        schema:
+                            $ref: '#/components/schemas/AddParticipant'
+            responses:
+                '200':
+                    description: 'Sample response: Successfully removed from event.'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SuccessResponse'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+
+        
+components:
+  schemas:
+    Participant:
+      type: object
+      required:
+          - user_id
+      properties:
+        user_id:
+          type: integer
+          format: int32
+        
+    AddParticipant:
+        type: object
+        required:
+            - event_id
+            - participants
+        properties:
+            event_id:
+                type: integer
+                format: int32
+            participants:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        user_id:
+                            type: integer
+                            format: int32 
+    Success:
+        type: object
+        required:
+            - successMessage
+        properties:
+            successMessage:
+                type: string
+
+    Error:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+  securitySchemes:
+    bearerAuth:            
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+security:
+    - bearerAuth: []
