@@ -24,7 +24,7 @@
     .then(response => {
 
         if (response.status == 404) {
-            add_element("div", "Oops! There is no art item with this id.")
+            add_element("div", "Oops! There is no event with this id.")
         }
         if (response.status == 201) {
             response.json().then(event_data => {
