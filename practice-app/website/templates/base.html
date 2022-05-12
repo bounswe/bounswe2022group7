@@ -19,6 +19,22 @@
             <h1>
                 Practice App - {% block functionality %}{% endblock %}
             </h1>
+
+            <form id="searchBar">
+                <input type="text" name="query" placeholder="Search Something">
+                <input type="button" value="Search" onclick="search()">
+            </form>
+
+            <script>
+                function search() {
+                    var form = document.getElementById("searchBar");
+                    var formData = new FormData(form)
+                    url = "/?query=" + formData.get("query").replace(" ", "%")
+                    window.location.assign(url)
+                }
+            </script>
+
+
         </nav>
         
         <hr>
