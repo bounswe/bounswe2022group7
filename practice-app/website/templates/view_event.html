@@ -26,7 +26,7 @@
         if (response.status == 404) {
             add_element("div", "Oops! There is no event with this id.")
         }
-        if (response.status == 201) {
+        if (response.status == 200) {
             response.json().then(event_data => {
 
                 console.log(event_data)
