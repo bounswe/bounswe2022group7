@@ -17,4 +17,7 @@ __pycache__
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-._* 
+._*
+
+# Ignore database file
+*.db
