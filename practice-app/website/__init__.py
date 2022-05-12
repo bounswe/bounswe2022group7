@@ -38,14 +38,15 @@ def create_app():
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(event, url_prefix="/api/")
 
-    from .auth import auth
-    app.register_blueprint(auth)
-
     from .api.discussion_forum import forum	
     from .discussion import discussion	
 
     app.register_blueprint(discussion, url_prefix="/")	
     app.register_blueprint(forum, url_prefix="/api/")
+    
+    from .api.auth import auth	
+    app.register_blueprint(auth, url_prefix="/api/")	
+
 
     create_database(app)
 

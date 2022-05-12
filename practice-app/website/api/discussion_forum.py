@@ -6,6 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import json
 import requests
+from flask_jwt_extended import jwt_required, current_user
+from ..settings import *
 
 forum = Blueprint('forum', __name__)
 
@@ -17,7 +19,7 @@ def bad_word_check(body):
 
     header = {
 	    "X-RapidAPI-Host": "community-purgomalum.p.rapidapi.com",
-	    "X-RapidAPI-Key": "818ef66db1msh776544fab719fb2p1d8998jsn85fa7e0d9fca"
+	    "X-RapidAPI-Key":  os.environ.get("API_KEY_BADGE")
     }
 
     response = requests.request("GET", url, headers=header, params=querystring)
@@ -27,14 +29,15 @@ def bad_word_check(body):
 
 @forum.route('/forum_get', methods=["GET"])
 def forum_get():
+    
     forums = ForumPost.query.all()
     result = map(lambda x: x.serialize(), forums)
     return jsonify(results=list(result))
 
 
 
-
 @forum.route('/forum_post', methods=["POST"])
+@jwt_required()
 def forum_post():
 
     body = request.json
@@ -58,6 +61,15 @@ def forum_post():
 
     return {"id": new_post.id}, 201
 
+@forum.route('/forum_post', methods=["POST"])  # change this route to your specific route and methods
+@jwt_required()
+def protected():
+    return jsonify(logged_in_as=current_user.email), 200
+
+
+
+    
+    
 
 # https://realpython.com/flask-blueprint/
 # https://stackoverflow.com/questions/37164675/clicking-button-with-requests
