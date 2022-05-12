@@ -29,7 +29,7 @@
                 function search() {
                     var form = document.getElementById("searchBar");
                     var formData = new FormData(form)
-                    url = "/?query=" + formData.get("query").replace(" ", "%")
+                    url = "/?query=" + encodeURIComponent(formData.get("query"))
                     window.location.assign(url)
                 }
             </script>
