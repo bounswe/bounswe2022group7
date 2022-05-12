@@ -20,8 +20,8 @@ def home_route():
         ).all()
 
     else:
-        events = Event.query.order_by(-Event.id.desc()).limit(5).all()
-        art_items = ArtItem.query.order_by(-ArtItem.id.desc()).limit(5).all()
+        events = Event.query.order_by(Event.id.desc()).limit(5).all()
+        art_items = ArtItem.query.order_by(ArtItem.id.desc()).limit(5).all()
 
     json = {"events": events, "art_items": art_items}
     json = {key:[i.serialize() for i in json[key]] for key in json}
