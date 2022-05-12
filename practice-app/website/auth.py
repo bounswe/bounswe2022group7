@@ -36,7 +36,7 @@ def signup():
         db.session.commit()
 
     access_token = create_access_token(identity=new_user)
-    return jsonify(access_token=access_token)
+    return jsonify(access_token=access_token), 201
 
 
 @auth.route('/login', methods=['POST'])
