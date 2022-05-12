@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, login_required, logout_user, current_user, user_logged_out
+from flask_jwt_extended import create_access_token, jwt_required, current_user
+
 from . import db
 from .models import User
 
@@ -10,11 +11,10 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/signup', methods=['POST'])
 def signup():
-    data = request.get_json()
-    email = data['email']
-    password = data['password']
-    first_name = data['first_name']
-    last_name = data['last_name']
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    first_name = request.json.get("first_name", None)
+    last_name = request.json.get("last_name", None)
 
     user = User.query.filter_by(email=email).first()
     if user:
@@ -30,37 +30,24 @@ def signup():
     db.session.add(new_user)
     db.session.commit()
 
-    return {
-        'email': new_user.email,
-        'first_name': new_user.first_name,
-        'last_name': new_user.last_name,
-        'is_verified': new_user.is_verified
-    }, 201
+    access_token = create_access_token(identity=new_user)
+    return jsonify(access_token=access_token)
 
 
 @auth.route('/login', methods=['POST'])
 def login():
-    if not current_user.is_authenticated:
-        data = request.get_json()
-        email = data['email']
-        password = data['password']
-        remember = data['remember']
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
 
-        user = User.query.filter_by(email=email).first()
-        if not user or not check_password_hash(user.password, password):
-            return {'error': 'Incorrect email or password.'}, 401
+    user = User.query.filter_by(email=email).first()
+    if not user or not check_password_hash(user.password, password):
+        return {'error': 'Incorrect email or password.'}, 401
 
-        login_user(user, remember=remember)
-        return {
-            'email': user.email,
-        }, 200
-    else:
-        return {'error': 'already logged in'}, 405
+    access_token = create_access_token(identity=user)
+    return jsonify(access_token=access_token)
 
 
-@auth.route('/logout')
-@login_required
-def logout():
-    email = current_user.email
-    logout_user()
-    return {'message': 'logout successfull', 'email': email}, 200
+@auth.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    return jsonify(logged_in_as=current_user.email), 200
