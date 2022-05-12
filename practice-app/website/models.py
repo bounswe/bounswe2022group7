@@ -38,7 +38,7 @@ class Event(db.Model):
     poster_link = db.Column(db.Text)
     date = db.Column(db.Date)
     city = db.Column(db.Text)
-    creator_artist = db.Column(db.Integer, db.ForeignKey("artist.id"))
+    artist_id = db.Column(db.Integer, db.ForeignKey("artist.id"))
     
     def serialize(self):
         return {
@@ -48,7 +48,7 @@ class Event(db.Model):
             "poster_link": self.poster_link,
             "date": self.date,
             "city": self.city,
-            "creator_artist": self.creator_artist,
+            "artist_id": self.artist_id,
         }
 
 
