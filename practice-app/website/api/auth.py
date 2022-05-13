@@ -2,8 +2,8 @@ from flask import Blueprint, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, current_user
 
-from . import db
-from .models import User, Artist
+from .. import db
+from ..models import User, Artist
 
 
 auth = Blueprint('auth', __name__)
@@ -36,7 +36,7 @@ def signup():
         db.session.commit()
 
     access_token = create_access_token(identity=new_user)
-    return jsonify(access_token=access_token), 201
+    return jsonify(access_token=access_token, first_name=first_name), 201
 
 
 @auth.route('/login', methods=['POST'])
