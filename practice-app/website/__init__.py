@@ -2,9 +2,8 @@ import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
 
-
+from flask_jwt_extended import JWTManager
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -16,30 +15,36 @@ def create_app():
     basedir = os.path.abspath(os.path.dirname(__file__))
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
         os.path.join(basedir, DB_NAME)
-    app.config['SECRET_KEY'] = 'secret-key-goes-here'
+    
+    app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+    jwt = JWTManager(app)
+
+    @jwt.user_identity_loader
+    def user_identity_lookup(user):
+        return user.id
+
+    from .models import User
+
+    @jwt.user_lookup_loader
+    def user_lookup_callback(_jwt_header, jwt_data):
+        identity = jwt_data["sub"]
+        return User.query.filter_by(id=identity).one_or_none()
 
     db.init_app(app)
 
     from .views import views
     from .api.event import event
     from .api.participants import participants
+    from .api.home import home
 
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(event, url_prefix="/api/")
     app.register_blueprint(participants, url_prefix="/api/")
+    app.register_blueprint(home, url_prefix="/api")
 
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
-
-    from .models import User
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
 
     from .auth import auth
-    app.register_blueprint(auth)
+    app.register_blueprint(auth, url_prefix="/api/")
 
     create_database(app)
 

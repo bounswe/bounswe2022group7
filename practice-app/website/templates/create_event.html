@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block functionality %} View Event {% endblock %}
+{% block functionality %} Create Event {% endblock %}
 
 {% block content %}
 
@@ -32,7 +32,17 @@
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
-        }).then(response => response.json()).then(json => console.log(json))
+        }).then(response => {
+            if (response.status == 409) {
+                alert('Title you have entered already exists. Please enter another title.')
+            }
+
+            if (response.status == 201) {
+                response.json().then(event_data => {
+                    window.location.assign('/event/' + event_data["id"])
+                })
+            }   
+        })
     }
 
     add_element("div",

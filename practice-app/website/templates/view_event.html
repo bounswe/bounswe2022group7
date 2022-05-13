@@ -20,24 +20,34 @@
     // IMPLEMENTING DIFFERENT FEATURES
     url = "/api/view_event?event_id={{event_id}}"
 
-    fetch(url).then(function(response) {
-        return response.json();
-    }).then(event_data => {
+    fetch(url)
+    .then(response => {
 
-        add_element("h1", "Event Title: " + event_data["title"])
-        
-        add_element("h2", "Description")
-        add_element("div", event_data["description"])
+        if (response.status == 404) {
+            add_element("div", "Oops! There is no event with this id.")
+        }
+        if (response.status == 200) {
+            response.json().then(event_data => {
 
-        add_element("h2", "Poster")
-        add_element("div", "<img src=\"" + event_data["poster_link"] + "\">")
+                console.log(event_data)
+                console.log(event_data['title'])
 
-        add_element("h2", "Artist")
-        add_element("div", event_data["creator_artist"])
+                add_element("h1", "Event Title: " + event_data["title"])
+                
+                add_element("h2", "Description")
+                add_element("div", event_data["description"])
 
-        add_element("h2", "City & Date")
-        add_element("div", "<b>Date:</b>" + event_data["date"])
-        add_element("div", "<b>City:</b>" +event_data["city"])
+                add_element("h2", "Poster")
+                add_element("div", "<img src=\"" + event_data["poster_link"] + "\">")
+
+                add_element("h2", "Artist")
+                add_element("div", event_data["creator_artist"])
+
+                add_element("h2", "City & Date")
+                add_element("div", "<b>Date:</b>" + event_data["date"])
+                add_element("div", "<b>City:</b>" +event_data["city"])
+            }
+        )}
     }).catch(err => {
         console.log(err)
     });

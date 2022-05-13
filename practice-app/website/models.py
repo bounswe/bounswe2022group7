@@ -1,8 +1,7 @@
 from . import db
-from flask_login import UserMixin
 
 
-class User(db.Model, UserMixin):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
@@ -39,7 +38,7 @@ class Event(db.Model):
     poster_link = db.Column(db.Text)
     date = db.Column(db.Date)
     city = db.Column(db.Text)
-    creator_artist = db.Column(db.Integer, db.ForeignKey("artist.id"))
+    artist_id = db.Column(db.Integer, db.ForeignKey("artist.id"))
     
     def serialize(self):
         return {
@@ -49,7 +48,7 @@ class Event(db.Model):
             "poster_link": self.poster_link,
             "date": self.date,
             "city": self.city,
-            "creator_artist": self.creator_artist,
+            "artist_id": self.artist_id,
         }
 
 
