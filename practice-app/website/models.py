@@ -31,6 +31,39 @@ class Artist(db.Model):
         }
 
 
+class Admin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), unique=True)
+    password = db.Column(db.String(150))
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "password": self.password
+        }
+
+
+class CopyrightReport(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text)
+    description = db.Column(db.Text)
+
+    responsible_admin = db.Column(db.Integer, db.ForeignKey(
+        "admin.id"), primary_key=True)
+    relevant_art_item = db.Column(
+        db.Integer, db.ForeignKey("art_item.id"), primary_key=True)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "responsible_admin": self.responsible_admin,
+            "relevant_art_item": self.relevant_art_item
+        }
+
+
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
@@ -38,8 +71,8 @@ class Event(db.Model):
     poster_link = db.Column(db.Text)
     date = db.Column(db.Date)
     city = db.Column(db.Text)
-    creator_artist = db.Column(db.Integer, db.ForeignKey("artist.id"))
-    
+    artist_id = db.Column(db.Integer, db.ForeignKey("artist.id"))
+
     def serialize(self):
         return {
             "id": self.id,
@@ -48,7 +81,7 @@ class Event(db.Model):
             "poster_link": self.poster_link,
             "date": self.date,
             "city": self.city,
-            "creator_artist": self.creator_artist,
+            "artist_id": self.artist_id,
         }
 
 
@@ -65,6 +98,7 @@ class Participants(db.Model):
 
 
 class ArtItem(db.Model):
+    __tablename__ = 'art_item'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     description = db.Column(db.Text)
@@ -114,6 +148,7 @@ The database model for the comments under forum posts.
 
 
 class PostComment(db.Model):
+    __tablename__ = 'post_comment'
     parent_post = db.Column(db.Integer, db.ForeignKey("forum_post.id"))
     id = db.Column(db.Integer, primary_key=True)
     creator = db.Column(db.Integer, db.ForeignKey("user.id"))
@@ -138,6 +173,7 @@ The database model for the comments under event pages.
 
 
 class EventDiscussionComment(db.Model):
+    __tablename__ = 'event_comment'
     event = db.Column(db.Integer, db.ForeignKey("event.id"))
     id = db.Column(db.Integer, primary_key=True)
     creator = db.Column(db.Integer, db.ForeignKey("user.id"))
