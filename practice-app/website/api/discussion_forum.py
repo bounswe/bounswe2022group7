@@ -1,5 +1,8 @@
+
+from __future__ import print_function
 import logging
 from flask import Blueprint, jsonify, request
+from platformdirs import user_cache_dir
 from .. import db
 from ..models import ForumPost
 from flask_sqlalchemy import SQLAlchemy
@@ -8,6 +11,7 @@ import json
 import requests
 from flask_jwt_extended import jwt_required, current_user
 from ..settings import *
+import sys
 
 forum = Blueprint('forum', __name__)
 
@@ -15,28 +19,28 @@ forum = Blueprint('forum', __name__)
 def bad_word_check(body):
     url = "https://community-purgomalum.p.rapidapi.com/json"
 
-    querystring = {"text":body}
+    querystring = {"text": body}
 
     header = {
-	    "X-RapidAPI-Host": "community-purgomalum.p.rapidapi.com",
-	    "X-RapidAPI-Key":  os.environ.get("API_KEY_BADGE")
+        "X-RapidAPI-Host": "community-purgomalum.p.rapidapi.com",
+        "X-RapidAPI-Key":  os.environ.get("BAD_WORDS_KEY")
     }
 
     response = requests.request("GET", url, headers=header, params=querystring)
 
+    print(response.json(), file=sys.stderr)
     return response.json()
-    
 
-@forum.route('/forum_get', methods=["GET"])
+
+@forum.route('/forum_get/', methods=["GET"])
 def forum_get():
-    
+
     forums = ForumPost.query.all()
     result = map(lambda x: x.serialize(), forums)
     return jsonify(results=list(result))
 
 
-
-@forum.route('/forum_post', methods=["POST"])
+@forum.route('/forum_post/', methods=["POST"])
 @jwt_required()
 def forum_post():
 
@@ -45,8 +49,7 @@ def forum_post():
     title = body["title"]
     description = bad_word_check(body["description"])
     content_uri = body["content_uri"]
-    creator = body["creator"]
-    
+    creator = current_user.email
 
     new_post = ForumPost(
         creator=creator,
@@ -61,15 +64,6 @@ def forum_post():
 
     return {"id": new_post.id}, 201
 
-@forum.route('/forum_post', methods=["POST"])  # change this route to your specific route and methods
-@jwt_required()
-def protected():
-    return jsonify(logged_in_as=current_user.email), 200
-
-
-
-    
-    
 
 # https://realpython.com/flask-blueprint/
 # https://stackoverflow.com/questions/37164675/clicking-button-with-requests

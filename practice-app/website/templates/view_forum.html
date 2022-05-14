@@ -58,17 +58,20 @@
     }
     */
 
-    var url = "/api/forum_get"
+    var url = "/api/forum_get/"
 
 
     fetch(url)
         .then((response) => {
+            console.log(response);
             return response.json();
         })
         .then((data) => {
+            console.log(data);
             add_element("h1", "Forum Page");
             add_element("p", "---------------------------------------------");
             let forum_data = data;
+            console.log(data["results"]);
             data["results"].forEach(helper);
 
         })

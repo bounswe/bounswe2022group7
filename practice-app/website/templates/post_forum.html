@@ -10,7 +10,6 @@
 <form id="forum_post">
     <div id="forumPostEnter" sytle="width: 50%; margin: auto">
         <label>New Post</label>
-        <p>Author: <input type="text" name="creator"></p>
         <p>Title: <input type="text" name="title"></p>
         <p>Content Link: <input type="text" name="content_uri"></p>
         <p>Post: <textarea placeholder="Enter you text here" name="description" cols="30" rows="10"></textarea></p>
@@ -39,7 +38,7 @@
                 </div>
         
           */
-        add_element("div", "<div id=\"pos\" ><h3>" + post.title + "</h3><h6>" + post.creator + "</h6><h6>" + post.creation_date + "</h6><h4>" + post.description + "</h4>");
+        add_element("div", "<div id=\"pos\" ><h3>" + post.title + "</h3><h6>" + post.creation_date + "</h6><h4>" + post.description + "</h4>");
     }
 
     function helper(value, index, array) {
@@ -74,10 +73,7 @@
         var pst_data = new FormData(pst)
 
         console.log("COME TO POST");
-        console.log(pst_data);
-        console.log(Object.fromEntries(pst_data));
-        console.log(JSON.stringify(Object.fromEntries(pst_data)));
-        url = "/api/forum_post"
+        url = "/api/forum_post/"
 
         fetch(url, {
             method: "POST",
