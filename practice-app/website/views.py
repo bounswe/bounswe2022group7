@@ -20,6 +20,11 @@ def create_event():
     return render_template("create_event.html")
 
 
-@views.route("signup/")
+@views.route('signup/')
 def signup():
-    return render_template("signup.html")
+    return render_template('signup.html')
+
+
+@views.route('login/')
+def login():
+    return render_template('login.html')
