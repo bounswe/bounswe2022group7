@@ -21,3 +21,6 @@ __pycache__
 
 # Ignore database file
 *.db
+
+# Ignore AWS credentials
+*.pem
