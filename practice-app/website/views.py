@@ -14,3 +14,7 @@ def view_event(event_id):
 @views.route("create_event/")
 def create_event():
     return render_template("create_event.html")
+
+@views.route("wikipedia_definition/")
+def wikipedia_definition():
+    return render_template("wikipedia_definition.html")
