@@ -10,3 +10,4 @@ MarkupSafe==2.1.1
 PyJWT==2.3.0
 SQLAlchemy==1.4.36
 Werkzeug==2.1.2
+requests
