@@ -8,9 +8,19 @@ event = Blueprint("event", __name__)
 
 # ROUTES
 
-@event.route("/create_event", methods=["POST"])
-def create_event():
+@event.route("/event/<event_id>", methods=["GET"])
+def get_event_data(event_id):
 
+    event = Event.query.get(event_id)
+
+    if not event:
+        return {"error": f"There are no events with the id {event_id}."}, 404    
+
+    return event.serialize(), 200
+
+
+@event.route("/event", methods=["POST"])
+def create_event():
     json = request.json
 
     missing_fields = {"title", "description", "poster_link", "date", "city"} - set(request.json.keys())
@@ -29,17 +39,7 @@ def create_event():
     db.session.commit()
 
     return {"id": event.id}, 201
-
-@event.route("/view_event", methods=["GET"])
-def view_event():
-
-    event_id = request.args.get("event_id")
-    event = Event.query.get(event_id)
-
-    if not event:
-        return {"error": f"There are no events with the id {event_id}."}, 404    
-
-    return event.serialize(), 200
+   
 
 # METHODS
 
