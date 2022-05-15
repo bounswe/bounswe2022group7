@@ -12,7 +12,7 @@ participants = Blueprint("participants", __name__)
 
 
 # API endpoint for adding participants to an event
-@participants.route("/participants/add", methods=["POST"])
+@participants.route("/participants", methods=["POST"])
 def add_participant():
 
     # Checks if the request body is JSON, otherwise returns error message
@@ -37,8 +37,8 @@ def add_participant():
                 return {"error": "There was an error on key / value pairs on request body."}, 400
 
             # Check if the user exists
-            if not User.query.filter_by(user_id=request_user_id).first():
-                return {"error": f"User with user id {request_user_id} doesn't exist."}, 409
+            # if not User.query.filter_by(id=request_user_id).first():
+            #     return {"error": f"User with id {request_user_id} doesn't exist."}, 409
 
 
             # Checks if the participant is already added to event
@@ -66,7 +66,7 @@ def add_participant():
         return {"error": "Request body should be a JSON file."}, 400
 
 # API endpoint for removing participants from an event
-@participants.route("/participants/remove", methods=["POST"])
+@participants.route("/participants", methods=["DELETE"])
 def remove_participant():
 
     # Checks if the request body is json
