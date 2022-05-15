@@ -1,7 +1,7 @@
 import logging
 from flask import Blueprint, jsonify, request
 from .. import db
-from ..models import ForumPost
+from ..models import ForumPost, PostComment
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import json
@@ -38,6 +38,47 @@ def forum_post():
     db.session.commit()
 
     return {"id": new_post.id}, 201
+
+@forum.route('/forum_comment_post', methods=["POST"])
+def forum_comment_post():
+
+    body = request.json
+
+    parent_post = body["parent_post"]
+    text = body["text"]
+    content_uri = body["content_uri"]
+    # creator = body["creator"]
+
+    new_post_comment = PostComment(
+        parent_post=parent_post,
+        text=text,
+        content_uri=content_uri,
+        # creator=creator,
+        creation_date=date.today()
+    )
+
+    db.session.add(new_post_comment)
+    db.session.commit()
+
+    return {"id": new_post_comment.id}, 201
+
+@forum.route('/get_discussion_posts/<post_id>', methods=["GET"])
+def get_discussion_posts(post_id):
+
+
+    try:
+        parent_post_id = request.args.get("post_id")
+    except:
+        return {"error": "Invalid arguments"}, 400
+
+    post = ForumPost.query.get(post_id)
+
+    comments = PostComment.query.filter(PostComment.parent_post == post_id).all()
+
+    result = map(lambda x: x.serialize(), comments)
+    return jsonify(comments=list(result), post=post.serialize()), 200
+    # return response, 200
+
 
 
 # https://realpython.com/flask-blueprint/

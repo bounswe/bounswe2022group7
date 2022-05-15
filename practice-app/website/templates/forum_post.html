@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block functionality %} Forum Post{% endblock %}
+
+{% block content %}
+
+<div id="mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML, classList = []) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+        element.classList = classList
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    // add_element("h2", "Enter New Event Information")   
+
+    discussion_post_id = {{ discussion_post_id }}
+    // http://127.0.0.1:5000/api/forum_comments_get/1
+    var url = "/api/get_discussion_posts/" + discussion_post_id
+
+    function display_comments(comment_data) {
+        add_element("hr", "");
+        add_element("div", "Text: " + comment_data["text"]);
+        add_element("div", "Creator: " + comment_data["creator"]);
+        add_element("div", "Date: " + comment_data["creation_date"]);
+        if (comment_data["content_uri"]) {
+        add_element("div", "<img src=\"" + comment_data["content_uri"] + "\">")
+        }
+    }
+
+    fetch(url).then(function (response) {
+        return response.json();
+    }).then(post_data => {
+
+        add_element("h1", "Title: " + post_data["post"]["title"])
+        add_element("h2", "Description:")
+        add_element("div", post_data["post"]["description"])
+        if (post_data["post"]["content_uri"]) {
+            add_element("h2", "Image:")
+            add_element("div", "<img src=\"" + post_data["post"]["content_uri"] + "\">")
+        }
+        add_element("h2", "Creator:")
+        add_element("div", post_data["post"]["creator"])
+
+        add_element("h2", "Date:");
+        add_element("div", post_data["post"]["creation_date"]);
+        add_element("h2", "Comments:");
+        post_data["comments"].forEach(display_comments);
+
+        add_element("div",
+        `   
+            <h3>Add new comment</h3>
+            <form id="myForm">
+                <p>text: ${post_data["post"]["creation_date"]} <input type="text" name="text"></p>
+                <p>content_uri: <input type="text" name="content_uri"></p>
+                <input type="button" value="Create Comment" onclick="submitform()">
+            </form>
+        `)
+
+        
+        // console.log(post_data)
+
+    }).catch(err => {
+        console.log(err)
+    });
+
+    function submitform() {
+        var form = document.getElementById('myForm');
+        var formData = new FormData(form)
+        formData.append('parent_post', discussion_post_id);
+        var json = JSON.stringify(Object.fromEntries(formData))
+        console.log(json)
+        url = "/api/forum_comment_post"
+        fetch(url, {
+            method: "POST",
+            body: json,
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(response => response.json()).then(json => console.log(json))
+        location.reload();
+    }
+
+
+
+
+</script>
+
+{% endblock %}
