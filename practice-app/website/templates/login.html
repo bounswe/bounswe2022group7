@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block functionality %}Login{% endblock %}
+
+{% block content %}
+
+<div id="mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    add_element("h2", "Enter Personal Information")
+
+    function submitform() {
+        var form = document.getElementById('myForm');
+        var formData = new FormData(form)
+
+        url = "/api/login"
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(response => {
+            if (response.status == 401) {
+                alert('Incorrect email or password.')
+            }
+
+            if (response.status == 200) {
+                response.json().then(userData => {
+                    location.href = '/';
+                })
+            }
+        })
+    }
+
+    add_element("div",
+        `
+    <form id="myForm">
+        <p>Email:       <input type="text" name="email"></p>
+        <p>Password: <input type="password" name="password"></p>
+        <input type="button" value="Login" onclick="submitform()">
+    </form>
+    `)
+
+
+</script>
+
+{% endblock %}

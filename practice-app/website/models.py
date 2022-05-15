@@ -22,7 +22,7 @@ class User(db.Model):
 
 class Artist(db.Model):
     id = db.Column(db.Integer, db.ForeignKey("user.id"), primary_key=True)
-    artisitic_values = db.Column(db.Float)
+    artistic_values = db.Column(db.Float)
 
     def serialize(self):
         return {

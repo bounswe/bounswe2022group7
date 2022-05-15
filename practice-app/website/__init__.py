@@ -40,7 +40,7 @@ def create_app():
     app.register_blueprint(home, url_prefix="/api")
     app.register_blueprint(event, url_prefix="/api")
 
-    from .auth import auth
+    from .api.auth import auth
     app.register_blueprint(auth, url_prefix="/api/")
 
     create_database(app)
