@@ -52,7 +52,7 @@ class CopyrightReport(db.Model):
     responsible_admin = db.Column(db.Integer, db.ForeignKey(
         "admin.id"), primary_key=True)
     relevant_art_item = db.Column(
-        db.Integer, db.ForeignKey("art_item.id"), primary_key=True)
+        db.Integer, db.ForeignKey("art_item.id"))
 
     def serialize(self):
         return {
