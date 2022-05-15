@@ -39,7 +39,8 @@
 
             if (response.status == 200) {
                 response.json().then(userData => {
-                    location.href = '/';
+
+                    location.href = '/?token=' + userData["access_token"];
                 })
             }
         })
