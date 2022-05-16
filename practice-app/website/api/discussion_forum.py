@@ -20,20 +20,15 @@ forum = Blueprint('forum', __name__)
 
 
 def bad_word_check(body):
-    url = "https://community-purgomalum.p.rapidapi.com/json"
+    url = "https://www.purgomalum.com/service/json"
 
     querystring = {"text": body}
 
-    header = {
-        "X-RapidAPI-Host": "community-purgomalum.p.rapidapi.com",
-        "X-RapidAPI-Key":  os.environ.get("BAD_WORDS_KEY")
-    }
-
     try:
         response = requests.request(
-            "GET", url, headers=header, params=querystring)
+            "GET", url, params=querystring)
         json = response.json()
-        if "message" in json:
+        if "result" not in json:
             return {"result": body}
         else:
             return json
