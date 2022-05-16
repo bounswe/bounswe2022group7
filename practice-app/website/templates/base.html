@@ -26,7 +26,7 @@
             </form>
 
             <div>
-                {% if session["token"] %}
+                {% if session["access_token"] %}
                     <form id="logoutForm">
                         <input type="button" value="Logout" onclick="logout()">
                     </form>
@@ -73,8 +73,7 @@
                     
                     <a href={{ url_for("views.home") }}>Home</a>
 
-
-                    {% if session["token"] %}
+                    {% if session["is_artist"] %}
 
                     <a href={{ url_for("views.create_event") }}>Create Event</a>
                     
