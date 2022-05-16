@@ -14,6 +14,8 @@ from flask_jwt_extended import jwt_required, current_user
 from ..settings import *
 import sys
 
+from .jwt import user_required
+
 forum = Blueprint('forum', __name__)
 
 
@@ -49,7 +51,7 @@ def forum_get():
 
 
 @forum.route('/forum_post/', methods=["POST"])
-@jwt_required()
+@user_required()
 def forum_post():
 
     body = request.json

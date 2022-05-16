@@ -11,11 +11,10 @@ def home():
     return render_template("home.html", token=token)
 
 
-
-
 @views.route("event/<event_id>/")
 def view_event(event_id):
     return render_template("view_event.html", event_id=event_id)
+
 
 @views.route("create_event/")
 @artist_token_required
@@ -28,6 +27,17 @@ def view_forum():
     return render_template("view_forum.html")
 
 
+@user_token_required
 @views.route("forum_post/")
 def post_forum():
     return render_template("post_forum.html")
+
+
+@views.route('signup/')
+def signup():
+    return render_template('signup.html')
+
+
+@views.route('login/')
+def login():
+    return render_template('login.html')

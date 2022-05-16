@@ -1,3 +1,5 @@
+import requests
+from ..settings import WEATHER_API_KEY
 from flask import Blueprint, request
 from flask_jwt_extended import get_jwt
 from datetime import datetime
@@ -11,26 +13,29 @@ event = Blueprint("event", __name__)
 
 # ROUTES
 
+
 @event.route("/event/<event_id>", methods=["GET"])
 def get_event_data(event_id):
 
     event = Event.query.get(event_id)
 
     if not event:
-        return {"error": f"There are no events with the id {event_id}."}, 404    
+        return {"error": f"There are no events with the id {event_id}."}, 404
 
     event = event.serialize()
-    event["artist_name"]  = User.query.get(event["artist_id"]).get_name()
+    event["artist_name"] = User.query.get(event["artist_id"]).get_name()
     event["weather"] = get_weather_data(event["city"])
-    
+
     return event, 200
+
 
 @event.route("/event", methods=["POST"])
 @artist_required()
 def create_event():
     json = request.json
 
-    missing_fields = {"title", "description", "poster_link", "date", "city"} - set(request.json.keys())
+    missing_fields = {"title", "description", "poster_link",
+                      "date", "city"} - set(request.json.keys())
     if len(missing_fields) > 0:
         return {"error": f"You have not provided some of the required fields. You are missing: " + str(missing_fields)}, 400
 
@@ -48,19 +53,17 @@ def create_event():
     db.session.commit()
 
     return {"id": event.id}, 201
-   
+
 
 # METHODS
 
-from ..settings import WEATHER_API_KEY
-import requests
 
 def get_weather_data(city):
-    response = requests.get(url = "https://api.openweathermap.org/data/2.5/weather",
-                 params= {
-                     "appid": WEATHER_API_KEY,
-                     "q": city
-                 })
+    response = requests.get(url="https://api.openweathermap.org/data/2.5/weather",
+                            params={
+                                "appid": WEATHER_API_KEY,
+                                "q": city
+                            })
 
     weather_response = {}
 
@@ -70,7 +73,8 @@ def get_weather_data(city):
 
     if response.status_code == 200:
         weather_data = response.json()
-        weather_response["temp"] = "%.2f C" % (weather_data["main"]["temp"] - 273) #convert Kelvin to Celcius
+        weather_response["temp"] = "%.2f C" % (
+            weather_data["main"]["temp"] - 273)  # convert Kelvin to Celcius
         weather_response["weather"] = weather_data["weather"][0]["main"]
         return weather_response
 
@@ -89,16 +93,17 @@ def get_weather_data(city):
 
     return weather_response
 
-        
-
 
 def is_missing_field(json):
-    missing_fields = {"title", "description", "poster_link", "date", "city"} - set(request.json.keys())
+    missing_fields = {"title", "description", "poster_link",
+                      "date", "city"} - set(request.json.keys())
     return len(missing_fields) > 0
+
 
 def title_exists(title):
     event = Event.query.filter_by(title=title).first()
     return event != None
+
 
 def date_valid(date):
     try:
@@ -107,16 +112,16 @@ def date_valid(date):
     except:
         return False
 
+
 def create_event_record(json):
 
     new_event = Event(
-        title = json["title"],
-        description = json["description"],
-        poster_link = json["poster_link"],
-        date = datetime.strptime(json["date"], "%Y-%m-%d"),
-        city = json["city"],
-        artist_id = json["artist_id"]
+        title=json["title"],
+        description=json["description"],
+        poster_link=json["poster_link"],
+        date=datetime.strptime(json["date"], "%Y-%m-%d"),
+        city=json["city"],
+        artist_id=json["artist_id"]
     )
 
     return new_event
-
