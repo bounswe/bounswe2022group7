@@ -14,6 +14,22 @@ class TestEvent(unittest.TestCase):
         self.ctx.push()
         self.client = app.test_client()
 
+        self.artist_data = {
+            "email": "artist@mail.com",
+            "password": "pass",
+            "first_name": "ArtistName",
+            "last_name": "Test",
+            "is_artist": "on"
+        }
+
+        self.user_data = {
+            "email": "user@mail.com",
+            "password": "pass",
+            "first_name": "UserName",
+            "last_name": "Test",
+            "is_artist": None
+        }
+
         self.corrrect_data = [
             {
                 "title": "Title 1",
@@ -67,17 +83,30 @@ class TestEvent(unittest.TestCase):
             "city": "City 7"
         }
 
+        response = self.client.post("/api/signup",
+                                    json=self.artist_data,
+                                    content_type = "application/json; charset=UTF-8")
+        self.artist_access_token = response.json["access_token"]
+        self.assertEqual(response.status, "201 CREATED")
+
+        response = self.client.post("/api/signup",
+                                    json=self.user_data,
+                                    content_type = "application/json; charset=UTF-8")
+        self.user_access_token = response.json["access_token"]
+        self.assertEqual(response.status, "201 CREATED")
+
         self.event_ids = []
         for json in self.corrrect_data:
-            response = self.make_create_event_request(json)
+            response = self.make_create_event_request(json, self.artist_access_token)
 
             self.assertEqual(response.status, "201 CREATED")
             self.event_ids.append(response.json["id"])
 
-    def make_create_event_request(self, json):
+    def make_create_event_request(self, json, token):
         return self.client.post("/api/event",
                                 json=json,
-                                content_type="application/json; charset=UTF-8")
+                                content_type="application/json; charset=UTF-8",
+                                headers = {"Authorization": "Bearer %s" % token})
 
     def make_view_event_request(self, id):
         return self.client.get(f"/api/event/{id}")
@@ -85,7 +114,7 @@ class TestEvent(unittest.TestCase):
     # test create_event API endpoint
 
     def test_create_event_endpoint(self):
-        response = self.make_create_event_request(self.test_data)
+        response = self.make_create_event_request(self.test_data, self.artist_access_token)
         
         self.assertEqual(response.status, "201 CREATED")
         self.assertEqual(response.json["id"], self.event_ids[-1] + 1)
@@ -94,14 +123,14 @@ class TestEvent(unittest.TestCase):
         self.assertIsNone(Event.query.get(response.json["id"] + 1))
 
     def test_create_duplicate_event(self):
-        response = self.make_create_event_request(self.corrrect_data[0])
+        response = self.make_create_event_request(self.corrrect_data[0], self.artist_access_token)
         self.assertEqual(response.status, "409 CONFLICT")
 
     def test_missing_field(self):
         keys = list(self.test_data.keys()).copy()
         for key in keys:
             value = self.test_data.pop(key)
-            response = self.make_create_event_request(self.test_data)
+            response = self.make_create_event_request(self.test_data, self.artist_access_token)
             self.test_data[key] = value
 
             self.assertEqual(response.status, "400 BAD REQUEST")
@@ -121,10 +150,15 @@ class TestEvent(unittest.TestCase):
         correct_date = self.test_data["date"]
         for date in wrong_dates:
             self.test_data["date"] = date
-            response = self.make_create_event_request(self.test_data)
+            response = self.make_create_event_request(self.test_data, self.artist_access_token)
             self.assertEqual(response.status, "400 BAD REQUEST")
             self.assertTrue("error" in response.json)
             self.assertEqual(response.json["error"], f"Date you have entered is not valid. Format is \"%Y-%m-%d\". You entered \"{date}\"." )
+
+    def test_authorisation(self):
+
+        response = self.make_create_event_request(self.test_data, self.user_access_token)
+        self.assertEqual(response.status, "403 FORBIDDEN")
             
     # test view_event API endpoint
 
