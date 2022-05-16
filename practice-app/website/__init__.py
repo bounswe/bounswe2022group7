@@ -36,11 +36,13 @@ def create_app():
     from .views import views
     from .api.event import event
     from .api.home import home
+    from .api.copyright import copyright
     from .jwt import token
 
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(home, url_prefix="/api")
     app.register_blueprint(event, url_prefix="/api")
+    app.register_blueprint(copyright, url_prefix="/api")
     app.register_blueprint(token, url_prefix="/token")
 
     from .api.auth import auth

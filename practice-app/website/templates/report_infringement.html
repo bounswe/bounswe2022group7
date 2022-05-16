@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block functionality %} Report Copyright Infringement {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    add_element("h2", "Enter Copyright Infringement Information")   
+
+    function submitform() {
+        var form = document.getElementById('myForm');
+        var formData = new FormData(form)
+
+        url = "/api/copyright"
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+            }
+        }).then(response => {
+            if (response.status == 201) {
+                response.json().then(report_data => {
+                //    window.location.assign('/copyright/' + report_data["id"])
+                    alert(report_data["id"])
+                })
+            }
+            else {
+                response.json().then(error_data => {
+                    alert(error_data["error"])
+                })
+            }   
+        })
+    }
+
+    add_element("div",
+    `
+    <form id="myForm">
+        <p>Description: <input type="text" name="description"></p>
+        <p>Original Art Item Id: <input type="number" name="original_art_item_id"></p>
+        <p>Infringement Art Item Id: <input type="number" name="infringement_art_item_id"></p>
+        <input type="button" value="Report Infringement" onclick="submitform()">
+    </form>
+    `)
+
+    
+</script>
+
+{% endblock %}

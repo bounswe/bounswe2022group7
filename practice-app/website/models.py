@@ -47,23 +47,6 @@ class Admin(db.Model):
         }
 
 
-class CopyrightReport(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.Text)
-    description = db.Column(db.Text)
-
-    relevant_art_item = db.Column(
-        db.Integer, db.ForeignKey("art_item.id"))
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "title": self.title,
-            "description": self.description,
-            "responsible_admin": self.responsible_admin,
-            "relevant_art_item": self.relevant_art_item
-        }
-
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)

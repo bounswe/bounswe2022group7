@@ -28,3 +28,8 @@ def signup():
 @views.route('login/')
 def login():
     return render_template('login.html')
+
+
+@views.route("report_infringement/")
+def report_infringement():
+    return render_template("report_infringement.html")
