@@ -12,6 +12,7 @@ def home():
 
 
 
+
 @views.route("event/<event_id>/")
 def view_event(event_id):
     return render_template("view_event.html", event_id=event_id)
@@ -22,22 +23,11 @@ def create_event():
     return render_template("create_event.html")
 
 
-@views.route('signup/')
-def signup():
-    return render_template('signup.html')
-
-
-@views.route('login/')
-def login():
-    return render_template('login.html')
-
-
 @views.route("forum_get/")
 def view_forum():
     return render_template("view_forum.html")
 
 
-@user_token_required
 @views.route("forum_post/")
 def post_forum():
     return render_template("post_forum.html")
