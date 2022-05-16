@@ -40,7 +40,15 @@
             if (response.status == 200) {
                 response.json().then(userData => {
 
-                    location.href = '/?token=' + userData["access_token"];
+                    url = "/token/set"
+                    fetch(url, {
+                        method: "POST",
+                        body: JSON.stringify({"token":userData["access_token"]}),
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                        }
+                    }).then(() => {window.location.assign("/")})
+
                 })
             }
         })

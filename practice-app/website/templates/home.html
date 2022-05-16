@@ -20,12 +20,7 @@
     // IMPLEMENTING DIFFERENT FEATURES
 
     function display_event(event_data) {
-        {% if token %}
-            add_element("div", `<a href=/event/${event_data["id"]}?token={{token}}>${event_data["title"]}</a>`)
-        {% else %}
-            add_element("div", `<a href=/event/${event_data["id"]}>${event_data["title"]}</a>`)
-        {% endif %}
-        
+        add_element("div", `<a href=/event/${event_data["id"]}>${event_data["title"]}</a>`)
     }
 
     function display_art_item(art_item_data) {

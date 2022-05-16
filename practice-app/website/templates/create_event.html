@@ -31,7 +31,7 @@
             body: JSON.stringify(Object.fromEntries(formData)),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
-                Authorization: "Bearer " + "{{token}}"
+                Authorization: "Bearer " + "{{session["token"]}}"
             }
         }).then(response => {
             if (response.status == 409) {
@@ -40,7 +40,7 @@
 
             if (response.status == 201) {
                 response.json().then(event_data => {
-                    window.location.assign('/event/' + event_data["id"] + "?token={{token}}")
+                    window.location.assign('/event/' + event_data["id"])
                 })
             }   
         })
