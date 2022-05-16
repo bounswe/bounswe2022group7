@@ -47,7 +47,56 @@
     <div style="width: 100%; display: table;">
         <div style="display: table-row">
 
-            <div style="width: 15%; display: table-cell;">
+        <nav>
+            <h1>
+                Practice App - {% block functionality %}{% endblock %}
+            </h1>
+
+            <form id="searchBar">
+                <input type="text" name="query" placeholder="Search Something">
+                <input type="button" value="Search" onclick="search()">
+            </form>
+
+            <div>
+                {% if session["access_token"] %}
+                    <form id="logoutForm">
+                        <input type="button" value="Logout" onclick="logout()">
+                    </form>
+                {% else %}
+                    <a href={{ url_for('views.login') }}>Login</a>
+                    <a href={{ url_for("views.signup") }}>Signup</a>
+                {% endif %}
+
+            </div>
+
+
+            <script>
+                function search() {
+                    var form = document.getElementById("searchBar");
+                    var formData = new FormData(form)
+                    url = "/?query=" + encodeURIComponent(formData.get("query"))
+                    window.location.assign(url)
+                }
+
+                function logout() {
+                    var form = document.getElementById("logoutForm");
+                    var formData = new FormData(form)
+                    url = "/token/drop"
+                    fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                        }
+                    }).then(() => {window.location.assign("/")})
+
+                    
+                }
+            </script>
+
+
+        </nav>
+        
+        <hr>
 
                 {% if token %}
 
@@ -64,6 +113,18 @@
                 <a href={{ url_for("views.signup") }}>Signup</a>
                 <a href={{ url_for("views.view_forum") }}>Read Forum</a>
                 {% endif %}
+                <div style="width: 15%; display: table-cell;">
+                    
+                    <a href={{ url_for("views.home") }}>Home</a>
+
+                    {% if session["is_artist"] %}
+
+                    <a href={{ url_for("views.create_event") }}>Create Event</a>
+                    
+                    {% endif %}
+                    
+                    
+                </div>
 
 
             </div>
