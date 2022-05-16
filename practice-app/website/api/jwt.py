@@ -8,7 +8,6 @@ def artist_required():
         def decorator(*args, **kwargs):
             verify_jwt_in_request()
             claims = get_jwt()
-            print(claims)
             if claims["user_type"] == "artist":
                 return fn(*args, **kwargs)
             else:
