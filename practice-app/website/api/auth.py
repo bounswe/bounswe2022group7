@@ -35,7 +35,8 @@ def signup():
         db.session.add(new_artist)
         db.session.commit()
 
-    access_token = create_access_token(identity=new_user, additional_claims={"user_id":new_user.id, "user_type": "artist" if is_artist else "user"})
+    is_artist = is_artist!=None
+    access_token = create_access_token(identity=new_user, additional_claims={"is_artist": is_artist})
     return jsonify(access_token=access_token, is_artist=is_artist), 201
 
 
@@ -50,5 +51,6 @@ def login():
 
     artist = Artist.query.get(user.id)
 
-    access_token = create_access_token(identity=user, additional_claims={"user_id":user.id, "user_type": "artist" if artist else "user"})
-    return jsonify(access_token=access_token, is_artist=artist!=None)
+    is_artist = artist!=None
+    access_token = create_access_token(identity=user, additional_claims={"is_artist": is_artist})
+    return jsonify(access_token=access_token, is_artist=is_artist)

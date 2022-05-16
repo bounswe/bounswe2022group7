@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flask_jwt_extended import get_jwt
+from flask_jwt_extended import current_user
 from datetime import datetime
 
 from ..models import Event, User
@@ -40,8 +40,7 @@ def create_event():
     if not date_valid(json["date"]):
         return {"error": f"Date you have entered is not valid. Format is \"%Y-%m-%d\". You entered \"{json['date']}\"."}, 400
 
-    claim = get_jwt()
-    json["artist_id"] = claim["user_id"]
+    json["artist_id"] = current_user.id
     event = create_event_record(json)
 
     db.session.add(event)

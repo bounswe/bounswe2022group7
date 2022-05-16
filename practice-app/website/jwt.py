@@ -34,12 +34,12 @@ def drop_session_token():
 def artist_token_required(func):
     @wraps(func)
     def wrapped(*args, **kwargs):
-        token = session["token"]
+        token = session["access_token"]
         if not token:
             return {"error": "You can not view this page without providing a valid token."}, 403
         try:
             claim = decode_token(token)
-            if claim["user_type"] != "artist":
+            if not claim["is_artist"]:
                 return {"error": "Wrong user type."}, 403
         except:
             return {"error": "Invalid token."}, 403
@@ -49,12 +49,12 @@ def artist_token_required(func):
 def user_token_required(func):
     @wraps(func)
     def wrapped(*args, **kwargs):
-        token = session["token"]
+        token = session["access_token"]
         if not token:
             return {"error": "You can not view this page without providing a valid token."}, 403
         try:
             claim = decode_token(token)
-            if claim["user_type"] != "user":
+            if claim["is_artist"]:
                 return {"error": "Wrong user type."}, 403
         except:
             return {"error": "Invalid token."}, 403
