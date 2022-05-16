@@ -69,7 +69,7 @@
             add_element("h1", "Forum Page");
             add_element("p", "---------------------------------------------");
             let forum_data = data;
-            data["results"].forEach(helper);
+            data["message"].forEach(helper);
 
         })
         .catch(function (err) {

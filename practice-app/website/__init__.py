@@ -15,7 +15,7 @@ def create_app():
     basedir = os.path.abspath(os.path.dirname(__file__))
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
         os.path.join(basedir, DB_NAME)
-    
+
     app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
     jwt = JWTManager(app)
 
@@ -38,15 +38,12 @@ def create_app():
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(event, url_prefix="/api/")
 
-    from .api.discussion_forum import forum	
-    from .discussion import discussion	
+    from .api.discussion_forum import forum
 
-    app.register_blueprint(discussion, url_prefix="/")	
-    app.register_blueprint(forum, url_prefix="/api/")
-    
-    from .api.auth import auth	
-    app.register_blueprint(auth, url_prefix="/api/")	
+    app.register_blueprint(forum, url_prefix="/api")
 
+    from .api.auth import auth
+    app.register_blueprint(auth, url_prefix="/api/")
 
     create_database(app)
 
