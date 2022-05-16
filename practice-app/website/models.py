@@ -49,8 +49,6 @@ class CopyrightReport(db.Model):
     title = db.Column(db.Text)
     description = db.Column(db.Text)
 
-    responsible_admin = db.Column(db.Integer, db.ForeignKey(
-        "admin.id"), primary_key=True)
     relevant_art_item = db.Column(
         db.Integer, db.ForeignKey("art_item.id"))
 
