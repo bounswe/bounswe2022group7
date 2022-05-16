@@ -34,12 +34,14 @@ def create_app():
 
     from .views import views
     from .api.event import event
+    from .api.home import home
 
     app.register_blueprint(views, url_prefix="/")
-    app.register_blueprint(event, url_prefix="/api/")
+    app.register_blueprint(home, url_prefix="/api")
+    app.register_blueprint(event, url_prefix="/api")
 
-    from .auth import auth
-    app.register_blueprint(auth)
+    from .api.auth import auth
+    app.register_blueprint(auth, url_prefix="/api/")
 
     from .api.discussion_forum import forum	
     from .discussion import discussion	

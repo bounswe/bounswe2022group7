@@ -29,6 +29,7 @@
     function display_comments(comment_data) {
         add_element("hr", "");
         add_element("div", "Text: " + comment_data["text"]);
+        add_element("div", "Translation in Turkish: " + comment_data["translation"]);
         add_element("div", "Creator: " + comment_data["creator"]);
         add_element("div", "Date: " + comment_data["creation_date"]);
         if (comment_data["content_uri"]) {
@@ -59,7 +60,7 @@
         `   
             <h3>Add new comment</h3>
             <form id="myForm">
-                <p>text: ${post_data["post"]["creation_date"]} <input type="text" name="text"></p>
+                <p>text: <input type="text" name="text"></p>
                 <p>content_uri: <input type="text" name="content_uri"></p>
                 <input type="button" value="Create Comment" onclick="submitform()">
             </form>
@@ -85,8 +86,12 @@
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
-        }).then(response => response.json()).then(json => console.log(json))
-        location.reload();
+        }).then(response => response.json())
+        .then(json => {
+            console.log(json)
+            location.reload();
+        })
+        
     }
 
 

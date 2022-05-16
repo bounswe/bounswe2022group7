@@ -3,5 +3,55 @@
 {% block functionality %} Home {% endblock %}
 
 {% block content %}
-This is where the home page will be.
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    function display_event(event_data) {
+        add_element("div", `<a href=/event/${event_data["id"]}>${event_data["title"]}</a>`)
+    }
+
+    function display_art_item(art_item_data) {
+        console.log(art_item_data)
+    }
+
+    var url = "/api/search"
+
+    href = window.location.href
+    query = href.match("/?query=(.+)")
+    if (query) {
+        query = query[1]
+        url = url + "?query=" + query
+        add_element("div", "Filtering content with query \"" + decodeURI(query) + "\"")
+    }
+
+    fetch(url)
+        .then(response => {
+            if (response.status == 201) {
+                response.json().then(json => {
+                    add_element("h1", "Events")
+                    json["events"].forEach(display_event)
+                    add_element("h1", "Art Items")
+                    json["art_items"].forEach(display_art_item)
+                })
+            }
+    }).catch(err => {
+    console.log(err)
+    });
+
+
+</script>
+
 {% endblock %}

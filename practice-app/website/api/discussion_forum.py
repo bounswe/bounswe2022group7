@@ -5,6 +5,8 @@ from ..models import ForumPost, PostComment
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import json
+import requests
+from ..settings import *
 
 forum = Blueprint('forum', __name__)
 
@@ -49,10 +51,12 @@ def forum_comment_post():
     content_uri = body["content_uri"]
     # creator = body["creator"]
 
+
     new_post_comment = PostComment(
         parent_post=parent_post,
         text=text,
         content_uri=content_uri,
+        translation=translate(text),
         # creator=creator,
         creation_date=date.today()
     )
@@ -77,19 +81,27 @@ def get_discussion_posts(post_id):
 
     result = map(lambda x: x.serialize(), comments)
     return jsonify(comments=list(result), post=post.serialize()), 200
-    # return response, 200
 
 
+def translate(body):
 
-# https://realpython.com/flask-blueprint/
-# https://stackoverflow.com/questions/37164675/clicking-button-with-requests
-# https://www.w3schools.com/html/html_form_attributes.asp
-# https://pythonbasics.org/flask-rest-api/
-# https://www.digitalocean.com/community/tutorials/how-to-use-web-forms-in-a-flask-application
-# https://stackoverflow.com/questions/65589254/how-do-i-have-a-login-form-with-multiple-post-and-get-requests-in-flask
-# https://stackoverflow.com/questions/42018603/handling-get-and-post-in-same-flask-view
-# https://stackoverflow.com/questions/50933079/html-form-data-into-flask-script-using-apis
-# https://stackoverflow.com/questions/42499535/passing-a-json-object-from-flask-to-javascript
-# https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3#step-2-creating-a-base-application
-# https://stackoverflow.com/questions/12435297/how-do-i-jsonify-a-list-in-flask
-# https://stackoverflow.com/questions/3916123/json-structure-for-list-of-objects
+    payload = {
+	"source": "en",
+	"target": "tr",
+    "q": body
+    }
+    # payload["q"] = body
+
+    url = "https://deep-translate1.p.rapidapi.com/language/translate/v2"
+
+    headers = {
+        "content-type": "application/json",
+        "X-RapidAPI-Host": "deep-translate1.p.rapidapi.com",
+        "X-RapidAPI-Key": os.environ.get("TRANSLATE_API_KEY")
+    }
+
+    response = requests.request("POST", url, json=payload, headers=headers)
+
+    return response.json()["data"]["translations"]["translatedText"]
+
+
