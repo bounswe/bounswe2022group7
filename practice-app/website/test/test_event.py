@@ -75,12 +75,12 @@ class TestEvent(unittest.TestCase):
             self.event_ids.append(response.json["id"])
 
     def make_create_event_request(self, json):
-        return self.client.post("/api/create_event",
+        return self.client.post("/api/event",
                                 json=json,
                                 content_type="application/json; charset=UTF-8")
 
     def make_view_event_request(self, id):
-        return self.client.get(f"/api/view_event?event_id={id}")
+        return self.client.get(f"/api/event/{id}")
 
     # test create_event API endpoint
 
