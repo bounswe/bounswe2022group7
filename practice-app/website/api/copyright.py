@@ -10,7 +10,7 @@ from datetime import date
 from .. import db
 import requests
 
-from ..models import ArtItem, CopyrightInfringementReport
+from ..models import User, ArtItem, CopyrightInfringementReport
 
 copyright = Blueprint("copyright", __name__)
 
@@ -29,20 +29,17 @@ def report_infringement():
         return {"error": "You have not provided some of the required fields."}, 400
 
     # Quering for given art items URIs
-    original_art_id = request_json["original_art_item_id"]
-    infringement_art_id = request_json["infringement_art_item_id"]
+    original_art_item = ArtItem.query.get(request_json["original_art_item_id"])
+    infringement_art_item = ArtItem.query.get(request_json["infringement_art_item_id"])
 
-    if(not art_item_exists(original_art_id)):
-        return {"error": f"Art Item with id : {original_art_id} does not exists."}, 409
-    if(not art_item_exists(infringement_art_id)):
-        return {"error": f"Art Item with id : {original_art_id} does not exists."}, 409
-    
-    original_image_uri = ArtItem.query.filter(ArtItem.id == original_art_id).first().content_uri
-    infringement_image_uri = ArtItem.query.filter(ArtItem.id == infringement_art_id).first().content_uri
+    if(not original_art_item):
+        return {"error": f"Art Item with id : {request_json['original_art_item_id']} does not exists."}, 409
+    if(not infringement_art_item):
+        return {"error": f"Art Item with id : {request_json['infringement_art_item_id']} does not exists."}, 409
 
     # Getting a similarity score by calling an external API to compare two images
     #   Smaller the value, similar the images
-    sim_score = get_similarity_score(original_image_uri, infringement_image_uri)
+    sim_score = get_similarity_score(original_art_item.content_uri, infringement_art_item.content_uri)
 
     if (sim_score == -1):
         return {"error": "Something went wrong in the external Image Similarity API."}, 400
@@ -65,15 +62,31 @@ def report_infringement():
     # Success
     return {"id": new_copyright_report.id}, 201
 
+# API endpoint for viewing a copyright infringement report
+@copyright.route("/copyright/<report_id>", methods=["GET"])
+def get_copyright_report_data(report_id):
+
+    report = CopyrightInfringementReport.query.get(report_id)
+
+    # Checking if report with given id exists
+    if not report:
+        return {"error": f"There are no reports with the id {report_id}."}, 404    
+
+    report = report.serialize()
+
+    # Giving the name of the reoprt creator to the frontend
+    report["creator_name"]  = User.query.get(report["creator"]).get_name()
+
+    # Giving relevant art items URIs to the frontend
+    report["original_image_uri"]  = ArtItem.query.get(report["original_art_item_id"]).content_uri
+    report["infringement_image_uri"] = ArtItem.query.get(report["infringement_art_item_id"]).content_uri
+    
+    return report, 200
 
 # Methods
 def is_missing_field(json):
     missing_fields = {"original_art_item_id", "infringement_art_item_id", "description"} - set(json.keys())
     return len(missing_fields) > 0
-
-def art_item_exists(id):
-    item = ArtItem.query.filter_by(id=id).first()
-    return item != None
 
 def get_similarity_score(image1, image2):
 

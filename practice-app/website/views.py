@@ -29,6 +29,9 @@ def signup():
 def login():
     return render_template('login.html')
 
+@views.route("copyright/<report_id>/")
+def view_copyright_report(report_id):
+    return render_template("view_copyright_report.html", report_id=report_id)
 
 @views.route("report_infringement/")
 def report_infringement():

@@ -27,6 +27,10 @@
         console.log(art_item_data)
     }
 
+    function display_copyright_report(report_data) {
+        add_element("div", `<a href=/copyright/${report_data["id"]}>Id:${report_data["id"]} - score:${report_data["similarity_score"]}</a>`)
+    }
+
     var url = "/api/search"
 
     href = window.location.href
@@ -45,6 +49,9 @@
                     json["events"].forEach(display_event)
                     add_element("h1", "Art Items")
                     json["art_items"].forEach(display_art_item)
+                    add_element("h1", "Copyright Infringement Reports")
+                    add_element("p", "Smaller scores indicates similar art items")
+                    json["copyright_reports"].forEach(display_copyright_report)
                 })
             }
     }).catch(err => {

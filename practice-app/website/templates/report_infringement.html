@@ -36,8 +36,7 @@
         }).then(response => {
             if (response.status == 201) {
                 response.json().then(report_data => {
-                //    window.location.assign('/copyright/' + report_data["id"])
-                    alert(report_data["id"])
+                    window.location.assign('/copyright/' + report_data["id"])
                 })
             }
             else {

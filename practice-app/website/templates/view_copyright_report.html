@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Copyright Infringement Report  {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+    url = "/api/copyright/{{report_id}}"
+
+    fetch(url)
+    .then(response => {
+
+        if (response.status == 404) {
+            add_element("div", "There is no report with this id.")
+        }
+        if (response.status == 200) {
+            response.json().then(report_data => {
+
+                add_element("h1", "Report Id: " + report_data["id"])
+                
+                add_element("h2", "Creator")
+                add_element("div", report_data["creator_name"])
+
+                add_element("h2", "Description")
+                add_element("div", report_data["description"])
+
+                add_element("h2", "Original Art Item")
+                add_element("div", "Id: " + report_data["original_art_item_id"])
+                add_element("div", "<img src=\"" + event_data["original_image_uri"] + "\">")
+
+                add_element("h2", "Infringement Art Item")
+                add_element("div", "Id: " + report_data["infringement_art_item_id"])
+                add_element("div", "<img src=\"" + event_data["infringement_image_uri"] + "\">")
+
+                add_element("h2", "Similarity Score")
+                add_element("p", "Smaller similarity scores indicates similar art items")
+                add_element("div", event_data["similarity_score"])
+
+                add_element("h2", "Creation Date")
+                add_element("div", "<b>Date:</b>" + event_data["creation_date"])
+            }
+        )}
+    }).catch(err => {
+        console.log(err)
+    });
+    
+    
+</script>
+
+{% endblock %}
