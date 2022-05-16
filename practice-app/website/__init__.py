@@ -17,6 +17,7 @@ def create_app():
         os.path.join(basedir, DB_NAME)
     
     app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+    app.secret_key = "super-secret-2" # Change this! This is for flask session
     jwt = JWTManager(app)
 
     @jwt.user_identity_loader
@@ -35,12 +36,15 @@ def create_app():
     from .views import views
     from .api.event import event
     from .api.home import home
+    from .jwt import token
 
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(home, url_prefix="/api")
     app.register_blueprint(event, url_prefix="/api")
+    app.register_blueprint(token, url_prefix="/token")
 
     from .api.auth import auth
+
     app.register_blueprint(auth, url_prefix="/api/")
 
     create_database(app)

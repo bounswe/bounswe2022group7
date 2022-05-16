@@ -19,6 +19,9 @@ class User(db.Model):
             "is_verified": self.is_verified
         }
 
+    def get_name(self):
+        return f"{self.first_name} {self.last_name}"
+
 
 class Artist(db.Model):
     id = db.Column(db.Integer, db.ForeignKey("user.id"), primary_key=True)
@@ -27,7 +30,7 @@ class Artist(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "artisitic_values": self.artisitic_values
+            "artisitic_values": self.artistic_values
         }
 
 

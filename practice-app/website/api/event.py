@@ -1,8 +1,11 @@
 from flask import Blueprint, request
+from flask_jwt_extended import get_jwt
 from datetime import datetime
 
-from ..models import Event
+from ..models import Event, User
 from .. import db
+
+from .jwt import artist_required
 
 event = Blueprint("event", __name__)
 
@@ -17,11 +20,13 @@ def get_event_data(event_id):
         return {"error": f"There are no events with the id {event_id}."}, 404    
 
     event = event.serialize()
+    event["artist_name"]  = User.query.get(event["artist_id"]).get_name()
     event["weather"] = get_weather_data(event["city"])
     
     return event, 200
 
 @event.route("/event", methods=["POST"])
+@artist_required()
 def create_event():
     json = request.json
 
@@ -35,6 +40,8 @@ def create_event():
     if not date_valid(json["date"]):
         return {"error": f"Date you have entered is not valid. Format is \"%Y-%m-%d\". You entered \"{json['date']}\"."}, 400
 
+    claim = get_jwt()
+    json["artist_id"] = claim["user_id"]
     event = create_event_record(json)
 
     db.session.add(event)
@@ -101,18 +108,14 @@ def date_valid(date):
         return False
 
 def create_event_record(json):
-    title = json["title"]
-    description = json["description"]
-    poster_link = json["poster_link"]
-    date = json["date"]
-    city = json["city"]
 
     new_event = Event(
-        title = title,
-        description = description,
-        poster_link = poster_link,
-        date = datetime.strptime(date, "%Y-%m-%d"),
-        city = city
+        title = json["title"],
+        description = json["description"],
+        poster_link = json["poster_link"],
+        date = datetime.strptime(json["date"], "%Y-%m-%d"),
+        city = json["city"],
+        artist_id = json["artist_id"]
     )
 
     return new_event
