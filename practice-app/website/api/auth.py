@@ -48,7 +48,7 @@ def login():
     if not user or not check_password_hash(user.password, password):
         return {'error': 'Incorrect email or password.'}, 401
 
-    is_artist = Artist.query.get(user.id)
+    artist = Artist.query.get(user.id)
 
-    access_token = create_access_token(identity=user, additional_claims={"user_id":user.id, "user_type": "artist" if is_artist else "user"})
+    access_token = create_access_token(identity=user, additional_claims={"user_id":user.id, "user_type": "artist" if artist else "user"})
     return jsonify(access_token=access_token)
