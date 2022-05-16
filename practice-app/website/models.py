@@ -186,3 +186,25 @@ class EventDiscussionComment(db.Model):
             "text": self.text,
             "creation_date": self.creation_date
         }
+
+
+class CopyrightInfringementReport(db.Model):
+    __tablename__ = 'copyright_report'
+    id = db.Column(db.Integer, primary_key=True)
+    creator = db.Column(db.Integer, db.ForeignKey("user.id"))
+    original_art_item_id = db.Column(db.Integer, db.ForeignKey("art_item.id"))
+    infringement_art_item_id = db.Column(db.Integer, db.ForeignKey("art_item.id"))
+    description = db.Column(db.Text)
+    similarity_score = db.Column(db.Integer)
+    creation_date = db.Column(db.Date)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "creator": self.creator,
+            "original_art_item_id": self.original_art_item_id,
+            "infringement_art_item_id": self.infringement_art_item_id,
+            "description": self.description,
+            "similarity_score": self.similarity_score,
+            "creation_date": self.creation_date
+        }
