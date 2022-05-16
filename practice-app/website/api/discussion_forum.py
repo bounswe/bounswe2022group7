@@ -32,7 +32,11 @@ def bad_word_check(body):
     try:
         response = requests.request(
             "GET", url, headers=header, params=querystring)
-        return response.json()
+        json = response.json()
+        if "message" in json:
+            return {"result": body}
+        else:
+            return json
     except requests.exceptions.RequestException as e:
         forum.logger.error(
             "Error occured while consulting an external api for censoring.")
@@ -60,9 +64,16 @@ def forum_post():
         return {"error": f"You have not provided body of the post"}, 400
 
     title = body["title"]
+    logging.info(body["description"])
+    logging.debug(body["description"])
+    logging.debug(f"HELLO WORLD")
     description = bad_word_check(body["description"])
     content_uri = body["content_uri"]
     creator = current_user.email
+
+    logging.info(description)
+
+    logging.info(description)
 
     new_post = ForumPost(
         creator=creator,
