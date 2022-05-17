@@ -4,3 +4,4 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
+SIMILARITY_SCORE_API_KEY = os.environ.get("SIMILARITY_SCORE_API_KEY")

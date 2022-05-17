@@ -10,12 +10,15 @@ from datetime import date
 from .. import db
 import requests
 
+from .jwt import user_required
+
 from ..models import User, ArtItem, CopyrightInfringementReport
 
 copyright = Blueprint("copyright", __name__)
 
 # API endpoint for reporting a copyright infringement
 @copyright.route("/copyright", methods=["POST"])
+@user_required()
 def report_infringement():
 
     # Checking if the request body is JSON
@@ -42,7 +45,7 @@ def report_infringement():
     sim_score = get_similarity_score(original_art_item.content_uri, infringement_art_item.content_uri)
 
     if (sim_score == -1):
-        return {"error": "Something went wrong in the external Image Similarity API."}, 400
+        return {"error": "Something went wrong in the external Image Similarity API. Please try again."}, 400
 
     new_copyright_report = CopyrightInfringementReport(
         creator = current_user.id,
@@ -51,7 +54,7 @@ def report_infringement():
         description = request_json["description"],
         similarity_score = sim_score,
         creation_date = date.today()
-        )
+    )
 
     # Creating the report and commiting it 
     try:
@@ -125,18 +128,38 @@ def is_missing_field(json, required_set):
     missing_fields = required_set - set(json.keys())
     return len(missing_fields) > 0
 
+from ..settings import SIMILARITY_SCORE_API_KEY
+
 def get_similarity_score(image1, image2):
 
     # External API to compare two images
     # https://deepai.org/machine-learning-model/image-similarity
+    
     response = requests.post(
         "https://api.deepai.org/api/image-similarity",
         data={
             'image1': image1,
             'image2': image2,
         },
-        headers={'api-key': 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K'}
+        headers={'api-key': SIMILARITY_SCORE_API_KEY}
     )
+    print(response.json())
+
+    # Calling the API 2 aditional times if it fails to give a score
+    # This is because API is not working consistantly with higher resolution image URIs
+    counter = 2
+    while (response.status_code != 200) and counter > 0:
+        response = requests.post(
+            "https://api.deepai.org/api/image-similarity",
+            data={
+                'image1': image1,
+                'image2': image2,
+            },
+            headers={'api-key': SIMILARITY_SCORE_API_KEY}
+        )
+        counter -= 1
+        print(response.json())
+
 
     if response.status_code == 200:
         response_json = response.json()
