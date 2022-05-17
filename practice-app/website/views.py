@@ -1,6 +1,6 @@
-from pickletools import read_unicodestring1
-from flask import Blueprint, render_template
-from flask_jwt_extended import jwt_required
+from flask import Blueprint, render_template, request
+
+from .jwt import artist_token_required, user_token_required
 
 views = Blueprint('views', __name__)
 
@@ -14,8 +14,8 @@ def home():
 def view_event(event_id):
     return render_template("view_event.html", event_id=event_id)
 
-
 @views.route("create_event/")
+@artist_token_required
 def create_event():
     return render_template("create_event.html")
 
