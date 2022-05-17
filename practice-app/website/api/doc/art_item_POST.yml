@@ -30,8 +30,8 @@ responses:
         id:
           type: integer
           description: ID of the newly created art item
-          example: 56        
+          example: 37        
   400:
-    description: "Bad request. Might be missing parameters, too."
+    description: "Missing required parameters."
   409:
     description: "Duplicate art item tried to be created."

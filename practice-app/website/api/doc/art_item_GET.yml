@@ -1,16 +1,16 @@
-Endpoint to fetch an Art Item with a given ID
+Endpoint to fetch an art item with a given ID
 ---
 parameters:
   - name: art_item_id
     in: path
     required: true
     type: integer
-    description: ID of the Art Item.
-    example : 56
+    description: ID of the art item
+    example : 37
          
 responses:
   200:
-    description: Art Item with the given ID is successfully fetched.
+    description: Art item with the given ID is successfully fetched.
     schema:
       type: object
       required:
@@ -25,27 +25,27 @@ responses:
       properties:
         id:
           type: integer
-          description: ID of the Art Item
-          example: 56
+          description: ID of the art item
+          example: 37
         name:
           type: string
-          description: Name of the Art Item
+          description: Name of the art item
           example: "The Starry Night"
         description:
           type: string
-          description: The informative text about the Art Item
+          description: The informative text about the art item
           example: "The Starry Night is an oil-on-canvas painting by the Dutch Post-Impressionist painter Vincent van Gogh."
         creator_artist:
           type: integer
-          description: User ID of the creator of the Art Item
+          description: User ID of the creator of the art item
           example: 29
         content_uri:
           type: string
-          description: The link to the resource file of the Art Item (image, gif, etc.)
+          description: The link to the resource file of the art item (image, gif, etc.)
           example: "https://en.wikipedia.org/wiki/The_Starry_Night#/media/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"
         creation_date:
           type: string
-          description: The date when the Art Item is created
+          description: The date when the art item is created
           example: "2022-05-17"
         dominant_colors:
           type: array
@@ -56,4 +56,4 @@ responses:
           
 
   404:
-    description: "There are no Art Items with the given ID."
+    description: "There are no art items with the given ID."
