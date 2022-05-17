@@ -25,7 +25,7 @@ def report_infringement():
     request_json = request.get_json()
     
     # Checking if the request JSON has all the required fields 
-    if (is_missing_field(request_json)):
+    if (is_missing_field(request_json, {"original_art_item_id", "infringement_art_item_id", "description"})):
         return {"error": "You have not provided some of the required fields."}, 400
 
     # Quering for given art items URIs
@@ -33,9 +33,9 @@ def report_infringement():
     infringement_art_item = ArtItem.query.get(request_json["infringement_art_item_id"])
 
     if(not original_art_item):
-        return {"error": f"Art Item with id : {request_json['original_art_item_id']} does not exists."}, 409
+        return {"error": f"Art Item with id : {request_json['original_art_item_id']} does not exists."}, 404
     if(not infringement_art_item):
-        return {"error": f"Art Item with id : {request_json['infringement_art_item_id']} does not exists."}, 409
+        return {"error": f"Art Item with id : {request_json['infringement_art_item_id']} does not exists."}, 404
 
     # Getting a similarity score by calling an external API to compare two images
     #   Smaller the value, similar the images
@@ -53,6 +53,7 @@ def report_infringement():
         creation_date = date.today()
         )
 
+    # Creating the report and commiting it 
     try:
         db.session.add(new_copyright_report)
         db.session.commit()
@@ -83,9 +84,38 @@ def get_copyright_report_data(report_id):
     
     return report, 200
 
+
+# API endpoint for removing an art item
+@copyright.route("/copyright", methods=["DELETE"])
+def remove_art_item():
+
+    # Checking if the request body is JSON
+    if (not request.is_json):
+        return {"error": "Request body should be a JSON file."}, 400
+    
+    request_json = request.get_json()
+
+    # Checking if the request JSON has all the required fields 
+    if (is_missing_field(request_json, {"art_item_id"})):
+        return {"error": "You have not provided some of the required fields."}, 400
+
+    art_item = ArtItem.query.get(request_json["art_item_id"])
+    if (not art_item):
+        return {"error": f"There are no Art Item with the id {request_json['art_item_id']}."}, 404
+
+    # Removing the art item and commiting it 
+    try:
+        db.session.delete(art_item)
+        db.session.commit()
+    except Exception as error:
+        return {"error" : f"There was an error removing the art item from the database, Error: {error}."}, 500
+
+    # Success
+    return {"id": request_json["art_item_id"]}, 201
+
 # Methods
-def is_missing_field(json):
-    missing_fields = {"original_art_item_id", "infringement_art_item_id", "description"} - set(json.keys())
+def is_missing_field(json, required_set):
+    missing_fields = required_set - set(json.keys())
     return len(missing_fields) > 0
 
 def get_similarity_score(image1, image2):
