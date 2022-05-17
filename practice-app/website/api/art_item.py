@@ -15,6 +15,10 @@ art_item = Blueprint("art_item", __name__)
 @art_item.route("/art_item/<art_item_id>", methods=["GET"])
 def get_art_item_data(art_item_id):
 
+    """
+    file: ./doc/art_item_GET.yml
+    """
+
     art_item = ArtItem.query.get(art_item_id)
 
     if not art_item:
@@ -34,6 +38,10 @@ def get_art_item_data(art_item_id):
 @art_item.route("/art_item", methods=["POST"])
 @artist_required()
 def create_art_item():
+
+    """
+    file: ./doc/art_item_POST.yml
+    """
 
     json = request.json
 
