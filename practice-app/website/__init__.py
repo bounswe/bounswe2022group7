@@ -9,12 +9,12 @@ db = SQLAlchemy()
 DB_NAME = "database.db"
 
 
-def create_app():
+def create_app(db_name = DB_NAME):
     app = Flask(__name__)
 
     basedir = os.path.abspath(os.path.dirname(__file__))
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-        os.path.join(basedir, DB_NAME)
+        os.path.join(basedir, db_name)
     
     app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
     app.secret_key = "super-secret-2" # Change this! This is for flask session

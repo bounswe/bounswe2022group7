@@ -4,11 +4,13 @@ from .. import create_app, db
 
 from ..api.home import *
 
+TEST_DB_NAME = "test_database.db"
+
 class TestHome(unittest.TestCase):
 
     def setUp(self):
         
-        app = create_app()
+        app = create_app(TEST_DB_NAME)
         self.ctx = app.app_context()
         self.ctx.push()
         self.client = app.test_client()
