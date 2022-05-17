@@ -78,10 +78,17 @@ def get_copyright_report_data(report_id):
     # Giving the name of the reoprt creator to the frontend
     report["creator_name"]  = User.query.get(report["creator"]).get_name()
 
-    # Giving relevant art items URIs to the frontend
-    report["original_image_uri"]  = ArtItem.query.get(report["original_art_item_id"]).content_uri
-    report["infringement_image_uri"] = ArtItem.query.get(report["infringement_art_item_id"]).content_uri
-    
+    # Giving relevant art items data to the frontend
+    original_art_item = ArtItem.query.get(report["original_art_item_id"])
+    infringement_art_item = ArtItem.query.get(report["infringement_art_item_id"])
+
+    report["original_art_name"]  = original_art_item.name
+    report["original_art_creation_date"]  = original_art_item.creation_date
+    report["original_art_uri"]  = original_art_item.content_uri
+    report["infringement_art_name"]  = infringement_art_item.name
+    report["infringement_art_creation_date"]  = infringement_art_item.creation_date
+    report["infringement_art_uri"]  = infringement_art_item.content_uri
+
     return report, 200
 
 
