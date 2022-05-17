@@ -23,11 +23,6 @@ def user_required():
         def decorator(*args, **kwargs):
             verify_jwt_in_request()
             claims = get_jwt()
-            if claims["is_artist"]:
-                return fn(*args, **kwargs)
-            else:
-                return jsonify(msg="You can only access this API endpoint with a valid user token."), 403
-
         return decorator
 
     return wrapper
