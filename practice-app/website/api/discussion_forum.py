@@ -4,14 +4,14 @@ from http.client import INTERNAL_SERVER_ERROR
 import logging
 from flask import Blueprint, jsonify, request
 from platformdirs import user_cache_dir
-from .. import db
-from ..models import ForumPost
+from website import db
+from website.models import ForumPost
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import json
 import requests
 from flask_jwt_extended import jwt_required, current_user
-from ..settings import *
+from website.settings import *
 import sys
 
 from .jwt import user_required
