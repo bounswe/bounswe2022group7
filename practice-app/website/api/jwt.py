@@ -8,10 +8,10 @@ def artist_required():
         def decorator(*args, **kwargs):
             verify_jwt_in_request()
             claims = get_jwt()
-            if claims["user_type"] == "artist":
+            if claims["is_artist"]:
                 return fn(*args, **kwargs)
             else:
-                return jsonify(msg="Only artists can view this page."), 403
+                return jsonify(msg="You can only access this API endpoint with a valid artist token."), 403
 
         return decorator
 
@@ -23,11 +23,6 @@ def user_required():
         def decorator(*args, **kwargs):
             verify_jwt_in_request()
             claims = get_jwt()
-            if claims["user_type"] == "user":
-                return fn(*args, **kwargs)
-            else:
-                return jsonify(msg="Only users can view this page."), 403
-
         return decorator
 
     return wrapper
