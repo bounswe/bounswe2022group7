@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append('./website') #to
+sys.path.append('./website') #to run the test without import errors, one should call from one directory above this line's directory
 sys.path.append('.')
 
 
@@ -11,27 +11,39 @@ from functools import wraps
 from website import create_app, db
 import unittest
 import mock
+import requests
+from flask_jwt_extended import current_user
 
 
 
-def mock_decorator():
+def mock_decorator(*args, **kwargs):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            return f(*args, **kwargs)
+            pass
         return decorated_function
     return decorator
 
 
-class TestForum(unittest.TestCase):
+def mock_decorator_2(*args, **kwargs):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function_2(*args, **kwargs):
+            return "jane_doe@example.com"
+        return decorated_function_2
+    return decorator
 
-    @patch('website.api.jwt.user_required', mock_decorator)
+
+class TestForum(unittest.TestCase):
     def setUp(self):
+        mock.patch('website.api.jwt.user_required', mock_decorator).start()
+        mock.patch('flask_jwt_extended.current_user', mock_decorator_2).start()
         app = create_app()
+        app.testing = True
         self.ctx = app.app_context()
         self.ctx.push()
         self.client = app.test_client()
-        self.sample_data = {
+        self.sample_data = [
             {
                 "title": "standard_sample",
                 "description": "description1",
@@ -77,10 +89,9 @@ class TestForum(unittest.TestCase):
                 "description": "",
                 "content_uri": ""
             }
-        }
+        ]
 
     def make_post_request(self, json):
-        mock.patch()
         return self.client.post("/api/forum_post/", json=json, content_type="application/json; charset=UTF-8")
 
     # @mock.patch('jwt.user_token_required', side_effect=mock_jwt_required)
