@@ -18,7 +18,7 @@
 
     // ONLY EDIT BELOW THIS COMMENT WHEN
     // IMPLEMENTING DIFFERENT FEATURES
-    url = "/api/view_event?event_id={{event_id}}"
+    url = "/api/event/{{event_id}}"
 
     fetch(url)
     .then(response => {
@@ -29,9 +29,6 @@
         if (response.status == 200) {
             response.json().then(event_data => {
 
-                console.log(event_data)
-                console.log(event_data['title'])
-
                 add_element("h1", "Event Title: " + event_data["title"])
                 
                 add_element("h2", "Description")
@@ -41,11 +38,19 @@
                 add_element("div", "<img src=\"" + event_data["poster_link"] + "\">")
 
                 add_element("h2", "Artist")
-                add_element("div", event_data["creator_artist"])
+                add_element("div", event_data["artist_name"])
 
                 add_element("h2", "City & Date")
                 add_element("div", "<b>Date:</b>" + event_data["date"])
                 add_element("div", "<b>City:</b>" +event_data["city"])
+
+                const weather_data = event_data["weather"]
+                error = weather_data["error"]
+                if (error) {
+                    add_element("div", "<b>Current Weather:</b> " + weather_data["error"])
+                } else {
+                    add_element("div", "<b>Current Weather:</b> " + weather_data["temp"] + ", " + weather_data["weather"])
+                }
             }
         )}
     }).catch(err => {

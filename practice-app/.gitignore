@@ -25,3 +25,5 @@ __pycache__
 # Ignore virtual python environment folder
 .venv
 venv
+# Ignore AWS credentials
+*.pem

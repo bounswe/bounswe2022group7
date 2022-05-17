@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token, jwt_required, current_user
+from flask_jwt_extended import create_access_token
 
-from . import db
-from .models import User
+from .. import db
+from ..models import User, Artist
 
 
 auth = Blueprint('auth', __name__)
@@ -15,6 +15,7 @@ def signup():
     password = request.json.get("password", None)
     first_name = request.json.get("first_name", None)
     last_name = request.json.get("last_name", None)
+    is_artist = request.json.get("is_artist", None)
 
     user = User.query.filter_by(email=email).first()
     if user:
@@ -29,9 +30,14 @@ def signup():
 
     db.session.add(new_user)
     db.session.commit()
+    if is_artist:
+        new_artist = Artist(id=new_user.id, artistic_values=0)
+        db.session.add(new_artist)
+        db.session.commit()
 
-    access_token = create_access_token(identity=new_user)
-    return jsonify(access_token=access_token)
+    is_artist = is_artist!=None
+    access_token = create_access_token(identity=new_user, additional_claims={"is_artist": is_artist})
+    return jsonify(access_token=access_token, is_artist=is_artist), 201
 
 
 @auth.route('/login', methods=['POST'])
@@ -43,11 +49,8 @@ def login():
     if not user or not check_password_hash(user.password, password):
         return {'error': 'Incorrect email or password.'}, 401
 
-    access_token = create_access_token(identity=user)
-    return jsonify(access_token=access_token)
+    artist = Artist.query.get(user.id)
 
-
-@auth.route("/protected", methods=["GET"])
-@jwt_required()
-def protected():
-    return jsonify(logged_in_as=current_user.email), 200
+    is_artist = artist!=None
+    access_token = create_access_token(identity=user, additional_claims={"is_artist": is_artist})
+    return jsonify(access_token=access_token, is_artist=is_artist)

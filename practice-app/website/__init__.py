@@ -9,14 +9,15 @@ db = SQLAlchemy()
 DB_NAME = "database.db"
 
 
-def create_app():
+def create_app(db_name = DB_NAME):
     app = Flask(__name__)
 
     basedir = os.path.abspath(os.path.dirname(__file__))
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-        os.path.join(basedir, DB_NAME)
+        os.path.join(basedir, db_name)
     
     app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+    app.secret_key = "super-secret-2" # Change this! This is for flask session
     jwt = JWTManager(app)
 
     @jwt.user_identity_loader
@@ -36,13 +37,16 @@ def create_app():
     from .api.event import event
     from .api.home import home
     from .api.wikipedia import wikipedia
+    from .jwt import token
 
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(home, url_prefix="/api")
     app.register_blueprint(event, url_prefix="/api")
     app.register_blueprint(wikipedia, url_prefix="/api")
+    app.register_blueprint(token, url_prefix="/token")
 
-    from .auth import auth
+    from .api.auth import auth
+
     app.register_blueprint(auth, url_prefix="/api/")
 
     create_database(app)
