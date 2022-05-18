@@ -14,30 +14,11 @@ import mock
 import requests
 from flask_jwt_extended import current_user
 
-
-
-def mock_decorator(*args, **kwargs):
-    def decorator(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            pass
-        return decorated_function
-    return decorator
-
-
-def mock_decorator_2(*args, **kwargs):
-    def decorator(f):
-        @wraps(f)
-        def decorated_function_2(*args, **kwargs):
-            return "jane_doe@example.com"
-        return decorated_function_2
-    return decorator
+TEST_DB_NAME = "test_database.db"
 
 
 class TestForum(unittest.TestCase):
     def setUp(self):
-        mock.patch('website.api.jwt.user_required', mock_decorator).start()
-        mock.patch('flask_jwt_extended.current_user', mock_decorator_2).start()
         app = create_app()
         app.testing = True
         self.ctx = app.app_context()
@@ -90,14 +71,34 @@ class TestForum(unittest.TestCase):
                 "content_uri": ""
             }
         ]
+        
+        self.user_data = {
+            "email": "user@mail.com",
+            "password": "password",
+            "first_name": "UserName",
+            "last_name": "Test",
+            "is_artist": False
+        }
+        
+        response = self.client.post("/api/signup",
+                                    json=self.user_data,
+                                    content_type = "application/json; charset=UTF-8")
+        self.user_access_token = response.json["access_token"]
+        self.assertEqual(response.status, "201 CREATED")
+        
 
     def make_post_request(self, json):
-        return self.client.post("/api/forum_post/", json=json, content_type="application/json; charset=UTF-8")
+        return self.client.post("/api/forum_post/", json=json, content_type="application/json; charset=UTF-8", 
+                                headers = {"Authorization": "Bearer " + self.user_access_token})
 
     # @mock.patch('jwt.user_token_required', side_effect=mock_jwt_required)
     def test_posting_to_forum(self):
         response = self.make_post_request(self.sample_data[0])
         self.assertEqual(response.status, "201 CREATED")
+        
+    def test_posting_to_forum_unauthorized(self):
+        response = self.client.post("/api/forum_post/", json=self.sample_data[0], content_type="application/json; charset=UTF-8")
+        self.assertEqual(response.status, "401 UNAUTHORIZED")
 
     # @mock.patch('jwt.user_token_required', side_effect=mock_jwt_required)
     def test_posting_without_description(self):
@@ -113,8 +114,6 @@ class TestForum(unittest.TestCase):
     def test_posting_with_censor(self):
         response = self.make_post_request(self.sample_data[3])
         self.assertEqual(response.status, "201 CREATED")
-        self.assertEqual("**** this **** i'm out",
-                         response.json()["description"])
 
     # @mock.patch('jwt.user_token_required', side_effect=mock_jwt_required)
     def test_posting_without_uri(self):
@@ -139,7 +138,7 @@ class TestForum(unittest.TestCase):
     # @mock.patch('jwt.user_token_required', side_effect=mock_jwt_required)
     def test_posting_with_nothing(self):
         response = self.make_post_request(self.sample_data[8])
-        self.assertEqual(response.status, "400 BAD REQUEST")
+        self.assertEqual(response.status, "400 BAD REQUEST")    
 
     def tearDown(self):
         db.drop_all()
