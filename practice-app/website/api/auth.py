@@ -53,4 +53,4 @@ def login():
 
     is_artist = artist!=None
     access_token = create_access_token(identity=user, additional_claims={"is_artist": is_artist})
-    return jsonify(access_token=access_token, is_artist=is_artist)
+    return jsonify(access_token=access_token, is_artist=is_artist), 200
