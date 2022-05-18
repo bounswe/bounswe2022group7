@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Event {% endblock %}
+
+{% block content %}
+
+<div id="mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    function addParticipation() {
+
+        url = "/api/participants/{{event_id}}"
+        fetch(url, {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+            }
+        }).then(response => {
+            if (response.status == 409) {
+                alert('You already participate in this event.')
+            }
+
+            if (response.status == 201) {
+                response.json().then(event_data => {
+                    window.location.assign('/participate/' + "{{event_id}}")
+                })
+            }
+        })
+    }
+
+    function display_participant(user_data) {
+        add_element("li", `${user_data["user_name"]}`)
+    }
+
+    function cancelParticipation() {
+
+        url = "/api/participants/{{event_id}}"
+        fetch(url, {
+            method: "DELETE",
+            headers: {
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+    }
+        }).then(response => {
+
+            if (response.status == 409) {
+                alert('You are not a participant to this event')
+            }
+
+            if (response.status == 200) {
+                response.json().then(event_data => {
+                    window.location.assign('/participate/' + "{{event_id}}")
+                })
+            } else {
+                response.json().then(error_data => {
+                    alert(error_data["message"])
+                })
+            }
+        })
+    }
+
+    
+
+    function getShareLink() {
+        var requestObj = new Object();
+        requestObj.path = "/participate/{{event_id}}"
+        requestObj.domain = "http://127.0.0.1:8000"
+
+        url = "/api/participants/share/{{event_id}}"
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(requestObj),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+}
+        }).then(response => {
+            if (response.status == 200) {
+                response.json().then(response_data => {
+                    add_element("div", `  <input type="text" id="country" name="country" value="${response_data["share_link"]}" readonly><br><br>`)
+                })
+            } else {
+                response.json().then(response_data => {
+                    alert(response_data["message"])
+                 })
+            }
+
+
+        })
+    }
+
+
+    page_info_url = "/api/participants/get_info/{{event_id}}"
+
+    fetch(page_info_url, {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: "Bearer " + "{{session["access_token"]}}"
+            }
+    })
+        .then(info_response => {
+
+            if (info_response.status == 404) {
+                add_element("div", "Oops! There is no event with this id.")
+            }
+            if (info_response.status == 200) {
+                info_response.json().then(event_data => {
+
+
+                    add_element("h1", "Event Title: " + event_data["event_title"])
+
+                    view_participant_url = "/api/participants/{{event_id}}"
+                    fetch(view_participant_url)
+                        .then(participant_response => {
+                            if (participant_response.status = 200) {
+                                participant_response.json().then(participant_data => {
+
+                                    if (event_data["is_creator"]) {
+                                        add_element("h2", "Participants")
+                                        participant_data["participants"].forEach(display_participant)
+
+                                    }
+
+                                    if (!event_data["user_participating"]) {
+                                        add_element("div", `<input type="button" value="Participate" onclick="addParticipation()">`)
+                                    } else {
+                                        add_element("div", `<input type="button" value="Cancel Participation" onclick="cancelParticipation()">`)
+                                    }
+
+                                    add_element("div", `<input type="button" value="Share" onclick="getShareLink()">`)
+                                })
+                            }
+
+
+                        })
+
+                }
+
+                )
+            }
+        }).catch(err => {
+            console.log(err)
+        });
+
+
+</script>
+
+{% endblock %}
