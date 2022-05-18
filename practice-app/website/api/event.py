@@ -29,7 +29,7 @@ def get_event_data(event_id):
 @artist_required()
 def create_event():
     json = request.json
-
+    print(json)
     missing_fields = {"title", "description", "poster_link", "date", "city"} - set(request.json.keys())
     if len(missing_fields) > 0:
         return {"error": f"You have not provided some of the required fields. You are missing: " + str(missing_fields)}, 400

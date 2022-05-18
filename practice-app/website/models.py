@@ -2,6 +2,7 @@ from . import db
 
 
 class User(db.Model):
+    __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
@@ -189,3 +190,22 @@ class EventDiscussionComment(db.Model):
             "text": self.text,
             "creation_date": self.creation_date
         }
+
+
+# The database model for the verification requests
+
+class verificationRequest(db.Model):
+    __tablename__ = "verification_request"
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    request_date = db.Column(db.Integer)
+    status = db.Column(db.Integer) # status is 0 when a request is created, 1 if the request is accepted and -1 if the request is rejected
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "request_date": self.request_date,
+            "status": self.status,
+            "user_id": self.user_id
+        }
+

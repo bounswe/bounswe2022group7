@@ -43,6 +43,9 @@ def create_app(db_name = DB_NAME):
     app.register_blueprint(event, url_prefix="/api")
     app.register_blueprint(token, url_prefix="/token")
 
+    from .api.verification import verify
+    app.register_blueprint(verify, url_prefix="/api")
+
     from .api.auth import auth
 
     app.register_blueprint(auth, url_prefix="/api/")
