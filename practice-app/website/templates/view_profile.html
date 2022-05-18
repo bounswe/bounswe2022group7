@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Profile {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+    url = "/api/profile"
+
+    fetch(url, {
+        method: "GET",
+        headers:
+        {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: "Bearer " + "{{session['access_token']}}"
+        }
+    })
+    .then(response => {
+
+        if (response.status == 404) {
+            add_element("div", "Oops! There is no user with this id.")
+        }
+        if (response.status == 200) {
+            response.json().then(user_data => {
+                add_element("h2", "First Name:")
+                add_element("div", user_data["first_name"])
+
+                add_element("h2", "Last Name:")
+                add_element("div", user_data["last_name"])
+
+                add_element("h2", "E-mail:")
+                add_element("div", user_data["email"])
+
+                add_element("h2", "Verified:")
+                add_element("div", user_data["is_verified"])
+            }
+        )}
+    }).catch(err => {
+        console.log(err)
+    });
+
+</script>
+
+{% endblock %}

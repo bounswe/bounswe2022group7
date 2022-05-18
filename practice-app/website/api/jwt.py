@@ -23,9 +23,7 @@ def user_required():
         def decorator(*args, **kwargs):
             verify_jwt_in_request()
             claims = get_jwt()
-            if claims:
-                return fn(*args, **kwargs)
-
+            return fn(*args, **kwargs)
         return decorator
 
     return wrapper

@@ -29,6 +29,11 @@ def view_art_item(art_item_id):
 def create_art_item():
     return render_template("create_art_item.html")
 
+@views.route("view_profile/")
+@user_token_required
+def view_profile():
+    return render_template("view_profile.html")
+
 
 @views.route('signup/')
 def signup():
@@ -43,3 +48,7 @@ def login():
 @user_token_required
 def participate(event_id):
     return render_template('participate.html', event_id=event_id)
+    
+@views.route('art_galleries/')
+def view_art_galleries():
+    return render_template('art_galleries.html')
