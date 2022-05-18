@@ -43,7 +43,7 @@
 
     fetch(url)
         .then(response => {
-            if (response.status == 201) {
+            if (response.status == 200) {
                 response.json().then(json => {
                     add_element("h1", "Events")
                     json["events"].forEach(display_event)
