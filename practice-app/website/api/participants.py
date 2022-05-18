@@ -52,13 +52,17 @@ def add_participant(event_id):
 @participants.route("/participants/<event_id>", methods=["DELETE"])
 @user_required()
 def remove_participant(event_id):
+
+    # Checks if event is valid
     event = Event.query.get(event_id)
     if not event:
         return {"error": f"There are no events with the id {event_id}."}, 404 
-    # Checks if the request body is json
+ 
+    # For event creator to remove participants from event
     if (request.is_json):
         body = request.get_json()   
 
+        # Check if the current user is owner of the event
         if (current_user.id == event.artist_id):
             try:
                 participant_list = body["participants"]
@@ -66,21 +70,16 @@ def remove_participant(event_id):
                 return {"error": "There was an error on key / value pairs on request body."}, 400
 
             # Iterates over participants given in the JSON
-            for participant in participant_list:
+            for participant_id in participant_list:
 
-                try:
-                    request_user_id = participant["user_id"]
-                except:
-                    return {"error": "There was an error on key / value pairs on request body."}, 400
-
-                found_user = db.session.query(Participants).filter(Participants.event_id==event_id, Participants.user_id == request_user_id).first()
+                found_user = db.session.query(Participants).filter(Participants.event_id==event_id, Participants.user_id == participant_id).first()
                 if (found_user):
                     try:
                         db.session.delete(found_user)
                     except:
-                        return {"error" : f"There was an error removing the user with id {request_user_id} from event."}, 500
+                        return {"error" : f"There was an error removing the user with id {participant_id} from event."}, 500
                 else:
-                    return {"error": f"User with id {request_user_id} does not participate in the event."}, 409
+                    return {"error": f"User with id {participant_id} does not participate in the event."}, 409
             
             # Handles exceptions for db commit
             try:
@@ -91,9 +90,11 @@ def remove_participant(event_id):
             return {"success" : "Successfully removed the participant(s)."}, 200
 
         else:
-            return {"error" : "User is not the creator of the event"}, 400
+            return {"error" : "User is not the creator of the event"}, 403
 
-    else:
+    else: # For user's own removal from event
+
+        # Query the user from jwt token
         found_user = db.session.query(Participants).filter(Participants.event_id==event_id, Participants.user_id == current_user.id).first()
         if (found_user):
             try:
@@ -109,7 +110,6 @@ def remove_participant(event_id):
 
             return {"success" : "Successfully removed the participant(s)."}, 200
 
-            
         else:
             return {"error": f"User with id {current_user.id} does not participate in the event."}, 409
    
@@ -168,16 +168,13 @@ def create_share_link(event_id):
         # Tries to handle key/value errors 
         try:
             # parses the values for keys
-            target_domain = body["domain"]
-            target_path = body["path"]
+            target_url = body["page_url"]
         except:
             return {"error": "There was an error on key / value pairs on request body."}, 400
 
-
-        shortened_url = create_unique_sharing_link(target_domain, target_path, event_id, current_user.id)
+        shortened_url = create_unique_sharing_link(target_url, event_id, current_user.id)
         
-    
-        if (shortened_url["status"] == "success"):
+        if "error" not in shortened_url:
             return {"share_link": shortened_url["link"]}, 200
         else:
             return shortened_url, 500
@@ -187,13 +184,11 @@ def create_share_link(event_id):
 
 
 from ..settings import SHORTENER_API_KEY
-def create_unique_sharing_link(domain, path, event_id, user_id, link_prefix='bounswe2022g7', recursion=0):
+def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe2022g7tes', recursion=0):
 
     if recursion != 3:
-        target_url = urllib.parse.quote(f'{domain}{path}', safe='')
+        target_url = urllib.parse.quote(f'{page_url}', safe='')
         link_name  = f'{link_prefix}-e{event_id}-u-{user_id}'
-        print(target_url)
-
 
         response = requests.get(f'http://cutt.ly/api/api.php?key={SHORTENER_API_KEY}&short={target_url}&name={link_name}')
         
@@ -206,32 +201,34 @@ def create_unique_sharing_link(domain, path, event_id, user_id, link_prefix='bou
                 return {"status" : "success", "link": shortened_link}
             # Link is from a blocked domain
             elif (response_status == 6):
-                return {"status" : "error", "message":"The link provided is from a blocked domain"}
+                return {"error" :"The link provided is from a blocked domain"}
 
             # Invalid link
             elif (response_status == 5):
-                return {"status" : "error", "message":"Invalid link"}
+                return {"error" : "Invalid link"}
 
             # Invalid API key
             elif (response_status == 4):
-                return {"status" : "error", "message":"Invalid API key"}
+                return {"error":"Invalid API key"}
+            
             # link name already taken, try again with another name
             elif (response_status == 3):
-                print("TEst")
-                return create_unique_sharing_link(domain, path, event_id, user_id, link_prefix=f'{link_prefix}-a', recursion=recursion+1)
+                return create_unique_sharing_link(page_url, event_id, user_id, link_prefix=f'{link_prefix}-a', recursion=recursion+1)
     
             elif (response_status == 2):
-                return {"status" : "error", "message":"Not a link"}
+                return {"error" : "Not a link"}
 
             # Link is already shortened
             elif (response_status == 1):
-                return {"status" : "error", "message":"The link is already shortened"}
+                return {"error" : "The link is already shortened"}
             else:
-                return {"status" : "error", "message":"Unexpected Error"}
-        else:
-            return {"status" : "error", "message":"Unexpected Error"}
+                return {"error" : "Unexpected Error"}
+        
+        else: # Outside of API definition
+            return {"error" : "403 Error"}
+    
     else:
-        return {"status" : "error", "message":"Couldn't create the link"}
+        return {"error" :"Couldn't create the link"}
 
 
 

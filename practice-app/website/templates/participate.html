@@ -26,7 +26,7 @@
 
     function checkbox_participant(user_data) {
         var checkbox_container = document.createElement("div");
-        checkbox_container.innerHTML = `<input type="checkbox" id="removal${user_data["user_id"]}" name="user_id" value="${user_data["user_id"]}">
+        checkbox_container.innerHTML = `<input type="checkbox" id="removal${user_data["user_id"]}" name="removal${user_data["user_id"]}" value="${user_data["user_id"]}">
                                         <label for="removal${user_data["user_id"]}">${user_data["user_name"]}</label>`;
 
         const new_form = document.getElementById("participant-form");
@@ -56,31 +56,45 @@
         })
     }
 
+
+function myFunction(value) {
+  vv += value + "<br>";
+}
+
     function removeSelected() {
         var form = document.getElementById('participant-form');
-        var formData = new FormData(form)
+        var formData = new FormData(form);
 
-        console.log(JSON.stringify(Object.fromEntries(formData)))
+        var obj = Object.fromEntries(formData);
+        obj = Object.values(obj);
 
-        // url = "/api/event"
-        // fetch(url, {
-        //     method: "POST",
-        //     body: JSON.stringify(Object.fromEntries(formData)),
-        //     headers: {
-        //         "Content-type": "application/json; charset=UTF-8",
-        //         Authorization: "Bearer " + "{{session["access_token"]}}"
-        //     }
-        // }).then(response => {
-        //     if (response.status == 409) {
-        //         alert('Title you have entered already exists. Please enter another title.')
-        //     }
+        obj = obj.map((x) => +x);
+        var requestObj = new Object();
+        requestObj.participants = obj;
 
-        //     if (response.status == 201) {
-        //         response.json().then(event_data => {
-        //             window.location.assign('/event/' + event_data["id"])
-        //         })
-        //     }   
-        // })
+        url = "/api/participants/{{event_id}}"
+        fetch(url, {
+            method: "DELETE",
+            body: JSON.stringify(requestObj),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+    }
+        }).then(response => {
+
+            if (response.status == 200) {
+                response.json().then(event_data => {
+                    alert("Successfully deleted the users.");
+                    window.location.assign('/participate/' + "{{event_id}}");
+                })
+            } else {
+                response.json().then(error_data => {
+                    alert(error_data["message"]);
+                })
+            }
+        })
+
+
     }
 
     // CANCEL PARTICIPATION button action, can be activated by the user
@@ -114,9 +128,7 @@
     // CREATES SHARE LINK
     function getShareLink() {
         var requestObj = new Object();
-        requestObj.protocol = "http"
-        requestObj.path = "participate/{{event_id}}"
-        requestObj.domain = window.location.host
+        requestObj.page_url = window.location.href
 
         url = "/api/participants/share/{{event_id}}"
         fetch(url, {
@@ -130,10 +142,12 @@
             if (response.status == 200) {
                 response.json().then(response_data => {
                     add_element("div", `  <input type="text" id="country" name="country" value="${response_data["share_link"]}" readonly><br><br>`)
+                    const button = document.querySelector('input[value="Share"]');
+                    button.disabled = true;
                 })
             } else {
                 response.json().then(response_data => {
-                    alert(response_data["message"])
+                    alert(response_data["error"])
                  })
             }
 
@@ -153,9 +167,12 @@
     })
         .then(info_response => {
 
-            if (info_response.status == 404) {
-                add_element("div", "Oops! There is no event with this id.")
-            }
+            if (info_response.status == 401) {
+                alert("Your session has expired. You will now be redirected to login page.");
+                window.location.replace('/login/');
+            } 
+
+
             if (info_response.status == 200) {
                 info_response.json().then(event_data => {
 
@@ -202,6 +219,11 @@
                 }
 
                 )
+            } else {
+                info_response.json().then(error_data => { 
+                    add_element("h2", error_data["error"])
+                })
+
             }
         }).catch(err => {
             console.log(err)
