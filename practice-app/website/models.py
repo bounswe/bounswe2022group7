@@ -184,6 +184,9 @@ class CopyrightInfringementReport(db.Model):
     similarity_score = db.Column(db.Integer)
     creation_date = db.Column(db.Date)
 
+    art_item_relation1 = db.relationship("ArtItem", foreign_keys=[original_art_item_id], backref=db.backref("copyright_relation1", cascade="all,delete"))
+    art_item_relation2 = db.relationship("ArtItem", foreign_keys=[infringement_art_item_id], backref=db.backref("copyright_relation2", cascade="all,delete"))
+
     def serialize(self):
         return {
             "id": self.id,

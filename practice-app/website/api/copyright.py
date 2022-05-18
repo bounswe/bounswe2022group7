@@ -4,7 +4,7 @@
 #####
 
 from flask import Blueprint, request
-from flask_jwt_extended import current_user
+from flask_jwt_extended import current_user, verify_jwt_in_request
 from datetime import date
 
 from .. import db
@@ -18,7 +18,7 @@ copyright = Blueprint("copyright", __name__)
 
 # API endpoint for reporting a copyright infringement
 @copyright.route("/copyright", methods=["POST"])
-@user_required()
+#@user_required()
 def report_infringement():
 
     # Checking if the request body is JSON
@@ -40,12 +40,18 @@ def report_infringement():
     if(not infringement_art_item):
         return {"error": f"Art Item with id : {request_json['infringement_art_item_id']} does not exists."}, 404
 
+    # Checking if the given art items are different
+    if (request_json["original_art_item_id"] == request_json["infringement_art_item_id"]):
+        return {"error": "Original art item and infringement art item must be different."}, 400
+
     # Getting a similarity score by calling an external API to compare two images
     #   Smaller the value, similar the images
     sim_score = get_similarity_score(original_art_item.content_uri, infringement_art_item.content_uri)
 
     if (sim_score == -1):
         return {"error": "Something went wrong in the external Image Similarity API. Please try again."}, 400
+
+    verify_jwt_in_request()
 
     new_copyright_report = CopyrightInfringementReport(
         creator = current_user.id,
@@ -85,6 +91,8 @@ def get_copyright_report_data(report_id):
     original_art_item = ArtItem.query.get(report["original_art_item_id"])
     infringement_art_item = ArtItem.query.get(report["infringement_art_item_id"])
 
+    print(report["infringement_art_item_id"])
+    print(infringement_art_item)
     report["original_art_name"]  = original_art_item.name
     report["original_art_creation_date"]  = original_art_item.creation_date
     report["original_art_uri"]  = original_art_item.content_uri
@@ -114,6 +122,7 @@ def remove_art_item():
         return {"error": f"There are no Art Item with the id {request_json['art_item_id']}."}, 404
 
     # Removing the art item and commiting it 
+    # removing the art item will remove the related copyright reports as its configured as delete on cascade
     try:
         db.session.delete(art_item)
         db.session.commit()

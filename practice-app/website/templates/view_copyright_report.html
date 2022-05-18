@@ -26,14 +26,14 @@
         url = "/api/copyright"
         fetch(url, {
             method: "DELETE",
-            body: json_body,     //JSON.stringify(Object.fromEntries(formData)),
+            body: JSON.stringify(json_body),     //JSON.stringify(Object.fromEntries(formData)),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
             }
         }).then(response => {
             if (response.status == 201) {
                 response.json().then(report_data => {
-                    window.location.assign('/home/')
+                    window.location.assign('/')
                     alert("Art Item with ID:" + report_data["id"] + "succesfully removed.")
                 })
             }
@@ -56,14 +56,16 @@
 
                 add_element("h1", "Report Id: " + report_data["id"])
                 
-                add_element("h3", "Creator")
-                add_element("div", report_data["creator_name"])
+                add_element("h3", "Creator: " + report_data["creator_name"])
 
-                add_element("h3", "Description")
+                add_element("h3", "Description:")
                 add_element("div", report_data["description"])
 
                 add_element("h3", "Report Creation Date")
                 add_element("div", report_data["creation_date"])
+
+                add_element("h2", "Similarity Score: " + report_data["similarity_score"])
+                add_element("p", "Smaller similarity scores indicates similar art items")
 
                 add_element("h2", "Original Art Item")
                 add_element("div", "<a href=/art_item/" + report_data["original_art_item_id"] + ">Name: " + report_data["original_art_name"] + "</a>")
@@ -77,9 +79,6 @@
                 add_element("div", "<img src=\"" + report_data["infringement_art_uri"] + "\">")
                 add_element("div", "<input type='button' value='Remove Infringement Art Item' onclick='remove_art_item(" + report_data["infringement_art_item_id"] + ")''>")
 
-                add_element("h2", "Similarity Score")
-                add_element("p", "Smaller similarity scores indicates similar art items")
-                add_element("div", report_data["similarity_score"])
 
             }
         )}
