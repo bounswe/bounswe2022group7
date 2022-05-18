@@ -1,7 +1,6 @@
 
 from __future__ import print_function
 from http.client import INTERNAL_SERVER_ERROR
-import logging
 from flask import Blueprint, jsonify, request
 from platformdirs import user_cache_dir
 from website import db
@@ -59,16 +58,9 @@ def forum_post():
         return {"error": f"You have not provided body of the post"}, 400
 
     title = body["title"]
-    logging.info(body["description"])
-    logging.debug(body["description"])
-    logging.debug(f"HELLO WORLD")
     description = bad_word_check(body["description"])
     content_uri = body["content_uri"]
     creator = current_user.email
-
-    logging.info(description)
-
-    logging.info(description)
 
     new_post = ForumPost(
         creator=creator,
