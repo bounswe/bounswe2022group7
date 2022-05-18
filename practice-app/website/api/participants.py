@@ -71,6 +71,9 @@ def remove_participant(event_id):
                 return {"error": "There was an error on key / value pairs on request body."}, 400
 
             # Iterates over participants given in the JSON
+
+            # Even if only one user is not part of a 100 item list, all of the removal process will be halted since
+            # that user is not a participant
             for participant_id in participant_list:
 
                 found_user = db.session.query(Participants).filter(Participants.event_id==event_id, Participants.user_id == participant_id).first()
@@ -132,6 +135,8 @@ def view_participants(event_id):
 
     return response, 200
 
+
+# Gets info about event as title, checks if the current user is owner or participant
 @participants.route("/participants/get_info/<event_id>", methods=["GET"])
 @user_required()
 def get_participation_info(event_id):
@@ -140,17 +145,13 @@ def get_participation_info(event_id):
     if not event:
         return {"error": f"There are no events with the id {event_id}."}, 404   
 
-
-    # Tries to handle key/value errors 
-
     participant_list = Participants.query.filter(Participants.event_id == event_id).all()
 
     participating = False
-    if (current_user):
-        for participant in participant_list:
-            if (participant.user_id == current_user.id):
-                participating = True
-                break
+    for participant in participant_list:
+        if (participant.user_id == current_user.id):
+            participating = True
+            break
 
     is_creator = (event.artist_id == current_user.id)
 
@@ -184,27 +185,29 @@ def create_share_link(event_id):
         return {"error": "Request body should be a JSON file."}, 400
         
 
-
+# Makes API call to URL shortener
 from ..settings import SHORTENER_API_KEY
 def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe2022g7', recursion=0):
 
     if recursion != 3:
+
+        # Encodes URL, calculates timestamp for share link
         target_url = urllib.parse.quote(f'{page_url}', safe='')
-
         curr_time = datetime.now()
-        print(int(datetime.timestamp(curr_time)))
-
-        link_name  = f'{link_prefix}-e{event_id}-u{user_id}'
+        link_name  = f'{link_prefix}-e{event_id}-u{user_id}-{int(datetime.timestamp(curr_time))}'
 
         response = requests.get(f'http://cutt.ly/api/api.php?key={SHORTENER_API_KEY}&short={target_url}&name={link_name}')
         
         if response.status_code == 200:
+
             response_body = response.json()["url"]
             response_status = response_body["status"]
+
             # Link is created
             if (response_status == 7):
                 shortened_link = response_body["shortLink"]
                 return {"status" : "success", "link": shortened_link}
+
             # Link is from a blocked domain
             elif (response_status == 6):
                 return {"error" :"The link provided is from a blocked domain"}
@@ -221,12 +224,14 @@ def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe
             elif (response_status == 3):
                 return create_unique_sharing_link(page_url, event_id, user_id, link_prefix=f'{link_prefix}', recursion=recursion+1)
     
+            # Invalid link
             elif (response_status == 2):
                 return {"error" : "Not a link"}
 
             # Link is already shortened
             elif (response_status == 1):
                 return {"error" : "The link is already shortened"}
+            
             else:
                 return {"error" : "Unexpected Error"}
         

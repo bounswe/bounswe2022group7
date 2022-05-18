@@ -38,6 +38,7 @@ class TestEvent(unittest.TestCase):
             content_type='application/json; charset=UTF-8'
         )
         self.user_access_token = response.json["access_token"]
+        self.user_id = User.query.filter_by(email=self.user['email']).first().id
 
         self.artist = requests.get(
             'https://randomuser.me/api/'
@@ -55,6 +56,7 @@ class TestEvent(unittest.TestCase):
             content_type='application/json; charset=UTF-8'
         )
         self.artist_access_token = response.json["access_token"]
+        self.artist_id = User.query.filter_by(email=self.artist['email']).first().id
 
         self.artist2 = requests.get(
             'https://randomuser.me/api/'
@@ -72,6 +74,7 @@ class TestEvent(unittest.TestCase):
             content_type='application/json; charset=UTF-8'
         )
         self.artist2_access_token = response.json["access_token"]
+        self.artist2_id = User.query.filter_by(email=self.artist2['email']).first().id
 
         self.event1 = {
                 "title": "Title 1",
@@ -225,6 +228,66 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("success" in response.json)
         self.assertEqual(response.json["success"], f"Successfully removed the participant(s).")
+
+    def test_valid_multiple_removal(self):
+        removal_request_json = { "participants": [self.user_id, self.artist_id]}
+        response = self.client.delete(f"/api/participants/{self.event_ids[1]}",
+                                        json=removal_request_json,
+                                        content_type = "application/json; charset=UTF-8",
+                                        headers = {"Authorization": "Bearer %s" % self.artist2_access_token})
+        
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue("success" in response.json)
+        self.assertEqual(response.json["success"], f"Successfully removed the participant(s).")
+        check_response = self.view_participants_request(self.event_ids[1])
+        self.assertEqual(check_response.status, "200 OK")
+        self.assertEqual(len(check_response.json["participants"]), 0)
+
+    def test_user_not_creator_removal(self):
+        removal_request_json = { "participants": [self.user_id, self.artist_id]}
+        response = self.client.delete(f"/api/participants/{self.event_ids[1]}",
+                                        json=removal_request_json,
+                                        content_type = "application/json; charset=UTF-8",
+                                        headers = {"Authorization": "Bearer %s" % self.artist_access_token})
+        
+        self.assertEqual(response.status, "403 FORBIDDEN")
+        self.assertTrue("error" in response.json)
+        self.assertEqual(response.json["error"], "User is not the creator of the event")
+
+    # Case which a user given in list is not a participant, will block all removal process
+    def test_multiple_remove_not_participating_case(self):
+        removal_request_json = { "participants": [self.user_id, self.artist_id]}
+        response = self.client.delete(f"/api/participants/{self.event_ids[0]}",
+                                        json=removal_request_json,
+                                        content_type = "application/json; charset=UTF-8",
+                                        headers = {"Authorization": "Bearer %s" % self.artist_access_token})        
+        self.assertEqual(response.status, "409 CONFLICT")
+        self.assertTrue("error" in response.json)
+
+    # Empty array test
+    def test_empty_array_removal(self):
+        removal_request_json = { "participants": []}
+        response = self.client.delete(f"/api/participants/{self.event_ids[1]}",
+                                        json=removal_request_json,
+                                        content_type = "application/json; charset=UTF-8",
+                                        headers = {"Authorization": "Bearer %s" % self.artist2_access_token})
+        
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue("success" in response.json)
+        self.assertEqual(response.json["success"], f"Successfully removed the participant(s).")
+        check_response = self.view_participants_request(self.event_ids[1])
+        self.assertEqual(check_response.status, "200 OK")
+        self.assertEqual(len(check_response.json["participants"]), 2)
+
+        # Case which a user given in list is not a participant, will block all removal process
+    def test_invalid_json_remove_case(self):
+        removal_request_json = { "particiler": [self.user_id, self.artist_id]}
+        response = self.client.delete(f"/api/participants/{self.event_ids[0]}",
+                                        json=removal_request_json,
+                                        content_type = "application/json; charset=UTF-8",
+                                        headers = {"Authorization": "Bearer %s" % self.artist_access_token})        
+        self.assertEqual(response.status, "400 BAD REQUEST")
+        self.assertTrue("error" in response.json)
 
 
     ############################
