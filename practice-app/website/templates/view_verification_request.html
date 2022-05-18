@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Event {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+    url = "/api/verification/{{request_id}}"
+
+    
+    fetch(url)
+    .then(response => {
+            if (response.status == 404) {
+                add_element("div", "Oops! There is no request with this id.")
+            } else if (response.status == 200) {
+                response.json().then(request_data => {
+
+                    add_element("h1", "Request Stats")
+
+                    add_element("h2", "User: " + request_data["user_name"])
+                    
+                    add_element("h2", "Request Date: " + request_data["request_date"])
+
+                    add_element("h2", "Request Status: " + request_data["status"])
+
+                    if (request_data["status"].localeCompare("Pending") == 0) {
+                        add_element("div",
+                        `
+                        <form id="acceptForm">
+                            <input type="button" value="Accept" onclick="accept()">
+                        </form>
+
+                        <form id="rejectForm">
+                            <input type="button" value="Reject" onclick="reject()">
+                        </form>
+                        `)
+                    }
+                }
+            )} else {
+                    add_element(response.status)
+                }   
+        })
+
+
+    function accept() {
+        var form = document.getElementById('myForm');
+        var formData = new FormData(form)
+
+        alert("here")
+
+        url = "/api/verification/review/{{request_id}}"
+        fetch(url, {
+            method: "POST",
+            body: {"result": "accept" },
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+            }
+        }).then(response => {
+            if (response.status == 409) {
+                alert('There is no available request with this id!')
+            }
+
+            if (response.status == 201) {
+                response.json().then(request_data => {
+                    window.location.assign('/verification/' + request_data["id"])
+                })
+            }   
+        })
+    }
+
+    function reject() {
+        var form = document.getElementById('rejectForm');
+        var formData = new FormData(form)
+
+        alert("here")
+
+        url = "/api/verification/review/{{request_id}}"
+        fetch(url, {
+            method: "POST",
+            body: {"result": "reject" },
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+            }
+        }).then(response => {
+            if (response.status == 409) {
+                alert('There is no available request with this id!')
+            }
+
+            if (response.status == 201) {
+                response.json().then(request_data => {
+                    window.location.assign('/verification/' + request_data["id"])
+                })
+            }   
+        })
+    }
+    
+    
+</script>
+
+{% endblock %}
