@@ -5,6 +5,7 @@
 
 import urllib
 import requests
+from datetime import datetime
 
 from flask import Blueprint, request
 from flask_jwt_extended import current_user
@@ -155,6 +156,8 @@ def get_participation_info(event_id):
 
     return {"event_title": event.title, "is_creator": is_creator,"user_participating" : participating}, 200
 
+
+# this creates share link by making an external api call
 @participants.route("/participants/share/<event_id>", methods=["POST"])
 @user_required()
 def create_share_link(event_id):
@@ -167,7 +170,6 @@ def create_share_link(event_id):
 
         # Tries to handle key/value errors 
         try:
-            # parses the values for keys
             target_url = body["page_url"]
         except:
             return {"error": "There was an error on key / value pairs on request body."}, 400
@@ -177,18 +179,22 @@ def create_share_link(event_id):
         if "error" not in shortened_url:
             return {"share_link": shortened_url["link"]}, 200
         else:
-            return shortened_url, 500
+            return shortened_url, 502
     else:
         return {"error": "Request body should be a JSON file."}, 400
         
 
 
 from ..settings import SHORTENER_API_KEY
-def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe2022g7tes', recursion=0):
+def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe2022g7', recursion=0):
 
     if recursion != 3:
         target_url = urllib.parse.quote(f'{page_url}', safe='')
-        link_name  = f'{link_prefix}-e{event_id}-u-{user_id}'
+
+        curr_time = datetime.now()
+        print(int(datetime.timestamp(curr_time)))
+
+        link_name  = f'{link_prefix}-e{event_id}-u{user_id}'
 
         response = requests.get(f'http://cutt.ly/api/api.php?key={SHORTENER_API_KEY}&short={target_url}&name={link_name}')
         
@@ -213,7 +219,7 @@ def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe
             
             # link name already taken, try again with another name
             elif (response_status == 3):
-                return create_unique_sharing_link(page_url, event_id, user_id, link_prefix=f'{link_prefix}-a', recursion=recursion+1)
+                return create_unique_sharing_link(page_url, event_id, user_id, link_prefix=f'{link_prefix}', recursion=recursion+1)
     
             elif (response_status == 2):
                 return {"error" : "Not a link"}
@@ -225,10 +231,10 @@ def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe
                 return {"error" : "Unexpected Error"}
         
         else: # Outside of API definition
-            return {"error" : "403 Error"}
+            return {"error" : "Error when creating the share link. Try again later."}
     
     else:
-        return {"error" :"Couldn't create the link"}
+        return {"error" :"Couldn't create the link. Try again later"}
 
 
 
