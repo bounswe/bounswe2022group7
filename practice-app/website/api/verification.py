@@ -66,9 +66,8 @@ def requestVerification():
 @jwt_required()
 def reviewVerificationRequest(request_id):
 
-	json = request.jsoon()
-
-	result = json["result"]
+	print("begin")
+	result = request.json.get("result", None)
 
 	req = verificationRequest.query.filter(
 		verificationRequest.status==0,
@@ -76,13 +75,13 @@ def reviewVerificationRequest(request_id):
 		).first()
 
 	if req is not None:
-		req.status = result=="accept"
+		req.status = (result=="reject")*(-2) + 1
 
 		try:
 			db.session.add(req)
 			db.session.commit()
 
-			return jsonify(status=req.status), 201
+			return jsonify(status=req.status, id=request_id), 201
 
 		except:
 			return jsonify(message="An error occured, please try again later."), 500
