@@ -63,13 +63,7 @@
 
             <div>
                 {% if session["access_token"] %}
-                    <form id="logoutForm">
-                        <input type="button" value="Logout" onclick="logout()">
-                    </form>
                     <a href={{ url_for("views.view_profile") }}>View Profile</a>
-                {% else %}
-                    <a href={{ url_for('views.login') }}>Login</a>
-                    <a href={{ url_for("views.signup") }}>Signup</a>
                 {% endif %}
 
     </nav>
