@@ -20,6 +20,16 @@ def create_event():
     return render_template("create_event.html")
 
 
+@views.route("art_item/<art_item_id>/")
+def view_art_item(art_item_id):
+    return render_template("view_art_item.html", art_item_id=art_item_id)
+
+@views.route("create_art_item/")
+@artist_token_required
+def create_art_item():
+    return render_template("create_art_item.html")
+
+
 @views.route('signup/')
 def signup():
     return render_template('signup.html')
