@@ -2,6 +2,36 @@
 <html lang="en">
 
     <head>
+        <link rel="stylesheet" href=
+    "https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity=
+    "sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+        crossorigin="anonymous">
+
+        <script src=
+    "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity=
+    "sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous">
+        </script>
+        <script src=
+    "https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+            integrity=
+    "sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+            crossorigin="anonymous">
+        </script>
+        <script src=
+    "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity=
+    "sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous">
+        </script>
+        <script src=
+    "https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+            integrity=
+    "sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+            crossorigin="anonymous">
+        </script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Practice App</title>
@@ -22,21 +52,34 @@
 
             <form id="searchBar">
                 <input type="text" name="query" placeholder="Search Something">
-                <input type="button" value="Search" onclick="search()">
+                <button type="button" class="btn btn-outline-secondary" onclick="search()">
+                    Search
+                </button>
+<!--                 <input type="button" value="Search" onclick="search()"> -->
             </form>
 
+<!--             <img src="/Icons/img/bootstrap.svg"
+                alt="" width="40"
+                height="40" title="Icons">
+ -->
             <div>
                 {% if session["access_token"] %}
                     <form id="logoutForm">
-                        <input type="button" value="Logout" onclick="logout()">
+                        <!-- <input type="button" value="Logout" onclick="logout()"> -->
+                        <button type="button" class="btn btn-danger" onclick="logout()">
+                            Logout
+                        </button>
                     </form>
 
                     <form id="requestVerificationForm">
-                        <input type="button" value="Be a verified user" onclick="requestVerification()">
+                        <button type="button" class="btn btn-outline-primary" onclick="requestVerification()">
+                            Be a verified user
+                        </button>
+<!--                         <input type="button" value="Be a verified user" onclick="requestVerification()"> -->
                     </form>
                 {% else %}
-                    <a href={{ url_for('views.login') }}>Login</a>
-                    <a href={{ url_for("views.signup") }}>Signup</a>
+                    <a href={{ url_for('views.login') }} class="btn btn-outline-info" role="button">Login</a>
+                    <a href={{ url_for("views.signup") }} class="btn btn-outline-dark" role=button>Signup</a>
                 {% endif %}
 
             </div>
@@ -94,10 +137,10 @@
         
         <hr>
 
-        <div style="width: 100%; display: table;">
+        <div style="width: 60%; display: table;">
             <div style="display: table-row">
 
-                <div style="width: 15%; display: table-cell;">
+<!--                 <div style="width: 15%; display: table-cell;">
                     
                     <a href={{ url_for("views.home") }}>Home</a>
 
@@ -109,7 +152,17 @@
                     
                     
                 </div>
-
+ -->
+                <div class="btn-group-vertical btn-group-lg">
+                    <a href={{ url_for("views.home") }} class="btn btn-outline-primary" role="button">
+                        Home Page
+                    </a>
+                    {% if session["is_artist"] %}
+                        <a href={{ url_for("views.create_event") }} class="btn btn-outline-secondary" role="button">
+                            Create Event
+                        </a>
+                    {% endif %}
+                </div>
                 <div style="display: table-cell;"> 
                     {% block content %}{% endblock %}
                 </div>
