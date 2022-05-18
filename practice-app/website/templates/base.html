@@ -30,6 +30,10 @@
                     <form id="logoutForm">
                         <input type="button" value="Logout" onclick="logout()">
                     </form>
+
+                    <form id="requestVerificationForm">
+                        <input type="button" value="Be a verified user" onclick="requestVerification()">
+                    </form>
                 {% else %}
                     <a href={{ url_for('views.login') }}>Login</a>
                     <a href={{ url_for("views.signup") }}>Signup</a>
@@ -44,6 +48,30 @@
                     var formData = new FormData(form)
                     url = "/?query=" + encodeURIComponent(formData.get("query"))
                     window.location.assign(url)
+                }
+
+                function requestVerification() {
+                    var form = document.getElementById("requestVerificationForm")
+                    var formData = new FormData(form)
+                    url = "/api/verification/request"
+                    fetch(url, {
+                        method: "POST",
+                        body: {},
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8",
+                            Authorization: "Bearer " + "{{session["access_token"]}}"
+                        }
+                    }).then(response => {
+                        if (response.status == 409) {
+                            alert('You already have a pending request!')
+                        }
+
+                        if (response.status == 201) {
+                            response.json().then(request_data => {
+                                window.location.assign('/verification/' + request_data["id"])
+                            })
+                        }   
+                    })
                 }
 
                 function logout() {
