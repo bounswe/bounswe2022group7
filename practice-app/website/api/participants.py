@@ -21,9 +21,9 @@ participants = Blueprint("participants", __name__)
 @user_required()
 def add_participant(event_id):
 
-    # print(current_user.id)
     if (event_id):
-        print("Test")
+        if not Event.query.get(event_id):
+            return {"error": f"There are no events with the id {event_id}."}, 404    
 
         # Checks if the participant is already added to event
         if Participants.query.filter_by(event_id=event_id, user_id=current_user.id).first():
@@ -57,7 +57,6 @@ def remove_participant(event_id):
     if (event_id):
         # Checks if the request body is json
         if (request.is_json):
-            print("bruh")
             body = request.get_json()
 
             event = Event.query.get(event_id)

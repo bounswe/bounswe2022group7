@@ -30,6 +30,5 @@ def login():
     return render_template('login.html')
 
 @views.route('participate/<event_id>/')
-@user_token_required
 def participate(event_id):
     return render_template('participate.html', event_id=event_id)
