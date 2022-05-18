@@ -39,6 +39,10 @@ class TestProfile(unittest.TestCase):
         self.assertEqual(data["first_name"], self.user_data["first_name"])
         self.assertEqual(data["last_name"], self.user_data["last_name"])
 
+    def test_profile_without_auth_header(self):
+        response = self.client.get("/api/profile/")
+        self.assertEqual(response.status, "401 UNAUTHORIZED")
+
     def tearDown(self):
         db.drop_all()
         self.ctx.pop()
