@@ -59,6 +59,7 @@ def create_app(db_name = DB_NAME):
     from .api.home import home
     from .api.profile import profile
     from .jwt import token
+    from .api.art_galleries import art_galleries
 
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(home, url_prefix="/api")
@@ -66,6 +67,7 @@ def create_app(db_name = DB_NAME):
     app.register_blueprint(art_item, url_prefix="/api")
     app.register_blueprint(profile, url_prefix="/api")
     app.register_blueprint(token, url_prefix="/token")
+    app.register_blueprint(art_galleries, url_prefix='/api')
 
     from .api.auth import auth
 
