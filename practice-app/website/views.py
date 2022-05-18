@@ -39,3 +39,8 @@ def login():
 @views.route('request_verification/')
 def request_verification():
     return render_template('request_verification.html')
+
+
+@views.route('bootstrap_test')
+def bootstrapTest():
+    return render_template('bootstrap.html')
