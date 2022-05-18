@@ -90,7 +90,7 @@ class TestPostComment(unittest.TestCase):
                                 content_type="application/json; charset=UTF-8")
 
     def make_view_discussion_post_request(self, post_id):
-        return self.client.get(f"/api//get_discussion_posts/{post_id}")
+        return self.client.get(f"/api//get_discussion_post/{post_id}")
 
     # test create_event API endpoint
 
@@ -167,8 +167,8 @@ class TestPostComment(unittest.TestCase):
     #     self.assertFalse(title_exists("Title That Doesn't Exist"))
 
     # def test_date_valid(self):
-        self.assertFalse(date_valid("2014-14-22"))
-        self.assertTrue(date_valid("1020-4-14"))
+        # self.assertFalse(date_valid("2014-14-22"))
+        # self.assertTrue(date_valid("1020-4-14"))
 
     def tearDown(self):
         db.drop_all()

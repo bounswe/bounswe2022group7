@@ -46,6 +46,11 @@ def forum_post():
 @forum.route('/forum_comment_post', methods=["POST"])
 @user_required()
 def forum_comment_post():
+    
+    """
+    file: ./doc/forum_comment_POST.yml
+    """
+
     body = request.json
     # Tries to handle key/value errors 
     try:
@@ -59,19 +64,16 @@ def forum_comment_post():
     if not text:
         return {"error": "You have not provided body of the comment text"}, 400
     if not parent_post:
-        return {"error": "Parent post id is missing"}, 400
+        return {"error": "Parent post id is empty"}, 400
 
-    # print("hello")
     new_post_comment = PostComment(
         parent_post=parent_post,
         text=text,
         content_uri=content_uri,
-        # translation=translate(text),
-        translation="translate",
+        translation=translate(text),
         creator=current_user.id,
         creation_date=date.today()
     )
-    # print("hi")
 
     # Tries to add the new post comment
     try:
@@ -88,21 +90,18 @@ def forum_comment_post():
 
     return {"id": new_post_comment.id}, 201
 
-@forum.route('/get_discussion_posts/<post_id>', methods=["GET"])
-def get_discussion_posts(post_id):
+@forum.route('/get_discussion_post/<post_id>', methods=["GET"])
+def get_discussion_post(post_id):
 
-
-    # try:
-    #     parent_post_id = request.args.get("post_id")
-    # except:
-    #     return {"error": "Invalid arguments"}, 400
+    """
+    file: ./doc/discussion_post_comments_GET.yml
+    """
 
     post = ForumPost.query.get(post_id)
 
     if not post:
         return {"error": f"There is no post with the id {post_id}."}, 404 
     post = post.serialize()
-    # print(post["creator"])
     post["user_name"]  = User.query.get(post["creator"]).get_name()
     comments = PostComment.query.filter(PostComment.parent_post == post_id).all()
 
@@ -134,9 +133,11 @@ def translate(body):
     }
 
     response = requests.request("POST", url, json=payload, headers=headers)
-    print(response.json())
 
-    # return response.json()["data"]["translations"]["translatedText"]
-    #TODO create new api key
-    return "translation"
+    if response.status_code == 429:
+        return "You have exceeded the MONTHLY quota for Characters for Translate API. Try later."
+    # print(response.json())
+
+    return response.json()["data"]["translations"]["translatedText"]
+
 

@@ -170,24 +170,3 @@ class PostComment(db.Model):
 
 
 
-"""
-The database model for the comments under event pages.
-"""
-
-
-class EventDiscussionComment(db.Model):
-    __tablename__ = 'event_comment'
-    event = db.Column(db.Integer, db.ForeignKey("event.id"))
-    id = db.Column(db.Integer, primary_key=True)
-    creator = db.Column(db.Integer, db.ForeignKey("user.id"))
-    text = db.Column(db.Text)
-    creation_date = db.Column(db.Date)
-
-    def serialize(self):
-        return {
-            "event": self.event,
-            "id": self.id,
-            "creator": self.creator,
-            "text": self.text,
-            "creation_date": self.creation_date
-        }
