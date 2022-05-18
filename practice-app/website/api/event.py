@@ -13,6 +13,9 @@ event = Blueprint("event", __name__)
 
 @event.route("/event/<event_id>", methods=["GET"])
 def get_event_data(event_id):
+    """
+    file: ./doc/event_GET.yml
+    """
 
     event = Event.query.get(event_id)
 
@@ -28,6 +31,10 @@ def get_event_data(event_id):
 @event.route("/event", methods=["POST"])
 @artist_required()
 def create_event():
+    """
+    file: ./doc/event_POST.yml
+    """
+
     json = request.json
 
     missing_fields = {"title", "description", "poster_link", "date", "city"} - set(request.json.keys())
