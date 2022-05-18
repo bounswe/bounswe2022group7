@@ -37,34 +37,37 @@
                     add_element("h2", "Request Status: " + request_data["status"])
 
                     if (request_data["status"].localeCompare("Pending") == 0) {
-                        add_element("div",
-                        `
-                        <form id="acceptForm">
-                            <input type="button" value="Accept" onclick="accept()">
-                        </form>
 
-                        <form id="rejectForm">
+                        add_element("div", 
+                        `<form id="rejectForm">
+                            <input type="hidden" id="resultId" name="result" value="reject">
                             <input type="button" value="Reject" onclick="reject()">
                         </form>
                         `)
+
+                        add_element("div", 
+                        `<form id="acceptForm">
+                            <input type="hidden" id="resultIdd" name="resultt" value="accept">
+                            <input type="button" value="Accept" onclick="accept()">
+                        </form>
+                        `)
                     }
+
                 }
             )} else {
                     add_element(response.status)
                 }   
-        })
+        });
 
 
     function accept() {
-        var form = document.getElementById('myForm');
+        var form = document.getElementById('acceptForm');
         var formData = new FormData(form)
-
-        alert("here")
-
+        // var request_id2 = {{request_id}}
         url = "/api/verification/review/{{request_id}}"
         fetch(url, {
             method: "POST",
-            body: {"result": "accept" },
+            body: JSON.stringify(Object.fromEntries(formData)),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
                 Authorization: "Bearer " + "{{session["access_token"]}}"
@@ -80,18 +83,44 @@
                 })
             }   
         })
-    }
+    };
+
+    // function reject() {
+    //     var form = document.getElementById('rejectForm');
+    //     var formData = new FormData(form)
+
+    //     alert("here")
+
+    //     url = "/api/verification/review/{{request_id}}"
+    //     fetch(url, {
+    //         method: "POST",
+    //         body: {"result": "reject" },
+    //         headers: {
+    //             "Content-type": "application/json; charset=UTF-8",
+    //             Authorization: "Bearer " + "{{session["access_token"]}}"
+    //         }
+    //     }).then(response => {
+    //         if (response.status == 409) {
+    //             alert('There is no available request with this id!')
+    //         }
+
+    //         if (response.status == 201) {
+    //             response.json().then(request_data => {
+    //                 window.location.assign('/verification/' + request_data["id"])
+    //             })
+    //         }   
+    //     })
+    // }
 
     function reject() {
         var form = document.getElementById('rejectForm');
         var formData = new FormData(form)
 
-        alert("here")
-
+        // var request_id1 = {{request_id}}
         url = "/api/verification/review/{{request_id}}"
         fetch(url, {
             method: "POST",
-            body: {"result": "reject" },
+            body: JSON.stringify(Object.fromEntries(formData)),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
                 Authorization: "Bearer " + "{{session["access_token"]}}"
@@ -108,7 +137,7 @@
             }   
         })
     }
-    
+
     
 </script>
 
