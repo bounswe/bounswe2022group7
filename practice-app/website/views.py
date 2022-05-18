@@ -32,6 +32,11 @@ def view_art_item(art_item_id):
 def create_art_item():
     return render_template("create_art_item.html")
 
+@views.route("view_profile/")
+@user_token_required
+def view_profile():
+    return render_template("view_profile.html")
+
 
 @views.route('signup/')
 def signup():
