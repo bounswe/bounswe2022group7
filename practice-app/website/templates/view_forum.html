@@ -26,8 +26,8 @@
                     <h4>post["description"]</h4>
                 </div>
         
-          */""
-        add_element("div", "<div id=\"pos\" ><h3>" + post.title + "</h3><img src=\"" + post.content_uri + "\"><h6>Author: " + post.creator + "</h6><h6>Post Date: " + post.creation_date + "</h6><h4>" + post.description + "</h4><p>---------------------------------------------</p>");
+          */
+        add_element("div", "<a href=/discussion_post/" + post.id + ">" + post.title + "</a>" + "<img src=\"" + post.content_uri + "\"><h6>Author: " + post.creator + "</h6><h6>Post Date: " + post.creation_date + "</h6><h4>" + post.description + "</h4><p>---------------------------------------------</p>");
     }
 
     function helper(value, index, array) {
