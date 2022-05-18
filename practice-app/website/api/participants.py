@@ -21,32 +21,30 @@ participants = Blueprint("participants", __name__)
 @user_required()
 def add_participant(event_id):
 
-    if (event_id):
-        if not Event.query.get(event_id):
-            return {"error": f"There are no events with the id {event_id}."}, 404    
+    if not Event.query.get(event_id):
+        return {"error": f"There are no events with the id {event_id}."}, 404    
 
-        # Checks if the participant is already added to event
-        if Participants.query.filter_by(event_id=event_id, user_id=current_user.id).first():
-            return {"error": f"User with id {current_user.id} is already participating in this event."}, 409
+    # Checks if the participant is already added to event
+    if Participants.query.filter_by(event_id=event_id, user_id=current_user.id).first():
+        return {"error": f"User with id {current_user.id} is already participating in this event."}, 409
 
-        new_participant = Participants(event_id = event_id, user_id=current_user.id)
+    new_participant = Participants(event_id = event_id, user_id=current_user.id)
 
-        # Tries to add the new participant
-        try:
-            db.session.add(new_participant)
-        except:
-            return {"error" : f"There was an error adding the user with id {current_user.id} as a participant to event."}, 500
+    # Tries to add the new participant
+    try:
+        db.session.add(new_participant)
+    except:
+        return {"error" : f"There was an error adding the user with id {current_user.id} as a participant to event."}, 500
 
-        # Handles DB commit
-        try:
-            db.session.commit()
-        except Exception as error:
-            return {"error" : f"Database commit error: {error}"}, 500
+    # Handles DB commit
+    try:
+        db.session.commit()
+    except Exception as error:
+        return {"error" : f"Database commit error: {error}"}, 500
 
-        # Success message
-        return {"success" : "Successfully added the participant"}, 201
-    else:
-        return {"error" : "Wrong path please use /api/participants/<event_id>"}, 400
+    # Success message
+    return {"success" : "Successfully added the participant"}, 201
+
     
 
 
@@ -54,158 +52,138 @@ def add_participant(event_id):
 @participants.route("/participants/<event_id>", methods=["DELETE"])
 @user_required()
 def remove_participant(event_id):
-    if (event_id):
-        # Checks if the request body is json
-        if (request.is_json):
-            body = request.get_json()
+    event = Event.query.get(event_id)
+    if not event:
+        return {"error": f"There are no events with the id {event_id}."}, 404 
+    # Checks if the request body is json
+    if (request.is_json):
+        body = request.get_json()   
 
-            event = Event.query.get(event_id)
-            if not event:
-                return {"error": f"There are no events with the id {event_id}."}, 404    
+        if (current_user.id == event.artist_id):
+            try:
+                participant_list = body["participants"]
+            except:
+                return {"error": "There was an error on key / value pairs on request body."}, 400
 
-            if (current_user.id == event.artist_id):
+            # Iterates over participants given in the JSON
+            for participant in participant_list:
+
                 try:
-                    participant_list = body["participants"]
+                    request_user_id = participant["user_id"]
                 except:
                     return {"error": "There was an error on key / value pairs on request body."}, 400
 
-                # Iterates over participants given in the JSON
-                for participant in participant_list:
-
+                found_user = db.session.query(Participants).filter(Participants.event_id==event_id, Participants.user_id == request_user_id).first()
+                if (found_user):
                     try:
-                        request_user_id = participant["user_id"]
+                        db.session.delete(found_user)
                     except:
-                        return {"error": "There was an error on key / value pairs on request body."}, 400
+                        return {"error" : f"There was an error removing the user with id {request_user_id} from event."}, 500
+                else:
+                    return {"error": f"User with id {request_user_id} does not participate in the event."}, 409
+            
+            # Handles exceptions for db commit
+            try:
+                db.session.commit()
+            except Exception as error:
+                return {"error" : f"Database error when commiting: {error}"}, 500                
 
-                    found_user = db.session.query(Participants).filter(Participants.event_id==event_id, Participants.user_id == request_user_id).first()
-                    if (found_user):
-                        try:
-                            db.session.delete(found_user)
-                        except:
-                            return {"error" : f"There was an error removing the user with id {request_user_id} from event."}, 500
-                    else:
-                        return {"error": f"User with id {request_user_id} does not participate in the event."}, 409
-                
-                # Handles exceptions for db commit
-                try:
-                    db.session.commit()
-                except Exception as error:
-                    return {"error" : f"Database error when commiting: {error}"}, 500                
-
-                return {"success" : "Successfully removed the participant(s)."}, 200
-
-            else:
-                return {"error" : "User is not the creator of the event"}, 400
+            return {"success" : "Successfully removed the participant(s)."}, 200
 
         else:
-            found_user = db.session.query(Participants).filter(Participants.event_id==event_id, Participants.user_id == current_user.id).first()
-            if (found_user):
-                try:
-                    db.session.delete(found_user)
-                except:
-                    return {"error" : f"There was an error removing the user with id {current_user.id} from event."}, 500
+            return {"error" : "User is not the creator of the event"}, 400
 
-                #  Handles exceptions for db commit
-                try:
-                    db.session.commit()
-                except Exception as error:
-                    return {"error" : f"Database error when commiting: {error}"}, 500                
-
-                return {"success" : "Successfully removed the participant(s)."}, 200
-
-                
-            else:
-                    return {"error": f"User with id {request_user_id} does not participate in the event."}, 409
     else:
-        return {"error" : "You didn't specify the event. Please, use this endpoint as /api/participants/<event_id>"}, 400
+        found_user = db.session.query(Participants).filter(Participants.event_id==event_id, Participants.user_id == current_user.id).first()
+        if (found_user):
+            try:
+                db.session.delete(found_user)
+            except:
+                return {"error" : f"There was an error removing the user with id {current_user.id} from event."}, 500
 
+            #  Handles exceptions for db commit
+            try:
+                db.session.commit()
+            except Exception as error:
+                return {"error" : f"Database error when commiting: {error}"}, 500                
+
+            return {"success" : "Successfully removed the participant(s)."}, 200
+
+            
+        else:
+            return {"error": f"User with id {current_user.id} does not participate in the event."}, 409
+   
 
 # API endpoint for listing all participants for an event
 @participants.route("/participants/<event_id>", methods=["GET"])
 def view_participants(event_id):
 
-    if (event_id):
+    if not Event.query.get(event_id):
+        return {"error": f"There are no events with the id {event_id}."}, 404    
 
-        if not Event.query.get(event_id):
-            return {"error": f"There are no events with the id {event_id}."}, 404    
+    participant_list = Participants.query.filter(Participants.event_id == event_id).all()
 
-        participant_list = Participants.query.filter(Participants.event_id == event_id).all()
+    event_participants = []
+    for item in participant_list:
+        participant = User.query.get(item.user_id)
+        event_participants.append({"user_id": item.user_id, "user_name" : participant.first_name + " " + participant.last_name})
+    response = {"participants": event_participants}
 
-        event_participants = []
-        for item in participant_list:
-            participant = User.query.get(item.user_id)
-            event_participants.append({"user_id": item.user_id, "user_name" : participant.first_name + " " + participant.last_name})
-        response = {"participants": event_participants}
-
-        return response, 200
-    
-    else:
-        return {"error" : "You didn't specify the event. Please, use this endpoint as /api/participants/<event_id>"}, 400
+    return response, 200
 
 @participants.route("/participants/get_info/<event_id>", methods=["GET"])
 @user_required()
 def get_participation_info(event_id):
 
-    if (event_id):
-
-        event = Event.query.get(event_id)
-        if not event:
-            return {"error": f"There are no events with the id {event_id}."}, 404   
+    event = Event.query.get(event_id)
+    if not event:
+        return {"error": f"There are no events with the id {event_id}."}, 404   
 
 
-        # Tries to handle key/value errors 
+    # Tries to handle key/value errors 
 
-        participant_list = Participants.query.filter(Participants.event_id == event_id).all()
+    participant_list = Participants.query.filter(Participants.event_id == event_id).all()
 
+    participating = False
+    if (current_user):
+        for participant in participant_list:
+            if (participant.user_id == current_user.id):
+                participating = True
+                break
 
-        participating = False
-        if (current_user):
-            for participant in participant_list:
-                if (participant.user_id == current_user.id):
-                    participating = True
-                    break
-    
-        is_creator = (event.artist_id == current_user.id)
+    is_creator = (event.artist_id == current_user.id)
 
-        return {"event_title": event.title, "is_creator": is_creator,"user_participating" : participating}, 200
-
-        
-    else:
-        return {"error" : "You didn't specify the event. Please, use this endpoint as /api/participants/get_info/<event_id>"}, 400
+    return {"event_title": event.title, "is_creator": is_creator,"user_participating" : participating}, 200
 
 @participants.route("/participants/share/<event_id>", methods=["POST"])
 @user_required()
 def create_share_link(event_id):
 
-    if (event_id):
+    if not Event.query.get(event_id):
+        return {"error": f"There are no events with the id {event_id}."}, 404   
 
-        if not Event.query.get(event_id):
-            return {"error": f"There are no events with the id {event_id}."}, 404   
+    if (request.is_json):
+        body = request.get_json()
 
-        if (request.is_json):
-            body = request.get_json()
-
-            # Tries to handle key/value errors 
-            try:
-                # parses the values for keys
-                target_domain = body["domain"]
-                target_path = body["path"]
-            except:
-                return {"error": "There was an error on key / value pairs on request body."}, 400
+        # Tries to handle key/value errors 
+        try:
+            # parses the values for keys
+            target_domain = body["domain"]
+            target_path = body["path"]
+        except:
+            return {"error": "There was an error on key / value pairs on request body."}, 400
 
 
-            shortened_url = create_unique_sharing_link(target_domain, target_path, event_id, current_user.id)
-            
+        shortened_url = create_unique_sharing_link(target_domain, target_path, event_id, current_user.id)
         
-            if (shortened_url["status"] == "success"):
-                return {"share_link": shortened_url["link"]}, 200
-            else:
-                return shortened_url, 500
+    
+        if (shortened_url["status"] == "success"):
+            return {"share_link": shortened_url["link"]}, 200
         else:
-            return {"error": "Request body should be a JSON file."}, 400
-        
+            return shortened_url, 500
     else:
-        return {"error" : "You didn't specify the event. Please, use this endpoint as /api/participants/get_info/<event_id>"}, 400
+        return {"error": "Request body should be a JSON file."}, 400
+        
 
 
 from ..settings import SHORTENER_API_KEY

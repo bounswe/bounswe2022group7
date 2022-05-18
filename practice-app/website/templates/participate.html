@@ -19,6 +19,22 @@
     // ONLY EDIT BELOW THIS COMMENT WHEN
     // IMPLEMENTING DIFFERENT FEATURES
 
+    // Participant listing func
+    function display_participant(user_data) {
+        add_element("li", `${user_data["user_name"]}`)
+    }
+
+    function checkbox_participant(user_data) {
+        var checkbox_container = document.createElement("div");
+        checkbox_container.innerHTML = `<input type="checkbox" id="removal${user_data["user_id"]}" name="user_id" value="${user_data["user_id"]}">
+                                        <label for="removal${user_data["user_id"]}">${user_data["user_name"]}</label>`;
+
+        const new_form = document.getElementById("participant-form");
+        new_form.appendChild(checkbox_container);
+    }
+
+
+    // Button action for PARTICIPATE
     function addParticipation() {
 
         url = "/api/participants/{{event_id}}"
@@ -40,10 +56,34 @@
         })
     }
 
-    function display_participant(user_data) {
-        add_element("li", `${user_data["user_name"]}`)
+    function removeSelected() {
+        var form = document.getElementById('participant-form');
+        var formData = new FormData(form)
+
+        console.log(JSON.stringify(Object.fromEntries(formData)))
+
+        // url = "/api/event"
+        // fetch(url, {
+        //     method: "POST",
+        //     body: JSON.stringify(Object.fromEntries(formData)),
+        //     headers: {
+        //         "Content-type": "application/json; charset=UTF-8",
+        //         Authorization: "Bearer " + "{{session["access_token"]}}"
+        //     }
+        // }).then(response => {
+        //     if (response.status == 409) {
+        //         alert('Title you have entered already exists. Please enter another title.')
+        //     }
+
+        //     if (response.status == 201) {
+        //         response.json().then(event_data => {
+        //             window.location.assign('/event/' + event_data["id"])
+        //         })
+        //     }   
+        // })
     }
 
+    // CANCEL PARTICIPATION button action, can be activated by the user
     function cancelParticipation() {
 
         url = "/api/participants/{{event_id}}"
@@ -71,11 +111,12 @@
     }
 
     
-
+    // CREATES SHARE LINK
     function getShareLink() {
         var requestObj = new Object();
-        requestObj.path = "/participate/{{event_id}}"
-        requestObj.domain = "http://127.0.0.1:8000"
+        requestObj.protocol = "http"
+        requestObj.path = "participate/{{event_id}}"
+        requestObj.domain = window.location.host
 
         url = "/api/participants/share/{{event_id}}"
         fetch(url, {
@@ -126,21 +167,33 @@
                         .then(participant_response => {
                             if (participant_response.status = 200) {
                                 participant_response.json().then(participant_data => {
-
+                                    add_element("h2", "Participants")
                                     if (event_data["is_creator"]) {
-                                        add_element("h2", "Participants")
-                                        participant_data["participants"].forEach(display_participant)
-
+                                        var form_creation = document.createElement("form");
+                                        form_creation.setAttribute('id', "participant-form");
+                                        mainContainer.appendChild(form_creation);
+                                        participant_data["participants"].forEach(checkbox_participant);
+                                        const button_div = document.createElement("div");
+                                        const remove_button = document.createElement("input");
+                                        remove_button.setAttribute('type', "submit");
+                                        remove_button.setAttribute('onClick', "removeSelected()");
+                                        remove_button.setAttribute('value', "Remove Selected Participants")
+                                        button_div.appendChild(remove_button);
+                                        mainContainer.appendChild(button_div);
+                                    } else {
+                                        participant_data["participants"].forEach(display_participant);
                                     }
 
                                     if (!event_data["user_participating"]) {
-                                        add_element("div", `<input type="button" value="Participate" onclick="addParticipation()">`)
+                                        add_element("div", `<input type="button" value="Participate" onclick="addParticipation()">`);
                                     } else {
-                                        add_element("div", `<input type="button" value="Cancel Participation" onclick="cancelParticipation()">`)
+                                        add_element("div", `<input type="button" value="Cancel Participation" onclick="cancelParticipation()">`);
                                     }
 
-                                    add_element("div", `<input type="button" value="Share" onclick="getShareLink()">`)
+                                    add_element("div", `<input type="button" value="Share" onclick="getShareLink()">`);
                                 })
+                            } else {
+                                add_element("div", "Oops! An error occurred, we can't display participants for now.");
                             }
 
 
