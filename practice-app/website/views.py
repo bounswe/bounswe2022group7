@@ -38,3 +38,7 @@ def signup():
 @views.route('login/')
 def login():
     return render_template('login.html')
+
+@views.route('art_galleries/')
+def view_art_galleries():
+    return render_template('art_galleries.html')
