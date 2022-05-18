@@ -31,6 +31,19 @@ def view_forum():
 @views.route("forum_post/")
 def post_forum():
     return render_template("post_forum.html")
+@views.route("art_item/<art_item_id>/")
+def view_art_item(art_item_id):
+    return render_template("view_art_item.html", art_item_id=art_item_id)
+
+@views.route("create_art_item/")
+@artist_token_required
+def create_art_item():
+    return render_template("create_art_item.html")
+
+@views.route("view_profile/")
+@user_token_required
+def view_profile():
+    return render_template("view_profile.html")
 
 
 @views.route('signup/')
@@ -41,3 +54,7 @@ def signup():
 @views.route('login/')
 def login():
     return render_template('login.html')
+
+@views.route('art_galleries/')
+def view_art_galleries():
+    return render_template('art_galleries.html')

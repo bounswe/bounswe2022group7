@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block functionality %} View Art İtem {% endblock %}
+{% block functionality %} View Art Item {% endblock %}
 
 {% block content %}
 
-<div id = "mainContainer"></div>
+<div id="mainContainer"></div>
 
 <script>
 
@@ -18,65 +18,46 @@
 
     // ONLY EDIT BELOW THIS COMMENT WHEN
     // IMPLEMENTING DIFFERENT FEATURES
+    url = "/api/art_item/{{art_item_id}}"
 
-    // When the api is completed, replace the hardcoded art_item_data
-    // object below with the commented fetch block below.
-    art_item_data = {
-        "art_item_id": 1,
-        "name": "Starry Night",
-        "description": "The Starry Night is an oil-on-canvas painting by the Dutch Post-Impressionist painter Vincent van Gogh.",
-        "category": "Painting",
-        "image_url": "https://www.oggusto.com/uploads/images/custom/3811-yildizli-gece-vincent-van-gogh-yildizligeceencokgezilensanateserleri.jpg",
-        "labels": ["Art", "Item"],
-        "creator": "Van Gogh",
-        "creation_date": "04-05-2022 15:20:00",
-        "owner": "Van Gogh",
-        "last_price": "1 TL",
-    }
-
-    add_element("h1", "Art Item Name: " + art_item_data["name"])
-
-    add_element("h3", "Description")
-    add_element("p", art_item_data["description"])
-
-    add_element("h3", "Category")
-    add_element("p", art_item_data["category"])
-
-    add_element("h3", "Image")
-    add_element("div", "<img src=\"" + art_item_data["image_url"] + "\">")
-
-    add_element("h3", "Labels")
-    add_element("div", art_item_data["labels"].map(label => "<li>" + label + "</li>").join(''))
-
-    add_element("h3", "Creator")
-    add_element("p", art_item_data["creator"])
-
-    add_element("h3", "Creation Date")
-    add_element("p", art_item_data["creation_date"])
-
-    add_element("h3", "Owner")
-    add_element("p", art_item_data["owner"])
-
-    add_element("h3", "Last Price")
-    add_element("p", art_item_data["last_price"])
-
-    let replyThreadUrl = "thread/" + art_item_data["art_item_id"]
-    let button = document.createElement("a")
-    button.innerHTML = "Reply Thread"
-    button["href"] = replyThreadUrl
-    mainContainer.appendChild(button);
-
-    /*
     fetch(url)
-    .then(function (response) {
-        // The JSON data will arrive here
-    })
-    .catch(function (err) {
-        // If an error occured, you will catch it here
-    });
-    */
+        .then(response => {
 
-    
+            if (response.status == 404) {
+                add_element("div", "Oops! There is no art item with this id.")
+            }
+            if (response.status == 200) {
+                response.json().then(art_item_data => {
+
+                    add_element("h1", "" + art_item_data["name"])
+
+                    add_element("div", "<img src=\"" + art_item_data["content_uri"] + "\">")
+
+                    add_element("h2", "Creator: " + art_item_data["artist_name"])
+
+                    add_element("h2", "Description")
+                    add_element("div", art_item_data["description"])
+
+                    add_element("div", "<b>Creation Date: </b>" + art_item_data["creation_date"])
+
+                    const dominant_colors = art_item_data["dominant_colors"]
+
+                    if (dominant_colors === undefined || dominant_colors.length == 0) {
+                        add_element("div", "<b>Dominant Colors: </b> The system was not able to find the dominant colors in this art item.")
+                    } else {
+                        add_element("div", "<b>Dominant Colors: </b>")
+                        for (var i = 0; i < dominant_colors.length; i++) {
+                            add_element("div", (i + 1) + ". " + dominant_colors[i])
+                        }
+                    }
+                }
+                )
+            }
+        }).catch(err => {
+            console.log(err)
+        });
+
+
 </script>
 
 {% endblock %}
