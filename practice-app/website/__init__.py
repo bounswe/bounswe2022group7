@@ -5,12 +5,16 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask_jwt_extended import JWTManager
 
+from flasgger import Swagger
+
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
 
 def create_app(db_name = DB_NAME):
     app = Flask(__name__)
+
+    swagger = Swagger(app)
 
     basedir = os.path.abspath(os.path.dirname(__file__))
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
@@ -35,12 +39,14 @@ def create_app(db_name = DB_NAME):
 
     from .views import views
     from .api.event import event
+    from .api.art_item import art_item
     from .api.home import home
     from .jwt import token
 
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(home, url_prefix="/api")
     app.register_blueprint(event, url_prefix="/api")
+    app.register_blueprint(art_item, url_prefix="/api")
     app.register_blueprint(token, url_prefix="/token")
 
     from .api.auth import auth
