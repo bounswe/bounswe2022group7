@@ -64,7 +64,6 @@ def create_app(db_name = DB_NAME):
     app.register_blueprint(event, url_prefix="/api/")
     app.register_blueprint(participants, url_prefix="/api/")
     app.register_blueprint(home, url_prefix="/api")
-    app.register_blueprint(event, url_prefix="/api")
     app.register_blueprint(art_item, url_prefix="/api")
     app.register_blueprint(token, url_prefix="/token")
 
