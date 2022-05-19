@@ -65,7 +65,7 @@
                 {% if session["access_token"] %}
                     <a href={{ url_for("views.view_profile") }}>View Profile</a>
                 {% endif %}
-            </div>
+            <!-- </div> -->
 
     </nav>
 
@@ -96,7 +96,7 @@
 
                 {% endif %}
 
-            <!-- </div> -->
+            </div>
 
             <div style="display: table-cell;">
                 {% block content %}{% endblock %}
