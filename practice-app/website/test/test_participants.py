@@ -328,45 +328,45 @@ class TestEvent(unittest.TestCase):
     ## POST /api/participants/share/<event_id>
     ############################
 
-    # # Invalid Event ID
-    # def test_share_invalid_event(self):
-    #     json = { "page_url": "https://google.com/tr/"}
-    #     response = self.request_share_link(json, self.invalid_event_id, self.artist_access_token)
-    #     self.assertEqual(response.status, "404 NOT FOUND")
+    # Invalid Event ID
+    def test_share_invalid_event(self):
+        json = { "page_url": "https://google.com/tr/"}
+        response = self.request_share_link(json, self.invalid_event_id, self.artist_access_token)
+        self.assertEqual(response.status, "404 NOT FOUND")
 
-    # # Invalid Request Body                              
-    # def test_share_invalid_request_body(self):
-    #     json = { "paige_url": "https://google.com/tr/"}
-    #     response = self.request_share_link(json, self.event_ids[0], self.artist_access_token)
+    # Invalid Request Body                              
+    def test_share_invalid_request_body(self):
+        json = { "paige_url": "https://google.com/tr/"}
+        response = self.request_share_link(json, self.event_ids[0], self.artist_access_token)
 
-    #     self.assertEqual(response.status, "400 BAD REQUEST")
-    #     self.assertEqual(response.json["error"], "There was an error on key / value pairs on request body.")
+        self.assertEqual(response.status, "400 BAD REQUEST")
+        self.assertEqual(response.json["error"], "There was an error on key / value pairs on request body.")
 
-    # # Invalid Link
-    # def test_share_request_body_invalid_link(self):
-    #     json = { "page_url": "not_an_url"}
-    #     response = self.request_share_link(json, self.event_ids[0], self.artist_access_token)
+    # Invalid Link
+    def test_share_request_body_invalid_link(self):
+        json = { "page_url": "not_an_url"}
+        response = self.request_share_link(json, self.event_ids[0], self.artist_access_token)
 
-    #     self.assertEqual(response.status, "400 BAD REQUEST")
-    #     self.assertEqual(response.json["error"], "Not a link")
+        self.assertEqual(response.status, "400 BAD REQUEST")
+        self.assertEqual(response.json["error"], "Not a link")
 
-    # # Expired Token
-    # def test_share_expired_token(self):
-    #     json = { "page_url": "https://google.com/tr/"}
-    #     response = self.request_share_link(json, self.event_ids[0], self.expired_token)
-    #     self.assertEqual(response.status, "401 UNAUTHORIZED")
+    # Expired Token
+    def test_share_expired_token(self):
+        json = { "page_url": "https://google.com/tr/"}
+        response = self.request_share_link(json, self.event_ids[0], self.expired_token)
+        self.assertEqual(response.status, "401 UNAUTHORIZED")
 
-    # # Invalid Token
-    # def test_share_invalid_token(self):
-    #     json = { "page_url": "https://google.com/tr/"}
-    #     response = self.request_share_link(json, self.event_ids[0], self.invalid_token)
-    #     self.assertEqual(response.status, "422 UNPROCESSABLE ENTITY")
+    # Invalid Token
+    def test_share_invalid_token(self):
+        json = { "page_url": "https://google.com/tr/"}
+        response = self.request_share_link(json, self.event_ids[0], self.invalid_token)
+        self.assertEqual(response.status, "422 UNPROCESSABLE ENTITY")
 
-    # # Valid request
-    # def test_share_valid_request(self):
-    #     json = { "page_url": "https://google.com/tr/"}
-    #     response = self.request_share_link(json, self.event_ids[0], self.artist2_access_token)
-    #     self.assertEqual(response.status, "200 OK")
+    # Valid request
+    def test_share_valid_request(self):
+        json = { "page_url": "https://google.com/tr/"}
+        response = self.request_share_link(json, self.event_ids[0], self.artist2_access_token)
+        self.assertEqual(response.status, "200 OK")
     
     
 
