@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Event {% endblock %}
+
+{% block content %}
+
+<div id="mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    // Participant listing func
+    function display_participant(user_data) {
+        add_element("li", `${user_data["user_name"]}`)
+    }
+
+    function checkbox_participant(user_data) {
+        var checkbox_container = document.createElement("div");
+        checkbox_container.innerHTML = `<input type="checkbox" id="removal${user_data["user_id"]}" name="removal${user_data["user_id"]}" value="${user_data["user_id"]}">
+                                        <label for="removal${user_data["user_id"]}">${user_data["user_name"]}</label>`;
+
+        const new_form = document.getElementById("participant-form");
+        new_form.appendChild(checkbox_container);
+    }
+
+
+    // Button action for PARTICIPATE
+    function addParticipation() {
+
+        url = "/api/participants/{{event_id}}"
+        fetch(url, {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+            }
+        }).then(response => {
+            if (response.status == 409) {
+                alert('You already participate in this event.')
+            }
+
+            if (response.status == 201) {
+                response.json().then(event_data => {
+                    window.location.assign('/participate/' + "{{event_id}}")
+                })
+            }
+        })
+    }
+
+
+    function myFunction(value) {
+        vv += value + "<br>";
+    }
+
+    function removeSelected() {
+        var form = document.getElementById('participant-form');
+        var formData = new FormData(form);
+
+        var obj = Object.fromEntries(formData);
+        obj = Object.values(obj);
+
+        obj = obj.map((x) => +x);
+        var requestObj = new Object();
+        requestObj.participants = obj;
+
+        url = "/api/participants/{{event_id}}"
+        fetch(url, {
+            method: "DELETE",
+            body: JSON.stringify(requestObj),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+    }
+        }).then(response => {
+
+            if (response.status == 200) {
+                response.json().then(event_data => {
+                    alert("Successfully deleted the users.");
+                    window.location.assign('/participate/' + "{{event_id}}");
+                })
+            } else {
+                response.json().then(error_data => {
+                    alert(error_data["message"]);
+                })
+            }
+        })
+
+
+    }
+
+    // CANCEL PARTICIPATION button action, can be activated by the user
+    function cancelParticipation() {
+
+        url = "/api/participants/{{event_id}}"
+        fetch(url, {
+            method: "DELETE",
+            headers: {
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+    }
+        }).then(response => {
+
+            if (response.status == 409) {
+                alert('You are not a participant to this event')
+            }
+
+            if (response.status == 200) {
+                response.json().then(event_data => {
+                    window.location.assign('/participate/' + "{{event_id}}")
+                })
+            } else {
+                response.json().then(error_data => {
+                    alert(error_data["message"])
+                })
+            }
+        })
+    }
+
+
+    // CREATES SHARE LINK
+    function getShareLink() {
+        var requestObj = new Object();
+        requestObj.page_url = window.location.href
+
+        url = "/api/participants/share/{{event_id}}"
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(requestObj),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+}
+        }).then(response => {
+            if (response.status == 200) {
+                response.json().then(response_data => {
+                    add_element("div", `  <input type="text" id="country" name="country" value="${response_data["share_link"]}" readonly><br><br>`)
+                    const button = document.querySelector('input[value="Share"]');
+                    button.disabled = true;
+                })
+            } else {
+                response.json().then(response_data => {
+                    alert(response_data["error"])
+                })
+            }
+
+
+        })
+    }
+
+
+
+
+
+    view_participant_url = "/api/participants/{{event_id}}"
+    fetch(view_participant_url, {
+        method: "GET",
+        headers: {
+            Authorization: "Bearer " + "{{session["access_token"]}}"
+		}
+    }).then(participant_response => {
+
+        if (participant_response.status = 200) {
+            participant_response.json().then(participant_data => {
+                add_element("h1", "Event Title: " + participant_data["event_title"])
+                add_element("h2", "Participants")
+
+                if (participant_data["is_creator"]) {
+
+                    var form_creation = document.createElement("form");
+                    form_creation.setAttribute('id', "participant-form");
+                    mainContainer.appendChild(form_creation);
+
+                    participant_data["participants"].forEach(checkbox_participant);
+
+                    const button_div = document.createElement("div");
+                    const remove_button = document.createElement("input");
+                    remove_button.setAttribute('type', "submit");
+                    remove_button.setAttribute('onClick', "removeSelected()");
+                    remove_button.setAttribute('value', "Remove Selected Participants")
+                    button_div.appendChild(remove_button);
+
+                    mainContainer.appendChild(button_div);
+
+                } else {
+                    participant_data["participants"].forEach(display_participant);
+                }
+
+                if (!participant_data["user_participating"]) {
+                    add_element("div", `<input type="button" value="Participate" onclick="addParticipation()">`);
+                } else {
+                    add_element("div", `<input type="button" value="Cancel Participation" onclick="cancelParticipation()">`);
+                }
+                add_element("div", `<input type="button" value="Share" onclick="getShareLink()">`);
+            })
+        } else {
+
+            participant_response.json().then(error_data => {
+                add_element("h2", error_data["error"]);
+            })
+        }
+    })
+
+
+
+
+
+</script>
+
+{% endblock %}

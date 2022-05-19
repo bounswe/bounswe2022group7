@@ -1,0 +1,91 @@
+Endpoint to get a share link for event with given ID
+---
+
+security:
+  - BearerAuth: []
+
+parameters:
+  - name: event_id
+    in: path
+    required: true
+    type: integer
+    description: ID of the event
+    example : 37
+  - name: page_url
+    in: body
+    required: true
+    type: string
+    description: URL of the target 
+    example: "https://google.com.tr"
+
+    
+         
+responses:
+  200:
+    description: Participants for event removed successfully.
+    schema:
+      type: object
+      required:
+        - share_link
+      properties:
+        share_link:
+          type: string
+          description: Shortened URL
+          example: cutt.ly/ornek_link_addres
+  404:
+    description:  Event with given parameter ID cannot be found.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: There are no events with the given ID.
+  400:
+    description: Given request body was erroneous key/values were not matching with the schema, or can be result of invalid link in the request.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: There was an error on key / value pairs on request body.
+  409:
+    description: A conflict happens on the API call
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: The link is already shortened
+  500:
+    description: API call from backend fails, link couldn't be created.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: Error when creating the share link. Try again later.
+  502:
+    description: An unexpected error occured on the server.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: Unexpected error
+
+
