@@ -64,7 +64,7 @@ def forum_post():
     title = body["title"]
     description = bad_word_check(body["description"])
     content_uri = body["content_uri"]
-    creator = current_user.email
+    creator = current_user.id
 
     new_post = ForumPost(
         creator=creator,
