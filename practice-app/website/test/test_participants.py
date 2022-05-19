@@ -115,22 +115,24 @@ class TestEvent(unittest.TestCase):
     ## HELPERS
     #################################
 
-    def request_add_participant(self, id, auth):
-        return self.client.post(f"/api/participants/{id}",
-                                headers = {"Authorization": "Bearer %s" % auth})
+    def request_add_participant(self, event_id, access_token):
+        return self.client.post(f"/api/participants/{event_id}",
+                                headers = {"Authorization": f"Bearer {access_token}")
     
-    def request_remove_participant(self, id, auth):
-        return self.client.delete(f"/api/participants/{id}",
-                                headers = {"Authorization": "Bearer %s" % auth})
+    def request_remove_participant(self, event_id, access_token):
+        return self.client.delete(f"/api/participants/{event_id}",
+                                headers = {"Authorization": f"Bearer {access_token}"})
 
-    def request_view_participants(self, id):
-        return self.client.get(f"/api/participants/{id}")
+    def request_view_participants(self, event_id, access_token):
+        return self.client.get(f"/api/participants/{event_id}",
+                                        headers = {"Authorization": f"Bearer {access_token}"}) 
+
 
     def request_share_link(self, json, event_id, access_token):
         return self.client.post(f"/api/participants/share/{event_id}",
                                         json=json,
                                         content_type = "application/json; charset=UTF-8",
-                                        headers = {"Authorization": "Bearer %s" % access_token}) 
+                                        headers = {"Authorization": f"Bearer {access_token}"}) 
 
 
     ############################
@@ -180,25 +182,54 @@ class TestEvent(unittest.TestCase):
      
      # invalid event
     def test_view_participants_invalid_event(self):
-        response = self.request_view_participants(43376437634)
+        response = self.request_view_participants(self.invalid_event_id, self.artist_access_token)
 
         self.assertEqual(response.status, "404 NOT FOUND")
         self.assertTrue("error" in response.json)
         self.assertEqual(response.json["error"], f"There are no events with the id 43376437634.")
 
-
-        # empty part list
+    # empty part list
     def test_view_participants_empty(self):
-        response = self.request_view_participants(self.event_ids[0])
+        response = self.request_view_participants(self.event_ids[0] self.artist_access_token)
         self.assertEqual(response.status, "200 OK")
         self.assertEqual(len(response.json["participants"]), 0)
 
     # populated participant list testing
     def test_view_participants_populated(self):
-        response = self.request_view_participants(self.event_ids[1])
+        response = self.request_view_participants(self.event_ids[1] self.artist_access_token)
         self.assertEqual(response.status, "200 OK")
         self.assertEqual(response.json["participants"][1]["user_name"], f"{self.artist['first_name']} {self.artist['last_name']}")
         self.assertEqual(response.json["participants"][0]["user_name"], f"{self.user['first_name']} {self.user['last_name']}")
+        
+    # Event ownership check
+    def test_view_participants_event_ownership(self):
+        response = self.request_view_participants(self.event_ids[1] self.artist_access_token)
+
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue("is_creator" in response.json)
+        self.assertTrue(response.json["is_creator"])
+
+    def test_view_participants_doesnt_own_event(self):
+        response = self.request_view_participants(self.event_ids[0] self.artist2_access_token)
+
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue("is_creator" in response.json)
+        self.assertFalse(response.json["is_creator"])
+
+    # Tests the case where the user participates in the event
+    def test_view_participants_user_participating(self):
+        response = self.request_view_participants(self.event_ids[1] self.user_access_token)
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue("user_participating" in response.json)
+        self.assertTrue(response.json["user_participating"])
+
+    # Tests the case where the user is not participated
+    def test_view_participants_participating(self):
+        response = self.request_view_participants(self.event_ids[0] self.user_access_token)
+        self.assertEqual(response.status, "200 OK")
+        self.assertTrue("user_participating" in response.json)
+        self.assertFalse(response.json["user_participating"])
+    
 
     ############################
     ## DELETE /api/participants/<event_id>
@@ -337,51 +368,6 @@ class TestEvent(unittest.TestCase):
     #     response = self.request_share_link(json, self.event_ids[0], self.artist2_access_token)
     #     self.assertEqual(response.status, "200 OK")
     
-
-    ############################
-    ## GET /api/participants/get_info/<event_id>
-    ############################
-
-    # Non-existent event check
-    def test_get_info_check_event(self):
-        response = self.client.get(f"/api/participants/get_info/43376437634", 
-                    headers = {"Authorization": "Bearer %s" % self.artist_access_token})
-        self.assertEqual(response.status, "404 NOT FOUND")
-
-    # Event ownership check
-    def test_get_info_event_ownership(self):
-        response = self.client.get(f"/api/participants/get_info/{self.event_ids[0]}", 
-                    headers = {"Authorization": "Bearer %s" % self.artist_access_token})
-
-        self.assertEqual(response.status, "200 OK")
-        self.assertTrue("is_creator" in response.json)
-        self.assertTrue(response.json["is_creator"])
-
-    def test_get_info_doesnt_own_event(self):
-        response = self.client.get(f"/api/participants/get_info/{self.event_ids[0]}", 
-                    headers = {"Authorization": "Bearer %s" % self.artist2_access_token})
-
-        self.assertEqual(response.status, "200 OK")
-        self.assertTrue("is_creator" in response.json)
-        self.assertFalse(response.json["is_creator"])
-
-    # Tests the case where the user participates in the event
-    def test_get_info_participating(self):
-        response = self.client.get(f"/api/participants/get_info/{self.event_ids[1]}", 
-                    headers = {"Authorization": "Bearer %s" % self.user_access_token})
-
-        self.assertEqual(response.status, "200 OK")
-        self.assertTrue("user_participating" in response.json)
-        self.assertTrue(response.json["user_participating"])
-
-    # Tests the case where the user is not participated
-    def test_get_info_participating(self):
-        response = self.client.get(f"/api/participants/get_info/{self.event_ids[0]}", 
-                    headers = {"Authorization": "Bearer %s" % self.user_access_token})
-
-        self.assertEqual(response.status, "200 OK")
-        self.assertTrue("user_participating" in response.json)
-        self.assertFalse(response.json["user_participating"])
     
 
 
