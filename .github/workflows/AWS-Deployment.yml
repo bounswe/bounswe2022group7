@@ -27,10 +27,12 @@
 name: Deploy to Amazon ECS
 
 on:
+  release:
+    types: [published]
   push:
-    branches:
-    - practice-app/release
-    
+    tags:  
+      - v0.**
+      - v1.**
   workflow_dispatch:
 
 env:
