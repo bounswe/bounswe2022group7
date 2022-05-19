@@ -226,7 +226,7 @@ def create_personal_share_link(page_url, event_id, user_id, link_prefix='bounswe
             
             # link name already taken, try again with another name
             elif (response_status == 3):
-                return create_unique_sharing_link(page_url, event_id, user_id, link_prefix=f'{link_prefix}', recursion=recursion+1)
+                return create_personal_share_link(page_url, event_id, user_id, link_prefix=f'{link_prefix}', recursion=recursion+1)
     
             # Invalid link
             elif (response_status == 2):
