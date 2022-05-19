@@ -1,0 +1,40 @@
+Endpoint to view profile of current user
+---
+security:
+  - BearerAuth: []
+
+responses:
+  200:
+    description: User is successfully fetched.
+    schema:
+      type: object
+      required:
+        - email
+        - first_name
+        - last_name
+        - is_verified
+        - id
+      properties:
+        email:
+          type: string
+          description: Email of user
+          example: "user@email.com"
+        first_name:
+          type: string
+          description: First name of user
+          example: "Ali"
+        last_name:
+          type: string
+          description: Last name of user
+          example: "Yılmaz"
+        is_verified:
+          type: boolean
+          description: True if user is verified
+          example: true
+        id:
+          type: integer
+          description: Id of user
+          example: 3
+
+  404:
+    description: "There is no user with the same id as token."

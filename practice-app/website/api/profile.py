@@ -13,6 +13,9 @@ profile = Blueprint("profile", __name__)
 @profile.route("/profile/", methods=["GET"])
 @jwt_required()
 def get_profile():
+    """
+    file: ./doc/profile_GET.yml
+    """
     user_id = current_user.id
     user = User.query.get(user_id)
 
