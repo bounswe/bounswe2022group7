@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flask_jwt_extended import jwt_required, current_user
+from flask_jwt_extended import current_user
 
 from ..models import User
 from .. import db
@@ -11,7 +11,7 @@ profile = Blueprint("profile", __name__)
 # ROUTES
 
 @profile.route("/profile/", methods=["GET"])
-@jwt_required()
+@user_required()
 def get_profile():
     """
     file: ./doc/profile_GET.yml

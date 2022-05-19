@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from time import time
-from flask_jwt_extended import current_user, jwt_required
+from flask_jwt_extended import current_user
 import datetime
 import requests
 from random import randint
