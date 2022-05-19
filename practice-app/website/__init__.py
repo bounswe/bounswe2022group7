@@ -47,7 +47,7 @@ def create_app(testing = False):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
             os.path.join(basedir, DB_NAME)
         app.secret_key = FLASK_SECRET_KEY  #This is for flask session
-        app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY  # Change this!
+        app.config["JWT_SECRET_KEY"] = FLASK_SECRET_KEY  # Change this!
     
     
     jwt = JWTManager(app)
