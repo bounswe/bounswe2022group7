@@ -6,7 +6,7 @@ from .. import create_app
 
 class TestGalleries(unittest.TestCase):
     def setUp(self) -> None:
-        app = create_app('test_galleries.db')
+        app = create_app(testing=True)
         self.context = app.app_context()
         self.context.push()
         self.client = app.test_client()

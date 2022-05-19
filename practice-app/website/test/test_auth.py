@@ -6,13 +6,11 @@ from ..models import User, Artist
 
 from ..api.auth import signup, login
 
-TEST_DB_NAME = "test_database_auth.db"
-
 
 class TestAuth(unittest.TestCase):
 
     def setUp(self):
-        app = create_app(TEST_DB_NAME)
+        app = create_app(testing=True)
         self.context = app.app_context()
         self.context.push()
         self.client = app.test_client()

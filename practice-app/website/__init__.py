@@ -2,16 +2,16 @@ import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
 from flask_jwt_extended import JWTManager
 
 from flasgger import Swagger
 
+from datetime import timedelta
+from .settings import DB_NAME, FLASK_SECRET_KEY, JWT_SECRET_KEY
+
 db = SQLAlchemy()
-DB_NAME = "database.db"
 
-
-def create_app(db_name = DB_NAME):
+def create_app(testing = False):
     app = Flask(__name__)
 
     app.config['SWAGGER'] = {
@@ -33,11 +33,23 @@ def create_app(db_name = DB_NAME):
     swagger = Swagger(app, template=swagger_template)
 
     basedir = os.path.abspath(os.path.dirname(__file__))
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-        os.path.join(basedir, db_name)
 
-    app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
-    app.secret_key = "super-secret-2"  # Change this! This is for flask session
+
+    app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=15)
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # CONFIGURATION HANDLING
+    if (testing):
+        app.secret_key = "super-secret-2"  #This is for flask session
+        app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
+            os.path.join(basedir, DB_NAME)
+        app.secret_key = FLASK_SECRET_KEY  #This is for flask session
+        app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY  # Change this!
+    
+    
     jwt = JWTManager(app)
 
     @jwt.user_identity_loader
