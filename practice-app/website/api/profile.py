@@ -21,7 +21,6 @@ def get_profile():
 
     user = user.serialize()
     del user["password"]
-    print(user)
 
     return user, 200
 

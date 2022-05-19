@@ -1,0 +1,73 @@
+Endpoint to fetch an event with a given ID
+---
+parameters:
+  - name: event_id
+    in: path
+    required: true
+    type: integer
+    description: ID of the event
+    example : 2
+  
+responses:
+  200:
+    description: Art item with the given ID is successfully fetched.
+    schema:
+      type: object
+      required:
+        - artist_id
+        - artist_name
+        - city
+        - date
+        - description
+        - id
+        - poster_link
+        - title
+        - weather
+      properties:
+        artist_id:
+          type: integer
+          description: ID of the creator artist
+          example: 2
+        artist_name:
+          type: string
+          description: Name of the artist
+          example: "Ivan Aivazovsky"
+        city:
+          type: string
+          description: City where the event takes place
+          example: "Istanbul"
+        date:
+          type: string
+          description: Date of the event
+          example: "Fri, 01 Apr 2022 00:00:00 GMT"
+        description:
+          type: string
+          description: The informative text about the event
+          example: "An event to feel as if you are cruising in the ocean without setting foot on a boat."
+        id:
+          type: integer
+          description: Id of the event
+          example: 3
+        poster_link:
+          type: string
+          description: Link to the event poster
+          example: "https://en.wikipedia.org/wiki/Ivan_Aivazovsky#/media/File:Aivazovsky_-_Self-portrait_1874.jpg"
+        title:
+          type: string
+          description: Title of the event.
+          example: The Aivazovsky Day
+        weather:
+          type: object
+          description: Information about the current weather at the event location
+          properties:
+            temp:
+              type: string
+              description: Temparature at the event location
+              example: "13.17 C"
+            weather:
+              type: string
+              description: Description of the weather condition
+              example: "Rain"
+
+  404:
+    description: "There are no events with the id <event_id>."

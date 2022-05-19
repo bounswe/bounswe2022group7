@@ -7,6 +7,9 @@ home = Blueprint("home", __name__)
 
 @home.route("/search", methods=["GET"])
 def home_route():
+    """
+    file: ./doc/home_GET.yml
+    """
     query = request.args.get("query", None)
     if query:
         events, art_items = get_content_with_filter(query)

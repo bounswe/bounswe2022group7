@@ -1,5 +1,3 @@
-
-from __future__ import print_function
 from http.client import INTERNAL_SERVER_ERROR
 from flask import Blueprint, jsonify, request
 from website import db
