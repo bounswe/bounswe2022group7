@@ -1,0 +1,55 @@
+Endpoint to create an event object
+---
+security:
+  - BearerAuth: []
+
+parameters:
+  - name: title
+    in: body
+    required: true
+    type: string
+    description: Title of the event
+    example : Bismarck Day
+  - name: description
+    in: body
+    required: true
+    type: string
+    description: The informative text about the art item
+    example : "Day where we celebrate Bismarck"
+  - name: poster_link
+    in: body
+    required: true
+    type: string
+    description: Link to the event poster
+    example: "https://upload.wikimedia.org/wikipedia/commons/9/92/Bundesarchiv_Bild_146-2005-0057%2C_Otto_von_Bismarck_%28cropped%29.jpg"
+  - name: date
+    in: body
+    required: true
+    type: string
+    description: Date of the event
+    example: "2022-04-01"
+  - name: city
+    in: body
+    required: true
+    type: string
+    description: City where the event takes place
+    example: Berlin
+
+responses:
+  201:
+    description: Event with the given data is successfully created.
+    schema:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          description: ID of the newly created event
+          example: 2
+  400:
+    description: "Date you have entered is not valid. Format is \"%Y-%m-%d\". You entered \"<DATE>\"."
+  401:
+    description: "Missing Authorization Header"
+  409:
+    description: "Please enter a title that doesn't exist in the platform."

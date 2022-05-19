@@ -24,7 +24,7 @@
     }
 
     function display_art_item(art_item_data) {
-        console.log(art_item_data)
+        add_element("div", `<a href=/art_item/${art_item_data["id"]}>${art_item_data["name"]}</a>`)
     }
 
     var url = "/api/search"

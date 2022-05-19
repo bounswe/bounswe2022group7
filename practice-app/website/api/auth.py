@@ -11,6 +11,9 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/signup', methods=['POST'])
 def signup():
+    """
+    file: ./doc/signup.yml
+    """
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     first_name = request.json.get("first_name", None)
@@ -42,6 +45,9 @@ def signup():
 
 @auth.route('/login', methods=['POST'])
 def login():
+    """
+    file: ./doc/login.yml
+    """
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 

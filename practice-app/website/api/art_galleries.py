@@ -7,6 +7,9 @@ art_galleries = Blueprint('art_galleries', __name__)
 
 @art_galleries.route('art_galleries')
 def get_art_galleries():
+    """
+    file: ./doc/art_galleries.yml
+    """
     galleries = []
 
     for i in range(5):

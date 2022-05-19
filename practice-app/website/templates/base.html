@@ -61,11 +61,6 @@
             }
         </script>
 
-            <div>
-                {% if session["access_token"] %}
-                    <a href={{ url_for("views.view_profile") }}>View Profile</a>
-                {% endif %}
-
     </nav>
 
     <hr>
@@ -79,6 +74,8 @@
 
                 <a href={{ url_for("views.view_forum") }}>Forum Page</a>
 
+                <a href={{ url_for("views.wikipedia_definition") }}>Wikipedia Definition</a>
+
 
                 {% if session["is_artist"] %}
 
@@ -87,11 +84,13 @@
                 <a href={{ url_for("views.create_art_item") }}>Create Art Item</a>
 
                 {% endif %}
-
+                    
 
                 {% if session["access_token"] != None %}
                                 
                 <a href={{ url_for("views.post_forum")}}>New Post</a>
+
+                <a href={{ url_for("views.view_profile") }}>View Profile</a>
 
                 {% endif %}
 
@@ -104,9 +103,7 @@
         </div>
     </div>
 
-    <div>
 
-    </div>
 </body>
 
 </html>

@@ -3,8 +3,11 @@ import sys
 sys.path.append('./website') #to run the test without import errors, one should call from one directory above this line's directory
 sys.path.append('.')
 
+
 from website import create_app, db
 import unittest
+
+TEST_DB_NAME = "test_database.db"
 
 class TestForum(unittest.TestCase):
     def setUp(self):
@@ -21,7 +24,7 @@ class TestForum(unittest.TestCase):
             {
                 "title": "sample_without_description",
                 "description": "",
-                "conent_uri": "https://www.hepsiburada.com/hayatburada/wp-content/uploads/2021/10/shutterstock_1024133086.jpg"
+                "content_uri": "https://www.hepsiburada.com/hayatburada/wp-content/uploads/2021/10/shutterstock_1024133086.jpg"
             },
             {
                 "title": "sample_with_wrong_uri",
