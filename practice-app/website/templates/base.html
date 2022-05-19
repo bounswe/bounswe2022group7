@@ -1,92 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Practice App</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice App</title>
 
-        <style>
-            a {
-                display:block;
-            }
-        </style>
-    </head>
+    <style>
+        a {
+            display: block;
+        }
+    </style>
+</head>
 
-    <body>
+<body>
 
-        <nav>
-            <h1>
-                Practice App - {% block functionality %}{% endblock %}
-            </h1>
+    <nav>
+        <h1>
+            Practice App - {% block functionality %}{% endblock %}
+        </h1>
 
-            <form id="searchBar">
-                <input type="text" name="query" placeholder="Search Something">
-                <input type="button" value="Search" onclick="search()">
+        <form id="searchBar">
+            <input type="text" name="query" placeholder="Search Something">
+            <input type="button" value="Search" onclick="search()">
+        </form>
+
+        <div>
+            {% if session["access_token"] %}
+            <form id="logoutForm">
+                <input type="button" value="Logout" onclick="logout()">
             </form>
+            {% else %}
+            <a href={{ url_for('views.login') }}>Login</a>
+            <a href={{ url_for("views.signup") }}>Signup</a>
+            {% endif %}
+
+        </div>
+
+
+        <script>
+            function search() {
+                var form = document.getElementById("searchBar");
+                var formData = new FormData(form)
+                url = "/?query=" + encodeURIComponent(formData.get("query"))
+                window.location.assign(url)
+            }
+
+            function logout() {
+                var form = document.getElementById("logoutForm");
+                var formData = new FormData(form)
+                url = "/token/drop"
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                }).then(() => { window.location.assign("/") })
+
+
+            }
+        </script>
 
             <div>
                 {% if session["access_token"] %}
-                    <form id="logoutForm">
-                        <input type="button" value="Logout" onclick="logout()">
-                    </form>
-                {% else %}
-                    <a href={{ url_for('views.login') }}>Login</a>
-                    <a href={{ url_for("views.signup") }}>Signup</a>
+                    <a href={{ url_for("views.view_profile") }}>View Profile</a>
                 {% endif %}
-
             </div>
 
+    </nav>
 
-            <script>
-                function search() {
-                    var form = document.getElementById("searchBar");
-                    var formData = new FormData(form)
-                    url = "/?query=" + encodeURIComponent(formData.get("query"))
-                    window.location.assign(url)
-                }
+    <hr>
 
-                function logout() {
-                    var form = document.getElementById("logoutForm");
-                    var formData = new FormData(form)
-                    url = "/token/drop"
-                    fetch(url, {
-                        method: "POST",
-                        headers: {
-                            "Content-type": "application/json; charset=UTF-8"
-                        }
-                    }).then(() => {window.location.assign("/")})
+    <div style="width: 100%; display: table;">
+        <div style="display: table-row">
 
-                    
-                }
-            </script>
+            <div style="width: 15%; display: table-cell;">
+
+                <a href={{ url_for("views.home") }}>Home</a>
+
+                <a href={{ url_for("views.view_forum") }}>Forum Page</a>
 
 
-        </nav>
-        
-        <hr>
+                {% if session["is_artist"] %}
 
-        <div style="width: 100%; display: table;">
-            <div style="display: table-row">
+                <a href={{ url_for("views.create_event") }}>Create Event</a>
 
-                <div style="width: 15%; display: table-cell;">
-                    
-                    <a href={{ url_for("views.home") }}>Home</a>
+                <a href={{ url_for("views.create_art_item") }}>Create Art Item</a>
 
-                    {% if session["is_artist"] %}
+                {% endif %}
 
-                    <a href={{ url_for("views.create_event") }}>Create Event</a>
-                    <a href={{ url_for("discussion.post_forum") }}>Forum Post</a>
-                    <a href={{ url_for("discussion.view_forum") }}>Forum Get</a>
-                    
-                    <a href={{ url_for("views.create_art_item") }}>Create Art Item</a>
 
-                    {% endif %}
-                    
-                    
-                </div>
+                {% if session["access_token"] != None %}
+                                
+                <a href={{ url_for("views.post_forum")}}>New Post</a>
 
-                
+                {% endif %}
+
+            <!-- </div> -->
 
             <div style="display: table-cell;">
                 {% block content %}{% endblock %}
@@ -95,9 +105,7 @@
         </div>
     </div>
 
-    <div>
 
-    </div>
 </body>
 
 </html>

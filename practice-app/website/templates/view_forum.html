@@ -26,8 +26,8 @@
                     <h4>post["description"]</h4>
                 </div>
         
-          */""
-        add_element("div", "<div id=\"pos\" ><h3>" + post.title + "</h3><img src=\"" + post.content_uri + "\"><h6>Author: " + post.creator + "</h6><h6>Post Date: " + post.creation_date + "</h6><h4>" + post.description + "</h4><p>---------------------------------------------</p>");
+          */
+        add_element("div", "<a href=/discussion_post/" + post.id + ">" + post.title + "</a>" + "<img src=\"" + post.content_uri + "\"><h6>Author: " + post.creator + "</h6><h6>Post Date: " + post.creation_date + "</h6><h4>" + post.description + "</h4><p>---------------------------------------------</p>");
     }
 
     function helper(value, index, array) {
@@ -58,17 +58,20 @@
     }
     */
 
-    var url = "/api/forum_get"
+    var url = "/api/forum_get/"
 
 
     fetch(url)
         .then((response) => {
+            console.log(response);
             return response.json();
         })
         .then((data) => {
+            console.log(data);
             add_element("h1", "Forum Page");
             add_element("p", "---------------------------------------------");
             let forum_data = data;
+            console.log(data["results"]);
             data["results"].forEach(helper);
 
         })
