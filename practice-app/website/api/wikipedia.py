@@ -8,6 +8,9 @@ wikipedia = Blueprint("wikipedia", __name__)
 
 @wikipedia.route("/wikipedia_definition", methods=["POST"])
 def wikipedia_definition():
+    """
+    file: ./doc/wikipedia_POST.yml
+    """
 
     req_json = request.json
 
