@@ -36,24 +36,10 @@
 
                     add_element("h2", "Request Status: " + request_data["status"])
 
+                    add_element("h3", "On the day the user has requested verification, in " + request_data["year"] + ": " + request_data["historical_event"])
+
                     if (request_data["status"].localeCompare("Pending") == 0) {
 
-        //                 <div class="btn-group">
-        // <a href="https://getbootstrap.com/docs/5.0/utilities/interactions/" class="btn btn-success" role="button">
-        //     Link Button
-        // </a>
-
-        // <a href="https://getbootstrap.com/docs/5.0/utilities/interactions/" class="btn btn-outline-success" role="button">
-        //     Link Button
-        // </a>
-        // </div>
-                        // add_element("div", `
-                        //     <div class="container mt-3">
-                        //     <button class="btn btn-outline-success" type="button" onclick="accept()">Accept</button>
-                        //     <button class="btn btn-outline-danger" type="button" onclick="reject()">Reject</button>
-                        //     </div>
-                        //     `)
-                        // add_element("div", `<input class="btn btn-success" type="button" value="Accept" onclick="accept()">`)
                         add_element("div", 
                         `<form id="rejectForm">
                             <input type="hidden" id="resultId" name="result" value="reject">

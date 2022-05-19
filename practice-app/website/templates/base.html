@@ -106,7 +106,10 @@
                         }
                     }).then(response => {
                         if (response.status == 409) {
-                            alert('You already have a pending request!')
+                             response.json().then(response_data => {
+
+                                alert(response_data["message"])
+                            })
                         }
 
                         if (response.status == 201) {
@@ -153,7 +156,7 @@
                     
                 </div>
  -->
-                <div class="btn-group-vertical btn-group-lg">
+                <div class="btn-group-vertical btn-group-md">
                     <a href={{ url_for("views.home") }} class="btn btn-outline-primary" role="button">
                         Home Page
                     </a>
