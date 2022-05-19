@@ -36,7 +36,7 @@ env:
   ECR_REPOSITORY: cmpe352-deployment           # set this to your Amazon ECR repository name
   ECS_SERVICE: practice-app                 # set this to your Amazon ECS service name
   ECS_CLUSTER: cmpe352-deployment              # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: task_definition.json # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: practice-app/aws_task_definition.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: cmpe352-deployment           # set this to the name of the container in the
                                                # containerDefinitions section of your task definition
