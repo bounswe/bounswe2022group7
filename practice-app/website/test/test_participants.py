@@ -1,19 +1,14 @@
-from datetime import datetime
 import unittest
 
 from .. import create_app, db
-from ..models import Event, Participants, Artist, User
-from werkzeug.security import generate_password_hash
+from ..models import User
 
-from ..api.event import title_exists, date_valid
 from ..api.participants import *
 
 TEST_DB_NAME = "test_participant_database.db"
 
 
 class TestEvent(unittest.TestCase):
-
-
 
     def setUp(self):
 
