@@ -21,13 +21,18 @@ def view_event(event_id):
 def create_event():
     return render_template("create_event.html")
 
-# @views.route("/forum_comment_post/")
-# def forum_comment_post():
-#     return render_template("forum_comment_post.html")
+@views.route("wikipedia_definition/")
+def wikipedia_definition():
+    return render_template("wikipedia_definition.html")
+
+@views.route("/forum_comment_post/")
+def forum_comment_post():
+    return render_template("forum_comment_post.html")
 
 @views.route("discussion_post/<discussion_post_id>")
 def discussion_post(discussion_post_id):
     return render_template("forum_post.html", discussion_post_id = discussion_post_id )
+
 
 @views.route("forum_get/")
 def view_forum():

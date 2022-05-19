@@ -22,5 +22,8 @@ __pycache__
 # Ignore database file
 *.db
 
+# Ignore virtual python environment folder
+.venv
+venv
 # Ignore AWS credentials
 *.pem

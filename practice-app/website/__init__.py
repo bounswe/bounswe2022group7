@@ -69,6 +69,7 @@ def create_app(testing = False):
     from .api.event import event
     from .api.art_item import art_item
     from .api.home import home
+    from .api.wikipedia import wikipedia
     from .api.profile import profile
     from .jwt import token
     from .api.discussion_forum import forum
@@ -77,6 +78,7 @@ def create_app(testing = False):
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(home, url_prefix="/api")
     app.register_blueprint(event, url_prefix="/api")
+    app.register_blueprint(wikipedia, url_prefix="/api")
     app.register_blueprint(art_item, url_prefix="/api")
     app.register_blueprint(profile, url_prefix="/api")
     app.register_blueprint(token, url_prefix="/token")
