@@ -1,4 +1,3 @@
-# import logging
 from flask import Blueprint, jsonify, request
 from .. import db
 from ..models import ForumPost, PostComment, User
@@ -10,7 +9,6 @@ from .jwt import artist_required, user_required
 from http.client import INTERNAL_SERVER_ERROR
 from flask_jwt_extended import jwt_required, current_user
 from datetime import date
-
 from .jwt import user_required
 
 forum = Blueprint('forum', __name__)
@@ -38,17 +36,25 @@ def bad_word_check(body):
 @forum.route('/forum_get/', methods=["GET"])
 def forum_get():
 
+    """
+    file: ./doc/forum_get_GET.yml
+    """
+    
     try:
         forums = ForumPost.query.all()
     except INTERNAL_SERVER_ERROR:
         return {"error": "Error while extracting posts from database."}, 500
     result = map(lambda x: x.serialize(), forums)
-    return jsonify(results=list(result))
+    return jsonify(results=list(result)), 200
 
 
 @forum.route('/forum_post/', methods=["POST"])
 @user_required()
 def forum_post():
+
+    """
+    file: ./doc/forum_post_POST.yml
+    """
 
     body = request.json
 
