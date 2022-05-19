@@ -27,12 +27,10 @@
 name: Deploy to Amazon ECS
 
 on:
-  release:
-    types: [published]
-  push:
-    tags:  
-      - v0.**
-      - v1.**
+  workflow_run:
+    workflows: ["CD Test"]
+    types:
+      - completed
   workflow_dispatch:
 
 env:
