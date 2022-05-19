@@ -8,9 +8,7 @@ import requests
 from ..settings import *
 from .jwt import artist_required, user_required
 from http.client import INTERNAL_SERVER_ERROR
-# from website import db
 from flask_jwt_extended import jwt_required, current_user
-# from website.settings import *
 from datetime import date
 
 from .jwt import user_required

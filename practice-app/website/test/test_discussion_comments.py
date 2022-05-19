@@ -102,27 +102,6 @@ class TestPostComment(unittest.TestCase):
             self.assertEqual(response.status, "201 CREATED")
             self.comment_ids.append(response.json["id"])
 
-    # This method will be used by the mock to replace requests.get
-    # def mocked_request_external(*args, **kwargs):
-    #     class MockResponse:
-    #         def __init__(self, json_data, status_code):
-    #             self.json_data = json_data
-    #             self.status_code = status_code
-
-    #         def json(self):
-    #             return self.json_data
-
-    #     if args[0] == 'https://deep-translate1.p.rapidapi.com/language/translate/v2':
-    #         return MockResponse(json.stringify({
-    #             "data": {
-    #                 "translations": {
-    #                     "translatedText": "Merhaba"
-    #                 }
-    #             }
-    #         }), 200)
-
-    #     return MockResponse(None, 404)
-
     def make_create_post_comment_request(self, json, token):
         return self.client.post("/api/forum_comment_post",
                                 json=json,
@@ -132,9 +111,7 @@ class TestPostComment(unittest.TestCase):
     def make_view_discussion_post_request(self, post_id):
         return self.client.get(f"/api/get_discussion_post/{post_id}")
 
-    # test create_event API endpoint
 
-    # @mock.patch('api.discussion_forum.translate.request', side_effect=mocked_request_external)
     def test_create_post_comment_endpoint_user(self):
         response = self.make_create_post_comment_request(self.test_data, self.user_access_token)
         
@@ -154,9 +131,7 @@ class TestPostComment(unittest.TestCase):
         self.assertIsNone(PostComment.query.get(response.json["id"] + 1))
 
 
-    # @mock.patch('api.discussion_forum.translate.request', side_effect=mocked_request_external)
     def test_missing_field(self):
-        # keys = ["parent_post", "text"]
         keys = list(self.test_data.keys()).copy()
         for key in keys:
             value = self.test_data.pop(key)
@@ -167,7 +142,6 @@ class TestPostComment(unittest.TestCase):
             self.assertTrue("error" in response.json)
             self.assertEqual(response.json["error"], "There was an error on key / value pairs on request body.")
 
-    # @mock.patch('api.discussion_forum.translate.request', side_effect=mocked_request_external)
     def test_empty_parent_post(self):
         value = self.test_data.pop("parent_post")
         self.test_data["parent_post"] = ""
