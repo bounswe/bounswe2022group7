@@ -35,9 +35,7 @@
         }).then(response => {
             if (response.status == 401) {
                 alert('Incorrect email or password.')
-            }
-
-            if (response.status == 200) {
+            } else if (response.status == 200) {
                 response.json().then(userData => {
 
                     url = "/token/set"

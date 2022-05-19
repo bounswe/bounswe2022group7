@@ -4,8 +4,12 @@ from ..models import Event, ArtItem, verificationRequest
 
 home = Blueprint("home", __name__)
 
+
 @home.route("/search", methods=["GET"])
 def home_route():
+    """
+    file: ./doc/home_GET.yml
+    """
     query = request.args.get("query", None)
     verification_requests = {}
     if query:

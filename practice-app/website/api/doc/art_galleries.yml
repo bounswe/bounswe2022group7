@@ -1,0 +1,21 @@
+Endpoint to view 5 available art galleries
+---
+responses:
+  200:
+    description: The sign up was successful.
+    schema:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            type: string
+            description: Address of the art gallery
+            example: Suite 867 8602 Schroeder Point, East Guillermo, NE 00680-8089
+          name:
+            type: string
+            description: Name of the art gallery
+            example: West Loriaview Art Gallery
+      minItems: 5
+      maxItems: 5
+
