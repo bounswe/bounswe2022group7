@@ -58,3 +58,7 @@ def login():
 @views.route('art_galleries/')
 def view_art_galleries():
     return render_template('art_galleries.html')
+
+@views.route("token_expired_info/")
+def token_expired_info():
+    return render_template("info_page.html", info="Your token has expired, please login again!")

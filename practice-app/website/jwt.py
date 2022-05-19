@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import Blueprint, request, session
+from flask import Blueprint, request, session, redirect, url_for
 from flask_jwt_extended import decode_token
 
 # Token Blueprint
@@ -13,8 +13,7 @@ def set_session_token():
     is_artist    = request.json["is_artist"]
 
     if token:
-        session["access_token"] = access_token
-        session["is_artist"]    = is_artist
+        __set_session(access_token, is_artist)
         return {"success": "Token succesfully set."}, 200
     else:
         return {"success": "A token should be provided in the request body."}, 400
@@ -23,8 +22,7 @@ def set_session_token():
 def drop_session_token():
     current_token = session.get("access_token", None)
     if current_token:
-        session["access_token"] = None
-        session["is_artist"] = None
+        __pop_session()
         return {"success": "Token removed from session."}, 200
     else:
         return {"error": "There is no token to remove from the session."}, 404
@@ -42,7 +40,8 @@ def artist_token_required(func):
             if not claim["is_artist"]:
                 return {"error": "Wrong user type."}, 403
         except:
-            return {"error": "Invalid token."}, 403
+            __pop_session()
+            return redirect(url_for("views.token_expired_info"))
         return func(*args, **kwargs)
     return wrapped
 
@@ -55,6 +54,17 @@ def user_token_required(func):
         try:
             decode_token(token)
         except:
-            return {"error": "Invalid token."}, 403
+            __pop_session()
+            return redirect(url_for("views.token_expired_info"))
         return func(*args, **kwargs)
     return wrapped
+
+# Helper Methods
+
+def __set_session(access_token, is_artist):
+    session["access_token"] = access_token
+    session["is_artist"]    = is_artist
+
+def __pop_session():
+    session["access_token"] = None
+    session["is_artist"] = None
