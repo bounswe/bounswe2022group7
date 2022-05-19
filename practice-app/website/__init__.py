@@ -39,7 +39,7 @@ def create_app(db_name = DB_NAME):
         os.path.join(basedir, db_name)
 
     app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
-    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=10)
+    app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=15)
     app.secret_key = "super-secret-2"  # Change this! This is for flask session
     jwt = JWTManager(app)
 

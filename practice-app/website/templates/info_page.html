@@ -3,5 +3,11 @@
 {% block functionality %}Info{% endblock %}
 
 {% block content %}
-{{info}}
+
+{%for sentence in info%}
+  
+    <p>{{sentence}}</p>
+
+{%endfor%}
+
 {% endblock %}

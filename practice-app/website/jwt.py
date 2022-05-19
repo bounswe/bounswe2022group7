@@ -34,14 +34,14 @@ def artist_token_required(func):
     def wrapped(*args, **kwargs):
         token = session.get("access_token", None)
         if not token:
-            return {"error": "You can not view this page without providing a valid token."}, 403
+            return redirect(url_for("views.no_token_info"))
         try:
             claim = decode_token(token)
             if not claim["is_artist"]:
                 return {"error": "Wrong user type."}, 403
         except:
             __pop_session()
-            return redirect(url_for("views.token_expired_info"))
+            return redirect(url_for("views.no_token_info"))
         return func(*args, **kwargs)
     return wrapped
 
@@ -50,12 +50,12 @@ def user_token_required(func):
     def wrapped(*args, **kwargs):
         token = session.get("access_token", None)
         if not token:
-            return {"error": "You can not view this page without providing a valid token."}, 403
+            return redirect(url_for("views.no_token_info"))
         try:
             decode_token(token)
         except:
             __pop_session()
-            return redirect(url_for("views.token_expired_info"))
+            return redirect(url_for("views.no_token_info"))
         return func(*args, **kwargs)
     return wrapped
 

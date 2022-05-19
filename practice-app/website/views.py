@@ -59,6 +59,9 @@ def login():
 def view_art_galleries():
     return render_template('art_galleries.html')
 
-@views.route("token_expired_info/")
-def token_expired_info():
-    return render_template("info_page.html", info="Your token has expired, please login again!")
+@views.route("no_token_info/")
+def no_token_info():
+    return render_template("info_page.html",
+                           info=["You tried to access a page that requires authentication without a valid token.",
+                                 "Either you didn't login or your session expired (15 minutes).",
+                                 "Please login and try again."])
