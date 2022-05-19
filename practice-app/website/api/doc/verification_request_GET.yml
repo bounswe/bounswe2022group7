@@ -1,0 +1,50 @@
+Endpoint to fetch a verification request with a given ID
+---
+parameters:
+  - name: request_id
+    in: path
+    required: true
+    type: integer
+    description: ID of the verification request
+    example : 9
+         
+responses:
+  201:
+    description: Verification request with the given ID is successfully fetched.
+    schema:
+      type: object
+      required:
+        - id
+        - user_id
+        - request_date
+        - status
+        - historical_event
+        - year
+      properties:
+        id:
+          type: integer
+          description: ID of the verification request
+          example: 9
+        user_id:
+          type: integer
+          description: ID of the user requested verification
+          example: 4
+        request_date:
+          type: string
+          description: The date the user has requested verification, in Epoch format
+          example: "2022-05-19 19:50:10.936008"
+        status:
+          type: string
+          description: Status of the request. Status is 0 when a request is created, 1 if the request is accepted and -1 if the request is rejected
+          example: "Rejected"
+        historical_event:
+          type: string
+          description: A historical event that happened on the day the user requested verification
+          example: "Ashina Jiesheshuai of the Eastern Turkic Khaganate failed in an attempt to assassinate Emperor Taizong of the Chinese Tang dynasty and was killed by pursuers."
+        year:
+          type: integer
+          description: In what year the historical event happened?
+          example: 630       
+
+  404:
+    description: "There is no verification request with the given ID."

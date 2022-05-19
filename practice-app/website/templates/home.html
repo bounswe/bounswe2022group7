@@ -20,11 +20,15 @@
     // IMPLEMENTING DIFFERENT FEATURES
 
     function display_event(event_data) {
-        add_element("div", `<a href=/event/${event_data["id"]}>${event_data["title"]}</a>`)
+        add_element("div", `<a href=/event/${event_data["id"]} class="list-group-item list-group-item-action">${event_data["title"]}</a>`)
     }
 
     function display_art_item(art_item_data) {
         add_element("div", `<a href=/art_item/${art_item_data["id"]}>${art_item_data["name"]}</a>`)
+    }
+
+    function display_verification_request(request_data) {
+        add_element("div", `<a href=/verification/${request_data["id"]} class="list-group-item list-group-item-action">${request_data["id"]}</a>`)
     }
 
     var url = "/api/search"
@@ -42,9 +46,19 @@
             if (response.status == 200) {
                 response.json().then(json => {
                     add_element("h1", "Events")
+                    add_element("div", `<ul class="list-group">`)
                     json["events"].forEach(display_event)
+                    add_element("div", `</ul>`)
+
                     add_element("h1", "Art Items")
+                    // add_element("div", `<ul class="list-group">`)                    
                     json["art_items"].forEach(display_art_item)
+                    // add_element("div", `</ul>`)
+
+                    add_element("h1", "Verification Requests")
+                    add_element("div", `<ul class="list-group">`)
+                    json["verification_requests"].forEach(display_verification_request)
+                    add_element("div", `</ul>`)
                 })
             }
         }).catch(err => {

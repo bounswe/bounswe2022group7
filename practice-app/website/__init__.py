@@ -47,7 +47,7 @@ def create_app(testing = False):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
             os.path.join(basedir, DB_NAME)
         app.secret_key = FLASK_SECRET_KEY  #This is for flask session
-        app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY  # Change this!
+        app.config["JWT_SECRET_KEY"] = FLASK_SECRET_KEY  # Change this!
     
     
     jwt = JWTManager(app)
@@ -86,6 +86,9 @@ def create_app(testing = False):
     app.register_blueprint(token, url_prefix="/token")
     app.register_blueprint(forum, url_prefix="/api")
     app.register_blueprint(art_galleries, url_prefix='/api')
+
+    from .api.verification import verify
+    app.register_blueprint(verify, url_prefix="/api")
 
     from .api.auth import auth
 

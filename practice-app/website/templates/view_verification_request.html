@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Event {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+    url = "/api/verification/{{request_id}}"
+
+    
+    fetch(url)
+    .then(response => {
+            if (response.status == 404) {
+                add_element("div", "Oops! There is no request with this id.")
+            } else if (response.status == 200) {
+                response.json().then(request_data => {
+
+                    add_element("h1", "Request Stats")
+
+                    add_element("h2", "User: " + request_data["user_name"])
+                    
+                    add_element("h2", "Request Date: " + request_data["request_date"])
+
+                    add_element("h2", "Request Status: " + request_data["status"])
+
+                    add_element("h3", "On the day the user has requested verification, in " + request_data["year"] + ": " + request_data["historical_event"])
+
+                    if (request_data["status"].localeCompare("Pending") == 0) {
+
+                        add_element("div", 
+                        `<form id="rejectForm">
+                            <input type="hidden" id="resultId" name="result" value="reject">
+                            <button class="btn btn-outline-danger" type="button" onclick="reject()">Reject</button>
+                        </form>
+                        `)
+
+                        add_element("div", 
+                        `<form id="acceptForm">
+                            <input type="hidden" id="resultIdd" name="resultt" value="accept">
+                            <button class="btn btn-outline-success" type="button" onclick="accept()">Accept</button>
+                        </form>
+                        `)
+
+
+                    }
+
+                }
+            )} else {
+                    add_element(response.status)
+                }   
+        });
+
+
+    function accept() {
+        var form = document.getElementById('acceptForm');
+        var formData = new FormData(form)
+        // var request_id2 = {{request_id}}
+        url = "/api/verification/review/{{request_id}}"
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+            }
+        }).then(response => {
+            if (response.status == 409) {
+                alert('There is no available request with this id!')
+            }
+
+            if (response.status == 201) {
+                response.json().then(request_data => {
+                    window.location.assign('/verification/' + request_data["id"])
+                })
+            }   
+        })
+    }
+
+
+    function reject() {
+        var form = document.getElementById('rejectForm');
+        var formData = new FormData(form)
+
+        // var request_id1 = {{request_id}}
+        url = "/api/verification/review/{{request_id}}"
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+            }
+        }).then(response => {
+            if (response.status == 409) {
+                alert('There is no available request with this id!')
+            }
+
+            if (response.status == 201) {
+                response.json().then(request_data => {
+                    window.location.assign('/verification/' + request_data["id"])
+                })
+            }   
+        })
+    }
+
+    
+</script>
+
+{% endblock %}

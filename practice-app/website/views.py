@@ -16,6 +16,11 @@ def view_event(event_id):
     return render_template("view_event.html", event_id=event_id)
 
 
+@views.route("verification/<request_id>/")
+def viewRequest(request_id):
+    print(request_id)
+    return render_template("view_verification_request.html", request_id=request_id)
+
 @views.route("create_event/")
 @artist_token_required
 def create_event():
@@ -72,6 +77,15 @@ def login():
 def participate(event_id):
     return render_template('participate.html', event_id=event_id)
     
+@views.route('request_verification/')
+def request_verification():
+    return render_template('request_verification.html')
+
+
+@views.route('bootstrap_test')
+def bootstrapTest():
+    return render_template('bootstrap.html')
+
 @views.route('art_galleries/')
 def view_art_galleries():
     return render_template('art_galleries.html')
