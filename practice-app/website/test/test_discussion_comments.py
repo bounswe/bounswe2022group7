@@ -18,18 +18,18 @@ class TestPostComment(unittest.TestCase):
         self.client = app.test_client()
 
         self.artist_data = {
-            "email": "artist@mail.com",
-            "password": "pass",
-            "first_name": "ArtistName",
-            "last_name": "Test",
+            "email": "artist@mail.ru",
+            "password": "password",
+            "first_name": "Name",
+            "last_name": "Surname",
             "is_artist": "on"
         }
 
         self.user_data = {
-            "email": "user@mail.com",
-            "password": "pass",
+            "email": "user@mail.ru",
+            "password": "password",
             "first_name": "UserName",
-            "last_name": "Test",
+            "last_name": "UserSurname",
             "is_artist": None
         }
 
