@@ -182,7 +182,7 @@ def get_share_link(event_id):
         shortened_url = create_personal_share_link(target_url, event_id, current_user.id)
         
         if shortened_url["status"] == 200:
-            return {"share_link": shortened_url["link"]}, 201
+            return {"share_link": shortened_url["link"]}, 200
         else:
             return {"error" : shortened_url["message"]}, shortened_url["status"]
     else:
