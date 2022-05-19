@@ -1,0 +1,32 @@
+Endpoint to review a verification request
+---
+
+parameters:
+  - name: result
+    in: body
+    required: true
+    type: string
+    description: The decision for the verification request
+    example: "accept"
+
+responses:
+  201:
+    description: The decision for the request is processed succesfully.
+    schema:
+      type: object
+      required:
+        - id
+        - status
+      properties:
+        id:
+          type: integer
+          description: ID of the processed request
+          example: 37
+        status:
+          type: integer
+          description: Status of the request
+          example: 1        
+  500:
+    description: "Server error."
+  409:
+    description: "There is no available request with the given id"
