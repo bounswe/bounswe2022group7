@@ -2,16 +2,12 @@
 from __future__ import print_function
 from http.client import INTERNAL_SERVER_ERROR
 from flask import Blueprint, jsonify, request
-from platformdirs import user_cache_dir
 from website import db
 from website.models import ForumPost
-from flask_sqlalchemy import SQLAlchemy
 from datetime import date
-import json
 import requests
-from flask_jwt_extended import jwt_required, current_user
+from flask_jwt_extended import current_user
 from website.settings import *
-import sys
 
 from .jwt import user_required
 
@@ -40,17 +36,25 @@ def bad_word_check(body):
 @forum.route('/forum_get/', methods=["GET"])
 def forum_get():
 
+    """
+    file: ./doc/forum_get_GET.yml
+    """
+    
     try:
         forums = ForumPost.query.all()
     except INTERNAL_SERVER_ERROR:
         return {"error": "Error while extracting posts from database."}, 500
     result = map(lambda x: x.serialize(), forums)
-    return jsonify(results=list(result))
+    return jsonify(results=list(result)), 200
 
 
 @forum.route('/forum_post/', methods=["POST"])
 @user_required()
 def forum_post():
+
+    """
+    file: ./doc/forum_post_POST.yml
+    """
 
     body = request.json
 
