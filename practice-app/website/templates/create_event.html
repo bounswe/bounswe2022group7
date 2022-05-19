@@ -31,7 +31,7 @@
             body: JSON.stringify(Object.fromEntries(formData)),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
-                Authorization: "Bearer " + "{{session["access_token"]}}"
+                Authorization: "Bearer " + "{{session['access_token']}}"
             }
         }).then(response => {
             if (response.status == 409) {
