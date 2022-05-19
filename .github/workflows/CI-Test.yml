@@ -13,7 +13,15 @@ on:
 
 permissions:
   contents: read
-  
+
+env:
+  URL_SHORTENER_API_KEY: ${{ secrets.URL_SHORTENER_API_KEY }}
+  SIMILARITY_SCORE_API_KEY: ${{ secrets.SIMILARITY_SCORE_API_KEY }}
+  COLOR_FINDER_API_KEY: ${{ secrets.COLOR_FINDER_API_KEY }}
+  COLOR_FINDER_API_SECRET: ${{ secrets.COLOR_FINDER_API_SECRET }}
+  WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+  TRANSLATE_API_KEY: ${{ secrets.TRANSLATE_API_KEY }}
+  ON_THIS_DAY_API_KEY: ${{ secrets.ON_THIS_DAY_API_KEY }}
 
 jobs:
   practice-app-testing:

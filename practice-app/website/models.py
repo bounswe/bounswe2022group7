@@ -147,13 +147,13 @@ class ForumPost(db.Model):
 The database model for the comments under forum posts.
 """
 
-
 class PostComment(db.Model):
     __tablename__ = 'post_comment'
     parent_post = db.Column(db.Integer, db.ForeignKey("forum_post.id"))
     id = db.Column(db.Integer, primary_key=True)
     creator = db.Column(db.Integer, db.ForeignKey("user.id"))
     text = db.Column(db.Text)
+    translation = db.Column(db.Text)
     content_uri = db.Column(db.String)
     creation_date = db.Column(db.Date)
 
@@ -163,29 +163,10 @@ class PostComment(db.Model):
             "id": self.id,
             "creator": self.creator,
             "text": self.text,
+            "translation": self.translation,
             "content_uri": self.content_uri,
             "creation_date": self.creation_date
         }
 
 
-"""
-The database model for the comments under event pages.
-"""
 
-
-class EventDiscussionComment(db.Model):
-    __tablename__ = 'event_comment'
-    event = db.Column(db.Integer, db.ForeignKey("event.id"))
-    id = db.Column(db.Integer, primary_key=True)
-    creator = db.Column(db.Integer, db.ForeignKey("user.id"))
-    text = db.Column(db.Text)
-    creation_date = db.Column(db.Date)
-
-    def serialize(self):
-        return {
-            "event": self.event,
-            "id": self.id,
-            "creator": self.creator,
-            "text": self.text,
-            "creation_date": self.creation_date
-        }
