@@ -5,14 +5,11 @@ from ..models import User
 
 from ..api.participants import *
 
-TEST_DB_NAME = "test_participant_database.db"
-
-
 class TestEvent(unittest.TestCase):
 
     def setUp(self):
 
-        app = create_app(TEST_DB_NAME)
+        app = create_app(testing=True)
         self.ctx = app.app_context()
         self.ctx.push()
         self.client = app.test_client()
@@ -109,22 +106,31 @@ class TestEvent(unittest.TestCase):
         self.client.post(f"/api/participants/{self.event_ids[1]}",
                                 headers = {"Authorization": "Bearer %s" % self.user_access_token})
 
+        self.invalid_event_id = 587478478
+        self.expired_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mjg4Mjc2NCwianRpIjoiZWQzODE3ZjAtOWI1OC00MDc2LThiZTYtZDRkNGYyZDVhZDY3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MiwibmJmIjoxNjUyODgyNzY0LCJleHAiOjE2NTI4ODM2NjQsImlzX2FydGlzdCI6ZmFsc2V9.0Ygj8SVXkMjDOFMeyWObFvAbCOZhhUxfyBysURCKGpc"
+        self.invalid_token = "sdahkdsahjbsad"
 
     
     ##################################
     ## HELPERS
     #################################
 
-    def add_participant_request(self, id, auth):
+    def request_add_participant(self, id, auth):
         return self.client.post(f"/api/participants/{id}",
                                 headers = {"Authorization": "Bearer %s" % auth})
     
-    def remove_participant_request(self, id, auth):
+    def request_remove_participant(self, id, auth):
         return self.client.delete(f"/api/participants/{id}",
                                 headers = {"Authorization": "Bearer %s" % auth})
 
-    def view_participants_request(self, id):
+    def request_view_participants(self, id):
         return self.client.get(f"/api/participants/{id}")
+
+    def request_share_link(self, json, event_id, access_token):
+        return self.client.post(f"/api/participants/share/{event_id}",
+                                        json=json,
+                                        content_type = "application/json; charset=UTF-8",
+                                        headers = {"Authorization": "Bearer %s" % access_token}) 
 
 
     ############################
@@ -134,7 +140,7 @@ class TestEvent(unittest.TestCase):
     # Tests what happens with a invalid event id
     def test_add_participant_invalid_requests(self):
         # invalid event id
-        invalid_id_response = self.add_participant_request(43376437634, self.user_access_token)
+        invalid_id_response = self.request_add_participant(43376437634, self.user_access_token)
 
         self.assertEqual(invalid_id_response.status, "404 NOT FOUND")
         self.assertTrue("error" in invalid_id_response.json)
@@ -142,30 +148,30 @@ class TestEvent(unittest.TestCase):
 
     # Tests auth with random gibberish
     def test_add_participant_auth(self):
-        response = self.add_participant_request(self.event_ids[0], "hjsdhjds")
+        response = self.request_add_participant(self.event_ids[0], self.invalid_token)
         self.assertEqual(response.status, "422 UNPROCESSABLE ENTITY")
 
     # Tests auth with stale token  
     def test_add_participant_stale_token(self):
-        response = self.add_participant_request(self.event_ids[0], "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mjg4Mjc2NCwianRpIjoiZWQzODE3ZjAtOWI1OC00MDc2LThiZTYtZDRkNGYyZDVhZDY3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MiwibmJmIjoxNjUyODgyNzY0LCJleHAiOjE2NTI4ODM2NjQsImlzX2FydGlzdCI6ZmFsc2V9.0Ygj8SVXkMjDOFMeyWObFvAbCOZhhUxfyBysURCKGpc")
+        response = self.request_add_participant(self.event_ids[0], self.expired_token)
         self.assertEqual(response.status, "401 UNAUTHORIZED")
 
 
     # Tests if a participant can be added
     def test_add_participant_valid(self):
-        response = self.add_participant_request(self.event_ids[0], self.user_access_token)
+        response = self.request_add_participant(self.event_ids[0], self.user_access_token)
         self.assertEqual(response.status, "201 CREATED")
         self.assertTrue("success" in response.json)
         self.assertEqual(response.json["success"], "Successfully added the participant")
 
     # Testing duplicate participant
     def test_add_participant_duplicate(self):
-        response2 = self.add_participant_request(self.event_ids[0], self.user_access_token)
+        response2 = self.request_add_participant(self.event_ids[0], self.user_access_token)
         self.assertEqual(response2.status, "201 CREATED")
         self.assertTrue("success" in response2.json)
         self.assertEqual(response2.json["success"], "Successfully added the participant")
 
-        response = self.add_participant_request(self.event_ids[0], self.user_access_token)
+        response = self.request_add_participant(self.event_ids[0], self.user_access_token)
         self.assertEqual(response.status, "409 CONFLICT")
 
     ############################
@@ -174,7 +180,7 @@ class TestEvent(unittest.TestCase):
      
      # invalid event
     def test_view_participants_invalid_event(self):
-        response = self.view_participants_request(43376437634)
+        response = self.request_view_participants(43376437634)
 
         self.assertEqual(response.status, "404 NOT FOUND")
         self.assertTrue("error" in response.json)
@@ -183,13 +189,13 @@ class TestEvent(unittest.TestCase):
 
         # empty part list
     def test_view_participants_empty(self):
-        response = self.view_participants_request(self.event_ids[0])
+        response = self.request_view_participants(self.event_ids[0])
         self.assertEqual(response.status, "200 OK")
         self.assertEqual(len(response.json["participants"]), 0)
 
     # populated participant list testing
     def test_view_participants_populated(self):
-        response = self.view_participants_request(self.event_ids[1])
+        response = self.request_view_participants(self.event_ids[1])
         self.assertEqual(response.status, "200 OK")
         self.assertEqual(response.json["participants"][1]["user_name"], f"{self.artist['first_name']} {self.artist['last_name']}")
         self.assertEqual(response.json["participants"][0]["user_name"], f"{self.user['first_name']} {self.user['last_name']}")
@@ -199,13 +205,13 @@ class TestEvent(unittest.TestCase):
     ############################
     # unauth
     def test_remove_auth(self):
-        response = self.remove_participant_request(self.event_ids[0], "hjsdhjds")
+        response = self.request_remove_participant(self.event_ids[0], "hjsdhjds")
         self.assertEqual(response.status, "422 UNPROCESSABLE ENTITY")
        
        
     # invalid event
     def test_remove_invalid_event(self):
-        response = self.remove_participant_request(43376437634, self.user_access_token)
+        response = self.request_remove_participant(43376437634, self.user_access_token)
 
         self.assertEqual(response.status, "404 NOT FOUND")
         self.assertTrue("error" in response.json)
@@ -213,18 +219,19 @@ class TestEvent(unittest.TestCase):
 
     # not participating in event
     def test_remove_not_participating_case(self):
-        response = self.remove_participant_request(self.event_ids[0], self.artist2_access_token)
+        response = self.request_remove_participant(self.event_ids[0], self.artist2_access_token)
         self.assertEqual(response.status, "409 CONFLICT")
         self.assertTrue("error" in response.json)
 
     # valid removal
-    def test_valid_single_removal(self):
-        response = self.remove_participant_request(self.event_ids[1], self.artist_access_token)
+    def test_remove_single_valid(self):
+        response = self.request_remove_participant(self.event_ids[1], self.artist_access_token)
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("success" in response.json)
         self.assertEqual(response.json["success"], f"Successfully removed the participant(s).")
 
-    def test_valid_multiple_removal(self):
+    # Multiple valid removal
+    def test_remove_multiple_valid(self):
         removal_request_json = { "participants": [self.user_id, self.artist_id]}
         response = self.client.delete(f"/api/participants/{self.event_ids[1]}",
                                         json=removal_request_json,
@@ -234,11 +241,12 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("success" in response.json)
         self.assertEqual(response.json["success"], f"Successfully removed the participant(s).")
-        check_response = self.view_participants_request(self.event_ids[1])
+        check_response = self.request_view_participants(self.event_ids[1])
         self.assertEqual(check_response.status, "200 OK")
         self.assertEqual(len(check_response.json["participants"]), 0)
 
-    def test_user_not_creator_removal(self):
+    # Check if user creator
+    def test_remove_needs_to_be_creator(self):
         removal_request_json = { "participants": [self.user_id, self.artist_id]}
         response = self.client.delete(f"/api/participants/{self.event_ids[1]}",
                                         json=removal_request_json,
@@ -250,7 +258,7 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(response.json["error"], "User is not the creator of the event")
 
     # Case which a user given in list is not a participant, will block all removal process
-    def test_multiple_remove_not_participating_case(self):
+    def test_remove_user_not_participating(self):
         removal_request_json = { "participants": [self.user_id, self.artist_id]}
         response = self.client.delete(f"/api/participants/{self.event_ids[0]}",
                                         json=removal_request_json,
@@ -260,7 +268,7 @@ class TestEvent(unittest.TestCase):
         self.assertTrue("error" in response.json)
 
     # Empty array test
-    def test_empty_array_removal(self):
+    def test_remove_request_body_empty_array(self):
         removal_request_json = { "participants": []}
         response = self.client.delete(f"/api/participants/{self.event_ids[1]}",
                                         json=removal_request_json,
@@ -270,12 +278,12 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("success" in response.json)
         self.assertEqual(response.json["success"], f"Successfully removed the participant(s).")
-        check_response = self.view_participants_request(self.event_ids[1])
+        check_response = self.request_view_participants(self.event_ids[1])
         self.assertEqual(check_response.status, "200 OK")
         self.assertEqual(len(check_response.json["participants"]), 2)
 
-        # Case which a user given in list is not a participant, will block all removal process
-    def test_invalid_json_remove_case(self):
+
+    def test_remove_invalid_request_body(self):
         removal_request_json = { "particiler": [self.user_id, self.artist_id]}
         response = self.client.delete(f"/api/participants/{self.event_ids[0]}",
                                         json=removal_request_json,
@@ -289,13 +297,46 @@ class TestEvent(unittest.TestCase):
     ## POST /api/participants/share/<event_id>
     ############################
 
-    # sharing test
-        # invalid body
-            # invalid path
-            # invalid domain
-        # unauth
-        # invalid event id
+    # # Invalid Event ID
+    # def test_share_invalid_event(self):
+    #     json = { "page_url": "https://google.com/tr/"}
+    #     response = self.request_share_link(json, self.invalid_event_id, self.artist_access_token)
+    #     self.assertEqual(response.status, "404 NOT FOUND")
 
+    # # Invalid Request Body                              
+    # def test_share_invalid_request_body(self):
+    #     json = { "paige_url": "https://google.com/tr/"}
+    #     response = self.request_share_link(json, self.event_ids[0], self.artist_access_token)
+
+    #     self.assertEqual(response.status, "400 BAD REQUEST")
+    #     self.assertEqual(response.json["error"], "There was an error on key / value pairs on request body.")
+
+    # # Invalid Link
+    # def test_share_request_body_invalid_link(self):
+    #     json = { "page_url": "not_an_url"}
+    #     response = self.request_share_link(json, self.event_ids[0], self.artist_access_token)
+
+    #     self.assertEqual(response.status, "400 BAD REQUEST")
+    #     self.assertEqual(response.json["error"], "Not a link")
+
+    # # Expired Token
+    # def test_share_expired_token(self):
+    #     json = { "page_url": "https://google.com/tr/"}
+    #     response = self.request_share_link(json, self.event_ids[0], self.expired_token)
+    #     self.assertEqual(response.status, "401 UNAUTHORIZED")
+
+    # # Invalid Token
+    # def test_share_invalid_token(self):
+    #     json = { "page_url": "https://google.com/tr/"}
+    #     response = self.request_share_link(json, self.event_ids[0], self.invalid_token)
+    #     self.assertEqual(response.status, "422 UNPROCESSABLE ENTITY")
+
+    # # Valid request
+    # def test_share_valid_request(self):
+    #     json = { "page_url": "https://google.com/tr/"}
+    #     response = self.request_share_link(json, self.event_ids[0], self.artist2_access_token)
+    #     self.assertEqual(response.status, "200 OK")
+    
 
     ############################
     ## GET /api/participants/get_info/<event_id>

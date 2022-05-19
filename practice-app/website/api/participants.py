@@ -47,8 +47,6 @@ def add_participant(event_id):
     return {"success" : "Successfully added the participant"}, 201
 
     
-
-
 # API endpoint for removing participants from an event
 @participants.route("/participants/<event_id>", methods=["DELETE"])
 @user_required()
@@ -177,10 +175,10 @@ def create_share_link(event_id):
 
         shortened_url = create_unique_sharing_link(target_url, event_id, current_user.id)
         
-        if "error" not in shortened_url:
+        if shortened_url["status"] == 200:
             return {"share_link": shortened_url["link"]}, 200
         else:
-            return shortened_url, 502
+            return {"error" : shortened_url["message"]}, shortened_url["status"]
     else:
         return {"error": "Request body should be a JSON file."}, 400
         
@@ -206,19 +204,19 @@ def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe
             # Link is created
             if (response_status == 7):
                 shortened_link = response_body["shortLink"]
-                return {"status" : "success", "link": shortened_link}
+                return {"status" : 200, "link": shortened_link}
 
             # Link is from a blocked domain
             elif (response_status == 6):
-                return {"error" :"The link provided is from a blocked domain"}
+                return {"status": 409, "message" :"The link provided is from a blocked domain"}
 
             # Invalid link
             elif (response_status == 5):
-                return {"error" : "Invalid link"}
+                return {"status" : 400, "message" : "Invalid link"}
 
             # Invalid API key
             elif (response_status == 4):
-                return {"error":"Invalid API key"}
+                return {"status": 400, "message":"Invalid API key"}
             
             # link name already taken, try again with another name
             elif (response_status == 3):
@@ -226,20 +224,20 @@ def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe
     
             # Invalid link
             elif (response_status == 2):
-                return {"error" : "Not a link"}
+                return {"status": 400, "message" : "Not a link"}
 
             # Link is already shortened
             elif (response_status == 1):
-                return {"error" : "The link is already shortened"}
+                return {"status": 409, "message" : "The link is already shortened"}
             
             else:
-                return {"error" : "Unexpected Error"}
+                return {"status": 502, "message" : "Unexpected Error"}
         
         else: # Outside of API definition
-            return {"error" : "Error when creating the share link. Try again later."}
+            return {"status": 500, "message" : "Error when creating the share link. Try again later."}
     
     else:
-        return {"error" :"Couldn't create the link. Try again later"}
+        return {"status": 500, "message" :"Couldn't create the link. Try again later"}
 
 
 
