@@ -137,7 +137,7 @@ def view_participants(event_id):
 # Gets info about event as title, checks if the current user is owner or participant
 @participants.route("/participants/get_info/<event_id>", methods=["GET"])
 @user_required()
-def get_participation_info(event_id):
+def get_personal_event_info(event_id):
 
     event = Event.query.get(event_id)
     if not event:
@@ -159,7 +159,7 @@ def get_participation_info(event_id):
 # this creates share link by making an external api call
 @participants.route("/participants/share/<event_id>", methods=["POST"])
 @user_required()
-def create_share_link(event_id):
+def get_share_link(event_id):
 
     if not Event.query.get(event_id):
         return {"error": f"There are no events with the id {event_id}."}, 404   
@@ -185,7 +185,7 @@ def create_share_link(event_id):
 
 # Makes API call to URL shortener
 from ..settings import SHORTENER_API_KEY
-def create_unique_sharing_link(page_url, event_id, user_id, link_prefix='bounswe2022g7', recursion=0):
+def create_personal_share_link(page_url, event_id, user_id, link_prefix='bounswe2022g7', recursion=0):
 
     if recursion != 3:
 
