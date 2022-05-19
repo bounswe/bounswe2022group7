@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block functionality %}Info{% endblock %}
+
+{% block content %}
+
+{%for sentence in info%}
+  
+    <p>{{sentence}}</p>
+
+{%endfor%}
+
+{% endblock %}

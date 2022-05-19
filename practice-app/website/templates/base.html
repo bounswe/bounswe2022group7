@@ -38,144 +38,142 @@
 
         <style>
             a {
-                display:block;
+                display: block;
             }
         </style>
     </head>
 
-    <body>
+<body>
 
-        <nav>
-            <h1>
-                Practice App - {% block functionality %}{% endblock %}
-            </h1>
+    <nav>
+        <h1>
+            Practice App - {% block functionality %}{% endblock %}
+        </h1>
 
-            <form id="searchBar">
-                <input type="text" name="query" placeholder="Search Something">
-                <button type="button" class="btn btn-outline-secondary" onclick="search()">
-                    Search
-                </button>
-<!--                 <input type="button" value="Search" onclick="search()"> -->
-            </form>
-
-<!--             <img src="/Icons/img/bootstrap.svg"
-                alt="" width="40"
-                height="40" title="Icons">
- -->
-            <div>
-                {% if session["access_token"] %}
-                    <form id="logoutForm">
-                        <!-- <input type="button" value="Logout" onclick="logout()"> -->
-                        <button type="button" class="btn btn-danger" onclick="logout()">
-                            Logout
-                        </button>
-                    </form>
-
-                    <form id="requestVerificationForm">
-                        <button type="button" class="btn btn-outline-primary" onclick="requestVerification()">
-                            Be a verified user
-                        </button>
-<!--                         <input type="button" value="Be a verified user" onclick="requestVerification()"> -->
-                    </form>
-                {% else %}
-                    <a href={{ url_for('views.login') }} class="btn btn-outline-info" role="button">Login</a>
-                    <a href={{ url_for("views.signup") }} class="btn btn-outline-dark" role=button>Signup</a>
-                {% endif %}
-
-            </div>
-
-
-            <script>
-                function search() {
-                    var form = document.getElementById("searchBar");
-                    var formData = new FormData(form)
-                    url = "/?query=" + encodeURIComponent(formData.get("query"))
-                    window.location.assign(url)
-                }
-
-                function requestVerification() {
-                    var form = document.getElementById("requestVerificationForm")
-                    var formData = new FormData(form)
-                    url = "/api/verification/request"
-                    fetch(url, {
-                        method: "POST",
-                        body: {},
-                        headers: {
-                            "Content-type": "application/json; charset=UTF-8",
-                            Authorization: "Bearer " + "{{session["access_token"]}}"
-                        }
-                    }).then(response => {
-                        if (response.status == 409) {
-                             response.json().then(response_data => {
-
-                                alert(response_data["message"])
-                            })
-                        }
-
-                        if (response.status == 201) {
-                            response.json().then(request_data => {
-                                window.location.assign('/verification/' + request_data["id"])
-                            })
-                        }   
-                    })
-                }
-
-                function logout() {
-                    var form = document.getElementById("logoutForm");
-                    var formData = new FormData(form)
-                    url = "/token/drop"
-                    fetch(url, {
-                        method: "POST",
-                        headers: {
-                            "Content-type": "application/json; charset=UTF-8"
-                        }
-                    }).then(() => {window.location.assign("/")})
-
-                    
-                }
-            </script>
-
-
-        </nav>
-        
-        <hr>
-
-        <div style="width: 60%; display: table;">
-            <div style="display: table-row">
-
-<!--                 <div style="width: 15%; display: table-cell;">
-                    
-                    <a href={{ url_for("views.home") }}>Home</a>
-
-                    {% if session["is_artist"] %}
-
-                    <a href={{ url_for("views.create_event") }}>Create Event</a>
-                    
-                    {% endif %}
-                    
-                    
-                </div>
- -->
-                <div class="btn-group-vertical btn-group-md">
-                    <a href={{ url_for("views.home") }} class="btn btn-outline-primary" role="button">
-                        Home Page
-                    </a>
-                    {% if session["is_artist"] %}
-                        <a href={{ url_for("views.create_event") }} class="btn btn-outline-secondary" role="button">
-                            Create Event
-                        </a>
-                    {% endif %}
-                </div>
-                <div style="display: table-cell;"> 
-                    {% block content %}{% endblock %}
-                </div>
-
-            </div>
-        </div>
+        <form id="searchBar">
+            <input type="text" name="query" placeholder="Search Something">
+            <button type="button" class="btn btn-outline-secondary" onclick="search()">
+                Search
+            </button>
+        </form>
 
         <div>
-            
+            {% if session["access_token"] %}
+                <form id="logoutForm">
+                    <button type="button" class="btn btn-danger" onclick="logout()">
+                        Logout
+                    </button>
+                </form>
+
+                <form id="requestVerificationForm">
+                    <button type="button" class="btn btn-outline-primary" onclick="requestVerification()">
+                        Be a verified user
+                    </button>
+                </form>
+
+            {% else %}
+                <a href={{ url_for('views.login') }} class="btn btn-outline-info" role="button">Login</a>
+                <a href={{ url_for("views.signup") }} class="btn btn-outline-dark" role=button>Signup</a>
+                <a href={{ url_for("views.view_profile") }}>View Profile</a>
+            {% endif %}
+
         </div>
-    </body>
+
+        <script>
+            function search() {
+                var form = document.getElementById("searchBar");
+                var formData = new FormData(form)
+                url = "/?query=" + encodeURIComponent(formData.get("query"))
+                window.location.assign(url)
+            }
+
+            function requestVerification() {
+                var form = document.getElementById("requestVerificationForm")
+                var formData = new FormData(form)
+                url = "/api/verification/request"
+                fetch(url, {
+                    method: "POST",
+                    body: {},
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8",
+                        Authorization: "Bearer " + "{{session["access_token"]}}"
+                    }
+                }).then(response => {
+                    if (response.status == 409) {
+                         response.json().then(response_data => {
+
+                            alert(response_data["message"])
+                        })
+                    }
+
+                    if (response.status == 201) {
+                        response.json().then(request_data => {
+                            window.location.assign('/verification/' + request_data["id"])
+                        })
+                    }   
+                })
+            }
+
+            function logout() {
+                var form = document.getElementById("logoutForm");
+                var formData = new FormData(form)
+                url = "/token/drop"
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                }).then(() => {window.location.assign("/")})
+
+                
+            }
+        </script>
+
+    </nav>
+
+    <hr>
+
+    <div style="width: 60%; display: table;">
+        <div style="display: table-row">
+
+            <a href={{ url_for("views.view_forum") }}>Forum Page</a>
+
+            <div class="btn-group-vertical btn-group-md">
+                <a href={{ url_for("views.home") }} class="btn btn-outline-primary" role="button">
+                    Home Page
+                </a>
+                {% if session["is_artist"] %}
+                    <a href={{ url_for("views.create_event") }} class="btn btn-outline-secondary" role="button">
+                        Create Event
+                    </a>
+                {% endif %}
+            </div>
+
+            {% if session["is_artist"] %}
+
+            <a href={{ url_for("views.create_art_item") }}>Create Art Item</a>
+
+            {% endif %}
+
+
+            {% if session["access_token"] != None %}
+                            
+                <a href={{ url_for("views.post_forum")}}>New Post</a>
+
+            {% endif %}
+
+            <div style="display: table-cell;"> 
+                {% block content %}{% endblock %}
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+
+    </div>
+
+
+</body>
 
 </html>

@@ -1,0 +1,49 @@
+Endpoint to sign up
+---
+parameters:
+  - name: email
+    in: body
+    required: true
+    type: string
+    description: Email of the new user
+    example: user1@example.com
+  - name: password
+    in: body
+    required: true
+    type: string
+    description: Password of the new user
+    example: crazystrongpassword999
+  - name: first_name
+    in: body
+    required: true
+    type: string
+    description: First name of the new user
+    example: Archibald
+  - name: last_name
+    in: body
+    required: true
+    type: string
+    description: Last name of the new user
+    example: Huntingsworth
+  - name: is_artist
+    in: body
+    required: true
+    type: boolean
+    description: States whether the new user is an artist
+    example: false
+
+responses:
+  201:
+    description: The sign up was successful, a new user has been created.
+    schema:
+      type: object
+      required:
+        - access_token
+      properties:
+        access_token:
+          type: string
+          description: An access token for the newly created user to access restricted content
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuYXV0aDAuY29tLyIsImF1ZCI6Imh0dHBzOi8vYXBpLmV4YW1wbGUuY29tL2NhbGFuZGFyL3YxLyIsInN1YiI6InVzcl8xMjMiLCJpYXQiOjE0NTg3ODU3OTYsImV4cCI6MTQ1ODg3MjE5Nn0.CA7eaHjIHz5NxeIJoFK9krqaeZrPLwmMmgI_XiQiIkQ
+  409:
+    description: A user with the specified email already exists.
+

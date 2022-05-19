@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block functionality %} FORUM {% endblock %}
+
+{% block content %}
+
+<div id="mainContainer"></div>
+
+
+<form id="forum_post">
+    <div id="forumPostEnter" sytle="width: 50%; margin: auto">
+        <label>New Post</label>
+        <p>Title: <input type="text" name="title"></p>
+        <p>Content Link: <input type="text" name="content_uri"></p>
+        <p>Post: <textarea placeholder="Enter you text here" name="description" cols="30" rows="10"></textarea></p>
+        <input type="button" value="Post to Forum" onclick="post_to_forum()">
+    </div>
+</form>
+
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    function add_post(post) {
+
+        /*        <div id="pos">
+                    <h3>post["id"]</h3>
+                    <h6>post["author"]</h6>
+                    <h6>post["time"]</h6>
+                    <h4>post["text"]</h4>
+                </div>
+        
+          */
+        add_element("div", "<div id=\"pos\" ><h3>" + post.title + "</h3><h6>" + post.creation_date + "</h6><h4>" + post.description + "</h4>");
+    }
+
+    function helper(value, index, array) {
+        console.log(value);
+        add_post(value);
+    }
+
+
+    function post_to_forum() {
+        var pst = document.getElementById('forum_post');
+        var pst_data = new FormData(pst)
+
+        console.log("COME TO POST");
+        url = "/api/forum_post/"
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(Object.fromEntries(pst_data)),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session['access_token']}}"
+            }
+        }).then(json => console.log(json))
+    }
+</script>
+
+
+
+<!--  checkout https://www.quackit.com/html/codes/comment_box_code.cfm   for action url. It must be a .cfm file  -->
+{% endblock %}

@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div id = "mainContainer"></div>
+<div id="mainContainer"></div>
 
 <script>
 
@@ -24,7 +24,7 @@
     }
 
     function display_art_item(art_item_data) {
-        console.log(art_item_data)
+        add_element("div", `<a href=/art_item/${art_item_data["id"]}>${art_item_data["name"]}</a>`)
     }
 
     function display_verification_request(request_data) {
@@ -61,9 +61,9 @@
                     add_element("div", `</ul>`)
                 })
             }
-    }).catch(err => {
-    console.log(err)
-    });
+        }).catch(err => {
+            console.log(err)
+        });
 
 
 </script>

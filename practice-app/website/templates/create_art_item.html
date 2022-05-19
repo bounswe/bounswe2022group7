@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block functionality %} Create Event {% endblock %}
+{% block functionality %} Create Art Item {% endblock %}
 
 {% block content %}
 
-<div id = "mainContainer"></div>
+<div id="mainContainer"></div>
 
 <script>
 
@@ -19,46 +19,44 @@
     // ONLY EDIT BELOW THIS COMMENT WHEN
     // IMPLEMENTING DIFFERENT FEATURES
 
-    add_element("h2", "Enter New Event Information")   
+    add_element("h2", "Enter The Art Item Information")
 
     function submitform() {
-        var form = document.getElementById('myForm');
+        var form = document.getElementById('artItemForm');
         var formData = new FormData(form)
 
-        url = "/api/event"
+        url = "/api/art_item"
         fetch(url, {
             method: "POST",
             body: JSON.stringify(Object.fromEntries(formData)),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
-                Authorization: "Bearer " + "{{session['access_token']}}"
+                Authorization: "Bearer " + "{{session["access_token"]}}"
             }
         }).then(response => {
             if (response.status == 409) {
-                alert('Title you have entered already exists. Please enter another title.')
+                alert('The name you have entered already exists. Please enter another name.')
             }
 
             if (response.status == 201) {
-                response.json().then(event_data => {
-                    window.location.assign('/event/' + event_data["id"])
+                response.json().then(art_item_data => {
+                    window.location.assign('/art_item/' + art_item_data["id"])
                 })
-            }   
+            }
         })
     }
 
     add_element("div",
-    `
-    <form id="myForm">
-        <p>Title:       <input type="text" name="title"></p>
+        `
+    <form id="artItemForm">
+        <p>Name:       <input type="text" name="name"></p>
         <p>Description: <input type="text" name="description"></p>
-        <p>Poster Link: <input type="text" name="poster_link"></p>
-        <p>Date:        <input type="date" name="date"></p>
-        <p>City:        <input type="text" name="city"></p>
-        <input type="button" value="Create Event" onclick="submitform()">
+        <p>Content URI (Image, GIF, etc): <input type="text" name="content_uri"></p>
+        <input type="button" value="Create Art Item" onclick="submitform()">
     </form>
     `)
 
-    
+
 </script>
 
 {% endblock %}
