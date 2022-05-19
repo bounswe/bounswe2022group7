@@ -5,13 +5,11 @@ from ..models import Event
 
 from ..api.event import title_exists, date_valid
 
-TEST_DB_NAME = "test_database.db"
-
 class TestEvent(unittest.TestCase):
 
     def setUp(self):
 
-        app = create_app(TEST_DB_NAME)
+        app = create_app(testing=True)
         self.ctx = app.app_context()
         self.ctx.push()
         self.client = app.test_client()

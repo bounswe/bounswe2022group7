@@ -6,12 +6,9 @@ sys.path.append('.')
 from website import create_app, db
 import unittest
 
-TEST_DB_NAME = "test_database.db"
-
 class TestForum(unittest.TestCase):
     def setUp(self):
-        app = create_app()
-        app.testing = True
+        app = create_app(testing=True)
         self.ctx = app.app_context()
         self.ctx.push()
         self.client = app.test_client()
