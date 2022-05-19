@@ -1,0 +1,86 @@
+Endpoint to fetch all events and art items on the platform
+---
+parameters:
+  - name: query
+    in: query
+    required: false
+    type: string
+    description: A keyword with which the content on the platform is filtered.
+    example : fun
+         
+responses:
+  200:
+    description: Event and Art Item information succesfuly retrieved.
+    schema:
+      type: object
+      required:
+        - events
+        - art_items
+      properties:
+
+        art_items:
+          type: array
+          description: List of art item data
+          items:
+            type: object
+            description: Art item data
+            properties:
+              content_uri:
+                type: string
+                description: The link to the resource file of the art item (image, gif, etc.)
+                example: "https://en.wikipedia.org/wiki/The_Starry_Night#/media/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"
+              creation_date:
+                type: string
+                description: The date when the art item is created
+                example: "2022-05-17"
+              creator_artist:
+                type: integer
+                description: User ID of the creator of the art item
+                example: 29
+              description:
+                type: string
+                description: The informative text about the art item
+                example: "The Starry Night is an oil-on-canvas painting by the Dutch Post-Impressionist painter Vincent van Gogh."
+              id:
+                type: integer
+                description: ID of the art item
+                example: 37
+              name:
+                type: string
+                description: Name of the art item
+                example: "The Starry Night"
+        events:
+          type: array
+          description: List of event data
+          items:
+            type: object
+            description: Event data
+            properties:
+              artist_id:
+                type: integer
+                description: ID of the creator artist
+                example: 2
+              city:
+                type: string
+                description: City where the event takes place
+                example: "Istanbul"
+              date:
+                type: string
+                description: Date of the event
+                example: "Fri, 01 Apr 2022 00:00:00 GMT"
+              description:
+                type: string
+                description: The informative text about the event
+                example: "An event to feel as if you are cruising in the ocean without setting foot on a boat."
+              id:
+                type: integer
+                description: Id of the event
+                example: 3
+              poster_link:
+                type: string
+                description: Link to the event poster
+                example: "https://en.wikipedia.org/wiki/Ivan_Aivazovsky#/media/File:Aivazovsky_-_Self-portrait_1874.jpg"
+              title:
+                type: string
+                description: Title of the event.
+                example: "The Aivazovsky Day"

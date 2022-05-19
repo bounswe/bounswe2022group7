@@ -2,6 +2,7 @@ from functools import wraps
 from flask import jsonify
 from flask_jwt_extended import get_jwt, verify_jwt_in_request
 
+
 def artist_required():
     def wrapper(fn):
         @wraps(fn)
@@ -16,6 +17,7 @@ def artist_required():
         return decorator
 
     return wrapper
+
 
 def user_required():
     def wrapper(fn):
