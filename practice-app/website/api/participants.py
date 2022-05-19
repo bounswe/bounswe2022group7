@@ -118,42 +118,26 @@ def remove_participant(event_id):
 
 # API endpoint for listing all participants for an event
 @participants.route("/participants/<event_id>", methods=["GET"])
+@user_required()
 def view_participants(event_id):
 
-    if not Event.query.get(event_id):
+    event = Event.query.get(event_id);
+    if not event:
         return {"error": f"There are no events with the id {event_id}."}, 404    
 
     participant_list = Participants.query.filter(Participants.event_id == event_id).all()
 
     event_participants = []
+    participating = false
     for item in participant_list:
+        if (participant.user_id == current_user.id && not(participating)):
+            participating = True
         participant = User.query.get(item.user_id)
         event_participants.append({"user_id": item.user_id, "user_name" : participant.first_name + " " + participant.last_name})
-    response = {"participants": event_participants}
-
-    return response, 200
-
-
-# Gets info about event as title, checks if the current user is owner or participant
-@participants.route("/participants/get_info/<event_id>", methods=["GET"])
-@user_required()
-def get_personal_event_info(event_id):
-
-    event = Event.query.get(event_id)
-    if not event:
-        return {"error": f"There are no events with the id {event_id}."}, 404   
-
-    participant_list = Participants.query.filter(Participants.event_id == event_id).all()
-
-    participating = False
-    for participant in participant_list:
-        if (participant.user_id == current_user.id):
-            participating = True
-            break
-
+    
     is_creator = (event.artist_id == current_user.id)
 
-    return {"event_title": event.title, "is_creator": is_creator,"user_participating" : participating}, 200
+    return {"event_title": event.title, "is_creator": is_creator,"user_participating" : participating, "participants": event_participants}, 200
 
 
 # this creates share link by making an external api call
