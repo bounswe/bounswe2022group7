@@ -1,4 +1,4 @@
-Endpoint to create an art item object
+Endpoint to create a new forum post
 ---
 security:
   - BearerAuth: []
@@ -14,7 +14,7 @@ parameters:
     in: body
     required: true
     type: string
-    description: The informative text about the art item
+    description: The main textual body of the forum post.
     example : "The Starry Night is an oil-on-canvas painting by the Dutch Post-Impressionist painter Vincent van Gogh."
   - name: content_uri
     in: body

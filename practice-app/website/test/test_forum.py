@@ -24,7 +24,7 @@ class TestForum(unittest.TestCase):
             {
                 "title": "sample_without_description",
                 "description": "",
-                "conent_uri": "https://www.hepsiburada.com/hayatburada/wp-content/uploads/2021/10/shutterstock_1024133086.jpg"
+                "content_uri": "https://www.hepsiburada.com/hayatburada/wp-content/uploads/2021/10/shutterstock_1024133086.jpg"
             },
             {
                 "title": "sample_with_wrong_uri",

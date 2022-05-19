@@ -1,4 +1,4 @@
-Endpoint to fetch an art item with a given ID
+Endpoint to fetch all forum posts in database.
 ---
 responses:
   200:
