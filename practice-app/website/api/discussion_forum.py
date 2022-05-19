@@ -1,17 +1,11 @@
-
-from __future__ import print_function
 from http.client import INTERNAL_SERVER_ERROR
 from flask import Blueprint, jsonify, request
-from platformdirs import user_cache_dir
 from website import db
 from website.models import ForumPost
-from flask_sqlalchemy import SQLAlchemy
-from datetime import date
-import json
 import requests
 from flask_jwt_extended import jwt_required, current_user
 from website.settings import *
-import sys
+from datetime import date
 
 from .jwt import user_required
 

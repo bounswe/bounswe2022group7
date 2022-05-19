@@ -3,19 +3,10 @@ import sys
 sys.path.append('./website') #to run the test without import errors, one should call from one directory above this line's directory
 sys.path.append('.')
 
-
-from api.jwt import user_required
-from api.discussion_forum import bad_word_check
-from mock import patch
-from functools import wraps
 from website import create_app, db
 import unittest
-import mock
-import requests
-from flask_jwt_extended import current_user
 
 TEST_DB_NAME = "test_database.db"
-
 
 class TestForum(unittest.TestCase):
     def setUp(self):
