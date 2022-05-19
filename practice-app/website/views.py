@@ -16,10 +16,27 @@ def view_event(event_id):
     return render_template("view_event.html", event_id=event_id)
 
 
+@views.route("verification/<request_id>/")
+def viewRequest(request_id):
+    print(request_id)
+    return render_template("view_verification_request.html", request_id=request_id)
+
 @views.route("create_event/")
 @artist_token_required
 def create_event():
     return render_template("create_event.html")
+
+@views.route("wikipedia_definition/")
+def wikipedia_definition():
+    return render_template("wikipedia_definition.html")
+
+@views.route("/forum_comment_post/")
+def forum_comment_post():
+    return render_template("forum_comment_post.html")
+
+@views.route("discussion_post/<discussion_post_id>")
+def discussion_post(discussion_post_id):
+    return render_template("forum_post.html", discussion_post_id = discussion_post_id )
 
 
 @views.route("forum_get/")
@@ -55,6 +72,20 @@ def signup():
 def login():
     return render_template('login.html')
 
+@views.route('participate/<event_id>/')
+@user_token_required
+def participate(event_id):
+    return render_template('participate.html', event_id=event_id)
+    
+@views.route('request_verification/')
+def request_verification():
+    return render_template('request_verification.html')
+
+
+@views.route('bootstrap_test')
+def bootstrapTest():
+    return render_template('bootstrap.html')
+
 @views.route('art_galleries/')
 def view_art_galleries():
     return render_template('art_galleries.html')
@@ -64,8 +95,7 @@ def no_token_info():
     return render_template("info_page.html",
                            info=["You tried to access a page that requires authentication without a valid token.",
                                  "Either you didn't login or your session expired (15 minutes).",
-                                 "Please login and try again."])
-  
+                                 "Please login and try again."])  
   
 @views.route("copyright/<report_id>/")
 def view_copyright_report(report_id):

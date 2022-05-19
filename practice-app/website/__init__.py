@@ -47,7 +47,7 @@ def create_app(testing = False):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
             os.path.join(basedir, DB_NAME)
         app.secret_key = FLASK_SECRET_KEY  #This is for flask session
-        app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY  # Change this!
+        app.config["JWT_SECRET_KEY"] = FLASK_SECRET_KEY  # Change this!
     
     
     jwt = JWTManager(app)
@@ -67,23 +67,30 @@ def create_app(testing = False):
 
     from .views import views
     from .api.event import event
+    from .api.participants import participants
     from .api.art_item import art_item
     from .api.home import home
     from .api.copyright import copyright
+    from .api.wikipedia import wikipedia
     from .api.profile import profile
     from .jwt import token
     from .api.discussion_forum import forum
     from .api.art_galleries import art_galleries
 
     app.register_blueprint(views, url_prefix="/")
+    app.register_blueprint(event, url_prefix="/api/")
+    app.register_blueprint(participants, url_prefix="/api/")
     app.register_blueprint(home, url_prefix="/api")
-    app.register_blueprint(event, url_prefix="/api")
     app.register_blueprint(copyright, url_prefix="/api")
+    app.register_blueprint(wikipedia, url_prefix="/api")
     app.register_blueprint(art_item, url_prefix="/api")
     app.register_blueprint(profile, url_prefix="/api")
     app.register_blueprint(token, url_prefix="/token")
     app.register_blueprint(forum, url_prefix="/api")
     app.register_blueprint(art_galleries, url_prefix='/api')
+
+    from .api.verification import verify
+    app.register_blueprint(verify, url_prefix="/api")
 
     from .api.auth import auth
 

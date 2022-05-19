@@ -1,0 +1,20 @@
+Endpoint to fetch all forum posts in database.
+---
+responses:
+  200:
+    description: Forum posts in database are successfully fetched.
+    schema:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          type: array
+          description: Array of all forum posts in database.
+          example: [
+            {"id" : 1 , "title" : "TITLE", "content_uri" : "https://en.wikipedia.org/wiki/The_Starry_Night#/media/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" , "creator" : "AUTHOR", "creation_date" : "DATE" , "description":"DESCRIPTION"},
+            {"id" : 2 , "title" : "TITLE_2", "content_uri" : "https://upload.wikimedia.org/wikipedia/en/7/74/PicassoGuernica.jpg" , "creator" : "AUTHOR_2", "creation_date" : "DATE_2" , "description":"DESCRIPTION_2"}
+          ]
+
+  500:
+    description: "Error while extracting posts from database."

@@ -28,29 +28,29 @@
 
     add_element("div", "<p id='definition'>")
 
-    document.getElementById("wiki-submit").addEventListener('click', handleClick);
+    document.getElementById("wiki-submit").addEventListener('click', submitForm);
 
-    // https://freshman.tech/wikipedia-javascript/
-    async function searchWikipedia(searchQuery) {
-        const endpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exlimit=1&explaintext=1&exsectionformat=plain&format=json&origin=*&titles=${searchQuery}`;
-        const response = await fetch(endpoint);
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        const json = await response.json();
-        return json;
-    }
-
-    async function handleClick() {
+    function submitForm() {
         let word = document.getElementById("word").value;
-        let res = await searchWikipedia(word);
-        let pages = res.query.pages;
-        let extract = pages[Object.keys(pages)[0]].extract;
-        if (extract === undefined) {
-            document.getElementById("definition").innerText = `${word} is not a word in wikipedia.`;
-        } else {
-            document.getElementById("definition").innerText = extract;
-        }
+
+        url = "/api/wikipedia_definition";
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                "word": word,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(async (response) => {
+            let json = await response.json();
+            let definition = json.definition;
+            if (definition === "") {
+                document.getElementById("definition").innerText = `${word} is not a word in wikipedia.`;
+            } else {
+                document.getElementById("definition").innerText = definition;
+            }
+        })
     }
 
 </script>

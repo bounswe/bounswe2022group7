@@ -43,6 +43,7 @@ def create_event():
 
     missing_fields = {"title", "description", "poster_link",
                       "date", "city"} - set(request.json.keys())
+
     if len(missing_fields) > 0:
         return {"error": f"You have not provided some of the required fields. You are missing: " + str(missing_fields)}, 400
 

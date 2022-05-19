@@ -1,0 +1,62 @@
+Endpoint to add a participant to given event
+---
+
+security:
+  - BearerAuth: []
+
+parameters:
+  - name: event_id
+    in: path
+    required: true
+    type: integer
+    description: ID of the event
+    example : 37
+         
+responses:
+  201:
+    description: User is added succesfully as participant to event.
+    schema:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: string
+          description: Success Message
+          example: Successfully added the participant.
+  404:
+    description:  Event with given parameter ID cannot be found.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: There are no events with the given ID.
+  409:
+    description: Happens when the user already participates in the event.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: User already participating
+  500:
+    description: Server cannot process the call, there was an error probably regarding the database.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: There was an error adding the user as a participant to event.
+
+
+

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block functionality %} Verification Request {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    add_element("h2", "Request Verification")   
+
+    function submitform() {
+        url = "/api/verification/request"
+        fetch(url, {
+            method: "POST",
+            body: {},
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: "Bearer " + "{{session["access_token"]}}"
+            }
+        }).then(response => {
+            if (response.status == 409) {
+                alert(response.message)
+            }
+
+            if (response.status == 201) {
+                response.json().then(request_data => {
+                    window.location.assign('/verification/' + request_data["id"])
+                })
+            }
+            
+        })
+    }
+
+    add_element("div",
+    `
+    <form id="myForm">
+        <input type="button" value="Request" onclick="submitform()">
+    </form>
+    `)
+
+    
+</script>
+
+{% endblock %}
