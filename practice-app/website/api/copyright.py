@@ -18,8 +18,12 @@ copyright = Blueprint("copyright", __name__)
 
 # API endpoint for reporting a copyright infringement
 @copyright.route("/copyright", methods=["POST"])
-#@user_required()
+@user_required()
 def report_infringement():
+
+    """
+    file: ./doc/copyright_POST.yml
+    """
 
     # Checking if the request body is JSON
     if (not request.is_json):
@@ -76,6 +80,10 @@ def report_infringement():
 @copyright.route("/copyright/<report_id>", methods=["GET"])
 def get_copyright_report_data(report_id):
 
+    """
+    file: ./doc/copyright_GET.yml
+    """
+
     report = CopyrightInfringementReport.query.get(report_id)
 
     # Checking if report with given id exists
@@ -91,8 +99,6 @@ def get_copyright_report_data(report_id):
     original_art_item = ArtItem.query.get(report["original_art_item_id"])
     infringement_art_item = ArtItem.query.get(report["infringement_art_item_id"])
 
-    print(report["infringement_art_item_id"])
-    print(infringement_art_item)
     report["original_art_name"]  = original_art_item.name
     report["original_art_creation_date"]  = original_art_item.creation_date
     report["original_art_uri"]  = original_art_item.content_uri
@@ -106,6 +112,10 @@ def get_copyright_report_data(report_id):
 # API endpoint for removing an art item
 @copyright.route("/copyright", methods=["DELETE"])
 def remove_art_item():
+
+    """
+    file: ./doc/copyright_DELETE.yml
+    """
 
     # Checking if the request body is JSON
     if (not request.is_json):
@@ -130,7 +140,7 @@ def remove_art_item():
         return {"error" : f"There was an error removing the art item from the database, Error: {error}."}, 500
 
     # Success
-    return {"id": request_json["art_item_id"]}, 201
+    return {"id": request_json["art_item_id"]}, 200
 
 # Methods
 def is_missing_field(json, required_set):
@@ -152,7 +162,6 @@ def get_similarity_score(image1, image2):
         },
         headers={'api-key': SIMILARITY_SCORE_API_KEY}
     )
-    print(response.json())
 
     # Calling the API 2 aditional times if it fails to give a score
     # This is because API is not working consistantly with higher resolution image URIs
@@ -167,7 +176,6 @@ def get_similarity_score(image1, image2):
             headers={'api-key': SIMILARITY_SCORE_API_KEY}
         )
         counter -= 1
-        print(response.json())
 
 
     if response.status_code == 200:
