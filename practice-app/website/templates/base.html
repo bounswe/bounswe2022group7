@@ -61,11 +61,6 @@
             }
         </script>
 
-            <div>
-                {% if session["access_token"] %}
-                    <a href={{ url_for("views.view_profile") }}>View Profile</a>
-                {% endif %}
-
     </nav>
 
     <hr>
@@ -94,6 +89,8 @@
                 {% if session["access_token"] != None %}
                                 
                 <a href={{ url_for("views.post_forum")}}>New Post</a>
+
+                <a href={{ url_for("views.view_profile") }}>View Profile</a>
 
                 {% endif %}
 
