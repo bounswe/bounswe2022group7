@@ -117,7 +117,7 @@ class TestEvent(unittest.TestCase):
 
     def request_add_participant(self, event_id, access_token):
         return self.client.post(f"/api/participants/{event_id}",
-                                headers = {"Authorization": f"Bearer {access_token}")
+                                headers = {"Authorization": f"Bearer {access_token}"})
     
     def request_remove_participant(self, event_id, access_token):
         return self.client.delete(f"/api/participants/{event_id}",
@@ -142,11 +142,11 @@ class TestEvent(unittest.TestCase):
     # Tests what happens with a invalid event id
     def test_add_participant_invalid_requests(self):
         # invalid event id
-        invalid_id_response = self.request_add_participant(43376437634, self.user_access_token)
+        invalid_id_response = self.request_add_participant(self.invalid_event_id, self.user_access_token)
 
         self.assertEqual(invalid_id_response.status, "404 NOT FOUND")
         self.assertTrue("error" in invalid_id_response.json)
-        self.assertEqual(invalid_id_response.json["error"], f"There are no events with the id 43376437634.")
+        self.assertEqual(invalid_id_response.json["error"], f"There are no events with the id {self.invalid_event_id}.")
 
     # Tests auth with random gibberish
     def test_add_participant_auth(self):
@@ -186,31 +186,31 @@ class TestEvent(unittest.TestCase):
 
         self.assertEqual(response.status, "404 NOT FOUND")
         self.assertTrue("error" in response.json)
-        self.assertEqual(response.json["error"], f"There are no events with the id 43376437634.")
+        self.assertEqual(response.json["error"], f"There are no events with the id {self.invalid_event_id}.")
 
     # empty part list
     def test_view_participants_empty(self):
-        response = self.request_view_participants(self.event_ids[0] self.artist_access_token)
+        response = self.request_view_participants(self.event_ids[0], self.artist_access_token)
         self.assertEqual(response.status, "200 OK")
         self.assertEqual(len(response.json["participants"]), 0)
 
     # populated participant list testing
     def test_view_participants_populated(self):
-        response = self.request_view_participants(self.event_ids[1] self.artist_access_token)
+        response = self.request_view_participants(self.event_ids[1], self.artist_access_token)
         self.assertEqual(response.status, "200 OK")
         self.assertEqual(response.json["participants"][1]["user_name"], f"{self.artist['first_name']} {self.artist['last_name']}")
         self.assertEqual(response.json["participants"][0]["user_name"], f"{self.user['first_name']} {self.user['last_name']}")
         
     # Event ownership check
     def test_view_participants_event_ownership(self):
-        response = self.request_view_participants(self.event_ids[1] self.artist_access_token)
+        response = self.request_view_participants(self.event_ids[0], self.artist_access_token)
 
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("is_creator" in response.json)
         self.assertTrue(response.json["is_creator"])
 
     def test_view_participants_doesnt_own_event(self):
-        response = self.request_view_participants(self.event_ids[0] self.artist2_access_token)
+        response = self.request_view_participants(self.event_ids[0], self.artist2_access_token)
 
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("is_creator" in response.json)
@@ -218,14 +218,14 @@ class TestEvent(unittest.TestCase):
 
     # Tests the case where the user participates in the event
     def test_view_participants_user_participating(self):
-        response = self.request_view_participants(self.event_ids[1] self.user_access_token)
+        response = self.request_view_participants(self.event_ids[1], self.user_access_token)
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("user_participating" in response.json)
         self.assertTrue(response.json["user_participating"])
 
     # Tests the case where the user is not participated
     def test_view_participants_participating(self):
-        response = self.request_view_participants(self.event_ids[0] self.user_access_token)
+        response = self.request_view_participants(self.event_ids[0], self.user_access_token)
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("user_participating" in response.json)
         self.assertFalse(response.json["user_participating"])
@@ -236,17 +236,17 @@ class TestEvent(unittest.TestCase):
     ############################
     # unauth
     def test_remove_auth(self):
-        response = self.request_remove_participant(self.event_ids[0], "hjsdhjds")
+        response = self.request_remove_participant(self.event_ids[0], self.invalid_token)
         self.assertEqual(response.status, "422 UNPROCESSABLE ENTITY")
        
        
     # invalid event
     def test_remove_invalid_event(self):
-        response = self.request_remove_participant(43376437634, self.user_access_token)
+        response = self.request_remove_participant(self.invalid_event_id, self.user_access_token)
 
         self.assertEqual(response.status, "404 NOT FOUND")
         self.assertTrue("error" in response.json)
-        self.assertEqual(response.json["error"], f"There are no events with the id 43376437634.")
+        self.assertEqual(response.json["error"], f"There are no events with the id {self.invalid_event_id}.")
 
     # not participating in event
     def test_remove_not_participating_case(self):
@@ -272,7 +272,7 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("success" in response.json)
         self.assertEqual(response.json["success"], f"Successfully removed the participant(s).")
-        check_response = self.request_view_participants(self.event_ids[1])
+        check_response = self.request_view_participants(self.event_ids[1], self.artist2_access_token)
         self.assertEqual(check_response.status, "200 OK")
         self.assertEqual(len(check_response.json["participants"]), 0)
 
@@ -309,7 +309,7 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(response.status, "200 OK")
         self.assertTrue("success" in response.json)
         self.assertEqual(response.json["success"], f"Successfully removed the participant(s).")
-        check_response = self.request_view_participants(self.event_ids[1])
+        check_response = self.request_view_participants(self.event_ids[1], self.artist2_access_token)
         self.assertEqual(check_response.status, "200 OK")
         self.assertEqual(len(check_response.json["participants"]), 2)
 

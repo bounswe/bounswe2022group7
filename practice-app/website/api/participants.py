@@ -22,6 +22,11 @@ participants = Blueprint("participants", __name__)
 @user_required()
 def add_participant(event_id):
 
+    """
+    file: ./doc/participants_POST.yml
+    """
+
+
     if not Event.query.get(event_id):
         return {"error": f"There are no events with the id {event_id}."}, 404    
 
@@ -51,6 +56,11 @@ def add_participant(event_id):
 @participants.route("/participants/<event_id>", methods=["DELETE"])
 @user_required()
 def remove_participant(event_id):
+
+
+    """
+    file: ./doc/participants_DELETE.yml
+    """
 
     # Checks if event is valid
     event = Event.query.get(event_id)
@@ -121,6 +131,11 @@ def remove_participant(event_id):
 @user_required()
 def view_participants(event_id):
 
+
+    """
+    file: ./doc/participants_GET.yml
+    """
+
     event = Event.query.get(event_id);
     if not event:
         return {"error": f"There are no events with the id {event_id}."}, 404    
@@ -128,22 +143,29 @@ def view_participants(event_id):
     participant_list = Participants.query.filter(Participants.event_id == event_id).all()
 
     event_participants = []
-    participating = false
+    participating = False
     for item in participant_list:
-        if (participant.user_id == current_user.id && not(participating)):
+
+        if (item.user_id == current_user.id and not(participating)):
             participating = True
+
         participant = User.query.get(item.user_id)
         event_participants.append({"user_id": item.user_id, "user_name" : participant.first_name + " " + participant.last_name})
     
     is_creator = (event.artist_id == current_user.id)
 
-    return {"event_title": event.title, "is_creator": is_creator,"user_participating" : participating, "participants": event_participants}, 200
+    return {"event_title": event.title, "is_creator": is_creator, "user_participating" : participating, "participants": event_participants}, 200
 
 
 # this creates share link by making an external api call
 @participants.route("/participants/share/<event_id>", methods=["POST"])
 @user_required()
 def get_share_link(event_id):
+
+
+    """
+    file: ./doc/participants_share_POST.yml
+    """
 
     if not Event.query.get(event_id):
         return {"error": f"There are no events with the id {event_id}."}, 404   
@@ -157,7 +179,7 @@ def get_share_link(event_id):
         except:
             return {"error": "There was an error on key / value pairs on request body."}, 400
 
-        shortened_url = create_unique_sharing_link(target_url, event_id, current_user.id)
+        shortened_url = create_personal_share_link(target_url, event_id, current_user.id)
         
         if shortened_url["status"] == 200:
             return {"share_link": shortened_url["link"]}, 200

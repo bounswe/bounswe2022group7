@@ -1,0 +1,94 @@
+Endpoint to remove participant(s) from given event
+---
+
+security:
+  - BearerAuth: []
+
+parameters:
+  - name: event_id
+    in: path
+    required: true
+    type: integer
+    description: ID of the event
+    example : 37
+  - name: participants
+    in: body
+    required: false
+    type: array
+    description: An array to hold participant's ID
+    example: [1,2,3,4]
+    items:
+      type: integer
+    
+    
+         
+responses:
+  200:
+    description: Participants for event removed successfully.
+    schema:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: string
+          description: Success Message
+          example: Successfully added the participant.
+  404:
+    description:  Event with given parameter ID cannot be found.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: There are no events with the given ID.
+  400:
+    description: Given request body was erroneous key/values were not matching with the schema.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: There was an error on key / value pairs on request body.
+  403:
+    description: Happens when the user tries to remove other participants and is not the creator.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: User is not the creator of the event
+  409:
+    description: Happens when the target user doesn;t participate in the event.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: User does not participate in the event
+  500:
+    description: Server cannot process the call, there was an error probably regarding the database.
+    schema:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error Message
+          example: There was an error adding the user as a participant to event.
+
+
+

@@ -1,0 +1,58 @@
+Endpoint to fetch an event with given ID
+---
+
+security:
+  - BearerAuth: []
+
+parameters:
+  - name: event_id
+    in: path
+    required: true
+    type: integer
+    description: ID of the event
+    example : 37
+
+         
+responses:
+  200:
+    description: Participants for event found successfully.
+    schema:
+      type: object
+      required:
+        - event_title
+        - is_creator
+        - user_participating
+        - participants
+      properties:
+        event_title:
+          type: string
+          description: Title of the event
+          example: Test Event
+        is_creator:
+          type: boolean
+          description: Parameter identifying if the user is the creator of the event.
+          example: true
+        user_participating:
+          type: boolean
+          description: Identifies user's participation in the event
+          example: false
+        participants:
+          description: An array containing id of all participants
+          example: [1, 2, 29]
+          type: array
+          items:
+          - user:
+            description: User object holding id and name surname
+            type: object
+            properties:
+                user_id:
+                  type: integer
+                  description: User's ID
+                  example: 30
+                user_name:
+                  type: string
+                  description: User's name and surname
+                  example: John Doe
+
+  404:
+    description: There are no events with the given ID."
