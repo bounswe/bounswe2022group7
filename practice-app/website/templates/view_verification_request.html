@@ -87,34 +87,8 @@
                 })
             }   
         })
-    };
+    }
 
-    // function reject() {
-    //     var form = document.getElementById('rejectForm');
-    //     var formData = new FormData(form)
-
-    //     alert("here")
-
-    //     url = "/api/verification/review/{{request_id}}"
-    //     fetch(url, {
-    //         method: "POST",
-    //         body: {"result": "reject" },
-    //         headers: {
-    //             "Content-type": "application/json; charset=UTF-8",
-    //             Authorization: "Bearer " + "{{session["access_token"]}}"
-    //         }
-    //     }).then(response => {
-    //         if (response.status == 409) {
-    //             alert('There is no available request with this id!')
-    //         }
-
-    //         if (response.status == 201) {
-    //             response.json().then(request_data => {
-    //                 window.location.assign('/verification/' + request_data["id"])
-    //             })
-    //         }   
-    //     })
-    // }
 
     function reject() {
         var form = document.getElementById('rejectForm');
