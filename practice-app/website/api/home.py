@@ -5,8 +5,12 @@ from ..models import Event, ArtItem, CopyrightInfringementReport
 
 home = Blueprint("home", __name__)
 
+
 @home.route("/search", methods=["GET"])
 def home_route():
+    """
+    file: ./doc/home_GET.yml
+    """
     query = request.args.get("query", None)
     if query:
         events, art_items, copyright_reports = get_content_with_filter(query)
@@ -15,6 +19,7 @@ def home_route():
 
     json = {"events": events, "art_items": art_items, "copyright_reports": copyright_reports}
     json = {key:[i.serialize() for i in json[key]] for key in json}
+
 
     return json, 200
 

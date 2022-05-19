@@ -19,18 +19,20 @@
     function add_post(post) {
 
         /*        <div id="pos">
-                    <h3>post["index"]</h3>
-                    <h6>post["author"]</h6>
-                    <h6>post["time"]</h6>
-                    <h4>post["text"]</h4>
+                    <h3>post["title"]</h3>
+                    <img src=post["content_uri"]>
+                    <h6>post["creator"]</h6>
+                    <h6>post["creation_date"]</h6>
+                    <h4>post["description"]</h4>
                 </div>
         
           */
-        add_element("div", "<div id=\"pos\" ><h3>" + post.index + "</h3><h6>" + post.author + "</h6><h6>" + post.time + "</h6><h4>" + post.text + "</h4>");
+        add_element("div", "<a href=/discussion_post/" + post.id + ">" + post.title + "</a>" + "<img src=\"" + post.content_uri + "\"><h6>Author: " + post.creator + "</h6><h6>Post Date: " + post.creation_date + "</h6><h4>" + post.description + "</h4><p>---------------------------------------------</p>");
     }
 
     function helper(value, index, array) {
         console.log(value);
+
         add_post(value);
     }
 
@@ -39,8 +41,7 @@
 
     // When the api is completed, replace the hardcoded event_data
     // object below with the commented fetch block bewlo event_data.
-    forum_data = {
-        "header": "Picasso",
+    /*forum_data = {
         "posts":
             [{
                 "index": "#1",
@@ -54,8 +55,29 @@
                 "time": "12-12-2012 12:12:12",
                 "text": "I dont even know him peh!",
             }]
-
     }
+    */
+
+    var url = "/api/forum_get/"
+
+
+    fetch(url)
+        .then((response) => {
+            console.log(response);
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            add_element("h1", "Forum Page");
+            add_element("p", "---------------------------------------------");
+            let forum_data = data;
+            console.log(data["results"]);
+            data["results"].forEach(helper);
+
+        })
+        .catch(function (err) {
+            console.log(err)
+        });
 
     /*
     fetch(url)
@@ -66,25 +88,7 @@
         // If an error occured, you will catch it here
     });
     */
-
-    add_element("h1", "Forum Page");
-
-    add_element("h2", forum_data["header"]);
-
-    forum_data["posts"].forEach(helper);
-
 </script>
-
-
-<!-- below code is for posting a comment -->
-<form action="" method="post">
-    <div id="forumPostEnter" sytle="width: 50%; margin: auto">
-        <label>New Post</label>
-        <textarea placeholder="Enter you text here" id="" cols="30" rows="10"></textarea>
-    </div>
-    <input type="submit" name="Post" value="Post">
-</form>
-
 
 <!--  checkout https://www.quackit.com/html/codes/comment_box_code.cfm   for action url. It must be a .cfm file  -->
 {% endblock %}
