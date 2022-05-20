@@ -232,7 +232,7 @@ class TestEvent(unittest.TestCase):
     
 
     ############################
-    ## DELETE /api/participants/<event_id>
+    ## POST /api/participants/remove/<event_id>
     ############################
     # unauth
     def test_remove_auth(self):
@@ -306,12 +306,10 @@ class TestEvent(unittest.TestCase):
                                         content_type = "application/json; charset=UTF-8",
                                         headers = {"Authorization": "Bearer %s" % self.artist2_access_token})
         
-        self.assertEqual(response.status, "200 OK")
-        self.assertTrue("success" in response.json)
-        self.assertEqual(response.json["success"], f"Successfully removed the participant(s).")
-        check_response = self.request_view_participants(self.event_ids[1], self.artist2_access_token)
-        self.assertEqual(check_response.status, "200 OK")
-        self.assertEqual(len(check_response.json["participants"]), 2)
+        self.assertEqual(response.status, "400 BAD REQUEST")
+        self.assertTrue("error" in response.json)
+        self.assertEqual(response.json["error"], f"You haven't given any user id for removal.")
+
 
 
     def test_remove_invalid_request_body(self):

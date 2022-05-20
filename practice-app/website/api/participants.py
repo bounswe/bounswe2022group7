@@ -78,8 +78,12 @@ def remove_participant(event_id):
             except:
                 return {"error": "There was an error on key / value pairs on request body."}, 400
 
-            # Iterates over participants given in the JSON
 
+            if (len(participant_list) == 0):
+                return {"error": "You haven't given any user id for removal."}, 400
+
+
+            # Iterates over participants given in the JSON
             # Even if only one user is not part of a 100 item list, all of the removal process will be halted since
             # that user is not a participant
             for participant_id in participant_list:
