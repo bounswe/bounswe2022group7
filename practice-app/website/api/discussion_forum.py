@@ -174,7 +174,6 @@ def translate(body):
 
     if response.status_code == 429:
         return "You have exceeded the MONTHLY quota for Characters for Translate API. Try later."
-    # print(response.json())
 
     return response.json()["data"]["translations"]["translatedText"]
 
