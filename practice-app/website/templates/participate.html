@@ -37,7 +37,7 @@
     // Button action for PARTICIPATE
     function addParticipation() {
 
-        url = "/api/participants/{{event_id}}"
+        url = "/api/participants/add/{{event_id}}"
         fetch(url, {
             method: "POST",
             headers: {
@@ -72,9 +72,9 @@
         var requestObj = new Object();
         requestObj.participants = obj;
 
-        url = "/api/participants/{{event_id}}"
+        url = "/api/participants/remove/{{event_id}}"
         fetch(url, {
-            method: "DELETE",
+            method: "POST",
             body: JSON.stringify(requestObj),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
@@ -100,9 +100,9 @@
     // CANCEL PARTICIPATION button action, can be activated by the user
     function cancelParticipation() {
 
-        url = "/api/participants/{{event_id}}"
+        url = "/api/participants/remove/{{event_id}}"
         fetch(url, {
-            method: "DELETE",
+            method: "POST",
             headers: {
                 Authorization: "Bearer " + "{{session["access_token"]}}"
     }
