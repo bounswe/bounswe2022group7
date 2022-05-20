@@ -7,7 +7,7 @@ parameters:
   - name: parent_post
     in: body
     required: true
-    type: string
+    type: integer
     description: ID of the parent forum post
     example : 1
   - name: text

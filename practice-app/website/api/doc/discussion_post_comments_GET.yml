@@ -32,7 +32,7 @@ responses:
               - translation
             properties:
               content_uri:
-                type: integer
+                type: string
                 description: The link to the image attached to the comment (image, gif, etc.)
                 example: "https://random.imagecdn.app/500/150"
               creation_date:
@@ -86,7 +86,7 @@ responses:
             - user_name
           properties:
             content_uri:
-              type: integer
+              type: string
               description: The link to the image attached to the forum post (image, gif, etc.)
               example: "https://random.imagecdn.app/500/150"
             creation_date:
