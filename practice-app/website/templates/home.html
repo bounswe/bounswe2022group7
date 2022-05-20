@@ -56,7 +56,7 @@
                     add_element("h1", "Art Items")
                     json["art_items"].forEach(display_art_item)
                     
-                    if ("{{session['access_token']}}" != ""){
+                    if ("{{session['access_token']}}" != "None"){
                         add_element("h1", "Copyright Infringement Reports")
                         add_element("p", "Smaller scores indicates similar art items")
                         json["copyright_reports"].forEach(display_copyright_report)
