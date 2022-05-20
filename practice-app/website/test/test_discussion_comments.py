@@ -58,7 +58,7 @@ class TestPostComment(unittest.TestCase):
             "content_uri": "https://random.imagecdn.app/500/150"
         }
         self.post_data = {
-            "title": "standard_sample",
+            "title": "sample",
             "description": "description",
             "content_uri": "https://www.hepsiburada.com/hayatburada/wp-content/uploads/2021/10/shutterstock_1024133086.jpg"
         }
