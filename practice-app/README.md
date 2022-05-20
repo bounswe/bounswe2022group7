@@ -6,7 +6,21 @@ Before developing this app, we have done research on the tech topics involved, w
 
 ## How to Run the App
 
-App can either be run locally or in a docker container. In the following sections, we show how the app can be deployed.
+Before running the app, an `.env` needs to be created in the `website` directory. In this file, keys should be provided as follows:
+```
+TRANSLATE_API_KEY = <TRANSLATE_API_KEY>
+WEATHER_API_KEY = <WEATHER_API_KEY>
+SHORTENER_API_KEY = <SHORTENER_API_KEY>
+COLOR_FINDER_API_KEY = <COLOR_FINDER_API_KEY>
+COLOR_FINDER_API_SECRET = <COLOR_FINDER_API_SECRET>
+ON_THIS_DAY_API_KEY = <ON_THIS_DAY_API_KEY>
+SIMILARITY_SCORE_API_KEY = <SIMILARITY_SCORE_API_KEY>
+JWT_SECRET_KEY = <JWT_SECRET_KEY>
+FLASK_SECRET_KEY = <FLASK_SECRET_KEY>
+DB_NAME = <DB_NAME>
+```
+
+Once the `.env` file is created, app can either be run locally or in a docker container. In the following sections, we show how the app can be deployed.
 
 ### Local 
 
