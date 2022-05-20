@@ -1,0 +1,95 @@
+Endpoint to fetch an copyright report with a given ID
+---
+security:
+  - BearerAuth: []
+  
+parameters:
+  - name: report_id
+    in: path
+    required: true
+    type: integer
+    description: ID of the Copyright Infringement Report
+    example : 5
+         
+responses:
+  200:
+    description: Copyright Infringement Report with the given ID is successfully fetched.
+    schema:
+      type: object
+      required:
+        - id
+        - creator
+        - creator_name
+        - description
+        - similarity_score
+        - creation_date
+        - original_art_item_id
+        - original_art_name
+        - original_art_creation_date
+        - original_art_uri
+        - infringement_art_item_id
+        - infringement_art_name
+        - infringement_art_creation_date
+        - infringement_art_uri
+
+
+      properties:
+        id:
+          type: integer
+          description: ID of the report
+          example: 5
+        creator:
+          type: integer
+          description: User ID of the report creator
+          example: 2
+        creator_name:
+          type: string
+          description: Name of the report creator
+          example: "Brian Tennison"
+        description:
+          type: string
+          description: The informative text about the report
+          example: "These two art items are too similar, there might be a copyright infringement."
+        similarity_score:
+          type: integer
+          description: "Number that shows the similarity between the reported art items, Smaller the value, similar the images"
+          example: 5
+        creation_date:
+          type: string
+          description: The date when the report is created
+          example: "2022-05-17"
+        original_art_item_id:
+          type: integer
+          description: ID of the original art item
+          example: 37
+        original_art_name:
+          type: string
+          description: Name of the original art item
+          example: "The Starry Night"
+        original_art_creation_date:
+          type: string
+          description: The date when the original art item is created
+          example: "2022-05-17"
+        original_art_uri:
+          type: string
+          description: The link to the resource file of the original art item (image, gif, etc.)
+          example: "https://en.wikipedia.org/wiki/The_Starry_Night#/media/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"
+        infringement_art_item_id:
+          type: integer
+          description: ID of the infringement art item
+          example: 46
+        infringement_art_name:
+          type: string
+          description: Name of the infringement art item
+          example: "The Starry Night Recreation"
+        infringement_art_creation_date:
+          type: string
+          description: The date when the infringement art item is created
+          example: "2022-05-19"
+        infringement_art_uri:
+          type: string
+          description: The link to the resource file of the infringement art item (image, gif, etc.)
+          example: "https://cdn.shopify.com/s/files/1/0839/9135/products/Starry_Night_final_large.jpg?v=1438585349"
+
+  404:
+    description: "There are no reports with the id <report_id>."

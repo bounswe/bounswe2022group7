@@ -1,0 +1,29 @@
+Endpoint to remove an reported art item object
+---
+security:
+  - BearerAuth: []
+  
+parameters:
+  - name: art_item_id
+    in: body
+    required: true
+    type: integer
+    description: ID of the reported art item
+    example : 46
+
+responses:
+  200:
+    description: Reported art item is successfully removed.
+    schema:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          description: ID of the removed art item
+          example: 46       
+  400:
+    description: "You have not provided some of the required fields."
+  404:
+    description: "There are no Art Item with the id  <art_item_id>."

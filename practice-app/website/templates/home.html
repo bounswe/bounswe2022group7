@@ -27,6 +27,9 @@
         add_element("div", `<a href=/art_item/${art_item_data["id"]}>${art_item_data["name"]}</a>`)
     }
 
+    function display_copyright_report(report_data) {
+        add_element("div", `<a href=/copyright/${report_data["id"]}>Id:${report_data["id"]} - score:${report_data["similarity_score"]}</a>`)
+    }
     function display_verification_request(request_data) {
         add_element("div", `<a href=/verification/${request_data["id"]} class="list-group-item list-group-item-action">${request_data["id"]}</a>`)
     }
@@ -51,10 +54,13 @@
                     add_element("div", `</ul>`)
 
                     add_element("h1", "Art Items")
-                    // add_element("div", `<ul class="list-group">`)                    
                     json["art_items"].forEach(display_art_item)
-                    // add_element("div", `</ul>`)
-
+                    
+                    if ("{{session['access_token']}}" != ""){
+                        add_element("h1", "Copyright Infringement Reports")
+                        add_element("p", "Smaller scores indicates similar art items")
+                        json["copyright_reports"].forEach(display_copyright_report)
+                    }
                     add_element("h1", "Verification Requests")
                     add_element("div", `<ul class="list-group">`)
                     json["verification_requests"].forEach(display_verification_request)
