@@ -1,6 +1,8 @@
 Endpoint to remove an reported art item object
 ---
-
+security:
+  - BearerAuth: []
+  
 parameters:
   - name: art_item_id
     in: body

@@ -55,10 +55,12 @@
 
                     add_element("h1", "Art Items")
                     json["art_items"].forEach(display_art_item)
-                    add_element("h1", "Copyright Infringement Reports")
-                    add_element("p", "Smaller scores indicates similar art items")
-                    json["copyright_reports"].forEach(display_copyright_report)
-
+                    
+                    if ("{{session['access_token']}}" != ""){
+                        add_element("h1", "Copyright Infringement Reports")
+                        add_element("p", "Smaller scores indicates similar art items")
+                        json["copyright_reports"].forEach(display_copyright_report)
+                    }
                     add_element("h1", "Verification Requests")
                     add_element("div", `<ul class="list-group">`)
                     json["verification_requests"].forEach(display_verification_request)

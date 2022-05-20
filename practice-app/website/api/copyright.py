@@ -77,6 +77,7 @@ def report_infringement():
     return {"id": new_copyright_report.id}, 201
 
 # API endpoint for viewing a copyright infringement report
+@user_required()
 @copyright.route("/copyright/<report_id>", methods=["GET"])
 def get_copyright_report_data(report_id):
 
@@ -110,6 +111,7 @@ def get_copyright_report_data(report_id):
 
 
 # API endpoint for removing an art item
+@user_required()
 @copyright.route("/copyright", methods=["DELETE"])
 def remove_art_item():
 

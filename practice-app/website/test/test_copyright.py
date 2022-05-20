@@ -183,22 +183,25 @@ class TestCopyrightInfringementReport(unittest.TestCase):
                                 content_type="application/json; charset=UTF-8",
                                 headers={"Authorization": "Bearer %s" % token})
 
-    def make_get_copyright_report_data_request(self, report_id):
-        return self.client.get(f"/api/copyright/{report_id}")
+    def make_get_copyright_report_data_request(self, report_id, token):
+        return self.client.get(f"/api/copyright/{report_id}",
+                                content_type="application/json; charset=UTF-8",
+                                headers={"Authorization": "Bearer %s" % token})
 
-    def make_remove_art_item_request(self, json):
+    def make_remove_art_item_request(self, json, token):
         return self.client.delete("/api/copyright",
                                 json=json,
-                                content_type="application/json; charset=UTF-8")
+                                content_type="application/json; charset=UTF-8",
+                                headers={"Authorization": "Bearer %s" % token})
 
     # test get_copyright_report_data API endpoint
 
     def test_get_copyright_report_data_succes(self):
-        response = self.make_get_copyright_report_data_request(self.report_ids[0])
+        response = self.make_get_copyright_report_data_request(self.report_ids[0], self.user_access_token)
         self.assertEqual(response.status, "200 OK")
 
     def test_get_copyright_report_data_report_id_notfound(self):
-        response = self.make_get_copyright_report_data_request(self.report_ids[-1] + 1)
+        response = self.make_get_copyright_report_data_request(self.report_ids[-1] + 1, self.user_access_token)
         self.assertEqual(response.status, "404 NOT FOUND")
 
 # test report_infringement API endpoint
@@ -249,7 +252,7 @@ class TestCopyrightInfringementReport(unittest.TestCase):
     # test remove_art_item API endpoint
 
     def test_remove_art_item_succes(self):
-        response = self.make_remove_art_item_request({"art_item_id": f"{self.art_item_ids[0]}"})
+        response = self.make_remove_art_item_request({"art_item_id": f"{self.art_item_ids[0]}"}, self.user_access_token)
 
         self.assertEqual(response.status, "200 OK")  # reported art item deleted
         # its id is correct
@@ -259,7 +262,7 @@ class TestCopyrightInfringementReport(unittest.TestCase):
         self.assertIsNone(CopyrightInfringementReport.query.get(self.art_item_ids[0]))
 
     def test_remove_art_item_nonexist_art_item(self):
-        response = self.make_remove_art_item_request({"art_item_id": f"{self.art_item_ids[-1] + 1}"})
+        response = self.make_remove_art_item_request({"art_item_id": f"{self.art_item_ids[-1] + 1}"}, self.user_access_token)
         self.assertEqual(response.status, "404 NOT FOUND")
 
 

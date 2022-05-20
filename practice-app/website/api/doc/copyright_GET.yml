@@ -1,5 +1,8 @@
 Endpoint to fetch an copyright report with a given ID
 ---
+security:
+  - BearerAuth: []
+  
 parameters:
   - name: report_id
     in: path
