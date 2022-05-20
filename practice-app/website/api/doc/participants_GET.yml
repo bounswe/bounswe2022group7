@@ -1,4 +1,4 @@
-Endpoint to fetch an event with given ID
+Endpoint to list all participants of an event with given ID.
 ---
 
 security:
