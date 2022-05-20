@@ -57,7 +57,7 @@ def requestVerification():
 		is_verified = isVerified(current_user.id)
 
 		if is_verified:
-			return jsonify(message="You are a verified user!"), 408
+			return jsonify(message="You are a verified user!"), 409
 
 		new_request = verificationRequest(
 			user_id=current_user.id,
@@ -105,7 +105,7 @@ def reviewVerificationRequest(request_id):
 		except:
 			return jsonify(message="An error occured, please try again later."), 500
 	else:
-		return jsonify(message="There is no available request with this id!"), 409
+		return jsonify(message="There is no available request with this id!"), 404
 
 
 
