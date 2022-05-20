@@ -16,7 +16,7 @@ def home_route():
     if query:
         events, art_items, copyright_reports = get_content_with_filter(query)
     else:
-        events, art_items, copyright_reports, verification_requests = get_all_content()
+        events, art_items, verification_requests, copyright_reports = get_all_content()
 
     json = {"events": events, "art_items": art_items, "copyright_reports": copyright_reports, "verification_requests": verification_requests}
     json = {key:[i.serialize() for i in json[key]] for key in json}
