@@ -99,11 +99,11 @@ class TestEvent(unittest.TestCase):
                                 headers = {"Authorization": "Bearer %s" % self.artist2_access_token})
 
         self.event_ids.append(response.json["id"])
-        self.client.post(f"/api/participants/{self.event_ids[1]}",
+        self.client.post(f"/api/participants/add/{self.event_ids[1]}",
                                 headers = {"Authorization": "Bearer %s" % self.artist_access_token})
         
 
-        self.client.post(f"/api/participants/{self.event_ids[1]}",
+        self.client.post(f"/api/participants/add/{self.event_ids[1]}",
                                 headers = {"Authorization": "Bearer %s" % self.user_access_token})
 
         self.invalid_event_id = 587478478
@@ -116,11 +116,11 @@ class TestEvent(unittest.TestCase):
     #################################
 
     def request_add_participant(self, event_id, access_token):
-        return self.client.post(f"/api/participants/{event_id}",
+        return self.client.post(f"/api/participants/add/{event_id}",
                                 headers = {"Authorization": f"Bearer {access_token}"})
     
     def request_remove_participant(self, event_id, access_token):
-        return self.client.delete(f"/api/participants/{event_id}",
+        return self.client.post(f"/api/participants/remove/{event_id}",
                                 headers = {"Authorization": f"Bearer {access_token}"})
 
     def request_view_participants(self, event_id, access_token):
@@ -264,7 +264,7 @@ class TestEvent(unittest.TestCase):
     # Multiple valid removal
     def test_remove_multiple_valid(self):
         removal_request_json = { "participants": [self.user_id, self.artist_id]}
-        response = self.client.delete(f"/api/participants/{self.event_ids[1]}",
+        response = self.client.post(f"/api/participants/remove/{self.event_ids[1]}",
                                         json=removal_request_json,
                                         content_type = "application/json; charset=UTF-8",
                                         headers = {"Authorization": "Bearer %s" % self.artist2_access_token})
@@ -279,7 +279,7 @@ class TestEvent(unittest.TestCase):
     # Check if user creator
     def test_remove_needs_to_be_creator(self):
         removal_request_json = { "participants": [self.user_id, self.artist_id]}
-        response = self.client.delete(f"/api/participants/{self.event_ids[1]}",
+        response = self.client.post(f"/api/participants/remove/{self.event_ids[1]}",
                                         json=removal_request_json,
                                         content_type = "application/json; charset=UTF-8",
                                         headers = {"Authorization": "Bearer %s" % self.artist_access_token})
@@ -291,7 +291,7 @@ class TestEvent(unittest.TestCase):
     # Case which a user given in list is not a participant, will block all removal process
     def test_remove_user_not_participating(self):
         removal_request_json = { "participants": [self.user_id, self.artist_id]}
-        response = self.client.delete(f"/api/participants/{self.event_ids[0]}",
+        response = self.client.post(f"/api/participants/remove/{self.event_ids[0]}",
                                         json=removal_request_json,
                                         content_type = "application/json; charset=UTF-8",
                                         headers = {"Authorization": "Bearer %s" % self.artist_access_token})        
@@ -301,7 +301,7 @@ class TestEvent(unittest.TestCase):
     # Empty array test
     def test_remove_request_body_empty_array(self):
         removal_request_json = { "participants": []}
-        response = self.client.delete(f"/api/participants/{self.event_ids[1]}",
+        response = self.client.post(f"/api/participants/remove/{self.event_ids[1]}",
                                         json=removal_request_json,
                                         content_type = "application/json; charset=UTF-8",
                                         headers = {"Authorization": "Bearer %s" % self.artist2_access_token})
@@ -316,7 +316,7 @@ class TestEvent(unittest.TestCase):
 
     def test_remove_invalid_request_body(self):
         removal_request_json = { "particiler": [self.user_id, self.artist_id]}
-        response = self.client.delete(f"/api/participants/{self.event_ids[0]}",
+        response = self.client.post(f"/api/participants/remove/{self.event_ids[0]}",
                                         json=removal_request_json,
                                         content_type = "application/json; charset=UTF-8",
                                         headers = {"Authorization": "Bearer %s" % self.artist_access_token})        

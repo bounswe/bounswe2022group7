@@ -18,12 +18,12 @@ participants = Blueprint("participants", __name__)
 
 
 # API endpoint for adding participants to an event
-@participants.route("/participants/<event_id>", methods=["POST"])
+@participants.route("/participants/add/<event_id>", methods=["POST"])
 @user_required()
 def add_participant(event_id):
 
     """
-    file: ./doc/participants_POST.yml
+    file: ./doc/participants_add_POST.yml
     """
 
 
@@ -53,13 +53,13 @@ def add_participant(event_id):
 
     
 # API endpoint for removing participants from an event
-@participants.route("/participants/<event_id>", methods=["DELETE"])
+@participants.route("/participants/remove/<event_id>", methods=["POST"])
 @user_required()
 def remove_participant(event_id):
 
 
     """
-    file: ./doc/participants_DELETE.yml
+    file: ./doc/participants_remove_POST.yml
     """
 
     # Checks if event is valid
