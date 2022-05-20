@@ -37,28 +37,13 @@ class TestPostComment(unittest.TestCase):
         self.correct_data = [
             {
                 "parent_post": "1",
-                "text": "Comment 1",
-                "content_uri": "https://random.imagecdn.app/500/150"
-            },
-            {
-                "parent_post": "2",
-                "text": "Comment 2",
-                "content_uri": "https://random.imagecdn.app/500/150"
-            },
-            {
-                "parent_post": "1",
-                "text": "Empty content URI",
-                "content_uri": ""
-            },
-            {
-                "parent_post": "1",
-                "text": "Comment 4",
+                "text": "Comment",
                 "content_uri": "https://random.imagecdn.app/500/150"
             },
             {
                 "parent_post": "1",
                 "text": "Hi",
-                "content_uri": "https://random.imagecdn.app/500/150"
+                "content_uri": ""
             },
             {
                 "parent_post": "1",
@@ -74,7 +59,7 @@ class TestPostComment(unittest.TestCase):
         }
         self.post_data = {
             "title": "standard_sample",
-            "description": "description1",
+            "description": "description",
             "content_uri": "https://www.hepsiburada.com/hayatburada/wp-content/uploads/2021/10/shutterstock_1024133086.jpg"
         }
 
