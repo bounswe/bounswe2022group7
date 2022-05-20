@@ -157,13 +157,13 @@
 
                 {% endif %}
 
-                {% if session["access_token"] != None %}
+                {% if session["access_token"] %}
                                 
-                <a href={{ url_for("views.post_forum")}}>New Post</a>
+                    <a href={{ url_for("views.post_forum")}}>New Post</a>
               
-                <a href={{ url_for("views.report_infringement") }}>Report Copyright Infringement</a>
+                    <a href={{ url_for("views.report_infringement") }}>Report Copyright Infringement</a>
                 
-              <a href={{ url_for("views.view_profile") }}>View Profile</a>
+                    <a href={{ url_for("views.view_profile") }}>View Profile</a>
 
                 {% endif %}
 
