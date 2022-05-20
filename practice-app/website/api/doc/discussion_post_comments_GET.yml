@@ -1,0 +1,128 @@
+Endpoint to fetch a forum post with a given ID
+---
+parameters:
+  - name: post_id
+    in: path
+    required: true
+    type: integer
+    description: ID of the forum post
+    example : 18
+         
+responses:
+  200:
+    description: Forum post with the given ID is successfully fetched.
+    schema:
+      type: object
+      required:
+        - comments
+        - post
+      properties:
+        comments:
+          type: array
+          items:
+            type: object
+            required:
+              - content_uri
+              - creation_date
+              - creator
+              - id
+              - name
+              - parent_post
+              - text
+              - translation
+            properties:
+              content_uri:
+                type: string
+                description: The link to the image attached to the comment (image, gif, etc.)
+                example: "https://random.imagecdn.app/500/150"
+              creation_date:
+                type: string
+                description: Date of creation of the comment
+                example: "Wed, 15 May 2022 00:00:00 GMT"
+              creator:
+                type: integer
+                description: ID of the creator of the comment
+                example: 5
+              id:
+                type: integer
+                description: ID of the comment
+                example: 35
+              name:
+                type: string
+                description: name of the creator of the comment
+                example: "Johnny Depp"
+              parent_post:
+                type: integer
+                description: ID of the parent post
+                example: 7
+              text:
+                type: string
+                description: The body of the comment to be posted under the discussion post
+                example: "Great forum post!"
+              translation:
+                type: string
+                description: The turkish translation of the body of the comment posted under the discussion post
+                example: "Harika bir forum yazisi!"
+          description: a list of comments written under the forum post
+          example: [{
+            "content_uri": "https://random.imagecdn.app/500/150",
+            "creation_date": "Wed, 18 May 2022 00:00:00 GMT",
+            "creator": 5,
+            "id": 35,
+            "name": "Johnny Depp",
+            "parent_post": 7,
+            "text": "Great forum post!",
+            "translation": "Harika bir forum yazisi!"
+        }]
+        post:
+          type: object
+          required:
+            - content_uri
+            - creation_date
+            - creator
+            - description
+            - id
+            - title
+            - user_name
+          properties:
+            content_uri:
+              type: string
+              description: The link to the image attached to the forum post (image, gif, etc.)
+              example: "https://random.imagecdn.app/500/150"
+            creation_date:
+              type: string
+              description: Date of creation of the forum post
+              example: "Wed, 9 May 2022 00:00:00 GMT"
+            creator:
+              type: integer
+              description: ID of the creator of the post
+              example: 9
+            description:
+              type: string
+              description: Description of the forum post
+              example: "This is the description of the post"
+            id:
+              type: integer
+              description: ID of the forum post
+              example: 23
+            title:
+              type: string
+              description: The title of the forum post
+              example: "Starry Night"
+            user_name:
+              type: string
+              description: The name of the user who created the forum post
+              example: "Michael Jackson"          
+          description: Post information
+          example: {
+              "content_uri": "https://random.imagecdn.app/500/150",
+              "creation_date": "Wed, 9 May 2022 00:00:00 GMT",
+              "creator": 9,
+              "description": "This is the description of the post",
+              "id": 23,
+              "title": "Starry Night",
+              "user_name": "Michael Jackson"
+          }         
+
+  404:
+    description: "There is no forum post with the given ID."

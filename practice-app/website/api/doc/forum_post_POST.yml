@@ -1,0 +1,39 @@
+Endpoint to create a new forum post
+---
+security:
+  - BearerAuth: []
+
+parameters:
+  - name: title
+    in: body
+    required: false
+    type: string
+    description: Title for the forum post
+    example : "The Starry Night"
+  - name: description
+    in: body
+    required: true
+    type: string
+    description: The main textual body of the forum post.
+    example : "The Starry Night is an oil-on-canvas painting by the Dutch Post-Impressionist painter Vincent van Gogh."
+  - name: content_uri
+    in: body
+    required: false
+    type: string
+    description: The link to the resource file of the visual content being shared (image, gif, etc.)
+    example: "https://en.wikipedia.org/wiki/The_Starry_Night#/media/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"
+
+responses:
+  201:
+    description: Forum post is successfully added to the cluster.
+    schema:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          description: ID of the newly created forum post.
+          example: 47        
+  500:
+    description: "Error recording post to database."

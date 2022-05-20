@@ -17,4 +17,13 @@ __pycache__
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-._* 
+._*
+
+# Ignore database file
+*.db
+
+# Ignore virtual python environment folder
+.venv
+venv
+# Ignore AWS credentials
+*.pem

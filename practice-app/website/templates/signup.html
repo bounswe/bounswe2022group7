@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block functionality %}Sign Up{% endblock %}
+
+{% block content %}
+
+<!-- <html>
+ -->
+<!-- <head>
+    <link rel="stylesheet" href=
+"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity=
+"sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+        crossorigin="anonymous">
+
+    <script src=
+"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity=
+"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous">
+    </script>
+    <script src=
+"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity=
+"sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous">
+    </script>
+    <script src=
+"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity=
+"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous">
+    </script>
+    <script src=
+"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity=
+"sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous">
+    </script>
+</head> -->
+
+<div id="mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    add_element("h2", "Enter Personal Information")
+
+    function submitform() {
+        var form = document.getElementById('myForm');
+        var formData = new FormData(form)
+
+        url = "/api/signup"
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(response => {
+            if (response.status == 409) {
+                alert('This email is already being used.')
+            }
+
+            if (response.status == 201) {
+                response.json().then(userData => {
+                    url = "/token/set"
+                    fetch(url, {
+                        method: "POST",
+                        body: JSON.stringify(userData),
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                        }
+                    }).then(() => { window.location.assign("/") })
+                })
+            }
+        })
+    }
+
+    add_element("div",
+    `
+    <form id="myForm">
+        <p>Email:       <input type="text" name="email"></p>
+        <p>Password: <input type="password" name="password"></p>
+        <p>First Name: <input type="text" name="first_name"></p>
+        <p>Last Name:        <input type="text" name="last_name"></p>
+        <p>
+            <input type="checkbox" id="is-artist" name="is_artist">
+            <label for="is-Artist">Artist</label>
+        </p>
+        <input type="button" value="Sign Up" onclick="submitform()">
+    </form>
+    `)
+
+</script>
+
+
+<!-- <body>
+    <form id=myForm>
+        <div class="form-group">
+            <label for="inputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username@example.com">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="inputFirstName">First Name</label>
+            <input type="text" class="form-text" id="inputFirstName" placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <label for="inputLastName">Last Name</label>
+            <input type="text" class="form-text" id="inputLastName" placeholder="Last Name">
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">I am an artist</label>
+        </div>        
+        <button type="submit" class="btn btn-primary" onclick="submitform()">Submit</button>
+    </form> -->
+
+
+<!-- </body> -->
+<!-- </html> -->
+
+
+
+
+{% endblock %}

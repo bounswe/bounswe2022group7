@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Art Item {% endblock %}
+
+{% block content %}
+
+<div id="mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+    url = "/api/art_item/{{art_item_id}}"
+
+    fetch(url)
+        .then(response => {
+
+            if (response.status == 404) {
+                add_element("div", "Oops! There is no art item with this id.")
+            }
+            if (response.status == 200) {
+                response.json().then(art_item_data => {
+
+                    add_element("h1", "" + art_item_data["name"])
+
+                    add_element("div", "<img src=\"" + art_item_data["content_uri"] + "\">")
+
+                    add_element("h2", "Creator: " + art_item_data["artist_name"])
+
+                    add_element("h2", "Description")
+                    add_element("div", art_item_data["description"])
+
+                    add_element("div", "<b>Creation Date: </b>" + art_item_data["creation_date"])
+
+                    const dominant_colors = art_item_data["dominant_colors"]
+
+                    if (dominant_colors === undefined || dominant_colors.length == 0) {
+                        add_element("div", "<b>Dominant Colors: </b> The system was not able to find the dominant colors in this art item.")
+                    } else {
+                        add_element("div", "<b>Dominant Colors: </b>")
+                        for (var i = 0; i < dominant_colors.length; i++) {
+                            add_element("div", (i + 1) + ". " + dominant_colors[i])
+                        }
+                    }
+                }
+                )
+            }
+        }).catch(err => {
+            console.log(err)
+        });
+
+
+</script>
+
+{% endblock %}

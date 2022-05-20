@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block functionality %} Home {% endblock %}
+
+{% block content %}
+
+<div id="mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+
+    function display_event(event_data) {
+        add_element("div", `<a href=/event/${event_data["id"]} class="list-group-item list-group-item-action">${event_data["title"]}</a>`)
+    }
+
+    function display_art_item(art_item_data) {
+        add_element("div", `<a href=/art_item/${art_item_data["id"]}>${art_item_data["name"]}</a>`)
+    }
+
+    function display_copyright_report(report_data) {
+        add_element("div", `<a href=/copyright/${report_data["id"]}>Id:${report_data["id"]} - score:${report_data["similarity_score"]}</a>`)
+    }
+    function display_verification_request(request_data) {
+        add_element("div", `<a href=/verification/${request_data["id"]} class="list-group-item list-group-item-action">${request_data["id"]}</a>`)
+    }
+
+    var url = "/api/search"
+
+    href = window.location.href
+    query = href.match("/?query=(.+)")
+    if (query) {
+        query = query[1]
+        url = url + "?query=" + query
+        add_element("div", "Filtering content with query \"" + decodeURI(query) + "\"")
+    }
+
+    fetch(url)
+        .then(response => {
+            if (response.status == 200) {
+                response.json().then(json => {
+                    add_element("h1", "Events")
+                    add_element("div", `<ul class="list-group">`)
+                    json["events"].forEach(display_event)
+                    add_element("div", `</ul>`)
+
+                    add_element("h1", "Art Items")
+                    json["art_items"].forEach(display_art_item)
+                    
+                    if ("{{session['access_token']}}" != "None"){
+                        add_element("h1", "Copyright Infringement Reports")
+                        add_element("p", "Smaller scores indicates similar art items")
+                        json["copyright_reports"].forEach(display_copyright_report)
+                    }
+                    add_element("h1", "Verification Requests")
+                    add_element("div", `<ul class="list-group">`)
+                    json["verification_requests"].forEach(display_verification_request)
+                    add_element("div", `</ul>`)
+                })
+            }
+        }).catch(err => {
+            console.log(err)
+        });
+
+
+</script>
+
+{% endblock %}

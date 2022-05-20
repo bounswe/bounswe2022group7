@@ -1,0 +1,41 @@
+Endpoint to create an copyright report object
+---
+security:
+  - BearerAuth: []
+
+parameters:
+  - name: original_art_item_id
+    in: body
+    required: true
+    type: integer
+    description: ID of the original art item
+    example : 37
+  - name: infringement_art_item_id
+    in: body
+    required: true
+    type: integer
+    description: ID of the infringement art item
+    example: 46  
+  - name: description
+    in: body
+    required: true
+    type: string
+    description: The informative text about the report
+    example: "These two art items are too similar, there might be a copyright infringement."
+  
+responses:
+  201:
+    description: Report with the given data is successfully created.
+    schema:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          description: ID of the newly created report
+          example: 5       
+  400:
+    description: "Original art item and infringement art item must be different."
+  404:
+    description: "Art Item with id : <art_item_id> does not exists."

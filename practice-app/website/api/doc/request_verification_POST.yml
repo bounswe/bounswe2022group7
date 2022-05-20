@@ -1,0 +1,21 @@
+Endpoint to create a verification request
+---
+security:
+  - BearerAuth: []
+
+responses:
+  201:
+    description: A verification request data is successfully created.
+    schema:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          description: ID of the newly created request
+          example: 14
+  500:
+    description: "Server Error."
+  409:
+    description: "There is a request, whose status is 'Pending', for the user requesting verification. (OR) The user requesting verification is already verified."

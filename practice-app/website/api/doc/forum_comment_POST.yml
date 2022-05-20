@@ -1,0 +1,41 @@
+Endpoint to create a forum post comment object
+---
+security:
+  - BearerAuth: []
+
+parameters:
+  - name: parent_post
+    in: body
+    required: true
+    type: integer
+    description: ID of the parent forum post
+    example : 1
+  - name: text
+    in: body
+    required: true
+    type: string
+    description: The body of the comment to be posted under the discussion post
+    example : "Great forum post!"
+  - name: content_uri
+    in: body
+    required: true
+    type: string
+    description: The link to the image to be attached to the comment (image, gif, etc.)
+    example: "https://random.imagecdn.app/500/150"
+
+responses:
+  201:
+    description: A comment with the given data is successfully created.
+    schema:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          description: ID of the newly created comment
+          example: 15       
+  400:
+    description: "Missing required parameters."
+  401:
+    description: "Access token is missing or invalid."

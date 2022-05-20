@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block functionality %} View Copyright Infringement Report  {% endblock %}
+
+{% block content %}
+
+<div id = "mainContainer"></div>
+
+<script>
+
+    var mainContainer = document.getElementById("mainContainer");
+
+    function add_element(elementType, innerHTML) {
+        var element = document.createElement(elementType)
+        element.innerHTML = innerHTML
+        mainContainer.appendChild(element);
+    }
+
+    // ONLY EDIT BELOW THIS COMMENT WHEN
+    // IMPLEMENTING DIFFERENT FEATURES
+    url = "/api/copyright/{{report_id}}"
+
+    function remove_art_item(art_item_id) {
+        var json_body = {"art_item_id":art_item_id};
+        
+        url = "/api/copyright"
+        fetch(url, {
+            method: "DELETE",
+            body: JSON.stringify(json_body),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            }
+        }).then(response => {
+            if (response.status == 200) {
+                response.json().then(report_data => {
+                    window.location.assign('/')
+                    alert("Art Item with ID:" + report_data["id"] + "succesfully removed.")
+                })
+            }
+            else {
+                response.json().then(error_data => {
+                    alert(error_data["error"])
+                })
+            }   
+        })
+    }
+
+    fetch(url)
+    .then(response => {
+
+        if (response.status == 404) {
+            add_element("div", "There is no report with this id.")
+        }
+        if (response.status == 200) {
+            response.json().then(report_data => {
+
+                add_element("h1", "Report Id: " + report_data["id"])
+                
+                add_element("h3", "Creator: " + report_data["creator_name"])
+
+                add_element("h3", "Description:")
+                add_element("div", report_data["description"])
+
+                add_element("h3", "Report Creation Date")
+                add_element("div", report_data["creation_date"])
+
+                add_element("h2", "Similarity Score: " + report_data["similarity_score"])
+                add_element("p", "Smaller similarity scores indicates similar art items")
+
+                add_element("h2", "Original Art Item")
+                add_element("div", "<a href=/art_item/" + report_data["original_art_item_id"] + ">Name: " + report_data["original_art_name"] + "</a>")
+                add_element("div", "Creation Date: " + report_data["original_art_creation_date"])
+                add_element("div", "<img src=\"" + report_data["original_art_uri"] + "\">")
+                add_element("div", "<input type='button' value='Remove Original Art Item' onclick='remove_art_item(" + report_data["original_art_item_id"] + ")''>")
+
+                add_element("h2", "Infringement Art Item")
+                add_element("div", "<a href=/art_item/" + report_data["infringement_art_item_id"] + ">Name: " + report_data["infringement_art_name"] + "</a>")
+                add_element("div", "Creation Date: " + report_data["infringement_art_creation_date"])
+                add_element("div", "<img src=\"" + report_data["infringement_art_uri"] + "\">")
+                add_element("div", "<input type='button' value='Remove Infringement Art Item' onclick='remove_art_item(" + report_data["infringement_art_item_id"] + ")''>")
+
+
+            }
+        )}
+    }).catch(err => {
+        console.log(err)
+    });
+    
+    
+</script>
+
+{% endblock %}

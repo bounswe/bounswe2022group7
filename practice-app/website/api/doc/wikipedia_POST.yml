@@ -1,0 +1,24 @@
+Endpoint to get a definition of a word from wikipedia
+---
+parameters:
+  - name: word
+    in: body
+    required: true
+    type: string
+    description: Word to be searched on wikipedia
+    example : "pizza"
+
+responses:
+  200:
+    description: Got a definition from wikipedia successfully
+    schema:
+      type: object
+      required:
+        - definition
+      properties:
+        definition:
+          type: string
+          description: Definition of the word in query.
+          example: "Pizza (Italian: [ˈpittsa], Neapolitan: [ˈpittsə]) is a dish of Italian origin consisting of a usually round, flat base of leavened wheat-based dough topped with ..."
+  400:
+    description: "Did not send any words."
