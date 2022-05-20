@@ -28,5 +28,5 @@ responses:
           example: 1        
   500:
     description: "Server error."
-  409:
+  404:
     description: "There is no available request with the given id"

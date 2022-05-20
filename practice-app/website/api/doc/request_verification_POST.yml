@@ -17,7 +17,5 @@ responses:
           example: 14
   500:
     description: "Server Error."
-  408:
-    description: "Test"
   409:
     description: "There is a request, whose status is 'Pending', for the user requesting verification. (OR) The user requesting verification is already verified."
