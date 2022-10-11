@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom/client'
 import React from 'react'
 
 export class Welcome extends React.Component {
@@ -7,3 +8,6 @@ export class Welcome extends React.Component {
         )
     }
 }
+
+const root = document.querySelector('#root')
+ReactDOM.createRoot(root).render(<Welcome name="guney" />)
