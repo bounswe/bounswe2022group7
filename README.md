@@ -16,6 +16,7 @@ Welcome to the GitHub repository of Group 7, we are computer engineering student
 - [Güney İzol](https://github.com/bounswe/bounswe2022group7/wiki/G%C3%BCney-%C4%B0zol)
 - [Musa Şimşek](https://github.com/bounswe/bounswe2022group7/wiki/Musa-%C5%9Eim%C5%9Fek)
 - [Sabri Mete Akyüz](https://github.com/bounswe/bounswe2022group7/wiki/Sabri-Mete-Akyüz)
+- [M.Ekrem Gezgen](https://github.com/bounswe/bounswe2022group7/wiki/M.Ekrem-GEZGEN)
 
 #### Former Team Members
 
