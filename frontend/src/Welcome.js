@@ -172,5 +172,5 @@ export class Welcome extends React.Component {
     }
 }
 
-const root = document.querySelector('#root')
+const root = document.querySelector('body')
 ReactDOM.createRoot(root).render(<ResponsiveAppBar />)
