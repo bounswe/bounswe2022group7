@@ -1,7 +1,8 @@
 package com.group7.artshare.entity
 
 import lombok.Data;
-import javax.persistance.*;
+import java.util.*
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -9,34 +10,34 @@ class ArtItem{
 
     @Id
     @GeneratedValue
-    private itemId;
+    val itemId: Long = 0L
 
     @OneToOne
     @JoinColumn(name = "artItemInfo", referencedColumnName = "id")
-    EventInfo eventInfo;
+    val artItemInfo: ArtItemInfo = null
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
-    Artist creator;
+    val creator: Artist = null
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    val creationDate: Date = Calendar.getInstance().time
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner")
-    RegisteredUser owner;
+    val owner: RegisteredUser = null
 
     @Column
-    Boolean onAuction;
+    val onAuction: Boolean = false
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "auction")
-    Auction auction;
+    val auction: Auction: null
 
     @Column
-    Double lastPrice;
+    val lastPrice: Double = 0.0;
 
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    List<Comment> commentList;
+    val commentList: List<Comment> = ArrayList()
 }

@@ -1,37 +1,40 @@
 package com.group7.artshare.entity
 
-import lombok.Data;
-import javax.persistance.*;
-
-import java.util.List;
+import lombok.Data
+import java.util.*
+import javax.persistence.*
+import kotlin.collections.ArrayList
+import java.util.Calendar
 
 @Data
 @Entity
+@Table(name = "event")
 class Event{
 
     @Id
     @GeneratedValue
-    private Long eventId;
+    val eventId: Long = 0L
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
-    Artist creator;
+    val creator: Artist = null
 
 
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    List<Artist> collaborators;
+    val collaborators: List<Artist> = ArrayList()
 
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    List<RegisteredUser> participants;
+    val participants: List<RegisteredUser> = ArrayList()
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastEdited;
+    val lastEdited: Date = Calendar.getInstance().time
 
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    List<Comment> commentList;
+    val commentList: List<Comment> = ArrayList()
 
     @OneToOne
     @JoinColumn(name = "eventInfoId", referencedColumnName = "id")
-    EventInfo eventInfo;
+    val eventInfo: EventInfo = null
+
 }
