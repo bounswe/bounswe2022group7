@@ -6,8 +6,6 @@ String? validateEmail(String? value) {
     msg = "Your email is required";
   } else if (!regex.hasMatch(value)) {
     msg = "Please provide a valid email address";
-  } else if (value.contains(" ")) {
-    msg = "Email cannot have spaces"; // different prompt for space
   }
   return msg;
 }
