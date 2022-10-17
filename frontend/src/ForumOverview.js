@@ -7,8 +7,6 @@ import Typography from '@mui/material/Typography'
 export class ForumOverview extends React.Component {
     render() {
         return (<Box sx={{
-            border: 2,
-            borderColor: 'primary.main',
             my: 2,
             borderRadius: 1,
             minHeight: '75%',

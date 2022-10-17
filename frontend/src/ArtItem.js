@@ -10,8 +10,6 @@ export class ArtItem extends React.Component {
     render() {
         return (
             <Card raised sx={{
-                border: 2,
-                borderColor: 'primary.main',
                 width: '75%',
                 mx: 'auto',
                 my: 2
