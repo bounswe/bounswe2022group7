@@ -11,3 +11,26 @@ String? validateEmail(String? value) {
   }
   return msg;
 }
+
+String? validatePassword(String? value) {
+  // TODO these values are temporary, change after backend implementation
+  String? msg;
+  var maxLength = 37;
+  var minLength = 8;
+  if (value == null) {
+    msg = "Password can't be empty";
+  } else if (value.length < minLength) {
+    msg = 'Password must be at least $minLength characters';
+  } else if (value.length > maxLength) {
+    msg = "Password can't be longer than $maxLength characters";
+  }
+  return msg;
+}
+
+String? validateUsername(String? value) {
+  String? msg;
+  if (value!.isEmpty) {
+    msg = "Username can't be empty";
+  }
+  return msg;
+}

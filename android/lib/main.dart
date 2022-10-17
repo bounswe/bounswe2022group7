@@ -1,3 +1,4 @@
+import 'package:android/pages/homepage.dart';
 import 'package:android/pages/login.dart';
 import 'package:android/pages/register.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         login: (context) => const Login(),
         register: (context) => const Register(),
+        homepage: (context) => const HomePage(),
       },
     );
   }
