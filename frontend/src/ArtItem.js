@@ -1,33 +1,36 @@
-import * as React from 'react';
+import React from 'react'
+
+import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 
-export default function ArtItem() {
-    return (
-        <Card sx={{my: 2, mx: 2}}>
-            <CardMedia
-                component="img"
-                height="140"
-                image="./contemplative-reptile.jpg"
-                alt="art item"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    Lizard
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-            </CardActions>
-        </Card>
-    );
+export class ArtItem extends React.Component {
+    render() {
+        return (
+            <Card raised sx={{
+                border: 2,
+                borderColor: 'primary.main',
+                width: '75%',
+                mx: 'auto',
+                my: 2
+            }}>
+                <CardHeader
+                    avatar={
+                        <Avatar sx={{ bgcolor: 'secondary.main' }} aria-label="user">
+                            G
+                        </Avatar>
+                    }
+                    title="My Latest Work"
+                    subheader="September 18, 2022"
+                />
+                <CardContent>
+                    <Typography variant="body2" color="text.secondary">
+                        Art item details
+                    </Typography>
+                </CardContent>
+            </Card>
+        )
+    }
 }
