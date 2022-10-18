@@ -19,18 +19,17 @@ class Event{
     @JoinColumn(name = "creator")
     val creator: Artist = null
 
-
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val collaborators: List<Artist> = ArrayList()
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val participants: List<RegisteredUser> = ArrayList()
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     val lastEdited: Date = Calendar.getInstance().time
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val commentList: List<Comment> = ArrayList()
 
     @OneToOne

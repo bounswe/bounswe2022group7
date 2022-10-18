@@ -33,11 +33,11 @@ class ArtItem{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "auction")
-    val auction: Auction: null
+    val auction: Auction = null
 
     @Column
     val lastPrice: Double = 0.0;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val commentList: List<Comment> = ArrayList()
 }
