@@ -3,7 +3,6 @@ import React from 'react'
 import {
     createBrowserRouter,
     RouterProvider,
-    Route,
 } from "react-router-dom";
 
 import ResponsiveAppBar from './ResponsiveAppBar';
@@ -27,11 +26,10 @@ const router = createBrowserRouter([
 function App() {
   console.log(ArtItemPage)
     return (
-    <React.StrictMode>
+      <div>
         <ResponsiveAppBar/>
         <RouterProvider router = {router} />
-    </React.StrictMode>
-      
+      </div>
     );
   }
 
