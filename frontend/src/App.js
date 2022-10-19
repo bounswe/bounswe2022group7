@@ -8,6 +8,7 @@ import {
 import ResponsiveAppBar from './ResponsiveAppBar';
 import HomePage from "./pages/HomePage/HomePage"
 import ArtItemPage from "./pages/ArtItemPage/ArtItemPage"
+import Container from '@mui/material/Container';
 
 const router = createBrowserRouter([
     {
@@ -24,11 +25,19 @@ const router = createBrowserRouter([
   ]);
 
 function App() {
-  console.log(ArtItemPage)
     return (
       <div>
         <ResponsiveAppBar/>
-        <RouterProvider router = {router} />
+        <Container
+          minH
+          maxWidth="lg"
+          sx={{
+            boxShadow: 1,
+            paddingY: 2
+          }}
+        >
+          <RouterProvider router = {router} />          
+        </Container>
       </div>
     );
   }
