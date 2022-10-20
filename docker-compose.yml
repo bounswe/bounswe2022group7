@@ -1,0 +1,38 @@
+version: '3.3'
+
+services:
+
+  db:
+    container_name: database
+    image: mysql:5.7
+    platform: linux/x86_64
+    restart: on-failure
+    environment:
+      # IMPORTANT NOTE:
+      # Whenever you change the value of any of these variables below,
+      # please also update the value of the same variable in "backend" service as well.
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=JJZlB7wCVu
+      - MYSQL_PASSWORD=uBPhYe7bJl
+    networks:
+      default:
+        aliases:
+        # IMPORTANT NOTE:
+        # Whenever you change the alias below,
+        # update the value of MYSQL_HOST environment variable of "backend" service as well.
+          - db
+    ports:
+      # IMPORTANT NOTE:
+      # Whenever you change the "CONTAINER_PORT" part of the "HOST_PORT:CONTAINER_PORT" pair below,
+      # update the value of MYSQL_PORT environment variable of "backend" service as well.
+       - "3306:3306"
+    # volumes:
+    #   - mysql_data:/var/lib/mysql
+  backend:
+    container_name: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
