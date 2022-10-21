@@ -3,13 +3,15 @@ import 'package:android/pages/profilePage.dart';
 import 'package:android/pages/register.dart';
 import 'package:flutter/material.dart';
 
+
 import '/config/app_routes.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
   @override
