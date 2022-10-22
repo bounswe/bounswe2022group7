@@ -7,14 +7,15 @@ import Typography from '@mui/material/Typography'
 export class ForumOverview extends React.Component {
     render() {
         return (<Box sx={{
-            my: 2,
-            borderRadius: 1,
-            minHeight: '75%',
-            width: '75%',
-            boxShadow: 3
+            height: '100%'
         }}>
-            <Paper elevation={3} >
-                <Typography variant="subtitle1" color="text.secondary" align="center">
+            <Paper variant='outlined' squar sx={{
+                height: '100%'
+            }}>
+                <Typography variant="subtitle1" color="text.secondary" align="center" sx={{
+                    borderBottom: 1,
+                    borderColor: 'text.secondary'
+                }}>
                     Latest in forum
                 </Typography>
             </Paper>

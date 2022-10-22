@@ -4,15 +4,14 @@ import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
-export class Event extends React.Component {
+export class ArtItem extends React.Component {
     render() {
         return (
-            <Card raised sx={{
-                width: '75%',
-                mx: 'auto',
-                my: 2
+            <Card sx={{
+                borderRadius: 0
             }}>
                 <CardHeader
                     avatar={
@@ -20,12 +19,18 @@ export class Event extends React.Component {
                             G
                         </Avatar>
                     }
-                    title="Upcoming Event"
+                    title="My Latest Work"
                     subheader="September 18, 2022"
+                />
+                <CardMedia
+                    component="img"
+                    height="194"
+                    image="contemplative-reptile.jpg"
+                    alt="Reptile"
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                        Event details
+                        Art item details
                     </Typography>
                 </CardContent>
             </Card>
