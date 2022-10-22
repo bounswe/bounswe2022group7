@@ -28,6 +28,11 @@ class _LoginState extends State<Login> {
                   Navigator.pushNamed(context, profile),
                   child: const Text("go to profile page"),
             ),
+            ElevatedButton(
+              onPressed: () =>
+                  Navigator.pushNamed(context, homepage),
+                  child: const Text("home page"),
+            ),
             const Text("Login page"),
           ],
         ),
