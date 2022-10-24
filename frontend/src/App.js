@@ -8,12 +8,23 @@ import {
 import ResponsiveAppBar from './ResponsiveAppBar';
 import HomePage from "./pages/HomePage/HomePage"
 import ArtItemPage from "./pages/ArtItemPage/ArtItemPage"
+import SignInPage from './pages/Authentication/SignInPage';
+import SignUpPage from './pages/Authentication/SignUpPage';
+
 import Container from '@mui/material/Container';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+  },
+  {
+    path: "/auth/signup",
+    element: <SignUpPage />
+  },
+  {
+    path: "/auth/signin",
+    element: <SignInPage />
   },
   {
     // dynamic routing: id parameter can be accessed
