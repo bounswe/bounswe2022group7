@@ -16,7 +16,7 @@ class PhysicalExhibition{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location")
-    val location: Location = null;
+    val location: Location? = null;
 
     @Column
     val rules: String = ""

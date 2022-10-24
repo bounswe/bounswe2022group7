@@ -12,7 +12,7 @@ class ArtItemInfo {
     val id: Long = 0L
 
     @OneToOne
-    @JoinColumn(name = "artItem", referencedColumnName = "itemId")
+    @JoinColumn(name = "artItem", referencedColumnName = "id")
     val artItem: ArtItem? = null
 
     @Column
@@ -28,5 +28,5 @@ class ArtItemInfo {
     val imageUrl: String? = null
 
     @Column
-    val labels: List<String> = ArrayList()
+    val labels: String? = null
 }

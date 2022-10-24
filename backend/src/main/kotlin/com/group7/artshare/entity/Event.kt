@@ -13,27 +13,26 @@ class Event{
 
     @Id
     @GeneratedValue
-    val eventId: Long = 0L
+    var eventId: Long = 0L
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
-    val creator: Artist = null
+    var creator: Artist? = null
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    val collaborators: List<Artist> = ArrayList()
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    var collaborators: List<Artist> = ArrayList()
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    val participants: List<RegisteredUser> = ArrayList()
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    var participants: List<RegisteredUser> = ArrayList()
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    val lastEdited: Date = Calendar.getInstance().time
+    var lastEdited: Date = Calendar.getInstance().time
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    val commentList: List<Comment> = ArrayList()
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    var commentList: List<Comment> = ArrayList()
 
     @OneToOne
     @JoinColumn(name = "eventInfoId", referencedColumnName = "id")
-    val eventInfo: EventInfo = null
-
+    var eventInfo: EventInfo? = null
 }
