@@ -4,5 +4,5 @@ class User {
   final String imageUrl;
   final String username;
 
-  User({required this.name, required this.email, required this.imageUrl, required this.username,});
+  User({required this.name, required this.email, required this.imageUrl, required this.username});
 }
