@@ -4,8 +4,6 @@ WORKDIR /app
 # Copy app files
 COPY . .
 RUN npm i 
-# Test the app
-RUN npm run test
 # Build the app
 RUN npm run build
 
