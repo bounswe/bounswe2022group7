@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     Item dropdown_value = dropdown_items[2];
     return Scaffold(
-      appBar: formAppBar(),
+      // appBar: myAppBar(),        // app bar will be discussed later
       body: Container(
         child: Column(
           children: [

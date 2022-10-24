@@ -1,3 +1,4 @@
+import 'package:android/pages/home_page.dart';
 import 'package:android/pages/login.dart';
 import 'package:android/pages/profilePage.dart';
 import 'package:android/pages/register.dart';
@@ -8,7 +9,7 @@ import 'package:android/models/user_model.dart';
 import '/config/app_routes.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         login: (context) => const Login(),
         register: (context) => const Register(),
         profile: (context) => ProfilePage(current_user: tom,),
+        homepage: (context) => const HomePage(),
       },
     );
   }
