@@ -1,0 +1,22 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - release
+    paths:
+      - 'frontend/**'
+  
+  pull_request:
+    branches: [ "frontend", "develop" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Test and build production version of frontend
+      working-directory: ./frontend
+      run: docker build . --file Dockerfile.production --tag frontend-build:$(date +%s) --target builder
