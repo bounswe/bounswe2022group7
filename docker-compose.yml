@@ -13,8 +13,8 @@ services:
       # please also update the value of the same variable in "backend" service as well.
       - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_DATABASE=db
-      - MYSQL_USER=JJZlB7wCVu
-      - MYSQL_PASSWORD=uBPhYe7bJl
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
     networks:
       default:
         aliases:
