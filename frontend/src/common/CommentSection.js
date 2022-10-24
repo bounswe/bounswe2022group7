@@ -3,18 +3,12 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import Comment from './Comment'
+import UserCard from './UserCard'
 import NewComment from './NewComment'
 
-function CommentSection() {
+function CommentSection(props) {
   
-  // Mock data
-  const comments = [
-    "Comment 1 resides here",
-    "Comment 2 resides here",
-    "Comment 3 resides here"
-  ]
-  let commentComponents = comments.map(commentStr => Comment("Comment Title", "September 18, 2022", commentStr))
+  let commentComponents = props.comments.map(commentData => UserCard(commentData))
 
   return (
     <Box sx={{
@@ -25,7 +19,7 @@ function CommentSection() {
       boxShadow: 2,
     }}>
       <Typography variant="h6">
-        Comment Section
+        Comment Section of id={props.id}
       </Typography>
 
       <Stack spacing={2}>
