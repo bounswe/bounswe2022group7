@@ -29,8 +29,6 @@ function SignInForm(props) {
   // below in the return call of SignUpForm function.
   const handleSubmit = event => {
     event.preventDefault();
-    
-    console.log(formInput)
     saveToken(formInput.email)
 
     /*
