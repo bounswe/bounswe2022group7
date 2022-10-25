@@ -1,7 +1,11 @@
 # add git-ignore syntax here of things you don't want copied into docker image
 
 .git
+.gitignore
+READme.md
 *Dockerfile*
 *docker-compose*
-node_modules
 .parcel-cache
+dist
+node_modules
+package-lock.json
