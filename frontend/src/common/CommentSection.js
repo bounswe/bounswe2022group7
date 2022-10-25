@@ -6,10 +6,12 @@ import Typography from '@mui/material/Typography';
 import UserCard from './UserCard'
 import NewComment from './NewComment'
 
+import {useAuth} from "../auth/useAuth"
+
 function CommentSection(props) {
   
   let commentComponents = props.comments.map(commentData => UserCard(commentData))
-
+  const {token} = useAuth() 
   return (
     <Box sx={{
       width: '90%',
@@ -24,7 +26,8 @@ function CommentSection(props) {
 
       <Stack spacing={2}>
         {commentComponents}
-        <NewComment />
+        {token && <NewComment />}
+        
       </Stack>
     </Box>
   );

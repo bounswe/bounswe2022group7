@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {useNavigate} from 'react-router-dom';
+import { useAuth } from "../auth/useAuth";
 
 import { CardHeader, CardContent, Card, Avatar, IconButton, Typography, MenuItem, Menu } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -12,7 +13,7 @@ function UserCard(props) {
 
   let { userData, body, date } = props
 
-  const logged_in_user = true // TODO: set to true only if there is a JWT token
+  const { token } = useAuth()
 
   // HANDLING FOLLOW/LIKE FUNCTIONALITIES
 
@@ -91,7 +92,7 @@ function UserCard(props) {
           </CardContent>
         }
 
-        {logged_in_user && // if logged_in_user, render below 
+        {token && // if logged_in_user, render below 
           <CardActions disableSpacing>
             <IconButton onClick={body ? handleCommentLike : handleUserFollow} aria-label="add to favorites">
               {starState.stared ? <StarIcon /> : <StarOutlineIcon />}
