@@ -1,13 +1,13 @@
-package com.group7.artshare
+// package com.group7.artshare
 
-import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
+// import org.junit.jupiter.api.Test
+// import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
-class ArtshareApplicationTests {
+// @SpringBootTest
+// class ArtshareApplicationTests {
 
-	@Test
-	fun contextLoads() {
-	}
+// 	@Test
+// 	fun contextLoads() {
+// 	}
 
-}
+// }

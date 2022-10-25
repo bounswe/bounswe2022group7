@@ -13,8 +13,8 @@ services:
       # please also update the value of the same variable in "backend" service as well.
       - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_DATABASE=db
-      - MYSQL_USER=$MYSQL_USER
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=erkin3169
     networks:
       default:
         aliases:
@@ -31,8 +31,12 @@ services:
     #   - mysql_data:/var/lib/mysql
   backend:
     container_name: backend
-    build:
-      context: backend
-      dockerfile: Dockerfile
+    image: backend
+
+    environment:
+        - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+        - spring.datasource.url=jdbc:mysql://db:3306/db
+        - spring.datasource.username=test
+        - spring.datasource.password=erkin3169
     ports:
-      - 8000:8000
+      - 8080:8080
