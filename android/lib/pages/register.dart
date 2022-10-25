@@ -166,6 +166,21 @@ class _RegisterState extends State<Register> {
       ),
     ));
 
+    final userTypes = ["Artist", "Regular User"];
+
+    final userTypeField = inputField(DropdownButtonFormField(
+      borderRadius: BorderRadius.circular(12),
+      decoration: const InputDecoration(border: InputBorder.none),
+      hint: const Text("User Type"),
+      items: userTypes.map((String items) {
+        return DropdownMenuItem(
+          value: items,
+          child: Text(items),
+        );
+      }).toList(),
+      onChanged: (a) {},
+    ));
+
     void navigateToLoginPage() {
       Navigator.pushNamed(context, login);
     }
@@ -217,6 +232,8 @@ class _RegisterState extends State<Register> {
                 children: [
                   const Logo(),
                   const SizedBox(height: 30.0),
+                  userTypeField,
+                  const SizedBox(height: 10.0),
                   emailField,
                   const SizedBox(height: 10.0),
                   usernameField,
