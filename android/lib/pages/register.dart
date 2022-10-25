@@ -1,6 +1,7 @@
 import 'package:android/widgets/logo.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../config/app_routes.dart';
@@ -120,6 +121,7 @@ class _RegisterState extends State<Register> {
     final ageField = inputField(TextFormField(
       keyboardType: TextInputType.number,
       autofocus: false,
+      inputFormatters: [LengthLimitingTextInputFormatter(2)],
       decoration: const InputDecoration(
         border: InputBorder.none,
         hintText: 'Age (optional)',
@@ -134,18 +136,33 @@ class _RegisterState extends State<Register> {
               _country = country;
             });
           }),
-      child: Container(
-        margin: const EdgeInsets.only(top: 15, bottom: 15),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                _country == null ? 'Country (optional)' : _country!.name,
-                style: TextStyle(color: Colors.grey.shade600),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              _country == null ? 'Country (optional)' : _country!.name,
+              style: TextStyle(
+                fontSize: 15,
+                color: _country == null ? Colors.grey.shade600 : Colors.black,
               ),
             ),
-          ],
-        ),
+          ),
+          Visibility(
+            visible: _country != null,
+            maintainSize: true,
+            maintainAnimation: true,
+            maintainState: true,
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  _country = null;
+                });
+              },
+              icon: const Icon(Icons.highlight_remove_outlined),
+              color: Colors.grey.shade600,
+            ),
+          ),
+        ],
       ),
     ));
 
