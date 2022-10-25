@@ -1,9 +1,5 @@
 
 import React from 'react'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -13,6 +9,7 @@ import CreateArtItemPage from "./pages/ArtItemPage/CreateArtItemPage"
 import ArtItemPage from "./pages/ArtItemPage/ArtItemPage"
 import SignInPage from './pages/Authentication/SignInPage';
 import SignUpPage from './pages/Authentication/SignUpPage';
+import ErrorPage from './pages/ErrorPage';
 
 import { AuthProvider } from './auth/useAuth';
 import {ProtectedRoute} from './auth/ProtectedRoute';
@@ -44,6 +41,7 @@ function App() {
             path="/new/art_item"
             element={<ProtectedRoute><CreateArtItemPage /></ProtectedRoute>} 
           />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </AuthProvider>
     </div>
