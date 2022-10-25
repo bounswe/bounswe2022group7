@@ -1,40 +1,71 @@
 import 'package:flutter/material.dart';
 
-MaterialButton longButtons(
+Widget longButtons(
   String title,
-  Function fun, {
-  Color color = Colors.blue,
+  Function() fun, {
+  Color color = Colors.indigo,
   Color textColor = Colors.white,
 }) {
-  return MaterialButton(
-    onPressed: fun as void Function()?,
-    textColor: textColor,
-    color: color,
-    height: 45,
-    minWidth: 600,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-    ),
-    child: SizedBox(
-      width: double.infinity,
-      child: Text(
-        title,
-        textAlign: TextAlign.center,
+  return GestureDetector(
+    onTap: fun,
+    child: Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: color,
+        border: Border.all(color: Colors.black),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Center(
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
       ),
     ),
   );
 }
 
-InputDecoration buildInputDecoration(String hintText, IconData icon) {
-  return InputDecoration(
-      prefixIcon: Icon(icon, color: const Color.fromRGBO(50, 62, 72, 1.0)),
-      hintText: hintText,
-      contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-      focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.green),
-        borderRadius: BorderRadius.circular(5.0),
+Widget inputField(Widget formField) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(color: Colors.black),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 5, top: 5),
+      child: formField,
+    ),
+  );
+}
+
+Widget navigateToOtherFormText(
+    String whiteText, String linkText, Function() linkAction) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Text(
+        "$whiteText ",
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 13,
+        ),
       ),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5.0),
-      ));
+      GestureDetector(
+        onTap: linkAction,
+        child: Text(
+          linkText,
+          style: const TextStyle(
+            color: Colors.deepPurple,
+            fontWeight: FontWeight.bold,
+            fontSize: 13,
+          ),
+        ),
+      )
+    ],
+  );
 }

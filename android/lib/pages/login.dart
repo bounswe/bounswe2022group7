@@ -1,5 +1,7 @@
 import 'package:android/models/models.dart';
 import 'package:android/shared_prefs/user_preferences.dart';
+import 'package:android/widgets/form_widgets.dart';
+import 'package:android/widgets/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -60,123 +62,35 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    Widget usernameField = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.black),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: TextField(
-            controller: _usernameController,
-            autofocus: false,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Username',
-            ),
-          ),
-        ),
+    Widget usernameField = inputField(TextFormField(
+      controller: _usernameController,
+      autofocus: false,
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Username',
       ),
-    );
+    ));
 
-    Widget passwordField = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.black),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: TextField(
-            controller: _passwordController,
-            autofocus: false,
-            obscureText: true,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Password',
-            ),
-          ),
-        ),
+    Widget passwordField = inputField(TextFormField(
+      controller: _passwordController,
+      autofocus: false,
+      obscureText: true,
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Password',
       ),
-    );
-
-    Widget logInButton = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: GestureDetector(
-        onTap: logIn,
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.indigo,
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Center(
-            child: Text(
-              'Log In',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-
-    Widget signUpButton = GestureDetector(
-      onTap: signUp,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text(
-            'Not a User? ',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13,
-            ),
-          ),
-          Text(
-            'Sign up now.',
-            style: TextStyle(
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-            ),
-          )
-        ],
-      ),
-    );
+    ));
 
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       appBar: FormAppBar(),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(25.0),
             child: Column(
               children: [
-                //Logo
-                const Icon(
-                  Icons.photo_camera_outlined,
-                  color: Colors.white,
-                  size: 150,
-                ),
-                // App Name
-                const Text(
-                  'Art Share',
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+                const Logo(),
                 // Input
                 const SizedBox(height: 30),
                 usernameField,
@@ -184,9 +98,9 @@ class _LoginState extends State<Login> {
                 passwordField,
                 // Buttons
                 const SizedBox(height: 10),
-                logInButton,
+                longButtons("Log In", logIn),
                 const SizedBox(height: 10),
-                signUpButton,
+                navigateToOtherFormText('Not a User?', 'Sign up now.', signUp),
               ],
             ),
           ),

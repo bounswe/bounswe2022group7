@@ -1,3 +1,5 @@
+import 'package:android/widgets/logo.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,29 +36,41 @@ class _RegisterState extends State<Register> {
 
   String? _username, _email, _password, _confirmPassword;
 
+  Country? _country;
+
   @override
   Widget build(BuildContext context) {
-    final emailField = TextFormField(
+    final emailField = inputField(TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
       key: emailFormKey,
       onChanged: (_) => emailFormKey.currentState!.validate(),
       autofocus: false,
       validator: validateEmail,
       onSaved: (value) => _email = value,
-      decoration: buildInputDecoration("Enter email address", Icons.email),
-    );
+      decoration: const InputDecoration(
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        hintText: 'Email',
+      ),
+    ));
 
-    final usernameField = TextFormField(
+    final usernameField = inputField(TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       key: userNameFormKey,
       onChanged: (_) => userNameFormKey.currentState!.validate(),
       autofocus: false,
       validator: validateUsername,
       onSaved: (value) => _username = value,
-      decoration:
-          buildInputDecoration("Enter username", Icons.supervised_user_circle),
-    );
+      decoration: const InputDecoration(
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        hintText: 'Username',
+      ),
+    ));
 
-    final passwordField = TextFormField(
+    final passwordField = inputField(TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       key: passwordFormKey,
       controller: passwordController,
       onChanged: (_) => passwordFormKey.currentState!.validate(),
@@ -64,10 +78,15 @@ class _RegisterState extends State<Register> {
       obscureText: true,
       validator: validatePassword,
       onSaved: (value) => _password = value,
-      decoration: buildInputDecoration("Enter password", Icons.lock),
-    );
+      decoration: const InputDecoration(
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        hintText: 'Password',
+      ),
+    ));
 
-    final confirmPassword = TextFormField(
+    final confirmPassword = inputField(TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       key: confirmPasswordFormKey,
       onChanged: (_) => confirmPasswordFormKey.currentState!.validate(),
       autofocus: false,
@@ -75,8 +94,64 @@ class _RegisterState extends State<Register> {
       validator: (value) =>
           (value != passwordController.text) ? "Passwords don't match" : null,
       onSaved: (value) => _confirmPassword = value,
-      decoration: buildInputDecoration("Confirm password", Icons.lock),
-    );
+      decoration: const InputDecoration(
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        hintText: 'Confirm Password',
+      ),
+    ));
+
+    final nameField = inputField(TextFormField(
+      autofocus: false,
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Name (optional)',
+      ),
+    ));
+
+    final surnameField = inputField(TextFormField(
+      autofocus: false,
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Surname (optional)',
+      ),
+    ));
+
+    final ageField = inputField(TextFormField(
+      keyboardType: TextInputType.number,
+      autofocus: false,
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Age (optional)',
+      ),
+    ));
+
+    final countryField = inputField(GestureDetector(
+      onTap: () => showCountryPicker(
+          context: context,
+          onSelect: (Country country) {
+            setState(() {
+              _country = country;
+            });
+          }),
+      child: Container(
+        margin: const EdgeInsets.only(top: 15, bottom: 15),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                _country == null ? 'Country (optional)' : _country!.name,
+                style: TextStyle(color: Colors.grey.shade600),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ));
+
+    void navigateToLoginPage() {
+      Navigator.pushNamed(context, login);
+    }
 
     void register() {
       final form = formKey.currentState!;
@@ -112,40 +187,39 @@ class _RegisterState extends State<Register> {
       );
     }
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: FormAppBar(),
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Colors.lightBlue,
+      appBar: FormAppBar(),
+      body: Center(
+        child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.all(40.0),
+            padding: const EdgeInsets.all(25.0),
             child: Form(
               key: formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 15.0),
-                  const Text("Email"),
-                  const SizedBox(height: 5.0),
+                  const Logo(),
+                  const SizedBox(height: 30.0),
                   emailField,
-                  const SizedBox(height: 15.0),
-                  const Text("Username"),
-                  const SizedBox(height: 5.0),
+                  const SizedBox(height: 10.0),
                   usernameField,
-                  const SizedBox(height: 15.0),
-                  const Text("Password"),
                   const SizedBox(height: 10.0),
                   passwordField,
-                  const SizedBox(height: 15.0),
-                  const Text("Confirm Password"),
                   const SizedBox(height: 10.0),
                   confirmPassword,
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 10.0),
+                  nameField,
+                  const SizedBox(height: 10.0),
+                  surnameField,
+                  const SizedBox(height: 10.0),
+                  ageField,
+                  const SizedBox(height: 10.0),
+                  countryField,
+                  const SizedBox(height: 10.0),
                   longButtons("Register", register),
-                  const SizedBox(height: 30.0),
-                  longButtons(
-                    "Login if you have an account",
-                    () => Navigator.pushNamed(context, login),
-                  ),
+                  const SizedBox(height: 10.0),
+                  navigateToOtherFormText('Have an account?',
+                      'Back to login page.', navigateToLoginPage),
                 ],
               ),
             ),
