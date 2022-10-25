@@ -28,9 +28,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
-  String url = "";
-  String name = "";
-  String username = "";
+  late String url;
+  late String name;
+  late String username;
   final dropdown_items = [
     Item("Events", Icon(Icons.event_note_outlined, color: Colors.blueGrey.shade900, size: 25,),),
     Item("Auctions", Icon(Icons.local_offer_outlined, color: Colors.blueGrey.shade900, size: 25,),),
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Column(
                   children: [
                     Text(name, style: Theme.of(context).textTheme.subtitle1, textScaleFactor: 1.25,),
-                    Text(tom.username, style: Theme.of(context).textTheme.subtitle2, textScaleFactor: 1.25,),
+                    Text(username, style: Theme.of(context).textTheme.subtitle2, textScaleFactor: 1.25,),
                   ],
                 ),
 

@@ -1,15 +1,27 @@
+import 'package:android/config/app_routes.dart';
+import 'package:android/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:android/widgets/feed_container.dart';
 
 import 'package:android/models/models.dart';
 import 'package:android/data/data.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+import '../providers/user_provider.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
+    CurrentUser? user = Provider.of<UserProvider>(context).user;
+
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
@@ -34,14 +46,28 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/search');
               },
             ),
-            IconButton(
-              icon: const Icon(Icons.account_circle),
-              iconSize: 30.0,
-              color: Colors.white,
-              onPressed: () {
-                Navigator.pushNamed(context, '/profile');
-              },
-            ),
+            user == null
+                ? IconButton(
+                    icon: const Icon(Icons.login),
+                    iconSize: 30.0,
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.pushNamed(context, login);
+                    },
+                  )
+                : IconButton(
+                    icon: const Icon(Icons.account_circle),
+                    iconSize: 30.0,
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfilePage(current_user: user),
+                        ),
+                      );
+                    },
+                  ),
           ],
         ),
         SliverList(
@@ -113,11 +139,19 @@ class HomePage extends StatelessWidget {
               title: Text("Settings"),
               onTap: () {},
             ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("Logout"),
-              onTap: () {},
-            ),
+            user != null
+                ? ListTile(
+                    leading: const Icon(Icons.logout),
+                    title: const Text("Logout"),
+                    onTap: () {
+                      setState(() {
+                        Provider.of<UserProvider>(context, listen: false)
+                            .logout();
+                        Navigator.pop(context); // close drawer
+                      });
+                    },
+                  )
+                : const SizedBox()
           ],
         ),
       ),
