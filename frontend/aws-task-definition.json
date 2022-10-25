@@ -17,12 +17,6 @@
                 }
             ],
             "environment": null,
-            "environmentFiles": [
-                {
-                    "type": "s3",
-                    "value": "arn:aws:s3:::cmpe451-deployment/frontend.env"
-                }
-            ],
             "secrets": null,
             "mountPoints": null,
             "volumesFrom": null,
