@@ -1,7 +1,10 @@
+import 'package:android/models/models.dart';
+import 'package:android/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../config/app_routes.dart';
-import '../util/snack_bar.dart';
+import '../providers/user_provider.dart';
 import '../widgets/form_app_bar.dart';
 
 class Login extends StatefulWidget {
@@ -19,6 +22,21 @@ class _LoginState extends State<Login> {
   void logIn() {
     final username = _usernameController.text.trim();
     final password = _passwordController.text;
+
+    // TODO these values will come from the backend
+    CurrentUser user = CurrentUser(
+      username: username,
+      token: "test token",
+      name: "Tom Bombadil",
+      email: "test email",
+      imageUrl: "https://avatarfiles.alphacoders.com/935/93509.jpg",
+    );
+
+    // save user in local storage
+    saveUser(user);
+
+    // notify other pages about the user via provider
+    Provider.of<UserProvider>(context, listen: false).setUser(user);
 
     // delete every route in navigation stack before navigating to homepage
     Navigator.pushNamedAndRemoveUntil(
@@ -50,12 +68,12 @@ class _LoginState extends State<Login> {
           border: Border.all(color: Colors.black),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Padding(
-          padding: EdgeInsets.only(left: 20.0),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20.0),
           child: TextField(
-            //controller: _usernameController,
+            controller: _usernameController,
             autofocus: false,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               hintText: 'Username',
             ),
@@ -72,13 +90,13 @@ class _LoginState extends State<Login> {
           border: Border.all(color: Colors.black),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Padding(
-          padding: EdgeInsets.only(left: 20.0),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20.0),
           child: TextField(
-            //controller: _passwordController,
+            controller: _passwordController,
             autofocus: false,
             obscureText: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               hintText: 'Password',
             ),
@@ -138,6 +156,7 @@ class _LoginState extends State<Login> {
 
     return Scaffold(
       backgroundColor: Colors.lightBlue,
+      appBar: FormAppBar(),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(

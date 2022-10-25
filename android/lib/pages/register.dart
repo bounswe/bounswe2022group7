@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../config/app_routes.dart';
+import '../models/user_model.dart';
+import '../providers/user_provider.dart';
+import '../shared_prefs/user_preferences.dart';
 import '../util/snack_bar.dart';
 import '../util/validators.dart';
 import '../widgets/form_app_bar.dart';
@@ -84,6 +88,21 @@ class _RegisterState extends State<Register> {
       }
 
       form.save();
+
+      // TODO these values will come from the backend
+      CurrentUser user = CurrentUser(
+        username: _username!,
+        token: "test token",
+        name: "Tom Bombadil",
+        email: _email!,
+        imageUrl: "https://avatarfiles.alphacoders.com/935/93509.jpg",
+      );
+
+      // save user in local storage
+      saveUser(user);
+
+      // notify other pages about the user via provider
+      Provider.of<UserProvider>(context, listen: false).setUser(user);
 
       // delete every route in navigation stack before navigating to homepage
       Navigator.pushNamedAndRemoveUntil(
