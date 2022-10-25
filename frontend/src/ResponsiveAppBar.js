@@ -14,8 +14,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Events', 'Art Items', 'Discussion Forum'];
-const settings = ['Profile', 'Account', 'Logout'];
+
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from "./auth/useAuth";
 
 const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,6 +36,33 @@ const ResponsiveAppBar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const pages = ['Events', 'Art Items', 'Discussion Forum'];
+
+    const navigate = useNavigate()
+    const { token, clearToken } = useAuth()
+
+    let settings = token ? [
+        {
+            "name": "Log Out",
+            "onClick": () => {
+                clearToken()
+            }
+        }
+    ] : [
+        {
+            "name": "Sign Up",
+            "onClick": () => {
+                navigate("/auth/signup")
+            }
+        },
+        { // if no token add
+            "name": "Sign In",
+            "onClick": () => {
+                navigate("/auth/signin")
+            }
+        }
+    ]
 
     return (
         <AppBar position="static">
@@ -149,8 +177,8 @@ const ResponsiveAppBar = () => {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                <MenuItem key={setting.name} onClick={() => {setting.onClick(); handleCloseUserMenu()}}>
+                                    <Typography textAlign="center">{setting.name}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>

@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import {useNavigate} from 'react-router-dom';
+import { useAuth } from "../../auth/useAuth";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -21,14 +22,16 @@ function SignInForm(props) {
   // otherwise breaks the 'Rules of Hooks' apparently.
   // ref: https://stackoverflow.com/questions/60700905/react-native-navigate-to-screen-invalid-hook-call
   const navigate = useNavigate();
+  const { saveToken } = useAuth()
 
   // Called when the user clicks the submit button. Observe how
   // the handleSubmit button is attached to the 'form' component
   // below in the return call of SignUpForm function.
   const handleSubmit = event => {
     event.preventDefault();
-
-    let data = { formInput };
+    
+    console.log(formInput)
+    saveToken(formInput.email)
 
     /*
     // Here is how we will make a POST request in the backend.
