@@ -1,0 +1,49 @@
+{
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "containerDefinitions": [
+        {
+            "name": "cmpe451-frontend",
+            "image": "810310430194.dkr.ecr.eu-central-1.amazonaws.com/cmpe352-deployment:b7e334a9ce09420f78f02410d245e036cf9bb4a5",
+            "memory": "300",
+            "resourceRequirements": null,
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": "80",
+                    "containerPort": "80",
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": null,
+            "environmentFiles": [
+                {
+                    "type": "s3",
+                    "value": "arn:aws:s3:::cmpe451-deployment/frontend.env"
+                }
+            ],
+            "secrets": null,
+            "mountPoints": null,
+            "volumesFrom": null,
+            "hostname": null,
+            "user": null,
+            "workingDirectory": null,
+            "extraHosts": null,
+            "logConfiguration": null,
+            "ulimits": null,
+            "dockerLabels": null,
+            "dependsOn": null,
+            "repositoryCredentials": {
+                "credentialsParameter": ""
+            }
+        }
+    ],
+    "volumes": [],
+    "networkMode": null,
+    "placementConstraints": [],
+    "family": "frontend",
+    "taskRoleArn": "arn:aws:iam::810310430194:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::810310430194:role/ecsTaskExecutionRole",
+    "tags": []
+}
