@@ -1,10 +1,7 @@
 package com.group7.artshare.entity
 
 import lombok.Data
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Data
 @Entity
@@ -13,4 +10,13 @@ class Location {
     @Id
     @GeneratedValue
     val id: Long = 0L
+
+    @Column
+    var lattitude: Double = 0.0
+
+    @Column
+    var longitude: Double = 0.0
+
+    @Column
+    var address: String = ""
 }
