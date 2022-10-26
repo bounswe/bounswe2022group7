@@ -14,5 +14,4 @@ class RegisteredUser {
     @GeneratedValue
     val itemId: Long = 0L
 
-
 }

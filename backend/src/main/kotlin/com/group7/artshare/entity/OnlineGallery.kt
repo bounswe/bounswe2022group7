@@ -6,6 +6,7 @@ import javax.persistence.*
 
 @Data
 @Entity
+@Table(name = "online_gallery")
 class OnlineGallery {
     @Id
     @GeneratedValue
