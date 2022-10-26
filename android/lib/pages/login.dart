@@ -18,19 +18,19 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 // Controllers
-  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   void logIn() {
-    final username = _usernameController.text.trim();
+    final email = _emailController.text.trim();
     final password = _passwordController.text;
 
     // TODO these values will come from the backend
     CurrentUser user = CurrentUser(
-      username: username,
+      username: "temp username",
       token: "test token",
       name: "Tom Bombadil",
-      email: "test email",
+      email: email,
       imageUrl: "https://avatarfiles.alphacoders.com/935/93509.jpg",
     );
 
@@ -55,19 +55,20 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget usernameField = inputField(TextFormField(
-      controller: _usernameController,
+    Widget emailField = inputField(TextFormField(
+      controller: _emailController,
       autofocus: false,
+      keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
         border: InputBorder.none,
-        hintText: 'Username',
+        hintText: 'Email',
       ),
     ));
 
@@ -93,7 +94,7 @@ class _LoginState extends State<Login> {
                 const Logo(),
                 // Input
                 const SizedBox(height: 30),
-                usernameField,
+                emailField,
                 const SizedBox(height: 10),
                 passwordField,
                 // Buttons
