@@ -7,12 +7,9 @@ import javax.persistence.*
 
 @Data
 @Entity
-@Table(name = "online_gallery")
-class OnlineGallery {
-    @Id
-    @GeneratedValue
-    val id: Long = 0L
-
+@PrimaryKeyJoinColumn(name = "id")
+class OnlineGallery : Event(){
+    
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
     val artItems: List<ArtItem> = ArrayList()
 

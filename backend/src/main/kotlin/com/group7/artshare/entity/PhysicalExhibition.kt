@@ -8,12 +8,8 @@ import java.util.*;
 
 @Data
 @Entity
-@Table(name = "physical_exhibition")
-class PhysicalExhibition{
-
-    @Id
-    @GeneratedValue
-    var id: Long = 0L
+@PrimaryKeyJoinColumn(name = "id")
+class PhysicalExhibition : Event(){
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location")

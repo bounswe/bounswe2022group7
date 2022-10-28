@@ -7,9 +7,8 @@ import kotlin.collections.ArrayList
 import java.util.Calendar
 
 @Data
-@Entity
-@Table(name = "event")
-class Event{
+@MappedSuperclass
+abstract class Event{
 
     @Id
     @GeneratedValue
