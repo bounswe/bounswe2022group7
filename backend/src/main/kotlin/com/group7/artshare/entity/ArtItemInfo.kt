@@ -9,24 +9,24 @@ class ArtItemInfo {
 
     @Id
     @GeneratedValue
-    val id: Long = 0L
+    var id: Long = 0L
 
     @OneToOne
     @JoinColumn(name = "artItem", referencedColumnName = "id")
-    val artItem: ArtItem? = null
+    var artItem: ArtItem? = null
 
     @Column
-    val name: String? = null
+    var name: String? = null
 
     @Column
-    val description: String? = null
+    var description: String? = null
 
     @Column
-    val category: String? = null
+    var category: String? = null
 
     @Column
-    val imageUrl: String? = null
+    var imageUrl: String? = null
 
     @Column
-    val labels: String? = null
+    var labels: String? = null
 }
