@@ -10,7 +10,7 @@ class AccountInfo {
     @GeneratedValue
     val id: Long = 0L
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "registeredUser", referencedColumnName = "userId")
     var registeredUser: RegisteredUser? = null
 
