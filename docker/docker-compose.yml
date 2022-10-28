@@ -35,6 +35,9 @@ services:
     ports:
       - 8080:8080
 
+    volumes:  # Hot reload
+      - ../backend:/app
+
     # frontend:
     #   container_name: frontend
     #   build:
