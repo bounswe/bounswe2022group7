@@ -4,7 +4,7 @@ services:
   db:
     container_name: artshare-database
     image: mysql:8.0.31
-    platform: linux/x86_64
+    # platform: linux/x86_64
     restart: on-failure
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
