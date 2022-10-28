@@ -6,13 +6,15 @@ import javax.persistence.*
 
 @Data
 @Entity
-class RegisteredUser ()
+class RegisteredUser
 {
     @Id
     @GeneratedValue
-    val itemId: Long = 0L
+    val userId: Long = 0L
 
-    //TODO accountInfo
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "accountInfo", referencedColumnName = "id")
+    var accountInfo: AccountInfo? = null
 
     @Column
     var isVerified: Boolean = false
