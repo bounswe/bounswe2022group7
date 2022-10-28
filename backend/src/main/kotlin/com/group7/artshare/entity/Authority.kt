@@ -13,7 +13,7 @@ class Authority(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private val id: Long? = null,
     private val authority: String? = null,
 
-    @ManyToMany(mappedBy = "authorities") private val users: Set<CustomUser>? = null
+    @ManyToMany(mappedBy = "authorities") private val users: Set<RegisteredUser>? = null
 ) : GrantedAuthority {
     override fun getAuthority(): String? {
         return authority

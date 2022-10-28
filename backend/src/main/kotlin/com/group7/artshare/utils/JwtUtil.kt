@@ -26,7 +26,7 @@ object JwtUtil {
     }
 
     private val expirationDate: Date
-        private get() {
+        get() {
             val expirationTime = LocalDate.now()
                 .plusDays(7)
                 .atStartOfDay()

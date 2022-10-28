@@ -1,5 +1,6 @@
 package com.group7.artshare.service
 
+import com.group7.artshare.repository.RegisteredUserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.BadCredentialsException
@@ -13,22 +14,25 @@ import org.springframework.stereotype.Service
 
 @Service
 class CustomAuthenticationProvider @Autowired constructor(
-    customUserDetailsService: CustomUserDetailsService,
-    passwordEncoder: PasswordEncoder
+    registeredUserRepository: RegisteredUserRepository,
+    passwordEncoder: PasswordEncoder,
+    registeredUserService: RegisteredUserService
 ) : AuthenticationProvider {
-    private val customUserDetailsService: CustomUserDetailsService
+    private val registeredUserRepository: RegisteredUserRepository
     private val passwordEncoder: PasswordEncoder
+    private val registeredUserService: RegisteredUserService
 
     init {
-        this.customUserDetailsService = customUserDetailsService
+        this.registeredUserRepository = registeredUserRepository
         this.passwordEncoder = passwordEncoder
+        this.registeredUserService = registeredUserService
     }
 
     @Throws(AuthenticationException::class)
     override fun authenticate(authentication: Authentication): Authentication {
         val username = authentication.principal as String
         val password = authentication.credentials as String
-        val userDetails: UserDetails = customUserDetailsService.loadUserByUsername(username)
+        val userDetails: UserDetails = registeredUserService.findByUsername(username)
             ?: throw BadCredentialsException("User Not Found")
         if (!passwordEncoder.matches(password, userDetails.password)) {
             throw BadCredentialsException("Wrong Password")

@@ -1,7 +1,9 @@
 package com.group7.artshare.controller
 
 import com.group7.artshare.request.LoginRequest
+import com.group7.artshare.request.SignupRequest
 import com.group7.artshare.service.LoginService
+import com.group7.artshare.service.RegisteredUserService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -9,9 +11,12 @@ import javax.validation.Valid
 
 
 @RestController
-class LoginController(private val loginService: LoginService) {
+class RegisteredUserController(
+    private val loginService: LoginService,
+    private val registeredUserService: RegisteredUserService
+){
     @PostMapping("/login")
-    fun login(@RequestBody loginRequest: @Valid LoginRequest?): String? {
-        return loginService.login(loginRequest!!)
+    fun login(@RequestBody loginRequest: @Valid LoginRequest): String? {
+        return loginService.login(loginRequest)
     }
 }

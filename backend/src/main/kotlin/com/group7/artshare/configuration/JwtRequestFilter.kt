@@ -1,6 +1,7 @@
 package com.group7.artshare.configuration
 
-import com.group7.artshare.service.CustomUserDetailsService
+import com.group7.artshare.repository.RegisteredUserRepository
+import com.group7.artshare.service.RegisteredUserService
 import com.group7.artshare.utils.JwtUtil
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -18,15 +19,9 @@ import javax.servlet.http.HttpServletResponse
 
 
 @Component
-class JwtRequestFilter(customUserDetailsService: CustomUserDetailsService) : OncePerRequestFilter() {
+class JwtRequestFilter(private val registeredUserService: RegisteredUserService) : OncePerRequestFilter() {
     @Value("\${security.jwt.secret-key}")
     private val secretKey: String? = null
-    private val customUserDetailsService: CustomUserDetailsService
-
-    init {
-        this.customUserDetailsService = customUserDetailsService
-    }
-
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -37,7 +32,7 @@ class JwtRequestFilter(customUserDetailsService: CustomUserDetailsService) : Onc
         if (authenticationHeader != null && authenticationHeader.startsWith("Bearer")) {
             val jwtToken = authenticationHeader.substring(7)
             val username: String? = secretKey?.let { JwtUtil.extractUsername(jwtToken, it) }
-            val userDetails: UserDetails? = username?.let { customUserDetailsService.loadUserByUsername(it) }
+            val userDetails: UserDetails? = username?.let { registeredUserService.findByUsername(it) }
             if (SecurityContextHolder.getContext().authentication == null) {
                 val token = UsernamePasswordAuthenticationToken(userDetails, null, userDetails?.authorities)
                 token.details = WebAuthenticationDetailsSource().buildDetails(request)
