@@ -2,16 +2,14 @@ package com.group7.artshare.entity
 
 import lombok.Data
 import java.util.ArrayList
+import java.util.HashSet
 import javax.persistence.*
 
 @Data
 @Entity
-@Table(name = "online_gallery")
-class OnlineGallery {
-    @Id
-    @GeneratedValue
-    val id: Long = 0L
-
+@PrimaryKeyJoinColumn(name = "id")
+class OnlineGallery : Event(){
+    
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
     val artItems: List<ArtItem> = ArrayList()
 
@@ -20,5 +18,13 @@ class OnlineGallery {
 
     @Column
     val externalUrl: String? = null
+
+    @ManyToMany(mappedBy = "allOnlineGalleries",cascade = [CascadeType.ALL])
+    var attendees: Set<RegisteredUser> = HashSet()
+
+    @ManyToMany(mappedBy = "bookmarkedOnlineGalleries",cascade = [CascadeType.ALL])
+    var bookmarkedBy: Set<RegisteredUser> = HashSet()
+
+
 
 }

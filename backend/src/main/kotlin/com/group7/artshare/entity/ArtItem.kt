@@ -40,4 +40,7 @@ class ArtItem{
 
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     var commentList: List<Comment> = ArrayList()
+
+    @ManyToMany(mappedBy = "bookmarkedArtItems",cascade = [CascadeType.ALL])
+    var bookmarkedBy: Set<RegisteredUser> = HashSet()
 }
