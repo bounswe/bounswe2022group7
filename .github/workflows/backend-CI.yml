@@ -16,8 +16,8 @@ on:
       - 'backend/**'
       - 'docker/**'
       
-  pull_request:
-    branches: [ "backend" ]
+#   pull_request:
+#     branches: [ "backend" ]
 
 jobs:
   build:
