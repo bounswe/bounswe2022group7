@@ -1,2 +1,3 @@
 *.production.env
 target
+.DS_Store
