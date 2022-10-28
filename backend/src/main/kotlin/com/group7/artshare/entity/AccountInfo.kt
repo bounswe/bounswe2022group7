@@ -6,6 +6,9 @@ import javax.persistence.*
 @Data
 @Entity
 class AccountInfo(
+    @Column
+    var email: String,
+
     @Column(nullable = false)
     var username: String,
 
@@ -27,10 +30,10 @@ class AccountInfo(
     var surname: String?=null
 
     @Column
-    var age: Int? = null
+    var country: String?=null
 
     @Column
-    var email: String?=null
+    var age: Int? = null
 
     @Column
     var profilePictureUrl: String?=null

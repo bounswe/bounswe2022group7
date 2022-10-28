@@ -72,6 +72,10 @@ class RegisteredUser(
     //TODO unread notifications
     //TODO current bids
 
+
+    fun getEmail(): String {
+        return accountInfo.email
+    }
     override fun getAuthorities(): Set<Authority> {
         return authorities
     }
@@ -79,7 +83,7 @@ class RegisteredUser(
         return accountInfo.getPassword()
     }
 
-    override fun getUsername(): String {
+    override fun getUsername(): String? {
         return accountInfo.username
     }
 

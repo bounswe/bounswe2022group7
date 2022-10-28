@@ -17,7 +17,7 @@ class Authority(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
 
-    @ManyToMany(mappedBy = "authorities") private val users: Set<RegisteredUser>? = null
+    @ManyToMany(mappedBy = "authorities") private val users: Set<RegisteredUser> = HashSet()
     override fun getAuthority(): String {
         return authority
     }

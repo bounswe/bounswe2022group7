@@ -14,7 +14,7 @@ class LoginService(private val authenticationManager: AuthenticationManager) {
     @Value("\${security.jwt.secret-key}")
     private val secretKey: String? = null
     fun login(loginRequest: LoginRequest): String? {
-        val token = UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+        val token = UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         try {
             val authenticatedToken = authenticationManager.authenticate(token)
             return generateToken(authenticatedToken, secretKey!!)

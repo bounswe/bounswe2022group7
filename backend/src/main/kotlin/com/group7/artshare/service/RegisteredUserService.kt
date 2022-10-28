@@ -11,4 +11,5 @@ class RegisteredUserService(
     private val accountInfoRepository: AccountInfoRepository
 ) {
     fun findByUsername(username: String):RegisteredUser? = accountInfoRepository.findByUsername(username)?.registeredUser
+    fun findByEmail(email: String):RegisteredUser? = accountInfoRepository.findByEmail(email)?.registeredUser
 }

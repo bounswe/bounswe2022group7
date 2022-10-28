@@ -41,6 +41,7 @@ class SecurityConfiguration @Autowired constructor(
         http
             .authorizeRequests()
             .antMatchers("/login").permitAll()
+            .antMatchers("/signup").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement()

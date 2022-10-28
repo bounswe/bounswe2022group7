@@ -31,8 +31,8 @@ class JwtRequestFilter(private val registeredUserService: RegisteredUserService)
         val authenticationHeader = request.getHeader("Authorization")
         if (authenticationHeader != null && authenticationHeader.startsWith("Bearer")) {
             val jwtToken = authenticationHeader.substring(7)
-            val username: String? = secretKey?.let { JwtUtil.extractUsername(jwtToken, it) }
-            val userDetails: UserDetails? = username?.let { registeredUserService.findByUsername(it) }
+            val email: String? = secretKey?.let { JwtUtil.extractEmail(jwtToken, it) }
+            val userDetails: UserDetails? = email?.let { registeredUserService.findByEmail(it) }
             if (SecurityContextHolder.getContext().authentication == null) {
                 val token = UsernamePasswordAuthenticationToken(userDetails, null, userDetails?.authorities)
                 token.details = WebAuthenticationDetailsSource().buildDetails(request)

@@ -30,9 +30,9 @@ class CustomAuthenticationProvider @Autowired constructor(
 
     @Throws(AuthenticationException::class)
     override fun authenticate(authentication: Authentication): Authentication {
-        val username = authentication.principal as String
+        val email = authentication.principal as String
         val password = authentication.credentials as String
-        val userDetails: UserDetails = registeredUserService.findByUsername(username)
+        val userDetails: UserDetails = registeredUserService.findByEmail(email)
             ?: throw BadCredentialsException("User Not Found")
         if (!passwordEncoder.matches(password, userDetails.password)) {
             throw BadCredentialsException("Wrong Password")

@@ -35,7 +35,7 @@ object JwtUtil {
             return Date.from(expirationTime)
         }
 
-    fun extractUsername(jwtToken: String?, secretKey: String): String {
+    fun extractEmail(jwtToken: String?, secretKey: String): String {
         val claims = Jwts.parserBuilder()
             .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
             .build()

@@ -11,13 +11,13 @@ import javax.validation.constraints.NotEmpty
 class LoginRequest {
 
     @NotEmpty
-    private val username: String? = null
+    private val email: String? = null
 
     @NotEmpty
     private val password: String? = null
 
-    fun getUsername(): String? {
-        return username
+    fun getEmail(): String? {
+        return email
     }
 
     fun getPassword(): String? {
