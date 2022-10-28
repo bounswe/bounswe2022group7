@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.9'
 name: artshare
 services:
   db:
@@ -6,18 +6,16 @@ services:
     image: mysql:8.0.31
     # platform: linux/x86_64
     restart: on-failure
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_PORT=${MYSQL_PORT}
+
+    env_file:
+      - .env
+
     networks:
       default:
         aliases:
           - db
     ports:
-       - "${MYSQL_PORT}:${MYSQL_PORT}"
+       - ${MYSQL_PORT}:${MYSQL_PORT}
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -27,11 +25,9 @@ services:
       context: ../backend
       dockerfile: ../docker/backend.Dockerfile.development
 
-    environment:
-        - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-        - spring.datasource.url=jdbc:mysql://db:${MYSQL_PORT}/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true
-        - spring.datasource.username=${MYSQL_USER}
-        - spring.datasource.password=${MYSQL_PASSWORD}
+    env_file:
+      - .env
+
     ports:
       - 8080:8080
 
