@@ -10,12 +10,15 @@ import javax.persistence.*
 @Getter
 @Setter
 class Authority(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private val id: Long? = null,
-    private val authority: String? = null,
+    private val authority: String
+) : GrantedAuthority {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private val id: Long? = null
 
     @ManyToMany(mappedBy = "authorities") private val users: Set<RegisteredUser>? = null
-) : GrantedAuthority {
-    override fun getAuthority(): String? {
+    override fun getAuthority(): String {
         return authority
     }
 }
