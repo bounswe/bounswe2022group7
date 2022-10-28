@@ -1,20 +1,31 @@
 package com.group7.artshare.entity
 
 import lombok.Data
+import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
 
 
 @Data
 @Entity
-class RegisteredUser
-{
-    @Id
-    @GeneratedValue
-    val userId: Long = 0L
+class RegisteredUser(
 
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "accountInfo", referencedColumnName = "id")
-    var accountInfo: AccountInfo? = null
+    var accountInfo: AccountInfo,
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @JoinTable(
+        name = "user_authorities",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "authority_id")]
+    )
+    private val authorities: Set<Authority>
+) : UserDetails
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column( nullable = false)
+    var userId: Long = 0L
 
     @Column
     var isVerified: Boolean = false
@@ -24,9 +35,6 @@ class RegisteredUser
 
     @Column
     var xp: Double = 0.0
-
-    @Column
-    var password: String = ""
 
     @ManyToMany(mappedBy = "followers", cascade = [CascadeType.ALL])
     var following: Set<RegisteredUser> = HashSet()
@@ -63,5 +71,36 @@ class RegisteredUser
     //TODO read notifications
     //TODO unread notifications
     //TODO current bids
+
+
+    fun getEmail(): String {
+        return accountInfo.email
+    }
+    override fun getAuthorities(): Set<Authority> {
+        return authorities
+    }
+    override fun getPassword(): String {
+        return accountInfo.getPassword()
+    }
+
+    override fun getUsername(): String? {
+        return accountInfo.username
+    }
+
+    override fun isAccountNonExpired(): Boolean {
+        return true
+    }
+
+    override fun isAccountNonLocked(): Boolean {
+        return true
+    }
+
+    override fun isCredentialsNonExpired(): Boolean {
+        return true
+    }
+
+    override fun isEnabled(): Boolean {
+        return true
+    }
 
 }

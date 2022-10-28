@@ -5,31 +5,41 @@ import javax.persistence.*
 
 @Data
 @Entity
-class AccountInfo {
+class AccountInfo(
+    @Column
+    var email: String,
+
+    @Column(nullable = false)
+    var username: String,
+
+    @Column(nullable = false)
+    private var password: String,
+)
+{
     @Id
     @GeneratedValue
     val id: Long = 0L
 
-    @OneToOne(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "registeredUser", referencedColumnName = "userId")
+    @OneToOne(mappedBy = "accountInfo", cascade = [CascadeType.ALL])
     var registeredUser: RegisteredUser? = null
 
     @Column
-    var username: String = ""
+    var name: String?=null
 
     @Column
-    var name: String = ""
+    var surname: String?=null
 
     @Column
-    var surname: String = ""
+    var country: String?=null
 
     @Column
     var age: Int? = null
 
     @Column
-    var email: String = ""
+    var profilePictureUrl: String?=null
 
-    @Column
-    var profilePictureUrl: String = ""
+    fun getPassword(): String {
+        return password
+    }
 
 }
