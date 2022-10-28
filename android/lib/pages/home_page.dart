@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
         SliverAppBar(
           backgroundColor: Colors.blue[300],
           title: const Text(
-            'Art Community',
+            'Art Share',
             style: TextStyle(
               color: Colors.white,
               fontSize: 24.0,
@@ -47,13 +47,19 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             user == null
-                ? IconButton(
-                    icon: const Icon(Icons.login),
-                    iconSize: 30.0,
-                    color: Colors.white,
+                ? TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, login);
                     },
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0,
+                      ),
+                    ),
                   )
                 : IconButton(
                     icon: const Icon(Icons.account_circle),
@@ -109,11 +115,12 @@ class _HomePageState extends State<HomePage> {
               title: Text("Home"),
               onTap: () {},
             ),
-            ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text("Profile"),
-              onTap: () {},
-            ),
+            if (user != null)
+              ListTile(
+                leading: Icon(Icons.account_circle),
+                title: Text("Profile"),
+                onTap: () {},
+              ),
             ListTile(
               leading: Icon(Icons.photo_library),
               title: Text("Online Galleries"),
@@ -134,24 +141,23 @@ class _HomePageState extends State<HomePage> {
               title: Text("Discussion Page"),
               onTap: () {},
             ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Settings"),
-              onTap: () {},
-            ),
-            user != null
-                ? ListTile(
-                    leading: const Icon(Icons.logout),
-                    title: const Text("Logout"),
-                    onTap: () {
-                      setState(() {
-                        Provider.of<UserProvider>(context, listen: false)
-                            .logout();
-                        Navigator.pop(context); // close drawer
-                      });
-                    },
-                  )
-                : const SizedBox()
+            if (user != null)
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text("Settings"),
+                onTap: () {},
+              ),
+            if (user != null)
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text("Logout"),
+                onTap: () {
+                  setState(() {
+                    Provider.of<UserProvider>(context, listen: false).logout();
+                    Navigator.pop(context); // close drawer
+                  });
+                },
+              )
           ],
         ),
       ),
