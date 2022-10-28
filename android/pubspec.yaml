@@ -39,6 +39,7 @@ dependencies:
 
   shared_preferences: ^2.0.8
   provider: ^6.0.1
+  country_picker: ^2.0.16
 
 dev_dependencies:
   flutter_test:

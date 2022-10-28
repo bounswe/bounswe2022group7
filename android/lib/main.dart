@@ -4,7 +4,6 @@ import 'package:android/pages/register.dart';
 import 'package:android/providers/user_provider.dart';
 import 'package:android/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:android/models/user_model.dart';
 import 'package:provider/provider.dart';
 
 import '/config/app_routes.dart';
