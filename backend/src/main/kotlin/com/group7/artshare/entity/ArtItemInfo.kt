@@ -11,10 +11,6 @@ class ArtItemInfo {
     @GeneratedValue
     var id: Long = 0L
 
-    @OneToOne
-    @JoinColumn(name = "artItem", referencedColumnName = "id")
-    var artItem: ArtItem? = null
-
     @Column
     var name: String? = null
 

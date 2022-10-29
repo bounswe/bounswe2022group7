@@ -11,7 +11,7 @@ abstract class Event{
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     var id: Long = 0L
 /*
 
@@ -33,7 +33,7 @@ abstract class Event{
     var commentList: List<Comment> = ArrayList()
 
     */
-    @OneToOne
-    @JoinColumn(name = "eventInfoId", referencedColumnName = "id")
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "eventInfoId")
     var eventInfo: EventInfo? = null
 }

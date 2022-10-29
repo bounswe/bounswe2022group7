@@ -12,7 +12,7 @@ class ArtItem{
     @GeneratedValue
     var id: Long = 0L
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "artItemInfo", referencedColumnName = "id")
     var artItemInfo: ArtItemInfo? = null
 
