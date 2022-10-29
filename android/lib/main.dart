@@ -1,6 +1,7 @@
 import 'package:android/pages/home_page.dart';
 import 'package:android/pages/login.dart';
 import 'package:android/pages/register.dart';
+import 'package:android/providers/register_provider.dart';
 import 'package:android/providers/user_provider.dart';
 import 'package:android/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => RegisterProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: MaterialApp(
