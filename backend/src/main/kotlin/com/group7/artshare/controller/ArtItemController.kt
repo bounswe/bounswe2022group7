@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
-@RequestMapping("artItem")
+@RequestMapping("art_item")
 class ArtItemController {
 
     @Autowired
