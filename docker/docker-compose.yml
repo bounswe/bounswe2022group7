@@ -4,7 +4,6 @@ services:
   db:
     container_name: artshare-database
     image: mysql:8.0.31
-    # platform: linux/x86_64
     restart: on-failure
 
     env_file:
@@ -13,7 +12,7 @@ services:
     networks:
       default:
         aliases:
-          - db
+          - ${MYSQL_HOST}
     ports:
        - ${MYSQL_PORT}:${MYSQL_PORT}
     volumes:
