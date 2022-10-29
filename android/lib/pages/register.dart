@@ -228,7 +228,7 @@ class _RegisterState extends State<Register> {
         CurrentUser user = CurrentUser(
           userType: _userType!,
           username: _username!,
-          token: "test token",
+          token: registerOutput.token!,
           name: _name ?? "Tom Bombadil",
           email: _email!,
           imageUrl: registerOutput.imageUrl ?? "https://avatarfiles.alphacoders.com/935/93509.jpg",
