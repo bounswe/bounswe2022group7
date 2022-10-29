@@ -16,7 +16,7 @@ class _EventPageState extends State<EventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Physical Exhibition"),
+        title: Text(widget.event.type),
       ),
       body: Container(
         child: Column(
@@ -124,16 +124,19 @@ class _EventPageState extends State<EventPage> {
                           const Divider(color: Colors.black),
                           const SizedBox(height: 5.0),
                           Row(
-                            children: const [
-                              Icon(Icons.chat, size: 13.0),
-                              SizedBox(width: 5.0),
-                              Text(
-                                "Comments",
+                            children:  [
+                              const Icon(Icons.chat, size: 13.0),
+                              const SizedBox(width: 5.0),
+                              const Text(
+                                // TODO: Add number of comments
+                                "Comments (0)",
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
+                              const Spacer(),
+                              Text(widget.event.creationDate.toString().substring(0, 16)),
                             ],
                           ),
                         ])),
