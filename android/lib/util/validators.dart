@@ -32,3 +32,11 @@ String? validateUsername(String? value) {
   }
   return msg;
 }
+
+String? validateUserType(String? value) {
+  String? msg;
+  if (value == null || value == "") {
+    msg = "You must select a user type";
+  }
+  return msg;
+}
