@@ -27,6 +27,7 @@ class _LoginState extends State<Login> {
 
     // TODO these values will come from the backend
     CurrentUser user = CurrentUser(
+      userType: "Regular User",
       username: "temp username",
       token: "test token",
       name: "Tom Bombadil",

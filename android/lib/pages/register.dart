@@ -1,3 +1,7 @@
+import 'package:android/network/register/register_input.dart';
+import 'package:android/network/register/register_output.dart';
+import 'package:android/providers/register_provider.dart';
+import 'package:android/widgets/loading.dart';
 import 'package:android/widgets/logo.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +38,16 @@ class _RegisterState extends State<Register> {
   final userNameFormKey = GlobalKey<FormFieldState>();
   final passwordFormKey = GlobalKey<FormFieldState>();
   final confirmPasswordFormKey = GlobalKey<FormFieldState>();
+  final userTypeFormKey = GlobalKey<FormFieldState>();
 
-  String? _username, _email, _password, _confirmPassword;
-
+  String? _username, _email, _password, _userType, _name, _surname;
+  int? _age;
   Country? _country;
 
   @override
   Widget build(BuildContext context) {
+    RegisterProvider registerProvider = Provider.of<RegisterProvider>(context);
+
     final emailField = inputField(TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
@@ -94,7 +101,6 @@ class _RegisterState extends State<Register> {
       obscureText: true,
       validator: (value) =>
           (value != passwordController.text) ? "Passwords don't match" : null,
-      onSaved: (value) => _confirmPassword = value,
       decoration: const InputDecoration(
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,
@@ -103,6 +109,7 @@ class _RegisterState extends State<Register> {
     ));
 
     final nameField = inputField(TextFormField(
+      onSaved: (value) => _name = value,
       autofocus: false,
       decoration: const InputDecoration(
         border: InputBorder.none,
@@ -111,6 +118,7 @@ class _RegisterState extends State<Register> {
     ));
 
     final surnameField = inputField(TextFormField(
+      onSaved: (value) => _surname = value,
       autofocus: false,
       decoration: const InputDecoration(
         border: InputBorder.none,
@@ -169,6 +177,10 @@ class _RegisterState extends State<Register> {
     final userTypes = ["Artist", "Regular User"];
 
     final userTypeField = inputField(DropdownButtonFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: userTypeFormKey,
+      validator: validateUserType,
+      onSaved: (value) => _userType = value,
       borderRadius: BorderRadius.circular(12),
       decoration: const InputDecoration(border: InputBorder.none),
       hint: const Text("User Type"),
@@ -196,27 +208,48 @@ class _RegisterState extends State<Register> {
 
       form.save();
 
-      // TODO these values will come from the backend
-      CurrentUser user = CurrentUser(
-        username: _username!,
-        token: "test token",
-        name: "Tom Bombadil",
+      RegisterInput registerInput = RegisterInput(
+        userType: _userType!,
         email: _email!,
-        imageUrl: "https://avatarfiles.alphacoders.com/935/93509.jpg",
+        username: _username!,
+        password: _password!,
+        name: _name,
+        surname: _surname,
+        age: _age,
+        country: _country?.name,
       );
 
-      // save user in local storage
-      saveUser(user);
+      registerProvider.register(registerInput).then((RegisterOutput registerOutput) {
+        if (registerOutput.status != "OK") {
+          showSnackBar(context, registerOutput.status);
+          return;
+        }
 
-      // notify other pages about the user via provider
-      Provider.of<UserProvider>(context, listen: false).setUser(user);
+        CurrentUser user = CurrentUser(
+          userType: _userType!,
+          username: _username!,
+          token: registerOutput.token!,
+          name: _name ?? "Tom Bombadil",
+          email: _email!,
+          imageUrl: registerOutput.imageUrl ?? "https://avatarfiles.alphacoders.com/935/93509.jpg",
+          surname: _surname,
+          age: _age,
+          country: _country?.name,
+        );
 
-      // delete every route in navigation stack before navigating to homepage
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        homepage,
-        (route) => false,
-      );
+        // save user in local storage
+        saveUser(user);
+
+        // notify other pages about the user via provider
+        Provider.of<UserProvider>(context, listen: false).setUser(user);
+
+        // delete every route in navigation stack before navigating to homepage
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          homepage,
+          (route) => false,
+        );
+      });
     }
 
     return Scaffold(
@@ -250,7 +283,9 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 10.0),
                   countryField,
                   const SizedBox(height: 10.0),
-                  longButtons("Register", register),
+                  registerProvider.isLoading
+                      ? loading("Registering ... Please wait")
+                      : longButtons("Register", register),
                   const SizedBox(height: 10.0),
                   navigateToOtherFormText('Have an account?',
                       'Back to login page.', navigateToLoginPage),
