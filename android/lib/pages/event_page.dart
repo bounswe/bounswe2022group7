@@ -5,18 +5,21 @@ import "package:android/models/models.dart";
 
 
 class EventPage extends StatefulWidget {
-  const EventPage({Key? key}) : super(key: key);
+
+  final Event event;
+  const EventPage({Key? key, required this.event}) : super(key: key);
 
   @override
   State<EventPage> createState() => _EventPageState();
 }
 
 class _EventPageState extends State<EventPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Event'),
+        title: Text(widget.event.name),
       ),
       body: Center(
         child: Column(

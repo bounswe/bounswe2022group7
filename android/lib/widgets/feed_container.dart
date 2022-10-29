@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:android/models/models.dart';
+import 'package:android/pages/event_page.dart';
 
 import 'package:android/config/app_routes.dart';
 
@@ -18,7 +19,12 @@ class FeedContainer extends StatelessWidget {
         color: Colors.blue[100],
         child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, eventPage);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EventPage(event: event),
+                ),
+              );
             },
             child: Column(children: [
               Padding(
