@@ -17,6 +17,7 @@ class _EventPageState extends State<EventPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.event.type),
+        backgroundColor: Colors.blue[300],
       ),
       body: Container(
         child: Column(
@@ -47,6 +48,14 @@ class _EventPageState extends State<EventPage> {
                                       color: Colors.black,
                                       size: 30.0,
                                       )),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon:
+                                  const Icon(Icons.check_circle_outline,
+                                    color: Colors.black,
+                                    size: 30.0,
+
+                                  )),
                             ],
                           ),
                           const SizedBox(height: 10.0),
@@ -108,6 +117,19 @@ class _EventPageState extends State<EventPage> {
                                   Text(widget.event.location),
                                 ]),
                               ]),
+                            ],
+                          ),
+                          const SizedBox(height: 10.0),
+                          Row(
+                            children: const [
+                              Text(
+                                'Collaborators:',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 15.0),
