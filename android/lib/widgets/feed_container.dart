@@ -70,6 +70,11 @@ class FeedContainer extends StatelessWidget {
                                           ],
                                         )
                                       ]),
+                                  Spacer(),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.bookmark_add_outlined,
+                                          color: Colors.black, size: 30.0)),
                                 ],
                               ),
                               const SizedBox(height: 10.0),
