@@ -20,14 +20,14 @@ final User ahmet = User(
     username: "username",
     name: 'Ahmet',
     email: 'ahmet@mail.com',
-    imageUrl: 'https://api.minimalavatars.com/avatar/awesome/png');
+    imageUrl: 'https://api.multiavatar.com/Robo.png');
 
 final User mehmet = User(
     userType: "Regular User",
     username: "username",
     name: 'Mehmet',
     email: 'mehmet@mail.com',
-    imageUrl: 'https://api.minimalavatars.com/avatar/is/png');
+    imageUrl: 'https://api.multiavatar.com/Evilnormie.png');
 
 final User tom = User(
   userType: "Regular User",
