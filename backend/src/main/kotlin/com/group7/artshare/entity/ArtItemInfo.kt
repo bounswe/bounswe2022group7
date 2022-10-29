@@ -1,5 +1,6 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import lombok.Data
 import javax.persistence.*
 
@@ -11,8 +12,8 @@ class ArtItemInfo {
     @GeneratedValue
     val id: Long = 0L
 
-    @OneToOne
-    @JoinColumn(name = "artItem", referencedColumnName = "id")
+    @OneToOne(mappedBy = "artItemInfo", cascade = [CascadeType.ALL])
+    @JsonBackReference
     var artItem: ArtItem? = null
 
     @Column

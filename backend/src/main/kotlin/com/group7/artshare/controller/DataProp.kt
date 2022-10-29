@@ -24,7 +24,7 @@ class DataProp {
     lateinit var artItemRepository: ArtItemRepository
 
     @PostMapping("createArtItem")
-    fun a() : List<ArtItem> {
+    fun a() : Boolean {
         //create hardcoded data below
         var artItemList = mutableListOf<ArtItem>()
         var artItem1 = ArtItem()
@@ -36,7 +36,6 @@ class DataProp {
         artItem1.commentList = mutableListOf(Comment(), Comment(), Comment())
         artItem1.lastPrice = 0.0
         artItem1.onAuction = false
-        artItem1.owner = RegisteredUser()
         var artItemInfo1 = ArtItemInfo()
         artItemInfo1.name = "Starry Night"
         artItemInfo1.labels = "{\"classical\", \"painting\"}"
@@ -63,9 +62,10 @@ class DataProp {
         artItem2.commentList = mutableListOf(Comment(), Comment(), Comment())
         artItem2.lastPrice = 0.0
         artItem2.onAuction = false
-        artItem2.owner = RegisteredUser()
+        artItemList.add(artItem2)
 
-        return artItemRepository.saveAll(artItemList)
+        artItemRepository.saveAll(artItemList)
+        return true
 
     }
 
