@@ -26,81 +26,81 @@ class RegisteredUser ()
     @Column
     var password: String = ""
 
-    @ManyToMany( cascade = [CascadeType.ALL])
+    @ManyToMany( cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "following",
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "following_user_id")]
     )
-    var following: Set<RegisteredUser> = HashSet()
+    var following: MutableSet<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "followers",
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "follower_user_id")]
     )
-    var followers: Set<RegisteredUser> = HashSet()
+    var followers: MutableSet<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "blocked_users",
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "blocked_user_id")]
     )
-    var blockedUsers: Set<RegisteredUser> = HashSet()
+    var blockedUsers: MutableSet<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "blocked_by",
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "blocked_by_user_id")]
     )
-    var blockedBy: Set<RegisteredUser> = HashSet()
+    var blockedBy: MutableSet<RegisteredUser> = mutableSetOf()
 
     @Column
     var isBanned: Boolean = false
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "all_physical_exhibitions",
-        joinColumns = [JoinColumn(name = "exhibition_id")],
-        inverseJoinColumns = [JoinColumn(name = "user_id")]
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "exhibition_id")]
     )
-    var allPhysicalExhibitions: Set<PhysicalExhibition> = HashSet()
+    var allPhysicalExhibitions: MutableSet<PhysicalExhibition> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "online_galleries",
-        joinColumns = [JoinColumn(name = "online_gallery_id")],
-        inverseJoinColumns = [JoinColumn(name = "user_id")]
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "online_gallery_id")]
     )
-    var allOnlineGalleries: Set<OnlineGallery> = HashSet()
+    var allOnlineGalleries: MutableSet<OnlineGallery> = mutableSetOf()
 
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "bookmarked_art_items",
-        joinColumns = [JoinColumn(name = "art_item_id")],
-        inverseJoinColumns = [JoinColumn(name = "user_id")]
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "art_item_id")]
     )
-    var bookmarkedArtItems: Set<ArtItem> = HashSet()
+    var bookmarkedArtItems: MutableSet<ArtItem> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "bookmarked_exhibitions",
-        joinColumns = [JoinColumn(name = "physical_exhibition_id")],
-        inverseJoinColumns = [JoinColumn(name = "user_id")]
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "physical_exhibition_id")]
     )
-    var bookmarkedPhysicalExhibitions: Set<PhysicalExhibition> = HashSet()
+    var bookmarkedPhysicalExhibitions: MutableSet<PhysicalExhibition> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "bookmarked_online_galleries",
-        joinColumns = [JoinColumn(name = "online_gallery_id")],
-        inverseJoinColumns = [JoinColumn(name = "following_user_id")]
+        joinColumns = [JoinColumn(name = "following_user_id")],
+        inverseJoinColumns = [JoinColumn(name = "online_gallery_id")]
     )
-    var bookmarkedOnlineGalleries: Set<OnlineGallery> = HashSet()
+    var bookmarkedOnlineGalleries: MutableSet<OnlineGallery> = mutableSetOf()
 
 
     //TODO discussion post

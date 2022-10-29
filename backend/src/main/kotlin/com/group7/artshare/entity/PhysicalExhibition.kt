@@ -24,15 +24,15 @@ class PhysicalExhibition : Event(){
         joinColumns = [JoinColumn(name = "attending_user_id")],
         inverseJoinColumns = [JoinColumn(name = "physical_exhibition_id")]
     )
-    var attendees: Set<RegisteredUser> = HashSet()
+    var attendees: MutableSet<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "physical_exhibition_bookmarked_by",
         joinColumns = [JoinColumn(name = "bookmarker_id")],
         inverseJoinColumns = [JoinColumn(name = "bookmarked_exhibition_id")]
     )
-    var bookmarkedBy: Set<RegisteredUser> = HashSet()
+    var bookmarkedBy: MutableSet<RegisteredUser> = mutableSetOf()
 
 
 }
