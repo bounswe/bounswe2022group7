@@ -1,12 +1,14 @@
 import 'package:android/models/models.dart';
 
 final User vanGogh = User(
+    userType: "Artist",
     name: 'Vincent van Gogh',
     email: 'vg@mail.com',
     username: "username",
     imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg/1280px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg');
 final User dali = User(
+    userType: "Artist",
     username: "username",
     name: 'Salvador Dali',
     email: 'dl@mail.com',
@@ -14,26 +16,26 @@ final User dali = User(
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Salvador_Dal%C3%AD_1939.jpg/1280px-Salvador_Dal%C3%AD_1939.jpg');
 
 final User ahmet = User(
+    userType: "Regular User",
     username: "username",
     name: 'Ahmet',
     email: 'ahmet@mail.com',
-    imageUrl:
-        'https://api.minimalavatars.com/avatar/awesome/png');
+    imageUrl: 'https://api.minimalavatars.com/avatar/awesome/png');
 
 final User mehmet = User(
+    userType: "Regular User",
     username: "username",
     name: 'Mehmet',
     email: 'mehmet@mail.com',
-    imageUrl:
-    'https://api.minimalavatars.com/avatar/is/png');
+    imageUrl: 'https://api.minimalavatars.com/avatar/is/png');
 
 final User tom = User(
-    name: 'Tom Bombadil',
-    email: 'bombadil@anduin.me',
-    imageUrl: 'https://avatarfiles.alphacoders.com/935/93509.jpg',
-    username: '@tombadil',
+  userType: "Regular User",
+  name: 'Tom Bombadil',
+  email: 'bombadil@anduin.me',
+  imageUrl: 'https://avatarfiles.alphacoders.com/935/93509.jpg',
+  username: '@tombadil',
 );
-
 
 final List<ArtItem> artItems = [
   ArtItem(
@@ -77,7 +79,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,
@@ -86,7 +88,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,
@@ -95,7 +97,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,
@@ -104,7 +106,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,
@@ -113,7 +115,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,
@@ -122,7 +124,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,
@@ -131,7 +133,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,
@@ -140,7 +142,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,
@@ -149,7 +151,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,
@@ -158,7 +160,7 @@ final List<Event> events = [
   Event(
     name: 'Van Gogh Exhibition',
     description:
-    'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
+        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
     imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
     location: 'Van Gogh Museum, Amsterdam',
     host: ahmet,

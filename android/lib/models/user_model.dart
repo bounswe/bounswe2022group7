@@ -1,14 +1,23 @@
 class User {
   final String name;
+  final String? surname;
   final String email;
   final String imageUrl;
   final String username;
+  final String userType;
+  final int? age;
+  final String? country;
 
-  User(
-      {required this.name,
-      required this.email,
-      required this.imageUrl,
-      required this.username});
+  User({
+    required this.name,
+    required this.email,
+    required this.imageUrl,
+    required this.username,
+    this.surname,
+    required this.userType,
+    this.age,
+    this.country,
+  });
 }
 
 /// User that is using the application has an extra token attribute that will be used for API calls
@@ -16,6 +25,10 @@ class CurrentUser extends User {
   final String token;
 
   CurrentUser({
+    super.surname,
+    super.age,
+    super.country,
+    required super.userType,
     required this.token,
     required super.name,
     required super.email,
@@ -29,6 +42,7 @@ class CurrentUser extends User {
 
   factory CurrentUser.fromJson(Map<String, dynamic> parsedJson) {
     return CurrentUser(
+      userType: parsedJson["userType"],
       name: parsedJson['name'],
       email: parsedJson['email'],
       imageUrl: parsedJson['imageUrl'],
@@ -44,6 +58,10 @@ class CurrentUser extends User {
       "imageUrl": imageUrl,
       "username": username,
       "token": token,
+      "userType": userType,
+      "surname": surname,
+      "age": age,
+      "country": country,
     };
   }
 }
