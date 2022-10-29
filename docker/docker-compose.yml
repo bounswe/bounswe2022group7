@@ -1,0 +1,48 @@
+version: '3.9'
+name: artshare
+services:
+  db:
+    container_name: artshare-database
+    image: mysql:8.0.31
+    restart: on-failure
+
+    env_file:
+      - .env
+
+    networks:
+      default:
+        aliases:
+          - ${MYSQL_HOST}
+    ports:
+       - ${MYSQL_PORT}:${MYSQL_PORT}
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    container_name: artshare-backend
+    build:
+      context: ../backend
+      dockerfile: ../docker/backend.Dockerfile.development
+
+    env_file:
+      - .env
+
+    ports:
+      - 8080:8080
+
+    volumes:  # Hot reload
+      - ../backend:/app
+
+    # frontend:
+    #   container_name: frontend
+    #   build:
+    #     context: ./frontend
+    #     dockerfile: Dockerfile.development
+
+    #   environment:
+
+    #   ports:
+    #     - 8080:8080
+
+volumes:
+  mysql_data:
