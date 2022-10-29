@@ -10,8 +10,9 @@ import javax.persistence.*
 @PrimaryKeyJoinColumn(name = "id")
 class OnlineGallery : Event(){
 
-    //@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
-    //val artItems: List<ArtItem> = ArrayList()
+    
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
+    val artItems: List<ArtItem> = ArrayList()
 
     @Column
     val platform: String = "ArtShare"

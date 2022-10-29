@@ -6,10 +6,10 @@ import javax.persistence.*
 import kotlin.collections.ArrayList
 import java.util.Calendar
 
+
+@Data
 @MappedSuperclass
 abstract class Event{
-
-
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     var id: Long = 0L
