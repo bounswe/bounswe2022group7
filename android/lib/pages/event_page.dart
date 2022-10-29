@@ -29,22 +29,34 @@ class _EventPageState extends State<EventPage> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           const SizedBox(height: 10.0),
-                          Text(
-                            widget.event.name,
-                            style: const TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                          Row(
+                            children: [
+                              Text(
+                                widget.event.name,
+                                style: const TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon:
+                                      const Icon(Icons.bookmark_add_outlined,
+                                      color: Colors.black,
+                                      size: 30.0,
+                                      )),
+                            ],
                           ),
-                          const SizedBox(height: 15.0),
+                          const SizedBox(height: 10.0),
                           Table(
                             border: TableBorder.symmetric(
                                 inside: BorderSide(
                                   color: Colors.grey[300]!,
                                   width: 1.0,
                                 ),
-                                outside: BorderSide(color: Colors.grey[700]!)),
+                                outside: BorderSide(color: Colors.grey[500]!)),
                             defaultVerticalAlignment:
                                 TableCellVerticalAlignment.middle,
                             children: [
@@ -54,7 +66,7 @@ class _EventPageState extends State<EventPage> {
                                   SizedBox(height: 3.0),
                                   Icon(
                                     Icons.supervisor_account,
-                                    size: 30.0,
+                                    size: 25.0,
                                   ),
                                 ]),
                                 Column(children: const [
@@ -62,7 +74,7 @@ class _EventPageState extends State<EventPage> {
                                   SizedBox(height: 3.0),
                                   Icon(
                                     Icons.calendar_today,
-                                    size: 30,
+                                    size: 25.0,
                                   ),
                                 ]),
                                 Column(children: const [
@@ -70,7 +82,7 @@ class _EventPageState extends State<EventPage> {
                                   SizedBox(height: 3.0),
                                   Icon(
                                     Icons.location_on,
-                                    size: 30,
+                                    size: 25.0,
                                   ),
                                 ]),
                               ]),
@@ -86,7 +98,11 @@ class _EventPageState extends State<EventPage> {
                                   const SizedBox(height: 3.0),
                                 ]),
                                 Column(children: [
-                                  Text(widget.event.date.toString().substring(0, 16),),
+                                  Text(
+                                    widget.event.date
+                                        .toString()
+                                        .substring(0, 16),
+                                  ),
                                 ]),
                                 Column(children: [
                                   Text(widget.event.location),
@@ -103,6 +119,22 @@ class _EventPageState extends State<EventPage> {
                               fontSize: 16.0,
                               fontWeight: FontWeight.w400,
                             ),
+                          ),
+                          const SizedBox(height: 5.0),
+                          const Divider(color: Colors.black),
+                          const SizedBox(height: 5.0),
+                          Row(
+                            children: const [
+                              Icon(Icons.chat, size: 13.0),
+                              SizedBox(width: 5.0),
+                              Text(
+                                "Comments",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
                         ])),
               ],
