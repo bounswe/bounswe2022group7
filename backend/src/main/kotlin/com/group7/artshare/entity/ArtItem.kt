@@ -45,4 +45,6 @@ class ArtItem{
 
     @ManyToMany(mappedBy = "bookmarkedArtItems",cascade = [CascadeType.ALL])
     var bookmarkedBy: Set<RegisteredUser> = HashSet()
+
+     */
 }

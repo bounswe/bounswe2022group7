@@ -6,13 +6,14 @@ import javax.persistence.*
 import kotlin.collections.ArrayList
 import java.util.Calendar
 
+
 @Data
 @MappedSuperclass
 abstract class Event{
-
     @Id
-    @GeneratedValue
-    var eventId: Long = 0L
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    var id: Long = 0L
+/*
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
@@ -31,7 +32,8 @@ abstract class Event{
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     var commentList: List<Comment> = ArrayList()
 
-    @OneToOne
-    @JoinColumn(name = "eventInfoId", referencedColumnName = "id")
+    */
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "eventInfoId")
     var eventInfo: EventInfo? = null
 }

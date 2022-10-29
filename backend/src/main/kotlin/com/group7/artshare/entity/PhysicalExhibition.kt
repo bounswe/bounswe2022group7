@@ -11,18 +11,28 @@ import java.util.*;
 @PrimaryKeyJoinColumn(name = "id")
 class PhysicalExhibition : Event(){
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.PERSIST])
     @JoinColumn(name = "location")
     var location: Location? = null
 
     @Column
     var rules: String = ""
 
-    @ManyToMany(mappedBy = "allPhysicalExhibitions",cascade = [CascadeType.ALL])
-    var attendees: Set<RegisteredUser> = HashSet()
+    @ManyToMany(cascade = [CascadeType.ALL])
+    @JoinTable(
+        name = "physical_exhibition_attendees",
+        joinColumns = [JoinColumn(name = "attending_user_id")],
+        inverseJoinColumns = [JoinColumn(name = "physical_exhibition_id")]
+    )
+    var attendees: MutableSet<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(mappedBy = "bookmarkedPhysicalExhibitions",cascade = [CascadeType.ALL])
-    var bookmarkedBy: Set<RegisteredUser> = HashSet()
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "physical_exhibition_bookmarked_by",
+        joinColumns = [JoinColumn(name = "bookmarker_id")],
+        inverseJoinColumns = [JoinColumn(name = "bookmarked_exhibition_id")]
+    )
+    var bookmarkedBy: MutableSet<RegisteredUser> = mutableSetOf()
 
 
 }
