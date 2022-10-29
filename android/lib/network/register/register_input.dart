@@ -18,4 +18,17 @@ class RegisterInput {
     this.age,
     this.country,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "email": email,
+      "username": username,
+      "userType": userType,
+      "surname": surname,
+      "age": age,
+      "country": country,
+      "password": password,
+    };
+  }
 }

@@ -9,8 +9,10 @@ class RegisterProvider extends ChangeNotifier {
 
   Future<RegisterOutput> register(RegisterInput registerInput) async {
     isLoading = true;
+    notifyListeners();
     RegisterOutput registerOutput = await registerNetwork(registerInput);
     isLoading = false;
+    notifyListeners();
     return registerOutput;
   }
 }

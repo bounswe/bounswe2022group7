@@ -127,9 +127,6 @@ class _RegisterState extends State<Register> {
     ));
 
     final ageField = inputField(TextFormField(
-      onSaved: (value) {
-        print(value);
-      },
       keyboardType: TextInputType.number,
       autofocus: false,
       inputFormatters: [LengthLimitingTextInputFormatter(2)],
@@ -222,15 +219,22 @@ class _RegisterState extends State<Register> {
         country: _country?.name,
       );
 
-      registerProvider.register(registerInput).then((RegisterOutput value) {
-        // TODO these values will come from the backend
+      registerProvider.register(registerInput).then((RegisterOutput registerOutput) {
+        if (registerOutput.status != "OK") {
+          showSnackBar(context, registerOutput.status);
+          return;
+        }
+
         CurrentUser user = CurrentUser(
           userType: _userType!,
           username: _username!,
           token: "test token",
-          name: "Tom Bombadil",
+          name: _name ?? "Tom Bombadil",
           email: _email!,
-          imageUrl: "https://avatarfiles.alphacoders.com/935/93509.jpg",
+          imageUrl: registerOutput.imageUrl ?? "https://avatarfiles.alphacoders.com/935/93509.jpg",
+          surname: _surname,
+          age: _age,
+          country: _country?.name,
         );
 
         // save user in local storage
