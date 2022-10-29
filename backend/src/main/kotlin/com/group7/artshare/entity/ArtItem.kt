@@ -12,10 +12,11 @@ class ArtItem{
     @GeneratedValue
     var id: Long = 0L
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "artItemInfo", referencedColumnName = "id")
     var artItemInfo: ArtItemInfo? = null
 
+    /*
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
     var creator: Artist? = null
@@ -43,4 +44,6 @@ class ArtItem{
 
     @ManyToMany(mappedBy = "bookmarkedArtItems",cascade = [CascadeType.ALL])
     var bookmarkedBy: Set<RegisteredUser> = HashSet()
+
+     */
 }

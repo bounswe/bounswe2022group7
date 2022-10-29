@@ -51,20 +51,47 @@ class RegisteredUser(
     @Column
     var isBanned: Boolean = false
 
-    @ManyToMany(cascade = [CascadeType.ALL])
-    var allPhysicalExhibitions: Set<PhysicalExhibition> = HashSet()
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "all_physical_exhibitions",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "exhibition_id")]
+    )
+    var allPhysicalExhibitions: MutableSet<PhysicalExhibition> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
-    var allOnlineGalleries: Set<OnlineGallery> = HashSet()
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "online_galleries",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "online_gallery_id")]
+    )
+    var allOnlineGalleries: MutableSet<OnlineGallery> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
-    var bookmarkedArtItems: Set<ArtItem> = HashSet()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
-    var bookmarkedPhysicalExhibitions: Set<PhysicalExhibition> = HashSet()
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "bookmarked_art_items",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "art_item_id")]
+    )
+    var bookmarkedArtItems: MutableSet<ArtItem> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
-    var bookmarkedOnlineGalleries: Set<OnlineGallery> = HashSet()
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "bookmarked_exhibitions",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "physical_exhibition_id")]
+    )
+    var bookmarkedPhysicalExhibitions: MutableSet<PhysicalExhibition> = mutableSetOf()
+
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "bookmarked_online_galleries",
+        joinColumns = [JoinColumn(name = "following_user_id")],
+        inverseJoinColumns = [JoinColumn(name = "online_gallery_id")]
+    )
+    var bookmarkedOnlineGalleries: MutableSet<OnlineGallery> = mutableSetOf()
+
 
     //TODO discussion post
     //TODO past reply past posts

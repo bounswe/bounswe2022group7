@@ -9,6 +9,7 @@ import javax.persistence.*
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 class OnlineGallery : Event(){
+
     
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
     val artItems: List<ArtItem> = ArrayList()
@@ -19,11 +20,11 @@ class OnlineGallery : Event(){
     @Column
     val externalUrl: String? = null
 
-    @ManyToMany(mappedBy = "allOnlineGalleries",cascade = [CascadeType.ALL])
-    var attendees: Set<RegisteredUser> = HashSet()
+    //@ManyToMany(mappedBy = "allOnlineGalleries",cascade = [CascadeType.ALL])
+    //var attendees: Set<RegisteredUser> = HashSet()
 
-    @ManyToMany(mappedBy = "bookmarkedOnlineGalleries",cascade = [CascadeType.ALL])
-    var bookmarkedBy: Set<RegisteredUser> = HashSet()
+    //@ManyToMany(mappedBy = "bookmarkedOnlineGalleries",cascade = [CascadeType.ALL])
+    //var bookmarkedBy: Set<RegisteredUser> = HashSet()
 
 
 
