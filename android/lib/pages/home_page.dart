@@ -9,6 +9,7 @@ import 'package:android/data/data.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/user_provider.dart';
+import '../widgets/alert.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,6 +19,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void logout() {
+    setState(() {
+      Provider.of<UserProvider>(context, listen: false).logout();
+      Navigator.pop(context); // close pop up
+      Navigator.pop(context); // close drawer
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     CurrentUser? user = Provider.of<UserProvider>(context).user;
@@ -152,10 +161,12 @@ class _HomePageState extends State<HomePage> {
                 leading: const Icon(Icons.logout),
                 title: const Text("Logout"),
                 onTap: () {
-                  setState(() {
-                    Provider.of<UserProvider>(context, listen: false).logout();
-                    Navigator.pop(context); // close drawer
-                  });
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return logoutDialog(logout);
+                    },
+                  );
                 },
               )
           ],
