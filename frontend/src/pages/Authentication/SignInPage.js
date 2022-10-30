@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../../auth/useAuth";
 
@@ -24,13 +24,6 @@ function SignInForm(props) {
 
   const { state } = useLocation();
 
-  const [formInput, setFormInput] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      email: state ? state.email : "",
-      password: "",
-    }
-  );
 
   const [isLoading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -52,10 +45,6 @@ function SignInForm(props) {
       setLoading(true);
     setError(null);
 
-    let data = {
-      email: formInput.email,
-      password: formInput.password
-    }
 
     // Here is how we will make a POST request in the backend.
     // This section is left out since the backend is not ready
