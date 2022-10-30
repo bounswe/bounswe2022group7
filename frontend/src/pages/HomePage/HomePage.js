@@ -20,7 +20,7 @@ const HomePage = () => {
     }
 
     useEffect(() => {
-        const promise1 = fetch('/homepage/getGenericArtItems', {
+        fetch('/homepage/getGenericArtItems', {
             headers: fetchHeaders,
             method: 'GET',
         })
@@ -35,7 +35,7 @@ const HomePage = () => {
                     setError(error)
                 })
 
-        const promise2 = fetch('/homepage/getGenericEvents', {
+        fetch('/homepage/getGenericEvents', {
             headers: fetchHeaders,
             method: 'GET',
         })
@@ -49,11 +49,6 @@ const HomePage = () => {
                     setLoaded(true)
                     setError(error)
                 })
-
-        return () => {
-            promise1.cancel()
-            promise2.cancel()
-        }
     }, [])
 
     if (error) {
