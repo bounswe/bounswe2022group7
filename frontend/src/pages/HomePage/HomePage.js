@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Grid from '@mui/material/Grid';
+import { Grid, Link } from '@mui/material';
 
 import { Event } from './Event'
 import { ArtItem } from './ArtItem'
@@ -50,7 +50,9 @@ class HomePage extends React.Component {
                     <Grid container item xs={12} md={4} direction='column' wrap='wrap'>
                         {artitems.map(artitem => (
                             <Grid key={artitem.id} item>
-                                <ArtItem data={artitem} />
+                                <Link href={"/art_item/"+artitem.id} underline="none"> 
+                                    <ArtItem data={artitem} />
+                                </Link>
                             </Grid>
                         ))}
                     </Grid>
