@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "parcel",
+    "start:dev": "parcel src/index.html --hmr-port 1235",
     "build": "parcel build"
   },
   "repository": {
