@@ -7,7 +7,6 @@ class Event {
   final List<User> collaborators;
   final List<User> participants;
   final DateTime creationDate;
-  final DateTime lastEdited;
   final List<String> commentList;
   final Location location;
   final String? rules;
@@ -21,7 +20,6 @@ class Event {
       required this.collaborators,
       required this.participants,
       required this.creationDate,
-      required this.lastEdited,
       required this.commentList,
       required this.location,
       this.rules,
@@ -36,7 +34,6 @@ class Event {
       collaborators: json['collaborators'].map((e) => User.fromJson(e)).toList(),
       participants: json['participants'].map((e) => User.fromJson(e)).toList(),
       creationDate: DateTime.parse(json['creationDate']),
-      lastEdited: DateTime.parse(json['lastEdited']),
       commentList: json['commentList'].map((e) => e.toString()).toList(),
       location: Location.fromJson(json['location']),
       rules: json['rules'],

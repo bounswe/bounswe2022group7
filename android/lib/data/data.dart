@@ -82,7 +82,6 @@ final List<Event> events = [
       collaborators: [mehmet],
       participants: [],
       creationDate: DateTime(2021, 11, 20),
-      lastEdited: DateTime(2021, 11, 25),
       commentList: [],
       location: Location(
         id: 1,
@@ -110,7 +109,6 @@ final List<Event> events = [
       collaborators: [],
       participants: [],
       creationDate: DateTime(2021, 11, 20),
-      lastEdited: DateTime(2021, 5, 1),
       commentList: [],
       location: Location(
         id: 2,
