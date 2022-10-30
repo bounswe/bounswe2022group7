@@ -36,7 +36,7 @@ export class ArtItem extends React.Component {
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                        Art item details
+                        {this.props.data.artItemInfo.description}
                     </Typography>
                 </CardContent>
             </Card>
