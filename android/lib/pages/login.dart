@@ -79,7 +79,7 @@ class _LoginState extends State<Login> {
         //   country: _country?.name,
         // );
 
-        CurrentUser user = loginOutput.currentUser!;
+        CurrentUser user = CurrentUser(token: loginOutput.token!);
 
         // save user in local storage
         saveUser(user);

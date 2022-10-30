@@ -2,12 +2,12 @@ import 'package:android/models/user_model.dart';
 
 class LoginOutput {
   final String status;
-  final CurrentUser? currentUser;
+  final String? token;
 
 
   LoginOutput({
     required this.status,
-    this.currentUser,
+    this.token,
   });
 
   factory LoginOutput.fromJson(Map<String, dynamic> parsedJson) {
@@ -15,12 +15,12 @@ class LoginOutput {
     if(parsedJson["status"] == "OK") {
       return LoginOutput(
         status: parsedJson["status"],
-        currentUser: CurrentUser.fromJson(parsedJson),
+        token: parsedJson["token"],
       );
     } else {
       return LoginOutput(
         status: parsedJson["status"],
-        currentUser: null,
+        token: null,
       );
     }
   }

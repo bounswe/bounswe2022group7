@@ -225,28 +225,9 @@ class _RegisterState extends State<Register> {
           return;
         }
 
-        CurrentUser user = CurrentUser(
-          userType: _userType!,
-          username: _username!,
-          token: registerOutput.token!,
-          name: _name ?? "Tom Bombadil",
-          email: _email!,
-          imageUrl: registerOutput.imageUrl ?? "https://avatarfiles.alphacoders.com/935/93509.jpg",
-          surname: _surname,
-          age: _age,
-          country: _country?.name,
-        );
-
-        // save user in local storage
-        saveUser(user);
-
-        // notify other pages about the user via provider
-        Provider.of<UserProvider>(context, listen: false).setUser(user);
-
-        // delete every route in navigation stack before navigating to homepage
         Navigator.pushNamedAndRemoveUntil(
           context,
-          homepage,
+          login,
           (route) => false,
         );
       });
