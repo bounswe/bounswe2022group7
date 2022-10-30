@@ -1,6 +1,7 @@
 import 'package:android/pages/home_page.dart';
 import 'package:android/pages/login.dart';
 import 'package:android/pages/register.dart';
+import 'package:android/providers/login_provider.dart';
 import 'package:android/providers/register_provider.dart';
 import 'package:android/providers/user_provider.dart';
 import 'package:android/shared_prefs/user_preferences.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => RegisterProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => LoginProvider()),
       ],
       child: MaterialApp(
         title: 'ArtShare',
