@@ -66,6 +66,7 @@ final List<ArtItem> artItems = [
 
 final List<Event> events = [
   Event(
+    id: 0,
     name: 'Van Gogh Exhibition',
     type: 'Physical Exhibition',
     description:
@@ -77,6 +78,7 @@ final List<Event> events = [
     creationDate: DateTime(2022, 10, 22, 15, 30),
   ),
   Event(
+    id: 1,
     name: 'Salvador Dalí Exhibition',
     type: 'Physical Exhibition',
     description:
@@ -89,6 +91,7 @@ final List<Event> events = [
     creationDate: DateTime(2022, 10, 22, 15, 30),
   ),
   Event(
+    id: 2,
     name: 'Online Monet Night',
     type: 'Online Gallery',
     description:

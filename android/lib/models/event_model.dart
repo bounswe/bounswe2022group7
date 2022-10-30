@@ -2,6 +2,7 @@ import 'package:android/models/models.dart';
 import 'package:android/models/user_model.dart';
 
 class Event {
+  final int id;
   final String name;
   final String type;
   final String description;
@@ -12,7 +13,8 @@ class Event {
   final DateTime creationDate;
 
   Event(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.type,
       required this.description,
       required this.imageUrl,
