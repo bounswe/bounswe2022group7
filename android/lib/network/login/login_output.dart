@@ -19,7 +19,7 @@ class LoginOutput {
       );
     } else {
       return LoginOutput(
-        status: "NOTOK",
+        status: "Login Unsuccessful",
         token: null,
       );
     }
