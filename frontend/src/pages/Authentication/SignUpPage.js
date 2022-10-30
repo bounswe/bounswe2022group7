@@ -1,7 +1,11 @@
-import React, { useReducer } from "react";
-import {useNavigate} from 'react-router-dom';
+import React from "react";
+import { useNavigate } from 'react-router-dom';
 
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
+import CircularProgress from '@mui/material/CircularProgress';
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Stack from '@mui/material/Stack';
@@ -9,66 +13,114 @@ import Typography from "@mui/material/Typography";
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
+const validationSchema = yup.object({
+  email: yup
+    .string('Enter your email')
+    .email('Enter a valid email')
+    .required('Email is required'),
+
+  password: yup
+    .string('Enter your password')
+    // .min(8, 'Password should be of minimum 8 characters length')
+    .required('Password is required'),
+
+  username: yup
+    .string('Enter your username')
+    .min(3, 'Username should be of minimum 3 characters length')
+    .required('Username is required')
+    .matches(/^[a-zA-Z0-9]+$/, 'Username should only contain letters and numbers'),
+
+  name: yup
+    .string('Enter your name')
+    .required('Name is required'),
+
+  surname: yup
+    .string('Enter your surname')
+    .required('Surname is required'),
+
+  country: yup
+    .string('Enter your country')
+    .required('Country is required'),
+  age: yup
+    .number('Enter your age')
+    .positive('Age must be positive')
+    .integer('Age must be an integer')
+    .max(125, 'Age must be less than 125')
+    .required('Age is required'),
+
+  userType: yup
+    .string("Please select an user type.")
+    .required('User type is required')
+});
 
 function SignUpForm(props) {
 
-  const [formInput, setFormInput] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      name: "",
-      surname: "",
-      email: "",
-      password: "",
-      userType: "",
-    }
-  );
+  const [isLoading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   // should be defined outside any function
   // otherwise breaks the 'Rules of Hooks' apparently.
   // ref: https://stackoverflow.com/questions/60700905/react-native-navigate-to-screen-invalid-hook-call
   const navigate = useNavigate();
 
-  // Called when the user clicks the submit button. Observe how
-  // the handleSubmit button is attached to the 'form' component
-  // below in the return call of SignUpForm function.
-  const handleSubmit = event => {
-    event.preventDefault();
 
-    let data = { formInput };
+  // Validation
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      username: "",
+      name: "",
+      surname: "",
+      country: "",
+      age: undefined,
+      userType: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      setLoading(true);
+      setError(null);
 
-    /*
-    // Here is how we will make a POST request in the backend.
-    // This section is left out since the backend is not ready
-    // yet.
-    fetch("https://pointy-gauge.glitch.me/api/form", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(response => console.log("Success:", JSON.stringify(response)))
-      .catch(error => console.error("Error:", error));
-    */
+      // Here is how we will make a POST request in the backend.
+      // This section is left out since the backend is not ready
+      // yet.
+      fetch("/signup", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error('Something went wrong.');
+          }
+        })
+        .then((responseText) => {
+          setLoading(false);
+          if (responseText === "true") {
+            navigate(
+              "/auth/signin",
+              {
+                state: { redirect: true, email: values.email }
+              });
 
-    // Since the backend is not ready to receive our
-    // calls yet, I will redirect to the home page
-    // if the user enters whenever the user clicks
-    // the button.
-    navigate('/');
-  };
-
-  // updates the state (formInput) defined in useReducer function above
-  // with the function (setFormInput) defined in useReducer.
-  // Called everytime user makes an update to the fields with
-  // 'onChange={handleInput}'.
-  const handleInput = event => {
-    const name = event.target.name;
-    const newValue = event.target.value;
-    setFormInput({ [name]: newValue });
-  };
+          } else {
+            formik.setFieldValue("password", "");
+            setError("An error occured");
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setError(error.message);
+        });
+    },
+  });
 
   return (
     <div>
@@ -78,45 +130,81 @@ function SignUpForm(props) {
         </Typography>
         <Typography component="p">{props.formDescription}</Typography>
 
-        <form onSubmit={handleSubmit}>
-          <Stack sx={{padding: 2}}>
+        <form onSubmit={formik.handleSubmit}>
+          <Stack sx={{ padding: 2 }}>
+            {error ? <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing up</AlertTitle>{error}</Alert> : null}
+
             <TextField
-              required
+              id="outlined-required"
+              label="Username"
+              name="username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
+              sx={{ marginY: 1 }}
+            />
+            <TextField
               id="outlined-required"
               label="Name"
               name="name"
-              defaultValue={formInput.name}
-              onChange={handleInput}
-              sx = {{marginY: 1}}
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+              sx={{ marginY: 1 }}
             />
             <TextField
-              required
               id="outlined-required"
               label="Surname"
               name="surname"
-              defaultValue={formInput.surname}
-              onChange={handleInput}
-              sx = {{marginY: 1}}
+              value={formik.values.surname}
+              onChange={formik.handleChange}
+              error={formik.touched.surname && Boolean(formik.errors.surname)}
+              helperText={formik.touched.surname && formik.errors.surname}
+              sx={{ marginY: 1 }}
             />
             <TextField
-              required
+              id="outlined-required"
+              label="Age"
+              name="age"
+              value={formik.values.age}
+              onChange={formik.handleChange}
+              error={formik.touched.age && Boolean(formik.errors.age)}
+              helperText={formik.touched.age && formik.errors.age}
+              sx={{ marginY: 1 }}
+            />
+            <TextField
               id="outlined-required"
               label="Email"
               name="email"
-              defaultValue={formInput.email}
-              onChange={handleInput}
-              sx = {{marginY: 1}}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              sx={{ marginY: 1 }}
             />
             <TextField
-              required
               type="password"
               id="outlined-password-input"
               label="Password"
               name="password"
-              defaultValue={formInput.password}
-              onChange={handleInput}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
               autoComplete="current-password"
-              sx = {{marginY: 1}}
+              sx={{ marginY: 1 }}
+            />
+            <TextField
+              id="outlined-required"
+              label="Country"
+              name="country"
+              value={formik.values.country}
+              onChange={formik.handleChange}
+              error={formik.touched.country && Boolean(formik.errors.country)}
+              helperText={formik.touched.country && formik.errors.country}
+              sx={{ marginY: 1 }}
             />
             <InputLabel variant="standard" htmlFor="uncontrolled-native">
               Choose User Type:
@@ -124,18 +212,20 @@ function SignUpForm(props) {
             <Select
               labelId="user-type"
               name='userType'
-              value={formInput.userType}
-              onChange={handleInput}
+              value={formik.values.userType}
+              onChange={formik.handleChange}
+              error={formik.touched.userType && Boolean(formik.errors.userType)}
+              helperText={formik.touched.userType && formik.errors.userType}
             >
               <MenuItem value={'artist'}>Artist</MenuItem>
               <MenuItem value={'regularUser'}>Regular User</MenuItem>
             </Select>
-
+            {isLoading ? <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }} ><CircularProgress /></Box> : null}
             <Button
               type="submit"
               variant="contained"
               color="primary"
-              sx = {{marginY: 2}}
+              sx={{ marginY: 2 }}
             >
               Sign Up
             </Button>
@@ -149,7 +239,7 @@ function SignUpForm(props) {
 function SignUpPage() {
   return (
     <div>
-      <SignUpForm 
+      <SignUpForm
         formName="Sign Up"
         formDescription="You can sign up to the platform through this page."
       />

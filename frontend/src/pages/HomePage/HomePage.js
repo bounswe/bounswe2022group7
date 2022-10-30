@@ -15,15 +15,14 @@ const HomePage = () => {
 
 
     const { token } = useAuth()
-    const fetchHeaders = {
-        Authorization: 'Bearer ' + token
-    }
 
     useEffect(() => {
-        fetch('/homepage/getGenericArtItems', {
-            headers: fetchHeaders,
-            method: 'GET',
-        })
+        const fetchArgs = {
+            method: "GET",  
+        }
+        if (token) fetchArgs.headers = {Authorization: "Bearer " + token}
+
+        fetch('/homepage/getGenericArtItems', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
                 console.count(data)
@@ -35,10 +34,7 @@ const HomePage = () => {
                     setError(error)
                 })
 
-        fetch('/homepage/getGenericEvents', {
-            headers: fetchHeaders,
-            method: 'GET',
-        })
+        fetch('/homepage/getGenericEvents', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
                 console.count(data)
@@ -49,7 +45,7 @@ const HomePage = () => {
                     setLoaded(true)
                     setError(error)
                 })
-    }, [])
+    }, [token])
 
     if (error) {
         return <div>Error: {error.message}</div>
