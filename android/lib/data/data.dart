@@ -66,41 +66,49 @@ final List<ArtItem> artItems = [
 
 final List<Event> events = [
   Event(
-    id: 0,
-    name: 'Van Gogh Exhibition',
-    type: 'Physical Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-    creationDate: DateTime(2022, 10, 22, 15, 30),
-  ),
+      id: 1,
+      eventInfo: EventInfo(
+        id: 1,
+        title: 'Van Gogh Exhibition',
+        endingDate: DateTime(2021, 12, 31),
+        startingDate: DateTime(2021, 12, 1),
+        description: 'A great exhibition of Van Gogh\'s works.',
+        category: 'Post-Impressionism ',
+        labels: ['french', 'post-impressionism', 'painting'],
+        posterUrl:
+            'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
+      ),
+      creator: ahmet,
+      collaborators: [mehmet],
+      participants: [],
+      creationDate: DateTime(2021, 11, 20),
+      lastEdited: DateTime(2021, 11, 25),
+      commentList: [],
+      location: 'Van Gogh Museum, Amsterdam',
+      rules: 'No rules',
+      attendees: [],
+      bookmarkedBy: [mehmet]),
   Event(
-    id: 1,
-    name: 'Salvador Dalí Exhibition',
-    type: 'Physical Exhibition',
-    description:
-        'This will show the best works of Salvador Dalí. It will be held at the Dalí Museum in Florida.',
-    imageUrl:
-        'https://assets3.thrillist.com/v1/image/1416328/size/tl-no_parallax_cs_2x/the-11-most-stunning-new-architecture-projects-in-america',
-    location: 'Dalí Museum, Florida',
-    host: mehmet,
-    date: DateTime(2022, 10, 21, 13, 0),
-    creationDate: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    id: 2,
-    name: 'Online Monet Night',
-    type: 'Online Gallery',
-    description:
-        'This will show the best works of Claude Monet. It will be held online.',
-    imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Claude_Monet_002.jpg/360px-Claude_Monet_002.jpg',
-    location: 'Online',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-    creationDate: DateTime(2022, 10, 22, 15, 30),
-  )
+      id: 2,
+      eventInfo: EventInfo(
+        id: 2,
+        title: 'Dali Exhibition',
+        endingDate: DateTime(2021, 12, 31),
+        startingDate: DateTime(2021, 12, 1),
+        description: 'A great exhibition of Dali\'s works.',
+        category: 'Surrealism',
+        labels: ['spanish', 'surrealism', 'painting'],
+        posterUrl:
+            'https://assets3.thrillist.com/v1/image/1416328/size/tl-no_parallax_cs_2x/the-11-most-stunning-new-architecture-projects-in-america',
+      ),
+      creator: mehmet,
+      collaborators: [],
+      participants: [],
+      creationDate: DateTime(2021, 11, 20),
+      lastEdited: DateTime(2021, 5, 1),
+      commentList: [],
+      location: 'Dalí Museum, Florida',
+      rules: 'No rules',
+      attendees: [],
+      bookmarkedBy: [mehmet, ahmet]),
 ];

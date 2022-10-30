@@ -1,25 +1,30 @@
 import 'package:android/models/models.dart';
-import 'package:android/models/user_model.dart';
 
 class Event {
   final int id;
-  final String name;
-  final String type;
-  final String description;
-  final String imageUrl;
-  final String location;
-  final User host;
-  final DateTime date;
+  final EventInfo eventInfo;
+  final User creator;
+  final List<User> collaborators;
+  final List<User> participants;
   final DateTime creationDate;
+  final DateTime lastEdited;
+  final List<String> commentList;
+  final String location;
+  final String? rules;
+  final List<User> attendees;
+  final List<User> bookmarkedBy;
 
   Event(
       {required this.id,
-      required this.name,
-      required this.type,
-      required this.description,
-      required this.imageUrl,
+      required this.eventInfo,
+      required this.creator,
+      required this.collaborators,
+      required this.participants,
+      required this.creationDate,
+      required this.lastEdited,
+      required this.commentList,
       required this.location,
-      required this.host,
-      required this.date,
-      required this.creationDate});
+      this.rules,
+      required this.attendees,
+      required this.bookmarkedBy});
 }

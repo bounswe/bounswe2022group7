@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:android/models/models.dart';
 import 'package:android/pages/event_page.dart';
 
-import 'package:android/config/app_routes.dart';
-
 class FeedContainer extends StatelessWidget {
   final ArtItem artItem;
   final Event event;
@@ -44,7 +42,7 @@ class FeedContainer extends StatelessWidget {
                                     radius: 20.0,
                                     backgroundColor: Colors.grey[300],
                                     backgroundImage:
-                                        NetworkImage(event.host.imageUrl),
+                                        NetworkImage(event.creator.imageUrl),
                                   ),
                                   const SizedBox(width: 10.0),
                                   Column(
@@ -52,7 +50,7 @@ class FeedContainer extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          event.name,
+                                          event.eventInfo.title,
                                           style: const TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w600,
@@ -66,11 +64,11 @@ class FeedContainer extends StatelessWidget {
                                                 size: 12.0,
                                                 color: Colors.grey[600]),
                                             const SizedBox(width: 5.0),
-                                            Text("Host: ${event.host.name}"),
+                                            Text("Host: ${event.creator.name}"),
                                           ],
                                         )
                                       ]),
-                                  Spacer(),
+                                  const Spacer(),
                                   IconButton(
                                       onPressed: () {},
                                       icon: const Icon(Icons.bookmark_add_outlined,
@@ -87,7 +85,7 @@ class FeedContainer extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 5.0),
                                   Text(
-                                    event.date.toString().substring(0, 16),
+                                    event.eventInfo.startingDate.toString().substring(0, 16),
                                   ),
                                 ],
                               ),
@@ -108,10 +106,12 @@ class FeedContainer extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 10.0),
-                    Image(image: Image.network(event.imageUrl).image),
+                    event.eventInfo.posterUrl != null
+                        ? Image.network(event.eventInfo.posterUrl!)
+                        : Container(),
                     const SizedBox(height: 10.0),
                     Text(
-                      event.description,
+                      event.eventInfo.description,
                       style: const TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.w400,
