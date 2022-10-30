@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../../auth/useAuth";
 
 import Alert from '@mui/material/Alert';
@@ -14,16 +14,22 @@ import Typography from "@mui/material/Typography";
 
 function SignInForm(props) {
 
+  const { state } = useLocation();
+
+  console.log(state);
+
+
   const [formInput, setFormInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      email: "",
+      email: state ? state.email : "",
       password: "",
     }
   );
 
   const [isLoading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [redirected, setRedirected] = React.useState(state ? state.redirect : false);
 
   // should be defined outside any function
   // otherwise breaks the 'Rules of Hooks' apparently.
@@ -98,7 +104,8 @@ function SignInForm(props) {
 
         <form onSubmit={handleSubmit}>
           <Stack sx={{mt: 2}}>
-            { error ? <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing in</AlertTitle>{error}</Alert> : null}
+            { error ? <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing in</AlertTitle>{error}</Alert> :           
+               redirected ? <Alert severity="info" sx={{mb: 2}}>You have succesfully signed up, you can login with your crediantials.</Alert> : null}
             <TextField
               required
               id="outlined-required"
