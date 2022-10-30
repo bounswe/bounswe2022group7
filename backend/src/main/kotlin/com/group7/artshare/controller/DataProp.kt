@@ -138,7 +138,7 @@ class DataProp {
         var event1 = PhysicalExhibition()
         var eventInfo1 = EventInfo()
         eventInfo1.posterUrl = "https://i.pinimg.com/originals/c7/9a/b6/c79ab6b3943e4e75fa0742a8ce9a76e6.jpg"
-        eventInfo1.category = "{\"kubism\", \"oil painting\", \"wooden sculpture\"}"
+        eventInfo1.category = "[\"kubism\", \"oil painting\", \"wooden sculpture\"]"
         eventInfo1.endingDate = Calendar.getInstance().time
         eventInfo1.title = "Venice the Mourning City"
         eventInfo1.description = "Stories of seperations, tears of loves"
@@ -154,7 +154,7 @@ class DataProp {
         var event2 = PhysicalExhibition()
         var eventInfo2 = EventInfo()
         eventInfo2.posterUrl = "https://www.kadindanalhaberi.com/images/haberler/2020/08/sanatsal_mozaik_sergisi_kahramanmaras_kalede_aciliyor_h7195_9e45b.jpg"
-        eventInfo2.category = "{\"mosaic\", \"seramic\"}"
+        eventInfo2.category = "[\"mosaic\", \"seramic\"]"
         eventInfo2.endingDate = Calendar.getInstance().time
         eventInfo2.title = "Footsteps of the Ancients"
         eventInfo2.description = "A breeze whining from old times telling secret stories."
