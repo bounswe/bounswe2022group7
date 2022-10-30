@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   // call this function to sign out logged in user
   const clearToken = () => {
     setToken(null);
-    navigate("/", { replace: true });
+    window.location.href = '/'
   };
 
   const value = useMemo(
