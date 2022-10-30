@@ -1,5 +1,6 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import lombok.Data
 import javax.persistence.*
 
@@ -21,6 +22,7 @@ class AccountInfo(
     val id: Long = 0L
 
     @OneToOne(mappedBy = "accountInfo", cascade = [CascadeType.ALL])
+    @JsonBackReference
     var registeredUser: RegisteredUser? = null
 
     @Column
