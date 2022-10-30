@@ -14,8 +14,6 @@ const HomePage = () => {
     const [events, setEvents] = React.useState([])
 
 
-    const { saveToken } = useAuth()
-    saveToken('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImF1dGhvcml0aWVzIjpbImFydGlzdCJdLCJleHAiOjE2OTg2MjQwMDB9.yXtKaBo2Nxt28f2U2wFwlRPG7HDlc91BSeObt-6UzLM')
     const { token } = useAuth()
     const fetchHeaders = {
         Authorization: 'Bearer ' + token
