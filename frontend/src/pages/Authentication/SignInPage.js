@@ -5,6 +5,8 @@ import { useAuth } from "../../auth/useAuth";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Button from "@mui/material/Button";
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Stack from '@mui/material/Stack';
@@ -20,6 +22,7 @@ function SignInForm(props) {
     }
   );
 
+  const [isLoading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
 
   // should be defined outside any function
@@ -33,14 +36,13 @@ function SignInForm(props) {
   // below in the return call of SignUpForm function.
   const handleSubmit = event => {
     event.preventDefault();
-    // saveToken(formInput.email)
+    setLoading(true);
+    setError(null);
 
     let data = {
       email: formInput.email,
       password: formInput.password
     }
-
-    console.log(data)
 
     // Here is how we will make a POST request in the backend.
     // This section is left out since the backend is not ready
@@ -53,18 +55,25 @@ function SignInForm(props) {
       }
     })
       .then((response) => {
-        return response.text();
+        if (response.ok) {
+          return response.text();
+        } else {
+          throw new Error('Something went wrong.');
+        }
       })
       .then((responseText) => {
         if (responseText) {
-          saveToken(responseText)
-          navigate('/')
+          saveToken(responseText);
+          navigate('/');
         } else {
-          setError("Your email or password is incorrect. Please try again.")
+          setFormInput({ password: "" });
+          setError("Your email or password is incorrect. Please try again.");
         }
+        setLoading(false);
       })
       .catch((error) => {
-        setError("Your email or password is incorrect. Please try again.")
+        setLoading(false);
+        setError(error.message);
       });
 
   };
@@ -81,23 +90,21 @@ function SignInForm(props) {
 
   return (
     <div>
-      <Paper>
+      <Paper sx={{p: 2}}>
         <Typography variant="h5" component="h3">
           {props.formName}
         </Typography>
         <Typography component="p">{props.formDescription}</Typography>
 
         <form onSubmit={handleSubmit}>
-          <Stack sx={{ padding: 2 }}>
-            {error ? <Alert severity="error" sx={{ mb: 2 }}>
-              <AlertTitle>Error signing in</AlertTitle>
-              {error}</Alert> : null}
+          <Stack sx={{mt: 2}}>
+            { error ? <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing in</AlertTitle>{error}</Alert> : null}
             <TextField
               required
               id="outlined-required"
               label="Email"
               name="email"
-              defaultValue={formInput.email}
+              value={formInput.email}
               onChange={handleInput}
               sx={{ marginY: 1 }}
             />
@@ -107,12 +114,14 @@ function SignInForm(props) {
               id="outlined-password-input"
               label="Password"
               name="password"
-              defaultValue={formInput.password}
+              value={formInput.password}
               onChange={handleInput}
               autoComplete="current-password"
               sx={{ marginY: 1 }}
             />
+            {isLoading ? <Box sx={{display: 'flex', width: '100%', justifyContent: 'center'}} ><CircularProgress /></Box>  : null }
             <Button
+              disabled={isLoading}
               type="submit"
               variant="contained"
               color="primary"
