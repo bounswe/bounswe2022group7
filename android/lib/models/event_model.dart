@@ -27,4 +27,22 @@ class Event {
       this.rules,
       required this.attendees,
       required this.bookmarkedBy});
+
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+      id: json['id'],
+      eventInfo: EventInfo.fromJson(json['eventInfo']),
+      creator: User.fromJson(json['creator']),
+      collaborators: json['collaborators'].map((e) => User.fromJson(e)).toList(),
+      participants: json['participants'].map((e) => User.fromJson(e)).toList(),
+      creationDate: DateTime.parse(json['creationDate']),
+      lastEdited: DateTime.parse(json['lastEdited']),
+      commentList: json['commentList'].map((e) => e.toString()).toList(),
+      location: json['location'],
+      rules: json['rules'],
+      attendees: json['attendees'].map((e) => User.fromJson(e)).toList(),
+      bookmarkedBy: json['bookmarkedBy'].map((e) => User.fromJson(e)).toList(),
+    );
+  }
+
 }
