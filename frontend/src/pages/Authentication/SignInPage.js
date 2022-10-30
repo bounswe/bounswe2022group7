@@ -2,6 +2,9 @@ import React, { useReducer } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../../auth/useAuth";
 
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Button from "@mui/material/Button";
@@ -12,12 +15,14 @@ import Paper from "@mui/material/Paper";
 import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography";
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email().required(),
+  password: Yup.string().required(),
+});
+
 function SignInForm(props) {
 
   const { state } = useLocation();
-
-  console.log(state);
-
 
   const [formInput, setFormInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -29,7 +34,7 @@ function SignInForm(props) {
 
   const [isLoading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-  const [redirected, setRedirected] = React.useState(state ? state.redirect : false);
+  const redirected = state ? state.redirect : false;
 
   // should be defined outside any function
   // otherwise breaks the 'Rules of Hooks' apparently.
@@ -37,12 +42,14 @@ function SignInForm(props) {
   const navigate = useNavigate();
   const { saveToken } = useAuth()
 
-  // Called when the user clicks the submit button. Observe how
-  // the handleSubmit button is attached to the 'form' component
-  // below in the return call of SignUpForm function.
-  const handleSubmit = event => {
-    event.preventDefault();
-    setLoading(true);
+  const formik = useFormik({
+    initialValues: {
+      email: state ? state.email : "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      setLoading(true);
     setError(null);
 
     let data = {
@@ -55,7 +62,7 @@ function SignInForm(props) {
     // yet.
     fetch("/login", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(values),
       headers: {
         "Content-Type": "application/json"
       }
@@ -72,7 +79,7 @@ function SignInForm(props) {
           saveToken(responseText);
           navigate('/');
         } else {
-          setFormInput({ password: "" });
+          formik.setFieldValue("password", "");
           setError("Your email or password is incorrect. Please try again.");
         }
         setLoading(false);
@@ -81,18 +88,9 @@ function SignInForm(props) {
         setLoading(false);
         setError(error.message);
       });
+    },
+  });
 
-  };
-
-  // updates the state (formInput) defined in useReducer function above
-  // with the function (setFormInput) defined in useReducer.
-  // Called everytime user makes an update to the fields with
-  // 'onChange={handleInput}'.
-  const handleInput = event => {
-    const name = event.target.name;
-    const newValue = event.target.value;
-    setFormInput({ [name]: newValue });
-  };
 
   return (
     <div>
@@ -102,27 +100,29 @@ function SignInForm(props) {
         </Typography>
         <Typography component="p">{props.formDescription}</Typography>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
           <Stack sx={{mt: 2}}>
             { error ? <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing in</AlertTitle>{error}</Alert> :           
                redirected ? <Alert severity="info" sx={{mb: 2}}>You have succesfully signed up, you can login with your crediantials.</Alert> : null}
             <TextField
-              required
               id="outlined-required"
               label="Email"
               name="email"
-              value={formInput.email}
-              onChange={handleInput}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
               sx={{ marginY: 1 }}
             />
             <TextField
-              required
               type="password"
               id="outlined-password-input"
               label="Password"
               name="password"
-              value={formInput.password}
-              onChange={handleInput}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
               autoComplete="current-password"
               sx={{ marginY: 1 }}
             />
