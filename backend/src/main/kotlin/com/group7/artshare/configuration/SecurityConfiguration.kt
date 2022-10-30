@@ -4,6 +4,7 @@ import com.group7.artshare.service.CustomAuthenticationProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -40,8 +41,12 @@ class SecurityConfiguration @Autowired constructor(
     override fun configure(http: HttpSecurity) {
         http
             .authorizeRequests()
-            .antMatchers("/login").permitAll()
-            .antMatchers("/signup").permitAll()
+            .antMatchers(HttpMethod.POST,"/login").permitAll()
+            .antMatchers(HttpMethod.POST,"/signup").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/event/{id}").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/art_item/{id}").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/homepage/getGenericArtItems").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/homepage/getGenericEvents").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement()

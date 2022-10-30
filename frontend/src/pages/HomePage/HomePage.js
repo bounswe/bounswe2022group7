@@ -20,7 +20,7 @@ const HomePage = () => {
     }
 
     useEffect(() => {
-        const promise = fetch('/homepage/getGenericArtItems', {
+        fetch('/homepage/getGenericArtItems', {
             headers: fetchHeaders,
             method: 'GET',
         })
@@ -35,9 +35,20 @@ const HomePage = () => {
                     setError(error)
                 })
 
-        return () => {
-            promise.cancel()
-        }
+        fetch('/homepage/getGenericEvents', {
+            headers: fetchHeaders,
+            method: 'GET',
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.count(data)
+                setLoaded(true)
+                setEvents(data)
+            },
+                error => {
+                    setLoaded(true)
+                    setError(error)
+                })
     }, [])
 
     if (error) {
@@ -59,15 +70,15 @@ const HomePage = () => {
                     ))}
                 </Grid>
                 <Grid container item xs={12} md={4} direction='column' wrap='wrap'>
-                    <Grid item>
-                        <ArtItem />
-                    </Grid>
-                    <Grid item>
-                        <Event />
-                    </Grid>
-                    <Grid item>
-                        <Event />
-                    </Grid>
+                    {events.map(event => (
+                        <Grid key={event.id} item>
+                            <Link href={'/event/' + event.id} underline='none'>
+                                <Event data={event} />
+                            </Link>
+
+                        </Grid>
+                    ))}
+
                 </Grid>
                 <Grid container item xs={12} md={4} direction='column' wrap='wrap' sx={{
                     display: { xs: 'none', md: 'block' }
