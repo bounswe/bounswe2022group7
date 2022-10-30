@@ -24,7 +24,6 @@ export class Event extends React.Component {
                 />
                 <CardMedia
                     component="img"
-                    image="paella.jpg"
                     alt="Paella dish"
                 />
                 <CardContent>
