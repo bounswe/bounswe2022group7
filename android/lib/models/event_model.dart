@@ -9,7 +9,7 @@ class Event {
   final DateTime creationDate;
   final DateTime lastEdited;
   final List<String> commentList;
-  final String location;
+  final Location location;
   final String? rules;
   final List<User> attendees;
   final List<User> bookmarkedBy;
@@ -38,7 +38,7 @@ class Event {
       creationDate: DateTime.parse(json['creationDate']),
       lastEdited: DateTime.parse(json['lastEdited']),
       commentList: json['commentList'].map((e) => e.toString()).toList(),
-      location: json['location'],
+      location: Location.fromJson(json['location']),
       rules: json['rules'],
       attendees: json['attendees'].map((e) => User.fromJson(e)).toList(),
       bookmarkedBy: json['bookmarkedBy'].map((e) => User.fromJson(e)).toList(),

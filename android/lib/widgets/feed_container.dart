@@ -97,7 +97,7 @@ class FeedContainer extends StatelessWidget {
                                     size: 12.0,
                                   ),
                                   const SizedBox(width: 5.0),
-                                  Text(event.location)
+                                  Text(event.location.address)
                                 ],
                               )
                             ],

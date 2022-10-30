@@ -288,7 +288,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       size: 12.0,
                                     ),
                                     const SizedBox(width: 5.0),
-                                    Text(events[index].location)
+                                    Text(events[index].location.address)
                                   ],
                                 )
                               ],
