@@ -1,5 +1,6 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import lombok.Data
 import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
@@ -11,6 +12,7 @@ class RegisteredUser(
 
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "accountInfo", referencedColumnName = "id")
+    @JsonManagedReference
     var accountInfo: AccountInfo,
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
