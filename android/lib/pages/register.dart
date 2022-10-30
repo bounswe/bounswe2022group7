@@ -9,9 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../config/app_routes.dart';
-import '../models/user_model.dart';
-import '../providers/user_provider.dart';
-import '../shared_prefs/user_preferences.dart';
 import '../util/snack_bar.dart';
 import '../util/validators.dart';
 import '../widgets/form_app_bar.dart';
@@ -219,36 +216,17 @@ class _RegisterState extends State<Register> {
         country: _country?.name,
       );
 
-      registerProvider.register(registerInput).then((RegisterOutput registerOutput) {
-        if (registerOutput.status != "OK") {
-          showSnackBar(context, registerOutput.status);
-          return;
+      registerProvider
+          .register(registerInput)
+          .then((RegisterOutput registerOutput) {
+        showSnackBar(context, registerOutput.status);
+        if (registerOutput.status == "Signup successful") {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            login,
+            (route) => false,
+          );
         }
-
-        CurrentUser user = CurrentUser(
-          userType: _userType!,
-          username: _username!,
-          token: registerOutput.token!,
-          name: _name ?? "Tom Bombadil",
-          email: _email!,
-          imageUrl: registerOutput.imageUrl ?? "https://avatarfiles.alphacoders.com/935/93509.jpg",
-          surname: _surname,
-          age: _age,
-          country: _country?.name,
-        );
-
-        // save user in local storage
-        saveUser(user);
-
-        // notify other pages about the user via provider
-        Provider.of<UserProvider>(context, listen: false).setUser(user);
-
-        // delete every route in navigation stack before navigating to homepage
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          homepage,
-          (route) => false,
-        );
       });
     }
 
