@@ -26,9 +26,13 @@ class HomePage extends React.Component {
             headers: fetchHeaders,
             method: 'GET',
         })
-            .then((response) => response.text())
+            .then((response) => response.json())
             .then((data) => {
                 console.log(data)
+                this.setState({
+                    isLoaded: true,
+                    artitems: data
+                })
             });
     }
 
@@ -44,9 +48,9 @@ class HomePage extends React.Component {
                     container
                 >
                     <Grid container item xs={12} md={4} direction='column' wrap='wrap'>
-                        {artitems.map(_ => (
-                            <Grid item>
-                                <ArtItem />
+                        {artitems.map(artitem => (
+                            <Grid key={artitem.id} item>
+                                <ArtItem data={artitem} />
                             </Grid>
                         ))}
                     </Grid>

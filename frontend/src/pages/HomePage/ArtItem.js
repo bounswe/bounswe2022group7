@@ -8,6 +8,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
 export class ArtItem extends React.Component {
+    static defaultProps = {
+        data: {
+            artItemInfo: {},
+            id: null
+        }
+    }
     render() {
         return (
             <Card sx={{
@@ -25,8 +31,8 @@ export class ArtItem extends React.Component {
                 <CardMedia
                     component="img"
                     height="194"
-                    image="contemplative-reptile.jpg"
-                    alt="Reptile"
+                    image={this.props.data.artItemInfo.imageUrl}
+                    alt="art item"
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
