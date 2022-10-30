@@ -10,16 +10,16 @@ class LoginOutput {
     this.token,
   });
 
-  factory LoginOutput.fromJson(Map<String, dynamic> parsedJson) {
+  factory LoginOutput.fromJson(String response) {
 
-    if(parsedJson["status"] == "OK") {
+    if(response != "") {
       return LoginOutput(
-        status: parsedJson["status"],
-        token: parsedJson["token"],
+        status: "OK",
+        token: response,
       );
     } else {
       return LoginOutput(
-        status: parsedJson["status"],
+        status: "NOTOK",
         token: null,
       );
     }

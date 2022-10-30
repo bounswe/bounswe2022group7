@@ -164,22 +164,26 @@ class _LoginState extends State<Login> {
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(25.0),
-            child: Column(
-              children: [
-                const Logo(),
-                // Input
-                const SizedBox(height: 30),
-                emailField,
-                const SizedBox(height: 10),
-                passwordField,
-                // Buttons
-                const SizedBox(height: 10),
-                loginProvider.isLoading
-                    ? loading("Trying to login ... Please wait")
-                    : longButtons("Log In", logIn),
-                const SizedBox(height: 10),
-                navigateToOtherFormText('Not a User?', 'Sign up now.', signUp),
-              ],
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  const Logo(),
+                  // Input
+                  const SizedBox(height: 30),
+                  emailField,
+                  const SizedBox(height: 10),
+                  passwordField,
+                  // Buttons
+                  const SizedBox(height: 10),
+                  loginProvider.isLoading
+                      ? loading("Trying to login ... Please wait")
+                      : longButtons("Log In", logIn),
+                  const SizedBox(height: 10),
+                  navigateToOtherFormText('Not a User?', 'Sign up now.', signUp),
+                ],
+              ),
+
             ),
           ),
         ),
