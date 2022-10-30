@@ -1,4 +1,3 @@
-import 'package:android/providers/event_provider.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
@@ -52,21 +51,11 @@ class _EventPageState extends State<EventPage> {
               if (responseData.status != "OK") {
                 return erroneousEventPage();
               }
-              Event currentEvent = Event(
-                id: widget.event.id,
-                name: responseData.name!,
-                description: responseData.description!,
-                location: responseData.location!,
-                date: responseData.date!,
-                type: responseData.type!,
-                imageUrl: responseData.imageUrl!,
-                host: responseData.host!,
-                creationDate: responseData.creationDate!,
-              );
+              Event currentEvent = responseData.event!;
 
               return Scaffold(
                 appBar: AppBar(
-                  title: Text(currentEvent.type),
+                  title: const Text("Event"),
                   backgroundColor: Colors.blue[300],
                 ),
                 body: Container(
@@ -86,7 +75,7 @@ class _EventPageState extends State<EventPage> {
                                     Row(
                                       children: [
                                         Text(
-                                          currentEvent.name,
+                                          currentEvent.eventInfo.title,
                                           style: const TextStyle(
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.w600,
@@ -150,18 +139,18 @@ class _EventPageState extends State<EventPage> {
                                         ]),
                                         TableRow(children: [
                                           Column(children: [
-                                            Text(currentEvent.host.name),
+                                            Text(currentEvent.creator.name),
                                             CircleAvatar(
                                               radius: 20.0,
                                               backgroundColor: Colors.grey[300],
                                               backgroundImage: NetworkImage(
-                                                  currentEvent.host.imageUrl),
+                                                  currentEvent.creator.imageUrl),
                                             ),
                                             const SizedBox(height: 3.0),
                                           ]),
                                           Column(children: [
                                             Text(
-                                              currentEvent.date
+                                              currentEvent.eventInfo.startingDate
                                                   .toString()
                                                   .substring(0, 16),
                                             ),
@@ -186,12 +175,13 @@ class _EventPageState extends State<EventPage> {
                                       ],
                                     ),
                                     const SizedBox(height: 15.0),
-                                    Image(
-                                        image: NetworkImage(
-                                            currentEvent.imageUrl)),
+                                    currentEvent.eventInfo.posterUrl != null
+                                        ? Image.network(
+                                            currentEvent.eventInfo.posterUrl!)
+                                        : Container(),
                                     const SizedBox(height: 15.0),
                                     Text(
-                                      currentEvent.description,
+                                      currentEvent.eventInfo.description,
                                       style: const TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w400,
