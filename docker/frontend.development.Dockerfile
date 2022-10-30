@@ -4,6 +4,7 @@ ENV NODE_ENV development
 WORKDIR /app
 # Copy app files
 COPY . .
+RUN cd /app
 RUN npm install
 EXPOSE 1234
-CMD ["npm", "start"]
+ENTRYPOINT ["npm", "run", "start:dev"]
