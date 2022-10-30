@@ -22,11 +22,11 @@ export class ArtItem extends React.Component {
                 <CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: 'secondary.main' }} aria-label="user">
-                            G
+                            A
                         </Avatar>
                     }
-                    title="My Latest Work"
-                    subheader="September 18, 2022"
+                    title={this.props.data.artItemInfo.name}
+                    subheader={this.props.data.artItemInfo.creationDate}
                 />
                 <CardMedia
                     component="img"

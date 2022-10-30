@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import Grid from '@mui/material/Grid';
+import { Grid, Link } from '@mui/material';
 
 import { Event } from './Event'
 import { ArtItem } from './ArtItem'
@@ -13,10 +13,10 @@ const HomePage = () => {
     const [artitems, setArtitems] = React.useState([])
     const [events, setEvents] = React.useState([])
 
-    
+
     const { saveToken } = useAuth()
     saveToken('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImF1dGhvcml0aWVzIjpbImFydGlzdCJdLCJleHAiOjE2OTg2MjQwMDB9.yXtKaBo2Nxt28f2U2wFwlRPG7HDlc91BSeObt-6UzLM')
-    const {token} = useAuth()
+    const { token } = useAuth()
     const fetchHeaders = {
         Authorization: 'Bearer ' + token
     }
@@ -32,16 +32,16 @@ const HomePage = () => {
                 setLoaded(true)
                 setArtitems(data)
             },
-            error => {
-                setLoaded(true)
-                setError(error)
-            })
+                error => {
+                    setLoaded(true)
+                    setError(error)
+                })
 
         return () => {
             promise.cancel()
         }
     }, [])
-    
+
     if (error) {
         return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
@@ -54,7 +54,9 @@ const HomePage = () => {
                 <Grid container item xs={12} md={4} direction='column' wrap='wrap'>
                     {artitems.map(artitem => (
                         <Grid key={artitem.id} item>
-                            <ArtItem data={artitem} />
+                            <Link href={"/art_item/" + artitem.id} underline="none">
+                                <ArtItem data={artitem} />
+                            </Link>
                         </Grid>
                     ))}
                 </Grid>
