@@ -8,7 +8,7 @@ import 'package:android/network/event/get_event_output.dart';
 Future<GetEventOutput> getEventNetwork(int id) async {
   Response response;
   try {
-    response = await post(
+    response = await get(
       Uri.parse(Uri.encodeFull('$eventURL/$id/')),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
     );

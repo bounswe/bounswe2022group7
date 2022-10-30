@@ -1,38 +1,17 @@
-import '../../models/user_model.dart';
+import 'package:android/models/models.dart';
 
 class GetEventOutput {
   final String status;
-  final String? name;
-  final String? type;
-  final String? description;
-  final String? imageUrl;
-  final String? location;
-  final User? host;
-  final DateTime? date;
-  final DateTime? creationDate;
+  final Event? event;
 
-  GetEventOutput(
-      { required this.status,
-        this.name,
-       this.type,
-       this.description,
-       this.imageUrl,
-       this.location,
-       this.host,
-       this.date,
-       this.creationDate});
+  GetEventOutput({required this.status, this.event});
 
-  factory GetEventOutput.fromJson(Map<String, dynamic> parsedJson) {
+  factory GetEventOutput.fromJson(Map<String, dynamic> json) {
     return GetEventOutput(
-      status: parsedJson["status"],
-      name: parsedJson["name"],
-      type: parsedJson["type"],
-      description: parsedJson["description"],
-      imageUrl: parsedJson["imageUrl"],
-      location: parsedJson["location"],
-      host: User.fromJson(parsedJson["host"]),
-      date: DateTime.parse(parsedJson["date"]),
-      creationDate: DateTime.parse(parsedJson["creationDate"]),
+      // status: json['status'],
+      status: "OK",
+      // event: Event.fromJson(json['event']),
+      event: Event.fromJson(json),
     );
   }
 }
