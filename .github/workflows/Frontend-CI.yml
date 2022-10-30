@@ -32,5 +32,5 @@ jobs:
       working-directory: ./frontend
       run: |
         npm i
-        npm run build --if-present
+        CI=false npm run build --if-present
         npm test
