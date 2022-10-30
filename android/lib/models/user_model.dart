@@ -18,6 +18,19 @@ class User {
     this.age,
     this.country,
   });
+
+  factory User.fromJson(Map<String, dynamic> parsedJson) {
+    return User(
+      name: parsedJson["name"],
+      surname: parsedJson["surname"],
+      email: parsedJson["email"],
+      imageUrl: parsedJson["imageUrl"],
+      username: parsedJson["username"],
+      userType: parsedJson["userType"],
+      age: parsedJson["age"],
+      country: parsedJson["country"],
+    );
+  }
 }
 
 /// User that is using the application has an extra token attribute that will be used for API calls
