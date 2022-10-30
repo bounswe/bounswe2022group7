@@ -46,6 +46,10 @@ permissions:
 
 jobs:
 
+  test:
+    uses: ./.github/workflows/Frontend-CI.yml
+
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -68,13 +72,13 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
-      working-directory: ./frontend
+      working-directory: ./docker
 
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build -f Dockerfile.production -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -f frontend.production.Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ../frontend
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
     - name: Fill in the new image ID in the Amazon ECS task definition
