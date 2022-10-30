@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import 'package:android/config/api_endpoints.dart';
 import 'package:android/network/event/get_event_output.dart';
 
-Future<GetEventOutput> registerNetwork(int id) async {
+Future<GetEventOutput> getEventNetwork(int id) async {
   Response response;
   try {
     response = await post(
