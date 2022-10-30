@@ -18,12 +18,14 @@ function ArtItemPage() {
   })
 
   const { token } = useAuth()
-  const fetchArgs = {
-    method: "GET",  
-  }
-  if (token) fetchArgs.headers = {Authorization: "Bearer " + token}
   
   useEffect(() => {
+
+    const fetchArgs = {
+      method: "GET",  
+    }
+
+    if (token) fetchArgs.headers = {Authorization: "Bearer " + token}
     fetch('/art_item/' + id, fetchArgs)
       .then((response) => response.json())
       .then((data) => {
@@ -34,7 +36,7 @@ function ArtItemPage() {
           setState({error: error})
         }
       )
-  }, [])
+  }, [id, token])
 
   const {error, isLoaded, artitem} = state
 
@@ -52,7 +54,7 @@ function ArtItemPage() {
     
       <Grid container>
         <Grid item xs={6} sx={{padding:2}}>
-          <img src={artitem.artItemInfo.imageUrl} style={{width:'100%'}}/>
+          <img src={artitem.artItemInfo.imageUrl} alt="Art Item" style={{width:'100%'}}/>
         </ Grid>
         <Grid item xs={6} sx={{padding:2}}>
           <Typography variant="h5">Owner:</Typography>
