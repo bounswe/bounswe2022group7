@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:android/widgets/feed_container.dart';
 
 import 'package:android/models/models.dart';
-import 'package:android/data/data.dart';
 import 'package:provider/provider.dart';
 
 import '../network/home/get_postlist_service.dart';
@@ -220,7 +219,7 @@ class _HomePageState extends State<HomePage> {
     CurrentUser? user = Provider.of<UserProvider>(context).user;
 
     return FutureBuilder(
-      future: user != null ? getUserPost(user) : getGenericPost(),
+      future: getGenericPost(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
