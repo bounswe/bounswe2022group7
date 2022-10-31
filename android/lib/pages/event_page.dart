@@ -174,7 +174,6 @@ class _EventPageState extends State<EventPage> {
                                             fontStyle: FontStyle.italic,
                                           ),
                                         ),
-
                                         Text(
                                           currentEvent.collaborators
                                               .map((e) => e.name)
@@ -189,8 +188,16 @@ class _EventPageState extends State<EventPage> {
                                     ),
                                     const SizedBox(height: 15.0),
                                     currentEvent.eventInfo.posterUrl != null
-                                        ? Image.network(
-                                            currentEvent.eventInfo.posterUrl!)
+                                        ? Container(
+                                            height: 300.0,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(currentEvent
+                                                    .eventInfo.posterUrl!),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          )
                                         : Container(),
                                     const SizedBox(height: 15.0),
                                     Text(
