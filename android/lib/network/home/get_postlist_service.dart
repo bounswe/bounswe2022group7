@@ -9,7 +9,7 @@ import '../../models/user_model.dart';
 
 Future<GetPostListOutput> getGenericPost() async {
   Response response;
-  /*GetArtItemListOutput artitemoutput;*/
+  GetArtItemListOutput artitemoutput;
   GetEventListOutput eventoutput;
 
   try {
@@ -29,7 +29,7 @@ Future<GetPostListOutput> getGenericPost() async {
     }
     return GetPostListOutput(status: "Network Error");
   }
-/*
+
   try {
     response = await get(
       Uri.parse(Uri.encodeFull('$homepageURL/getGenericArtItems/')),
@@ -46,13 +46,13 @@ Future<GetPostListOutput> getGenericPost() async {
     }
     return GetPostListOutput(status: "Network Error");
   }
-*/
-  return GetPostListOutput.combine(eventoutput /*, artitemoutput*/);
+
+  return GetPostListOutput.combine(eventoutput, artitemoutput);
 }
 
 Future<GetPostListOutput> getUserPost(CurrentUser? user) async {
   Response response;
-  /*GetArtItemListOutput artitemoutput;*/
+  GetArtItemListOutput artitemoutput;
   GetEventListOutput eventoutput;
   try {
     response = await get(
@@ -73,7 +73,7 @@ Future<GetPostListOutput> getUserPost(CurrentUser? user) async {
     }
     return GetPostListOutput(status: "Network Error");
   }
-/*
+
   try {
     response = await get(
       Uri.parse(Uri.encodeFull('$homepageURL/getArtItemsForUser/')),
@@ -89,7 +89,7 @@ Future<GetPostListOutput> getUserPost(CurrentUser? user) async {
       print(err);
     }
     return GetPostListOutput(status: "Network Error");
-  }*/
+  }
 
-  return GetPostListOutput.combine(eventoutput /*, artitemoutput*/);
+  return GetPostListOutput.combine(eventoutput, artitemoutput);
 }

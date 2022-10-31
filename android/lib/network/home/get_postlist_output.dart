@@ -7,7 +7,7 @@ class GetPostListOutput {
   GetPostListOutput({required this.status, this.list});
 
   GetPostListOutput.combine(
-      GetEventListOutput events /*, GetArtItemListOutput artitems*/)
+      GetEventListOutput events, GetArtItemListOutput artitems)
       : status = "OK",
         list = List<Post>.empty(growable: true) {
     for (final event in events.list) {
@@ -21,17 +21,17 @@ class GetPostListOutput {
       );
       list?.add(post);
     }
-    /*for (final artitem in artitems.list) {
+    for (final artitem in artitems.list) {
       Post post = Post(
         type: "Art Item",
         id: artitem.id,
-        creator: artitem.artist,
-        title: artitem.name,
-        description: artitem.description,
-        imageUrl: artitem.imageUrl,
+        creator: artitem.creator,
+        title: artitem.artItemInfo.name,
+        description: artitem.artItemInfo.description,
+        imageUrl: artitem.artItemInfo.imageUrl,
       );
       list?.add(post);
-    }*/
+    }
   }
 }
 
@@ -51,7 +51,7 @@ class GetEventListOutput {
   }
 }
 
-/*class GetArtItemListOutput {
+class GetArtItemListOutput {
   final String status;
   final List<ArtItem> list;
 
@@ -65,4 +65,4 @@ class GetEventListOutput {
       list: artitems,
     );
   }
-}*/
+}

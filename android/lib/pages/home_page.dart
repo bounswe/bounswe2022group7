@@ -85,12 +85,13 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         SliverList(
-            delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return FeedContainer(post: postlist[index]);
-          },
-          childCount: events.length,
-        )),
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return FeedContainer(post: postlist[index]);
+            },
+            childCount: postlist.length,
+          ),
+        ),
       ]),
       drawer: Drawer(
         child: ListView(
