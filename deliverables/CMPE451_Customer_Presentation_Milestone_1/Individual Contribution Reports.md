@@ -320,3 +320,54 @@ Management related significant issues:
 ## Can Atakan Uğur
 
 ## Demet Yayla
+
+### Member
+I am Demet Yayla from group 7. We are working on an art platform that unite artists with art-lovers or rather anyone that has something to do related to art. I am on backend team for the product.
+
+### Responsibilities
+At the initial weeks, we worked on reviewing design documents and orientation of the group to more implementation-related work. We slightly changed the way we communicated, we decided on platforms and technological tools including languages we are to use. I helped new members of our team to orient with us. I periodically told them about how we proceed with things such as PR reviews, issues, meetings etc. There were four main items to review for design documents: UML class diagram, use case diagram, sequence diagrams, requirements. My partition in them was as follows:
+-	I reviewed sequence diagram for discussion forum
+-	I reviewed UML Class Diagram with Can Atakan Uğur
+Other than that, generally speaking, most of my time spent was on inheritance related issues. During initialization for backend, I wrote initial backend entity classes. I also wrote the initial examples of controllers, initiated repositories. I helped with some bug fixes, searched really a lot on inheritance concept and how relational databases represent those, investigated paradigms. I searched a lot on hibernate annotations for relational database connections. I reviewed code.
+
+### Main Contributions
+
+Code Related Significant Issues:
+-	[I created the initial entity classes for backend](https://github.com/bounswe/bounswe2022group7/issues/256)
+-	[I wrote the endpoint that will return a single event with the id provided by frontend. If there is no such event in database with given id, endpoint will return nothing. The challenge here was to create an abstract class and connect two entity classes with this abstract class. The abstract class was not to be an entity class. Finding out the correct configuration of annotations was challenging](https://github.com/bounswe/bounswe2022group7/issues/301)
+-	[We had problems connecting to database. I sensed that it had something to do with application.properties file. Also another error was popping up about database dialect. I found the correct configurations to be added to application.properties file and resolved the issue](https://github.com/bounswe/bounswe2022group7/issues/295)
+-	[We have lists for entity classes interlaced. This requires usage of ManyToOne, OneToMany, OneToOne and ManyToMany annotations of Hibernate. We had to research and find the correct usages. The issue here is for this long-lasting attempt on research](https://github.com/bounswe/bounswe2022group7/issues/310)
+-	[I did research on how to fix wrong usage of “cascade” type for many-to-many relations](https://github.com/bounswe/bounswe2022group7/issues/309)
+-	[I researched about how to write integration tests for especially authenticated endpoints](https://github.com/bounswe/bounswe2022group7/issues/358)
+- I was reviewer of following issues:
+    - [Issue about single art item endpoint](https://github.com/bounswe/bounswe2022group7/issues/302)
+    - [Bug fix about Json](https://github.com/bounswe/bounswe2022group7/pull/345)
+    - [Issue about backend dockerization](https://github.com/bounswe/bounswe2022group7/issues/252)
+- I was the owner of below PRs:
+    - [PR about single event item endpoint](https://github.com/bounswe/bounswe2022group7/pull/319)
+    - [PR about inheritance](https://github.com/bounswe/bounswe2022group7/pull/303)
+    - [PR about homepage controller and endpoints](https://github.com/bounswe/bounswe2022group7/pull/275)
+
+Management Related Significant Issues:
+- I was selected as the backend team leader
+- [Review and update class diagram with Can Atakan Uğur](https://github.com/bounswe/bounswe2022group7/issues/239)
+- [Review and update Project Plan with team leaders and Can Atakan Uğur](https://github.com/bounswe/bounswe2022group7/issues/241)
+- [Update Communication Plan](https://github.com/bounswe/bounswe2022group7/issues/244)
+- [Review and update sequence diagram for Discussion forum](https://github.com/bounswe/bounswe2022group7/issues/245)
+- [After the first backend meeting, update class diagram and requirements](https://github.com/bounswe/bounswe2022group7/issues/250)
+- [Update the sequence diagram for discussion forum related to the latest modification on class diagram](https://github.com/bounswe/bounswe2022group7/issues/312)
+- I was the notetaker for 2 backend meetings. We did three backend, three general team meetings so far and I attended them all. 
+- [Review annotation sequence diagram](https://github.com/bounswe/bounswe2022group7/issues/240)
+- Revision of [this issue](https://github.com/bounswe/bounswe2022group7/issues/329) about deliverables
+- [Before milestone presentations, there were some pop-up mock data related requests to be injected to database related to art items and events. I worked on those](https://github.com/bounswe/bounswe2022group7/issues/347)
+- Gave feedback on [this issue](https://github.com/bounswe/bounswe2022group7/issues/353) related to milestone presentations on Tuesday
+- I will be one of the notetakers in milestone presentations
+
+### Pull Requests
+- [PR 319](https://github.com/bounswe/bounswe2022group7/pull/319)
+- [PR 303](https://github.com/bounswe/bounswe2022group7/pull/303)
+- [PR 275](https://github.com/bounswe/bounswe2022group7/pull/275)
+
+### Pull Requests I Reviewed
+- [PR 345](https://github.com/bounswe/bounswe2022group7/pull/345)
+- [PR 345](https://github.com/bounswe/bounswe2022group7/pull/276)
