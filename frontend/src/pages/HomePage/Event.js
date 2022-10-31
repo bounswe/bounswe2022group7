@@ -8,6 +8,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
 export class Event extends React.Component {
+    static defaultProps = {
+        data: {
+            eventInfo: {},
+            id: null
+        }
+    }
+
     render() {
         return (
             <Card sx={{
@@ -24,12 +31,12 @@ export class Event extends React.Component {
                 />
                 <CardMedia
                     component="img"
-                    image="paella.jpg"
-                    alt="Paella dish"
+                    img={this.props.data.eventInfo?.posterUrl ?? ''}
+                    alt="event poster"
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                        Event details
+                        {this.props.data.eventInfo?.description ?? 'No event description'}
                     </Typography>
                 </CardContent>
             </Card>

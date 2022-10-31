@@ -1,9 +1,15 @@
 import 'package:android/models/models.dart';
+import 'package:android/network/login/login_input.dart';
+import 'package:android/network/login/login_output.dart';
+import 'package:android/providers/login_provider.dart';
 import 'package:android/shared_prefs/user_preferences.dart';
 import 'package:android/widgets/form_widgets.dart';
 import 'package:android/widgets/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:android/util/validators.dart';
+import 'package:android/util/snack_bar.dart';
+import 'package:android/widgets/loading.dart';
 
 import '../config/app_routes.dart';
 import '../providers/user_provider.dart';
@@ -21,38 +27,12 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void logIn() {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text;
+  final formKey = GlobalKey<FormState>();
+  final emailFormKey = GlobalKey<FormFieldState>();
+  final passwordFormKey = GlobalKey<FormFieldState>();
 
-    // TODO these values will come from the backend
-    CurrentUser user = CurrentUser(
-      userType: "Regular User",
-      username: "temp username",
-      token: "test token",
-      name: "Tom Bombadil",
-      email: email,
-      imageUrl: "https://avatarfiles.alphacoders.com/935/93509.jpg",
-    );
+  String? _email, _password;
 
-    // save user in local storage
-    saveUser(user);
-
-    // notify other pages about the user via provider
-    Provider.of<UserProvider>(context, listen: false).setUser(user);
-
-    // delete every route in navigation stack before navigating to homepage
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      homepage,
-      (route) => false,
-    );
-    return;
-  }
-
-  void signUp() {
-    Navigator.pushNamed(context, register);
-  }
 
   @override
   void dispose() {
@@ -63,25 +43,119 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    Widget emailField = inputField(TextFormField(
-      controller: _emailController,
-      autofocus: false,
+    LoginProvider loginProvider = Provider.of<LoginProvider>(context);
+
+
+    void logIn() {
+      final form = formKey.currentState!;
+
+      if (!form.validate()) {
+        showSnackBar(context, "Please complete the form properly");
+        return;
+      }
+
+      form.save();
+
+      LoginInput loginInput = LoginInput(
+        email: _email!,
+        password: _password!,
+      );
+
+      loginProvider.login(loginInput).then((LoginOutput loginOutput) {
+        if (loginOutput.status != "OK") {
+          showSnackBar(context, loginOutput.status);
+          return;
+        }
+
+        // CurrentUser user = CurrentUser(
+        //   userType: _userType!,
+        //   username: _username!,
+        //   token: registerOutput.token!,
+        //   name: _name ?? "Tom Bombadil",
+        //   email: _email!,
+        //   imageUrl: registerOutput.imageUrl ?? "https://avatarfiles.alphacoders.com/935/93509.jpg",
+        //   surname: _surname,
+        //   age: _age,
+        //   country: _country?.name,
+        // );
+
+        CurrentUser user = CurrentUser(token: loginOutput.token!);
+
+        // save user in local storage
+        saveUser(user);
+
+        // notify other pages about the user via provider
+        Provider.of<UserProvider>(context, listen: false).setUser(user);
+
+        // delete every route in navigation stack before navigating to homepage
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          homepage,
+              (route) => false,
+        );
+      });
+      // // TODO these values will come from the backend
+      // CurrentUser user = CurrentUser(
+      //   userType: "Regular User",
+      //   username: "temp username",
+      //   token: "test token",
+      //   name: "Tom Bombadil",
+      //   email: email,
+      //   imageUrl: "https://avatarfiles.alphacoders.com/935/93509.jpg",
+      // );
+
+      // save user in local storage
+      // saveUser(user);
+      //
+      // // notify other pages about the user via provider
+      // Provider.of<UserProvider>(context, listen: false).setUser(user);
+      //
+      // // delete every route in navigation stack before navigating to homepage
+      // Navigator.pushNamedAndRemoveUntil(
+      //   context,
+      //   homepage,
+      //       (route) => false,
+      // );
+      return;
+    }
+
+    void signUp() {
+      Navigator.pushNamed(context, register);
+    }
+
+
+
+    final emailField = inputField(TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
+      key: emailFormKey,
+      onChanged: (_) => emailFormKey.currentState!.validate(),
+      autofocus: false,
+      validator: validateEmail,
+      onSaved: (value) => _email = value,
       decoration: const InputDecoration(
-        border: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
         hintText: 'Email',
       ),
     ));
 
-    Widget passwordField = inputField(TextFormField(
-      controller: _passwordController,
+    final passwordField = inputField(TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: passwordFormKey,
+      onChanged: (_) => passwordFormKey.currentState!.validate(),
       autofocus: false,
       obscureText: true,
+      validator: validatePassword,
+      onSaved: (value) => _password = value,
       decoration: const InputDecoration(
-        border: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
         hintText: 'Password',
       ),
     ));
+
+
 
     return Scaffold(
       backgroundColor: Colors.lightBlue,
@@ -100,7 +174,9 @@ class _LoginState extends State<Login> {
                 passwordField,
                 // Buttons
                 const SizedBox(height: 10),
-                longButtons("Log In", logIn),
+                loginProvider.isLoading
+                    ? loading("Trying to login ... Please wait")
+                    : longButtons("Log In", logIn),
                 const SizedBox(height: 10),
                 navigateToOtherFormText('Not a User?', 'Sign up now.', signUp),
               ],

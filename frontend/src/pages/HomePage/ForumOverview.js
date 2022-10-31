@@ -9,7 +9,7 @@ export class ForumOverview extends React.Component {
         return (<Box sx={{
             height: '100%'
         }}>
-            <Paper variant='outlined' squar sx={{
+            <Paper variant='outlined' square sx={{
                 height: '100%'
             }}>
                 <Typography variant="subtitle1" color="text.secondary" align="center" sx={{

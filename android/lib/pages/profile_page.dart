@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../config/app_routes.dart';
 import '../widgets/form_app_bar.dart';
 import 'package:android/models/models.dart';
+import 'package:android/models/user_model.dart';
 import 'package:android/data/data.dart';
 
 
@@ -18,12 +19,11 @@ class Item {
 }
 
 class ProfilePage extends StatefulWidget {
-  User current_user;
 
-  ProfilePage({Key? key, required this.current_user}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState(current_user);
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
@@ -31,6 +31,14 @@ class _ProfilePageState extends State<ProfilePage> {
   late String url;
   late String name;
   late String username;
+  late User user = dali;
+  // = User(
+  //   imageUrl: dali.imageUrl,
+  //   name: dali.name,
+  //   username: dali.username,
+  //   email: dali.email,
+  //   userType: dali
+  // );
   final dropdown_items = [
     Item("Events", Icon(Icons.event_note_outlined, color: Colors.blueGrey.shade900, size: 25,),),
     Item("Auctions", Icon(Icons.local_offer_outlined, color: Colors.blueGrey.shade900, size: 25,),),
@@ -38,10 +46,10 @@ class _ProfilePageState extends State<ProfilePage> {
     Item("Comments", Icon(Icons.comment_outlined, color: Colors.blueGrey.shade900, size: 25,),)
   ];
 
-  _ProfilePageState(User current_user) {
-    this.url = current_user.imageUrl;
-    this.name = current_user.name;
-    this.username = current_user.username;
+  _ProfilePageState() {
+    this.url = user.imageUrl;
+    this.name = user.name;
+    this.username = user.username;
   }
 
   @override
