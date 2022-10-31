@@ -7,6 +7,17 @@ import 'package:android/network/event/get_event_output.dart';
 
 Future<GetEventOutput> getEventNetwork(int id) async {
   Response response;
+
+  /*
+    header for testing with custom token:
+
+    const token = "GET_YOUR_TOKEN_FROM_BACKEND";
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+   */
+
   try {
     response = await get(
       Uri.parse(Uri.encodeFull('$eventURL/$id/')),
