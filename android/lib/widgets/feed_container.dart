@@ -20,7 +20,7 @@ class FeedContainer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EventPage(event: event),
+                  builder: (context) => EventPage(id: event.id),
                 ),
               );
             },

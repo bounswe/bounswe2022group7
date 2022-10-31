@@ -5,9 +5,9 @@ import 'package:android/network/event/get_event_service.dart';
 import 'package:android/network/event/get_event_output.dart';
 
 class EventPage extends StatefulWidget {
-  final Event event;
+  final int id;
 
-  const EventPage({Key? key, required this.event}) : super(key: key);
+  const EventPage({Key? key, required this.id}) : super(key: key);
 
   @override
   State<EventPage> createState() => _EventPageState();
@@ -28,7 +28,7 @@ class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getEventNetwork(widget.event.id),
+      future: getEventNetwork(widget.id),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
