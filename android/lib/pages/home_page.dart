@@ -35,12 +35,13 @@ class _HomePageState extends State<HomePage> {
         SliverAppBar(
           backgroundColor: Colors.blue[300],
           title: const Text(
-            'Art Share',
+            'ideart.',
             style: TextStyle(
               color: Colors.white,
+              fontFamily: 'monospace',
               fontSize: 24.0,
               fontWeight: FontWeight.bold,
-              letterSpacing: 0,
+              letterSpacing: 0.2,
             ),
           ),
           centerTitle: false,
@@ -106,11 +107,13 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Stack(
                 alignment: Alignment.bottomLeft,
-                children: [
+                children: const [
                   Text(
-                    "Art Community",
+                    "ideart.",
                     style: TextStyle(
                         color: Colors.white,
+                        fontFamily: 'monospace',
+                        letterSpacing: 0.2,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),

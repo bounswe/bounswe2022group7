@@ -1,7 +1,7 @@
 // converts a string representing a list of strings to a list of strings
 // example: "[\"a\", \"b\", \"c\"]" -> ["a", "b", "c"]
 List<String> stringToList(String? str) {
-  if (str == "[]" || str == null) {
+  if (str == "[]" || str == null || str == "") {
     return [];
   }
   str = str.substring(1, str.length - 1);

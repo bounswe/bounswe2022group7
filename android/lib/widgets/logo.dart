@@ -13,13 +13,15 @@ class Logo extends StatelessWidget {
           size: 150,
         ),
         // App Name
-        Text(
-          'Art Share',
-          style: TextStyle(
-            fontSize: 50,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+        const Text(
+            'ideart.',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'monospace',
+              fontSize: 50.0,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.2,
+            ),
         ),
       ],
     );

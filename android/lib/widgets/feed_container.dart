@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:android/models/models.dart';
 import 'package:android/pages/event_page.dart';
+import 'package:android/pages/art_item_page.dart';
 
 class FeedContainer extends StatelessWidget {
   final Post post;
@@ -49,6 +50,18 @@ class FeedContainer extends StatelessWidget {
                   ],
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        // *** This points to an existing art item ***
+                        // The home page should be able to render all of them
+                        builder: (context) => ArtItemPage(id: 22),
+                      ),
+                    );
+                  },
+                  child: Text("View Art Item"))
             ])));
   }
 }

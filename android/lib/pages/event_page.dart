@@ -189,7 +189,7 @@ class _EventPageState extends State<EventPage> {
                                     const SizedBox(height: 15.0),
                                     currentEvent.eventInfo.posterUrl != null
                                         ? Container(
-                                            height: 300.0,
+                                            height: 250.0,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                 image: NetworkImage(currentEvent

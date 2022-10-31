@@ -1,14 +1,16 @@
 class User {
+  final int id;
   final String name;
   final String? surname;
   final String email;
   final String imageUrl;
   final String username;
-  final String userType;
+  final String? userType;
   final int? age;
   final String? country;
 
   User({
+    required this.id,
     required this.name,
     required this.email,
     required this.imageUrl,
@@ -21,15 +23,15 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> parsedJson) {
     return User(
-      name: parsedJson["name"] ?? "",
-      surname: parsedJson["surname"] ?? "",
-      email: parsedJson["email"] ?? "",
-      imageUrl:
-          parsedJson["imageUrl"] ?? "https://api.multiavatar.com/Robo.png",
-      username: parsedJson["username"] ?? "",
-      userType: parsedJson["userType"] ?? "",
-      age: parsedJson["age"] ?? 0,
-      country: parsedJson["country"] ?? "",
+      id: parsedJson["id"],
+      name: parsedJson["name"],
+      surname: parsedJson["surname"],
+      email: parsedJson["email"],
+      imageUrl: parsedJson["profilePictureUrl"],
+      username: parsedJson["username"],
+      userType: parsedJson["userType"],
+      age: parsedJson["age"],
+      country: parsedJson["country"],
     );
   }
 }

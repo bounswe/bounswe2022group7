@@ -22,7 +22,7 @@ const HomePage = () => {
         }
         if (token) fetchArgs.headers = {Authorization: "Bearer " + token}
 
-        fetch('/homepage/getGenericArtItems', fetchArgs)
+        fetch('/api/homepage/getGenericArtItems', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
                 console.count(data)
@@ -34,7 +34,7 @@ const HomePage = () => {
                     setError(error)
                 })
 
-        fetch('/homepage/getGenericEvents', fetchArgs)
+        fetch('/api/homepage/getGenericEvents', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
                 console.count(data)
@@ -59,7 +59,7 @@ const HomePage = () => {
                 <Grid container item xs={12} md={4} direction='column' wrap='wrap'>
                     {artitems.map(artitem => (
                         <Grid key={artitem.id} item>
-                            <Link href={"/art_item/" + artitem.id} underline="none">
+                            <Link href={"/artitem/" + artitem.id} underline="none">
                                 <ArtItem data={artitem} />
                             </Link>
                         </Grid>

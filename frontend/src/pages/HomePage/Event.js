@@ -31,7 +31,8 @@ export class Event extends React.Component {
                 />
                 <CardMedia
                     component="img"
-                    img={this.props.data.eventInfo?.posterUrl ?? ''}
+                    height="194"
+                    image={this.props.data.eventInfo?.posterUrl ?? ''}
                     alt="event poster"
                 />
                 <CardContent>

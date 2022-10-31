@@ -37,7 +37,7 @@ const ResponsiveAppBar = () => {
         setAnchorElUser(null);
     };
 
-    const pages = ['Events', 'Art Items', 'Discussion Forum'];
+    const pages = ['Discussion Forum', 'Events', 'Auctions'];
 
     const navigate = useNavigate()
     const { token, clearToken } = useAuth()
@@ -79,12 +79,12 @@ const ResponsiveAppBar = () => {
                             display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            letterSpacing: '.2rem',
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
                     >
-                        ART COMMUNITY
+                        ideart.
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

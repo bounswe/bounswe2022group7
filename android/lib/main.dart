@@ -4,11 +4,13 @@ import 'package:android/providers/register_provider.dart';
 import 'package:android/providers/user_provider.dart';
 import 'package:android/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
 import '/config/app_routes.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginProvider()),
       ],
       child: MaterialApp(
-        title: 'ArtShare',
+        title: 'ideart',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
