@@ -311,11 +311,11 @@ Management related significant issues:
 
 ### Pull Requests I Reviewed
 
-- [#281](https://github.com/bounswe/bounswe2022group7/pull/281)
-- [#340](https://github.com/bounswe/bounswe2022group7/pull/340)
-- [#352](https://github.com/bounswe/bounswe2022group7/pull/352)
-- [#364](https://github.com/bounswe/bounswe2022group7/pull/364)
-- [#365](https://github.com/bounswe/bounswe2022group7/pull/365)
+- [#281](https://github.com/bounswe/bounswe2022group7/pull/281): Reviewed login page UI implementation by Ali Can
+- [#340](https://github.com/bounswe/bounswe2022group7/pull/340): Reviewed login page network implementation by Musa
+- [#352](https://github.com/bounswe/bounswe2022group7/pull/352): Reviewed app name change by Atakan
+- [#364](https://github.com/bounswe/bounswe2022group7/pull/364): Reviewed event page tests by Atakan
+- [#365](https://github.com/bounswe/bounswe2022group7/pull/365): Reviewed art item page implementation by Atakan
 
 ## Can Atakan Uğur
 
