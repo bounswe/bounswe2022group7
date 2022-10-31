@@ -4,7 +4,7 @@ RUN addgroup buildergroup; adduser --ingroup buildergroup --disabled-password bu
 USER builder
 WORKDIR /build
 COPY pom.xml .
-COPY ../src/ ./src
+COPY src/ .src/
 RUN cd /build && mvn package
  
  
