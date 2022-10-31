@@ -82,9 +82,9 @@ class DataProp {
         comment1.createdAt = Calendar.getInstance().time
 
         var comment2 = Comment()
-        comment1.author = owner3
-        comment1.body = "Wonderful! I feel goosebumps!"
-        comment1.createdAt = Calendar.getInstance().time
+        comment2.author = owner3
+        comment2.body = "Wonderful! I feel goosebumps!"
+        comment2.createdAt = Calendar.getInstance().time
 
         var comment3 = Comment()
         comment3.author = owner1
@@ -96,7 +96,7 @@ class DataProp {
         artItem1.lastPrice = 0.0
         artItem1.onAuction = false
         artItemInfo1.name = "Starry Night"
-        artItemInfo1.labels = "{\"classical\", \"painting\"}"
+        artItemInfo1.labels = "[\"classical\", \"painting\"]"
         artItemInfo1.description = "A reflection of my soul from a fuzzy night."
         artItemInfo1.category = "Classical"
         artItemInfo1.imageUrl = "https://media.overstockart.com/optimized/cache/data/product_images/VG485-1000x1000.jpg"
@@ -108,7 +108,7 @@ class DataProp {
         var artItem2 = ArtItem()
         var artItemInfo2 = ArtItemInfo()
         artItemInfo2.name = "Mediterranean Landscape"
-        artItemInfo2.labels = "{\"classical\", \"painting\"}"
+        artItemInfo2.labels = "[\"classical\", \"painting\"]"
         artItemInfo2.description = "Emotional hurricane on a dull landscape, too dull for an artistic soul as mine."
         artItemInfo2.category = "Classical"
         artItemInfo2.imageUrl = "https://uploads4.wikiart.org/images/pablo-picasso/mediterranean-landscape-1952.jpg!Large.jpg"
@@ -121,6 +121,8 @@ class DataProp {
         artItem2.commentList = mutableListOf(comment3)
         artItem2.lastPrice = 0.0
         artItem2.onAuction = false
+        artItem2.owner = owner3
+
         artItemList.add(artItem2)
 
         artItemRepository.saveAll(artItemList)
@@ -136,11 +138,11 @@ class DataProp {
         var event1 = PhysicalExhibition()
         var eventInfo1 = EventInfo()
         eventInfo1.posterUrl = "https://i.pinimg.com/originals/c7/9a/b6/c79ab6b3943e4e75fa0742a8ce9a76e6.jpg"
-        eventInfo1.category = "{\"kubism\", \"oil painting\", \"wooden sculpture\"}"
+        eventInfo1.category = "[\"kubism\", \"oil painting\", \"wooden sculpture\"]"
         eventInfo1.endingDate = Calendar.getInstance().time
         eventInfo1.title = "Venice the Mourning City"
         eventInfo1.description = "Stories of seperations, tears of loves"
-        eventInfo1.labels = "{\"romantic\", \"engraving\", \"carving\""
+        eventInfo1.labels = "[\"romantic\", \"engraving\", \"carving\"]"
         eventInfo1.startingDate = Calendar.getInstance().time
         eventInfo1 = eventInfoRepository.save(eventInfo1)
         event1.eventInfo = eventInfo1
@@ -152,17 +154,17 @@ class DataProp {
         var event2 = PhysicalExhibition()
         var eventInfo2 = EventInfo()
         eventInfo2.posterUrl = "https://www.kadindanalhaberi.com/images/haberler/2020/08/sanatsal_mozaik_sergisi_kahramanmaras_kalede_aciliyor_h7195_9e45b.jpg"
-        eventInfo2.category = "{\"mosaic\", \"seramic\"}"
+        eventInfo2.category = "[\"mosaic\", \"seramic\"]"
         eventInfo2.endingDate = Calendar.getInstance().time
         eventInfo2.title = "Footsteps of the Ancients"
         eventInfo2.description = "A breeze whining from old times telling secret stories."
-        eventInfo2.labels = "{\"mystery\", \"ceramic\", \"wood\""
+        eventInfo2.labels = "[\"mystery\", \"ceramic\", \"wood\"]"
         eventInfo2.startingDate = Calendar.getInstance().time
         eventInfo2 = eventInfoRepository.save(eventInfo1)
-        event1.eventInfo = eventInfo2
+        event2.eventInfo = eventInfo2
         var location2 = Location()
         location2.address = "England"
-        event1.location = location2
+        event2.location = location2
         eventList.add(physicalExhibitionRepository.save(event1))
         eventList.add(physicalExhibitionRepository.save(event2))
 

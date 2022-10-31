@@ -1,112 +1,73 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {useParams} from "react-router-dom";
+import { useAuth } from "../../auth/useAuth"
 
 import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
 
 import { Typography, Grid } from '@mui/material';
 
-function fetchArtItemData(id) {
-  // we will replace the mock data below with
-  // and api call once the api endpoint is
-  // ready in the backend.
-
-  const data = {
-    "art_item_title": "Super Art Item",
-    "description": "Super Description",
-    "auction_id": 2,
-    "image": "https://picsum.photos/200/300",
-    "artist": {
-      "level": 6,
-      "name": "Mehmet",
-      "user_id": 1
-    },
-    "collaborators": [
-      {
-        "level": 7,
-        "name": "Husnu",
-        "user_id": 2
-      },
-      {
-        "level": 4,
-        "name": "Hasan",
-        "user_id": 3
-      },
-    ],
-    "related_events": [
-      {
-        "title": "Super Event",
-        "id": 2
-      }
-    ],
-    "comments": [
-      {
-        "userData": {
-          "level": 6,
-          "name": "Picasso",
-          "user_id": 4,
-        },
-        "body": "Super Comment",
-        "date": "Super date"
-      },
-      {
-        "userData": {
-          "level": 4,
-          "name": "Da Vinci",
-          "user_id": 6,
-        },
-        "body": "Super Comment 2",
-        "date": "Super date 2"
-      }
-    ],
-    "labels": "?"
-  }
-  return data
-}
-
 function ArtItemPage() {
-    
+  
   let { id } = useParams();
 
-  const data = fetchArtItemData(id)
+  const [state, setState] = useState({
+    error: null,
+    isLoaded: false,
+    artitem: [] 
+  })
 
+  const { token } = useAuth()
+  
+  useEffect(() => {
+
+    const fetchArgs = {
+      method: "GET",  
+    }
+
+    if (token) fetchArgs.headers = {Authorization: "Bearer " + token}
+    fetch('/art_item/' + id, fetchArgs)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        setState({error: null, isLoaded: true, artitem: data})
+      },
+        error => {
+          setState({error: error})
+        }
+      )
+  }, [id, token])
+
+  const {error, isLoaded, artitem} = state
+
+  if (error) {
+    return <div>Error: {error.message}</div>
+  } else if (!isLoaded) {
+    return <div>Loading...</div>
+  } else {
+    console.log(artitem)
   return (
     <div>
       <Typography variant="h4" sx={{padding:2}}>
-        {data.art_item_title}
+        {artitem.artItemInfo.name}
       </Typography>
     
       <Grid container>
         <Grid item xs={6} sx={{padding:2}}>
-          <img src={data.image} style={{width:'100%'}}/>
+          <img src={artitem.artItemInfo.imageUrl} alt="Art Item" style={{width:'100%'}}/>
         </ Grid>
         <Grid item xs={6} sx={{padding:2}}>
-          <Typography variant="h5">Artist:</Typography>
-          <UserCard userData={data.artist}/>
-
-          {data.collaborators && // if collaborators exists, render block below
-            <div>
-              <Typography variant="h5">Collaborators:</Typography>
-              {data.collaborators.map(collaboratorData => <UserCard userData={collaboratorData} />)            }
-            </div>
-          }
+          <Typography variant="h5">Owner:</Typography>
+          <UserCard author={artitem.owner}/>
           
           <Typography variant="h5">Description:</Typography>
-          <Typography variant="body1">{data.description}</Typography>
+          <Typography variant="body1">{artitem.artItemInfo.description}</Typography>
 
-          { data.related_events && // if related_events is provided in data, render the block below
-          // TODO: render event properly.
-            <div>
-              <Typography variant="h5">Related Events:</Typography>
-              {data.related_events.map(eventData => eventData.title + ", ")}
-            </div>
-          }
-
-          { data.auction_id && // if auction_id exists, render block below
+          {artitem.onAuction && // if auction_id exists, render block below
           // TODO render auction properly
             <div>
-              <Typography variant="h5">Auction:</Typography>
-              Auction at id={data.auction_id}
+              <Typography variant="h5">Auction Price:</Typography>
+              Auction at id={artitem.lastPrice}
             </div>
           }
 
@@ -114,12 +75,12 @@ function ArtItemPage() {
         </ Grid>
         <CommentSection
           id={id}
-          comments={data.comments}
+          commentList={artitem.commentList.filter(x => !!x.author)}
         />
       </ Grid>  
     </div>
     
-  )
+  )}
 }
 
 

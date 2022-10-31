@@ -26,7 +26,7 @@ abstract class Event{
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    var lastEdited: Date = Calendar.getInstance().time
+    var creationDate: Date = Calendar.getInstance().time
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     var commentList: List<Comment> = ArrayList()
