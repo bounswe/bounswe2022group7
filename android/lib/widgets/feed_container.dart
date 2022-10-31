@@ -127,11 +127,13 @@ class FeedContainer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ArtItemPage(artItem: artItem),
+                        // *** This points to an existing art item ***
+                        // The home page should be able to render all of them
+                        builder: (context) => ArtItemPage(id: 22),
                       ),
                     );
                   },
-                  child: Text("View Art Item: ${artItem.artItemInfo.name}"))
+                  child: Text("View Art Item"))
             ])));
   }
 }
