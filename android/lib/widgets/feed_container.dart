@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:android/models/models.dart';
 import 'package:android/pages/event_page.dart';
+import 'package:android/pages/art_item_page.dart';
 
 class FeedContainer extends StatelessWidget {
   final ArtItem artItem;
@@ -121,6 +122,16 @@ class FeedContainer extends StatelessWidget {
                   ],
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ArtItemPage(artItem: artItem),
+                      ),
+                    );
+                  },
+                  child: Text("View Art Item: ${artItem.name}"))
             ])));
   }
 }
