@@ -2,6 +2,57 @@
 
 ## Sabri Mete Akyüz
 
+### Member
+
+My name is Sabri Mete Akyuz . Contacts can be found on [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Sabri-Mete-Akyüz). You can also find [my time tracking on the wiki](https://github.com/bounswe/bounswe2022group7/wiki/Sabri-Mete-Akyüz-(Effort-Tracking)).
+
+### Responsibilities
+
+- I am a member of the backend team. I worked on research and implementation. I also helped managing the backend team.
+
+### Main Contributions
+
+Before starting the project we decided to use Kotlin with Sprin Boot and MySql. To start the project, I created the backend branch with initial code for the backend. I created temporary databases for the backend team to test their code. I also looked into authentication/authorization and implemented authentication handling. I implemented the login and signup endpoints. Reviewed a lot of PRs and issues. 
+
+Issues I opened:
+- [#243 Revision of Requirements](https://github.com/bounswe/bounswe2022group7/issues/243)
+- [#287 Implementation of endpoints that return Events and ArtItems](https://github.com/bounswe/bounswe2022group7/issues/287)
+- [#299 Implementation of RegisteredUser Class](https://github.com/bounswe/bounswe2022group7/issues/299)
+- [#305 Implementation of AccountInfo Class](https://github.com/bounswe/bounswe2022group7/issues/305)
+- [#306 Update hardcoded endpoints from homepage controller](https://github.com/bounswe/bounswe2022group7/issues/306)
+- [#323 Add JsonManagedReference and JsonBackReference Annotations](https://github.com/bounswe/bounswe2022group7/issues/323)
+
+Issues I was assigned
+- [#237 Update team members](https://github.com/bounswe/bounswe2022group7/issues/237)
+- [#243 Revision of Requirements](https://github.com/bounswe/bounswe2022group7/issues/243)
+- [#251 Backend Code Initialization](https://github.com/bounswe/bounswe2022group7/issues/251)
+- [#259 Uploading Target File to the Backend Directory](https://github.com/bounswe/bounswe2022group7/issues/259)
+- [#271 Implementation of Authentication Part](https://github.com/bounswe/bounswe2022group7/issues/271)
+- [#273 [BACKEND] Research on built-in authentication](https://github.com/bounswe/bounswe2022group7/issues/273)
+- [#308 Implementation of Login and Signup Endpoints](https://github.com/bounswe/bounswe2022group7/issues/308)
+- [#310 Research on Inheritance and Hibernate Entegration](https://github.com/bounswe/bounswe2022group7/issues/310)
+- [#341 [Backend] Disabling Token Requirement in Endpoints](https://github.com/bounswe/bounswe2022group7/issues/341)
+
+Issues I reviewed
+- [#243 Revision of Requirements](https://github.com/bounswe/bounswe2022group7/issues/243)
+- [#287 Implementation of endpoints that return Events and ArtItems](https://github.com/bounswe/bounswe2022group7/issues/287)
+- [#295 Fix: Unable to Save to Database](https://github.com/bounswe/bounswe2022group7/issues/295)
+- [#299 Implementation of RegisteredUser Class](https://github.com/bounswe/bounswe2022group7/issues/299)
+- [#305 Implementation of AccountInfo Class](https://github.com/bounswe/bounswe2022group7/issues/305)
+- [#306 Update hardcoded endpoints from homepage controller](https://github.com/bounswe/bounswe2022group7/issues/306)
+- [#323 Add JsonManagedReference and JsonBackReference Annotations](https://github.com/bounswe/bounswe2022group7/issues/323)
+- [#344 [Backend] Recursion Problem in Art Items](https://github.com/bounswe/bounswe2022group7/issues/344)
+
+### Pull Requests
+
+- [#317](https://github.com/bounswe/bounswe2022group7/pull/317): With this PR, I implement authentication and authorization mechanism as well as login and signup endpoints. 
+- [#342](https://github.com/bounswe/bounswe2022group7/pull/342): With this PR, I allowed everyone to send requests for generic endpoints.
+
+### Additional Information
+
+Since the backend code initialization is done on a new branch. Pull request was not needed. That's why related issue doesn't have a Pull request.
+
+
 ## Enes Aydoğduoğlu
 
 ## Erim Erkin Doğan
