@@ -37,7 +37,7 @@ final User tom = User(
   username: '@tombadil',
 );
 
-final List<ArtItem> artItems = [
+/*final List<ArtItem> artItems = [
   ArtItem(
     name: 'The Starry Night',
     description:
@@ -62,7 +62,7 @@ final List<ArtItem> artItems = [
         'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/The_Scream.jpg/1200px-The_Scream.jpg',
     artist: dali,
   ),
-];
+];*/
 
 final List<Event> events = [
   Event(

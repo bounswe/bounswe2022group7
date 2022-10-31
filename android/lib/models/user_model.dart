@@ -21,14 +21,15 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> parsedJson) {
     return User(
-      name: parsedJson["name"],
-      surname: parsedJson["surname"],
-      email: parsedJson["email"],
-      imageUrl: parsedJson["imageUrl"],
-      username: parsedJson["username"],
-      userType: parsedJson["userType"],
-      age: parsedJson["age"],
-      country: parsedJson["country"],
+      name: parsedJson["name"] ?? "",
+      surname: parsedJson["surname"] ?? "",
+      email: parsedJson["email"] ?? "",
+      imageUrl:
+          parsedJson["imageUrl"] ?? "https://api.multiavatar.com/Robo.png",
+      username: parsedJson["username"] ?? "",
+      userType: parsedJson["userType"] ?? "",
+      age: parsedJson["age"] ?? 0,
+      country: parsedJson["country"] ?? "",
     );
   }
 }
