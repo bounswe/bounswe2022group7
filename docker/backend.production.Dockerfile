@@ -1,10 +1,8 @@
 
 FROM maven:3.8.6-eclipse-temurin-17 AS builder
-RUN addgroup buildergroup; adduser --ingroup buildergroup --disabled-password builder
-USER builder
 WORKDIR /build
 COPY . .
-RUN cd /build && mvn package
+RUN mvn clean package -e -X
  
  
 FROM eclipse-temurin:17-jre-jammy
