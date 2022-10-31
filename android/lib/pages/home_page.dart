@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
             final Event event = events[index];
             return FeedContainer(artItem: artItem, event: event);
           },
-          childCount: artItems.length,
+          childCount: events.length,
         )),
       ]),
       drawer: Drawer(

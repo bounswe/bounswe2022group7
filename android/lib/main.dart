@@ -1,6 +1,4 @@
-import 'package:android/pages/home_page.dart';
-import 'package:android/pages/login.dart';
-import 'package:android/pages/register.dart';
+import 'package:android/pages/pages.dart';
 import 'package:android/providers/login_provider.dart';
 import 'package:android/providers/register_provider.dart';
 import 'package:android/providers/user_provider.dart';
@@ -32,6 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
+        debugShowCheckedModeBanner: false,
         home: FutureBuilder(
           future: getUser(),
           builder: (context, snapshot) {
