@@ -105,6 +105,7 @@ class _RegisterState extends State<Register> {
       ),
     ));
 
+
     final nameField = inputField(TextFormField(
       onSaved: (value) => _name = value,
       autofocus: false,

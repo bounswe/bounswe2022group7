@@ -246,7 +246,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       radius: 20.0,
                                       backgroundColor: Colors.grey[300],
                                       backgroundImage:
-                                      NetworkImage(events[index].host.imageUrl),
+                                      NetworkImage(events[index].creator.imageUrl),
 
                                     ),
                                     const SizedBox(width: 10.0),
@@ -254,7 +254,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            events[index].name,
+                                            events[index].eventInfo.title,
                                             style: const TextStyle(
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.w600,
@@ -268,7 +268,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   size: 12.0,
                                                   color: Colors.grey[600]),
                                               const SizedBox(width: 5.0),
-                                              Text("Host: ${events[index].host.name}"),
+                                              Text("Host: ${events[index].creator.name}"),
                                             ],
                                           )
                                         ]),
@@ -284,7 +284,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                     const SizedBox(width: 5.0),
                                     Text(
-                                      events[index].date.toString().substring(0, 16),
+                                      events[index].eventInfo.startingDate.toString().substring(0, 16),
                                     ),
                                   ],
                                 ),
@@ -296,7 +296,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       size: 12.0,
                                     ),
                                     const SizedBox(width: 5.0),
-                                    Text(events[index].location)
+                                    Text(events[index].location.address)
                                   ],
                                 )
                               ],

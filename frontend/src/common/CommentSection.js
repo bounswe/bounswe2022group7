@@ -10,7 +10,7 @@ import {useAuth} from "../auth/useAuth"
 
 function CommentSection(props) {
   
-  let commentComponents = props.comments.map(commentData => UserCard(commentData))
+  let commentComponents = props.commentList.map(commentData => UserCard(commentData))
   const {token} = useAuth() 
   return (
     <Box sx={{

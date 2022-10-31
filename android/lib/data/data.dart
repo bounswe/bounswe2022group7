@@ -20,14 +20,14 @@ final User ahmet = User(
     username: "username",
     name: 'Ahmet',
     email: 'ahmet@mail.com',
-    imageUrl: 'https://api.minimalavatars.com/avatar/awesome/png');
+    imageUrl: 'https://api.multiavatar.com/Robo.png');
 
 final User mehmet = User(
     userType: "Regular User",
     username: "username",
     name: 'Mehmet',
     email: 'mehmet@mail.com',
-    imageUrl: 'https://api.minimalavatars.com/avatar/is/png');
+    imageUrl: 'https://api.multiavatar.com/Evilnormie.png');
 
 final User tom = User(
   userType: "Regular User",
@@ -53,117 +53,70 @@ final List<ArtItem> artItems = [
     imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/The_Persistence_of_Memory.jpg/1200px-The_Persistence_of_Memory.jpg',
     artist: dali,
-  )
+  ),
+  ArtItem(
+    name: 'The Scream',
+    description:
+        'The Scream is an expressionist painting created by Norwegian artist Edvard Munch in 1893. It is in the collection of the Munch Museum in Oslo, Norway. The painting depicts a figure with an agonized expression against a landscape with a tumultuous orange sky. It has been reproduced in popular culture numerous times, and is one of the most recognizable images in the history of Western culture.',
+    imageUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/The_Scream.jpg/1200px-The_Scream.jpg',
+    artist: dali,
+  ),
 ];
 
 final List<Event> events = [
   Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
+      id: 1,
+      eventInfo: EventInfo(
+        id: 1,
+        title: 'Van Gogh Exhibition',
+        endingDate: DateTime(2021, 12, 31),
+        startingDate: DateTime(2021, 12, 1),
+        description: 'A great exhibition of Van Gogh\'s works.',
+        category: 'Post-Impressionism ',
+        labels: ['french', 'post-impressionism', 'painting'],
+        posterUrl:
+            'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
+      ),
+      creator: ahmet,
+      collaborators: [mehmet],
+      participants: [],
+      creationDate: DateTime(2021, 11, 20),
+      commentList: [],
+      location: Location(
+        id: 1,
+        address: 'Van Gogh Museum, Amsterdam',
+        latitude: 52.358,
+        longitude: 4.881,
+      ),
+      rules: 'No rules',
+      attendees: [],
+      bookmarkedBy: [mehmet]),
   Event(
-    name: 'Salvador Dalí Exhibition',
-    description:
-        'This will show the best works of Salvador Dalí. It will be held at the Dalí Museum in Florida.',
-    imageUrl:
-        'https://assets3.thrillist.com/v1/image/1416328/size/tl-no_parallax_cs_2x/the-11-most-stunning-new-architecture-projects-in-america',
-    location: 'Dalí Museum, Florida',
-    host: mehmet,
-    date: DateTime(2022, 10, 21, 13, 0),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
-  Event(
-    name: 'Van Gogh Exhibition',
-    description:
-        'This will show the best works of Vincent van Gogh. It will be held at the Van Gogh Museum in Amsterdam.',
-    imageUrl: 'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
-    location: 'Van Gogh Museum, Amsterdam',
-    host: ahmet,
-    date: DateTime(2022, 10, 22, 15, 30),
-  ),
+      id: 2,
+      eventInfo: EventInfo(
+        id: 2,
+        title: 'Dali Exhibition',
+        endingDate: DateTime(2021, 12, 31),
+        startingDate: DateTime(2021, 12, 1),
+        description: 'A great exhibition of Dali\'s works.',
+        category: 'Surrealism',
+        labels: ['spanish', 'surrealism', 'painting'],
+        posterUrl:
+            'https://assets3.thrillist.com/v1/image/1416328/size/tl-no_parallax_cs_2x/the-11-most-stunning-new-architecture-projects-in-america',
+      ),
+      creator: mehmet,
+      collaborators: [],
+      participants: [],
+      creationDate: DateTime(2021, 11, 20),
+      commentList: [],
+      location: Location(
+        id: 2,
+        address: 'Dali Museum, St. Petersburg',
+        latitude: 27.770,
+        longitude: -82.640,
+      ),
+      rules: 'No rules',
+      attendees: [],
+      bookmarkedBy: [mehmet, ahmet]),
 ];
