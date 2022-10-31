@@ -14,10 +14,6 @@ Future<LoginOutput> loginNetwork(LoginInput loginInput) async {
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: json.encode(loginInput),
     );
-    if (response.statusCode != 200) {
-      return LoginOutput(status: response.body);
-    }
-    // Map<String, dynamic> data = json.decode(response.body);
     return LoginOutput.fromJson(response.body);
   } catch (err) {
     if (kDebugMode) {
