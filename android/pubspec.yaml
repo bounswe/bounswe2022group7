@@ -44,6 +44,8 @@ dependencies:
   flutter_dotenv: ^5.0.2
 
 dev_dependencies:
+  nock: ^1.1.2
+  network_image_mock: ^2.0.1
   flutter_test:
     sdk: flutter
 
