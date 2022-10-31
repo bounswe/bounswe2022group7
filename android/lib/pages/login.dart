@@ -67,18 +67,6 @@ class _LoginState extends State<Login> {
           return;
         }
 
-        // CurrentUser user = CurrentUser(
-        //   userType: _userType!,
-        //   username: _username!,
-        //   token: registerOutput.token!,
-        //   name: _name ?? "Tom Bombadil",
-        //   email: _email!,
-        //   imageUrl: registerOutput.imageUrl ?? "https://avatarfiles.alphacoders.com/935/93509.jpg",
-        //   surname: _surname,
-        //   age: _age,
-        //   country: _country?.name,
-        // );
-
         CurrentUser user = CurrentUser(token: loginOutput.token!);
 
         // save user in local storage
@@ -94,36 +82,11 @@ class _LoginState extends State<Login> {
               (route) => false,
         );
       });
-      // // TODO these values will come from the backend
-      // CurrentUser user = CurrentUser(
-      //   userType: "Regular User",
-      //   username: "temp username",
-      //   token: "test token",
-      //   name: "Tom Bombadil",
-      //   email: email,
-      //   imageUrl: "https://avatarfiles.alphacoders.com/935/93509.jpg",
-      // );
-
-      // save user in local storage
-      // saveUser(user);
-      //
-      // // notify other pages about the user via provider
-      // Provider.of<UserProvider>(context, listen: false).setUser(user);
-      //
-      // // delete every route in navigation stack before navigating to homepage
-      // Navigator.pushNamedAndRemoveUntil(
-      //   context,
-      //   homepage,
-      //       (route) => false,
-      // );
-      return;
     }
 
     void signUp() {
       Navigator.pushNamed(context, register);
     }
-
-
 
     final emailField = inputField(TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -164,22 +127,26 @@ class _LoginState extends State<Login> {
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(25.0),
-            child: Column(
-              children: [
-                const Logo(),
-                // Input
-                const SizedBox(height: 30),
-                emailField,
-                const SizedBox(height: 10),
-                passwordField,
-                // Buttons
-                const SizedBox(height: 10),
-                loginProvider.isLoading
-                    ? loading("Trying to login ... Please wait")
-                    : longButtons("Log In", logIn),
-                const SizedBox(height: 10),
-                navigateToOtherFormText('Not a User?', 'Sign up now.', signUp),
-              ],
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  const Logo(),
+                  // Input
+                  const SizedBox(height: 30),
+                  emailField,
+                  const SizedBox(height: 10),
+                  passwordField,
+                  // Buttons
+                  const SizedBox(height: 10),
+                  loginProvider.isLoading
+                      ? loading("Trying to login ... Please wait")
+                      : longButtons("Log In", logIn),
+                  const SizedBox(height: 10),
+                  navigateToOtherFormText('Not a User?', 'Sign up now.', signUp),
+                ],
+              ),
+
             ),
           ),
         ),
