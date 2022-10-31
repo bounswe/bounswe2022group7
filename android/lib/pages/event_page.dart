@@ -144,13 +144,15 @@ class _EventPageState extends State<EventPage> {
                                               radius: 20.0,
                                               backgroundColor: Colors.grey[300],
                                               backgroundImage: NetworkImage(
-                                                  currentEvent.creator.imageUrl),
+                                                  currentEvent
+                                                      .creator.imageUrl),
                                             ),
                                             const SizedBox(height: 3.0),
                                           ]),
                                           Column(children: [
                                             Text(
-                                              currentEvent.eventInfo.startingDate
+                                              currentEvent
+                                                  .eventInfo.startingDate
                                                   .toString()
                                                   .substring(0, 16),
                                             ),
@@ -163,12 +165,23 @@ class _EventPageState extends State<EventPage> {
                                     ),
                                     const SizedBox(height: 10.0),
                                     Row(
-                                      children: const [
-                                        Text(
-                                          'Collaborators:',
+                                      children: [
+                                        const Text(
+                                          'Collaborators: ',
                                           style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w600,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+
+                                        Text(
+                                          currentEvent.collaborators
+                                              .map((e) => e.name)
+                                              .join(", "),
+                                          style: const TextStyle(
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w400,
                                             fontStyle: FontStyle.italic,
                                           ),
                                         ),
