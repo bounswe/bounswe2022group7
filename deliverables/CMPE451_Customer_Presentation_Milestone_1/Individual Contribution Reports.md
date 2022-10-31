@@ -63,6 +63,33 @@ Since the backend code initialization is done on a new branch. Pull request was 
 
 ## Ali Can Milani
 
+### Member
+
+My name is Ali Can Milani. Contacts can be found on [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Ali-Can-Milani). You can also find [my time tracking on the wiki](https://github.com/bounswe/bounswe2022group7/wiki/Ali-Can-Milani-(Effort-Tracking)).
+
+### Responsibilities
+
+- I am a member of the mobile team. I worked on research and implementation. 
+
+### Main Contributions
+
+We decided to use Flutter for the mobile development. I created the user interface of the login page. And i made the integrations of the home page with the endpoints.
+
+Code related significant issues:
+- [#280 Implementation of Login Page](https://github.com/bounswe/bounswe2022group7/issues/280): I implemented the login page UI of the mobile app and connected necessary page navigations.
+- [#263 Implementation of Register Page](https://github.com/bounswe/bounswe2022group7/issues/263): I reviewed the registration page UI of the mobile app.
+- [#351 Implement the Home page endpoint integrations](https://github.com/bounswe/bounswe2022group7/issues/351): I made the necessary connections to the get methods related to the home page. 
+
+Management related significant issues:
+- [#248 Review and Update the Use Case Diagram](https://github.com/bounswe/bounswe2022group7/issues/248): I updated the Use Case Diagram according to the updated requirements.
+- [#304 Create Mobile Meeting Notes #3](https://github.com/bounswe/bounswe2022group7/issues/304): I took the meeting notes of the third mobile team meeting.
+
+### Pull Requests
+ 
+- [#281 Dev/android/loginpage](https://github.com/bounswe/bounswe2022group7/pull/281): I added the login page UI to the android branch.
+- [#267 Mobile Register Page](https://github.com/bounswe/bounswe2022group7/pull/267): I reviewed and merge the register page UI to the android branch.
+- [#362 Dev/android/home page](https://github.com/bounswe/bounswe2022group7/pull/362): I added the home page endpoint connections to the development branch.
+
 ## Başak Önder
 
 ## Cahid Arda Öz
