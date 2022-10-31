@@ -149,6 +149,49 @@ In addition to the work I have done for the milestone, I wanted to learn about a
 
 ## Musa Şimiek
 
+### Member
+
+My name is Musa Şimşek. Contacts can be found on [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Musa-Şimşek). You can also find [my time tracking on the wiki](https://github.com/bounswe/bounswe2022group7/wiki/Musa-Şimşek-(Effort-Tracking)).
+
+### Responsibilities
+
+- I am a member of the mobile team. I worked on research and implementation.
+
+### Main Contributions
+
+Before beginning to implementations, we decided to use Flutter on mobile app since one of the team members knows how to develop mobile apps in Flutter. After everyone in the mobile team learned the basics, we started to divide pages and I got profile page and made a research on [testing Flutter apps](https://github.com/bounswe/bounswe2022group7/wiki/Testing-Flutter-Apps), additionally. After implementing profile page, the first milestone was announced and I got the integration of the login page with backend.
+
+
+Issues I opened:
+- [#261 Research on Testing Fluttter Apps](https://github.com/bounswe/bounswe2022group7/issues/261)
+- [#263 Implementation of Profile Page](https://github.com/bounswe/bounswe2022group7/issues/262)
+- [#314 Integration of Login Page wtih Backend](https://github.com/bounswe/bounswe2022group7/issues/314)
+- [#333 Update the App according to the new CurrrentUser Structure](https://github.com/bounswe/bounswe2022group7/issues/333)
+
+
+Issues I was assigned
+- [Revising the Mock-ups #247](https://github.com/bounswe/bounswe2022group7/issues/247)
+
+Issues I reviewed
+- [Add Widget Test for Register Page #359](https://github.com/bounswe/bounswe2022group7/issues/359)
+- [Change Register Network Function According to Backend Endpoint #335](https://github.com/bounswe/bounswe2022group7/issues/335)
+- [Test Mobile Application Functionality #334](https://github.com/bounswe/bounswe2022group7/issues/334)
+- [Implement the Art Item page with endpoint integrations #331](https://github.com/bounswe/bounswe2022group7/issues/331)
+- [Implement Event page with endpoint integrations #330](https://github.com/bounswe/bounswe2022group7/issues/330)
+- [Implement Art Item and Event pages with endpoint integrations #316](https://github.com/bounswe/bounswe2022group7/issues/316)
+- [Update the Register Page #294](https://github.com/bounswe/bounswe2022group7/issues/294)
+- [[Mobile] Implement Home Page #265](https://github.com/bounswe/bounswe2022group7/issues/265)
+
+### Pull Requests
+
+- [[Mobile] Add Widget Test for Register Page #360](https://github.com/bounswe/bounswe2022group7/pull/360)
+- [[Mobile] Merge Event Page integrations to Develop #348](https://github.com/bounswe/bounswe2022group7/pull/348)
+- [final version of the login #340](https://github.com/bounswe/bounswe2022group7/pull/340)
+- [Updated the Register Network Function According to Backend Implementation #336](https://github.com/bounswe/bounswe2022group7/pull/336)
+- [Update register page #298](https://github.com/bounswe/bounswe2022group7/pull/298)
+- [Dev/profilepage musa #279](https://github.com/bounswe/bounswe2022group7/pull/279)
+- [Merge android/homepage to android #266](https://github.com/bounswe/bounswe2022group7/pull/266)
+
 ## Atilla Türkmen
 
 ## Can Atakan Uğur
