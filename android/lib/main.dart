@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginProvider()),
       ],
       child: MaterialApp(
-        title: 'ArtShare',
+        title: 'ideart',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
