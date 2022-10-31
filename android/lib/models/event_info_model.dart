@@ -1,3 +1,5 @@
+import 'package:android/util/string_helpers.dart';
+
 class EventInfo {
   final int id;
   final String title;
@@ -29,7 +31,13 @@ class EventInfo {
       description: json['description'],
       category: json['category'],
       eventPrice: json['eventPrice'],
-      labels: json['labels'].map((e) => e.toString()).toList(),
+
+      // *** Data sent from the back-end team is not in the correct format ***
+      // Instead of a list of strings, it is a single string representing a list
+      // Uncomment below when the back-end team fixes the problem
+      //labels: json['labels'].map((e) => e.toString()).toList(),
+      labels: stringToList(json['labels']),
+
       posterUrl: json['posterUrl'],
     );
   }

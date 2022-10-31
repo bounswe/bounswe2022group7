@@ -1,5 +1,9 @@
 import 'package:android/models/models.dart';
 
+// imported to use dummy data for now
+import 'package:android/data/data.dart';
+import 'package:android/util/string_helpers.dart';
+
 class Event {
   final int id;
   final EventInfo eventInfo;
@@ -30,16 +34,30 @@ class Event {
     return Event(
       id: json['id'],
       eventInfo: EventInfo.fromJson(json['eventInfo']),
-      creator: User.fromJson(json['creator']),
-      collaborators: json['collaborators'].map((e) => User.fromJson(e)).toList(),
-      participants: json['participants'].map((e) => User.fromJson(e)).toList(),
+
+      // *** User model has not been implemented by the back-end team yet ***
+      // use the dummy data for now, uncomment below when the back-end team is done
+
+      // creator: User.fromJson(json['creator']),
+      // collaborators: json['collaborators'].map((e) => User.fromJson(e)).toList(),
+      // participants: json['participants'].map((e) => User.fromJson(e)).toList(),
+
+      creator: ahmet,
+      collaborators: [mehmet],
+      participants: [tom],
+
       creationDate: DateTime.parse(json['creationDate']),
-      commentList: json['commentList'].map((e) => e.toString()).toList(),
+
+      // Comment model has not been implemented, just store as strings
+      commentList: json['commentList'].cast<String>(),
+
       location: Location.fromJson(json['location']),
       rules: json['rules'],
-      attendees: json['attendees'].map((e) => User.fromJson(e)).toList(),
-      bookmarkedBy: json['bookmarkedBy'].map((e) => User.fromJson(e)).toList(),
+
+      // attendees: json['attendees'].map((e) => User.fromJson(e)).toList(),
+      // bookmarkedBy: json['bookmarkedBy'].map((e) => User.fromJson(e)).toList(),
+      attendees: [],
+      bookmarkedBy: [],
     );
   }
-
 }
