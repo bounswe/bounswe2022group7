@@ -60,6 +60,26 @@ Since the backend code initialization is done on a new branch. Pull request was 
 ## M.Ekrem Gezgen
 
 ## Güney İzol
+### Member
+My name is Güney İzol. I am in the frontend development team. You can check out [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/G%C3%BCney-%C4%B0zol) and [my effort tracking page](https://github.com/bounswe/bounswe2022group7/wiki/G%C3%BCney-%C4%B0zol-(Effort-Tracking))
+
+### Responsibilities
+I have taken part in the frontend development of our project. I worked on various research, configuration, and development activities.
+
+### Main Contributions
+- Open our discord server for communication [#246](https://github.com/bounswe/bounswe2022group7/issues/246)
+- Research frontend libraries and tools that would make us as productive as possible and suggested the findings to our teammates.
+- Configure our frontend infrastructure so that other team members could have a head start in development. [#253](https://github.com/bounswe/bounswe2022group7/issues/253)
+- Design and implement the home page layout. 
+- Make the home page layout responsive so that it adapts to different screen sizes. [#272](https://github.com/bounswe/bounswe2022group7/issues?q=is%3Aissue+is%3Aclosed+assignee%3Aguneyizol)
+- Review the backend design and make suggestions
+- Fetch data from backend apis and display them on the home page. [#332](https://github.com/bounswe/bounswe2022group7/issues/332)
+- Switch our development and build environment from parcel to Create-React-App, which uses webpack. ([relevant commit](https://github.com/bounswe/bounswe2022group7/pull/337/commits/5ebd0ed4ce67d1d583483da0f3605182d4c2e6bc))
+
+### Pull requests
+- Fetch data for home page [#337](https://github.com/bounswe/bounswe2022group7/pull/337)
+#### As Reviwers
+- [#349](https://github.com/bounswe/bounswe2022group7/pull/349)
 
 ## Ali Can Milani
 
