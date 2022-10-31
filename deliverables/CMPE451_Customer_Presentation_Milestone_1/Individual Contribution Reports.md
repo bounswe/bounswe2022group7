@@ -56,6 +56,29 @@ Since the backend code initialization is done on a new branch. Pull request was 
 ## Enes Aydoğduoğlu
 
 ## Erim Erkin Doğan
+### Member
+My name is Erim Erkin Doğan, I am a senior student. My contact information can be found [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Erim-Erkin-Do%C4%9Fan) and weekly updates can be found in my [tracking page](https://github.com/bounswe/bounswe2022group7/wiki/Erim-Erkin-Do%C4%9Fan-(Effort-Tracking)).
+
+### Responsibilities
+I am a member of frontend team. I worked on setting up infrastructure for our application (docker, deployment, ci/cd) in colloboration with both backend and frontend teams. 
+
+### Main Contributions
+
+I have generally worked on building, testing and researching infrastructure related tasks. I researched about Github ACtions, AWS and its technologies, serving backend and frontend from the same network with domains in mind. I have implemented CI and CD for both backend and frontend applications with Github Actions. I have setup database with AWS's RDS service, while setting automatic deployment with AWS ECS after pushing the built docker image to AWS ECR. For frontend and relaying API from a context path, I have setup NGINX to act as our webserver, serving frontend static files and reverse proxying the API.
+
+As most of my tasks were around setting up initial infrastructure for deployment and testing my contribution to frontend was minimal, implementing the api integration and form validation for login and signup pages were my only contributions.
+
+#### Significant issues:
+- [Setting up AWS Deployment & CI/CD [#282]](https://github.com/bounswe/bounswe2022group7/issues/282): This issue is a "mega thread" for infrastructure setup for our application. I have decided on platforms, technologies and setup the infrastructure with them, resulting in a succesful deployment of our application.
+- [[Frontend] Revise and connect signup and login to backend [#338]](https://github.com/bounswe/bounswe2022group7/issues/338): Implemented connection between sign-up and sign-in pages of frontend and backend application. Added form validation to sign-up and sign-in pages.
+
+### Pull Requests
+- [#276 Dockerization of backend application](https://github.com/bounswe/bounswe2022group7/pull/276): Took over and merged the dockerization of backend from Basak and implemented development and production images. Actively fixed bugs caused by different operating systems or architectures (arm64, amd64) before merging to ensure everyone could run the backend application.
+- [#286 Merge docker implementation with frontend branch](https://github.com/bounswe/bounswe2022group7/pull/286): Implemented production and deployment images for frontend application. Created CI with Github Actions.
+- [#346 [Frontend] Merge revised signup and signing pages to develop](https://github.com/bounswe/bounswe2022group7/pull/346): Integrated frontend's sign-in and sign-up pages with API. Added new fields for sign-up. Added form validation for login and signup forms.
+- [#354 [Frontend] Merge configuration changes for AWS deployment](https://github.com/bounswe/bounswe2022group7/pull/354): Implemented and merged the AWS deployment configuration and CD setup for frontend application.
+- [#355 [Backend] Merge docker and AWS deployment configurations](https://github.com/bounswe/bounswe2022group7/pull/355): Merged the AWS deployment configuration and CI/CD setup for backend deployment.
+
 
 ## M.Ekrem Gezgen
 
