@@ -87,7 +87,7 @@ function SignUpForm(props) {
       // Here is how we will make a POST request in the backend.
       // This section is left out since the backend is not ready
       // yet.
-      fetch("/signup", {
+      fetch("/api/signup", {
         method: "POST",
         body: JSON.stringify(values),
         headers: {
