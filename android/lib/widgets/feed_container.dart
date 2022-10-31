@@ -131,7 +131,7 @@ class FeedContainer extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text("View Art Item: ${artItem.name}"))
+                  child: Text("View Art Item: ${artItem.artItemInfo.name}"))
             ])));
   }
 }

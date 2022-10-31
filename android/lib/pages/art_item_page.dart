@@ -16,14 +16,15 @@ class _ArtItemPageState extends State<ArtItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.artItem.name),
+        title: Text(widget.artItem.artItemInfo.name),
       ),
       body: Column(
         children: [
-          Image.network(widget.artItem.imageUrl),
-          Text(widget.artItem.name),
-          Text(widget.artItem.artist.name),
-          Text(widget.artItem.description),
+          widget.artItem.artItemInfo.imageUrl != null
+              ? Image.network(widget.artItem.artItemInfo.imageUrl!)
+              : Container(),
+          Text(widget.artItem.creator.name),
+          Text(widget.artItem.artItemInfo.description),
         ],
       ),
     );

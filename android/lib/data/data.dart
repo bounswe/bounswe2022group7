@@ -39,28 +39,44 @@ final User tom = User(
 
 final List<ArtItem> artItems = [
   ArtItem(
-    name: 'The Starry Night',
-    description:
-        'The Starry Night is an oil on canvas by the Dutch post-impressionist painter Vincent van Gogh. Painted in June 1889, it depicts the view from the east-facing window of his asylum room at Saint-Rémy-de-Provence, just before sunrise, with the addition of an idealized village. It has been in the permanent collection of the Museum of Modern Art in New York City since 1941, acquired through the Lillie P. Bliss Bequest. Widely regarded as Van Gogh\'s magnum opus, The Starry Night is one of the most recognized paintings in the history of Western culture.',
-    imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    artist: vanGogh,
+    id: 1,
+    artItemInfo: ArtItemInfo(
+      id: 1,
+      name: 'Starry Night',
+      description: 'A reflection of my soul from a fuzzy night.',
+      category: 'Classical',
+      imageUrl:
+          'https://media.overstockart.com/optimized/cache/data/product_images/VG485-1000x1000.jpg',
+      labels: ['classical', 'painting'],
+    ),
+    creator: vanGogh,
+    creationDate: DateTime(2021, 10, 29),
+    owner: ahmet,
+    onAuction: false,
+    auction: null,
+    lastPrice: 0.0,
+    commentList: [],
+    bookmarkedBy: [ahmet],
   ),
   ArtItem(
-    name: 'The Persistence of Memory',
-    description:
-        'The Persistence of Memory is a 1931 painting by Spanish surrealist artist Salvador Dalí. It depicts melting pocket watches set against a landscape with a distant mountain. The painting is one of Dalí\'s best-known works, and is often interpreted as a metaphor for the irreversibility of time.',
-    imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/The_Persistence_of_Memory.jpg/1200px-The_Persistence_of_Memory.jpg',
-    artist: dali,
-  ),
-  ArtItem(
-    name: 'The Scream',
-    description:
-        'The Scream is an expressionist painting created by Norwegian artist Edvard Munch in 1893. It is in the collection of the Munch Museum in Oslo, Norway. The painting depicts a figure with an agonized expression against a landscape with a tumultuous orange sky. It has been reproduced in popular culture numerous times, and is one of the most recognizable images in the history of Western culture.',
-    imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/The_Scream.jpg/1200px-The_Scream.jpg',
-    artist: dali,
+    id: 2,
+    artItemInfo: ArtItemInfo(
+      id: 2,
+      name: 'The Persistence of Memory',
+      description: 'A reflection of my soul from a fuzzy night.',
+      category: 'Classical',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg',
+      labels: ['classical', 'painting'],
+    ),
+    creator: dali,
+    creationDate: DateTime(2021, 10, 29),
+    owner: ahmet,
+    onAuction: false,
+    auction: null,
+    lastPrice: 0.0,
+    commentList: [],
+    bookmarkedBy: [mehmet],
   ),
 ];
 
