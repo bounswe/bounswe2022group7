@@ -11,7 +11,7 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 function UserCard(props) {
 
-  let { userData, body, date } = props
+  const { author, body, createdAt } = props
 
   const { token } = useAuth()
 
@@ -40,6 +40,8 @@ function UserCard(props) {
 
   const navigate = useNavigate()
 
+  console.log(author)
+
   // RENDER
 
   return (
@@ -51,11 +53,11 @@ function UserCard(props) {
         <CardHeader 
           avatar = {
             <Avatar sx={{ bgcolor: 'secondary.main' }} aria-label="user">
-              {userData.level}
+              {author.level}
             </Avatar>
           }
-          title={userData.name}
-          subheader={date}
+          title={author.accountInfo.name + " " + author.accountInfo.surname}
+          subheader={createdAt}
           action={
             <IconButton onClick={handleOpenUserMenu} aria-label="settings">
               <MoreVertIcon />
@@ -79,7 +81,7 @@ function UserCard(props) {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          <MenuItem key='See Profile' onClick={() => {navigate("/user/" + userData.user_id)}}>
+          <MenuItem key='See Profile' onClick={() => {navigate("/user/" + author.user_id)}}>
             <Typography textAlign="center">See Profile</Typography>
           </MenuItem>          
         </Menu>
