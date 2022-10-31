@@ -89,13 +89,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                               color: Colors.black,
                                               size: 30.0,
                                             )),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.black,
-                                              size: 30.0,
-                                            )),
                                       ],
                                     ),
                                     Row(
@@ -113,17 +106,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                           ),
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        Spacer(),
-                                        // show labels
-                                        const Text(
-                                          "Labels: ",
-                                          style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
+                                        const Spacer(),
                                         Text(
                                           currentArtItem.artItemInfo.labels!
                                               .map((label) => label)
@@ -137,7 +120,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 10.0),
+                                    const SizedBox(height: 15.0),
                                     currentArtItem.artItemInfo.imageUrl != null
                                         ? Container(
                                             height: 300.0,
@@ -163,9 +146,9 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                     const Divider(color: Colors.black),
                                     const SizedBox(height: 5.0),
                                     Row(
-                                      children: const [
-                                        Icon(Icons.chat, size: 13.0),
-                                        SizedBox(width: 5.0),
+                                      children:  [
+                                        const Icon(Icons.chat, size: 13.0),
+                                        const SizedBox(width: 5.0),
                                         Text(
                                           // TODO: Add number of comments
                                           "Comments (0)",
@@ -174,6 +157,21 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
+                                        const Spacer(),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.favorite_border,
+                                              color: Colors.black,
+                                              size: 30.0,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.share,
+                                              color: Colors.black,
+                                              size: 30.0,
+                                            )),
                                       ],
                                     ),
                                   ])),
