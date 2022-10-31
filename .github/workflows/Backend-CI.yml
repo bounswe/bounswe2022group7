@@ -22,6 +22,7 @@ on:
     paths:
       - 'backend/**'
       - 'docker/**'
+  workflow_call:
 
 jobs:
   build:
