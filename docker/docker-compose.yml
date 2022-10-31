@@ -37,16 +37,20 @@ services:
     volumes:  # Hot reload
       - ../backend:/app
 
-    # frontend:
-    #   container_name: frontend
-    #   build:
-    #     context: ./frontend
-    #     dockerfile: Dockerfile.development
+  frontend:
+    container_name: artshare-frontend
+    build:
+      context: ../frontend
+      dockerfile: ../docker/frontend.development.Dockerfile
+    
+    # env_file:
+    #   - .env
 
-    #   environment:
+    ports:
+      - 3000:3000
 
-    #   ports:
-    #     - 8080:8080
+    volumes:  # Hot reload
+      - ../frontend:/app
 
 volumes:
   mysql_data:

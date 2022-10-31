@@ -3,7 +3,7 @@
 
 name: Frontend CI
 
-on:
+on:  
   push:
     branches:
       - release
@@ -11,7 +11,13 @@ on:
       - 'frontend/**'
   
   pull_request:
-    branches: [ "frontend", "develop" ]
+    branches: 
+      - develop
+    paths:
+      - 'frontend/**'
+
+  workflow_call:
+
 
 jobs:
   test:

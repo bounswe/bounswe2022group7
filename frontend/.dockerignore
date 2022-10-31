@@ -5,7 +5,5 @@
 READme.md
 *Dockerfile*
 *docker-compose*
-.parcel-cache
-dist
 node_modules
-package-lock.json
+build
