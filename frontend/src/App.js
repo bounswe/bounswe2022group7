@@ -34,7 +34,7 @@ function App() {
             element={<SignInPage />}
           />
           <Route
-            path="/art_item/:id"
+            path="/artitem/:id"
             element={<ArtItemPage />}
           />
           <Route
