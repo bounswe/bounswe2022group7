@@ -34,7 +34,7 @@
         }
     ],
     "volumes": [],
-    "networkMode": null,
+    "networkMode": "host",
     "placementConstraints": [],
     "family": "frontend",
     "taskRoleArn": "arn:aws:iam::810310430194:role/ecsTaskExecutionRole",
