@@ -1,4 +1,5 @@
 import 'package:android/config/app_routes.dart';
+import 'package:android/network/home/get_postlist_output.dart';
 import 'package:android/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ import 'package:android/models/models.dart';
 import 'package:android/data/data.dart';
 import 'package:provider/provider.dart';
 
+import '../network/home/get_postlist_service.dart';
 import '../providers/user_provider.dart';
 import '../widgets/alert.dart';
 
@@ -27,10 +29,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    CurrentUser? user = Provider.of<UserProvider>(context).user;
-
+  Scaffold homePageScaffold(CurrentUser? user, List<Post> postlist) {
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
@@ -88,9 +87,7 @@ class _HomePageState extends State<HomePage> {
         SliverList(
             delegate: SliverChildBuilderDelegate(
           (context, index) {
-            final ArtItem artItem = artItems[index];
-            final Event event = events[index];
-            return FeedContainer(artItem: artItem, event: event);
+            return FeedContainer(post: postlist[index]);
           },
           childCount: events.length,
         )),
@@ -200,6 +197,56 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
+    );
+  }
+
+  Scaffold erroneousHomePage() {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Home Page"),
+      ),
+      body: const Center(
+        child: Text("Error"),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    CurrentUser? user = Provider.of<UserProvider>(context).user;
+
+    return FutureBuilder(
+      future: user != null ? getUserPost(user) : getGenericPost(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return const CircularProgressIndicator();
+          default:
+            if (snapshot.hasError) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text("Snapshot Error!"),
+                ),
+                body: Center(
+                  child: Text("Error: ${snapshot.error}"),
+                ),
+              );
+            }
+
+            if (snapshot.data != null) {
+              GetPostListOutput responseData = snapshot.data!;
+              if (responseData.status != "OK") {
+                return erroneousHomePage();
+              }
+              List<Post> postList = responseData.list!;
+              return homePageScaffold(user, postList);
+            } else {
+              // snapshot.data == null
+              return erroneousHomePage();
+            }
+        }
+      },
     );
   }
 }
