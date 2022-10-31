@@ -78,8 +78,9 @@ I have taken part in the frontend development of our project. I worked on variou
 
 ### Pull requests
 - Fetch data for home page [#337](https://github.com/bounswe/bounswe2022group7/pull/337)
-#### As Reviwers
+### As Reviwers
 - [#349](https://github.com/bounswe/bounswe2022group7/pull/349)
+- [#289[(https://github.com/bounswe/bounswe2022group7/issues/289)
 
 ## Ali Can Milani
 
