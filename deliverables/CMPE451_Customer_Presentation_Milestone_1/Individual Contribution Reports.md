@@ -167,6 +167,10 @@ Issues I reviewed
 - [#327](https://github.com/bounswe/bounswe2022group7/pull/327): With this PR, all backend related commits are merged to the develop branch.
 - [#345](https://github.com/bounswe/bounswe2022group7/pull/345): With this PR, debug the nested loop bug related with JsonReferences.
 
+### As Reviwers
+- [#275](https://github.com/bounswe/bounswe2022group7/pull/275)
+- [#303](https://github.com/bounswe/bounswe2022group7/issues/303)
+
 
 ### Additional Information
 
