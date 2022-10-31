@@ -26,7 +26,7 @@ function ArtItemPage() {
     }
 
     if (token) fetchArgs.headers = {Authorization: "Bearer " + token}
-    fetch('/art_item/' + id, fetchArgs)
+    fetch('/api/art_item/' + id, fetchArgs)
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
