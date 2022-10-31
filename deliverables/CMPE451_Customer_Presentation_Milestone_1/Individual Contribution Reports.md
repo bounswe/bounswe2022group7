@@ -233,7 +233,7 @@ Management related significant issues:
 
 In addition to the work I have done for the milestone, I wanted to learn about annotations and make sure that we will be able to implement them with our current tech stack in the frontend. I did some research, looked into several alternatives and tested them. I was able to verify that some of the tools are applicable and I planned next steps for annotation implementation. Details can be found in [#297](https://github.com/bounswe/bounswe2022group7/issues/297).
 
-## Musa Şimiek
+## Musa Şimşek
 
 ### Member
 
@@ -279,6 +279,43 @@ Issues I reviewed
 - [Merge android/homepage to android #266](https://github.com/bounswe/bounswe2022group7/pull/266)
 
 ## Atilla Türkmen
+
+### Member
+
+My name is Atilla Türkmen. Contacts can be found on [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Atilla-Türkmen). You can also find [my time tracking on the wiki](https://github.com/bounswe/bounswe2022group7/wiki/Atilla-Türkmen-(Effort-Tracking)).
+
+### Responsibilities
+
+- I am a member of the mobile team. I worked on research and implementation. I also helped managing the mobile team.
+
+### Main Contributions
+
+I have created the structure of the mobile Flutter application and generally created a foundation for my teammates' implementation. I have implemented register page UI and network connection with tests, form validators and implemented models and network connection for art item page. I also have implemented the class that stores user data in local storage and provides it to pages.
+
+Code related significant issues:
+- Register Form Implementation: [#263 Form Validators with Unit Tests](https://github.com/bounswe/bounswe2022group7/issues/263) [#294 Register Form UI](https://github.com/bounswe/bounswe2022group7/issues/294) [#318 Connecting Register Form to Backend](https://github.com/bounswe/bounswe2022group7/issues/318)
+- Implementation of Storing User data in Local Storage: [#292 Save user data on login, user provider implementation](https://github.com/bounswe/bounswe2022group7/issues/292)
+- Logout functionality with confirmation pop up: [#321](https://github.com/bounswe/bounswe2022group7/issues/321)
+- Implementation of art item page network connection and models: [#339](https://github.com/bounswe/bounswe2022group7/issues/339)
+
+Management related significant issues:
+- [#241 Updating the Project Plan](https://github.com/bounswe/bounswe2022group7/issues/241): I worked on updating the project plan specifically about updating the tasks for the mobile team and estimating their time.
+
+### Pull Requests
+
+- [#267](https://github.com/bounswe/bounswe2022group7/pull/267): With this PR, I added the basic UI of the register page and validators with unit tests.
+- [#293](https://github.com/bounswe/bounswe2022group7/pull/293): With this PR, I added the functionality for storing user information in local storage and providing it to pages.
+- [#320](https://github.com/bounswe/bounswe2022group7/pull/320): With this PR, I connected the register form to backend endpoint.
+- [#360](https://github.com/bounswe/bounswe2022group7/pull/360): With this PR, I added extra tests for register form.
+- [#363](https://github.com/bounswe/bounswe2022group7/pull/363): With this PR, I added an .env file for storing our server connection information such as IP address and port number.
+
+### Pull Requests I Reviewed
+
+- [#281](https://github.com/bounswe/bounswe2022group7/pull/281)
+- [#340](https://github.com/bounswe/bounswe2022group7/pull/340)
+- [#352](https://github.com/bounswe/bounswe2022group7/pull/352)
+- [#364](https://github.com/bounswe/bounswe2022group7/pull/364)
+- [#365](https://github.com/bounswe/bounswe2022group7/pull/365)
 
 ## Can Atakan Uğur
 
