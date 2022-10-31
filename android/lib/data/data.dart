@@ -1,6 +1,8 @@
+import 'package:android/models/art_item/art_item_creator_model.dart';
 import 'package:android/models/models.dart';
 
 final User vanGogh = User(
+    id: 0,
     userType: "Artist",
     name: 'Vincent van Gogh',
     email: 'vg@mail.com',
@@ -8,6 +10,7 @@ final User vanGogh = User(
     imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg/1280px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg');
 final User dali = User(
+    id: 0,
     userType: "Artist",
     username: "username",
     name: 'Salvador Dali',
@@ -16,6 +19,7 @@ final User dali = User(
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Salvador_Dal%C3%AD_1939.jpg/1280px-Salvador_Dal%C3%AD_1939.jpg');
 
 final User ahmet = User(
+    id: 0,
     userType: "Regular User",
     username: "username",
     name: 'Ahmet',
@@ -23,6 +27,7 @@ final User ahmet = User(
     imageUrl: 'https://api.multiavatar.com/Robo.png');
 
 final User mehmet = User(
+    id: 0,
     userType: "Regular User",
     username: "username",
     name: 'Mehmet',
@@ -30,6 +35,7 @@ final User mehmet = User(
     imageUrl: 'https://api.multiavatar.com/Evilnormie.png');
 
 final User tom = User(
+  id: 0,
   userType: "Regular User",
   name: 'Tom Bombadil',
   email: 'bombadil@anduin.me',
@@ -49,7 +55,7 @@ final List<ArtItem> artItems = [
           'https://media.overstockart.com/optimized/cache/data/product_images/VG485-1000x1000.jpg',
       labels: ['classical', 'painting'],
     ),
-    creator: vanGogh,
+    creator: ArtItemCreator(id: 0, name: 'van', surname: 'gogh'),
     creationDate: DateTime(2021, 10, 29),
     owner: ahmet,
     onAuction: false,
@@ -69,7 +75,7 @@ final List<ArtItem> artItems = [
           'https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg',
       labels: ['classical', 'painting'],
     ),
-    creator: dali,
+    creator: ArtItemCreator(id: 0, name: 'Salvador', surname: 'Dali'),
     creationDate: DateTime(2021, 10, 29),
     owner: ahmet,
     onAuction: false,

@@ -14,6 +14,7 @@ class ArtItemPage extends StatefulWidget {
 class _ArtItemPageState extends State<ArtItemPage> {
   @override
   Widget build(BuildContext context) {
+    // TODO show art item coming from getArtItemNetwork(id) function
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.artItem.artItemInfo.name),

@@ -1,5 +1,3 @@
-import 'package:android/models/user_model.dart';
-
 import 'package:android/util/string_helpers.dart';
 
 class ArtItemInfo {

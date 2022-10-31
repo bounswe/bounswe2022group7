@@ -1,9 +1,10 @@
+import 'package:android/models/art_item/art_item_creator_model.dart';
 import 'package:android/models/models.dart';
 
 class ArtItem {
   final int id;
   final ArtItemInfo artItemInfo;
-  final User creator;
+  final ArtItemCreator creator;
   final DateTime creationDate;
   final User owner;
   final bool onAuction;
@@ -28,12 +29,10 @@ class ArtItem {
   factory ArtItem.fromJson(Map<String, dynamic> json) {
     return ArtItem(
       id: json['id'],
-
       artItemInfo: ArtItemInfo.fromJson(json['artItemInfo']),
-
-      creator: User.fromJson(json['creator']),
+      creator: ArtItemCreator.fromJson(json['creator']),
       creationDate: DateTime.parse(json['creationDate']),
-      owner: User.fromJson(json['owner']),
+      owner: User.fromJson(json['owner']["accountInfo"]),
 
       // Auction model has not been implemented yet
       onAuction: false,
