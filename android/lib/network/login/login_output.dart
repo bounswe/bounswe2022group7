@@ -1,5 +1,3 @@
-import 'package:android/models/user_model.dart';
-
 class LoginOutput {
   final String status;
   final String? token;
