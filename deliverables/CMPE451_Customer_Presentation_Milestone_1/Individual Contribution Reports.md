@@ -113,6 +113,65 @@ Management related significant issues:
 
 ## Başak Önder
 
+### Member
+
+My name is Başak Önder . Contacts can be found on [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Başak-Önder). You can also find [my time tracking on the wiki](https://github.com/bounswe/bounswe2022group7/wiki/Başak-Önder-(Effort-Tracking))).
+
+### Responsibilities
+
+- I am a member of the backend team. I worked on research and implementation, and also debugging. 
+
+### Main Contributions
+
+I started to work on dockerization issue of backend and database. I researched about this topic and started to work on the structure. We finished and concluded this part successfully with Erkin. Before starting the project we decided to use Kotlin with Sprin Boot and MySql. I had no previous experienced with Kotlin. Hence, I researched about it and also took guide from other members of backend team about implementation. After this research and with this guidance, I implemented classes related to sign up/log in functions and home page. Also, implemented one endpoint about art items and a few endpoints to create data to database.
+
+Issues I opened:
+- [#257 Implementation of OnlineGallery and ArtItemInfo Classes](https://github.com/bounswe/bounswe2022group7/issues/257)
+- [#259 Uploading Target File to the Backend Directory](https://github.com/bounswe/bounswe2022group7/issues/259)
+- [#271 Implementation of Authentication Part](https://github.com/bounswe/bounswe2022group7/issues/271)
+- [#301 Single Event Endpoint](https://github.com/bounswe/bounswe2022group7/issues/301)
+- [#308 Implementation of Login and Signup Endpoints](https://github.com/bounswe/bounswe2022group7/issues/308)
+- [#309 Fix: Remove wrong usage of cascade ](https://github.com/bounswe/bounswe2022group7/issues/309)
+
+Issues I was assigned
+- [#237 Update team members](https://github.com/bounswe/bounswe2022group7/issues/237)
+- [#243 Revision of Requirements](https://github.com/bounswe/bounswe2022group7/issues/243)
+- [#252 Backend Dockerization and Deployment to AWS](https://github.com/bounswe/bounswe2022group7/issues/252)
+- [#278 Implementation of Visitor and Guest Classes](https://github.com/bounswe/bounswe2022group7/issues/278)
+- [#299 Implementation of RegisteredUser Class](https://github.com/bounswe/bounswe2022group7/issues/299)
+- [#302 Implement Single Art Item Endpoint](https://github.com/bounswe/bounswe2022group7/issues/302)
+- [#305 Implementation of AccountInfo Class](https://github.com/bounswe/bounswe2022group7/issues/305)
+- [#306 Update hardcoded endpoints from homepage controller](https://github.com/bounswe/bounswe2022group7/issues/306)
+- [#310 Research on Inheritance and Hibernate Entegration](https://github.com/bounswe/bounswe2022group7/issues/310)
+- [#323 Add JsonManagedReference and JsonBackReference Annotations](https://github.com/bounswe/bounswe2022group7/issues/323)
+- [#344 [Backend] Recursion Problem in Art Items](https://github.com/bounswe/bounswe2022group7/issues/344)
+
+Issues I reviewed
+- [#247 Revising the Mock-ups](https://github.com/bounswe/bounswe2022group7/issues/247)
+- [#250 Revisions on UML Class Diagram](https://github.com/bounswe/bounswe2022group7/issues/250)
+- [#259 Uploading Target File to the Backend Directory](https://github.com/bounswe/bounswe2022group7/issues/259)
+- [#271 Implementation of Authentication Part](https://github.com/bounswe/bounswe2022group7/issues/271)
+- [#296 Fix Comment and Discussion Post structures](https://github.com/bounswe/bounswe2022group7/issues/296)
+- [#301 Single Event Endpoint](https://github.com/bounswe/bounswe2022group7/issues/301)
+- [#308 Implementation of Login and Signup Endpoints](https://github.com/bounswe/bounswe2022group7/issues/308)
+
+### Pull Requests
+
+- [#276](https://github.com/bounswe/bounswe2022group7/pull/276): With this PR, backend and database parts are dockerized.
+- [#277](https://github.com/bounswe/bounswe2022group7/pull/277): With this PR, home-page related classes are implemented.
+- [#300](https://github.com/bounswe/bounswe2022group7/pull/300): With this PR, registered user class is implemented.
+- [#307](https://github.com/bounswe/bounswe2022group7/pull/307): With this PR, account info class is implemented.
+- [#311](https://github.com/bounswe/bounswe2022group7/pull/311): With this PR, hard coded data is removed from the endpoints.
+- [#322](https://github.com/bounswe/bounswe2022group7/pull/322): With this PR, endpoint that returns single art item is implemented.
+- [#325](https://github.com/bounswe/bounswe2022group7/pull/325): With this PR, necessary key related with security is added to env variables.
+- [#327](https://github.com/bounswe/bounswe2022group7/pull/327): With this PR, all backend related commits are merged to the develop branch.
+- [#345](https://github.com/bounswe/bounswe2022group7/pull/345): With this PR, debug the nested loop bug related with JsonReferences.
+
+
+### Additional Information
+
+In addition to the work I have done for the milestone, I would like to learn  more in-depth knowledge about how to implement class diagram relations in Kotlin and about the Kotlin features has that facilitates our work. 
+
 ## Cahid Arda Öz
 
 ### Member
