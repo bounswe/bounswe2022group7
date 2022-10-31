@@ -161,10 +161,10 @@ class DataProp {
         eventInfo2.labels = "[\"mystery\", \"ceramic\", \"wood\"]"
         eventInfo2.startingDate = Calendar.getInstance().time
         eventInfo2 = eventInfoRepository.save(eventInfo1)
-        event1.eventInfo = eventInfo2
+        event2.eventInfo = eventInfo2
         var location2 = Location()
         location2.address = "England"
-        event1.location = location2
+        event2.location = location2
         eventList.add(physicalExhibitionRepository.save(event1))
         eventList.add(physicalExhibitionRepository.save(event2))
 
