@@ -1,3 +1,4 @@
+import 'package:android/models/art_item/art_item_creator_model.dart';
 import 'package:android/models/models.dart';
 
 class GetPostListOutput {
@@ -11,10 +12,15 @@ class GetPostListOutput {
       : status = "OK",
         list = List<Post>.empty(growable: true) {
     for (final event in events.list) {
+      ArtItemCreator? creator = ArtItemCreator(
+        id: event.creator.id,
+        name: event.creator.name,
+        surname: event.creator.surname ?? "",
+      );
       Post post = Post(
         type: "Event",
         id: event.id,
-        creator: event.creator,
+        creator: creator,
         title: event.eventInfo.title,
         description: event.eventInfo.description,
         imageUrl: event.eventInfo.posterUrl,

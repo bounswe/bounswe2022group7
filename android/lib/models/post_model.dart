@@ -1,12 +1,12 @@
-import 'package:android/models/user_model.dart';
+import 'package:android/models/art_item/art_item_creator_model.dart';
+import 'package:android/pages/art_item_page.dart';
 import 'package:android/pages/event_page.dart';
 import 'package:flutter/material.dart';
-import 'package:android/models/models.dart';
 
 class Post {
   final String type;
   final int id;
-  final User creator;
+  final ArtItemCreator? creator;
   final String title;
   final String description;
   final String? imageUrl;
@@ -14,24 +14,30 @@ class Post {
   Post({
     required this.type,
     required this.id,
-    required this.creator,
+    this.creator,
     required this.title,
     required this.description,
     required this.imageUrl,
   });
 
   Widget pageRoute() {
-    return EventPage(id: id);
+    if (type == "Event") {
+      return EventPage(id: id);
+    } else {
+      return ArtItemPage(id: id);
+    }
   }
 
   Widget titleRow() {
     return Row(
       children: [
+        /*
         CircleAvatar(
           radius: 20.0,
           backgroundColor: Colors.grey[300],
           backgroundImage: NetworkImage(creator.imageUrl),
         ),
+         */
         const SizedBox(width: 10.0),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
@@ -43,14 +49,15 @@ class Post {
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 4.0),
-          Row(
-            children: [
-              Icon(Icons.supervisor_account,
-                  size: 12.0, color: Colors.grey[600]),
-              const SizedBox(width: 5.0),
-              Text("Host: ${creator.name}"),
-            ],
-          )
+          if (creator != null)
+            Row(
+              children: [
+                Icon(Icons.supervisor_account,
+                    size: 12.0, color: Colors.grey[600]),
+                const SizedBox(width: 5.0),
+                Text("Host: ${creator?.name}"),
+              ],
+            )
         ]),
         const Spacer(),
         IconButton(
@@ -60,78 +67,6 @@ class Post {
       ],
     );
   }
-
-/*Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              post.postTitleRow(),
-                              const SizedBox(height: 10.0),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.calendar_month,
-                                    color: Colors.grey[600],
-                                    size: 12.0,
-                                  ),
-                                  const SizedBox(width: 5.0),
-                                  Text(
-                                    event.eventInfo.startingDate
-                                        .toString()
-                                        .substring(0, 16),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.location_pin,
-                                    color: Colors.grey[600],
-                                    size: 12.0,
-                                  ),
-                                  const SizedBox(width: 5.0),
-                                  Text(event.location.address)
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    
-
-
-
-
-
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.calendar_month,
-                                    color: Colors.grey[600],
-                                    size: 12.0,
-                                  ),
-                                  const SizedBox(width: 5.0),
-                                  Text(
-                                    event.eventInfo.startingDate
-                                        .toString()
-                                        .substring(0, 16),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.location_pin,
-                                    color: Colors.grey[600],
-                                    size: 12.0,
-                                  ),
-                                  const SizedBox(width: 5.0),
-                                  Text(event.location.address)
-                                ],
-                              );*/
 
   Widget imageNetwork() {
     return imageUrl != null ? Image.network(imageUrl!) : Container();

@@ -2,7 +2,6 @@ import 'package:android/models/models.dart';
 
 // imported to use dummy data for now
 import 'package:android/data/data.dart';
-import 'package:android/util/string_helpers.dart';
 
 class Event {
   final int id;
