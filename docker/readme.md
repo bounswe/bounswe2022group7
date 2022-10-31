@@ -38,7 +38,7 @@ To run the production version of the application use the following commands:
 - For **"production-env-file.env"** create an environment variable file, you can use the current `.env` file uploaded to repository as your template.
 
 ```bash
-docker build -f backend.Dockerfile.production -t "image-name" ../backend
+docker build -f backend.production.Dockerfile -t "image-name" ../backend
 docker run --env-file="production-env-file.env" -p 8080:8080 -t "image-name"
 ```
 
