@@ -2,7 +2,6 @@ import 'package:android/models/models.dart';
 
 // imported to use dummy data for now
 import 'package:android/data/data.dart';
-import 'package:android/util/string_helpers.dart';
 
 class Event {
   final int id;
@@ -33,8 +32,19 @@ class Event {
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
       id: json['id'],
-      eventInfo: EventInfo.fromJson(json['eventInfo']),
-
+      eventInfo: json['eventInfo'] != null
+          ? EventInfo.fromJson(json['eventInfo'])
+          : EventInfo(
+              id: 1,
+              title: 'Van Gogh Exhibition',
+              endingDate: DateTime(2021, 12, 31),
+              startingDate: DateTime(2021, 12, 1),
+              description: 'A great exhibition of Van Gogh\'s works.',
+              category: 'Post-Impressionism ',
+              labels: ['french', 'post-impressionism', 'painting'],
+              posterUrl:
+                  'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
+            ),
       // *** User model has not been implemented by the back-end team yet ***
       // use the dummy data for now, uncomment below when the back-end team is done
 
@@ -51,7 +61,14 @@ class Event {
       // Comment model has not been implemented, just store as strings
       commentList: json['commentList'].cast<String>(),
 
-      location: Location.fromJson(json['location']),
+      location: json['location'] != null
+          ? Location.fromJson(json['location'])
+          : Location(
+              id: 1,
+              address: 'Van Gogh Museum, Amsterdam',
+              latitude: 52.358,
+              longitude: 4.881,
+            ),
       rules: json['rules'],
 
       // attendees: json['attendees'].map((e) => User.fromJson(e)).toList(),

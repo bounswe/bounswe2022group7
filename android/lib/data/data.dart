@@ -43,7 +43,7 @@ final User tom = User(
   username: '@tombadil',
 );
 
-final List<ArtItem> artItems = [
+/*final List<ArtItem> artItems = [
   ArtItem(
     id: 1,
     artItemInfo: ArtItemInfo(
@@ -84,7 +84,7 @@ final List<ArtItem> artItems = [
     commentList: [],
     bookmarkedBy: [mehmet],
   ),
-];
+];*/
 
 final List<Event> events = [
   Event(

@@ -38,7 +38,7 @@ class EventInfo {
       //labels: json['labels'].map((e) => e.toString()).toList(),
       labels: stringToList(json['labels']),
 
-      posterUrl: json['posterUrl'],
+      posterUrl: json['posterUrl'] ?? 'https://api.multiavatar.com/Robo.png',
     );
   }
 }
