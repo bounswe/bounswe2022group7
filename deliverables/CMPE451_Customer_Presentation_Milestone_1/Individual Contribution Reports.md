@@ -54,7 +54,21 @@ Since the backend code initialization is done on a new branch. Pull request was 
 
 
 ## Enes Aydoğduoğlu
+### Member
+My name is Enes Aydoğduoğlu. I am in the frontend development team. You can check out [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu) and [my effort tracking page](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu-(Effort-Tracking))
 
+### Responsibilities
+I have taken part in the frontend development of our project. I worked on research, documentation, and testing.
+
+### Main Contributions
+Since I was involved in the project this term, I first examined every document of the project on github. I reviewed the diagrams and contributed to the updating of the requirements. I create my wiki and effort tracking pages. I tried to add the event page on the frontend, but I could not add it successfully.
+Issues:
+- [Adding Event Page to frontend [#356]](https://github.com/bounswe/bounswe2022group7/issues/356)
+- [Revising System Requirements [#254]](https://github.com/bounswe/bounswe2022group7/issues/254)
+### Pull requests
+
+### As Reviwers
+- [#324](https://github.com/bounswe/bounswe2022group7/pull/324)
 ## Erim Erkin Doğan
 ### Member
 My name is Erim Erkin Doğan, I am a senior student. My contact information can be found [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Erim-Erkin-Do%C4%9Fan) and weekly updates can be found in my [tracking page](https://github.com/bounswe/bounswe2022group7/wiki/Erim-Erkin-Do%C4%9Fan-(Effort-Tracking)).
