@@ -45,7 +45,6 @@ function ArtItemPage() {
   } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
-    console.log(artitem)
   return (
     <div>
       <Typography variant="h4" sx={{padding:2}}>

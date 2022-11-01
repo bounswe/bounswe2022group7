@@ -42,7 +42,6 @@ function EventPage() {
   } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
-    console.log(event)
   return (
     <div>
       <Typography variant="h4" sx={{padding:2}}>
