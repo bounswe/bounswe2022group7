@@ -333,6 +333,80 @@ Management related significant issues:
 
 ## Can Atakan Uğur
 
+### Member
+I am a part of the Mobile Team in Group 7 and developing a collaborative art platform with my devoted team members. Feel free to get more information about me by [visiting my personal page](https://github.com/bounswe/bounswe2022group7/wiki/Can-Atakan-U%C4%9Fur). To have a general idea about my contributions, you may [check my effort tracking reports](https://github.com/bounswe/bounswe2022group7/wiki/Can-Atakan-U%C4%9Fur-(Effort-Tracking)).
+
+### Responsibilities 
+Although my main role is being a developer in the Mobile Team, I also took responsibilities on various fields. Those include planning our development, actively monitoring the designs for our implementation and our interactions with the customer. I also took the responsibility of being a presenter in our first Customer Presentation.
+
+Apart from these fundamental responsibilities of mine, I participated in the discussions within the team and tried to be helpful for all of my friends. I have actively followed the development process, and been a participant of it. 
+
+### Main Contributions
+
+**Code Related Significant Issues**
+
+1. Core Contributions:
+
+* [Implement Home Page #265](https://github.com/bounswe/bounswe2022group7/issues/265)
+* [Customize the Home Page for Guest Users #313](https://github.com/bounswe/bounswe2022group7/issues/313)
+* [Implement Event page with endpoint integrations #330](https://github.com/bounswe/bounswe2022group7/issues/330)
+* [Implement the Art Item page with endpoint integrations #331](https://github.com/bounswe/bounswe2022group7/issues/331)
+* [Updating the App Name #350](https://github.com/bounswe/bounswe2022group7/issues/350)
+* [Add tests for the Event Page #361](https://github.com/bounswe/bounswe2022group7/issues/361)
+
+
+2. Significant Issue Conversations & Reviews:
+
+* [Implementation of Profile Page #262](https://github.com/bounswe/bounswe2022group7/issues/262): Contributed via the discussions with Musa Şimşek.
+
+
+**Management Related Significant Issues**
+
+1. Core Contributions:
+
+* [Review and update the Class Diagram #239](https://github.com/bounswe/bounswe2022group7/issues/239)
+* [Review and update the Sequence Diagram for Annotations #240](https://github.com/bounswe/bounswe2022group7/issues/240)
+* [Review and update the Project Plan #241](https://github.com/bounswe/bounswe2022group7/issues/241)
+* [Fix Comment and Discussion Post structures #296](https://github.com/bounswe/bounswe2022group7/issues/296)
+* [Preparing Deliverables for Milestone #329](https://github.com/bounswe/bounswe2022group7/issues/329)
+* [Customer Meeting Presentation Preparation #353](https://github.com/bounswe/bounswe2022group7/issues/353) and being a presenter during the Customer Meeting Presentation.
+
+2. Significant Issue Conversations & Reviews:
+
+* [Review and Update Discussion Forum Sequence Diagram #245](https://github.com/bounswe/bounswe2022group7/issues/245#issuecomment-1277495036): Feedback about the Sequence Diagram revision.
+* [Preparing Questions for the Customer Meeting #242](https://github.com/bounswe/bounswe2022group7/issues/242#issuecomment-1273758425): Feedback about the Customer Questions & recommendations.
+
+
+### Pull Requests
+
+* [Merge android/homepage to android #266](https://github.com/bounswe/bounswe2022group7/pull/266)
+* [Merge changes in Android to Develop #328](https://github.com/bounswe/bounswe2022group7/pull/328)
+* [[Mobile] Merge Event Page integrations to Develop #348](https://github.com/bounswe/bounswe2022group7/pull/348)
+* [Merge app name updates into develop #352](https://github.com/bounswe/bounswe2022group7/pull/352)
+* [Merge Event Page tests into Develop #364](https://github.com/bounswe/bounswe2022group7/pull/364)
+* [Merge Art Item updates into Develop #365](https://github.com/bounswe/bounswe2022group7/pull/365)
+
+
+### Pull Request Reviews
+
+* [Dev/profilepage musa #279](https://github.com/bounswe/bounswe2022group7/pull/279#pullrequestreview-1153602119)
+* [Implemented user provider #293](https://github.com/bounswe/bounswe2022group7/pull/293#pullrequestreview-1154478646)
+* [Connected register form to backend #320](https://github.com/bounswe/bounswe2022group7/pull/320#pullrequestreview-1161024425)
+* [Merge Changes in Frontend into Develop #324](https://github.com/bounswe/bounswe2022group7/pull/324#pullrequestreview-1161020804)
+* [[Mobile] Add Widget Test for Register Page #360](https://github.com/bounswe/bounswe2022group7/pull/360#pullrequestreview-1162523766)
+* [Dev/android/home page #362](https://github.com/bounswe/bounswe2022group7/pull/362#pullrequestreview-1162617659)
+* [[Mobile] Added .env file for server configuration #363](https://github.com/bounswe/bounswe2022group7/pull/363#pullrequestreview-1162447300)
+
+
+### Meetings
+
+I had a **100% participation rate** in all General and Mobile Team meetings. Here are the meetings that I was the note-taker:
+
+* Mobile Meeting #2 ([issue #285](https://github.com/bounswe/bounswe2022group7/issues/285))
+* Mobile Meeting #1 ([issue #260](https://github.com/bounswe/bounswe2022group7/issues/260))
+* General Meeting #1 ([issue #238](https://github.com/bounswe/bounswe2022group7/issues/238))
+
+
 ## Demet Yayla
 
 ### Member
