@@ -1,0 +1,100 @@
+This page contains the sequence diagrams created for our platform.
+
+# 1 - Handle Copyright Infringement Report
+![1  Handle Copyright Infringement Report](https://user-images.githubusercontent.com/57228345/163859310-cc8c667f-55fd-4a34-b919-69602e64c8cf.png)
+
+*Cahid Arda Öz*
+
+*Reviewer: Oğuz Pançuk*
+
+# 2 - Bidding
+
+![2  Bidding](https://user-images.githubusercontent.com/57228345/163859431-79225199-4a07-4bd1-9a26-84cd14801985.png)
+
+*Demet Yayla*
+
+*Reviewer: Can Atakan Uğur*
+
+# 3 - Write Comment
+
+![3  Write a comment](https://user-images.githubusercontent.com/57228345/163859493-ea2e0635-c0f5-4551-8c86-fa8187d14254.png)
+
+*Güney İzol*
+
+*Reviewer: Atilla Türkmen*
+
+# 4 - Create Physical Event
+
+![4  Create Physical Event](https://user-images.githubusercontent.com/57228345/163859559-e7714b7f-5f59-4c20-8a19-b072cc203e09.png)
+
+*Erim Erkin Doğan*
+
+*Reviewer: Aziza Mankenova*
+
+# 5 - Editing Online Gallery
+
+![5  Edit Online Gallery](https://user-images.githubusercontent.com/57228345/163859794-e66af20f-ad55-4413-87ce-909c671a6d52.png)
+
+*Erim Erkin Doğan*
+
+*Reviewer: Aziza Mankenova*
+
+# 6 - Annotation
+
+![Sequence diagram - 6  Annotation](https://user-images.githubusercontent.com/56476673/198987698-e1ceef92-630a-4f7d-8ebe-ee3f64773772.png)
+
+*Can Atakan Uğur*
+
+*Reviewer: Demet Yayla*
+
+# 7 - Discussion Forum 
+
+![Sequence diagram - 7  Discussion Forum](https://user-images.githubusercontent.com/64031659/198673813-75b21d6a-68f1-4935-8edc-5c7cb1dfc6ae.png)
+
+
+*Ali Can Milani*
+
+*Reviewed during a group meeting*
+
+# 8 - Auction
+
+![Sequence diagram - 8  Auction](https://user-images.githubusercontent.com/57228345/163860365-9e00a84a-739b-4e7a-bf5c-6d19bc1ae43a.png)
+
+*Demet Yayla*
+
+*Reviewed during a group meeting*
+
+# 9 - Editing Profile
+
+![9  Editing Profile](https://user-images.githubusercontent.com/57228345/163859988-fa31e06b-757c-4476-a229-d1d7d8efded0.png)
+
+*Aziza Mankenova*
+
+*Reviewer: Ali Can Milani*
+
+# 10 - Registration
+
+![10  Registration](https://user-images.githubusercontent.com/57228345/163860083-5a67e9f0-0d2e-4050-afe4-6821791ca21e.png)
+
+*Güney İzol*
+
+*Reviewed during a group meeting*
+
+# 11 - Login
+
+![11  Login](https://user-images.githubusercontent.com/57228345/163860098-8a09ee7d-65df-4055-8d14-84286a5fbd95.png)
+
+*Güney İzol*
+
+*Reviewed during a group meeting*
+
+# 12 - Adding Art Item
+
+![12  Adding Art Item](https://user-images.githubusercontent.com/57228345/163859850-f477fc34-38da-4650-ba12-a417b423e91c.png)
+
+*Atilla Türkmen*
+
+*Reviewer: Hasan Bingölbali*
+
+**Created using the [lucid.app](lucid.app) and [plantuml.com](plantuml.com)**
+
