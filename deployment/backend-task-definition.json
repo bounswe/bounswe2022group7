@@ -1,0 +1,42 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:eu-central-1:810310430194:task-definition/backend:3",
+  "containerDefinitions": [
+      {
+          "name": "cmpe451-backend",
+          "image": "810310430194.dkr.ecr.eu-central-1.amazonaws.com/cmpe451-backend:backendtest",
+          "cpu": 0,
+          "memory": 512,
+          "portMappings": [
+              {
+                  "containerPort": 8080,
+                  "hostPort": 8080,
+                  "protocol": "tcp"
+              }
+          ],
+          "essential": true,
+          "environment": [],
+          "environmentFiles": [
+              {
+                  "value": "arn:aws:s3:::cmpe451/backend.production.env",
+                  "type": "s3"
+              }
+          ],
+          "mountPoints": [],
+          "volumesFrom": []
+      }
+  ],
+  "family": "backend",
+  "taskRoleArn": "arn:aws:iam::810310430194:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::810310430194:role/ecsTaskExecutionRole",
+  "networkMode": "host",
+  "volumes": [],
+  "placementConstraints": [],
+  "compatibilities": [
+      "EXTERNAL",
+      "EC2"
+  ],
+  "requiresCompatibilities": [
+      "EC2"
+  ],
+  "tags": []
+}

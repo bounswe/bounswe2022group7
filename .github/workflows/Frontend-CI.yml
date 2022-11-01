@@ -3,7 +3,7 @@
 
 name: Frontend CI
 
-on:
+on:  
   push:
     branches:
       - release
@@ -11,7 +11,13 @@ on:
       - 'frontend/**'
   
   pull_request:
-    branches: [ "frontend", "develop" ]
+    branches: 
+      - develop
+    paths:
+      - 'frontend/**'
+
+  workflow_call:
+
 
 jobs:
   test:
@@ -31,6 +37,5 @@ jobs:
     - name: Build and test the frontend application
       working-directory: ./frontend
       run: |
-        npm i
-        npm run build --if-present
-        npm test
+        npm ci
+        CI=false npm run build --if-present
