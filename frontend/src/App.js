@@ -7,6 +7,7 @@ import ResponsiveAppBar from './ResponsiveAppBar';
 import HomePage from "./pages/HomePage/HomePage"
 import CreateArtItemPage from "./pages/ArtItemPage/CreateArtItemPage"
 import ArtItemPage from "./pages/ArtItemPage/ArtItemPage"
+import EventPage from "./pages/EventPage/EventPage"
 import SignInPage from './pages/Authentication/SignInPage';
 import SignUpPage from './pages/Authentication/SignUpPage';
 import ErrorPage from './pages/ErrorPage';
@@ -36,6 +37,10 @@ function App() {
           <Route
             path="/artitem/:id"
             element={<ArtItemPage />}
+          />
+          <Route
+            path="/event/:id"
+            element={<EventPage />}
           />
           <Route
             path="/new/art_item"
