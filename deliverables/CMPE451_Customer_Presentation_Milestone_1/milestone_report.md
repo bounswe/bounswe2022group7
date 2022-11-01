@@ -1,3 +1,21 @@
+
+# Deliverables
+
+Below are the hyperlinks to our deliverable documents which are mentioned in the instructions:
+
+* [Software Requirements Specification](https://github.com/bounswe/bounswe2022group7/wiki/Requirements-(Draft))
+* Software Design (UML):
+  * [Use-Case Diagram](https://github.com/bounswe/bounswe2022group7/wiki/Use-Case-Diagram)
+  * [Class Diagram](https://github.com/bounswe/bounswe2022group7/wiki/Class-Diagram)
+  * [Sequence Diagram](https://github.com/bounswe/bounswe2022group7/wiki/Sequence-Diagrams)
+* Scenarios and Mockups
+  * [Scenario 1: Creating Events](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-1:-Creating-Events)
+  * [Scenario 2: Semantic Search and Discussion](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-2)
+  * [Scenario 3: Copyright Infringement Report](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-3:-Copyright-Infringement-Report)
+* [Project Plan](https://github.com/bounswe/bounswe2022group7/wiki/Project-Plan)
+* [Individual Contribution Reports](#Individual-Contribution-Reports)
+* [Customer Milestone 1 Group Review](#Milestone-Group-Review)
+
 # Individual Contribution Reports
 
 ## Sabri Mete Akyüz
@@ -459,3 +477,5 @@ Management Related Significant Issues:
 ### Pull Requests I Reviewed
 - [PR 345](https://github.com/bounswe/bounswe2022group7/pull/345)
 - [PR 345](https://github.com/bounswe/bounswe2022group7/pull/276)
+
+# Group Review
