@@ -240,19 +240,23 @@ My name is Cahid Arda Öz and I am the communicator of group 7. Contacts can be 
 ### Responsibilities
 
 - I was the communicator of the team and I was responsible for communications with the TA.
-- I am a member of the frontend team. I worked on research and implementation.
+- I am a member of the frontend team. I worked on research and implementation. I handled the token management, setting up the router, adding the art item and event pages.
 
 ### Main Contributions
 
 To start the project, I used the foundation created by Güney to format the project directory structure. I also looked into authentication and implemented authentication handling. I created the art item, sign up and sign in pages without functionality. Then I handled integration of art item page with the endpoints. In addition to the code, I contributed by helping new team members learn about the process.
 
 Code related significant issues:
-- [#268 Using Router in Frontend](https://github.com/bounswe/bounswe2022group7/issues/268): Güney had created the initial project files but there was a single route on the app. I used Router to manage more pages. I also changed folder structure of the project directory.
+- [#268 Using Router in Frontend](https://github.com/bounswe/bounswe2022group7/issues/268): Güney had created the initial project files but there was a single route on the app. I used Router to manage more pages. I also changed folder structure of the project directory. I also added an art item page with a comment section.
+- [#289 Extending Comments component to Cover any User Related Component](https://github.com/bounswe/bounswe2022group7/issues/289): I replaced the comment component I wrote in [#268](https://github.com/bounswe/bounswe2022group7/issues/268) as UserCard to handle comments and user components together. Then I prepared a mock data and rendered this data on the art item page.
 - [#290 Token Handling in the Frontend](https://github.com/bounswe/bounswe2022group7/issues/290): I learned about token handling in React and added token handling to our frontend.
+- [#343 Art Item Page Endpoint Integration](https://github.com/bounswe/bounswe2022group7/issues/343): I replaced the mock data I had put in the art item page with a fetch request to the API endpoint.
 - [#344 Recursion Problem in Art Items ](https://github.com/bounswe/bounswe2022group7/issues/344): I realised that there was a bug in the database usage. The backend team was aware of this issue and I provided some details about the problem.
+- [#356 Adding Event Page to frontend](https://github.com/bounswe/bounswe2022group7/issues/356): I worked on adding the event page to the frontend using the art item page I had created as reference.
 
 Management related significant issues:
 - [#242 Preparing Questions for the Customer Meeting](https://github.com/bounswe/bounswe2022group7/issues/242) and [#243 Revision of Requirements](https://github.com/bounswe/bounswe2022group7/issues/243): I worked with some of the new members in the team on the revision of requirements. They read the requirements and wrote their questions. I answered these questions and compiled some of their questions with other questions to prepare a question list. I also prepared an action item list for updating the requirements.
+- [#329 Preparing Deliverables for Milestone](https://github.com/bounswe/bounswe2022group7/issues/329): I handled the deliverable preparation and tracking together with @canatakan
 
 ### Pull Requests
 
@@ -260,6 +264,8 @@ Management related significant issues:
 - [#288](https://github.com/bounswe/bounswe2022group7/pull/288): With this PR, I added the static sign-up and sign-in pages.
 - [#291](https://github.com/bounswe/bounswe2022group7/pull/291): With this PR, I added token handling to the frontend.
 - [#324](https://github.com/bounswe/bounswe2022group7/pull/324): With this PR, we merged the changes we made in the frontend to the develop branch.
+- [#349](https://github.com/bounswe/bounswe2022group7/pull/349): With this PR, I integrated the art item page with the API endpoint.
+- [#367](https://github.com/bounswe/bounswe2022group7/pull/367): With this PR, I added the event page in the frontend.
 
 ### Additional Information
 
