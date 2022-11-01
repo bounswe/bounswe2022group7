@@ -474,6 +474,7 @@ Management Related Significant Issues:
 - [Before milestone presentations, there were some pop-up mock data related requests to be injected to database related to art items and events. I worked on those](https://github.com/bounswe/bounswe2022group7/issues/347)
 - Gave feedback on [this issue](https://github.com/bounswe/bounswe2022group7/issues/353) related to milestone presentations on Tuesday
 - I will be one of the notetakers in milestone presentations
+- [Participating with the documentation about backend endpoints for tagging the code base for milestone.](https://github.com/bounswe/bounswe2022group7/issues/368)
 
 ### Pull Requests
 - [PR 319](https://github.com/bounswe/bounswe2022group7/pull/319)
