@@ -18,7 +18,7 @@ class RegisteredUserController(
     private val registeredUserService: RegisteredUserService
 ){
     @PostMapping("/login")
-    fun login(@RequestBody loginRequest: @Valid LoginRequest): String? {
+    fun login(@RequestBody loginRequest: @Valid LoginRequest): String {
         return loginService.login(loginRequest)
     }
 

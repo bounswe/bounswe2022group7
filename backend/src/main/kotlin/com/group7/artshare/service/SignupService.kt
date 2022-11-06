@@ -5,8 +5,10 @@ import com.group7.artshare.entity.Authority
 import com.group7.artshare.entity.RegisteredUser
 import com.group7.artshare.repository.RegisteredUserRepository
 import com.group7.artshare.request.SignupRequest
+import org.springframework.http.HttpStatus
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.web.server.ResponseStatusException
 
 @Service
 class SignupService(
@@ -16,17 +18,15 @@ class SignupService(
 ) {
     fun signup(signupRequest: SignupRequest): Boolean {
         try {
-            val userType = signupRequest.getUserType()
-            val email = signupRequest.getEmail()
-            val password = signupRequest.getPassword()
-            val username = signupRequest.getUsername()
-            if(userType == null || email == null || password == null || username == null) {
-                return false
-            }
+            val email = signupRequest.getEmail() ?: throw Exception("Email is not specified")
+            val password = signupRequest.getPassword() ?: throw Exception("Password is not specified")
+            val username = signupRequest.getUsername() ?: throw Exception("Username is not specified")
+            val userType = signupRequest.getUserType() ?: throw Exception("User type is not specified")
+
             val encryptedPassword = passwordEncoder.encode(password)
 
-            registeredUserService.findByUsername(username)?.let{return false}
-            registeredUserService.findByEmail(email)?.let{return false}
+            registeredUserService.findByUsername(username)?.let { throw Exception("Username is already taken") }
+            registeredUserService.findByEmail(email)?.let { throw Exception("Email is already taken") }
 
             val accountInfo = AccountInfo(email, username, encryptedPassword)
             accountInfo.age = signupRequest.getAge()
@@ -38,7 +38,7 @@ class SignupService(
             registeredUserRepository.save(user)
             return true
         } catch (e: Exception) {
-            return false
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
         }
     }
 
