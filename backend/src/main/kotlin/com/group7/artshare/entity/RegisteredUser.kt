@@ -94,13 +94,27 @@ class RegisteredUser(
     )
     var bookmarkedOnlineGalleries: MutableSet<OnlineGallery> = mutableSetOf()
 
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "read_notifications",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "notification_id")]
+    )
+    var readNotifications: MutableSet<Notification> = mutableSetOf()
+
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "unread_notifications",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "notification_id")]
+    )
+    var unreadNotifications: MutableSet<Notification> = mutableSetOf()
 
     //TODO discussion post
     //TODO past reply past posts
-    //TODO read notifications
-    //TODO unread notifications
-    //TODO current bids
 
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    var currentBids: List<Bid> = ArrayList()
 
     fun getEmail(): String {
         return accountInfo.email

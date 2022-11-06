@@ -33,8 +33,9 @@ class ArtItem{
     @Column
     var onAuction: Boolean = false
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "auction")
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "auction", referencedColumnName = "id")
+    @JsonManagedReference
     var auction: Auction? = null
 
     @Column
