@@ -28,6 +28,9 @@ class DataProp {
     lateinit var eventInfoRepository : EventInfoRepository
 
     @Autowired
+    lateinit var onlineGalleryRepository: OnlineGalleryRepository
+
+    @Autowired
     lateinit var physicalExhibitionRepository: PhysicalExhibitionRepository
 
     @Autowired
@@ -133,7 +136,6 @@ class DataProp {
 
     @PostMapping("createEvents")
     fun b() : Boolean {
-        var eventList = mutableListOf<PhysicalExhibition>()
 
         var event1 = PhysicalExhibition()
         var eventInfo1 = EventInfo()
@@ -149,9 +151,9 @@ class DataProp {
         var location = Location()
         location.address = "Venice"
         event1.location = location
-        eventList.add(event1)
+        physicalExhibitionRepository.save(event1)
 
-        var event2 = PhysicalExhibition()
+        var event2 = OnlineGallery()
         var eventInfo2 = EventInfo()
         eventInfo2.posterUrl = "https://www.kadindanalhaberi.com/images/haberler/2020/08/sanatsal_mozaik_sergisi_kahramanmaras_kalede_aciliyor_h7195_9e45b.jpg"
         eventInfo2.category = "[\"mosaic\", \"seramic\"]"
@@ -164,9 +166,7 @@ class DataProp {
         event2.eventInfo = eventInfo2
         var location2 = Location()
         location2.address = "England"
-        event2.location = location2
-        eventList.add(physicalExhibitionRepository.save(event1))
-        eventList.add(physicalExhibitionRepository.save(event2))
+        onlineGalleryRepository.save(event2)
 
         return true
     }
