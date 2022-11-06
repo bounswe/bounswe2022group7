@@ -2,6 +2,7 @@ package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import lombok.Data
+import java.util.*
 import javax.persistence.*
 
 @Data
@@ -35,7 +36,7 @@ class AccountInfo(
     var country: String?=null
 
     @Column
-    var age: Int? = null
+    var birthday: Date? = null
 
     @Column
     var profilePictureUrl: String?=null

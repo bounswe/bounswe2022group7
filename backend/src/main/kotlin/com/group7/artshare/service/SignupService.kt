@@ -29,7 +29,7 @@ class SignupService(
             registeredUserService.findByEmail(email)?.let{return false}
 
             val accountInfo = AccountInfo(email, username, encryptedPassword)
-            accountInfo.age = signupRequest.getAge()
+            accountInfo.birthday = signupRequest.getBirthday()
             accountInfo.name = signupRequest.getName()
             accountInfo.surname = signupRequest.getSurname()
             accountInfo.country = signupRequest.getCountry()

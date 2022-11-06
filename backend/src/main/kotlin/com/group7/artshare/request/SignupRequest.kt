@@ -1,6 +1,7 @@
 package com.group7.artshare.request
 
 import lombok.Data
+import java.util.*
 import javax.validation.constraints.NotEmpty
 
 
@@ -26,7 +27,7 @@ class SignupRequest {
     private val surname: String?= null
 
     @NotEmpty
-    private val age: Int?= null
+    private val birthday: Date?= null
 
     @NotEmpty
     private val country: String?= null
@@ -39,8 +40,8 @@ class SignupRequest {
         return surname
     }
 
-    fun getAge(): Int? {
-        return age
+    fun getBirthday(): Date? {
+        return birthday
     }
     fun getCountry(): String? {
         return country
