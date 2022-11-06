@@ -27,7 +27,7 @@ class SignupRequest {
     private val surname: String?= null
 
     @NotEmpty
-    private val birthday: Date?= null
+    private val dateOfBirth: Date?= null
 
     @NotEmpty
     private val country: String?= null
@@ -40,8 +40,8 @@ class SignupRequest {
         return surname
     }
 
-    fun getBirthday(): Date? {
-        return birthday
+    fun getDateOfBirth(): Date? {
+        return dateOfBirth
     }
     fun getCountry(): String? {
         return country

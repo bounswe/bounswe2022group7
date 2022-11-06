@@ -36,7 +36,7 @@ class AccountInfo(
     var country: String?=null
 
     @Column
-    var birthday: Date? = null
+    var dateOfBirth: Date? = null
 
     @Column
     var profilePictureUrl: String?=null
