@@ -33,5 +33,5 @@ class Auction {
     var markedAsSold: Boolean = false
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var bids: List<Bid> = mutableListOf()
+    var bids: MutableList<Bid> = mutableListOf()
 }

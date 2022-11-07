@@ -114,6 +114,7 @@ class DataProp {
         artItemInfo2.imageUrl = "https://uploads4.wikiart.org/images/pablo-picasso/mediterranean-landscape-1952.jpg!Large.jpg"
         artItem2.artItemInfo = artItemInfo2
         artItem2.auction = Auction()
+        owner1.bookmarkedArtItems.add(artItem2)
         var artist2 = Artist()
         artist2.name = "Michael"
         artist2.surname = "Phelps"

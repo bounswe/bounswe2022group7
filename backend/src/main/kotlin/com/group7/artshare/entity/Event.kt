@@ -18,17 +18,17 @@ abstract class Event{
     var creator: Artist? = null
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var collaborators: List<Artist> = mutableListOf()
+    var collaborators: MutableList<Artist> = mutableListOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var participants: List<RegisteredUser> = mutableListOf()
+    var participants: MutableList<RegisteredUser> = mutableListOf()
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     var creationDate: Date = Calendar.getInstance().time
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var commentList: List<Comment> = mutableListOf()
+    var commentList: MutableList<Comment> = mutableListOf()
 
 
     @OneToOne(cascade = [CascadeType.ALL])

@@ -1,5 +1,6 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import lombok.Data;
 import java.util.*
@@ -42,9 +43,10 @@ class ArtItem{
     var lastPrice: Double = 0.0;
 
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    var commentList: List<Comment> = mutableListOf()
+    var commentList: MutableList<Comment> = mutableListOf()
 
     @ManyToMany(mappedBy = "bookmarkedArtItems",cascade = [CascadeType.MERGE, CascadeType.PERSIST])
-    var bookmarkedBy: Set<RegisteredUser> = mutableSetOf()
+    @JsonBackReference
+    var bookmarkedBy: MutableSet<RegisteredUser> = mutableSetOf()
 
 }

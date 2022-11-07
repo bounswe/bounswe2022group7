@@ -17,15 +17,15 @@ class Recommendation{
     //TODO OneToOne Visitor
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var recommendedPhysicalExhibition: List<PhysicalExhibition> = mutableListOf()
+    var recommendedPhysicalExhibition: MutableList<PhysicalExhibition> = mutableListOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var recommendedOnlineGallery: List<OnlineGallery> = mutableListOf()
+    var recommendedOnlineGallery: MutableList<OnlineGallery> = mutableListOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var recommendedArts: List<ArtItem> = mutableListOf()
+    var recommendedArts: MutableList<ArtItem> = mutableListOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var recommendedArtists: List<Artist> = mutableListOf()
+    var recommendedArtists: MutableList<Artist> = mutableListOf()
 
 }
