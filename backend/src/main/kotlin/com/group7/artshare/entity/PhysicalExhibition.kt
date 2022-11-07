@@ -18,7 +18,7 @@ class PhysicalExhibition : Event(){
     @Column
     var rules: String = ""
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
     @JoinTable(
         name = "physical_exhibition_attendees",
         joinColumns = [JoinColumn(name = "attending_user_id")],

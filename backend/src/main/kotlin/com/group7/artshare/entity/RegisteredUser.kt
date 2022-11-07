@@ -15,7 +15,7 @@ class RegisteredUser(
     @JsonManagedReference
     var accountInfo: AccountInfo,
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.EAGER, cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
     @JoinTable(
         name = "user_authorities",
         joinColumns = [JoinColumn(name = "user_id")],
@@ -38,17 +38,17 @@ class RegisteredUser(
     @Column
     var xp: Double = 0.0
 
-    @ManyToMany(mappedBy = "followers", cascade = [CascadeType.ALL])
-    var following: Set<RegisteredUser> = HashSet()
+    @ManyToMany(mappedBy = "followers", cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
+    var following: Set<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
-    var followers: Set<RegisteredUser> = HashSet()
+    @ManyToMany(cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
+    var followers: Set<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(mappedBy = "blockedBy",cascade = [CascadeType.ALL])
-    var blockedUsers: Set<RegisteredUser> = HashSet()
+    @ManyToMany(mappedBy = "blockedBy",cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
+    var blockedUsers: Set<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
-    var blockedBy: Set<RegisteredUser> = HashSet()
+    @ManyToMany(cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
+    var blockedBy: Set<RegisteredUser> = mutableSetOf()
 
     @Column
     var isBanned: Boolean = false
@@ -76,6 +76,7 @@ class RegisteredUser(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "art_item_id")]
     )
+    @JsonManagedReference
     var bookmarkedArtItems: MutableSet<ArtItem> = mutableSetOf()
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
@@ -94,13 +95,31 @@ class RegisteredUser(
     )
     var bookmarkedOnlineGalleries: MutableSet<OnlineGallery> = mutableSetOf()
 
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "read_notifications",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "notification_id")]
+    )
+    var readNotifications: MutableSet<Notification> = mutableSetOf()
+
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "unread_notifications",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "notification_id")]
+    )
+    var unreadNotifications: MutableSet<Notification> = mutableSetOf()
 
     //TODO discussion post
     //TODO past reply past posts
-    //TODO read notifications
-    //TODO unread notifications
-    //TODO current bids
 
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    var currentBids: MutableList<Bid> = mutableListOf()
+
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    @JsonManagedReference
+    var commentList: MutableList<Comment> = mutableListOf()
 
     fun getEmail(): String {
         return accountInfo.email
