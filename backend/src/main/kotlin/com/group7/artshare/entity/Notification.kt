@@ -21,10 +21,10 @@ class Notification{
     @Column
     var description: String? = null
 
-    @ManyToMany(mappedBy = "readNotifications",cascade = [CascadeType.ALL])
+    @ManyToMany(mappedBy = "readNotifications",cascade = [CascadeType.MERGE, CascadeType.PERSIST])
     var readBy: MutableSet<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(mappedBy = "unreadNotifications",cascade = [CascadeType.ALL])
+    @ManyToMany(mappedBy = "unreadNotifications",cascade = [CascadeType.MERGE, CascadeType.PERSIST])
     var unreadBy: MutableSet<RegisteredUser> = mutableSetOf()
 
 }

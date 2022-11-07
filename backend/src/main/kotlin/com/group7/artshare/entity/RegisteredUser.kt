@@ -15,7 +15,7 @@ class RegisteredUser(
     @JsonManagedReference
     var accountInfo: AccountInfo,
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.EAGER, cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
     @JoinTable(
         name = "user_authorities",
         joinColumns = [JoinColumn(name = "user_id")],
@@ -38,16 +38,16 @@ class RegisteredUser(
     @Column
     var xp: Double = 0.0
 
-    @ManyToMany(mappedBy = "followers", cascade = [CascadeType.ALL])
+    @ManyToMany(mappedBy = "followers", cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
     var following: Set<RegisteredUser> = HashSet()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
     var followers: Set<RegisteredUser> = HashSet()
 
-    @ManyToMany(mappedBy = "blockedBy",cascade = [CascadeType.ALL])
+    @ManyToMany(mappedBy = "blockedBy",cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
     var blockedUsers: Set<RegisteredUser> = HashSet()
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
     var blockedBy: Set<RegisteredUser> = HashSet()
 
     @Column
