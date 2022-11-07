@@ -3,7 +3,6 @@ package com.group7.artshare.entity
 import lombok.Data
 import java.util.*
 import javax.persistence.*
-import kotlin.collections.ArrayList
 import java.util.Calendar
 
 
@@ -19,17 +18,17 @@ abstract class Event{
     var creator: Artist? = null
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var collaborators: List<Artist> = ArrayList()
+    var collaborators: List<Artist> = mutableListOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var participants: List<RegisteredUser> = ArrayList()
+    var participants: List<RegisteredUser> = mutableListOf()
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     var creationDate: Date = Calendar.getInstance().time
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var commentList: List<Comment> = ArrayList()
+    var commentList: List<Comment> = mutableListOf()
 
 
     @OneToOne(cascade = [CascadeType.ALL])

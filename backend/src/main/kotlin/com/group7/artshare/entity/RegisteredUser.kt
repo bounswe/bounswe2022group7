@@ -39,16 +39,16 @@ class RegisteredUser(
     var xp: Double = 0.0
 
     @ManyToMany(mappedBy = "followers", cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
-    var following: Set<RegisteredUser> = HashSet()
+    var following: Set<RegisteredUser> = mutableSetOf()
 
     @ManyToMany(cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
-    var followers: Set<RegisteredUser> = HashSet()
+    var followers: Set<RegisteredUser> = mutableSetOf()
 
     @ManyToMany(mappedBy = "blockedBy",cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
-    var blockedUsers: Set<RegisteredUser> = HashSet()
+    var blockedUsers: Set<RegisteredUser> = mutableSetOf()
 
     @ManyToMany(cascade =  [CascadeType.MERGE, CascadeType.PERSIST])
-    var blockedBy: Set<RegisteredUser> = HashSet()
+    var blockedBy: Set<RegisteredUser> = mutableSetOf()
 
     @Column
     var isBanned: Boolean = false
@@ -114,7 +114,7 @@ class RegisteredUser(
     //TODO past reply past posts
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var currentBids: List<Bid> = ArrayList()
+    var currentBids: List<Bid> = mutableListOf()
 
     fun getEmail(): String {
         return accountInfo.email
