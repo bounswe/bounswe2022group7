@@ -10,7 +10,6 @@ import javax.persistence.*
 class AccountInfo(
     @Column
     var email: String,
-
     @Column(nullable = false)
     var username: String,
 

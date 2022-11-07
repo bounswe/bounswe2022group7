@@ -12,7 +12,7 @@ class OnlineGallery : Event(){
 
     
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
-    val artItems: List<ArtItem> = ArrayList()
+    val artItems: MutableSet<ArtItem> = mutableSetOf()
 
     @Column
     val platform: String = "ArtShare"
