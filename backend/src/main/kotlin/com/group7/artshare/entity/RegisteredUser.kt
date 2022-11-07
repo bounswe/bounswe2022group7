@@ -66,6 +66,7 @@ open class RegisteredUser(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "art_item_id")]
     )
+    @JsonManagedReference
     var bookmarkedArtItems: MutableSet<ArtItem> = mutableSetOf()
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
@@ -76,13 +77,31 @@ open class RegisteredUser(
     )
     var bookmarkedEvents: MutableSet<Event> = mutableSetOf()
 
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "read_notifications",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "notification_id")]
+    )
+    var readNotifications: MutableSet<Notification> = mutableSetOf()
+
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "unread_notifications",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "notification_id")]
+    )
+    var unreadNotifications: MutableSet<Notification> = mutableSetOf()
 
     //TODO discussion post
     //TODO past reply past posts
-    //TODO read notifications
-    //TODO unread notifications
-    //TODO current bids
 
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    var currentBids: MutableList<Bid> = mutableListOf()
+
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    @JsonManagedReference
+    var commentList: MutableList<Comment> = mutableListOf()
 
     fun getEmail(): String {
         return accountInfo.email

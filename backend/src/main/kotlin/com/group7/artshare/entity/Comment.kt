@@ -1,5 +1,7 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -21,5 +23,6 @@ class Comment {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
+    @JsonBackReference
     var author : RegisteredUser? = null
 }
