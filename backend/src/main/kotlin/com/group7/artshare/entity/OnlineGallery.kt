@@ -19,13 +19,4 @@ class OnlineGallery : Event(){
 
     @Column
     val externalUrl: String? = null
-
-    //@ManyToMany(mappedBy = "allOnlineGalleries",cascade = [CascadeType.ALL])
-    //var attendees: Set<RegisteredUser> = HashSet()
-
-    //@ManyToMany(mappedBy = "bookmarkedOnlineGalleries",cascade = [CascadeType.ALL])
-    //var bookmarkedBy: Set<RegisteredUser> = HashSet()
-
-
-
 }
