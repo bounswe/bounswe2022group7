@@ -32,7 +32,7 @@ class Comment {
     var downvoteNo : Int = 0
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var reports: List<Report> = ArrayList()
+    var reports: MutableList<Report> = mutableListOf()
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author")

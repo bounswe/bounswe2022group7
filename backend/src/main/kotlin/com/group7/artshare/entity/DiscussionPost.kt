@@ -40,9 +40,9 @@ class DiscussionPost {
     var downvoteNo: Int = 0
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var reports: List<Report> = ArrayList()
+    var reports: MutableList<Report> = mutableListOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var commentList: List<Comment> = ArrayList()
+    var commentList: MutableList<Comment> = mutableListOf()
 
 }
