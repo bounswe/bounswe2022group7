@@ -45,7 +45,7 @@ class SecurityConfiguration @Autowired constructor(
             .antMatchers(HttpMethod.POST,"/signup").permitAll()
             .mvcMatchers(HttpMethod.GET, "/event/{id}").permitAll()
             .mvcMatchers(HttpMethod.GET, "/art_item/{id}").permitAll()
-            .mvcMatchers(HttpMethod.GET, "/homepage/getGenericArtItems").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/homepage/getArtItems").permitAll()
             .mvcMatchers(HttpMethod.GET, "/homepage/getEvents").permitAll()
             .anyRequest().authenticated()
             .and()
