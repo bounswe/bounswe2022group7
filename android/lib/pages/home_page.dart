@@ -130,6 +130,14 @@ class _HomePageState extends State<HomePage> {
                 title: Text("Profile"),
                 onTap: () {},
               ),
+            if (user != null)
+              ListTile(
+                leading: Icon(Icons.art_track),
+                title: Text("Upload Art Item"),
+                onTap: () {
+                  Navigator.pushNamed(context, createArtItemPage);
+                },
+              ),
             ListTile(
               leading: Icon(Icons.photo_library),
               title: Text("Online Galleries"),
