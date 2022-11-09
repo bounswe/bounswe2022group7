@@ -5,6 +5,7 @@ import com.group7.artshare.request.SignupRequest
 import com.group7.artshare.service.LoginService
 import com.group7.artshare.service.RegisteredUserService
 import com.group7.artshare.service.SignupService
+import com.group7.artshare.service.TokenResponse
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -18,7 +19,7 @@ class RegisteredUserController(
     private val registeredUserService: RegisteredUserService
 ){
     @PostMapping("/login")
-    fun login(@RequestBody loginRequest: @Valid LoginRequest): String {
+    fun login(@RequestBody loginRequest: @Valid LoginRequest): TokenResponse {
         return loginService.login(loginRequest)
     }
 
