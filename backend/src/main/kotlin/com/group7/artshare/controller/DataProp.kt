@@ -71,9 +71,7 @@ class DataProp {
         var artItem1 = ArtItem()
         var artItemInfo1 = ArtItemInfo()
         artItem1.auction =null
-        var artist1 = Artist()
-        artist1.name ="Bridget"
-        artist1.surname = "Jones"
+        var artist1 = Artist(accountInfo1,setOf())
 
         artItem1.creator = artist1
         var comment1 = Comment()
@@ -114,15 +112,14 @@ class DataProp {
         artItemInfo2.imageUrl = "https://uploads4.wikiart.org/images/pablo-picasso/mediterranean-landscape-1952.jpg!Large.jpg"
         artItem2.artItemInfo = artItemInfo2
         artItem2.auction = Auction()
-        owner1.bookmarkedArtItems.add(artItem2)
-        var artist2 = Artist()
-        artist2.name = "Michael"
-        artist2.surname = "Phelps"
+        var artist2 = Artist(accountInfo2,setOf())
         artItem2.creator = artist2
         artItem2.commentList = mutableListOf(comment3)
         artItem2.lastPrice = 0.0
         artItem2.onAuction = false
         artItem2.owner = owner3
+        owner1.bookmarkedArtItems.add(artItem2)
+        owner1.following.add(owner2)
 
         artItemList.add(artItem2)
 

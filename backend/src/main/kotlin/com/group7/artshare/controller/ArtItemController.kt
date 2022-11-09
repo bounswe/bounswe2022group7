@@ -1,6 +1,7 @@
 package com.group7.artshare.controller
 
 import com.group7.artshare.entity.ArtItem
+import com.group7.artshare.entity.Artist
 import com.group7.artshare.repository.ArtItemRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull

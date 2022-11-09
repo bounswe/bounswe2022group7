@@ -1,23 +1,34 @@
 package com.group7.artshare.entity
 
-import lombok.Data
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.util.ArrayList
+import javax.persistence.*
 
+@Entity(name="Artist")
+class Artist(accountInfo: AccountInfo, authorities: Set<Authority>) : RegisteredUser(accountInfo, authorities) {
 
-@Data
-@Entity
-class Artist {
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    var copyrightedArtItems: MutableSet<ArtItem> = mutableSetOf()
 
-    @Id
-    @GeneratedValue
-    val id: Long = 0L
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "hostings",
+        joinColumns = [JoinColumn(name = "artist_id", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "event_id", referencedColumnName = "id")]
+    )
+    var hostedEvents: MutableSet<Event> = mutableSetOf()
+
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    var artItems: MutableSet<ArtItem> = mutableSetOf()
 
     @Column
-    var name: String = ""
+    var totalSales: Int = 0
 
     @Column
-    var surname : String = ""
+    var totalAmountRaised: Double = 0.0
+
+    @Column
+    var totalEvents: Int = 0
+
 }
