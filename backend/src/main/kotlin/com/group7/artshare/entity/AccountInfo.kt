@@ -1,6 +1,8 @@
 package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -10,9 +12,11 @@ import javax.persistence.*
 class AccountInfo(
     @Column
     var email: String,
+
     @Column(nullable = false)
     var username: String,
 
+    @JsonIgnore
     @Column(nullable = false)
     private var password: String,
 )
@@ -40,6 +44,7 @@ class AccountInfo(
     @Column
     var profilePictureUrl: String?=null
 
+    @JsonIgnore
     fun getPassword(): String {
         return password
     }

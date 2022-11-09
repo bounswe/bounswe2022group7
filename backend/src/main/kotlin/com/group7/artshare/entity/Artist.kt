@@ -1,5 +1,7 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.util.ArrayList
 import javax.persistence.*
 

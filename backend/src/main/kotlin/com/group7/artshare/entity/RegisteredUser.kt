@@ -1,5 +1,6 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import lombok.Data
 import org.springframework.security.core.userdetails.UserDetails
@@ -16,6 +17,7 @@ open class RegisteredUser(
     @JsonManagedReference
     var accountInfo: AccountInfo,
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE, CascadeType.PERSIST])
     @JoinTable(
         name = "user_authorities",
@@ -103,34 +105,42 @@ open class RegisteredUser(
     @JsonManagedReference
     var commentList: MutableList<Comment> = mutableListOf()
 
+    @JsonIgnore
     fun getEmail(): String {
         return accountInfo.email
     }
 
+    @JsonIgnore
     override fun getAuthorities(): Set<Authority> {
         return authorities
     }
 
+    @JsonIgnore
     override fun getPassword(): String {
         return accountInfo.getPassword()
     }
 
+    @JsonIgnore
     override fun getUsername(): String? {
         return accountInfo.username
     }
 
+    @JsonIgnore
     override fun isAccountNonExpired(): Boolean {
         return true
     }
 
+    @JsonIgnore
     override fun isAccountNonLocked(): Boolean {
         return true
     }
 
+    @JsonIgnore
     override fun isCredentialsNonExpired(): Boolean {
         return true
     }
 
+    @JsonIgnore
     override fun isEnabled(): Boolean {
         return true
     }

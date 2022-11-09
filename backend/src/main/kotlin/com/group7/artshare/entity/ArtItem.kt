@@ -1,3 +1,4 @@
+package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
