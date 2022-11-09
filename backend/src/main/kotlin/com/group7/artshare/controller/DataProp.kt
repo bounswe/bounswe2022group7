@@ -90,7 +90,7 @@ class DataProp {
         comment3.createdAt = Calendar.getInstance().time
 
 
-        artItem1.commentList = mutableSetOf(comment2, comment1)
+        artItem1.commentList = mutableListOf(comment2, comment1)
         artItem1.lastPrice = 0.0
         artItem1.onAuction = false
         artItemInfo1.name = "Starry Night"
@@ -114,7 +114,7 @@ class DataProp {
         artItem2.auction = Auction()
         var artist2 = Artist(accountInfo2,setOf())
         artItem2.creator = artist2
-        artItem2.commentList = mutableSetOf(comment3)
+        artItem2.commentList = mutableListOf(comment3)
         artItem2.lastPrice = 0.0
         artItem2.onAuction = false
         artItem2.owner = owner3

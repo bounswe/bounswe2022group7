@@ -26,7 +26,7 @@ open class Event{
     var creationDate: Date = Calendar.getInstance().time
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    var commentList: MutableSet<Comment> = mutableSetOf()
+    var commentList: MutableList<Comment> = mutableListOf()
 
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "eventInfoId")
