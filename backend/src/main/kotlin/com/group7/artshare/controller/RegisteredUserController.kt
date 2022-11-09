@@ -24,7 +24,7 @@ class RegisteredUserController(
     }
 
     @PostMapping("/signup")
-    fun signup(@RequestBody signupRequest: SignupRequest): Boolean {
+    fun signup(@RequestBody signupRequest: SignupRequest) {
         return signupService.signup(signupRequest)
     }
 }
