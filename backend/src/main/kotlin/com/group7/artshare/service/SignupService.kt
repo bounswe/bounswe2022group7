@@ -16,7 +16,7 @@ class SignupService(
     private val registeredUserService: RegisteredUserService,
     private val passwordEncoder: PasswordEncoder
 ) {
-    fun signup(signupRequest: SignupRequest): Boolean {
+    fun signup(signupRequest: SignupRequest) {
         try {
             val email = signupRequest.getEmail() ?: throw Exception("Email is not specified")
             val password = signupRequest.getPassword() ?: throw Exception("Password is not specified")
@@ -36,7 +36,6 @@ class SignupService(
 
             val user = RegisteredUser(accountInfo, setOf(Authority(userType)))
             registeredUserRepository.save(user)
-            return true
         } catch (e: Exception) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
         }

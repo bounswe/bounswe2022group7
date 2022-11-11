@@ -14,13 +14,15 @@ import java.lang.Exception
 @Service
 class LoginService(private val authenticationManager: AuthenticationManager, private val jwtService: JwtService) {
 
-    fun login(loginRequest: LoginRequest): String {
+    fun login(loginRequest: LoginRequest): TokenResponse {
         val token = UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         try {
             val authenticatedToken = authenticationManager.authenticate(token)
-            return generateToken(authenticatedToken, jwtService.getSecretKey())
+            return TokenResponse(generateToken(authenticatedToken, jwtService.getSecretKey()))
         } catch (ex: Exception) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid email or password")
         }
     }
 }
+
+data class TokenResponse(val token: String)
