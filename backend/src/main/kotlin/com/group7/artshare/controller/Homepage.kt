@@ -25,7 +25,7 @@ class Homepage(private val jwtService: JwtService) {
     @Autowired
     lateinit var onlineGalleryRepository: OnlineGalleryRepository
 
-    @GetMapping("getEvents")
+    @GetMapping("event")
     fun getRecommendedEvents(
         @RequestHeader(
             value = "Authorization",
@@ -47,7 +47,7 @@ class Homepage(private val jwtService: JwtService) {
         }
     }
 
-    @GetMapping("getArtItems")
+    @GetMapping("artItem")
     fun getRecommendedArtItems(
         @RequestHeader(
             value = "Authorization",
