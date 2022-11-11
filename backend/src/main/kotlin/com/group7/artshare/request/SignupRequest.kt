@@ -19,33 +19,6 @@ class SignupRequest {
 
     @NotEmpty
     private val userType: String?= null
-
-    @NotEmpty
-    private val name: String?= null
-
-    @NotEmpty
-    private val surname: String?= null
-
-    @NotEmpty
-    private val dateOfBirth: Date?= null
-
-    @NotEmpty
-    private val country: String?= null
-
-    fun getName(): String? {
-        return name
-    }
-
-    fun getSurname(): String? {
-        return surname
-    }
-
-    fun getDateOfBirth(): Date? {
-        return dateOfBirth
-    }
-    fun getCountry(): String? {
-        return country
-    }
     fun getEmail(): String? {
         return email
     }
