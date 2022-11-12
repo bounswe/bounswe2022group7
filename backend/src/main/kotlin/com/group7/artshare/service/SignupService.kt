@@ -29,11 +29,6 @@ class SignupService(
             registeredUserService.findByEmail(email)?.let { throw Exception("Email is already taken") }
 
             val accountInfo = AccountInfo(email, username, encryptedPassword)
-            accountInfo.dateOfBirth = signupRequest.getDateOfBirth()
-            accountInfo.name = signupRequest.getName()
-            accountInfo.surname = signupRequest.getSurname()
-            accountInfo.country = signupRequest.getCountry()
-
             val user = RegisteredUser(accountInfo, setOf(Authority(userType)))
             registeredUserRepository.save(user)
         } catch (e: Exception) {
