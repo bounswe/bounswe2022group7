@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
             if (user != null)
               ListTile(
                 leading: Icon(Icons.art_track),
-                title: Text("Upload Art Item"),
+                title: Text("Create Art Item"),
                 onTap: () {
                   Navigator.pushNamed(context, createArtItemPage);
                 },
