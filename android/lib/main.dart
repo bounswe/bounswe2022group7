@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                 if (snapshot.data != null) {
                   Provider.of<UserProvider>(context).setUser(snapshot.data!);
                 }
-                return const HomePage();
+                return const CreateEvent();
             }
           },
         ),
@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
           login: (context) => const Login(),
           register: (context) => const Register(),
           homepage: (context) => const HomePage(),
+          createEventPage: (context) => const CreateEvent(),
         },
         navigatorKey: navigatorKey,
       ),
