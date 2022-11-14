@@ -14,7 +14,7 @@ Below are the hyperlinks to our deliverable documents which are mentioned in the
   * [Scenario 3: Copyright Infringement Report](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-3:-Copyright-Infringement-Report)
 * [Project Plan](https://github.com/bounswe/bounswe2022group7/wiki/Project-Plan)
 * [Individual Contribution Reports](#Individual-Contribution-Reports)
-* [Customer Milestone 1 Group Review](#Milestone-Group-Review)
+* [Customer Milestone 1 Group Review](#Group-Review)
 
 # Individual Contribution Reports
 
@@ -486,3 +486,452 @@ Management Related Significant Issues:
 - [PR 345](https://github.com/bounswe/bounswe2022group7/pull/276)
 
 # Group Review
+
+## 1. Executive Summary
+
+Ideart. is an art platform where the users can create or visit online galleries and physical exhibitions. It also allows artists to publish their art works, copyright them, and sell them to the art-lovers. Discussion page that users can share their thoughts are also provided.
+Our application works on web and mobile both. It is on developing process right now. It supports registration related features such as sign up and log in functions, home page view is partly developed which provides the events and art items information by using the data on our database. Finally, when an event or art item is clicked, the corresponding information page of it is also shown.
+
+Here are the topics that we discussed and decided to change after Customer Milestone 1:
+* During the sign up process, optional fields would be deprecated from the page in order to make this process be looked more simple. These optional fields are going to be added to the profile page which is available for the user's usage when they want to provide more information about themselves.
+* We were taking age as a personal field, we are going to change it with birthday in order to reduce any update about it and be more consistent.
+* Discussion about the time zones that are shown for events: We decided to check whether local time of the user is different than event location time:
+    * If they are the same, one time zone shall be shown. If they differ from each other, we shall show both of these time. 
+* The location of the events are going to be updated to Geolocation from bare country.
+
+## 2. List of Deliverables
+
+| **Deliverable** | **Submission Date** | **Status** | 
+| -------- | ------------ | ---------------- |
+|[Software Requirements Specification](https://github.com/bounswe/bounswe2022group7/wiki/Requirements-(Draft))  |01/11/2022| delivered |
+|[Use-Case Diagram](https://github.com/bounswe/bounswe2022group7/wiki/Use-Case-Diagram)  |01/11/2022  | delivered |
+| [Class Diagram](https://github.com/bounswe/bounswe2022group7/wiki/Class-Diagram) |01/11/2022  | delivered |
+| [Sequence Diagrams](https://github.com/bounswe/bounswe2022group7/wiki/Sequence-Diagrams) |01/11/2022  | delivered |
+| [Scenario & Mockups 1](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-1:-Creating-Events) |01/11/2022  | delivered |
+| [Scenario & Mockups 2](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-2) |01/11/2022  | delivered |
+| [Scenario & Mockups 3](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-3:-Copyright-Infringement-Report) |01/11/2022  | delivered |
+| [Project Plan](https://github.com/bounswe/bounswe2022group7/wiki/Project-Plan) |01/11/2022  | delivered, will be updated |
+| [Individual Contribution Reports](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_1/milestone_report.md#Individual-Contribution-Reports) |01/11/2022  | delivered |
+| [Customer Milestone-1 Group Review](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_1/milestone_report.md) |04/11/2022  | delivered |
+
+
+## 3. Status of Deliverables and Impact on Project Plan
+
+### Evaluation of the Status of Deliverables
+
+As mentioned in Section 2, all deliverables were submitted in time. All of them were modified in synchrone, for them to be consistent. We actively updated the situation of each one of them as our project grew gradually. 
+
+Apart from that, all of the deliverables were finalized for Milestone 1 except for the Project Plan. We followed a different implementation scheme to deliver a product that all of its parts are fully integrated with each other for this Milestone. Therefore, we had some significant deviations from our previous plan. More detailed information about this will be provided in the following sub-section.
+
+The evaluation for status of the each deliverable can be seen below.
+
+
+#### Software Requirements Specification
+
+It was the first deliverable to get finalized and it created a chain reaction of modifications on all other deliverables. After finalizing our Requirements, we updated most of our design documents and indeed, the Project Plan accordingly.
+
+
+#### Scenario & Mockups
+
+Some features such as maps are removed from mock-ups on a higher level. Payment feature was also removed. 
+
+
+#### Use-Case Diagram
+
+We revised the diagram and got feedback from the TA. The diagram was ready but we made minor modifications on it before the final update.
+
+
+#### Class Diagram
+
+We simplified our class structure after eliminating some complicated requirements. The updated Class Diagram is now finalized.
+
+
+#### Sequence Diagrams
+
+Each member revised their Sequence Diagram and updated it according to our new Requirements and design diagrams. The finalized versions of those are delivered to the customer.
+
+
+#### Project Plan
+
+We delivered our Project Plan after the revision before Milestone 1. We planned the details week by week and utilized it during our implementation. This version of the Project Plan was delivered to our customer on time.
+
+However, as it will be mentioned in the following sub-section, the status of our deliverables had an impact on our Project Plan; therefore, we will need to update our plan and proceed accordingly.
+
+
+#### Individual Contribution Reports
+
+Each member filled their own contributions and we submitted it before the decided deadline.
+
+### Deliverables' Impact on the Project Plan
+
+
+The simplifications on the Requirements and therefore, on the other design and planning documents, of course reduced the workload for each feature. Our Project Plan was mainly planned based on the features to be implemented and since no core feature was removed during the aforementioned elimination process. Therefore, there will be no reduction of features reflected on our Project Plan. 
+
+However, we had a shift in our perception on how long a feature will take. We decided that significant features should not get squezzed to last minue. For example, we decided to move the implementation of Annotations closer since it requires also some understanding of the concept. 
+
+Also, some inordinary situations like the updates in our teams, some members not fulfilling their assigned task and some members being assigned to some extra tasks now requires us to make some minor changes in our resources, too.
+
+We do not expect any other changes unless a customer request pops up requiring modifications on deliverables.
+
+
+
+## 4. Evaluation of Tools and Processes
+
+
+### React & Material UI
+
+We used React library to build our web client. React was easy to configure and it was sufficient for our needs. The hooks API and the context API of React made it easy to manage user tokens and fetch data. In addition to React, we used Material UI (MUI), a component library for React. MUI made it easy to draw components on the page with the functionality we want. It has all kinds of UI tools that make it easy to ship new features.
+
+
+### Docker
+We have used Docker to create development and production images. Docker's common environment for every operating system was helpful for our project since conditions and environment setups of every member was different. Also we didn't need to configure every machine to run the application as the docker images handled most of these tasks for us. We have faced some bugs while trying to setup docker containers in ARM based (M1 variant macbooks) computers. One of the bugs was specially present in Docker-compose as the parser couldn't recognize some configuration parameters when the other members could run the containers without any problem. 
+
+
+### AWS
+AWS was used to deploy our application. When creating our infrastructure for the application we have benefited from the vast selection of solutions of AWS provided with its Free Tier. With these technologies we were able to automate the deployment of our application in unison with Github Actions. The only complaint of ours about AWS is also its pro, in which the detail of configuration and vast number of choices made initial configuration and understanding hard for a new user.
+
+
+### Github Actions
+
+We have used Github Actions to create automated testing, building and publishing workflows for our applications. While the setup process was tough as we didn't have a way to test the implementation on a local environment, resulting in numerous hotfixes in the codes or workflow configurations but in the end the results were convincing. We will now be able to automate the testing steps for every pull request before merging, checking if there is any problem in new changes. Also implementation of automated deployment to AWS ensures that every member of the team could deploy the application in need with a click without knowing the infrastructure and needs of the application.
+
+### Flutter
+
+We have used Flutter framework for developing our mobile application. Dart language is used for developing Flutter apps and Dart is very similar to Java. Since we all used Java in our school courses, getting used to Dart was fairly easy. The reason we chose Flutter over Kotlin is because Flutter provides easier and faster development with many libraries. Also Flutter has a hot reload feature which allows observing changes in code without rebuilding the app. This feature allowed us to develop faster than native Kotlin development. All in all, we were satisfied with our experience with Flutter.
+
+### Kotlin & Spring Boot 
+
+We have initialized our backend with Kotlin and Spring Boot. The main reason why we chose these is that most of the backend team members have experience with them. Also Spring Boot offers a lot of flexible solutions to our needs. For example we used Spring Security in our authentication part and Sprring Boot ORM to manage our MySQL database.
+
+### Postman
+
+It offers user-friendly interface to send HTTP requests to test the APIs' functionatilities. It is possible to add headers in the request. It also allow the user to select different body types. The main advantge is the abililty to save a configuration. There is no need to fill every field of a request every time. Save option reduces the hassle
+
+### MySQL Workbench
+
+It is a visual database design tool that enables SQL development, administration, database design, creation and maintenance into a single integrated development environment. We mainly used this to check if everything is going smoothly in our database. We can also reach to the database from our backend code but checking from MySQL Workbench provides different point of view other than the code itself. It is easier to detect the flaws.
+
+## 5. Requirements in the Milestone
+
+### 1.1 User Requirements
+
+### 1.1.1. Sign Up
+* 1.1.1.1: Guest users shall be able to register for an account by providing an email address and a password.
+* 1.1.1.2: Duplicate email addresses shall not be accepted.
+* 1.1.1.3: Guest users who are trying to sign up shall also pick a unique username to complete the registration process.
+* 1.1.1.4: Duplicate usernames shall not be accepted.
+* 1.1.1.5: Guest users could provide extra information while signing up, like name, surname, location, age.
+* 1.1.1.6: Guest users shall choose their account type, "Artist" or a "Regular User".
+
+### 1.1.2. Sign In
+* 1.1.2.1: Users shall be able to sign in using their email and password combination.
+* 1.1.2.2: Users shall be able to sign out without a restriction.
+
+### 1.1.3. Guest Users
+
+* 1.1.3.1: Guest Users shall be able to view profile pages, art items, pages of online/physical exhibitions.
+
+## 6. Responsibilities
+
+### Sabri Mete Akyüz
+
+1. Backend team member
+2. Handling backend initialization
+3. Implement Authentication and Authorization mechanism
+4. Implement Login and signup endpoints
+5. Handling remote databases before AWS deployment
+6. Milestone 1 note taker
+
+### Enes Aydoğduoğlu
+
+1. Front-end team member
+2. Research on tech
+3. Handling event page
+4. Documentation
+
+### Erim Erkin Doğan
+1. Front end team member
+2. Integration of sign-in and sign-up pages to API
+3. Setting up development and production environments with Docker
+4. Setting up Github Actions for CI/CD
+5. Handling deployment of the application to AWS
+
+### Güney İzol
+1. Frontend team member
+2. Setup and configuration of the frontend development infrastructure
+3. Develop the home page user interface
+4. Develop the main navigation of the website
+5. Fetch data from the backend for the home page
+
+### Ali Can Milani
+
+1. Mobile Team Member
+2. Log In Page Implementation
+3. Handling art items backend integration to home page
+4. Handling events integration to home page
+
+### Başak Önder
+
+1. Backend team member
+2. Initiated the dockerization of backend and database
+3. Implement register-related classes
+4. Implement some of the home page related classes
+5. Implement endpoints for returning single art item and creating art items to upload database
+6. Milestone 1 note taker
+
+### Cahid Arda Öz
+
+1. Group communicator
+2. Customer meeting presenter
+3. Front end team member
+4. Handling art item and event pages in frontend
+5. Handling token management in frontend
+6. Handling routing in frontend
+
+### Musa Şimşek
+
+1. Mobile Team Member
+2. Profile Page Implementation
+3. Backend Integration
+4. Tech Research
+
+### Atilla Türkmen
+
+1. Mobile team member
+2. Initializing and creating the structure of the mobile flutter app
+3. Implementing register form for the mobile app
+4. Implementing storing user data in the mobile app
+5. Implementing art item page connection to the back end
+
+### Can Atakan Uğur
+1. Customer meeting presenter
+2. Mobile team member
+3. Implementing Event Page with endpoint integrations
+4. Implementing Art Item Page UI and models
+5. Implementing Home Page UI
+
+### Demet Yayla
+
+1. Backend Team Member
+2. Initiated entity classes and controller classes (e.g. endpoints for homepage and enpoint for getting a single event)
+3. Implemented event-related classes.
+4. Created mock data in database through code.
+5. Milestone 1 notetaker.
+6. Researched on integration testing in Spring.
+7. Created repository classes.
+
+## 7. Summary of Work
+
+### Sabri Mete Akyüz
+
+| Task | Link |
+| ----- | ------|
+| Created the personal wiki page and effort tracker | [#237](https://github.com/bounswe/bounswe2022group7/issues/237) | 
+| Revised the requirements of the project and noted the questions about them. | [#243](https://github.com/bounswe/bounswe2022group7/issues/243) | 
+| Attended the backend team meeting [#1](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%231---12-10-2022). Discussed the structure of the backend by using Class Diagrams. Chose the techs that we use |  |
+| Researched about Kotlin and Spring Boot, watched related videos|  |
+| Initialized the backend code | [#251](https://github.com/bounswe/bounswe2022group7/issues/251)|
+| Implemented the Authentication and Authorization mechanism| [#271](https://github.com/bounswe/bounswe2022group7/issues/271), [#273](https://github.com/bounswe/bounswe2022group7/issues/273), [PR #317](https://github.com/bounswe/bounswe2022group7/pull/317)|
+| Researched about inheritance and Hibernate integration| [#310](https://github.com/bounswe/bounswe2022group7/issues/310)|
+| Implemented the signup and login endpoints| [#308](https://github.com/bounswe/bounswe2022group7/issues/308), [PR #317](https://github.com/bounswe/bounswe2022group7/pull/317)|
+| Disable token requirements for some of the endpoints| [#341](https://github.com/bounswe/bounswe2022group7/issues/341), [PR #342](https://github.com/bounswe/bounswe2022group7/pull/342)|
+| Attended the backend team meetings [#2](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%232-20-10-2022) [#3](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%233). | |
+| Attended the general meetings and wrote the meeting report for [#3](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%233) | |
+| Revision of multiple backend issues | [#243](https://github.com/bounswe/bounswe2022group7/issues/243), [#287](https://github.com/bounswe/bounswe2022group7/issues/287), [#295](https://github.com/bounswe/bounswe2022group7/issues/295), [#299](https://github.com/bounswe/bounswe2022group7/issues/299), [#305](https://github.com/bounswe/bounswe2022group7/issues/305), [#306](https://github.com/bounswe/bounswe2022group7/issues/306), [#323](https://github.com/bounswe/bounswe2022group7/issues/323), [#344](https://github.com/bounswe/bounswe2022group7/issues/344)   |
+| Revision of backend related pull requests | [PR #276](https://github.com/bounswe/bounswe2022group7/pull/276), [PR #277](https://github.com/bounswe/bounswe2022group7/pull/277), [PR #300](https://github.com/bounswe/bounswe2022group7/pull/300), [PR #307](https://github.com/bounswe/bounswe2022group7/pull/307), [PR #311](https://github.com/bounswe/bounswe2022group7/pull/311), [PR #322](https://github.com/bounswe/bounswe2022group7/pull/322), [PR #325](https://github.com/bounswe/bounswe2022group7/pull/325), [PR #327](https://github.com/bounswe/bounswe2022group7/pull/327), [PR #345](https://github.com/bounswe/bounswe2022group7/pull/345)  |
+| One of the notetakers during the Customer Milestone 1||
+| Wrote individual milestone report||
+| Wrote the explanation for the tools of backend team for group review and my sections for part 6 & part 7|[#372](https://github.com/bounswe/bounswe2022group7/issues/372), [#373](https://github.com/bounswe/bounswe2022group7/issues/373)|
+
+### Enes Aydoğduoğlu
+| Task | Link |
+| ----- | ------|
+| Revising System Requirements | [#254](https://github.com/bounswe/bounswe2022group7/issues/254)|
+| Adding Event Page to frontend | [#356](https://github.com/bounswe/bounswe2022group7/issues/356)|
+| Preparing Part 2 of Customer Milestone-1 Group Review|[#371](https://github.com/bounswe/bounswe2022group7/issues/371)|
+| Reviewing PR|[#324](https://github.com/bounswe/bounswe2022group7/pull/324)
+| Filling out of my personal page||
+| Create my effort-tracking page||
+| Writing individual milestone report||
+| Writing my own responsibilities for Part 6 and 7 of Milestone Group Review|[#373](https://github.com/bounswe/bounswe2022group7/issues/373)|
+
+### Erim Erkin Doğan
+| Task | Link |
+| ----- | ------|
+| Revising the Scenarios & Mockups | [#247](https://github.com/bounswe/bounswe2022group7/issues/247) | 
+| Revising the System Requirements | [#254](https://github.com/bounswe/bounswe2022group7/issues/254) | 
+| Setting up Dockerization, AWS deployment, CI/CD for web and API | [#282](https://github.com/bounswe/bounswe2022group7/issues/282), [PR #276](https://github.com/bounswe/bounswe2022group7/pull/276), [PR #354](https://github.com/bounswe/bounswe2022group7/pull/354), [PR #355](https://github.com/bounswe/bounswe2022group7/pull/355) |
+| Frontend Dockerization and CI/CD setup | [#283](https://github.com/bounswe/bounswe2022group7/issues/282), [PR #286](https://github.com/bounswe/bounswe2022group7/pull/286) | 
+| Revising and finishing integration with API for sign-in and sign-up pages for frontend | [#338](https://github.com/bounswe/bounswe2022group7/issues/338), [PR #346](https://github.com/bounswe/bounswe2022group7/pull/346) | 
+| Creating the release/tag of application for Customer Presentation 1 | [#368](https://github.com/bounswe/bounswe2022group7/issues/368) |
+
+### Güney İzol
+| Task | Link |
+| ----- | ------|
+| Open our discord server for communication | [#246](https://github.com/bounswe/bounswe2022group7/issues/246) |
+| Research frontend libraries and tools that would make us as productive as possible and suggested the findings to our teammates. ||
+| Configure our frontend infrastructure so that other team members could have a head start in development. | [#253](https://github.com/bounswe/bounswe2022group7/issues/253) |
+| Design and implement the home page layout. |
+| Make the home page layout responsive so that it adapts to different screen sizes. | [#272](https://github.com/bounswe/bounswe2022group7/issues?q=is%3Aissue+is%3Aclosed+assignee%3Aguneyizol) |
+| Review the backend design and make suggestions |
+| Fetch data from backend apis and display them on the home page. | [#332](https://github.com/bounswe/bounswe2022group7/issues/332) |
+| Switch our development and build environment from parcel to Create-React-App, which uses webpack. | ([relevant commit](https://github.com/bounswe/bounswe2022group7/pull/337/commits/5ebd0ed4ce67d1d583483da0f3605182d4c2e6bc)) |
+
+### Ali Can Milani
+| **Task** | **Link** |
+| -------- |  ---------------- | 
+| Reviewing and Updating the Use Case Diagram | [#248](https://github.com/bounswe/bounswe2022group7/issues/248) |
+| Reviewing the Register Page | [#263](https://github.com/bounswe/bounswe2022group7/issues/263)
+| Implementing the Login Page | [#280](https://github.com/bounswe/bounswe2022group7/issues/280)|
+| Implementing the Art Items endpoint integrations to Home Page | [#351](https://github.com/bounswe/bounswe2022group7/issues/351)|
+| Implementing the Events endpoint integrations to Home Page | [#351](https://github.com/bounswe/bounswe2022group7/issues/351)|
+| Merging the register page PR | [#267](https://github.com/bounswe/bounswe2022group7/pull/267) |
+| Creating PR for the Login Page Implementations | [#281](https://github.com/bounswe/bounswe2022group7/pull/281) |
+|  Creating PR for the Home page endpoint integrations | [#362](https://github.com/bounswe/bounswe2022group7/pull/362) |
+
+### Başak Önder
+| Task | Link |
+| ----- | ------|
+| Created the personal wiki page and effort tracker | [#237](https://github.com/bounswe/bounswe2022group7/issues/237) | 
+| Revised the requirements of the project and noted the questions about them. | [#243](https://github.com/bounswe/bounswe2022group7/issues/243) | 
+| Researched about the backend tools. |  | 
+| Attended the [backend team meeting](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%231---12-10-2022). Discussed the structure of the backend by using Class Diagrams. Chose the techs that we use |  |
+| Researched about Kotlin, watched related videos, and tried several hands-on practice to experience it |  |
+| Researched on Docker and started to implement the functionality of Dockerization of backend and Sql database | [#252](https://github.com/bounswe/bounswe2022group7/issues/252), [PR #276](https://github.com/bounswe/bounswe2022group7/pull/276) |
+| Attended the backend team meeting and wrote [the report on wiki](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%232-20-10-2022). Planned the necessary fields that we should implement. | |
+| Implementation of home page related classes | [#257](https://github.com/bounswe/bounswe2022group7/issues/257), [PR #277](https://github.com/bounswe/bounswe2022group7/pull/277)|
+| Revision of the Mock Ups | [#247](https://github.com/bounswe/bounswe2022group7/issues/247) |
+| Attended the backend [team meeting](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%233). | |
+| Implementation of register related classes | [#299](https://github.com/bounswe/bounswe2022group7/issues/299), [#305](https://github.com/bounswe/bounswe2022group7/issues/305), [PR #300](https://github.com/bounswe/bounswe2022group7/pull/300), [PR #307](https://github.com/bounswe/bounswe2022group7/pull/307) |
+| Implementation of Single Art Item endpoint | [#302](https://github.com/bounswe/bounswe2022group7/issues/302), [PR #322](https://github.com/bounswe/bounswe2022group7/pull/322)|
+| Debugging the nested classes bug fix while trying to return the objects through endpoints, then update the classes structure regarding to the solution| [#323](https://github.com/bounswe/bounswe2022group7/issues/323), [#344](https://github.com/bounswe/bounswe2022group7/issues/344),  [PR #345](https://github.com/bounswe/bounswe2022group7/pull/345) |
+| Merged backend into develop branch | [PR #327](https://github.com/bounswe/bounswe2022group7/pull/327)|
+| Revision of the Class Diagram Update | [#296](https://github.com/bounswe/bounswe2022group7/issues/296) |
+| Revision of multiple backend issues | [#247](https://github.com/bounswe/bounswe2022group7/issues/247), [#250](https://github.com/bounswe/bounswe2022group7/issues/250), [#259](https://github.com/bounswe/bounswe2022group7/issues/259), [#271](https://github.com/bounswe/bounswe2022group7/issues/271), [#301](https://github.com/bounswe/bounswe2022group7/issues/301), [#308](https://github.com/bounswe/bounswe2022group7/issues/308)  |
+| Revision of backend related pull requests | [PR #275](https://github.com/bounswe/bounswe2022group7/pull/275), [PR #303](https://github.com/bounswe/bounswe2022group7/pull/303) |
+| One of the notetakers during the Customer Milestone 1||
+| Wrote individual milestone report||
+| Wrote the part 1 of this group review and my sections for part 6 & part 7|[#370](https://github.com/bounswe/bounswe2022group7/issues/370)|
+
+### Cahid Arda Öz
+
+| Task | Link |
+| ----- | ------|
+| Revision of Requirements. New members in the team took notes and wrote questions. I answered these questions and made an action plan | [#243](https://github.com/bounswe/bounswe2022group7/issues/243) |
+| Preparing Customer Questions. I used the notes I took in [#243](https://github.com/bounswe/bounswe2022group7/issues/243) to prepare questions for the TA. | [#242](https://github.com/bounswe/bounswe2022group7/issues/242) |   
+| Prepared meeting report for our meeting on tuesday | [#249](https://github.com/bounswe/bounswe2022group7/issues/249) |
+| Attended the frontend team meeting and wrote [the report on wiki](https://github.com/bounswe/bounswe2022group7/wiki/FRONTEND-Meeting-Notes-%231---15-10-2022). Planned the system requirements revision during the meeting. | [#254](https://github.com/bounswe/bounswe2022group7/issues/254) |
+| Implemented router for the frontend | [#268](https://github.com/bounswe/bounswe2022group7/issues/268), [#269](https://github.com/bounswe/bounswe2022group7/pull/269) |
+| Implemented comment section for the frontend | [#270](https://github.com/bounswe/bounswe2022group7/issues/270), [#269](https://github.com/bounswe/bounswe2022group7/pull/269) |
+| Implemented static signup and signin pages. Had to learn about handling user inputs and button submits with react hooks. | [#284](https://github.com/bounswe/bounswe2022group7/issues/284), [#288](https://github.com/bounswe/bounswe2022group7/pull/288) |
+| Extended the Comment component by replacing it with UserCard component. Created the art item page with mock data using the UserCard component to demonstrate it. Had to learn more about hooks and how buttons work | [#289](https://github.com/bounswe/bounswe2022group7/issues/289) |
+| Implemented authentication and token handling. Had to learn more about hooks, contexts and routers. | [#290](https://github.com/bounswe/bounswe2022group7/issues/290), [#291](https://github.com/bounswe/bounswe2022group7/pull/291) |
+| Research and testing text/image annotations. Planned future steps for adding Annotations. | [#297](https://github.com/bounswe/bounswe2022group7/issues/297) |
+| Preparing deliverables for the milestone | [#329](https://github.com/bounswe/bounswe2022group7/issues/329) |
+| Finding out, debugging and reporting an error in the database | [#344](https://github.com/bounswe/bounswe2022group7/issues/344) |
+| Integrating art item page to the endpoints | [#343](https://github.com/bounswe/bounswe2022group7/issues/343), [#349](https://github.com/bounswe/bounswe2022group7/pull/349) | 
+| Updating app name in the frontend and tracking the change in mobile | [#350](https://github.com/bounswe/bounswe2022group7/issues/350) |
+| Planning and preparing for the presentation as a presenter | [#353](https://github.com/bounswe/bounswe2022group7/issues/353) |
+| Adding the event page to the frontend | [#356](https://github.com/bounswe/bounswe2022group7/issues/356), [#367](https://github.com/bounswe/bounswe2022group7/pull/367) | 
+| Creating tag for the first milestone | [#368](https://github.com/bounswe/bounswe2022group7/issues/368) |
+
+### Musa Şimşek
+
+| Task | Link |
+| ---- | ---- |
+| Research on Testing Fluttter Apps | [#261](https://github.com/bounswe/bounswe2022group7/issues/261) |
+| Implementation of Profile Page | [#263](https://github.com/bounswe/bounswe2022group7/issues/262) |
+| Integration of Login Page with Backend | [#314](https://github.com/bounswe/bounswe2022group7/issues/314) |
+| Revising the Mock-ups | [#247](https://github.com/bounswe/bounswe2022group7/issues/247)
+| Review of Testing Mobile Application Functionality | [#334](https://github.com/bounswe/bounswe2022group7/issues/334) |
+| Final Version of the Login Page | [#340](https://github.com/bounswe/bounswe2022group7/pull/340)
+| Implementation of Profile Page | [#279](https://github.com/bounswe/bounswe2022group7/pull/279)
+
+
+### Atilla Türkmen
+
+| Task | Link |
+| ----- | ------|
+|Created project structure and implemented an example page navigation for mobile|[#258](https://github.com/bounswe/bounswe2022group7/issues/258)|
+|Worked in updating the project plan|[#241](https://github.com/bounswe/bounswe2022group7/issues/241)|
+|Implemented the register page UI of the mobile application|[#263](https://github.com/bounswe/bounswe2022group7/issues/263), [PR #267](https://github.com/bounswe/bounswe2022group7/pull/267), [#294](https://github.com/bounswe/bounswe2022group7/issues/294), [PR #298](https://github.com/bounswe/bounswe2022group7/pull/298)|
+|Reviewed login page UI implementation in mobile app|[#280](https://github.com/bounswe/bounswe2022group7/issues/280), [PR #281](https://github.com/bounswe/bounswe2022group7/pull/281)|
+|Implemented saving user information in local storage in mobile app|[#292](https://github.com/bounswe/bounswe2022group7/issues/292), [PR #293](https://github.com/bounswe/bounswe2022group7/pull/293)|
+|Reviewed homepage implementation in mobile app|[#313](https://github.com/bounswe/bounswe2022group7/issues/313)|
+|Connected register form to the backend in mobile app|[#318](https://github.com/bounswe/bounswe2022group7/issues/318), [PR #320](https://github.com/bounswe/bounswe2022group7/pull/320)|
+|Implemented widget tests for register form in mobile app|[#359](https://github.com/bounswe/bounswe2022group7/issues/359), [PR #360](https://github.com/bounswe/bounswe2022group7/pull/360)|
+|Implemented logout in mobile app|[#321](https://github.com/bounswe/bounswe2022group7/issues/321)|
+|Reviewed login backend connection implementation in mobile app|[#314](https://github.com/bounswe/bounswe2022group7/issues/314), [PR #340](https://github.com/bounswe/bounswe2022group7/pull/340)|
+|Reviewed app name change in mobile app|[#350](https://github.com/bounswe/bounswe2022group7/issues/350), [PR #352](https://github.com/bounswe/bounswe2022group7/pull/352)|
+|Implemented art item network connection and models in mobile app|[#339](https://github.com/bounswe/bounswe2022group7/issues/339), [PR #365](https://github.com/bounswe/bounswe2022group7/pull/365)|
+|Setup server connection configuration in mobile app|[#357](https://github.com/bounswe/bounswe2022group7/issues/357), [PR #363](https://github.com/bounswe/bounswe2022group7/pull/363)|
+|Write an evaluation of tools and processes used in mobile application for the team report|[#375](https://github.com/bounswe/bounswe2022group7/issues/375)|
+
+### Can Atakan Uğur
+
+| **Task** | **Link** |
+| --- | --- |
+| Update the team members | [#237](https://github.com/bounswe/bounswe2022group7/issues/237) |
+| Create General Meeting Notes #1 | [#238](https://github.com/bounswe/bounswe2022group7/issues/238), [Meeting Notes](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%231) |
+| Revise and update the Class Diagram with Demet Yayla | [#239](https://github.com/bounswe/bounswe2022group7/issues/239), [Revision](https://github.com/bounswe/bounswe2022group7/wiki/Class-Diagram/04bda57e0d18677bd7d7c60d80e98828d021a563) |
+| Revise and update the Sequence Diagram for Annotations | [#240](https://github.com/bounswe/bounswe2022group7/issues/240), [Revision](https://github.com/bounswe/bounswe2022group7/wiki/Sequence-Diagrams/2344643f2abdfa2eee7fe913c178b1565187a77c) |
+| Revise and update the Project Plan | [#241](https://github.com/bounswe/bounswe2022group7/issues/241), [Revision](https://github.com/bounswe/bounswe2022group7/wiki/Project-Plan/03d61571239dc664fe6035cd0ea91bb4c6a4b91c) |
+| Create Mobile Meeting Notes #1 | [#260](https://github.com/bounswe/bounswe2022group7/issues/260), [Meeting Notes](https://github.com/bounswe/bounswe2022group7/wiki/MOBILE--Meeting-Notes-%231) |
+| Implement Home Page UI | [#265](https://github.com/bounswe/bounswe2022group7/issues/265), [PR #266](https://github.com/bounswe/bounswe2022group7/pull/266) |
+| Create Mobile Meeting Notes #2 | [#285](https://github.com/bounswe/bounswe2022group7/issues/285), [Meeting Notes](https://github.com/bounswe/bounswe2022group7/wiki/MOBILE-Meeting-Notes-%232) |
+| Fix Comment and Discussion Post structure designs | [#296](https://github.com/bounswe/bounswe2022group7/issues/296)|
+| Customize the Home Page for Guest Users | [#313](https://github.com/bounswe/bounswe2022group7/issues/313)|
+| Implement Event Page with endpoint integrations | [#316](https://github.com/bounswe/bounswe2022group7/issues/316), [#330](https://github.com/bounswe/bounswe2022group7/issues/330), [PR #348](https://github.com/bounswe/bounswe2022group7/pull/348) |
+| Add tests for the Event Page | [#361](https://github.com/bounswe/bounswe2022group7/issues/361), [PR #364](https://github.com/bounswe/bounswe2022group7/pull/364) |
+| Implement Art Item Page UI and models | [#316](https://github.com/bounswe/bounswe2022group7/issues/316), [#331](https://github.com/bounswe/bounswe2022group7/issues/331), [PR #365](https://github.com/bounswe/bounswe2022group7/pull/365) |
+| Merge the development on android into the develop branch | [PR #328](https://github.com/bounswe/bounswe2022group7/pull/328) |
+| Update the App Name and design for Mobile | [#350](https://github.com/bounswe/bounswe2022group7/issues/350), [PR #352](https://github.com/bounswe/bounswe2022group7/pull/352) |
+| Prepare for the Customer Presentation and present it | [#353](https://github.com/bounswe/bounswe2022group7/issues/353) |
+| Prepare the Use Case and Class Diagram deliverables and upload them | [#329](https://github.com/bounswe/bounswe2022group7/issues/329) |
+| Write Part 3 of Milestone Group Review | [#370](https://github.com/bounswe/bounswe2022group7/issues/370)|
+| *Review the questions prepared for the Customer Meeting* | [#242](https://github.com/bounswe/bounswe2022group7/issues/242), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/242#issuecomment-1273758425) |
+| *Review the Sequence Diagram for Discussion Posts* | [#245](https://github.com/bounswe/bounswe2022group7/issues/245), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/245#issuecomment-1277495036) |
+| *Review the Profile Page implementation* | [#262](https://github.com/bounswe/bounswe2022group7/issues/262), [PR #279](https://github.com/bounswe/bounswe2022group7/pull/279), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/262#issuecomment-1284984563) |
+| *Review the User Provider implementation for authentication* | [#292](https://github.com/bounswe/bounswe2022group7/issues/292), [PR #293](https://github.com/bounswe/bounswe2022group7/pull/293) |
+| *Review the merging of the development on front-end into the develop* branch | [PR #324](https://github.com/bounswe/bounswe2022group7/pull/324) |
+| *Review Art Item endpoint integrations* | [#339](https://github.com/bounswe/bounswe2022group7/issues/339), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/339#issuecomment-1297655311) |
+| *Review the back-end connections for the Register form* | [#318](https://github.com/bounswe/bounswe2022group7/issues/318), [PR #320](https://github.com/bounswe/bounswe2022group7/pull/320) |
+| *Review the tests for Regiter Page* | [#359](https://github.com/bounswe/bounswe2022group7/issues/359), [PR #360](https://github.com/bounswe/bounswe2022group7/pull/363) |
+| *Review Home Page endpoint  integrations* | [#351](https://github.com/bounswe/bounswe2022group7/issues/351), [PR #362](https://github.com/bounswe/bounswe2022group7/pull/362), [Requested changes](https://github.com/bounswe/bounswe2022group7/pull/362#pullrequestreview-1162617659), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/351#issuecomment-1297754241) |
+| *Review .env file configuration* | [#357](https://github.com/bounswe/bounswe2022group7/issues/357), [PR #363](https://github.com/bounswe/bounswe2022group7/pull/363) |
+| *Review the tag created for our release* | [#368](https://github.com/bounswe/bounswe2022group7/issues/368), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/368#issuecomment-1299670259) |
+
+
+
+
+### Demet Yayla
+
+| Task | Link |
+| ----- | ------|
+|I created the initial entity classes for backend|[#256](https://github.com/bounswe/bounswe2022group7/issues/256)|
+|I created the initial endpoints which are related to items that will appear in homepage|[#287](https://github.com/bounswe/bounswe2022group7/issues/287)|
+|I wrote the endpoint that will return a single event with the id provided by frontend. |[#301](https://github.com/bounswe/bounswe2022group7/issues/301)|
+|I fixed a database integration error.|[#295](https://github.com/bounswe/bounswe2022group7/issues/295)|
+|I searched on Spring Boot annotations for different kinds of database relations.|[#310](https://github.com/bounswe/bounswe2022group7/issues/310)|
+|I searched on fixing spring annotation for manytomany|[#309](https://github.com/bounswe/bounswe2022group7/issues/309)|
+|I did a research on how to write integration tests for secured restful methods.|[#358](https://github.com/bounswe/bounswe2022group7/issues/358)|
+|Reviewed this issue.|[#302](https://github.com/bounswe/bounswe2022group7/issues/302)|
+|Reviewed this issue.|[#345](https://github.com/bounswe/bounswe2022group7/pull/345)|
+|Owner of this PR|[#319](https://github.com/bounswe/bounswe2022group7/pull/319)|
+|Owner of this PR|[#303](https://github.com/bounswe/bounswe2022group7/pull/303)|
+|Owner of this PR|[#275](https://github.com/bounswe/bounswe2022group7/pull/275)|
+|Review and update class diagram with Can Atakan Uğur|[#239](https://github.com/bounswe/bounswe2022group7/issues/239)|
+|Review and update Project Plan with team leaders and Can Atakan Uğur|[#241](https://github.com/bounswe/bounswe2022group7/issues/241)|
+|Update communication plan.|[#244](https://github.com/bounswe/bounswe2022group7/issues/244)|
+|Review and update sequence diagram for Discussion forum.|[#245](https://github.com/bounswe/bounswe2022group7/issues/245)|
+|After the first backend meeting, update class diagram and requirements|[#250](https://github.com/bounswe/bounswe2022group7/issues/250)|
+|Update the sequence diagram for discussion forum related to the latest modification on class diagram|[#312](https://github.com/bounswe/bounswe2022group7/issues/312)|
+|I was the notetaker for 2 backend meetings. We did three backend, three general team meetings so far and I attended them all.||
+|Revision of this issue about deliverables|[#329](https://github.com/bounswe/bounswe2022group7/issues/329)|
+|Solving pop-up premilestone requests.|[#347](https://github.com/bounswe/bounswe2022group7/issues/347)|
+|Gave feedback on this issue related to milestone presentations on Tuesday.|[#353](https://github.com/bounswe/bounswe2022group7/issues/353)|
+|I was one of the notetakers in milestone presentations.||
+|I wrote individual milestone report.||
+|I wrote parts of milestone group review (wrote some of part 3 and my own sections in part 6 and 7.)|[#370](https://github.com/bounswe/bounswe2022group7/issues/370)|
+
+
