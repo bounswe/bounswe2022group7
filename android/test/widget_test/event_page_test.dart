@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:nock/nock.dart';
@@ -11,6 +12,10 @@ import 'package:android/config/api_endpoints.dart';
 Widget makeTestableWidget() => MaterialApp(home: Image.network(''));
 
 void main() {
+  dotenv.testLoad(fileInput: '''SERVER_PORT=8080
+SERVER_IP=http://10.0.2.2
+''');
+
   setUpAll(nock.init);
 
   setUp(() {
