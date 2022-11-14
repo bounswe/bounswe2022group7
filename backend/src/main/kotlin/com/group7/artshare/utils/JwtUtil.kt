@@ -1,5 +1,6 @@
 package com.group7.artshare.utils
 
+import com.group7.artshare.entity.RegisteredUser
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.security.core.Authentication
@@ -11,7 +12,7 @@ import java.util.*
 object JwtUtil {
     fun generateToken(user: Authentication, key: String): String {
         return Jwts.builder()
-            .setSubject(user.name)
+            .setSubject((user.principal as RegisteredUser).getEmail())
             .claim("authorities", getAuthorities(user))
             .setExpiration(expirationDate)
             .signWith(Keys.hmacShaKeyFor(key.toByteArray()))

@@ -1,21 +1,29 @@
 package com.group7.artshare.entity
 
-import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonManagedReference
 import lombok.Data
 import java.util.*
 import javax.persistence.*
 
 @Data
 @Entity
-class Comment {
+class DiscussionPost {
 
     @Id
     @GeneratedValue
     val id: Long = 0L
 
     @Column
-    var text : String = ""
+    var title: String = ""
+
+    @Column
+    var textBody: String = ""
+
+    @Column
+    var imageURL: String = ""
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "creator")
+    var creator: RegisteredUser? = null
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -26,16 +34,15 @@ class Comment {
     var lastEditDate: Date = Calendar.getInstance().time
 
     @Column
-    var upvoteNo : Int = 0
+    var upvoteNo: Int = 0
 
     @Column
-    var downvoteNo : Int = 0
+    var downvoteNo: Int = 0
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     var reports: MutableList<Report> = mutableListOf()
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "author")
-    @JsonBackReference
-    var author : RegisteredUser? = null
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    var commentList: MutableList<Comment> = mutableListOf()
+
 }

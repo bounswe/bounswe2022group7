@@ -71,25 +71,23 @@ class DataProp {
         var artItem1 = ArtItem()
         var artItemInfo1 = ArtItemInfo()
         artItem1.auction =null
-        var artist1 = Artist()
-        artist1.name ="Bridget"
-        artist1.surname = "Jones"
+        var artist1 = Artist(accountInfo1,setOf())
 
         artItem1.creator = artist1
         var comment1 = Comment()
         comment1.author = owner2
-        comment1.body = "Amazing!"
-        comment1.createdAt = Calendar.getInstance().time
+        comment1.text = "Amazing!"
+        comment1.creationDate = Calendar.getInstance().time
 
         var comment2 = Comment()
         comment2.author = owner3
-        comment2.body = "Wonderful! I feel goosebumps!"
-        comment2.createdAt = Calendar.getInstance().time
+        comment2.text = "Wonderful! I feel goosebumps!"
+        comment2.creationDate = Calendar.getInstance().time
 
         var comment3 = Comment()
         comment3.author = owner1
-        comment3.body = "Shclecht!"
-        comment3.createdAt = Calendar.getInstance().time
+        comment3.text = "Shclecht!"
+        comment3.creationDate = Calendar.getInstance().time
 
 
         artItem1.commentList = mutableListOf(comment2, comment1)
@@ -114,14 +112,14 @@ class DataProp {
         artItemInfo2.imageUrl = "https://uploads4.wikiart.org/images/pablo-picasso/mediterranean-landscape-1952.jpg!Large.jpg"
         artItem2.artItemInfo = artItemInfo2
         artItem2.auction = Auction()
-        var artist2 = Artist()
-        artist2.name = "Michael"
-        artist2.surname = "Phelps"
+        var artist2 = Artist(accountInfo2,setOf())
         artItem2.creator = artist2
         artItem2.commentList = mutableListOf(comment3)
         artItem2.lastPrice = 0.0
         artItem2.onAuction = false
         artItem2.owner = owner3
+        owner1.bookmarkedArtItems.add(artItem2)
+        owner1.following.add(owner2)
 
         artItemList.add(artItem2)
 
