@@ -41,6 +41,8 @@ class SecurityConfiguration @Autowired constructor(
     override fun configure(http: HttpSecurity) {
         http
             .authorizeRequests()
+            .antMatchers("/v3/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll()
+            .regexMatchers(".*swagger.*").permitAll()
             .antMatchers(HttpMethod.POST,"/login").permitAll()
             .antMatchers(HttpMethod.POST,"/signup").permitAll()
             .mvcMatchers(HttpMethod.GET, "/event/{id}").permitAll()
