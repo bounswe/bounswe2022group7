@@ -14,6 +14,7 @@ import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography";
+import FormLayout from "../../layouts/FormLayout";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -83,14 +84,13 @@ function SignInForm(props) {
 
   return (
     <div>
-      <Paper sx={{p: 2}}>
         <Typography variant="h5" component="h3">
           {props.formName}
         </Typography>
         <Typography component="p">{props.formDescription}</Typography>
 
         <form onSubmit={formik.handleSubmit}>
-          <Stack sx={{mt: 2}}>
+          <Stack sx={{ padding: 2 }}>
             { error ? <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing in</AlertTitle>{error}</Alert> :           
                redirected ? <Alert severity="info" sx={{mb: 2}}>You have succesfully signed up, you can login with your crediantials.</Alert> : null}
             <TextField
@@ -127,17 +127,18 @@ function SignInForm(props) {
             </Button>
           </Stack>
         </form>
-      </Paper>
-    </div>
+      </div>
   );
 }
 
 function SignInPage() {
   return (
-    <SignInForm
-      formName="Sign In"
-      formDescription="You can sign in to your account through this page."
-    />
+    <FormLayout>
+      <SignInForm
+        formName="Sign In"
+        formDescription="You can sign in to your account through this page."
+      />
+    </FormLayout>
   )
 }
 
