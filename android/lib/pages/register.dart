@@ -106,71 +106,6 @@ class _RegisterState extends State<Register> {
     ));
 
 
-    final nameField = inputField(TextFormField(
-      onSaved: (value) => _name = value,
-      autofocus: false,
-      decoration: const InputDecoration(
-        border: InputBorder.none,
-        hintText: 'Name (optional)',
-      ),
-    ));
-
-    final surnameField = inputField(TextFormField(
-      onSaved: (value) => _surname = value,
-      autofocus: false,
-      decoration: const InputDecoration(
-        border: InputBorder.none,
-        hintText: 'Surname (optional)',
-      ),
-    ));
-
-    final ageField = inputField(TextFormField(
-      keyboardType: TextInputType.number,
-      autofocus: false,
-      inputFormatters: [LengthLimitingTextInputFormatter(2)],
-      decoration: const InputDecoration(
-        border: InputBorder.none,
-        hintText: 'Age (optional)',
-      ),
-    ));
-
-    final countryField = inputField(GestureDetector(
-      onTap: () => showCountryPicker(
-          context: context,
-          onSelect: (Country country) {
-            setState(() {
-              _country = country;
-            });
-          }),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              _country == null ? 'Country (optional)' : _country!.name,
-              style: TextStyle(
-                fontSize: 15,
-                color: _country == null ? Colors.grey.shade600 : Colors.black,
-              ),
-            ),
-          ),
-          Visibility(
-            visible: _country != null,
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  _country = null;
-                });
-              },
-              icon: const Icon(Icons.highlight_remove_outlined),
-              color: Colors.grey.shade600,
-            ),
-          ),
-        ],
-      ),
-    ));
 
     final userTypes = ["Artist", "Regular User"];
 
@@ -211,10 +146,6 @@ class _RegisterState extends State<Register> {
         email: _email!,
         username: _username!,
         password: _password!,
-        name: _name,
-        surname: _surname,
-        age: _age,
-        country: _country?.name,
       );
 
       registerProvider
@@ -253,14 +184,6 @@ class _RegisterState extends State<Register> {
                   passwordField,
                   const SizedBox(height: 10.0),
                   confirmPassword,
-                  const SizedBox(height: 10.0),
-                  nameField,
-                  const SizedBox(height: 10.0),
-                  surnameField,
-                  const SizedBox(height: 10.0),
-                  ageField,
-                  const SizedBox(height: 10.0),
-                  countryField,
                   const SizedBox(height: 10.0),
                   registerProvider.isLoading
                       ? loading("Registering ... Please wait")

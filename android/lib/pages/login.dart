@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
           return;
         }
 
-        CurrentUser user = CurrentUser(token: loginOutput.token!);
+        CurrentUser user = CurrentUser(token: loginOutput.token!, email: _email!);
 
         // save user in local storage
         saveUser(user);
