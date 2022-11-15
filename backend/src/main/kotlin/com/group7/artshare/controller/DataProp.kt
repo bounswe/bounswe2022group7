@@ -40,7 +40,6 @@ class DataProp {
     fun a() : Boolean {
         var accountInfo1 = AccountInfo("email@email.com", "janedoe", "31415926")
         accountInfo1.country = "England"
-        //accountInfo1.profilePictureUrl = "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
         accountInfo1.surname = "Doe"
         accountInfo1.name = "Jane"
         var owner1 = RegisteredUser(accountInfo1, setOf())
@@ -50,7 +49,6 @@ class DataProp {
 
         var accountInfo2 = AccountInfo("email2@email.com", "joedoe", "31415936")
         accountInfo2.country = "Sydney"
-        //accountInfo2.profilePictureUrl = "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
         accountInfo2.surname = "Doe"
         accountInfo2.name = "Joe"
         var owner2 = RegisteredUser(accountInfo2, setOf())
@@ -59,7 +57,6 @@ class DataProp {
 
         var accountInfo3 = AccountInfo("email3@email.com", "janettdoe", "31415976")
         accountInfo3.country = "Katalan"
-        //accountInfo3.profilePictureUrl = "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
         accountInfo3.surname = "Doe"
         accountInfo3.name = "Janett"
         var owner3 = RegisteredUser(accountInfo3, setOf())
@@ -115,7 +112,6 @@ class DataProp {
         artItemInfo2.labels = "[\"classical\", \"painting\"]"
         artItemInfo2.description = "Emotional hurricane on a dull landscape, too dull for an artistic soul as mine."
         artItemInfo2.category = "Classical"
-        //artItemInfo2.imageUrl = "https://uploads4.wikiart.org/images/pablo-picasso/mediterranean-landscape-1952.jpg!Large.jpg"
         artItem2.artItemInfo = artItemInfo2
         artItem2.auction = Auction()
         var artist2 = Artist(accountInfo2,setOf())
@@ -141,7 +137,6 @@ class DataProp {
 
         var event1 = PhysicalExhibition()
         var eventInfo1 = EventInfo()
-        eventInfo1.posterUrl = "https://i.pinimg.com/originals/c7/9a/b6/c79ab6b3943e4e75fa0742a8ce9a76e6.jpg"
         eventInfo1.category = "[\"kubism\", \"oil painting\", \"wooden sculpture\"]"
         eventInfo1.endingDate = Calendar.getInstance().time
         eventInfo1.title = "Venice the Mourning City"
@@ -157,7 +152,6 @@ class DataProp {
 
         var event2 = PhysicalExhibition()
         var eventInfo2 = EventInfo()
-        eventInfo2.posterUrl = "https://www.kadindanalhaberi.com/images/haberler/2020/08/sanatsal_mozaik_sergisi_kahramanmaras_kalede_aciliyor_h7195_9e45b.jpg"
         eventInfo2.category = "[\"mosaic\", \"seramic\"]"
         eventInfo2.endingDate = Calendar.getInstance().time
         eventInfo2.title = "Footsteps of the Ancients"
