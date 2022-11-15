@@ -12,10 +12,6 @@ class ArtItemInfo {
     @GeneratedValue
     var id: Long = 0L
 
-    @OneToOne(mappedBy = "artItemInfo", cascade = [CascadeType.ALL])
-    @JsonBackReference
-    var artItem: ArtItem? = null
-
     @Column
     var name: String? = null
 
