@@ -105,8 +105,6 @@ class _RegisterState extends State<Register> {
       ),
     ));
 
-
-
     final userTypes = ["Artist", "Regular User"];
 
     final userTypeField = inputField(DropdownButtonFormField(
@@ -190,7 +188,7 @@ class _RegisterState extends State<Register> {
                       : longButtons("Register", register),
                   const SizedBox(height: 10.0),
                   navigateToOtherFormText('Have an account?',
-                      'Back to login page.', navigateToLoginPage),
+                      'Back to login page.', navigateToLoginPage, Colors.white),
                 ],
               ),
             ),
