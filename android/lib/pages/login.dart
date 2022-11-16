@@ -33,7 +33,6 @@ class _LoginState extends State<Login> {
 
   String? _email, _password;
 
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -44,7 +43,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     LoginProvider loginProvider = Provider.of<LoginProvider>(context);
-
 
     void logIn() {
       final form = formKey.currentState!;
@@ -67,7 +65,8 @@ class _LoginState extends State<Login> {
           return;
         }
 
-        CurrentUser user = CurrentUser(token: loginOutput.token!, email: _email!);
+        CurrentUser user =
+            CurrentUser(token: loginOutput.token!, email: _email!);
 
         // save user in local storage
         saveUser(user);
@@ -79,7 +78,7 @@ class _LoginState extends State<Login> {
         Navigator.pushNamedAndRemoveUntil(
           context,
           homepage,
-              (route) => false,
+          (route) => false,
         );
       });
     }
@@ -118,8 +117,6 @@ class _LoginState extends State<Login> {
       ),
     ));
 
-
-
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       appBar: FormAppBar(),
@@ -143,10 +140,10 @@ class _LoginState extends State<Login> {
                       ? loading("Trying to login ... Please wait")
                       : longButtons("Log In", logIn),
                   const SizedBox(height: 10),
-                  navigateToOtherFormText('Not a User?', 'Sign up now.', signUp),
+                  navigateToOtherFormText(
+                      'Not a User?', 'Sign up now.', signUp, Colors.white),
                 ],
               ),
-
             ),
           ),
         ),
