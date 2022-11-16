@@ -43,15 +43,15 @@ Widget inputField(Widget formField) {
   );
 }
 
-Widget navigateToOtherFormText(
-    String whiteText, String linkText, Function() linkAction) {
+Widget navigateToOtherFormText(String whiteText, String linkText,
+    Function() linkAction, Color whiteTextColor) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(
         "$whiteText ",
-        style: const TextStyle(
-          color: Colors.white,
+        style: TextStyle(
+          color: whiteTextColor,
           fontSize: 13,
         ),
       ),
