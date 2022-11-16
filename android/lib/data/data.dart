@@ -13,7 +13,7 @@ final User dali = User(
     id: 0,
     userType: "Artist",
     username: "username",
-    name: 'Salvador Dali',
+    name: '',
     email: 'dl@mail.com',
     imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Salvador_Dal%C3%AD_1939.jpg/1280px-Salvador_Dal%C3%AD_1939.jpg');
