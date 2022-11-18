@@ -46,7 +46,14 @@ function App() {
             path="/new/art_item"
             element={<ProtectedRoute><CreateArtItemPage /></ProtectedRoute>} 
           />
-          <Route path="*" element={<ErrorPage />} />
+          <Route
+            path="*"
+            element={
+              <ErrorPage
+                message="It looks like you are trying to access a page that doesn't exist."
+              />
+              }
+            />
         </Routes>
       </AuthProvider>
     </div>
