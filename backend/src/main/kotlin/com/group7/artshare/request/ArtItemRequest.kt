@@ -12,8 +12,6 @@ import javax.validation.constraints.NotEmpty
 @Data
 @RequiredArgsConstructor
 class ArtItemRequest {
-
-    @NotEmpty
     val creatorId: Long? = null
 
     @NotEmpty
@@ -21,5 +19,4 @@ class ArtItemRequest {
 
     val lastPrice: Double? = null
 
-    val ownerId: Long? = null
 }

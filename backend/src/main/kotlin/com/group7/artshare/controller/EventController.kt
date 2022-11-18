@@ -4,7 +4,9 @@ import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.OnlineGalleryRequest
 import com.group7.artshare.request.PhysicalExhibitionRequest
+import com.group7.artshare.service.EventService
 import com.group7.artshare.service.JwtService
+import com.group7.artshare.service.LoginService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
@@ -16,19 +18,16 @@ import java.util.*
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("event")
-class EventController(private val jwtService: JwtService) {
+class EventController(
+    private val jwtService: JwtService,
+    private val eventService: EventService
+    ) {
 
     @Autowired
     lateinit var physicalExhibitionRepository: PhysicalExhibitionRepository
 
     @Autowired
     lateinit var onlineGalleryRepository: OnlineGalleryRepository
-
-    @Autowired
-    lateinit var artistRepository: ArtistRepository
-
-    @Autowired
-    lateinit var artItemRepository: ArtItemRepository
 
     @GetMapping("{id}")
     fun getRecommendedEventsGeneric(@PathVariable("id") id: Long): Event? {
@@ -43,22 +42,6 @@ class EventController(private val jwtService: JwtService) {
                 HttpStatus.NOT_FOUND,
                 "Id is not match with any of the events in the database"
             )
-    }
-
-    fun createPhysicalExhibition(
-        physicalExhibitionRequest: PhysicalExhibitionRequest,
-        user: RegisteredUser
-    ): PhysicalExhibition {
-        val newPhysicalExhibition = PhysicalExhibition()
-        if (user is Artist)
-            newPhysicalExhibition.creator = user
-        else
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create physical exhibitions")
-        newPhysicalExhibition.location = physicalExhibitionRequest.location
-        newPhysicalExhibition.rules = physicalExhibitionRequest.rules
-        newPhysicalExhibition.eventInfo = physicalExhibitionRequest.eventInfo
-        physicalExhibitionRepository.save(newPhysicalExhibition)
-        return newPhysicalExhibition
     }
 
     @PostMapping(
@@ -77,7 +60,7 @@ class EventController(private val jwtService: JwtService) {
             authorizationHeader?.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return createPhysicalExhibition(physicalExhibitionRequest, user)
+                return eventService.createPhysicalExhibition(physicalExhibitionRequest, user)
             } ?: throw Exception("Token required")
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
@@ -86,25 +69,6 @@ class EventController(private val jwtService: JwtService) {
                 throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
             }
         }
-    }
-
-    fun createOnlineGallery(onlineGalleryRequest: OnlineGalleryRequest, user: RegisteredUser): OnlineGallery {
-        val newOnlineGallery = OnlineGallery()
-        if (user is Artist)
-            newOnlineGallery.creator = user
-        else
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create online galleries")
-        newOnlineGallery.eventInfo = onlineGalleryRequest.eventInfo
-        onlineGalleryRequest.artItemIds?.forEach {
-            val artItem = artItemRepository.findByIdOrNull(it)
-                ?: throw ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Art item list includes an id with no corresponding art item"
-                )
-            newOnlineGallery.artItems.add(artItem)
-        }
-        onlineGalleryRepository.save(newOnlineGallery)
-        return newOnlineGallery
     }
 
     @PostMapping(
@@ -123,7 +87,7 @@ class EventController(private val jwtService: JwtService) {
             authorizationHeader?.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return createOnlineGallery(onlineGalleryRequest, user)
+                return eventService.createOnlineGallery(onlineGalleryRequest, user)
             } ?: throw Exception("Token required")
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
