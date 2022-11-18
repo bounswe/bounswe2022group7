@@ -4,6 +4,7 @@ import { useAuth } from "../../auth/useAuth"
 
 import { Typography, Grid } from '@mui/material';
 import CommentSection from "../../common/CommentSection"
+import ContentLayout from "../../layouts/ContentLayout";
 
 function EventPage() {
   
@@ -43,7 +44,7 @@ function EventPage() {
     return <div>Loading...</div>
   } else {
   return (
-    <div>
+    <ContentLayout>
       <Typography variant="h4" sx={{padding:2}}>
         {event.eventInfo.title}
       </Typography>
@@ -70,7 +71,7 @@ function EventPage() {
           commentList={event.commentList.filter(x => !!x.author)}
         />
       </ Grid>  
-    </div>
+    </ContentLayout>
     
   )}
 }

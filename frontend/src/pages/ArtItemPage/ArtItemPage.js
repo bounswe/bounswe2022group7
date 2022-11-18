@@ -4,6 +4,7 @@ import { useAuth } from "../../auth/useAuth"
 
 import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
+import ContentLayout from "../../layouts/ContentLayout";
 
 import { Typography, Grid } from '@mui/material';
 
@@ -46,7 +47,7 @@ function ArtItemPage() {
     return <div>Loading...</div>
   } else {
   return (
-    <div>
+    <ContentLayout>
       <Typography variant="h4" sx={{padding:2}}>
         {artitem.artItemInfo.name}
       </Typography>
@@ -77,7 +78,7 @@ function ArtItemPage() {
           commentList={artitem.commentList.filter(x => !!x.author)}
         />
       </ Grid>  
-    </div>
+    </ContentLayout>
     
   )}
 }
