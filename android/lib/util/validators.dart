@@ -40,3 +40,11 @@ String? validateUserType(String? value) {
   }
   return msg;
 }
+
+String? validateNotEmpty(String? value) {
+  String? msg;
+  if (value == null || value == "") {
+    msg = "Please fill in this field";
+  }
+  return msg;
+}

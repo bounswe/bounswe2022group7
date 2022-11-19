@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:android/util/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,6 +28,7 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
     XFile? image;
 
     final nameField = inputField(TextFormField(
+      validator: validateNotEmpty,
       onSaved: (value) => _name = value,
       autofocus: false,
       decoration: const InputDecoration(
@@ -36,6 +38,7 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
     ));
 
     final priceField = inputField(TextFormField(
+      validator: validateNotEmpty,
       onSaved: (value) => _price = value,
       keyboardType: TextInputType.number,
       autofocus: false,
@@ -46,6 +49,7 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
     ));
 
     final descriptionField = inputField(TextFormField(
+      validator: validateNotEmpty,
       onSaved: (value) => _description = value,
       autofocus: false,
       decoration: const InputDecoration(
@@ -55,6 +59,7 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
     ));
 
     final categoryField = inputField(TextFormField(
+      validator: validateNotEmpty,
       onSaved: (value) => _category = value,
       autofocus: false,
       decoration: const InputDecoration(
@@ -64,6 +69,7 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
     ));
 
     final labelField = inputField(TextFormField(
+      validator: validateNotEmpty,
       onSaved: (value) => _labels = value,
       autofocus: false,
       decoration: const InputDecoration(
