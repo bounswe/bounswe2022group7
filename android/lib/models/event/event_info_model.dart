@@ -9,7 +9,7 @@ class EventInfo {
   final String? category;
   final double? eventPrice;
   final List<String>? labels;
-  final String? posterUrl;
+  final int? posterId;
 
   EventInfo(
       {required this.id,
@@ -20,7 +20,7 @@ class EventInfo {
       this.category,
       this.eventPrice,
       this.labels,
-      this.posterUrl});
+      this.posterId});
 
   factory EventInfo.fromJson(Map<String, dynamic> json) {
     return EventInfo(
@@ -38,7 +38,7 @@ class EventInfo {
       //labels: json['labels'].map((e) => e.toString()).toList(),
       labels: stringToList(json['labels']),
 
-      posterUrl: json['posterUrl'] ?? 'https://api.multiavatar.com/Robo.png',
+      posterId: json['posterId'],
     );
   }
 }
