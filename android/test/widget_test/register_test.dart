@@ -18,10 +18,6 @@ void main() {
     expect(find.text('Username'), findsOneWidget);
     expect(find.text('Password'), findsOneWidget);
     expect(find.text('Confirm Password'), findsOneWidget);
-    expect(find.text('Name (optional)'), findsOneWidget);
-    expect(find.text('Surname (optional)'), findsOneWidget);
-    expect(find.text('Age (optional)'), findsOneWidget);
-    expect(find.text('Country (optional)'), findsOneWidget);
 
     // test register button
     expect(find.text('Register'), findsOneWidget);
