@@ -1,13 +1,11 @@
 package com.group7.artshare.service
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.jsonMapper
 import com.group7.artshare.entity.AccountInfo
+import com.group7.artshare.entity.Artist
 import com.group7.artshare.entity.Authority
 import com.group7.artshare.entity.RegisteredUser
+import com.group7.artshare.repository.ArtistRepository
 import com.group7.artshare.repository.RegisteredUserRepository
-import com.group7.artshare.request.LoginRequest
 import com.group7.artshare.request.SignupRequest
 import com.group7.artshare.utils.JwtUtil
 import org.springframework.http.HttpStatus
@@ -16,12 +14,11 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import javax.persistence.EntityManager
-import javax.persistence.EntityManagerFactory
 
 @Service
 class SignupService(
     private val registeredUserRepository: RegisteredUserRepository,
+    private val artistRepository: ArtistRepository,
     private val registeredUserService: RegisteredUserService,
     private val passwordEncoder: PasswordEncoder,
     private val jwtService: JwtService
@@ -39,8 +36,18 @@ class SignupService(
             registeredUserService.findByEmail(email)?.let { throw Exception("Email is already taken") }
 
             val accountInfo = AccountInfo(email, username, encryptedPassword)
-            val user = RegisteredUser(accountInfo, setOf(Authority(userType)))
-            registeredUserRepository.saveAndFlush(user)
+            val user : RegisteredUser
+            when (val userTypeUpperCase = userType.uppercase()) {
+                "ARTIST" -> {
+                    user = Artist(accountInfo, setOf(Authority(userTypeUpperCase)))
+                    artistRepository.saveAndFlush(user)
+                }
+                "REGULAR USER" -> {
+                    user = RegisteredUser(accountInfo, setOf(Authority(userTypeUpperCase)))
+                    registeredUserRepository.saveAndFlush(user)
+                }
+                else -> throw Exception("Invalid user type")
+            }
             val authentication = UsernamePasswordAuthenticationToken(user as UserDetails, null, user.authorities)
             val token = JwtUtil.generateToken(authentication, jwtService.getSecretKey())
             return TokenResponse(token)
