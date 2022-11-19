@@ -8,17 +8,11 @@
 
 name: Backend CI
 
-on:
-  push:
-    branches:
-      - develop
-    paths:
-      - 'backend/**'
-      - 'docker/**'
-      
+on:   
   pull_request:
     branches: 
       - develop
+      - master
     paths:
       - 'backend/**'
       - 'docker/**'
