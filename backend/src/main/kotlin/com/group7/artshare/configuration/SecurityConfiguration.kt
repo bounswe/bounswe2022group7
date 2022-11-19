@@ -49,6 +49,7 @@ class SecurityConfiguration @Autowired constructor(
             .mvcMatchers(HttpMethod.GET, "/art_item/{id}").permitAll()
             .mvcMatchers(HttpMethod.GET, "/homepage/artItem").permitAll()
             .mvcMatchers(HttpMethod.GET, "/homepage/event").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/profile/{username}").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement()
