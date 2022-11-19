@@ -3,6 +3,7 @@ package com.group7.artshare.entity
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -42,7 +43,7 @@ class AccountInfo(
     var dateOfBirth: Date? = null
 
     @Column
-    var profilePictureUrl: String?=null
+    var profilePictureId: Long? = null
 
     @JsonIgnore
     fun getPassword(): String {

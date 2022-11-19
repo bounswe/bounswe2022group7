@@ -1,3 +1,4 @@
+import 'package:android/pages/create_art_item_page.dart';
 import 'package:android/pages/pages.dart';
 import 'package:android/providers/login_provider.dart';
 import 'package:android/providers/register_provider.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
           register: (context) => const Register(),
           homepage: (context) => const HomePage(),
           createEventPage: (context) => const CreateEvent(),
+          createArtItemPage: (context) => const CreateArtItemPage(),
         },
         navigatorKey: navigatorKey,
       ),

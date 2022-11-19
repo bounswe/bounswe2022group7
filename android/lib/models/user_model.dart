@@ -39,9 +39,11 @@ class User {
 /// User that is using the application has an extra token attribute that will be used for API calls
 class CurrentUser {
   final String token;
+  final String email;
 
   CurrentUser({
     required this.token,
+    required this.email,
   });
 
   // Functions below are used to convert user to string and vice versa
@@ -51,12 +53,14 @@ class CurrentUser {
   factory CurrentUser.fromJson(Map<String, dynamic> parsedJson) {
     return CurrentUser(
       token: parsedJson["token"],
+      email: parsedJson["email"],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       "token": token,
+      "email": email,
     };
   }
 }
