@@ -138,6 +138,14 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushNamed(context, createArtItemPage);
                 },
               ),
+            if (user != null)
+              ListTile(
+                leading: Icon(Icons.art_track),
+                title: Text("Create Event"),
+                onTap: () {
+                  Navigator.pushNamed(context, createEventPage);
+                },
+              ),
             ListTile(
               leading: Icon(Icons.photo_library),
               title: Text("Online Galleries"),
