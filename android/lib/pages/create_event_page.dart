@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:android/network/event/post_event_input.dart';
+import 'package:android/network/event/post_event_output.dart';
+import 'package:android/providers/post_event_provider.dart';
 import 'package:android/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,7 +54,9 @@ class _CreateEventState extends State<CreateEvent> {
   final titleFormKey = GlobalKey<FormFieldState>();
   final eventCategoryFormKey = GlobalKey<FormFieldState>();
 
-  String? _price, _labels, _description, _base64Image, _title, _eventCategory;
+  String? _description, _base64Image, _title, _eventCategory;
+  double _price = 0;
+  List<String>? _labels;
 
   Future pickDateRange() async {
     DateTimeRange? newDateRange = await showDateRangePicker(
@@ -76,8 +82,11 @@ class _CreateEventState extends State<CreateEvent> {
     final ValueNotifier<XFile?> imageNotifier = ValueNotifier(null);
     XFile? image;
 
+    PostEventProvider postEventProvider =
+        Provider.of<PostEventProvider>(context);
+
     final priceField = inputField(TextFormField(
-      onSaved: (value) => _price = value,
+      onSaved: (value) => _price = double.parse(value!),
       keyboardType: TextInputType.number,
       autofocus: false,
       decoration: const InputDecoration(
@@ -88,7 +97,7 @@ class _CreateEventState extends State<CreateEvent> {
 
     final labelField = inputField(TextFormField(
       validator: validateNotEmpty,
-      onSaved: (value) => _labels = value,
+      onSaved: (value) => _labels!.add(value!),
       autofocus: false,
       decoration: const InputDecoration(
         border: InputBorder.none,
@@ -213,6 +222,30 @@ class _CreateEventState extends State<CreateEvent> {
       }
 
       form.save();
+
+      PostEventInput postEventInput = PostEventInput(
+        category: _eventCategory,
+        title: _title!,
+        base64poster: _base64Image,
+        description: _description!,
+        startingDate: dateRange.start,
+        endingDate: dateRange.end,
+        labels: _labels,
+        eventPrice: _price,
+      );
+
+      postEventProvider
+          .register(postEventInput)
+          .then((PostEventOutput postEventOutput) {
+        showSnackBar(context, postEventOutput.status);
+        if (postEventOutput.status == "Event creation successful") {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            eventPage, // needs id
+            (route) => false,
+          );
+        }
+      });
     }
 
     return Scaffold(
@@ -252,7 +285,9 @@ class _CreateEventState extends State<CreateEvent> {
                   const SizedBox(height: 10.0),
                   priceField,
                   const SizedBox(height: 10.0),
-                  longButtons("Create", createEvent),
+                  postEventProvider.isLoading
+                      ? loading("Creating Event... Please Wait")
+                      : longButtons("Create", createEvent),
                 ],
               ),
             ),
