@@ -97,8 +97,7 @@ final List<Event> events = [
         description: 'A great exhibition of Van Gogh\'s works.',
         category: 'Post-Impressionism ',
         labels: ['french', 'post-impressionism', 'painting'],
-        posterUrl:
-            'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
+        posterId: 1,
       ),
       creator: ahmet,
       collaborators: [mehmet],
@@ -124,8 +123,7 @@ final List<Event> events = [
         description: 'A great exhibition of Dali\'s works.',
         category: 'Surrealism',
         labels: ['spanish', 'surrealism', 'painting'],
-        posterUrl:
-            'https://assets3.thrillist.com/v1/image/1416328/size/tl-no_parallax_cs_2x/the-11-most-stunning-new-architecture-projects-in-america',
+        posterId: 2,
       ),
       creator: mehmet,
       collaborators: [],

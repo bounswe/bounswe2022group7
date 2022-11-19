@@ -1,4 +1,5 @@
 import 'package:android/models/art_item/art_item_creator_model.dart';
+import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/art_item_page.dart';
 import 'package:android/pages/event_page.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class Post {
   final ArtItemCreator? creator;
   final String title;
   final String description;
-  final String? imageUrl;
+  final int? imageId;
 
   Post({
     required this.type,
@@ -17,7 +18,7 @@ class Post {
     this.creator,
     required this.title,
     required this.description,
-    required this.imageUrl,
+    this.imageId,
   });
 
   Widget pageRoute() {
@@ -69,7 +70,7 @@ class Post {
   }
 
   Widget imageNetwork() {
-    return imageUrl != null ? Image.network(imageUrl!) : Container();
+    return imageBuilder(imageId);
   }
 
   Widget descriptionText() {

@@ -23,7 +23,7 @@ class GetPostListOutput {
         creator: creator,
         title: event.eventInfo.title,
         description: event.eventInfo.description,
-        imageUrl: event.eventInfo.posterUrl,
+        imageId: event.eventInfo.posterId,
       );
       list?.add(post);
     }
@@ -34,7 +34,8 @@ class GetPostListOutput {
         creator: artitem.creator,
         title: artitem.artItemInfo.name,
         description: artitem.artItemInfo.description,
-        imageUrl: artitem.artItemInfo.imageUrl,
+        // Below line should be updated when artItem modal is fixed
+        imageId: 1, // artitem.artItemInfo.imageUrl,
       );
       list?.add(post);
     }
