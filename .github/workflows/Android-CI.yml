@@ -38,7 +38,9 @@ jobs:
       run: flutter pub get
     - name: Test project
       working-directory: ./android
-      run: flutter test
+      run: |
+      touch .env
+      flutter test
     - name: Build APK
       working-directory: ./android
       run: flutter build apk
