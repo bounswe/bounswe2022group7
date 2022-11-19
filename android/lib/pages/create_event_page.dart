@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:android/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../config/app_routes.dart';
@@ -46,7 +50,7 @@ class _CreateEventState extends State<CreateEvent> {
   final titleFormKey = GlobalKey<FormFieldState>();
   final eventCategoryFormKey = GlobalKey<FormFieldState>();
 
-  String? _price, _description, _poster, _title, _eventCategory;
+  String? _price, _labels, _description, _base64Image, _title, _eventCategory;
 
   Future pickDateRange() async {
     DateTimeRange? newDateRange = await showDateRangePicker(
@@ -68,6 +72,10 @@ class _CreateEventState extends State<CreateEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final ImagePicker picker = ImagePicker();
+    final ValueNotifier<XFile?> imageNotifier = ValueNotifier(null);
+    XFile? image;
+
     final priceField = inputField(TextFormField(
       onSaved: (value) => _price = value,
       keyboardType: TextInputType.number,
@@ -75,6 +83,16 @@ class _CreateEventState extends State<CreateEvent> {
       decoration: const InputDecoration(
         border: InputBorder.none,
         hintText: 'Price',
+      ),
+    ));
+
+    final labelField = inputField(TextFormField(
+      validator: validateNotEmpty,
+      onSaved: (value) => _labels = value,
+      autofocus: false,
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Labels',
       ),
     ));
 
@@ -113,17 +131,25 @@ class _CreateEventState extends State<CreateEvent> {
       ),
     ));
 
-    final posterField = inputField(TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: posterFormKey,
-      validator: validateEventPoster,
-      onSaved: (value) => _poster = value,
-      autofocus: false,
-      decoration: const InputDecoration(
-        border: InputBorder.none,
-        hintText: 'Poster URL',
-      ),
-    ));
+    var selectPosterField = InkWell(
+      onTap: () async {
+        image = await picker.pickImage(source: ImageSource.gallery);
+        if (image == null) return;
+        imageNotifier.value = image;
+        final bytes = File(image!.path).readAsBytesSync();
+        _base64Image = "data:image/png;base64,${base64Encode(bytes)}";
+        // log(base64Image); // prints null if string is too large
+      },
+      child: Container(
+          margin: const EdgeInsets.all(15.0),
+          padding:
+              const EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(5))),
+          child: const Text("Select Poster")),
+    );
 
     final titleField = inputField(TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -206,13 +232,23 @@ class _CreateEventState extends State<CreateEvent> {
                   const SizedBox(height: 10.0),
                   titleField,
                   const SizedBox(height: 10.0),
-                  posterField,
+                  ValueListenableBuilder<XFile?>(
+                    valueListenable: imageNotifier,
+                    builder: (context, value, child) {
+                      return value != null
+                          ? Image.file(File(image!.path))
+                          : const SizedBox();
+                    },
+                  ),
+                  selectPosterField,
                   const SizedBox(height: 10.0),
                   descriptionField,
                   const SizedBox(height: 10.0),
                   startDateField,
                   const SizedBox(height: 10.0),
                   endDateField,
+                  const SizedBox(height: 10.0),
+                  labelField,
                   const SizedBox(height: 10.0),
                   priceField,
                   const SizedBox(height: 10.0),
