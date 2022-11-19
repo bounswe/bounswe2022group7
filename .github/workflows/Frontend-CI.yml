@@ -11,6 +11,8 @@ on:
     paths:
       - 'frontend/**'
       - 'docker/**'
+      - '.github/workflows/Frontend-CI.yml'
+
 
   workflow_call:
 

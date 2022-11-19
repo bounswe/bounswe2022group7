@@ -16,6 +16,8 @@ on:
     paths:
       - 'backend/**'
       - 'docker/**'
+      - '.github/workflows/Backend-CI.yml'
+
   workflow_call:
 
 jobs:
