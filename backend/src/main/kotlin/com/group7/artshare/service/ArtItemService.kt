@@ -12,7 +12,8 @@ import org.springframework.web.server.ResponseStatusException
 @Service
 class ArtItemService(
     private val artItemRepository: ArtItemRepository,
-    private val artistRepository: ArtistRepository
+    private val artistRepository: ArtistRepository,
+    private val imageRepository: ImageRepository
 ) {
     fun createArtItem(
         artItemRequest: ArtItemRequest,
@@ -23,10 +24,14 @@ class ArtItemService(
             newArtItem.creator = user
         else
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create physical exhibitions")
+        if(artItemRequest.artItemInfo?.imageId?.let { imageRepository.existsById(it) } == false)
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
         newArtItem.artItemInfo = artItemRequest.artItemInfo
         newArtItem.lastPrice = artItemRequest.lastPrice!!
-        val creator = artistRepository.findByIdOrNull(artItemRequest.creatorId) ?: throw Exception("Creator is not an artist user")
-        newArtItem.creator = creator
+        if(artItemRequest.creatorId != null){
+            val creator = artistRepository.findByIdOrNull(artItemRequest.creatorId) ?: throw Exception("Creator is not an artist user")
+            newArtItem.creator = creator
+        }
         artItemRepository.save(newArtItem)
         return newArtItem
     }

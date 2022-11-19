@@ -13,7 +13,8 @@ import org.springframework.web.server.ResponseStatusException
 class EventService(
     private val physicalExhibitionRepository: PhysicalExhibitionRepository,
     private val onlineGalleryRepository: OnlineGalleryRepository,
-    private val artItemRepository: ArtItemRepository
+    private val artItemRepository: ArtItemRepository,
+    private val imageRepository: ImageRepository
 ) {
     fun createPhysicalExhibition(
         physicalExhibitionRequest: PhysicalExhibitionRequest,
@@ -26,6 +27,8 @@ class EventService(
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create physical exhibitions")
         newPhysicalExhibition.location = physicalExhibitionRequest.location
         newPhysicalExhibition.rules = physicalExhibitionRequest.rules
+        if(physicalExhibitionRequest.eventInfo?.posterId?.let { imageRepository.existsById(it) } == false)
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
         newPhysicalExhibition.eventInfo = physicalExhibitionRequest.eventInfo
         physicalExhibitionRepository.save(newPhysicalExhibition)
         return newPhysicalExhibition
@@ -37,6 +40,8 @@ class EventService(
             newOnlineGallery.creator = user
         else
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create online galleries")
+        if(onlineGalleryRequest.eventInfo?.posterId?.let { imageRepository.existsById(it) } == false)
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
         newOnlineGallery.eventInfo = onlineGalleryRequest.eventInfo
         onlineGalleryRequest.artItemIds?.forEach {
             val artItem = artItemRepository.findByIdOrNull(it)
