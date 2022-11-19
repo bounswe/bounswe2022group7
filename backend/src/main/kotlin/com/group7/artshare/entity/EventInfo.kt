@@ -37,5 +37,5 @@ class EventInfo {
     var labels: String? = null
 
     @Column
-    var posterUrl: String? = null
+    var posterId: Long? = null
 }

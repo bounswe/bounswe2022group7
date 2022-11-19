@@ -22,7 +22,7 @@ class ArtItemInfo {
     var category: String? = null
 
     @Column
-    var imageUrl: String? = null
+    var imageId: Long? = null
 
     @Column
     var labels: String? = null
