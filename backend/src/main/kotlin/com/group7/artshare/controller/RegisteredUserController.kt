@@ -15,7 +15,8 @@ import javax.validation.Valid
 @RestController
 class RegisteredUserController(
     private val loginService: LoginService,
-    private val signupService: SignupService
+    private val signupService: SignupService,
+    private val registeredUserService: RegisteredUserService
 ){
     @PostMapping("/login")
     fun login(@RequestBody loginRequest: @Valid LoginRequest): TokenResponse {

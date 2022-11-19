@@ -16,5 +16,5 @@ class PhysicalExhibition : Event(){
     var location: Location? = null
 
     @Column
-    var rules: String? = null
+    var rules: String = ""
 }
