@@ -1,19 +1,12 @@
 package com.group7.artshare.service
 
-import com.group7.artshare.SettingDTO
 import com.group7.artshare.entity.RegisteredUser
-import com.group7.artshare.repository.RegisteredUserRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import java.util.*
 
 @Service
-class ProfileService(
-    private val registeredUserService: RegisteredUserService,
-    private val jwtService: JwtService,
-    private val registeredUserRepository: RegisteredUserRepository
-    ) {
+class ProfileService(private val registeredUserService: RegisteredUserService, private val jwtService: JwtService) {
 
     fun getUserByUsernameOrToken(username: String?, authorizationHeader: String?): RegisteredUser {
         try {
@@ -35,46 +28,4 @@ class ProfileService(
             }
         }
     }
-
-
-    fun getSettings(user: RegisteredUser) : SettingDTO {
-        var settings  = SettingDTO()
-        settings.email = user.getEmail()
-        settings.username = user.username
-        settings.name = user.accountInfo?.name
-        settings.surname = user.accountInfo?.surname
-        settings.country = user.accountInfo?.country
-        settings.dateOfBirth = user.accountInfo?.dateOfBirth
-        settings.profilePictureId = user.accountInfo?.profilePictureId
-        return settings
-    }
-
-
-    fun setSettings(user: RegisteredUser, newSetting : SettingDTO) : SettingDTO {
-        var optional = registeredUserRepository.findById(user.id)
-        if(optional.isPresent){
-            val userFromDB = optional.get()
-            fillBlank(newSetting, userFromDB)
-            return getSettings(registeredUserRepository.save(userFromDB))
-        }else
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "No settings found for user")
-    }
-
-    fun fillBlank(setting : SettingDTO, userFromDB : RegisteredUser) {
-        if (Objects.nonNull(setting.email))
-            userFromDB.accountInfo?.email = setting.email.orEmpty()
-        if (Objects.nonNull(setting.username))
-            userFromDB.accountInfo?.username = setting.username.orEmpty()
-        if (Objects.nonNull(setting.name))
-            userFromDB.accountInfo?.name = setting.name.orEmpty()
-        if (Objects.nonNull(setting.surname))
-            userFromDB.accountInfo?.surname = setting.surname.orEmpty()
-        if (Objects.nonNull(setting.country))
-            userFromDB.accountInfo?.country = setting.country.orEmpty()
-        if (Objects.nonNull(setting.dateOfBirth))
-            userFromDB.accountInfo?.dateOfBirth = setting.dateOfBirth
-        if (Objects.nonNull(setting.profilePictureId))
-            userFromDB.accountInfo?.profilePictureId = setting.profilePictureId
-    }
-
 }

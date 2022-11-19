@@ -5,11 +5,14 @@ import com.group7.artshare.repository.ArtItemRepository
 import com.group7.artshare.repository.ArtistRepository
 import com.group7.artshare.repository.RegisteredUserRepository
 import com.group7.artshare.request.ArtItemRequest
+import com.group7.artshare.request.OnlineGalleryRequest
 import com.group7.artshare.service.ArtItemService
+import com.group7.artshare.service.EventService
 import com.group7.artshare.service.JwtService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
