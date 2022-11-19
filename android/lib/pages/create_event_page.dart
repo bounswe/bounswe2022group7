@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:android/network/event/post_event_input.dart';
 import 'package:android/network/event/post_event_output.dart';
+import 'package:android/pages/pages.dart';
 import 'package:android/providers/post_event_provider.dart';
 import 'package:android/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -235,14 +236,15 @@ class _CreateEventState extends State<CreateEvent> {
       );
 
       postEventProvider
-          .register(postEventInput)
+          .postEvent(postEventInput)
           .then((PostEventOutput postEventOutput) {
         showSnackBar(context, postEventOutput.status);
-        if (postEventOutput.status == "Event creation successful") {
-          Navigator.pushNamedAndRemoveUntil(
+        if (postEventOutput.status == "OK") {
+          Navigator.push(
             context,
-            eventPage, // needs id
-            (route) => false,
+            MaterialPageRoute(
+              builder: (context) => EventPage(id: postEventOutput.eventId),
+            ),
           );
         }
       });

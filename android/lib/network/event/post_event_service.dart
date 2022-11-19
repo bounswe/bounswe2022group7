@@ -14,17 +14,17 @@ Future<PostEventOutput> postEventNetwork(PostEventInput postEventInput) async {
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: json.encode(postEventInput),
     );
-    if (response.body == "true") {
-      return PostEventOutput(status: "Event creation successful");
-    } else if (response.body == "false") {
-      return PostEventOutput(status: "Event creation unsuccessful");
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      return PostEventOutput.fromJson(data);
     } else {
-      return PostEventOutput(status: response.body);
+      return PostEventOutput(
+          status: response.statusCode.toString(), eventId: -1);
     }
   } catch (err) {
     if (kDebugMode) {
       print(err);
     }
-    return PostEventOutput(status: "Network Error");
+    return PostEventOutput(status: "Network Error", eventId: -1);
   }
 }
