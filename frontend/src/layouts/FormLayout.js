@@ -25,7 +25,7 @@ const styles = {
 
 const FormLayout = ({ children }) => {
   return (
-    <main SX={styles.main}>
+    <main sx={styles.main}>
       <CssBaseline />
       <Paper sx={styles.paper} variant="outlined">
         <Container>
