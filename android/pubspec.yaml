@@ -43,6 +43,7 @@ dependencies:
   http: ^0.13.5
   flutter_dotenv: ^5.0.2
   percent_indicator: ^4.0.1
+  image_picker: ^0.8.6
 
 dev_dependencies:
   nock: ^1.1.2
