@@ -39,8 +39,8 @@ jobs:
     - name: Test project
       working-directory: ./android
       run: |
-      touch .env
-      flutter test
+        touch .env
+        flutter test
     - name: Build APK
       working-directory: ./android
       run: flutter build apk
