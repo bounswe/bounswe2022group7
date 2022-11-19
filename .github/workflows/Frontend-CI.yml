@@ -4,17 +4,13 @@
 name: Frontend CI
 
 on:  
-  push:
-    branches:
-      - release
-    paths:
-      - 'frontend/**'
-  
   pull_request:
     branches: 
       - develop
+      - master
     paths:
       - 'frontend/**'
+      - 'docker/**'
 
   workflow_call:
 
