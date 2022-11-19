@@ -16,7 +16,7 @@ class SignupService(
     private val registeredUserService: RegisteredUserService,
     private val passwordEncoder: PasswordEncoder
 ) {
-    fun signup(signupRequest: SignupRequest): Boolean {
+    fun signup(signupRequest: SignupRequest) {
         try {
             val email = signupRequest.getEmail() ?: throw Exception("Email is not specified")
             val password = signupRequest.getPassword() ?: throw Exception("Password is not specified")
@@ -29,14 +29,8 @@ class SignupService(
             registeredUserService.findByEmail(email)?.let { throw Exception("Email is already taken") }
 
             val accountInfo = AccountInfo(email, username, encryptedPassword)
-            accountInfo.dateOfBirth = signupRequest.getDateOfBirth()
-            accountInfo.name = signupRequest.getName()
-            accountInfo.surname = signupRequest.getSurname()
-            accountInfo.country = signupRequest.getCountry()
-
             val user = RegisteredUser(accountInfo, setOf(Authority(userType)))
             registeredUserRepository.save(user)
-            return true
         } catch (e: Exception) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
         }

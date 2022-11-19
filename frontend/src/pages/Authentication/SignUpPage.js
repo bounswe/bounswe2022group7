@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import FormLayout from "../../layouts/FormLayout";
 
 const validationSchema = yup.object({
   email: yup
@@ -124,7 +125,6 @@ function SignUpForm(props) {
 
   return (
     <div>
-      <Paper>
         <Typography variant="h5" component="h3">
           {props.formName}
         </Typography>
@@ -231,19 +231,18 @@ function SignUpForm(props) {
             </Button>
           </Stack>
         </form>
-      </Paper>
     </div>
   );
 }
 
 function SignUpPage() {
   return (
-    <div>
+    <FormLayout>
       <SignUpForm
         formName="Sign Up"
         formDescription="You can sign up to the platform through this page."
       />
-    </div>
+    </FormLayout>
   )
 }
 
