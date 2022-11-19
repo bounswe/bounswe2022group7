@@ -16,14 +16,14 @@ class ProfileController(
         @PathVariable(value = "username") username: String,
         @RequestHeader(value = "Authorization", required = false) authorizationHeader: String?
     ): RegisteredUser {
-        return profileService.getUserByUsername(username, authorizationHeader)
+        return profileService.getUserByUsernameOrToken(username, authorizationHeader)
     }
 
     @GetMapping()
-    fun getUserByUsername(
+    fun getUserByToken(
         @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
     ): RegisteredUser {
-        return profileService.getUserByUsername(null, authorizationHeader)
+        return profileService.getUserByUsernameOrToken(null, authorizationHeader)
     }
 
 

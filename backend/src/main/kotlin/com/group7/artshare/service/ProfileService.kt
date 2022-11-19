@@ -8,7 +8,7 @@ import org.springframework.web.server.ResponseStatusException
 @Service
 class ProfileService(private val registeredUserService: RegisteredUserService, private val jwtService: JwtService) {
 
-    fun getUserByUsername(username: String?, authorizationHeader: String?): RegisteredUser {
+    fun getUserByUsernameOrToken(username: String?, authorizationHeader: String?): RegisteredUser {
         try {
             username?.let {
                 return registeredUserService.findByUsername(it) ?: throw Exception("User not found")
