@@ -13,13 +13,13 @@ class DiscussionPost {
     val id: Long = 0L
 
     @Column
-    var title: String = ""
+    var title: String? = null
 
     @Column
-    var textBody: String = ""
+    var textBody: String? = null
 
     @Column
-    var imageURL: String = ""
+    var posterId: Long? = null
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
