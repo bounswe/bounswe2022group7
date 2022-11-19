@@ -10,7 +10,7 @@ class ArtItemDTO {
     var name : String? = null
     var description : String? = null
     var category : String? = null
-    var imageUrl : String? = null
+    var imageId : Long? = null
     var labels : MutableList<String> = mutableListOf()
     var creatorAccountInfo : AccountInfo? = null
     var creatorId : Long? = null

@@ -19,7 +19,7 @@ class DiscussionPost {
     var textBody: String = ""
 
     @Column
-    var imageURL: String = ""
+    var imageId: Long? = null
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")

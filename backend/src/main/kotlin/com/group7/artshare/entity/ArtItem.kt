@@ -56,7 +56,7 @@ class ArtItem{
         artItemDTO.name = this.artItemInfo?.name
         artItemDTO.description = this.artItemInfo?.description
         artItemDTO.category = this.artItemInfo?.category
-        artItemDTO.imageUrl = this.artItemInfo?.imageUrl
+        artItemDTO.imageId = this.artItemInfo?.imageId
         //labels = this.artItemInfo?.labels     TODO: gonna turn string into list
         artItemDTO.creatorAccountInfo = this.creator?.accountInfo
         artItemDTO.creatorId = this.creator?.id
