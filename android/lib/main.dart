@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
                 if (snapshot.data != null) {
                   Provider.of<UserProvider>(context).setUser(snapshot.data!);
                 }
-                return const CreateEvent();
+                return const HomePage();
             }
           },
         ),
