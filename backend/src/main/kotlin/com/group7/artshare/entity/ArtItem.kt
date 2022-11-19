@@ -2,6 +2,7 @@ package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.group7.artshare.DTO.ArtItemDTO
 import lombok.Data;
 import java.util.*
 import javax.persistence.*;
@@ -48,5 +49,31 @@ class ArtItem{
     @ManyToMany(mappedBy = "bookmarkedArtItems",cascade = [CascadeType.MERGE, CascadeType.PERSIST])
     @JsonBackReference
     var bookmarkedBy: MutableSet<RegisteredUser> = mutableSetOf()
+
+
+    fun mapToDTO() : ArtItemDTO{
+        var artItemDTO = ArtItemDTO()
+        artItemDTO.name = this.artItemInfo?.name
+        artItemDTO.description = this.artItemInfo?.description
+        artItemDTO.category = this.artItemInfo?.category
+        artItemDTO.imageUrl = this.artItemInfo?.imageUrl
+        //labels = this.artItemInfo?.labels     TODO: gonna turn string into list
+        artItemDTO.creatorAccountInfo = this.creator?.accountInfo
+        artItemDTO.creatorId = this.creator?.id
+        artItemDTO.creationDate = this.creationDate
+        artItemDTO.ownerAccountInfo = this.owner?.accountInfo
+        artItemDTO.ownerId = this.owner?.id
+        artItemDTO.onAuction = this.onAuction
+        artItemDTO.auction = this.auction
+        artItemDTO.lastPrice = this.lastPrice
+        for(comment in this.commentList){
+            artItemDTO.commentList.add(comment.mapToDTO())
+        }
+        for(user in this.bookmarkedBy){
+            artItemDTO.bookMarkedByIds.add(user.id)
+        }
+
+        return artItemDTO
+    }
 
 }
