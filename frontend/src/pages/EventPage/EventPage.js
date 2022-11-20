@@ -49,11 +49,11 @@ function EventPage() {
         {event.eventInfo.title}
       </Typography>
     
-      <Grid container>
-        <Grid item xs={6} sx={{padding:2}}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={8}>
           <img src={event.eventInfo.posterUrl} alt="Event" style={{width:'100%'}}/>
         </ Grid>
-        <Grid item xs={6} sx={{padding:2}}>          
+        <Grid item xs={12} sm={4}>          
           <Typography variant="h5">Description:</Typography>
           <Typography variant="body1">{event.eventInfo.description}</Typography>
 
@@ -66,11 +66,11 @@ function EventPage() {
           <Typography variant="h5">Location:</Typography>
           <Typography variant="body1">{event.location.address}</Typography>
         </ Grid>
-        <CommentSection
-          id={id}
-          commentList={event.commentList.filter(x => !!x.author)}
-        />
       </ Grid>  
+      <CommentSection
+        id={id}
+        commentList={event.commentList.filter(x => !!x.author)}
+      />
     </ContentLayout>
     
   )}

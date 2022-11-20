@@ -14,7 +14,8 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     p: 2,
-    width: 900,
+    maxWidth: "95vh",
+    width: "100%",
     marginLeft: "auto",
     marginRight: "auto",
   },
@@ -23,8 +24,8 @@ const styles = {
 const ContentLayout =({children}) =>{
   
   return (
-    <main SX={styles.main}>
-      <Paper sx={styles.paper} variant="outlined">
+    <main style={styles.main}>
+      <Paper style={styles.paper} variant="outlined">
         {children}
       </Paper>
     </main>
