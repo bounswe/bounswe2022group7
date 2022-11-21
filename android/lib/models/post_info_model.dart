@@ -2,13 +2,13 @@ class PostInfo {
   final int id;
   final String name;
   final String description;
-  final String? imageUrl;
+  final int? imageId;
 
   PostInfo({
     required this.id,
     required this.name,
     required this.description,
-    this.imageUrl,
+    this.imageId,
   });
 
   factory PostInfo.fromJson(Map<String, dynamic> json) {
@@ -16,7 +16,7 @@ class PostInfo {
       id: json['id'],
       name: json['name'],
       description: json['description'],
-      imageUrl: json['imageUrl'],
+      imageId: json['imageId'],
     );
   }
 }

@@ -12,7 +12,7 @@ class EventInfo extends PostInfo {
     required int id,
     required String name,
     required String description,
-    String? imageUrl,
+    int? imageId,
     required this.endingDate,
     required this.startingDate,
     this.category,
@@ -22,7 +22,7 @@ class EventInfo extends PostInfo {
           id: id,
           name: name,
           description: description,
-          imageUrl: imageUrl,
+    imageId: imageId,
         );
 
   factory EventInfo.fromJson(Map<String, dynamic> json) {
@@ -41,7 +41,7 @@ class EventInfo extends PostInfo {
       //labels: json['labels'].map((e) => e.toString()).toList(),
       labels: stringToList(json['labels']),
 
-      imageUrl: json['posterUrl'] ?? 'https://api.multiavatar.com/Robo.png',
+      imageId: json['posterId'],
     );
   }
 }
