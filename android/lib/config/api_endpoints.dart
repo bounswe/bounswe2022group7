@@ -8,4 +8,7 @@ String registerURL = "$baseURL/signup";
 String loginURL = "$baseURL/login";
 String eventURL = "$baseURL/event";
 String artItemURL = "$baseURL/art_item";
+
 String homepageURL = "$baseURL/homepage";
+String homepageEventURL = "$homepageURL/event";
+String homepageArtItemURL = "$homepageURL/artItem";

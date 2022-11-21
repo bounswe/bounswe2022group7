@@ -235,7 +235,7 @@ class _HomePageState extends State<HomePage> {
     CurrentUser? user = Provider.of<UserProvider>(context).user;
 
     return FutureBuilder(
-      future: getGenericPost(),
+      future: getPosts(user),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

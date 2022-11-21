@@ -32,7 +32,7 @@ class ArtItem extends Post {
     return ArtItem(
       id: json['id'],
       artItemInfo: ArtItemInfo.fromJson(json['artItemInfo']),
-      creator: User.fromJson(json['creator']),
+      creator: User.fromJson(json['creator']['accountInfo']),
       creationDate: DateTime.parse(json['creationDate']),
       // why does this use accountInfo?
       owner: User.fromJson(json['owner']["accountInfo"]),
@@ -47,8 +47,7 @@ class ArtItem extends Post {
       commentList:
           List<String>.from(json['commentList'].map((x) => x.toString())),
 
-      bookmarkedBy:
-          List<User>.from(json['bookmarkedBy'].map((x) => User.fromJson(x))),
+      bookmarkedBy: [],
     );
   }
 }
