@@ -1,10 +1,7 @@
-import 'package:android/models/art_item/art_item_creator_model.dart';
 import 'package:android/models/models.dart';
 
-class ArtItem {
-  final int id;
+class ArtItem extends Post {
   final ArtItemInfo artItemInfo;
-  final ArtItemCreator creator;
   final DateTime creationDate;
   final User owner;
   final bool onAuction;
@@ -14,9 +11,9 @@ class ArtItem {
   final List<User> bookmarkedBy;
 
   ArtItem({
-    required this.id,
+    required int id,
+    required User creator,
     required this.artItemInfo,
-    required this.creator,
     required this.creationDate,
     required this.owner,
     required this.onAuction,
@@ -24,14 +21,20 @@ class ArtItem {
     this.lastPrice,
     required this.commentList,
     required this.bookmarkedBy,
-  });
+  }) : super(
+          type: "Art Item",
+          id: id,
+          creator: creator,
+          postInfo: artItemInfo,
+        );
 
   factory ArtItem.fromJson(Map<String, dynamic> json) {
     return ArtItem(
       id: json['id'],
       artItemInfo: ArtItemInfo.fromJson(json['artItemInfo']),
-      creator: ArtItemCreator.fromJson(json['creator']),
+      creator: User.fromJson(json['creator']),
       creationDate: DateTime.parse(json['creationDate']),
+      // why does this use accountInfo?
       owner: User.fromJson(json['owner']["accountInfo"]),
 
       // Auction model has not been implemented yet

@@ -1,21 +1,23 @@
 import 'package:android/util/string_helpers.dart';
+import 'package:android/models/models.dart';
 
-class ArtItemInfo {
-  final int id;
-  final String name;
-  final String description;
+class ArtItemInfo extends PostInfo {
   final String? category;
-  final String? imageUrl;
   final List<String>? labels;
 
   ArtItemInfo({
-    required this.id,
-    required this.name,
-    required this.description,
+    required int id,
+    required String name,
+    required String description,
+    String? imageUrl,
     this.category,
-    this.imageUrl,
     this.labels,
-  });
+  }) : super(
+          id: id,
+          name: name,
+          description: description,
+          imageUrl: imageUrl,
+        );
 
   factory ArtItemInfo.fromJson(Map<String, dynamic> json) {
     return ArtItemInfo(
