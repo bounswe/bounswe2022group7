@@ -27,7 +27,7 @@ export default function ImageUploader(props) {
     return (
         <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center">
             <Grid item xs={12}>
-                {props.imgComponent || <img width={props.width} height={props.height} src={props.value} style={{ border: 1, borderColor: 'grey' }} />}
+                {props.imgComponent || <img alt="uploaded" width={props.width} height={props.height} src={props.value} style={{ border: 1, borderColor: 'grey' }} />}
             </Grid>
             <Grid item xs={12}>
                 <input

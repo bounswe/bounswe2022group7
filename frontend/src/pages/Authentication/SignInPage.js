@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../../auth/useAuth";
 
 import { useFormik } from 'formik';
@@ -11,10 +11,9 @@ import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
 import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography";
-import FormLayout from "../../layouts/FormLayout";
+import GenericCardLayout from "../../layouts/GenericCardLayout";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -23,12 +22,8 @@ const validationSchema = Yup.object().shape({
 
 function SignInForm(props) {
 
-  const { state } = useLocation();
-
-
   const [isLoading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-  const redirected = state ? state.redirect : false;
 
   // should be defined outside any function
   // otherwise breaks the 'Rules of Hooks' apparently.
@@ -38,7 +33,7 @@ function SignInForm(props) {
 
   const formik = useFormik({
     initialValues: {
-      email: state ? state.email : "",
+      email: "",
       password: "",
     },
     validationSchema: validationSchema,
@@ -91,8 +86,7 @@ function SignInForm(props) {
 
         <form onSubmit={formik.handleSubmit}>
           <Stack sx={{ padding: 2 }}>
-            { error ? <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing in</AlertTitle>{error}</Alert> :           
-               redirected ? <Alert severity="info" sx={{mb: 2}}>You have succesfully signed up, you can login with your crediantials.</Alert> : null}
+            { error && <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing in</AlertTitle>{error}</Alert> }
             <TextField
               id="outlined-required"
               label="Email"
@@ -133,12 +127,12 @@ function SignInForm(props) {
 
 function SignInPage() {
   return (
-    <FormLayout>
+    <GenericCardLayout maxWidth={500}>
       <SignInForm
         formName="Sign In"
         formDescription="You can sign in to your account through this page."
       />
-    </FormLayout>
+    </GenericCardLayout>
   )
 }
 

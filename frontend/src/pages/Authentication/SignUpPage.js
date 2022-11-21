@@ -1,6 +1,8 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../../auth/useAuth";
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -13,9 +15,9 @@ import Typography from "@mui/material/Typography";
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import FormLayout from "../../layouts/FormLayout";
+
+import EditUserInfo from "../../components/EditUserInfo"
+import GenericCardLayout from "../../layouts/GenericCardLayout";
 
 const validationSchema = yup.object({
   email: yup
@@ -78,21 +80,24 @@ function SignUpForm(props) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(values)
-      })
-        .then(response => {
-          if (response.ok) {
-            navigate('/auth/signin', { state: { redirect: true, email: values.email } });
+      }).then(res => res.json())
+        .then(
+          (result) => {
+            setLoading(false);
+
+            if (result.error) {
+              setError(result.message);
+            } else {
+              saveToken(result.token);
+              navigate('/auth/signup', { state: { success: true } });
+            }
+
+          },
+          (error) => {
+            setLoading(false);
+            setError(error);
           }
-          setLoading(false);
-          
-          return response.json();
-        }).then(data => {
-          setError(data.message)
-        })
-        .catch(error => {
-          setError(error.message);
-          setLoading(false);
-        });
+        )
     },
   });
 
@@ -180,13 +185,23 @@ function SignUpForm(props) {
 }
 
 function SignUpPage() {
+  const { state } = useLocation();
+  const success = state ? state.success : false;
+
   return (
-    <FormLayout>
-      <SignUpForm
-        formName="Sign Up"
-        formDescription="You can sign up to the platform through this page."
-      />
-    </FormLayout>
+
+    success ?
+      <GenericCardLayout maxWidth={600}>
+        <EditUserInfo formName="Complete your profile" formDescription="You can complete your profile by filling these fields." />
+      </GenericCardLayout>
+      :
+      <GenericCardLayout maxWidth={600}>
+        < SignUpForm
+          formName="Sign Up"
+          formDescription="You can sign up to the platform through this page."
+        />
+      </GenericCardLayout>
+
   )
 }
 
