@@ -1,5 +1,6 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -23,6 +24,7 @@ class DiscussionPost {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
+    @JsonBackReference
     var creator: RegisteredUser? = null
 
     @Column

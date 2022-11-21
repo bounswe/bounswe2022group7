@@ -52,4 +52,28 @@ class DiscussionPostController (
             }
         }
     }
+
+//    @DeleteMapping("{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    fun delete(
+//        @PathVariable id: Long,
+//        @RequestHeader(
+//            value = "Authorization",
+//            required = true
+//        ) authorizationHeader: String?
+//    ){
+//        try {
+//            authorizationHeader?.let {
+//                val user =
+//                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+//                discussionPostService.deleteDiscussionPost(id, user)
+//            } ?: throw Exception("Token required")
+//        } catch (e: Exception) {
+//            if (e.message == "Invalid token") {
+//                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+//            } else {
+//                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+//            }
+//        }
+//    }
 }

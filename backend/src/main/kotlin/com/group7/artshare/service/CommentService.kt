@@ -22,7 +22,7 @@ class CommentService(
     ): Comment {
         val newComment = Comment()
         newComment.author = user
-
+        user.commentList.add(newComment)
         val commentedObjectId = commentRequest.commentedObjectId
         newComment.text = commentRequest.text
         if (commentedObjectId?.let { artItemRepository.existsById(it) } == true) {
@@ -39,7 +39,6 @@ class CommentService(
                 "There is no commentable object in the database with this id"
             )
         commentRepository.save(newComment)
-        user.commentList.add(newComment)
         return newComment
     }
 

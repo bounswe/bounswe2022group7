@@ -20,6 +20,7 @@ class DiscussionPostService(
     ): DiscussionPost {
         val newDiscussionPost = DiscussionPost()
         newDiscussionPost.creator = user
+        user.writtenDiscussionPosts.add(newDiscussionPost)
         if(discussionPostRequest.posterId?.let { imageRepository.existsById(it) } == false)
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
         newDiscussionPost.posterId = discussionPostRequest.posterId
@@ -28,5 +29,25 @@ class DiscussionPostService(
         discussionPostRepository.save(newDiscussionPost)
         return newDiscussionPost
     }
+//    fun deleteDiscussionPost(
+//        id: Long,
+//        user: RegisteredUser
+//    ) {
+//        if (!discussionPostRepository.existsById(id)) {
+//            throw ResponseStatusException(
+//                HttpStatus.BAD_REQUEST,
+//                "There is no discussion post object in the database with this id"
+//            )
+//        } else {
+//            var discussionPost: DiscussionPost? = user.writtenDiscussionPosts.firstOrNull { it.id == id }
+//                ?: throw ResponseStatusException(
+//                    HttpStatus.UNAUTHORIZED,
+//                    "Associated discussion post is not written by this user"
+//                )
+//            user.writtenDiscussionPosts.remove(discussionPost)
+//            discussionPostRepository.deleteById(id)
+//        }
+//    }
+
 
 }
