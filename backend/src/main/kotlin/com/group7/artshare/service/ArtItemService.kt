@@ -20,18 +20,16 @@ class ArtItemService(
         user: RegisteredUser
     ): ArtItem {
         val newArtItem = ArtItem()
-        if (user is Artist)
+        if (user is Artist){
             newArtItem.creator = user
+            user.artItems.add(newArtItem)
+        }
         else
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create physical exhibitions")
         if(artItemRequest.artItemInfo?.imageId?.let { imageRepository.existsById(it) } == false)
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
         newArtItem.artItemInfo = artItemRequest.artItemInfo
         newArtItem.lastPrice = artItemRequest.lastPrice!!
-        if(artItemRequest.creatorId != null){
-            val creator = artistRepository.findByIdOrNull(artItemRequest.creatorId) ?: throw Exception("Creator is not an artist user")
-            newArtItem.creator = creator
-        }
         artItemRepository.save(newArtItem)
         return newArtItem
     }

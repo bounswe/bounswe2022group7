@@ -2,6 +2,7 @@ package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import java.util.ArrayList
 import javax.persistence.*
 
@@ -17,9 +18,11 @@ class Artist(accountInfo: AccountInfo, authorities: Set<Authority>) : Registered
         joinColumns = [JoinColumn(name = "artist_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "event_id", referencedColumnName = "id")]
     )
+    @JsonManagedReference
     var hostedEvents: MutableSet<Event> = mutableSetOf()
 
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @JsonManagedReference
     var artItems: MutableSet<ArtItem> = mutableSetOf()
 
     @Column

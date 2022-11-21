@@ -21,8 +21,10 @@ class EventService(
         user: RegisteredUser
     ): PhysicalExhibition {
         val newPhysicalExhibition = PhysicalExhibition()
-        if (user is Artist)
+        if (user is Artist) {
             newPhysicalExhibition.creator = user
+            user.hostedEvents.add(newPhysicalExhibition)
+        }
         else
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create physical exhibitions")
         newPhysicalExhibition.location = physicalExhibitionRequest.location
@@ -31,6 +33,7 @@ class EventService(
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
         newPhysicalExhibition.eventInfo = physicalExhibitionRequest.eventInfo
         physicalExhibitionRepository.save(newPhysicalExhibition)
+        //return PhysicalExhibition()
         return newPhysicalExhibition
     }
 

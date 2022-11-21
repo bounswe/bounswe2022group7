@@ -21,6 +21,7 @@ class ArtItem{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
+    @JsonBackReference
     var creator: Artist? = null
 
     @Column
