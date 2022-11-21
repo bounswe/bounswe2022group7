@@ -3,6 +3,8 @@ package com.group7.artshare.controller
 import com.group7.artshare.DTO.ArtItemDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.ArtItemRepository
+import com.group7.artshare.repository.ArtistRepository
+import com.group7.artshare.repository.RegisteredUserRepository
 import com.group7.artshare.request.ArtItemRequest
 import com.group7.artshare.service.ArtItemService
 import com.group7.artshare.service.JwtService
