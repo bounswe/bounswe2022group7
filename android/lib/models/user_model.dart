@@ -1,3 +1,5 @@
+import "package:android/data/data.dart";
+
 class User {
   final int id;
   final String name;
@@ -27,10 +29,11 @@ class User {
       name: parsedJson["name"],
       surname: parsedJson["surname"],
 
-      // TODO: correct those:
-      // although fields below are required, backend returns them null sometimes
+      // TODO: correct below
+      // although fields below are defined as required,
+      // they are sometimes not sent in the creator's info
       email: parsedJson["email"] ?? "",
-      imageUrl: parsedJson["profilePictureUrl"] ?? "",
+      imageUrl: parsedJson["profilePictureUrl"] ?? mehmet.imageUrl,
       username: parsedJson["username"] ?? "",
 
       userType: parsedJson["userType"],
