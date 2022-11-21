@@ -34,7 +34,6 @@ class ArtItem extends Post {
       artItemInfo: ArtItemInfo.fromJson(json['artItemInfo']),
       creator: User.fromJson(json['creator']['accountInfo']),
       creationDate: DateTime.parse(json['creationDate']),
-      // why does this use accountInfo?
       owner: User.fromJson(json['owner']["accountInfo"]),
 
       // Auction model has not been implemented yet
