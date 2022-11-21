@@ -23,7 +23,7 @@ Future<GetPostListOutput> getPosts(CurrentUser? user) async {
         Uri.parse(Uri.encodeFull(homepageEventURL)),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $user'
+          'Authorization': 'Bearer ${user.token}'
         },
       );
     }
