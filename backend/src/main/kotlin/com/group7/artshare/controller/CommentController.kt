@@ -30,7 +30,7 @@ class CommentController(
     fun getComment(@PathVariable("id") id: Long): Comment =
         commentRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND,
-            "Id is not match with any of the discussion posts in the database"
+            "Id is not match with any of the comments in the database"
         )
 
     @PostMapping(
