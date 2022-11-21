@@ -34,4 +34,21 @@ class ArtItemService(
         return newArtItem
     }
 
+    fun deleteArtItem(
+        id: Long,
+        user: RegisteredUser
+    ) {
+        if(!artItemRepository.existsById(id)) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no art item in the database with corresponding id")
+        if (user is Artist){
+            var artItem: ArtItem? = user.artItems.firstOrNull { it.id == id }
+                ?: throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Art item does not belong to this user")
+            if (artItem != null) {
+                user.artItems.remove(artItem)
+                artItemRepository.delete(artItem)
+            }
+        }
+        else {
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Regular Users cannot delete art items")
+        }
+    }
 }

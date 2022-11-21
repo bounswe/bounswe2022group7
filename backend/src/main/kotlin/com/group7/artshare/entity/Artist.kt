@@ -14,7 +14,7 @@ class Artist(accountInfo: AccountInfo, authorities: Set<Authority>) : Registered
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
-        name = "hostings",
+        name = "artist_hosted_events",
         joinColumns = [JoinColumn(name = "artist_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "event_id", referencedColumnName = "id")]
     )

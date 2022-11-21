@@ -1,11 +1,14 @@
 package com.group7.artshare.service
 
 import com.group7.artshare.entity.*
-import com.group7.artshare.repository.*
-import com.group7.artshare.request.*
+import com.group7.artshare.repository.ArtItemRepository
+import com.group7.artshare.repository.ImageRepository
+import com.group7.artshare.repository.OnlineGalleryRepository
+import com.group7.artshare.repository.PhysicalExhibitionRepository
+import com.group7.artshare.request.OnlineGalleryRequest
+import com.group7.artshare.request.PhysicalExhibitionRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
@@ -24,12 +27,11 @@ class EventService(
         if (user is Artist) {
             newPhysicalExhibition.creator = user
             user.hostedEvents.add(newPhysicalExhibition)
-        }
-        else
+        } else
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create physical exhibitions")
         newPhysicalExhibition.location = physicalExhibitionRequest.location
         newPhysicalExhibition.rules = physicalExhibitionRequest.rules
-        if(physicalExhibitionRequest.eventInfo?.posterId?.let { imageRepository.existsById(it) } == false)
+        if (physicalExhibitionRequest.eventInfo?.posterId?.let { imageRepository.existsById(it) } == false)
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
         newPhysicalExhibition.eventInfo = physicalExhibitionRequest.eventInfo
         physicalExhibitionRepository.save(newPhysicalExhibition)
@@ -39,11 +41,12 @@ class EventService(
 
     fun createOnlineGallery(onlineGalleryRequest: OnlineGalleryRequest, user: RegisteredUser): OnlineGallery {
         val newOnlineGallery = OnlineGallery()
-        if (user is Artist)
+        if (user is Artist) {
             newOnlineGallery.creator = user
-        else
+            user.hostedEvents.add(newOnlineGallery)
+        } else
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create online galleries")
-        if(onlineGalleryRequest.eventInfo?.posterId?.let { imageRepository.existsById(it) } == false)
+        if (onlineGalleryRequest.eventInfo?.posterId?.let { imageRepository.existsById(it) } == false)
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
         newOnlineGallery.eventInfo = onlineGalleryRequest.eventInfo
         onlineGalleryRequest.artItemIds?.forEach {
@@ -56,6 +59,29 @@ class EventService(
         }
         onlineGalleryRepository.save(newOnlineGallery)
         return newOnlineGallery
+    }
+
+    fun deleteEvent(
+        id: Long,
+        user: RegisteredUser
+    ) {
+        if (!((physicalExhibitionRepository.existsById(id)) || onlineGalleryRepository.existsById(id))) throw ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "There is no event in the database with corresponding id"
+        )
+        if (user is Artist) {
+            var event: Event? = user.hostedEvents.firstOrNull { it.id == id }
+                ?: throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Event does not belong to this user")
+            if (event != null) {
+                user.hostedEvents.remove(event)
+                if (event is PhysicalExhibition)
+                    physicalExhibitionRepository.delete(event)
+                if (event is OnlineGallery)
+                    onlineGalleryRepository.delete(event)
+            }
+        } else {
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Regular Users cannot delete events")
+        }
     }
 
 

@@ -6,7 +6,6 @@ import com.group7.artshare.request.OnlineGalleryRequest
 import com.group7.artshare.request.PhysicalExhibitionRequest
 import com.group7.artshare.service.EventService
 import com.group7.artshare.service.JwtService
-import com.group7.artshare.service.LoginService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
@@ -21,7 +20,7 @@ import java.util.*
 class EventController(
     private val jwtService: JwtService,
     private val eventService: EventService
-    ) {
+) {
 
     @Autowired
     lateinit var physicalExhibitionRepository: PhysicalExhibitionRepository
@@ -100,15 +99,25 @@ class EventController(
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteEvent(@PathVariable id: Long) {
-        if (physicalExhibitionRepository.existsById(id)) {
-            physicalExhibitionRepository.deleteById(id)
-        } else if (onlineGalleryRepository.existsById(id)) {
-            onlineGalleryRepository.deleteById(id)
-        } else
-            throw ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "Id is not match with any of the events in the database"
-            )
+    fun deleteEvent(
+        @PathVariable id: Long,
+        @RequestHeader(
+            value = "Authorization",
+            required = true
+        ) authorizationHeader: String?
+    ) {
+        try {
+            authorizationHeader?.let {
+                val user =
+                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+                eventService.deleteEvent(id, user)
+            } ?: throw Exception("Token required")
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
     }
 }

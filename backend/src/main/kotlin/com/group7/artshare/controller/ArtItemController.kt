@@ -40,12 +40,25 @@ class ArtItemController(
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteEvent(@PathVariable id: Long) {
-        if (artItemRepository.existsById(id)) {
-            artItemRepository.deleteById(id)
+    fun delete(@PathVariable id: Long,
+        @RequestHeader(
+            value = "Authorization",
+            required = true
+        ) authorizationHeader: String?
+    ) {
+        try {
+            authorizationHeader?.let {
+                val user =
+                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+                artItemService.deleteArtItem(id, user)
+            } ?: throw Exception("Token required")
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
         }
-        else
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the art items in the database")
     }
 
     @PostMapping(
