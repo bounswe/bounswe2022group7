@@ -8,20 +8,16 @@
 
 name: Backend CI
 
-on:
-  push:
-    branches:
-      - develop
-    paths:
-      - 'backend/**'
-      - 'docker/**'
-      
+on:   
   pull_request:
     branches: 
       - develop
+      - master
     paths:
       - 'backend/**'
       - 'docker/**'
+      - '.github/workflows/Backend-CI.yml'
+
   workflow_call:
 
 jobs:

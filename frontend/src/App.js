@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 
 import ResponsiveAppBar from './ResponsiveAppBar';
 import HomePage from "./pages/HomePage/HomePage"
+import Profile from "./pages/ProfilePage/Profile"
 import CreateArtItemPage from "./pages/ArtItemPage/CreateArtItemPage"
 import ArtItemPage from "./pages/ArtItemPage/ArtItemPage"
 import EventPage from "./pages/EventPage/EventPage"
@@ -27,6 +28,10 @@ function App() {
             element={<HomePage />}
           />
           <Route
+            path="/:username"
+            element={<Profile />}
+          />
+          <Route
             path="/auth/signup"
             element={<SignUpPage />}
           />
@@ -46,7 +51,14 @@ function App() {
             path="/new/art_item"
             element={<ProtectedRoute><CreateArtItemPage /></ProtectedRoute>} 
           />
-          <Route path="*" element={<ErrorPage />} />
+          <Route
+            path="*"
+            element={
+              <ErrorPage
+                message="It looks like you are trying to access a page that doesn't exist."
+              />
+              }
+            />
         </Routes>
       </AuthProvider>
     </div>

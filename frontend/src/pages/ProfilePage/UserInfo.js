@@ -4,7 +4,11 @@ import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-export class ForumOverview extends React.Component {
+export class UserInfo extends React.Component {
+    static defaultProps = {
+        username: ''
+    }
+
     render() {
         return (
             <Box sx={{
@@ -17,7 +21,7 @@ export class ForumOverview extends React.Component {
                         borderBottom: 1,
                         borderColor: 'text.secondary'
                     }}>
-                        Latest in forum
+                        {this.props.username}
                     </Typography>
                 </Paper>
             </Box>
