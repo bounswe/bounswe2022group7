@@ -26,9 +26,13 @@ class User {
       id: parsedJson["id"],
       name: parsedJson["name"],
       surname: parsedJson["surname"],
-      email: parsedJson["email"],
-      imageUrl: parsedJson["profilePictureUrl"],
-      username: parsedJson["username"],
+
+      // TODO: correct those:
+      // although fields below are required, backend returns them null sometimes
+      email: parsedJson["email"] ?? "",
+      imageUrl: parsedJson["profilePictureUrl"] ?? "",
+      username: parsedJson["username"] ?? "",
+
       userType: parsedJson["userType"],
       age: parsedJson["age"],
       country: parsedJson["country"],
