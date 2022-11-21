@@ -63,7 +63,7 @@ class ProfileController(
         @RequestHeader(
             value = "Authorization",
             required = true
-        ) authorizationHeader: String?
+        ) authorizationHeader: String
     ) : SettingDTO {
         try {
             authorizationHeader?.let {

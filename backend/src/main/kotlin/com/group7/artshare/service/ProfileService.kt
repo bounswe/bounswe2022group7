@@ -50,7 +50,7 @@ class ProfileService(
         if (Objects.nonNull(user.accountInfo?.profilePictureId) && imageRepository.existsById(user.accountInfo?.profilePictureId!!))
             settings.profilePictureId = user.accountInfo?.profilePictureId
         else if(Objects.nonNull(user.accountInfo?.profilePictureId))
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the items in the database")
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not matched with any of the images in the database")
         return settings
     }
 
