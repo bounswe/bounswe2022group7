@@ -2,6 +2,7 @@ package com.group7.artshare.service
 
 import com.group7.artshare.SettingDTO
 import com.group7.artshare.entity.RegisteredUser
+import com.group7.artshare.repository.ImageRepository
 import com.group7.artshare.repository.RegisteredUserRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -12,7 +13,8 @@ import java.util.*
 class ProfileService(
     private val registeredUserService: RegisteredUserService,
     private val jwtService: JwtService,
-    private val registeredUserRepository: RegisteredUserRepository
+    private val registeredUserRepository: RegisteredUserRepository,
+    private val imageRepository: ImageRepository
 ) {
 
     fun getUserByUsernameOrToken(username: String?, authorizationHeader: String?): RegisteredUser {
@@ -45,7 +47,10 @@ class ProfileService(
         settings.surname = user.accountInfo?.surname
         settings.country = user.accountInfo?.country
         settings.dateOfBirth = user.accountInfo?.dateOfBirth
-        settings.profilePictureId = user.accountInfo?.profilePictureId
+        if (Objects.nonNull(user.accountInfo?.profilePictureId) && imageRepository.existsById(user.accountInfo?.profilePictureId!!))
+            settings.profilePictureId = user.accountInfo?.profilePictureId
+        else if(Objects.nonNull(user.accountInfo?.profilePictureId))
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the items in the database")
         return settings
     }
 
