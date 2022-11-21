@@ -167,7 +167,7 @@ function SignUpForm(props) {
             helperText={formik.touched.userType && formik.errors.userType}
           >
             <MenuItem value={'artist'}>Artist</MenuItem>
-            <MenuItem value={'regularUser'}>Regular User</MenuItem>
+            <MenuItem value={'Regular User'}>Regular User</MenuItem>
           </Select>
           {isLoading ? <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }} ><CircularProgress /></Box> : null}
           <Button

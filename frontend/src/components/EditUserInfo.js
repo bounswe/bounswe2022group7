@@ -46,7 +46,7 @@ export default function EditUserInfo(props) {
     // Validation
     const formik = useFormik({
         initialValues: {
-            name:  '',
+            name: '',
             surname: '',
         },
         validationSchema: validationSchema,
@@ -65,9 +65,9 @@ export default function EditUserInfo(props) {
 
             // Endpoint is not implemented yet
             console.log(data);
-            
 
-            // setError(true);
+
+            setError("message");
         },
     });
 
@@ -84,7 +84,7 @@ export default function EditUserInfo(props) {
                     </Grid>
 
                     <Grid item xs={12}>
-                        {error ? <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error updating user info</AlertTitle>{error}</Alert> : null}
+                        {error && <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error updating user info</AlertTitle>{error}</Alert>}
                     </Grid>
 
                     <Grid item xs={12}>
@@ -119,14 +119,12 @@ export default function EditUserInfo(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <InputLabel>Country</InputLabel>
-                        <CountrySelect name="country"  width="100%" onChange={setSelectedCountry} />
+                        <CountrySelect name="country" width="100%" onChange={setSelectedCountry} />
                     </Grid>
                     <Grid item xs={12}>
                         <CustomOutlinedInput placeholder="BirthDate" type="date" fullWidth name="dateOfBirth" label="Birth Date" value={selecteddateOfBirth} onChange={setSelecteddateOfBirth} />
                     </Grid>
-                    {isLoading ?
-                        <Grid item xs={12}><Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }} ><CircularProgress /></Box></Grid> : null
-                    }
+                    {isLoading && <Grid item xs={12}><Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }} ><CircularProgress /></Box></Grid>}
                     <Grid item xs={12}>
                         <Stack direction="row" justifyContent="end">
                             <Button disabled={isLoading} size="large" variant="text" sx={{ fontWeight: 600, color: 'black' }} onClick={() => { navigate('/') }}>Skip</Button>
