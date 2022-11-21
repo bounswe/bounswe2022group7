@@ -1,3 +1,4 @@
+import 'package:android/pages/pages.dart';
 import 'package:android/widgets/feed_container.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,8 @@ class Item {
   bool operator ==(Object other) => other is Item && other.name == name;
 }
 
+const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
+
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
 
@@ -31,40 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   late String username;
   late User user = dali;
 
-  final dropdown_items = [
-    Item(
-      "Events",
-      Icon(
-        Icons.event_note_outlined,
-        color: Colors.blueGrey.shade900,
-        size: 25,
-      ),
-    ),
-    Item(
-      "Auctions",
-      Icon(
-        Icons.local_offer_outlined,
-        color: Colors.blueGrey.shade900,
-        size: 25,
-      ),
-    ),
-    Item(
-      "Art Items",
-      Icon(
-        Icons.brush_outlined,
-        color: Colors.blueGrey.shade900,
-        size: 25,
-      ),
-    ),
-    Item(
-      "Comments",
-      Icon(
-        Icons.comment_outlined,
-        color: Colors.blueGrey.shade900,
-        size: 25,
-      ),
-    )
-  ];
+
 
   _ProfilePageState() {
     this.url = user.imageUrl;
@@ -81,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    Item dropdown_value = dropdown_items[2];
+    String dropdown_value = dropdown_items[2];
     return Scaffold(
       appBar: AppBar(), // app bar will be discussed later
       body: Container(
@@ -215,13 +185,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: navigateToOtherFormText(
-                        "You completed 1/2 steps of profile customization.",
-                        "Introduce yourself.",
-                        navigateToEditPage,
-                        Colors.black,
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: navigateToOtherFormText(
+                            "You completed 1/2 steps of profile customization.",
+                            "",
+                            navigateToEditPage,
+                            Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
                     const Padding(
                       padding: EdgeInsets.all(0.5),
@@ -261,6 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                   decoration: BoxDecoration(
@@ -270,32 +245,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   height: 35,
                   width: 150,
-                  child: DropdownButton(
-                    isExpanded: true,
-                    value: dropdown_value,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items: dropdown_items.map((Item item) {
-                      return DropdownMenuItem(
-                        value: item,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(item.name,
-                                style: Theme.of(context).textTheme.headline6),
-                            // const Padding(padding: EdgeInsets.all(5.0)),
-                            item.icon,
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        dropdown_value =
-                            new Item((value as Item).name, (value).icon);
-                      });
-                    },
-                  ),
+                  child: DropdownButtonExample(),
                 ),
+
               ],
             ),
             Column(
@@ -405,6 +357,40 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class DropdownButtonExample extends StatefulWidget {
+  const DropdownButtonExample({super.key});
+
+  @override
+  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
+}
+
+class _DropdownButtonExampleState extends State<DropdownButtonExample> {
+  String dropdownValue = dropdown_items.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      isExpanded : true,
+      value: dropdownValue,
+      icon: const Icon(Icons.keyboard_arrow_down),
+
+      onChanged: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      items: dropdown_items.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value, style: Theme.of(context).textTheme.headline6)
+        );
+      }).toList(),
     );
   }
 }
