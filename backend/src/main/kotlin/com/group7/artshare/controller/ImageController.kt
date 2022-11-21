@@ -34,7 +34,7 @@ class ImageController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteEvent(@PathVariable id: Long) {
+    fun deleteImage(@PathVariable id: Long) {
         if (imageRepository.existsById(id)) {
             imageRepository.deleteById(id)
         }

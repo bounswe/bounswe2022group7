@@ -20,16 +20,16 @@ class ArtItemService(
         user: RegisteredUser
     ): ArtItem {
         val newArtItem = ArtItem()
+        if(artItemRequest.artItemInfo?.imageId?.let { imageRepository.existsById(it) } == false)
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
+        newArtItem.artItemInfo = artItemRequest.artItemInfo
+        newArtItem.lastPrice = artItemRequest.lastPrice!!
         if (user is Artist){
             newArtItem.creator = user
             user.artItems.add(newArtItem)
         }
         else
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Registered users cannot create physical exhibitions")
-        if(artItemRequest.artItemInfo?.imageId?.let { imageRepository.existsById(it) } == false)
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
-        newArtItem.artItemInfo = artItemRequest.artItemInfo
-        newArtItem.lastPrice = artItemRequest.lastPrice!!
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Regular users cannot create physical exhibitions")
         artItemRepository.save(newArtItem)
         return newArtItem
     }
@@ -40,12 +40,10 @@ class ArtItemService(
     ) {
         if(!artItemRepository.existsById(id)) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no art item in the database with corresponding id")
         if (user is Artist){
-            var artItem: ArtItem? = user.artItems.firstOrNull { it.id == id }
+            var artItem: ArtItem = user.artItems.firstOrNull { it.id == id }
                 ?: throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Art item does not belong to this user")
-            if (artItem != null) {
-                user.artItems.remove(artItem)
-                artItemRepository.delete(artItem)
-            }
+            user.artItems.remove(artItem)
+            artItemRepository.delete(artItem)
         }
         else {
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Regular Users cannot delete art items")

@@ -18,8 +18,7 @@ import java.util.*
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("event")
 class EventController(
-    private val jwtService: JwtService,
-    private val eventService: EventService
+    private val jwtService: JwtService, private val eventService: EventService
 ) {
 
     @Autowired
@@ -29,18 +28,16 @@ class EventController(
     lateinit var onlineGalleryRepository: OnlineGalleryRepository
 
     @GetMapping("{id}")
-    fun getRecommendedEventsGeneric(@PathVariable("id") id: Long): Event? {
+    fun getRecommendedEventsGeneric(@PathVariable("id") id: Long): Event {
         var physicalExhibition: PhysicalExhibition? = physicalExhibitionRepository.findByIdOrNull(id)
         var onlineGallery: OnlineGallery? = onlineGalleryRepository.findByIdOrNull(id)
-        if (!Objects.isNull(physicalExhibition)) {
+        if (physicalExhibition != null) {
             return physicalExhibition
-        } else if (!Objects.isNull(onlineGallery)) {
+        } else if (onlineGallery != null) {
             return onlineGallery
-        } else
-            throw ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "Id is not match with any of the events in the database"
-            )
+        } else throw ResponseStatusException(
+            HttpStatus.NOT_FOUND, "Id is not match with any of the events in the database"
+        )
     }
 
     @PostMapping(
@@ -49,18 +46,14 @@ class EventController(
         produces = ["application/json;charset=UTF-8"]
     )
     fun createPhysical(
-        @RequestBody physicalExhibitionRequest: PhysicalExhibitionRequest,
-        @RequestHeader(
-            value = "Authorization",
-            required = true
-        ) authorizationHeader: String?
+        @RequestBody physicalExhibitionRequest: PhysicalExhibitionRequest, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
     ): PhysicalExhibition {
         try {
-            authorizationHeader?.let {
-                val user =
-                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return eventService.createPhysicalExhibition(physicalExhibitionRequest, user)
-            } ?: throw Exception("Token required")
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return eventService.createPhysicalExhibition(physicalExhibitionRequest, user)
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
@@ -71,23 +64,17 @@ class EventController(
     }
 
     @PostMapping(
-        value = ["online"],
-        consumes = ["application/json;charset=UTF-8"],
-        produces = ["application/json;charset=UTF-8"]
+        value = ["online"], consumes = ["application/json;charset=UTF-8"], produces = ["application/json;charset=UTF-8"]
     )
     fun createOnline(
-        @RequestBody onlineGalleryRequest: OnlineGalleryRequest,
-        @RequestHeader(
-            value = "Authorization",
-            required = true
-        ) authorizationHeader: String?
+        @RequestBody onlineGalleryRequest: OnlineGalleryRequest, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
     ): OnlineGallery {
         try {
-            authorizationHeader?.let {
-                val user =
-                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return eventService.createOnlineGallery(onlineGalleryRequest, user)
-            } ?: throw Exception("Token required")
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return eventService.createOnlineGallery(onlineGalleryRequest, user)
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
@@ -100,18 +87,14 @@ class EventController(
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteEvent(
-        @PathVariable id: Long,
-        @RequestHeader(
-            value = "Authorization",
-            required = true
-        ) authorizationHeader: String?
+        @PathVariable id: Long, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
     ) {
         try {
-            authorizationHeader?.let {
-                val user =
-                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                eventService.deleteEvent(id, user)
-            } ?: throw Exception("Token required")
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            eventService.deleteEvent(id, user)
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
