@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 
 import ResponsiveAppBar from './ResponsiveAppBar';
 import HomePage from "./pages/HomePage/HomePage"
+import Profile from "./pages/ProfilePage/Profile"
 import CreateArtItemPage from "./pages/ArtItemPage/CreateArtItemPage"
 import ArtItemPage from "./pages/ArtItemPage/ArtItemPage"
 import EventPage from "./pages/EventPage/EventPage"
@@ -25,6 +26,10 @@ function App() {
           <Route
             path="/"
             element={<HomePage />}
+          />
+          <Route
+            path="/:username"
+            element={<Profile />}
           />
           <Route
             path="/auth/signup"
