@@ -22,15 +22,11 @@ class CommentController(
     @Autowired
     lateinit var commentRepository: CommentRepository
 
-    @Autowired
-    lateinit var registeredUserRepository: RegisteredUserRepository
-
-
     @GetMapping("{id}")
     fun getComment(@PathVariable("id") id: Long): Comment =
         commentRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND,
-            "Id is not match with any of the comments in the database"
+            "Id is not matched with any of the comments in the database"
         )
 
     @PostMapping(

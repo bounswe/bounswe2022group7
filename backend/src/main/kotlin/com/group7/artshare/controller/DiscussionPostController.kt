@@ -25,7 +25,7 @@ class DiscussionPostController (
 
     @GetMapping("{id}")
     fun getDiscussionPost(@PathVariable("id") id: Long) : DiscussionPost = discussionPostRepository.findByIdOrNull(id) ?:
-        throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the discussion posts in the database")
+        throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not matched with any of the discussion posts in the database")
 
     @PostMapping(
         consumes = ["application/json;charset=UTF-8"],
