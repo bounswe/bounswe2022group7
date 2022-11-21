@@ -16,6 +16,7 @@ class GetPostListOutput {
     for (final artItem in artitems.list) {
       list?.add(artItem);
     }
+    list?.shuffle();
   }
 }
 
