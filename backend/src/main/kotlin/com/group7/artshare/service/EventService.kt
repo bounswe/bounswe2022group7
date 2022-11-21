@@ -23,13 +23,6 @@ class EventService(
         physicalExhibitionRequest: PhysicalExhibitionRequest, user: RegisteredUser
     ): PhysicalExhibition {
         val newPhysicalExhibition = PhysicalExhibition()
-        if (user is Artist) {
-            newPhysicalExhibition.creator = user
-            user.hostedEvents.add(newPhysicalExhibition)
-        } else throw ResponseStatusException(
-            HttpStatus.BAD_REQUEST,
-            "Registered users cannot create physical exhibitions"
-        )
         newPhysicalExhibition.location = physicalExhibitionRequest.location
         newPhysicalExhibition.rules = physicalExhibitionRequest.rules
         if (physicalExhibitionRequest.eventInfo?.posterId?.let { imageRepository.existsById(it) } == false) throw ResponseStatusException(
@@ -37,6 +30,13 @@ class EventService(
             "There is no image in the database with this id"
         )
         newPhysicalExhibition.eventInfo = physicalExhibitionRequest.eventInfo
+        if (user is Artist) {
+            newPhysicalExhibition.creator = user
+            user.hostedEvents.add(newPhysicalExhibition)
+        } else throw ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "Regular users cannot create physical exhibitions"
+        )
         physicalExhibitionRepository.save(newPhysicalExhibition)
         return newPhysicalExhibition
     }
