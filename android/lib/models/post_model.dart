@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:android/models/models.dart';
 import 'package:android/pages/art_item_page.dart';
 import 'package:android/pages/event_page.dart';
+import 'package:android/network/image/id_to_image.dart';
 
 class Post {
   final String type;
@@ -150,7 +151,7 @@ class Post {
   }
 
   Widget imageNetwork() {
-    return postInfo.imageUrl != null ? Image.network(postInfo.imageUrl!) : Container();
+    return imageBuilder(postInfo.imageId);
   }
 
   Widget descriptionText() {

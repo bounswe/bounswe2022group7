@@ -4,6 +4,8 @@ import "package:android/models/models.dart";
 import "package:android/network/art_item/get_art_item_service.dart";
 import "package:android/network/art_item/get_art_item_output.dart";
 
+import 'package:android/network/image/id_to_image.dart';
+
 class ArtItemPage extends StatefulWidget {
   final int id;
 
@@ -121,19 +123,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                       ],
                                     ),
                                     const SizedBox(height: 15.0),
-                                    currentArtItem.artItemInfo.imageUrl != null
-                                        ? Container(
-                                            height: 300.0,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                    currentArtItem
-                                                        .artItemInfo.imageUrl!),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          )
-                                        : Container(),
+                                    imageBuilder(currentArtItem.artItemInfo.imageId),
                                     const SizedBox(height: 15.0),
                                     Text(
                                       currentArtItem.artItemInfo.description,
