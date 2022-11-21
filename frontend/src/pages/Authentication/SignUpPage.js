@@ -195,7 +195,7 @@ function SignUpPage() {
         <EditUserInfo formName="Complete your profile" formDescription="You can complete your profile by filling these fields." />
       </GenericCardLayout>
       :
-      <GenericCardLayout maxWidth={600}>
+      <GenericCardLayout maxWidth={500}>
         < SignUpForm
           formName="Sign Up"
           formDescription="You can sign up to the platform through this page."
