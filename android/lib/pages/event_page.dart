@@ -75,7 +75,7 @@ class _EventPageState extends State<EventPage> {
                                     Row(
                                       children: [
                                         Text(
-                                          currentEvent.eventInfo.title,
+                                          currentEvent.eventInfo.name,
                                           style: const TextStyle(
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.w600,
@@ -187,13 +187,13 @@ class _EventPageState extends State<EventPage> {
                                       ],
                                     ),
                                     const SizedBox(height: 15.0),
-                                    currentEvent.eventInfo.posterUrl != null
+                                    currentEvent.eventInfo.imageUrl != null
                                         ? Container(
                                             height: 250.0,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                 image: NetworkImage(currentEvent
-                                                    .eventInfo.posterUrl!),
+                                                    .eventInfo.imageUrl!),
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
