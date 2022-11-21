@@ -24,6 +24,10 @@ class CommentController (
     @Autowired
     lateinit var commentRepository: CommentRepository
 
+    @Autowired
+    lateinit var registeredUserRepository: RegisteredUserRepository
+
+
     @GetMapping("{id}")
     fun getComment(@PathVariable("id") id: Long) : Comment = commentRepository.findByIdOrNull(id) ?:
         throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the discussion posts in the database")
@@ -55,6 +59,25 @@ class CommentController (
     }
 
     @DeleteMapping("{id}")
-    fun deleteComment(@PathVariable("id") id: Long) : Comment = commentRepository.findByIdOrNull(id) ?:
-    throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the discussion posts in the database")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteComment(@PathVariable id: Long,
+    @RequestBody json: Map<String,Long>,
+    @RequestHeader(
+        value = "Authorization",
+        required = true
+    ) authorizationHeader: String?): Unit? {
+        try {
+            authorizationHeader?.let {
+                val user =
+                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+                return json["commentedObjectId"]?.let { it1 -> commentService.deleteComment(id, it1, user) }
+            } ?: throw Exception("Token required")
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
 }
