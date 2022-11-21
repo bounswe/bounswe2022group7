@@ -1,33 +1,36 @@
 import React from 'react';
-import { CssBaseline, Paper } from '@mui/material';
+import { Container, CssBaseline, Paper } from '@mui/material';
 
 const styles = {
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
-    marginLeft: 100,
-    marginRight: 100,
+    margin: 'auto',
   },
   paper: {
-    marginTop: 10,
-    paddingBottom: 20,
+
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    p: 2,
-    width: 500,
+    marginTop: 4,
+    marginBottom: 4,
+    paddingTop: 4,
+    paddingBottom: 2,
+    maxWidth: 500, 
+    width: '95%',
     marginLeft: "auto",
     marginRight: "auto",
   },
 };
 
-const FormLayout =({children}) =>{
-  
+const FormLayout = ({ children }) => {
   return (
-    <main SX={styles.main}>
+    <main sx={styles.main}>
       <CssBaseline />
       <Paper sx={styles.paper} variant="outlined">
-        {children}
+        <Container>
+          {children}
+        </Container>
       </Paper>
     </main>
   );

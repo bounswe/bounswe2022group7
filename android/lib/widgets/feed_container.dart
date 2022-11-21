@@ -30,13 +30,7 @@ class FeedContainer extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              post.titleRow(),
-                              const SizedBox(height: 10.0),
-                            ],
-                          ),
+                          child: post.infoColumn(),
                         ),
                       ],
                     ),

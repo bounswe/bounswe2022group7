@@ -4,6 +4,8 @@ import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.OnlineGalleryRequest
 import com.group7.artshare.request.PhysicalExhibitionRequest
+import com.group7.artshare.service.EventService
+import com.group7.artshare.service.JwtService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
@@ -15,7 +17,9 @@ import java.util.*
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("event")
-class EventController {
+class EventController(
+    private val jwtService: JwtService, private val eventService: EventService
+) {
 
     @Autowired
     lateinit var physicalExhibitionRepository: PhysicalExhibitionRepository
@@ -30,17 +34,80 @@ class EventController {
     lateinit var artItemRepository: ArtItemRepository
 
     @GetMapping("{id}")
-    fun getRecommendedEventsGeneric(@PathVariable("id") id: Long) : Event? {
-        var physicalExhibition : PhysicalExhibition? =  physicalExhibitionRepository.findByIdOrNull(id)
-        var onlineGallery : OnlineGallery? = onlineGalleryRepository.findByIdOrNull(id)
-        if (!Objects.isNull(physicalExhibition)) {
+    fun getRecommendedEventsGeneric(@PathVariable("id") id: Long): Event {
+        var physicalExhibition: PhysicalExhibition? = physicalExhibitionRepository.findByIdOrNull(id)
+        var onlineGallery: OnlineGallery? = onlineGalleryRepository.findByIdOrNull(id)
+        if (physicalExhibition != null) {
             return physicalExhibition
-        }
-        else if (!Objects.isNull(onlineGallery)) {
+        } else if (onlineGallery != null) {
             return onlineGallery
+        } else throw ResponseStatusException(
+            HttpStatus.NOT_FOUND, "Id is not match with any of the events in the database"
+        )
+    }
+
+    @PostMapping(
+        value = ["physical"],
+        consumes = ["application/json;charset=UTF-8"],
+        produces = ["application/json;charset=UTF-8"]
+    )
+    fun createPhysical(
+        @RequestBody physicalExhibitionRequest: PhysicalExhibitionRequest, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): PhysicalExhibition {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return eventService.createPhysicalExhibition(physicalExhibitionRequest, user)
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
         }
-        else
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the events in the database")
+    }
+
+    @PostMapping(
+        value = ["online"], consumes = ["application/json;charset=UTF-8"], produces = ["application/json;charset=UTF-8"]
+    )
+    fun createOnline(
+        @RequestBody onlineGalleryRequest: OnlineGalleryRequest, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): OnlineGallery {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return eventService.createOnlineGallery(onlineGalleryRequest, user)
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteEvent(
+        @PathVariable id: Long, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ) {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            eventService.deleteEvent(id, user)
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
     }
     @PostMapping(value = ["physical"],  consumes=["application/json;charset=UTF-8"], produces = ["application/json;charset=UTF-8"])
     fun create(@RequestBody physicalExhibitionRequest: PhysicalExhibitionRequest) : PhysicalExhibition{

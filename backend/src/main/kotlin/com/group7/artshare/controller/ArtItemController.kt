@@ -3,9 +3,9 @@ package com.group7.artshare.controller
 import com.group7.artshare.DTO.ArtItemDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.ArtItemRepository
-import com.group7.artshare.repository.ArtistRepository
-import com.group7.artshare.repository.RegisteredUserRepository
 import com.group7.artshare.request.ArtItemRequest
+import com.group7.artshare.service.ArtItemService
+import com.group7.artshare.service.JwtService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
@@ -17,7 +17,10 @@ import java.util.*
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("art_item")
-class ArtItemController {
+class ArtItemController(
+    private val jwtService: JwtService,
+    private val artItemService: ArtItemService
+) {
 
     @Autowired
     lateinit var artItemRepository: ArtItemRepository
@@ -39,28 +42,48 @@ class ArtItemController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteArtItem(@PathVariable id: Long) {
-        if (artItemRepository.existsById(id)) {
-            artItemRepository.deleteById(id)
+    fun delete(
+        @PathVariable id: Long,
+        @RequestHeader(
+            value = "Authorization",
+            required = true
+        ) authorizationHeader: String
+    ) {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            artItemService.deleteArtItem(id, user)
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
         }
-        else
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the art items in the database")
     }
 
-    @PostMapping()
-    fun create(@RequestBody artItemRequest: ArtItemRequest) : ArtItemDTO {
-        val newArtItem = ArtItem()
-        val artist = artistRepository.findByIdOrNull(artItemRequest.creatorId)
-            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Corresponding creatorId is not matched any of the Artist user in the database")
-        newArtItem.creator = artist;
-        newArtItem.lastPrice = artItemRequest.lastPrice!!
-        newArtItem.artItemInfo = artItemRequest.artItemInfo
-
-        val registeredUser = registeredUserRepository.findByIdOrNull(artItemRequest.ownerId)
-            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Corresponding ownerId is not matched any of the registered user in the database")
-        newArtItem.owner = registeredUser;
-        artItemRepository.save(newArtItem)
-        return newArtItem.mapToDTO();
+    @PostMapping(
+        consumes = ["application/json;charset=UTF-8"],
+        produces = ["application/json;charset=UTF-8"]
+    )
+    fun create(
+        @RequestBody artItemRequest: ArtItemRequest,
+        @RequestHeader(
+            value = "Authorization",
+            required = true
+        ) authorizationHeader: String
+    ): ArtItem {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return artItemService.createArtItem(artItemRequest, user)
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
     }
 
 }

@@ -16,7 +16,7 @@ class Comment {
     val id: Long = 0L
 
     @Column
-    var text : String = ""
+    var text: String? = null
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)

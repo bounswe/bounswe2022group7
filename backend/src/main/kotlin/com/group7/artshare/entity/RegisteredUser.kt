@@ -103,7 +103,11 @@ open class RegisteredUser(
     )
     var unreadNotifications: MutableSet<Notification> = mutableSetOf()
 
-    //TODO discussion post
+
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @JsonManagedReference
+    var writtenDiscussionPosts: MutableList<DiscussionPost> = mutableListOf()
+
     //TODO past reply past posts
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])

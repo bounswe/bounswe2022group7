@@ -13,9 +13,6 @@ import javax.validation.constraints.NotEmpty
 class PhysicalExhibitionRequest {
 
     @NotEmpty
-    val creatorId: Long? = null
-
-    @NotEmpty
     val eventInfo: EventInfo? = null
 
     @NotEmpty

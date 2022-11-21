@@ -22,7 +22,7 @@ const HomePage = () => {
         }
         if (token) fetchArgs.headers = {Authorization: "Bearer " + token}
 
-        fetch('/api/homepage/getGenericArtItems', fetchArgs)
+        fetch('api/homepage/artItem', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
                 console.count(data)
@@ -34,7 +34,7 @@ const HomePage = () => {
                     setError(error)
                 })
 
-        fetch('/api/homepage/getGenericEvents', fetchArgs)
+        fetch('api/homepage/event', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
                 console.count(data)
