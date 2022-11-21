@@ -24,7 +24,6 @@ export default function CountrySelect(props) {
         <div>
             <Autocomplete
                 value={value}
-                placeholder={props.placeholder}
                 onChange={(event, newValue) => handleChange(event, newValue)}
                 inputValue={inputValue}
                 onInputChange={(event, newInputValue) => handleInputChange(event, newInputValue)}

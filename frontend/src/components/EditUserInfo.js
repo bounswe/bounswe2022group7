@@ -119,7 +119,7 @@ export default function EditUserInfo(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <InputLabel>Country</InputLabel>
-                        <CountrySelect name="country" placeholder="Country" width="100%" onChange={setSelectedCountry} />
+                        <CountrySelect name="country"  width="100%" onChange={setSelectedCountry} />
                     </Grid>
                     <Grid item xs={12}>
                         <CustomOutlinedInput placeholder="BirthDate" type="date" fullWidth name="dateOfBirth" label="Birth Date" value={selecteddateOfBirth} onChange={setSelecteddateOfBirth} />
