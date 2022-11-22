@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useAuth } from "../auth/useAuth";
 import * as yup from 'yup';
 
 import Alert from '@mui/material/Alert';
@@ -29,46 +30,80 @@ const validationSchema = yup.object({
 });
 
 
-export default function EditUserInfo(props) {
+export default function EditUserInfo({ existingUser, name, surname, dateOfBirth, country, image, buttonLabel, formDescription, formName }) {
+
     const [isLoading, setLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
-    const [selectedImage, setSelectedImage] = React.useState(null);
-    const [selectedCountry, setSelectedCountry] = React.useState(null);
-    const [selecteddateOfBirth, setSelecteddateOfBirth] = React.useState(null);
+    const [selectedImage, setSelectedImage] = React.useState(image);
+    const [selectedCountry, setSelectedCountry] = React.useState(country);
+    const [selectedDateOfBirth, setSelecteddateOfBirth] = React.useState(dateOfBirth);
 
     const navigate = useNavigate();
 
-    if (props.existingUser) {
-        //TODO: Fetch user info from backend
-    }
+    const { token } = useAuth();
+
+    React.useEffect(() => {
+        setSelecteddateOfBirth(dateOfBirth);
+    }, [dateOfBirth])
+
+    React.useEffect(() => {
+        setSelectedImage(image);
+    }, [image])
+
+    React.useEffect(() => {
+        setSelectedCountry(country);
+    }, [country])
 
     // Validation
     const formik = useFormik({
         initialValues: {
-            name: '',
-            surname: '',
+            name: name,
+            surname: surname,
         },
         validationSchema: validationSchema,
         validateOnChange: true,
         onSubmit: (values) => {
-
             const data = {
                 name: values.name,
                 surname: values.surname,
                 country: selectedCountry,
-                dateOfBirth: selecteddateOfBirth,
+                dateOfBirth: selectedDateOfBirth,
                 image: selectedImage,
             }
 
             setLoading(true);
+            setError(null);
 
-            // Endpoint is not implemented yet
-            console.log(data);
-
-
-            // setError("message");
+            fetch('/api/profile/settings', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setLoading(false);
+                    if (data.error) {
+                        setError(data.message);
+                    }
+                    else {
+                        if (existingUser) {
+                            navigate('/profile');
+                        } else {
+                            navigate('/');
+                        }
+                    }
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    setError(error);
+                });
         },
+        enableReinitialize: true,
     });
+
 
     return (
         <div>
@@ -77,9 +112,9 @@ export default function EditUserInfo(props) {
 
                     <Grid item xs={12}>
                         <Typography variant="h5" component="h3">
-                            {props.formName}
+                            {formName}
                         </Typography>
-                        <Typography component="p">{props.formDescription}</Typography>
+                        <Typography component="p">{formDescription}</Typography>
                     </Grid>
 
                     <Grid item xs={12}>
@@ -118,15 +153,15 @@ export default function EditUserInfo(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <InputLabel>Country</InputLabel>
-                        <CountrySelect name="country" width="100%" onChange={setSelectedCountry} />
+                        <CountrySelect name="country" width="100%" value={selectedCountry} onChange={setSelectedCountry} />
                     </Grid>
                     <Grid item xs={12}>
-                        <CustomOutlinedInput placeholder="BirthDate" type="date" fullWidth name="dateOfBirth" label="Birth Date" value={selecteddateOfBirth} onChange={setSelecteddateOfBirth} />
+                        <CustomOutlinedInput placeholder="BirthDate" type="date" fullWidth name="dateOfBirth" label="Birth Date" value={selectedDateOfBirth} onChange={setSelecteddateOfBirth} />
                     </Grid>
                     <Grid item xs={12}>
                         <Stack direction="row" justifyContent="end">
-                            { !(isLoading || props.existingUser) ? <Button disabled={isLoading} size="large" variant="text" sx={{ color: 'black' }} onClick={() => { navigate('/') }}>Skip</Button> : null }
-                            <LoadingButton loading={isLoading} type="submit" size="large" variant="text" sx={{ ml: 2 }} label="continue" loadingText="saving" />
+                            {!(isLoading || existingUser) ? <Button disabled={isLoading} size="large" variant="text" sx={{ color: 'black' }} onClick={() => { navigate('/') }}>Skip</Button> : null}
+                            <LoadingButton loading={isLoading} type="submit" size="large" variant="text" sx={{ ml: 2 }} label={buttonLabel} loadingText="saving" />
                         </Stack>
 
                     </Grid>
@@ -135,6 +170,17 @@ export default function EditUserInfo(props) {
             </form>
         </div >
     );
+
 }
 
-
+EditUserInfo.defaultProps = {
+    existingUser: false,
+    formName: "Edit User Info",
+    formDescription: "Please fill in the form below to continue",
+    name: "",
+    surname: "",
+    dateOfBirth: null,
+    buttonLabel: "Continue",
+    image: null,
+    country: null,
+}

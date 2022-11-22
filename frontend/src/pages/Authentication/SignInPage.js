@@ -39,89 +39,82 @@ function SignInForm(props) {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       setLoading(true);
-    setError(null);
+      setError(null);
 
 
-    // Here is how we will make a POST request in the backend.
-    // This section is left out since the backend is not ready
-    // yet.
-    fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify(values),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.text();
-        } else {
-          throw new Error('Something went wrong.');
+      // Here is how we will make a POST request in the backend.
+      // This section is left out since the backend is not ready
+      // yet.
+      fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: {
+          "Content-Type": "application/json"
         }
       })
-      .then((responseText) => {
-        if (responseText) {
-          saveToken(responseText);
-          navigate('/');
-        } else {
-          formik.setFieldValue("password", "");
-          setError("Your email or password is incorrect. Please try again.");
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setError(error.message);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          setLoading(false);
+          if (data.error) {
+            formik.setFieldValue("password", "");
+            setError(data.message);
+          } else {
+            saveToken(data.token);
+            navigate("/");
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setError(error.message);
+        });
     },
   });
 
-
   return (
     <div>
-        <Typography variant="h5" component="h3">
-          {props.formName}
-        </Typography>
-        <Typography component="p">{props.formDescription}</Typography>
+      <Typography variant="h5" component="h3">
+        {props.formName}
+      </Typography>
+      <Typography component="p">{props.formDescription}</Typography>
 
-        <form onSubmit={formik.handleSubmit}>
-          <Stack sx={{ padding: 2 }}>
-            { error && <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing in</AlertTitle>{error}</Alert> }
-            <TextField
-              id="outlined-required"
-              label="Email"
-              name="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-              sx={{ marginY: 1 }}
-            />
-            <TextField
-              type="password"
-              id="outlined-password-input"
-              label="Password"
-              name="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-              autoComplete="current-password"
-              sx={{ marginY: 1 }}
-            />
-            {isLoading ? <Box sx={{display: 'flex', width: '100%', justifyContent: 'center'}} ><CircularProgress /></Box>  : null }
-            <Button
-              disabled={isLoading}
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={{ marginY: 2 }}
-            >
-              Sign In
-            </Button>
-          </Stack>
-        </form>
-      </div>
+      <form onSubmit={formik.handleSubmit}>
+        <Stack sx={{ padding: 2 }}>
+          {error && <Alert severity="error" sx={{ mb: 2 }}><AlertTitle>Error signing in</AlertTitle>{error}</Alert>}
+          <TextField
+            id="outlined-required"
+            label="Email"
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+            sx={{ marginY: 1 }}
+          />
+          <TextField
+            type="password"
+            id="outlined-password-input"
+            label="Password"
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+            autoComplete="current-password"
+            sx={{ marginY: 1 }}
+          />
+          {isLoading ? <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }} ><CircularProgress /></Box> : null}
+          <Button
+            disabled={isLoading}
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ marginY: 2 }}
+          >
+            Sign In
+          </Button>
+        </Stack>
+      </form>
+    </div>
   );
 }
 

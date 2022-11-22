@@ -12,6 +12,7 @@ import EventPage from "./pages/EventPage/EventPage"
 import SignInPage from './pages/Authentication/SignInPage';
 import SignUpPage from './pages/Authentication/SignUpPage';
 import ErrorPage from './pages/ErrorPage';
+import SettingsPage from './pages/ProfilePage/SettingsPage';
 
 import { AuthProvider } from './auth/useAuth';
 import {ProtectedRoute} from './auth/ProtectedRoute';
@@ -46,6 +47,10 @@ function App() {
           <Route
             path="/event/:id"
             element={<EventPage />}
+          />
+          <Route
+            path="/profile/settings"
+            element={<ProtectedRoute><SettingsPage /></ProtectedRoute>}
           />
           <Route
             path="/new/art_item"

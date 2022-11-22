@@ -7,23 +7,31 @@ import PropTypes from 'prop-types';
 
 export default function CountrySelect(props) {
 
-    // export default function ControllableStates() {
-    const [value, setValue] = React.useState(null);
+    const [optionValue, setOptionValue] = React.useState(null);
     const [inputValue, setInputValue] = React.useState('');
 
     const handleInputChange = (event, newInputValue) => {
         setInputValue(newInputValue);
     };
 
+    React.useEffect(() => {
+        const item = countries.find((item) => item.code === props.value) || null;
+        if (item) {
+            setOptionValue(item);
+            setInputValue(item.label);
+        }
+
+    }, [props.value]);
+
     const handleChange = (event, newValue) => {
-        setValue(newValue);
-        newValue ? props.onChange(newValue.code) : props.onChange(null);
+        setOptionValue(newValue);
+        props.onChange(newValue.code);
     };
 
     return (
         <div>
             <Autocomplete
-                value={value}
+                value={optionValue}
                 onChange={(event, newValue) => handleChange(event, newValue)}
                 inputValue={inputValue}
                 onInputChange={(event, newInputValue) => handleInputChange(event, newInputValue)}
