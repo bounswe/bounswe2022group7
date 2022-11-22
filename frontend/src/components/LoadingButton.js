@@ -13,7 +13,7 @@ export default function LoadingButton(props) {
             size={props.size}
             onClick={props.onClick}
             disabled={props.disabled || props.loading}
-            startIcon={props.loading && (props.loadingIcon || <CircularProgress size={16} color="inherit" />)}
+            startIcon={props.loading && (props.loadingIcon)}
             sx={props.sx}
         >
             {props.loading ? props.loadingText : props.label}
@@ -35,4 +35,16 @@ LoadingButton.propTypes = {
     loadingIcon: PropTypes.element,
     label: PropTypes.string,
     sx: PropTypes.object,
+}
+
+LoadingButton.defaultProps = {
+    loadingText: 'Loading',
+    loading: false,
+    type: 'button',
+    variant: 'contained',
+    color: 'primary',
+    size: 'medium',
+    loadingIcon: <CircularProgress size={16} color="inherit" />,
+    label: 'Submit',
+    disabled: false,
 }
