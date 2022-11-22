@@ -40,7 +40,7 @@ export default function ImageUploader(props) {
                     hidden
                 />
                 <label htmlFor="text-button-file">
-                    <Button variant="text" component="span" color="primary">
+                    <Button variant="text" component="span" color="primary" sx={{mt:2}}>
                         {props.label}
                     </Button>
                 </label>

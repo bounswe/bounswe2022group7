@@ -6,9 +6,6 @@ import * as yup from 'yup';
 
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Box from '@mui/material/Box';
-import Button from "@mui/material/Button";
-import CircularProgress from '@mui/material/CircularProgress';
 import TextField from "@mui/material/TextField";
 import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography";
@@ -18,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 
 import EditUserInfo from "../../components/EditUserInfo"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
+import LoadingButton from "../../components/LoadingButton";
 
 const validationSchema = yup.object({
   email: yup
@@ -169,15 +167,15 @@ function SignUpForm(props) {
             <MenuItem value={'artist'}>Artist</MenuItem>
             <MenuItem value={'Regular User'}>Regular User</MenuItem>
           </Select>
-          {isLoading ? <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }} ><CircularProgress /></Box> : null}
-          <Button
+          <LoadingButton
+            loading={isLoading}
+            label="Sign Up"
+            loadingText="Loading"
             type="submit"
             variant="contained"
             color="primary"
             sx={{ marginY: 2 }}
-          >
-            Sign Up
-          </Button>
+          />
         </Stack>
       </form>
     </div>

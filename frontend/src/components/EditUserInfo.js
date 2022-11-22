@@ -6,9 +6,7 @@ import * as yup from 'yup';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
-import CircularProgress from '@mui/material/CircularProgress';
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -18,6 +16,7 @@ import Stack from '@mui/material/Stack';
 import ImageUploader from './ImageUploader';
 import CustomOutlinedInput from './CustomOutlinedInput';
 import CountrySelect from './CountrySelect';
+import LoadingButton from "./LoadingButton";
 
 const validationSchema = yup.object({
     name: yup
@@ -67,7 +66,7 @@ export default function EditUserInfo(props) {
             console.log(data);
 
 
-            setError("message");
+            // setError("message");
         },
     });
 
@@ -124,11 +123,10 @@ export default function EditUserInfo(props) {
                     <Grid item xs={12}>
                         <CustomOutlinedInput placeholder="BirthDate" type="date" fullWidth name="dateOfBirth" label="Birth Date" value={selecteddateOfBirth} onChange={setSelecteddateOfBirth} />
                     </Grid>
-                    {isLoading && <Grid item xs={12}><Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }} ><CircularProgress /></Box></Grid>}
                     <Grid item xs={12}>
                         <Stack direction="row" justifyContent="end">
-                            <Button disabled={isLoading} size="large" variant="text" sx={{ fontWeight: 600, color: 'black' }} onClick={() => { navigate('/') }}>Skip</Button>
-                            <Button type="submit" disabled={isLoading} size="large" variant="text" sx={{ fontWeight: 600 }} color="primary">Continue</Button>
+                            { !(isLoading || props.existingUser) ? <Button disabled={isLoading} size="large" variant="text" sx={{ color: 'black' }} onClick={() => { navigate('/') }}>Skip</Button> : null }
+                            <LoadingButton loading={isLoading} type="submit" size="large" variant="text" sx={{ ml: 2 }} label="continue" loadingText="saving" />
                         </Stack>
 
                     </Grid>
