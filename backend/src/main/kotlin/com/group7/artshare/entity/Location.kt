@@ -12,7 +12,7 @@ class Location {
     val id: Long = 0L
 
     @Column
-    var lattitude: Double = 0.0
+    var latitude: Double = 0.0
 
     @Column
     var longitude: Double = 0.0

@@ -1,3 +1,5 @@
+import "package:android/data/data.dart";
+
 class User {
   final int id;
   final String name;
@@ -26,9 +28,14 @@ class User {
       id: parsedJson["id"],
       name: parsedJson["name"],
       surname: parsedJson["surname"],
-      email: parsedJson["email"],
-      imageUrl: parsedJson["profilePictureUrl"],
-      username: parsedJson["username"],
+
+      // TODO: correct below
+      // although fields below are defined as required,
+      // they are sometimes not sent in the creator's info
+      email: parsedJson["email"] ?? "",
+      imageUrl: parsedJson["profilePictureUrl"] ?? mehmet.imageUrl,
+      username: parsedJson["username"] ?? "",
+
       userType: parsedJson["userType"],
       age: parsedJson["age"],
       country: parsedJson["country"],
