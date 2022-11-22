@@ -20,6 +20,8 @@ class Item {
 }
 
 const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
+var dropdown_selection = ValueNotifier<String>("Events");
+var selected_items = events;
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -49,9 +51,13 @@ class _ProfilePageState extends State<ProfilePage> {
     */
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
-    String dropdown_value = dropdown_items[2];
+    String dropdown_value = dropdown_items[0];
+    var show_data = events;
     return Scaffold(
       appBar: AppBar(), // app bar will be discussed later
       body: Container(
@@ -257,7 +263,108 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
+
             Expanded(
+              child: ValueListenableBuilder(
+                valueListenable: dropdown_selection,
+                builder: (context, value, widget) => ListView.builder(
+                  itemCount: selected_items.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return OutlinedButton(
+                      onPressed: null,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Padding(padding: EdgeInsets.all(2.0)),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 20.0,
+                                        backgroundColor: Colors.grey[300],
+                                        backgroundImage: NetworkImage(
+                                            selected_items[index].creator.imageUrl),
+                                      ),
+                                      const SizedBox(width: 10.0),
+                                      Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              selected_items[index].eventInfo.name,
+                                              style: const TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const SizedBox(height: 4.0),
+                                            Row(
+                                              children: [
+                                                Icon(Icons.supervisor_account,
+                                                    size: 12.0,
+                                                    color: Colors.grey[600]),
+                                                const SizedBox(width: 5.0),
+                                                Text(
+                                                    "Host: ${selected_items[index].creator.name}"),
+                                              ],
+                                            )
+                                          ]),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10.0),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.calendar_month,
+                                        color: Colors.grey[600],
+                                        size: 12.0,
+                                      ),
+                                      const SizedBox(width: 5.0),
+                                      Text(
+                                        selected_items[index]
+                                            .eventInfo
+                                            .startingDate
+                                            .toString()
+                                            .substring(0, 16),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_pin,
+                                        color: Colors.grey[600],
+                                        size: 12.0,
+                                      ),
+                                      const SizedBox(width: 5.0),
+                                      Text(selected_items[index].location.address)
+                                    ],
+                                  )
+                                ],
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                onPressed: null,
+                                icon: Icon(Icons.keyboard_arrow_right,
+                                    color: Colors.blueGrey.shade900, size: 35),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            /*Expanded(
               child: ListView.builder(
                 itemCount: events.length,
                 shrinkWrap: true,
@@ -353,7 +460,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   );
                 },
               ),
-            ),
+            ),*/
           ],
         ),
       ),
@@ -372,6 +479,15 @@ class DropdownButtonExample extends StatefulWidget {
 class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   String dropdownValue = dropdown_items.first;
 
+  void updateSelectedItems() {
+    String selection = dropdown_selection.value;
+    if(selection == "Events") {
+      selected_items = events;
+    } else {
+      selected_items = [];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
@@ -383,6 +499,8 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
+          dropdown_selection.value = value!;
+          updateSelectedItems();
         });
       },
       items: dropdown_items.map<DropdownMenuItem<String>>((String value) {
