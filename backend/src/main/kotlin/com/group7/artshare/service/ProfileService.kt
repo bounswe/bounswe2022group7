@@ -3,7 +3,6 @@ package com.group7.artshare.service
 import com.group7.artshare.SettingDTO
 import com.group7.artshare.entity.RegisteredUser
 import com.group7.artshare.repository.RegisteredUserRepository
-import org.springframework.beans.factory.annotation.Autowired
 import com.group7.artshare.repository.ImageRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -40,9 +39,11 @@ class ProfileService(
     }
 
     fun followUser(username: String , user: RegisteredUser) : RegisteredUser {
-        var followedUser : RegisteredUser? = registeredUserRepository.findByAccountInfo_Username(username)
+        var followedUser : RegisteredUser? = registeredUserService.findByUsername(username)
         if(Objects.nonNull(followedUser)) {
             user.following.add(followedUser!!)
+            followedUser.followedBy.add(user)
+            registeredUserRepository.save(followedUser)
             return registeredUserRepository.save(user)
         }else
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not find user with given username")

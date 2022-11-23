@@ -66,31 +66,10 @@ class ProfileController(
         ) authorizationHeader: String
     ) : SettingDTO {
         try {
-            authorizationHeader?.let {
-                val user =
-                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return profileService.setSettings(user, setting)
-            } ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Unregistered user cannot modify user settings")
-        } catch (e: Exception) {
-            if (e.message == "Invalid token") {
-                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
-            } else {
-                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
-            }
-        }
-    }
-
-
-    @PostMapping("/follow/{username}")
-    fun followUser(
-        @PathVariable(value = "username") username: String,
-        @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
-    ): RegisteredUser {
-        try {
             authorizationHeader.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return profileService.followUser(username , user)
+                return profileService.setSettings(user, setting)
             }
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
@@ -100,5 +79,5 @@ class ProfileController(
             }
         }
     }
-        
+
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface RegisteredUserRepository : JpaRepository<RegisteredUser, Long> {
-    fun findByAccountInfo_Username(username : String) : RegisteredUser?
+
 }

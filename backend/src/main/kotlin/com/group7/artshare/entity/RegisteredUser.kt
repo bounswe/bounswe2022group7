@@ -1,5 +1,6 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import lombok.Data
@@ -46,7 +47,13 @@ open class RegisteredUser(
         joinColumns = [JoinColumn(name = "follower_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "followed_id", referencedColumnName = "id")]
     )
+    @JsonManagedReference
     var following: MutableSet<RegisteredUser> = mutableSetOf()
+
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JsonBackReference
+    var followedBy: MutableSet<RegisteredUser> = mutableSetOf()
+
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
