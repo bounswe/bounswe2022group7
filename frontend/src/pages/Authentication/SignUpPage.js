@@ -190,7 +190,7 @@ function SignUpPage() {
 
     success ?
       <GenericCardLayout maxWidth={600}>
-        <EditUserInfo formName="Complete your profile" formDescription="You can complete your profile by filling these fields." />
+        <EditUserInfo formName="Complete your profile" formDescription="You can complete your profile by filling these fields." buttonLabel="Continue" />
       </GenericCardLayout>
       :
       <GenericCardLayout maxWidth={500}>

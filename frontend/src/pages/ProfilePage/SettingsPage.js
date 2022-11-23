@@ -55,7 +55,6 @@ export default function SettingsPage() {
 
 
     return (
-        console.log(userInfo),
         error ? <GenericCardLayout maxWidth={600}>
             <Typography variant="h4" component="h1" gutterBottom>
                 {error}

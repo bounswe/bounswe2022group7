@@ -41,10 +41,6 @@ function SignInForm(props) {
       setLoading(true);
       setError(null);
 
-
-      // Here is how we will make a POST request in the backend.
-      // This section is left out since the backend is not ready
-      // yet.
       fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(values),
