@@ -1,5 +1,6 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -16,9 +17,11 @@ open class Event{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
+    @JsonBackReference
     var creator: Artist? = null
     
     @ManyToMany(mappedBy = "hostedEvents")
+    @JsonBackReference
     var collaborators: MutableSet<Artist> = mutableSetOf()
 
     @Column

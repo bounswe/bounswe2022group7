@@ -19,15 +19,16 @@ class ArtItem{
     @JsonManagedReference
     var artItemInfo: ArtItemInfo? = null
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
+    @JsonBackReference
     var creator: Artist? = null
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     var creationDate: Date = Calendar.getInstance().time
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner")
     var owner: RegisteredUser? = null
 
