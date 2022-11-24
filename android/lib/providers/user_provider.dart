@@ -12,6 +12,10 @@ class UserProvider with ChangeNotifier {
     _user = user;
   }
 
+  String? getUserToken() {
+    return _user?.token;
+  }
+
   void logout() {
     _user = null;
     removeUser();
