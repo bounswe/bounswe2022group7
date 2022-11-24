@@ -8,12 +8,12 @@ class LoginOutput {
     this.token,
   });
 
-  factory LoginOutput.fromJson(String response) {
+  factory LoginOutput.fromJson(Map<String, dynamic> json) {
 
-    if(response != "") {
+    if(json['token'] != null) {
       return LoginOutput(
         status: "OK",
-        token: response,
+        token: json['token'],
       );
     } else {
       return LoginOutput(
