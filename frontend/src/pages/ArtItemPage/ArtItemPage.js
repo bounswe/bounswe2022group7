@@ -4,6 +4,7 @@ import { useAuth } from "../../auth/useAuth"
 
 import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
+import ImageComponent from "../../common/ImageComponent"
 import ContentLayout from "../../layouts/ContentLayout";
 
 import { Typography, Grid } from '@mui/material';
@@ -54,16 +55,22 @@ function ArtItemPage() {
     
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
-          <img src={artitem.artItemInfo.imageUrl} alt="Art Item" style={{width:'100%'}}/>
+          <ImageComponent imageId={artitem.artItemInfo.imageId}/>          
         </ Grid>
         <Grid item xs={12} sm={4}>
+          {/*
+
+          // TODO: endpoint doesn't save owner, no art item has artist
+          // add owner back once issue is fixed.
+
           <Typography variant="h5">Owner:</Typography>
           <UserCard author={artitem.owner}/>
+          */}
           
           <Typography variant="h5">Description:</Typography>
           <Typography variant="body1">{artitem.artItemInfo.description}</Typography>
 
-          {artitem.onAuction && // if auction_id exists, render block below
+          {artitem.lastPrice && // if auction_id exists, render block below
           // TODO render auction properly
             <div>
               <Typography variant="h5">Auction Price:</Typography>

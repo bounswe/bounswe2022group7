@@ -4,7 +4,9 @@ import { useAuth } from "../../auth/useAuth"
 
 import { Typography, Grid } from '@mui/material';
 import CommentSection from "../../common/CommentSection"
+import ImageComponent from "../../common/ImageComponent"
 import ContentLayout from "../../layouts/ContentLayout";
+import MapComponent from "../../components/MapComponent"
 
 function EventPage() {
   
@@ -51,7 +53,7 @@ function EventPage() {
     
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
-          <img src={event.eventInfo.posterUrl} alt="Event" style={{width:'100%'}}/>
+          <ImageComponent imageId={event.eventInfo.posterId}/>          
         </ Grid>
         <Grid item xs={12} sm={4}>          
           <Typography variant="h5">Description:</Typography>
@@ -66,6 +68,14 @@ function EventPage() {
           <Typography variant="h5">Location:</Typography>
           <Typography variant="body1">{event.location.address}</Typography>
         </ Grid>
+
+        <MapComponent
+          position={{
+            lat:event.location.latitude, 
+            lng:event.location.longitude
+          }}
+          eventTitle={event.eventInfo.title}
+        />
       </ Grid>  
       <CommentSection
         id={id}
