@@ -1,7 +1,10 @@
 package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import com.group7.artshare.DTO.ArtItemDTO
 import lombok.Data;
 import java.util.*
@@ -22,7 +25,7 @@ class ArtItem{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
-    @JsonBackReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var creator: Artist? = null
 
     @Column
@@ -31,6 +34,7 @@ class ArtItem{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var owner: RegisteredUser? = null
 
     @Column
@@ -38,17 +42,18 @@ class ArtItem{
 
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "auction", referencedColumnName = "id")
-    @JsonManagedReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var auction: Auction? = null
 
     @Column
     var lastPrice: Double = 0.0;
 
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var commentList: MutableList<Comment> = mutableListOf()
 
     @ManyToMany(mappedBy = "bookmarkedArtItems",cascade = [CascadeType.MERGE, CascadeType.PERSIST])
-    @JsonBackReference
+    @JsonIgnore
     var bookmarkedBy: MutableSet<RegisteredUser> = mutableSetOf()
 
 

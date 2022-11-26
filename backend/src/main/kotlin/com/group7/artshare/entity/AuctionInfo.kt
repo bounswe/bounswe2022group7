@@ -1,7 +1,9 @@
 package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -15,7 +17,7 @@ class AuctionInfo {
     var id: Long = 0L
 
     @OneToOne(mappedBy = "auctionInfo", cascade = [CascadeType.ALL])
-    @JsonBackReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var auction: Auction? = null
 
     @Column
