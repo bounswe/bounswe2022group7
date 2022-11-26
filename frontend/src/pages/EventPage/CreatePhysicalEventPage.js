@@ -107,6 +107,7 @@ function CreatePhysicalEventForm() {
           />
           <TextField
             required
+            type="number"
             id="outlined-required"
             label="Event Price"
             name="eventPrice"
@@ -172,6 +173,7 @@ function CreatePhysicalEventForm() {
             type="submit"
             variant="contained"
             color="primary"
+            disabled={selectedImage == null}
           />
 
         </Stack>

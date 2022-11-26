@@ -119,6 +119,7 @@ function CreateArtItemForm(props) {
               type="submit"
               variant="contained"
               color="primary"
+              disabled={selectedImage == null}
             />
   
           </Stack>
