@@ -1,4 +1,3 @@
-import 'package:android/models/art_item/art_item_creator_model.dart';
 import 'package:android/models/models.dart';
 
 final User vanGogh = User(
@@ -91,7 +90,7 @@ final List<Event> events = [
       id: 1,
       eventInfo: EventInfo(
         id: 1,
-        title: 'Van Gogh Exhibition',
+        name: 'Van Gogh Exhibition',
         endingDate: DateTime(2021, 12, 31),
         startingDate: DateTime(2021, 12, 1),
         description: 'A great exhibition of Van Gogh\'s works.',
@@ -117,7 +116,7 @@ final List<Event> events = [
       id: 2,
       eventInfo: EventInfo(
         id: 2,
-        title: 'Dali Exhibition',
+        name: 'Dali Exhibition',
         endingDate: DateTime(2021, 12, 31),
         startingDate: DateTime(2021, 12, 1),
         description: 'A great exhibition of Dali\'s works.',

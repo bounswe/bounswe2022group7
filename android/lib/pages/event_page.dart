@@ -76,7 +76,7 @@ class _EventPageState extends State<EventPage> {
                                     Row(
                                       children: [
                                         Text(
-                                          currentEvent.eventInfo.title,
+                                          currentEvent.eventInfo.name,
                                           style: const TextStyle(
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.w600,

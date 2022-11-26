@@ -1,4 +1,3 @@
-import 'package:android/models/art_item/art_item_creator_model.dart';
 import 'package:android/models/models.dart';
 
 class GetPostListOutput {
@@ -12,33 +11,12 @@ class GetPostListOutput {
       : status = "OK",
         list = List<Post>.empty(growable: true) {
     for (final event in events.list) {
-      ArtItemCreator? creator = ArtItemCreator(
-        id: event.creator.id,
-        name: event.creator.name,
-        surname: event.creator.surname ?? "",
-      );
-      Post post = Post(
-        type: "Event",
-        id: event.id,
-        creator: creator,
-        title: event.eventInfo.title,
-        description: event.eventInfo.description,
-        imageId: event.eventInfo.posterId,
-      );
-      list?.add(post);
+      list?.add(event);
     }
-    for (final artitem in artitems.list) {
-      Post post = Post(
-        type: "Art Item",
-        id: artitem.id,
-        creator: artitem.creator,
-        title: artitem.artItemInfo.name,
-        description: artitem.artItemInfo.description,
-        // Below line should be updated when artItem modal is fixed
-        imageId: 1, // artitem.artItemInfo.imageUrl,
-      );
-      list?.add(post);
+    for (final artItem in artitems.list) {
+      list?.add(artItem);
     }
+    list?.shuffle();
   }
 }
 
