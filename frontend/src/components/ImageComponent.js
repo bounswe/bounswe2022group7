@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import PropTypes from 'prop-types';
 
 function ImageComponent({imageId}) {
 
@@ -29,3 +30,12 @@ function ImageComponent({imageId}) {
 }
 
 export default ImageComponent
+
+
+ImageComponent.propTypes = {
+  imageId: PropTypes.number
+}
+
+ImageComponent.defaultProps = {
+  imageId: 0
+}
