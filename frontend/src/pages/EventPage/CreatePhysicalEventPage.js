@@ -84,6 +84,9 @@ function CreatePhysicalEventForm() {
           />
           <TextField
             required
+            multiline
+            minRows={2}
+            maxRows={6}
             id="outlined-required"
             label="Description"
             name="description"
