@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import { useAuth } from "../../auth/useAuth";
 
 import {TextField, Typography, Stack} from "@mui/material";
-import ContentLayout from "../../layouts/ContentLayout";
+import GenericCardLayout from "../../layouts/GenericCardLayout";
 import ImageUploader from '../../components/ImageUploader';
 import LoadingButton from '../../components/LoadingButton';
 import MapSelectComponent from "../../components/MapSelectComponent"
@@ -22,7 +22,9 @@ function CreatePhysicalEventForm() {
     }
   );
   const [selectedImage, setSelectedImage] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [position, setPosition] = React.useState({lat: 41, lng: 29});
+
 
   const formatFormInput = (posterId) => {
     return {
@@ -47,6 +49,7 @@ function CreatePhysicalEventForm() {
 
   const handleSubmit = event => {
     event.preventDefault();
+    setIsLoading(true)
     
     postRequestWithImage(
       "/api/event/physical",
@@ -69,7 +72,7 @@ function CreatePhysicalEventForm() {
       </Typography>
 
       <form onSubmit={handleSubmit}>
-        <Stack sx={{padding: 2}}>
+        <Stack>
           <TextField
             required
             id="outlined-required"
@@ -124,6 +127,11 @@ function CreatePhysicalEventForm() {
             onChange={handleInput}
             sx = {{marginY: 1}}
           />
+
+          <Typography variant="h6" component="h3">
+            Location
+          </Typography>
+
           <TextField
             required
             id="outlined-required"
@@ -139,6 +147,10 @@ function CreatePhysicalEventForm() {
             setPosition = {setPosition}
           />
 
+          <Typography variant="h6" component="h3">
+            Poster
+          </Typography>
+
           <ImageUploader 
             label="Select Event Poster"
             value={selectedImage}
@@ -146,8 +158,10 @@ function CreatePhysicalEventForm() {
             width="100%"
           />
 
+          <br/>
+
           <LoadingButton
-            loading={false}
+            loading={isLoading}
             label="Create Event"
             loadingText="Creating Event"
             type="submit"
@@ -163,11 +177,11 @@ function CreatePhysicalEventForm() {
 
 function CreatePhysicalEventPage() {
   return (
-    <ContentLayout>
+    <GenericCardLayout maxWidth={750}>
       <div sx={{marginX: 50}}>
         <CreatePhysicalEventForm/>
       </div>
-    </ContentLayout>
+    </GenericCardLayout>
   )
 }
 

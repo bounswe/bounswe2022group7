@@ -1,12 +1,10 @@
 import React, { useReducer } from "react";
-import {useNavigate} from 'react-router-dom';
 import { useAuth } from "../../auth/useAuth";
 
-import {Button, TextField, Typography, Stack} from "@mui/material";
-import ContentLayout from "../../layouts/ContentLayout";
+import { TextField, Typography, Stack} from "@mui/material";
+import GenericCardLayout from "../../layouts/GenericCardLayout";
 import ImageUploader from '../../components/ImageUploader';
 import LoadingButton from '../../components/LoadingButton';
-import MapSelectComponent from "../../components/MapSelectComponent"
 
 function CreateArtItemForm(props) {
 
@@ -20,6 +18,7 @@ function CreateArtItemForm(props) {
       }
     );
     const [selectedImage, setSelectedImage] = React.useState(null);
+    const [isLoading, setIsLoading] = React.useState(false);
   
     const formatFormInput = (imageId) => {
       return {
@@ -38,6 +37,7 @@ function CreateArtItemForm(props) {
   
     const handleSubmit = event => {
       event.preventDefault();
+      setIsLoading(true)
       
       postRequestWithImage(
         "/api/art_item",
@@ -60,7 +60,7 @@ function CreateArtItemForm(props) {
         </Typography>
   
         <form onSubmit={handleSubmit}>
-          <Stack sx={{padding: 2}}>
+          <Stack>
             <TextField
               required
               id="outlined-required"
@@ -105,8 +105,10 @@ function CreateArtItemForm(props) {
               width="100%"
             />
   
+            <br/>
+
             <LoadingButton
-              loading={false}
+              loading={isLoading}
               label="Create Art Item"
               loadingText="Creating Art Item"
               type="submit"
@@ -122,11 +124,11 @@ function CreateArtItemForm(props) {
 
 function CreateArtItemPage() {
   return (
-    <ContentLayout>
+    <GenericCardLayout maxWidth={750}>
       <div sx={{marginX: 50}}>
         <CreateArtItemForm/>
       </div>
-    </ContentLayout>
+    </GenericCardLayout>
   )
 }
 
