@@ -4,8 +4,8 @@ import { useAuth } from "../../auth/useAuth"
 
 import { Typography, Grid } from '@mui/material';
 import CommentSection from "../../common/CommentSection"
-import ImageComponent from "../../common/ImageComponent"
-import ContentLayout from "../../layouts/ContentLayout";
+import ImageComponent from "../../components/ImageComponent"
+import GenericCardLayout from "../../layouts/GenericCardLayout";
 import MapComponent from "../../components/MapComponent"
 
 function EventPage() {
@@ -46,7 +46,7 @@ function EventPage() {
     return <div>Loading...</div>
   } else {
   return (
-    <ContentLayout>
+    <GenericCardLayout maxWidth={1000}>
       <Typography variant="h4" sx={{padding:2}}>
         {event.eventInfo.title}
       </Typography>
@@ -78,10 +78,10 @@ function EventPage() {
         />
       </ Grid>  
       <CommentSection
-        id={id}
-        commentList={event.commentList.filter(x => !!x.author)}
+        contentId={id}
+        commentList={event.commentList}
       />
-    </ContentLayout>
+    </GenericCardLayout>
     
   )}
 }

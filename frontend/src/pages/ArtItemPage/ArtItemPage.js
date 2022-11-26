@@ -4,8 +4,8 @@ import { useAuth } from "../../auth/useAuth"
 
 import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
-import ImageComponent from "../../common/ImageComponent"
-import ContentLayout from "../../layouts/ContentLayout";
+import ImageComponent from "../../components/ImageComponent"
+import GenericCardLayout from "../../layouts/GenericCardLayout";
 
 import { Typography, Grid } from '@mui/material';
 
@@ -31,7 +31,6 @@ function ArtItemPage() {
     fetch('/api/art_item/' + id, fetchArgs)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setState({error: null, isLoaded: true, artitem: data})
       },
         error => {
@@ -48,7 +47,7 @@ function ArtItemPage() {
     return <div>Loading...</div>
   } else {
   return (
-    <ContentLayout>
+    <GenericCardLayout maxWidth={1000}>
       <Typography variant="h4" sx={{padding:2}}>
         {artitem.artItemInfo.name}
       </Typography>
@@ -82,10 +81,10 @@ function ArtItemPage() {
         </ Grid>
       </ Grid>  
       <CommentSection
-        id={id}
-        commentList={artitem.commentList.filter(x => !!x.author)}
+        contentId={id}
+        commentList={artitem.commentList}
       />
-    </ContentLayout>
+    </GenericCardLayout>
     
   )}
 }
