@@ -62,6 +62,14 @@ open class RegisteredUser(
     @ManyToMany(mappedBy = "participants")
     var allEvents: MutableSet<Event> = mutableSetOf()
 
+    @ManyToMany(mappedBy = "upVotedUsers")
+    @JsonIgnore
+    var upVotedComments: MutableSet<Comment> = mutableSetOf()
+
+    @ManyToMany(mappedBy = "downVotedUsers")
+    @JsonIgnore
+    var downVotedComments: MutableSet<Comment> = mutableSetOf()
+
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "bookmarked_art_items",
@@ -106,7 +114,7 @@ open class RegisteredUser(
     var currentBids: MutableList<Bid> = mutableListOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    @JsonManagedReference
+    @JsonIgnore
     var commentList: MutableList<Comment> = mutableListOf()
 
     @JsonIgnore
