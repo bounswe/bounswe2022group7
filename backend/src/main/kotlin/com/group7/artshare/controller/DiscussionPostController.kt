@@ -53,7 +53,7 @@ class DiscussionPostController (
         }
     }
     @GetMapping()
-    fun getRecommendedEventsGeneric(): List<DiscussionPost> {
+    fun getAllDiscussionPosts(): List<DiscussionPost> {
         return discussionPostRepository.findAll()
     }
 
