@@ -5,6 +5,7 @@ import { TextField, Typography, Stack} from "@mui/material";
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import ImageUploader from '../../components/ImageUploader';
 import LoadingButton from '../../components/LoadingButton';
+import postRequestWithImage from "../../common/postRequestWithImage"
 
 function CreateArtItemForm(props) {
 
@@ -33,7 +34,7 @@ function CreateArtItemForm(props) {
       }
     }
   
-    const { postRequestWithImage } = useAuth()
+    const { token } = useAuth()
   
     const handleSubmit = event => {
       event.preventDefault();
@@ -43,7 +44,8 @@ function CreateArtItemForm(props) {
         "/api/art_item",
         selectedImage,
         formatFormInput,
-        (data) => "/artitem/"+data.id
+        (data) => "/artitem/"+data.id,
+        token
       )
     };
     

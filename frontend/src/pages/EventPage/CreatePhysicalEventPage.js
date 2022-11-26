@@ -6,6 +6,7 @@ import GenericCardLayout from "../../layouts/GenericCardLayout";
 import ImageUploader from '../../components/ImageUploader';
 import LoadingButton from '../../components/LoadingButton';
 import MapSelectComponent from "../../components/MapSelectComponent"
+import postRequestWithImage from "../../common/postRequestWithImage"
 
 function CreatePhysicalEventForm() {
 
@@ -45,7 +46,7 @@ function CreatePhysicalEventForm() {
     }
   }
 
-  const { postRequestWithImage } = useAuth()
+  const { token } = useAuth()
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -55,7 +56,8 @@ function CreatePhysicalEventForm() {
       "/api/event/physical",
       selectedImage,
       formatFormInput,
-      (data) => "/event/"+data.id
+      (data) => "/event/"+data.id,
+      token
     )
   };
   
