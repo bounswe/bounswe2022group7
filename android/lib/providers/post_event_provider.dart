@@ -6,10 +6,23 @@ import 'package:flutter/material.dart';
 class PostEventProvider extends ChangeNotifier {
   bool isLoading = false;
 
-  Future<PostEventOutput> postEvent(PostEventInput postEventInput) async {
+  Future<PostEventOutput> postOnlineEvent(
+      PostOnlineEventInput postEventInput) async {
     isLoading = true;
     notifyListeners();
-    PostEventOutput postEventOutput = await postEventNetwork(postEventInput);
+    PostEventOutput postEventOutput =
+        await postOnlineEventNetwork(postEventInput);
+    isLoading = false;
+    notifyListeners();
+    return postEventOutput;
+  }
+
+  Future<PostEventOutput> postPhysicalEvent(
+      PostPhysicalEventInput postEventInput) async {
+    isLoading = true;
+    notifyListeners();
+    PostEventOutput postEventOutput =
+        await postPhysicalEventNetwork(postEventInput);
     isLoading = false;
     notifyListeners();
     return postEventOutput;

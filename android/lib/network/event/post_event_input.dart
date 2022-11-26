@@ -1,34 +1,73 @@
-class PostEventInput {
-  final String? category;
+import 'package:android/models/location_model.dart';
+
+class PostEventInfo {
   final String title;
-  final String? base64poster;
-  final String description;
   final DateTime startingDate;
   final DateTime endingDate;
-  final List<String>? labels;
+  final String? description;
+  final String? category;
   final double? eventPrice;
+  final String? labels;
+  final int? posterId;
 
-  PostEventInput({
-    required this.category,
+  PostEventInfo({
     required this.title,
-    required this.base64poster,
-    required this.description,
+    this.description,
     required this.startingDate,
     required this.endingDate,
-    required this.labels,
-    required this.eventPrice,
+    this.category,
+    this.eventPrice,
+    this.labels,
+    this.posterId,
   });
 
   Map<String, dynamic> toJson() {
     return {
       "category": category,
       "title": title,
-      "base64poster": base64poster,
+      "posterId": posterId,
       "description": description,
       "startingDate": startingDate,
       "endingDate": endingDate,
       "labels": labels,
       "eventPrice": eventPrice,
+    };
+  }
+}
+
+class PostOnlineEventInput {
+  final PostEventInfo eventInfo;
+  final List<int>? artItemIds;
+
+  PostOnlineEventInput({
+    required this.eventInfo,
+    this.artItemIds,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "eventInfo": eventInfo.toJson(),
+      "artItemIds": artItemIds,
+    };
+  }
+}
+
+class PostPhysicalEventInput {
+  final PostEventInfo eventInfo;
+  final Location? location;
+  final String? rules;
+
+  PostPhysicalEventInput({
+    required this.eventInfo,
+    this.location,
+    this.rules,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "eventInfo": eventInfo.toJson(),
+      "location": location?.toJson(),
+      "rules": rules,
     };
   }
 }
