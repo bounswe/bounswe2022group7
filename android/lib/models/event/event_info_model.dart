@@ -1,31 +1,34 @@
 import 'package:android/util/string_helpers.dart';
+import 'package:android/models/models.dart';
 
-class EventInfo {
-  final int id;
-  final String title;
+class EventInfo extends PostInfo {
   final DateTime endingDate;
   final DateTime startingDate;
-  final String description;
   final String? category;
   final double? eventPrice;
   final List<String>? labels;
-  final String? posterUrl;
 
-  EventInfo(
-      {required this.id,
-      required this.title,
-      required this.endingDate,
-      required this.startingDate,
-      required this.description,
-      this.category,
-      this.eventPrice,
-      this.labels,
-      this.posterUrl});
+  EventInfo({
+    required int id,
+    required String name,
+    required String description,
+    int? posterId,
+    required this.endingDate,
+    required this.startingDate,
+    this.category,
+    this.eventPrice,
+    this.labels,
+  }) : super(
+          id: id,
+          name: name,
+          description: description,
+          imageId: posterId,
+        );
 
   factory EventInfo.fromJson(Map<String, dynamic> json) {
     return EventInfo(
       id: json['id'],
-      title: json['title'],
+      name: json['title'],
       endingDate: DateTime.parse(json['endingDate']),
       startingDate: DateTime.parse(json['startingDate']),
       description: json['description'],
@@ -38,7 +41,7 @@ class EventInfo {
       //labels: json['labels'].map((e) => e.toString()).toList(),
       labels: stringToList(json['labels']),
 
-      posterUrl: json['posterUrl'] ?? 'https://api.multiavatar.com/Robo.png',
+      posterId: json['posterId'],
     );
   }
 }

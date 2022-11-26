@@ -1,4 +1,3 @@
-import 'package:android/models/art_item/art_item_creator_model.dart';
 import 'package:android/models/models.dart';
 
 final User vanGogh = User(
@@ -91,14 +90,13 @@ final List<Event> events = [
       id: 1,
       eventInfo: EventInfo(
         id: 1,
-        title: 'Van Gogh Exhibition',
+        name: 'Van Gogh Exhibition',
         endingDate: DateTime(2021, 12, 31),
         startingDate: DateTime(2021, 12, 1),
         description: 'A great exhibition of Van Gogh\'s works.',
         category: 'Post-Impressionism ',
         labels: ['french', 'post-impressionism', 'painting'],
-        posterUrl:
-            'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
+        posterId: 1,
       ),
       creator: ahmet,
       collaborators: [mehmet],
@@ -118,14 +116,13 @@ final List<Event> events = [
       id: 2,
       eventInfo: EventInfo(
         id: 2,
-        title: 'Dali Exhibition',
+        name: 'Dali Exhibition',
         endingDate: DateTime(2021, 12, 31),
         startingDate: DateTime(2021, 12, 1),
         description: 'A great exhibition of Dali\'s works.',
         category: 'Surrealism',
         labels: ['spanish', 'surrealism', 'painting'],
-        posterUrl:
-            'https://assets3.thrillist.com/v1/image/1416328/size/tl-no_parallax_cs_2x/the-11-most-stunning-new-architecture-projects-in-america',
+        posterId: 2,
       ),
       creator: mehmet,
       collaborators: [],

@@ -336,7 +336,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            events[index].eventInfo.title,
+                                            events[index].eventInfo.name,
                                             style: const TextStyle(
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.w600,

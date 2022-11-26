@@ -6,17 +6,16 @@ import 'package:android/network/event/post_event_input.dart';
 import 'package:android/network/event/post_event_output.dart';
 import 'package:android/pages/pages.dart';
 import 'package:android/providers/post_event_provider.dart';
-import 'package:android/widgets/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../config/app_routes.dart';
 import '../util/snack_bar.dart';
 import '../util/validators.dart';
 import '../widgets/form_app_bar.dart';
 import '../widgets/form_widgets.dart';
+import '../widgets/loading.dart';
 
 class CreateEvent extends StatefulWidget {
   const CreateEvent({Key? key}) : super(key: key);
@@ -58,6 +57,7 @@ class _CreateEventState extends State<CreateEvent> {
   String? _description, _base64Image, _title, _eventCategory;
   double _price = 0;
   List<String>? _labels;
+  GeoPoint? _location;
 
   Future pickDateRange() async {
     DateTimeRange? newDateRange = await showDateRangePicker(
@@ -85,6 +85,8 @@ class _CreateEventState extends State<CreateEvent> {
 
     PostEventProvider postEventProvider =
         Provider.of<PostEventProvider>(context);
+
+    final ValueNotifier<bool> locationSelected = ValueNotifier(false);
 
     final priceField = inputField(TextFormField(
       onSaved: (value) => _price = double.parse(value!),
@@ -213,6 +215,41 @@ class _CreateEventState extends State<CreateEvent> {
       ],
     );
 
+    final mapField = InkWell(
+      onTap: () async {
+        var p = await showSimplePickerLocation(
+          context: context,
+          isDismissible: true,
+          title: "Select Event Location",
+          textConfirmPicker: "Select",
+          initCurrentUserPosition: true,
+          initZoom: 2,
+          radius: 8.0,
+        );
+        _location = p;
+        if (p != null) {
+          locationSelected.value = true;
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.all(15.0),
+        padding:
+            const EdgeInsets.only(left: 50, right: 50, top: 20, bottom: 20),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(5))),
+        child: ValueListenableBuilder<bool>(
+          valueListenable: locationSelected,
+          builder: (context, value, child) {
+            return value
+                ? const Text("Update Event Location")
+                : const Text("Select Event Location");
+          },
+        ),
+      ),
+    );
+
     void createEvent() {
       final form = formKey.currentState!;
 
@@ -286,6 +323,8 @@ class _CreateEventState extends State<CreateEvent> {
                   labelField,
                   const SizedBox(height: 10.0),
                   priceField,
+                  const SizedBox(height: 10.0),
+                  mapField,
                   const SizedBox(height: 10.0),
                   postEventProvider.isLoading
                       ? loading("Creating Event... Please Wait")

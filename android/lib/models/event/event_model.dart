@@ -3,10 +3,8 @@ import 'package:android/models/models.dart';
 // imported to use dummy data for now
 import 'package:android/data/data.dart';
 
-class Event {
-  final int id;
+class Event extends Post {
   final EventInfo eventInfo;
-  final User creator;
   final List<User> collaborators;
   final List<User> participants;
   final DateTime creationDate;
@@ -16,18 +14,24 @@ class Event {
   final List<User> attendees;
   final List<User> bookmarkedBy;
 
-  Event(
-      {required this.id,
-      required this.eventInfo,
-      required this.creator,
-      required this.collaborators,
-      required this.participants,
-      required this.creationDate,
-      required this.commentList,
-      required this.location,
-      this.rules,
-      required this.attendees,
-      required this.bookmarkedBy});
+  Event({
+    required int id,
+    required User creator,
+    required this.eventInfo,
+    required this.collaborators,
+    required this.participants,
+    required this.creationDate,
+    required this.commentList,
+    required this.location,
+    this.rules,
+    required this.attendees,
+    required this.bookmarkedBy,
+  }) : super(
+          type: "Event",
+          id: id,
+          creator: creator,
+          postInfo: eventInfo,
+        );
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
@@ -36,14 +40,13 @@ class Event {
           ? EventInfo.fromJson(json['eventInfo'])
           : EventInfo(
               id: 1,
-              title: 'Van Gogh Exhibition',
+              name: 'Van Gogh Exhibition',
               endingDate: DateTime(2021, 12, 31),
               startingDate: DateTime(2021, 12, 1),
               description: 'A great exhibition of Van Gogh\'s works.',
               category: 'Post-Impressionism ',
               labels: ['french', 'post-impressionism', 'painting'],
-              posterUrl:
-                  'https://live.staticflickr.com/4161/34359066121_6d26d9c3d2_b.jpg',
+              posterId: 1,
             ),
       // *** User model has not been implemented by the back-end team yet ***
       // use the dummy data for now, uncomment below when the back-end team is done

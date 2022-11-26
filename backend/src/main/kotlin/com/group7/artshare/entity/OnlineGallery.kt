@@ -9,9 +9,12 @@ import javax.persistence.*
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 class OnlineGallery : Event(){
-
-    
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "galleries_art_items",
+        joinColumns = [JoinColumn(name = "online_gallery_id", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "art_item_id", referencedColumnName = "id")]
+    )
     val artItems: MutableSet<ArtItem> = mutableSetOf()
 
     @Column
