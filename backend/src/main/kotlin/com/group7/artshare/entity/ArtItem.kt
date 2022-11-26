@@ -43,7 +43,7 @@ class ArtItem{
     @Column
     var lastPrice: Double = 0.0;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     var commentList: MutableList<Comment> = mutableListOf()
 
     @ManyToMany(mappedBy = "bookmarkedArtItems",cascade = [CascadeType.MERGE, CascadeType.PERSIST])
