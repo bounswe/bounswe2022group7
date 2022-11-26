@@ -1,6 +1,7 @@
 package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import com.group7.artshare.DTO.CommentDTO
 import lombok.Data
@@ -32,6 +33,7 @@ class Comment {
         joinColumns = [JoinColumn(name = "upvoter_user_id")],
         inverseJoinColumns = [JoinColumn(name = "comment_id")]
     )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var upVotedUsers : MutableSet<RegisteredUser> = mutableSetOf()
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
@@ -40,10 +42,11 @@ class Comment {
         joinColumns = [JoinColumn(name = "downvoter_user_id")],
         inverseJoinColumns = [JoinColumn(name = "comment_id")]
     )
-
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var downVotedUsers : MutableSet<RegisteredUser> = mutableSetOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    @JsonIgnore
     var reports: MutableList<Report> = mutableListOf()
 
     @ManyToOne(fetch = FetchType.EAGER)
