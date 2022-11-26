@@ -1,6 +1,7 @@
 package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
+import com.group7.artshare.DTO.DiscussionPostDTO
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -47,4 +48,16 @@ class DiscussionPost {
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     var commentList: MutableList<Comment> = mutableListOf()
 
+    fun mapToDTO() : DiscussionPostDTO {
+        var discussionPostDTO = DiscussionPostDTO()
+        discussionPostDTO.id = this.id
+        discussionPostDTO.title = this.title
+        discussionPostDTO.textBody = this.textBody
+        discussionPostDTO.posterId = this.posterId
+        discussionPostDTO.creationDate = this.creationDate
+        discussionPostDTO.lastEditDate = this.lastEditDate
+        discussionPostDTO.upvoteNo = this.upvoteNo
+        discussionPostDTO.downvoteNo = this.downvoteNo
+        return discussionPostDTO
+    }
 }

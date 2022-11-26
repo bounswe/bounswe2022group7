@@ -1,5 +1,6 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.DiscussionPostDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.ArtItemRepository
 import com.group7.artshare.repository.DiscussionPostRepository
@@ -21,8 +22,8 @@ class DiscussionForumController() {
     lateinit var discussionPostRepository: DiscussionPostRepository
 
     @GetMapping()
-    fun getRecommendedEventsGeneric(): List<DiscussionPost> {
-        return discussionPostRepository.findAll()
+    fun getAllDiscussionPosts(): List<DiscussionPostDTO> {
+        return discussionPostRepository.findAll().map { discussionPost -> discussionPost.mapToDTO() }
     }
 
 }
