@@ -23,10 +23,10 @@ class ImageController {
     throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the images in the database")
 
     @PostMapping()
-    fun postBase64Image(@RequestBody image : Image) : Image {
+    fun postBase64Image(@RequestBody image : Image) : Map<String, Long> {
         try {
             imageRepository.save(image)
-            return image
+            return mapOf("id" to image.id)
         } catch (e: Exception) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
         }
