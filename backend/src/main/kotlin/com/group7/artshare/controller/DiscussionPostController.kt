@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
-@RequestMapping("discussion")
+@RequestMapping("discussionPost")
 class DiscussionPostController (
     private val jwtService: JwtService,
     private val discussionPostService: DiscussionPostService
@@ -51,6 +51,10 @@ class DiscussionPostController (
                 throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
             }
         }
+    }
+    @GetMapping()
+    fun getRecommendedEventsGeneric(): List<DiscussionPost> {
+        return discussionPostRepository.findAll()
     }
 
 //    @DeleteMapping("{id}")
