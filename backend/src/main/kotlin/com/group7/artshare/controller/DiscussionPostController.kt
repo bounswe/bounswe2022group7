@@ -1,5 +1,6 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.DiscussionPostDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.DiscussionPostRequest
@@ -14,7 +15,7 @@ import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
-@RequestMapping("discussion")
+@RequestMapping("discussionPost")
 class DiscussionPostController (
     private val jwtService: JwtService,
     private val discussionPostService: DiscussionPostService
@@ -51,6 +52,10 @@ class DiscussionPostController (
                 throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
             }
         }
+    }
+    @GetMapping()
+    fun getAllDiscussionPosts(): List<DiscussionPostDTO> {
+        return discussionPostRepository.findAll().map { discussionPost -> discussionPost.mapToDTO() }
     }
 
 //    @DeleteMapping("{id}")
