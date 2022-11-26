@@ -9,14 +9,14 @@ class ArtItemInfo extends PostInfo {
     required int id,
     required String name,
     required String description,
-    String? imageUrl,
+    int? imageId,
     this.category,
     this.labels,
   }) : super(
           id: id,
           name: name,
           description: description,
-          imageUrl: imageUrl,
+          imageId: imageId,
         );
 
   factory ArtItemInfo.fromJson(Map<String, dynamic> json) {
@@ -25,7 +25,7 @@ class ArtItemInfo extends PostInfo {
       name: json['name'],
       description: json['description'],
       category: json['category'],
-      imageUrl: json['imageUrl'],
+      imageId: json['imageId'],
       labels: stringToList(json['labels']),
     );
   }

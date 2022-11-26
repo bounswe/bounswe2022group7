@@ -189,7 +189,7 @@ class _EventPageState extends State<EventPage> {
                                     ),
                                     const SizedBox(height: 15.0),
                                     imageBuilder(
-                                        currentEvent.eventInfo.posterId),
+                                        currentEvent.eventInfo.imageId),
                                     const SizedBox(height: 15.0),
                                     Text(
                                       currentEvent.eventInfo.description,

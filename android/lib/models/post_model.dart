@@ -151,7 +151,7 @@ class Post {
   }
 
   Widget imageNetwork() {
-    return imageBuilder(imageId);
+    return imageBuilder(postInfo.imageId);
   }
 
   Widget descriptionText() {

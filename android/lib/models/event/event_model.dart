@@ -46,7 +46,7 @@ class Event extends Post {
               description: 'A great exhibition of Van Gogh\'s works.',
               category: 'Post-Impressionism ',
               labels: ['french', 'post-impressionism', 'painting'],
-              imageId: 1,
+              posterId: 1,
             ),
       // *** User model has not been implemented by the back-end team yet ***
       // use the dummy data for now, uncomment below when the back-end team is done
