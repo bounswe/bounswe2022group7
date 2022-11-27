@@ -1,5 +1,7 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -24,6 +26,7 @@ class Report {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var reporter : RegisteredUser? = null
 
 }
