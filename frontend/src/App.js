@@ -16,7 +16,7 @@ import SettingsPage from './pages/ProfilePage/SettingsPage';
 
 import { AuthProvider } from './auth/useAuth';
 import {ProtectedRoute} from './auth/ProtectedRoute';
-
+import CreatePhysicalEventPage from './pages/EventPage/CreatePhysicalEventPage';
 
 function App() {
   return (
@@ -41,8 +41,16 @@ function App() {
             element={<SignInPage />}
           />
           <Route
+            path="/artitem/new"
+            element={<ProtectedRoute><CreateArtItemPage/></ProtectedRoute>}
+          />
+          <Route
             path="/artitem/:id"
             element={<ArtItemPage />}
+          />
+          <Route
+            path="/event/newPhysical"
+            element={<ProtectedRoute><CreatePhysicalEventPage/></ProtectedRoute>}
           />
           <Route
             path="/event/:id"
@@ -51,10 +59,6 @@ function App() {
           <Route
             path="/profile/settings"
             element={<ProtectedRoute><SettingsPage /></ProtectedRoute>}
-          />
-          <Route
-            path="/new/art_item"
-            element={<ProtectedRoute><CreateArtItemPage /></ProtectedRoute>} 
           />
           <Route
             path="*"
