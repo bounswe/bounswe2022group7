@@ -4,6 +4,8 @@ import "package:android/models/models.dart";
 import "package:android/network/art_item/get_art_item_service.dart";
 import "package:android/network/art_item/get_art_item_output.dart";
 
+import '../network/image/get_image_builder.dart';
+
 class ArtItemPage extends StatefulWidget {
   final int id;
 
@@ -121,19 +123,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                       ],
                                     ),
                                     const SizedBox(height: 15.0),
-                                    currentArtItem.artItemInfo.imageUrl != null
-                                        ? Container(
-                                            height: 300.0,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                    currentArtItem
-                                                        .artItemInfo.imageUrl!),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          )
-                                        : Container(),
+                                    imageBuilder(
+                                        currentArtItem.artItemInfo.imageId),
                                     const SizedBox(height: 15.0),
                                     Text(
                                       currentArtItem.artItemInfo.description,
@@ -146,7 +137,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                     const Divider(color: Colors.black),
                                     const SizedBox(height: 5.0),
                                     Row(
-                                      children:  [
+                                      children: [
                                         const Icon(Icons.chat, size: 13.0),
                                         const SizedBox(width: 5.0),
                                         Text(
