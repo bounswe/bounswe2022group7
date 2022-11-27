@@ -6,13 +6,21 @@ import 'package:android/network/event/post_event_output.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
+import '../../models/models.dart';
+import '../../shared_prefs/user_preferences.dart';
+
 Future<PostEventOutput> postOnlineEventNetwork(
     PostOnlineEventInput postEventInput) async {
   Response response;
   try {
+    CurrentUser? user = await getUser();
+    final token = user == null ? "" : user.token;
     response = await post(
       Uri.parse("$eventURL/online"),
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer$token'
+      },
       body: json.encode(postEventInput),
     );
     if (response.statusCode == 200) {
@@ -34,9 +42,14 @@ Future<PostEventOutput> postPhysicalEventNetwork(
     PostPhysicalEventInput postEventInput) async {
   Response response;
   try {
+    CurrentUser? user = await getUser();
+    final token = user == null ? "" : user.token;
     response = await post(
       Uri.parse("$eventURL/physical"),
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer$token'
+      },
       body: json.encode(postEventInput),
     );
     if (response.statusCode == 200) {
