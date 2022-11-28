@@ -50,7 +50,7 @@ open class RegisteredUser(
     @JsonManagedReference
     var following: MutableSet<RegisteredUser> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @ManyToMany(mappedBy = "following" ,cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JsonBackReference
     var followedBy: MutableSet<RegisteredUser> = mutableSetOf()
 

@@ -38,15 +38,18 @@ class ProfileService(
         }
     }
 
-    fun followUser(username: String , user: RegisteredUser) : RegisteredUser {
+    fun followUser(username: String , user: RegisteredUser) : HttpStatus {
         var followedUser : RegisteredUser? = registeredUserService.findByUsername(username)
-        if(Objects.nonNull(followedUser)) {
+        if(Objects.nonNull(followedUser) && (followedUser?.id != user?.id)) {
             user.following.add(followedUser!!)
             followedUser.followedBy.add(user)
             registeredUserRepository.save(followedUser)
-            return registeredUserRepository.save(user)
-        }else
+            registeredUserRepository.save(user)
+            return HttpStatus.ACCEPTED
+        }else if(followedUser?.id != user?.id)
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not find user with given username")
+        else
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot follow itself")
     }
     
     fun getSettings(user: RegisteredUser) : SettingDTO {

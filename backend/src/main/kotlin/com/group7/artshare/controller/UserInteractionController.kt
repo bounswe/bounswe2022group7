@@ -16,15 +16,16 @@ class UserInteractionController(
 ) {
 
     @PostMapping("/follow/{username}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     fun followUser(
         @PathVariable(value = "username") username: String,
         @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
-    ): RegisteredUser {
+    ) {
         try {
             authorizationHeader.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return profileService.followUser(username , user)
+                profileService.followUser(username , user)
             }
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
