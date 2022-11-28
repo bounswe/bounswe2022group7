@@ -15,6 +15,4 @@ class DiscussionPostRequest {
     @NotEmpty
     val textBody: String? = null
 
-    val posterId: Long? = null
-
 }

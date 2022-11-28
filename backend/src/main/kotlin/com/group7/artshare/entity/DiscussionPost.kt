@@ -23,9 +23,6 @@ class DiscussionPost {
     @Column
     var textBody: String? = null
 
-    @Column
-    var posterId: Long? = null
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
