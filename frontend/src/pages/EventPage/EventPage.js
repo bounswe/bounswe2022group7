@@ -4,7 +4,9 @@ import { useAuth } from "../../auth/useAuth"
 
 import { Typography, Grid } from '@mui/material';
 import CommentSection from "../../common/CommentSection"
-import ContentLayout from "../../layouts/ContentLayout";
+import ImageComponent from "../../components/ImageComponent"
+import GenericCardLayout from "../../layouts/GenericCardLayout";
+import MapComponent from "../../components/MapComponent"
 
 function EventPage() {
   
@@ -44,14 +46,14 @@ function EventPage() {
     return <div>Loading...</div>
   } else {
   return (
-    <ContentLayout>
+    <GenericCardLayout maxWidth={1000}>
       <Typography variant="h4" sx={{padding:2}}>
         {event.eventInfo.title}
       </Typography>
     
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
-          <img src={event.eventInfo.posterUrl} alt="Event" style={{width:'100%'}}/>
+          <ImageComponent imageId={event.eventInfo.posterId}/>          
         </ Grid>
         <Grid item xs={12} sm={4}>          
           <Typography variant="h5">Description:</Typography>
@@ -66,12 +68,20 @@ function EventPage() {
           <Typography variant="h5">Location:</Typography>
           <Typography variant="body1">{event.location.address}</Typography>
         </ Grid>
+
+        <MapComponent
+          position={{
+            lat:event.location.latitude, 
+            lng:event.location.longitude
+          }}
+          eventTitle={event.eventInfo.title}
+        />
       </ Grid>  
       <CommentSection
-        id={id}
-        commentList={event.commentList.filter(x => !!x.author)}
+        contentId={id}
+        commentList={event.commentList}
       />
-    </ContentLayout>
+    </GenericCardLayout>
     
   )}
 }
