@@ -1,8 +1,10 @@
 package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import lombok.Data
 import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
@@ -61,13 +63,23 @@ open class RegisteredUser(
         joinColumns = [JoinColumn(name = "blocker_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "blocked_id", referencedColumnName = "id")]
     )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var blockedUsers: MutableSet<RegisteredUser> = mutableSetOf()
 
     @Column
     var isBanned: Boolean = false
 
     @ManyToMany(mappedBy = "participants")
+    @JsonIgnore
     var allEvents: MutableSet<Event> = mutableSetOf()
+
+    @ManyToMany(mappedBy = "upVotedUsers")
+    @JsonIgnore
+    var upVotedComments: MutableSet<Comment> = mutableSetOf()
+
+    @ManyToMany(mappedBy = "downVotedUsers")
+    @JsonIgnore
+    var downVotedComments: MutableSet<Comment> = mutableSetOf()
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
@@ -75,7 +87,7 @@ open class RegisteredUser(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "art_item_id")]
     )
-    @JsonManagedReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var bookmarkedArtItems: MutableSet<ArtItem> = mutableSetOf()
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
@@ -84,6 +96,7 @@ open class RegisteredUser(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "event_id")]
     )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var bookmarkedEvents: MutableSet<Event> = mutableSetOf()
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
@@ -92,6 +105,7 @@ open class RegisteredUser(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "notification_id")]
     )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var readNotifications: MutableSet<Notification> = mutableSetOf()
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
@@ -100,20 +114,22 @@ open class RegisteredUser(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "notification_id")]
     )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var unreadNotifications: MutableSet<Notification> = mutableSetOf()
 
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     var writtenDiscussionPosts: MutableList<DiscussionPost> = mutableListOf()
 
     //TODO past reply past posts
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    @JsonIgnore
     var currentBids: MutableList<Bid> = mutableListOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    @JsonManagedReference
+    @JsonIgnore
     var commentList: MutableList<Comment> = mutableListOf()
 
     @JsonIgnore

@@ -11,6 +11,7 @@ import javax.validation.constraints.NotEmpty
 @Data
 @RequiredArgsConstructor
 class PhysicalExhibitionRequest {
+
     @NotEmpty
     val eventInfo: EventInfo? = null
 

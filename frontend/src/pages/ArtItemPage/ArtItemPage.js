@@ -4,7 +4,8 @@ import { useAuth } from "../../auth/useAuth"
 
 import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
-import ContentLayout from "../../layouts/ContentLayout";
+import ImageComponent from "../../components/ImageComponent"
+import GenericCardLayout from "../../layouts/GenericCardLayout";
 
 import { Typography, Grid } from '@mui/material';
 
@@ -30,7 +31,6 @@ function ArtItemPage() {
     fetch('/api/art_item/' + id, fetchArgs)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setState({error: null, isLoaded: true, artitem: data})
       },
         error => {
@@ -47,23 +47,29 @@ function ArtItemPage() {
     return <div>Loading...</div>
   } else {
   return (
-    <ContentLayout>
+    <GenericCardLayout maxWidth={1000}>
       <Typography variant="h4" sx={{padding:2}}>
         {artitem.artItemInfo.name}
       </Typography>
     
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
-          <img src={artitem.artItemInfo.imageUrl} alt="Art Item" style={{width:'100%'}}/>
+          <ImageComponent imageId={artitem.artItemInfo.imageId}/>          
         </ Grid>
         <Grid item xs={12} sm={4}>
+          {/*
+
+          // TODO: endpoint doesn't save owner, no art item has artist
+          // add owner back once issue is fixed.
+
           <Typography variant="h5">Owner:</Typography>
           <UserCard author={artitem.owner}/>
+          */}
           
           <Typography variant="h5">Description:</Typography>
           <Typography variant="body1">{artitem.artItemInfo.description}</Typography>
 
-          {artitem.onAuction && // if auction_id exists, render block below
+          {artitem.lastPrice && // if auction_id exists, render block below
           // TODO render auction properly
             <div>
               <Typography variant="h5">Auction Price:</Typography>
@@ -75,10 +81,10 @@ function ArtItemPage() {
         </ Grid>
       </ Grid>  
       <CommentSection
-        id={id}
-        commentList={artitem.commentList.filter(x => !!x.author)}
+        contentId={id}
+        commentList={artitem.commentList}
       />
-    </ContentLayout>
+    </GenericCardLayout>
     
   )}
 }

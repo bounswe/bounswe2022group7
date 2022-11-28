@@ -1,10 +1,19 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:android/models/location_model.dart';
+import 'package:android/network/event/post_event_input.dart';
+import 'package:android/network/event/post_event_output.dart';
+import 'package:android/network/image/post_image_input.dart';
+import 'package:android/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../network/event/post_event_service.dart';
+import '../network/image/post_image_output.dart';
+import '../network/image/post_image_service.dart';
 import '../util/snack_bar.dart';
 import '../util/validators.dart';
 import '../widgets/form_app_bar.dart';
@@ -47,7 +56,8 @@ class _CreateEventState extends State<CreateEvent> {
   final titleFormKey = GlobalKey<FormFieldState>();
   final eventCategoryFormKey = GlobalKey<FormFieldState>();
 
-  String? _price, _labels, _description, _base64Image, _title, _eventCategory;
+  String? _description, _base64Image, _title, _eventType, _labels, _category;
+  double _price = 0;
   GeoPoint? _location;
 
   Future pickDateRange() async {
@@ -76,8 +86,18 @@ class _CreateEventState extends State<CreateEvent> {
 
     final ValueNotifier<bool> locationSelected = ValueNotifier(false);
 
+    final labelField = inputField(TextFormField(
+      validator: validateNotEmpty,
+      onSaved: (value) => _labels = value,
+      autofocus: false,
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Labels',
+      ),
+    ));
+
     final priceField = inputField(TextFormField(
-      onSaved: (value) => _price = value,
+      onSaved: (value) => _price = double.parse(value!),
       keyboardType: TextInputType.number,
       autofocus: false,
       decoration: const InputDecoration(
@@ -86,7 +106,7 @@ class _CreateEventState extends State<CreateEvent> {
       ),
     ));
 
-    final labelField = inputField(TextFormField(
+    final categoryField = inputField(TextFormField(
       validator: validateNotEmpty,
       onSaved: (value) => _labels = value,
       autofocus: false,
@@ -163,17 +183,17 @@ class _CreateEventState extends State<CreateEvent> {
       ),
     ));
 
-    final eventCategories = ["Online Gallery", "Physical Exhibition"];
+    final eventType = ["Online Gallery", "Physical Exhibition"];
 
-    final eventCategoryField = inputField(DropdownButtonFormField(
+    final eventTypeField = inputField(DropdownButtonFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: eventCategoryFormKey,
       validator: validateEventCategory,
-      onSaved: (value) => _eventCategory = value,
+      onSaved: (value) => _eventType = value,
       borderRadius: BorderRadius.circular(12),
       decoration: const InputDecoration(border: InputBorder.none),
       hint: const Text("Event Category"),
-      items: eventCategories.map((String items) {
+      items: eventType.map((String items) {
         return DropdownMenuItem(
           value: items,
           child: Text(items),
@@ -220,24 +240,25 @@ class _CreateEventState extends State<CreateEvent> {
         }
       },
       child: Container(
-          margin: const EdgeInsets.all(15.0),
-          padding: const EdgeInsets.only(left: 50, right: 50, top: 20, bottom: 20),
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              color: Colors.white,
-              borderRadius: const BorderRadius.all(Radius.circular(5))),
-          child: ValueListenableBuilder<bool>(
-            valueListenable: locationSelected,
-            builder: (context, value, child) {
-              return value
-                  ? const Text("Update Event Location")
-                  : const Text("Select Event Location");
-            },
-          ),
+        margin: const EdgeInsets.all(15.0),
+        padding:
+            const EdgeInsets.only(left: 50, right: 50, top: 20, bottom: 20),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(5))),
+        child: ValueListenableBuilder<bool>(
+          valueListenable: locationSelected,
+          builder: (context, value, child) {
+            return value
+                ? const Text("Update Event Location")
+                : const Text("Select Event Location");
+          },
+        ),
       ),
     );
 
-    void createEvent() {
+    Future<void> createEvent() async {
       final form = formKey.currentState!;
 
       // don't register if form is not valid (invalid email etc.)
@@ -247,6 +268,70 @@ class _CreateEventState extends State<CreateEvent> {
       }
 
       form.save();
+
+      PostImageInput postImageInput =
+          PostImageInput(base64string: _base64Image);
+
+      postImageNetwork(postImageInput).then((PostImageOutput postImageOutput) {
+        if (postImageOutput.status == "OK") {
+          PostEventInfo postEventInfo = PostEventInfo(
+            title: _title!,
+            startingDate: dateRange.start,
+            endingDate: dateRange.end,
+            description: _description,
+            category: _category,
+            eventPrice: _price,
+            labels: _labels,
+            posterId: postImageOutput.id,
+          );
+          if (_eventType == "Online Gallery") {
+            PostOnlineEventInput postEventInput = PostOnlineEventInput(
+              eventInfo: postEventInfo,
+              artItemIds: [],
+            );
+
+            postOnlineEventNetwork(postEventInput)
+                .then((PostEventOutput postEventOutput) {
+              showSnackBar(context, postEventOutput.status);
+              if (postEventOutput.status == "OK") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        EventPage(id: postEventOutput.eventId),
+                  ),
+                );
+              }
+            });
+          }
+          if (_eventType == "Physical Exhibition") {
+            Location postLocation = Location(
+                id: 0,
+                latitude: _location!.latitude,
+                longitude: _location!.longitude,
+                address: _location.toString());
+
+            PostPhysicalEventInput postEventInput = PostPhysicalEventInput(
+              eventInfo: postEventInfo,
+              location: postLocation,
+              rules: "",
+            );
+            postPhysicalEventNetwork(postEventInput)
+                .then((PostEventOutput postEventOutput) {
+              showSnackBar(context, postEventOutput.status);
+              if (postEventOutput.status == "OK") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        EventPage(id: postEventOutput.eventId),
+                  ),
+                );
+              }
+            });
+          }
+        }
+      });
     }
 
     return Scaffold(
@@ -262,7 +347,7 @@ class _CreateEventState extends State<CreateEvent> {
                 children: [
                   pageTitle,
                   const SizedBox(height: 30.0),
-                  eventCategoryField,
+                  eventTypeField,
                   const SizedBox(height: 10.0),
                   titleField,
                   const SizedBox(height: 10.0),
@@ -282,9 +367,11 @@ class _CreateEventState extends State<CreateEvent> {
                   const SizedBox(height: 10.0),
                   endDateField,
                   const SizedBox(height: 10.0),
-                  labelField,
+                  categoryField,
                   const SizedBox(height: 10.0),
                   priceField,
+                  const SizedBox(height: 10.0),
+                  labelField,
                   const SizedBox(height: 10.0),
                   mapField,
                   const SizedBox(height: 10.0),
