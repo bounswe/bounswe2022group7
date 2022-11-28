@@ -16,5 +16,4 @@ class ArtItemRequest {
     val artItemInfo: ArtItemInfo? = null
 
     val lastPrice: Double? = null
-
 }

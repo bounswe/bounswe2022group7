@@ -1,7 +1,10 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.ArtItemDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.ArtItemRepository
+import com.group7.artshare.repository.ArtistRepository
+import com.group7.artshare.repository.RegisteredUserRepository
 import com.group7.artshare.request.ArtItemRequest
 import com.group7.artshare.service.ArtItemService
 import com.group7.artshare.service.JwtService
@@ -10,6 +13,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import java.util.*
 
 
 @RestController
@@ -23,12 +27,20 @@ class ArtItemController(
     @Autowired
     lateinit var artItemRepository: ArtItemRepository
 
+    @Autowired
+    lateinit var artistRepository: ArtistRepository
+
+    @Autowired
+    lateinit var registeredUserRepository: RegisteredUserRepository
+
     @GetMapping("{id}")
-    fun getRecommendedArtItemsGeneric(@PathVariable("id") id: Long): ArtItem =
-        artItemRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
-            HttpStatus.NOT_FOUND,
-            "Id is not match with any of the art items in the database"
-        )
+    fun getRecommendedArtItemGeneric(@PathVariable("id") id: Long) : ArtItemDTO? {
+        var artItem : ArtItem? = artItemRepository.findByIdOrNull(id)
+        if(Objects.nonNull(artItem)){
+            return artItem?.mapToDTO()
+        }else
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the art items in the database")
+    }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
