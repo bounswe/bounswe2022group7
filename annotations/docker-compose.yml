@@ -1,0 +1,21 @@
+services:
+  app:
+    image: node
+    command: sh -c "npm i && node app.js"
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: abcd1234
+    volumes:
+      - mongodb:/data/db
+
+volumes:
+  mongodb:
