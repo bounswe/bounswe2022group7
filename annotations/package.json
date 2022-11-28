@@ -14,6 +14,7 @@
     "@koa/router": "^12.0.0",
     "koa": "^2.13.4",
     "koa-body": "^6.0.1",
+    "koa-bodyparser": "^4.3.0",
     "koa-mongo": "^1.9.3",
     "mongodb": "^4.12.1"
   }
