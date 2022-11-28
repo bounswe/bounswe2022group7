@@ -16,8 +16,11 @@ app.use(mongo({
 
 router.post('/annotations', koaBody(), async ctx => {
     const result = await ctx.db.collection('annotations').insertOne(ctx.request.body)
-    ctx.type = 'application/json'
-    ctx.body = { _id: result.ops[0]._id }
+    ctx.body = { id: ctx.request.body.id }
+    ctx.set('Content-Type', 'application/ld+json; charset=utf-8; profile=http://www.w3.org/ns/anno.jsonld')
+    ctx.set('ETag', `W/${result.ops[0]._id}`)
+
+    
 })
     .get('/annotations', async ctx => {
         ctx.body = await ctx.db.collection('annotations').find().toArray()
@@ -25,4 +28,4 @@ router.post('/annotations', koaBody(), async ctx => {
 
 app.use(router.routes())
 
-app.listen(3000)
+app.listen(3001)
