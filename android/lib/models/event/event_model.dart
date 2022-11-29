@@ -53,14 +53,8 @@ class Event extends Post {
       // Comment model has not been implemented, just store as strings
       commentList: json['commentList'].cast<String>(),
 
-      location: json['location'] != null
-          ? Location.fromJson(json['location'])
-          : Location(
-              id: 1,
-              address: 'Van Gogh Museum, Amsterdam',
-              latitude: 52.358,
-              longitude: 4.881,
-            ),
+      location: Location.fromJson(json['location']),
+
       rules: json['rules'],
 
       // attendees: json['attendees'].map((e) => User.fromJson(e)).toList(),
