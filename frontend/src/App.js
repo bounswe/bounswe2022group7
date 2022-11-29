@@ -12,10 +12,11 @@ import EventPage from "./pages/EventPage/EventPage"
 import SignInPage from './pages/Authentication/SignInPage';
 import SignUpPage from './pages/Authentication/SignUpPage';
 import ErrorPage from './pages/ErrorPage';
+import SettingsPage from './pages/ProfilePage/SettingsPage';
 
 import { AuthProvider } from './auth/useAuth';
 import {ProtectedRoute} from './auth/ProtectedRoute';
-
+import CreatePhysicalEventPage from './pages/EventPage/CreatePhysicalEventPage';
 
 function App() {
   return (
@@ -40,16 +41,24 @@ function App() {
             element={<SignInPage />}
           />
           <Route
+            path="/artitem/new"
+            element={<ProtectedRoute><CreateArtItemPage/></ProtectedRoute>}
+          />
+          <Route
             path="/artitem/:id"
             element={<ArtItemPage />}
+          />
+          <Route
+            path="/event/newPhysical"
+            element={<ProtectedRoute><CreatePhysicalEventPage/></ProtectedRoute>}
           />
           <Route
             path="/event/:id"
             element={<EventPage />}
           />
           <Route
-            path="/new/art_item"
-            element={<ProtectedRoute><CreateArtItemPage /></ProtectedRoute>} 
+            path="/profile/settings"
+            element={<ProtectedRoute><SettingsPage /></ProtectedRoute>}
           />
           <Route
             path="*"

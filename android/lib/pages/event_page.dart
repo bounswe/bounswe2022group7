@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import "package:android/models/models.dart";
 import 'package:android/network/event/get_event_service.dart';
 import 'package:android/network/event/get_event_output.dart';
-import 'package:android/network/image/id_to_image.dart';
+import 'package:android/network/image/get_image_builder.dart';
 
 class EventPage extends StatefulWidget {
   final int id;
@@ -188,7 +188,8 @@ class _EventPageState extends State<EventPage> {
                                       ],
                                     ),
                                     const SizedBox(height: 15.0),
-                                    imageBuilder(currentEvent.eventInfo.imageId),
+                                    imageBuilder(
+                                        currentEvent.eventInfo.imageId),
                                     const SizedBox(height: 15.0),
                                     Text(
                                       currentEvent.eventInfo.description,

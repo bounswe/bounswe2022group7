@@ -1,5 +1,9 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -16,9 +20,11 @@ open class Event{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var creator: Artist? = null
     
     @ManyToMany(mappedBy = "hostedEvents")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var collaborators: MutableSet<Artist> = mutableSetOf()
 
     @Column
@@ -26,10 +32,12 @@ open class Event{
     var creationDate: Date = Calendar.getInstance().time
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var commentList: MutableList<Comment> = mutableListOf()
 
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "eventInfoId")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var eventInfo: EventInfo? = null
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
@@ -38,8 +46,10 @@ open class Event{
         joinColumns = [JoinColumn(name = "attending_user_id")],
         inverseJoinColumns = [JoinColumn(name = "physical_exhibition_id")]
     )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var participants: MutableSet<RegisteredUser> = mutableSetOf()
 
     @ManyToMany(mappedBy = "bookmarkedEvents")
+    @JsonIgnore
     var bookmarkedBy: MutableSet<RegisteredUser> = mutableSetOf()
 }

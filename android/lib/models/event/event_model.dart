@@ -36,7 +36,18 @@ class Event extends Post {
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
       id: json['id'],
-      eventInfo: EventInfo.fromJson(json['eventInfo']),
+      eventInfo: json['eventInfo'] != null
+          ? EventInfo.fromJson(json['eventInfo'])
+          : EventInfo(
+              id: 1,
+              name: 'Van Gogh Exhibition',
+              endingDate: DateTime(2021, 12, 31),
+              startingDate: DateTime(2021, 12, 1),
+              description: 'A great exhibition of Van Gogh\'s works.',
+              category: 'Post-Impressionism ',
+              labels: ['french', 'post-impressionism', 'painting'],
+              posterId: 1,
+            ),
       // *** User model has not been implemented by the back-end team yet ***
       // use the dummy data for now, uncomment below when the back-end team is done
 

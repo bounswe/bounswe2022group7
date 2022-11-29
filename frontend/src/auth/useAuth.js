@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
@@ -21,13 +21,26 @@ export const AuthProvider = ({ children }) => {
     window.location.href = '/'
   };
 
+  const [userData, setUserData] = useState(null)
+  useEffect(() => {
+    fetch('/api/profile', {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    })
+      .then(response => response.json())
+      .then(data => setUserData(data))
+  }, [token])
+
   const value = useMemo(
     () => ({
       token,
       saveToken,
-      clearToken
+      clearToken,
+      userData
     }),
-    [token]
+    [token, userData]
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

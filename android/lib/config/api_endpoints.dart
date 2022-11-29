@@ -13,4 +13,4 @@ String homepageURL = "$baseURL/homepage";
 String homepageEventURL = "$homepageURL/event";
 String homepageArtItemURL = "$homepageURL/artItem";
 
-String imageURL = "$baseURL/image";
+String getImageURL = "$baseURL/image";

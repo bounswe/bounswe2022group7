@@ -12,7 +12,7 @@ class EventInfo extends PostInfo {
     required int id,
     required String name,
     required String description,
-    int? imageId,
+    int? posterId,
     required this.endingDate,
     required this.startingDate,
     this.category,
@@ -22,7 +22,7 @@ class EventInfo extends PostInfo {
           id: id,
           name: name,
           description: description,
-    imageId: imageId,
+          imageId: posterId,
         );
 
   factory EventInfo.fromJson(Map<String, dynamic> json) {
@@ -41,7 +41,7 @@ class EventInfo extends PostInfo {
       //labels: json['labels'].map((e) => e.toString()).toList(),
       labels: stringToList(json['labels']),
 
-      imageId: json['posterId'],
+      posterId: json['posterId'],
     );
   }
 }
