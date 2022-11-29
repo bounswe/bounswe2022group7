@@ -14,7 +14,7 @@ Future<LoginOutput> loginNetwork(LoginInput loginInput) async {
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: json.encode(loginInput),
     );
-    return LoginOutput.fromJson(response.body);
+    return LoginOutput.fromJson(jsonDecode(response.body));
   } catch (err) {
     if (kDebugMode) {
       print(err);

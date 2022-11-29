@@ -8,18 +8,17 @@ class LoginOutput {
     this.token,
   });
 
-  factory LoginOutput.fromJson(String response) {
-
-    if(response != "") {
+  factory LoginOutput.fromJson(Map<String, dynamic> json) {
+    if (!json.containsKey("token")) {
       return LoginOutput(
-        status: "OK",
-        token: response,
-      );
-    } else {
-      return LoginOutput(
-        status: "Login Unsuccessful",
+        status: json["message"],
         token: null,
       );
     }
+
+    return LoginOutput(
+      status: "OK",
+      token: json['token'],
+    );
   }
 }
