@@ -48,7 +48,7 @@ SERVER_IP=http://10.0.2.2
       },
       "location": {
         "id": 28,
-        "lattitude": 0.0,
+        "latitude": 0.0,
         "longitude": 0.0,
         "address": "Venice"
       },
