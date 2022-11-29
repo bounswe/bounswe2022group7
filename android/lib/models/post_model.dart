@@ -3,7 +3,6 @@ import 'package:android/models/models.dart';
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/art_item_page.dart';
 import 'package:android/pages/event_page.dart';
-import 'package:android/network/image/id_to_image.dart';
 
 class Post {
   final String type;
