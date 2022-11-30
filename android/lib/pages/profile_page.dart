@@ -20,6 +20,7 @@ import 'package:android/network/image/get_image_output.dart';
 import 'package:android/network/image/get_image_service.dart';
 import 'package:android/network/home/get_postlist_output.dart';
 import 'package:android/network/home/get_postlist_service.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Item {
   Item(this.name, this.icon);
@@ -253,52 +254,69 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       if (name == "") ...[
                         Container(
-                          height: 52.0,
-                          child: Column(
-                            // mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
+                          height: 25.0,
+                          child: LinearPercentIndicator(
+                            width: MediaQuery.of(context).size.width - 150,
+                            animation: true,
+                            lineHeight: 25.0,
+                            animationDuration: 1200,
+                            percent: 0.5,
+                            center: const Text("You completed 1/2 steps of your profile.", style: TextStyle(color: Colors.white, fontSize: 12.0), selectionColor: Colors.white,),
+                            // linearStrokeCap: LinearStrokeCap.roundAll,
+                            progressColor: Colors.lightBlue,
+                            barRadius: Radius.circular(4.0),
+                            trailing: OutlinedButton(
+                              onPressed: null,
+                              child: Row(
                                 children: [
-                                  Expanded(
-                                    child: navigateToOtherFormText(
-                                      "You completed 1/2 steps of profile customization.",
-                                      "",
-                                      navigateToEditPage,
-                                      Colors.black,
-                                    ),
-                                  ),
+                                  Text("Go complete!", style: TextStyle(color: Colors.blueGrey.shade900),),
+                                  Icon(Icons.double_arrow_sharp, color: Colors.blueGrey.shade900,),
                                 ],
                               ),
-                              const Padding(
-                                padding: EdgeInsets.all(0.5),
-                              ),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 6.0, right: 6.0),
-                                    child: LinearPercentIndicator(
-                                      width: MediaQuery.of(context).size.width - 12,
-                                      animation: true,
-                                      lineHeight: 15.0,
-                                      animationDuration: 2500,
-                                      percent: 0.5,
-                                      center: const Text("50.0%"),
-                                      // linearStrokeCap: LinearStrokeCap.roundAll,
-                                      progressColor: Colors.lightBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 4.0),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.all(4.0),
-                              ),
-                            ],
+                            ),
                           ),
+                          // child: Column(
+                          //   // mainAxisSize: MainAxisSize.min,
+                          //   // mainAxisAlignment: MainAxisAlignment.center,
+                          //   // crossAxisAlignment: CrossAxisAlignment.center,
+                          //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //
+                          //   children: [
+                          //
+                          //     // const Padding(
+                          //     //   padding: EdgeInsets.all(0.5),
+                          //     // ),
+                          //     // Row(
+                          //     //   children: [
+                          //     //     Padding(
+                          //     //       padding: const EdgeInsets.only(left: 6.0, right: 6.0),
+                          //     //       child: LinearPercentIndicator(
+                          //     //         width: MediaQuery.of(context).size.width - 60,
+                          //     //         animation: true,
+                          //     //         lineHeight: 15.0,
+                          //     //         animationDuration: 1200,
+                          //     //         percent: 0.5,
+                          //     //         center: Text("1 / 2", style: Theme.of(context).textTheme.subtitle2,),
+                          //     //         // linearStrokeCap: LinearStrokeCap.roundAll,
+                          //     //         progressColor: Colors.lightBlue,
+                          //     //         barRadius: Radius.circular(4.0),
+                          //     //       ),
+                          //     //     ),
+                          //     //
+                          //     //     IconButton(
+                          //     //       onPressed: null,
+                          //     //       icon: Icon(Icons.navigate_before_outlined, color: Colors.blueGrey.shade900,),
+                          //     //     ),
+                          //     //   ],
+                          //     // ),
+                          //     // const Padding(
+                          //     //   padding: EdgeInsets.symmetric(vertical: 4.0),
+                          //     // ),
+                          //     // const Padding(
+                          //     //   padding: EdgeInsets.all(4.0),
+                          //     // ),
+                          //   ],
+                          // ),
                         ),
                         Column(
                           children: const [
@@ -569,7 +587,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 
   void updateSelectedItems() {
     String selection = dropdown_selection.value;
-y    if(selection == "Events") {
+    if(selection == "Events") {
       selected_items = post_lists[selection]!;
     } else if(selection == "Art Items") {
       selected_items = post_lists[selection]!;
