@@ -1,6 +1,7 @@
 
 package com.group7.artshare.entity
 
+import com.group7.artshare.utils.StringToListConverter
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -28,13 +29,15 @@ class EventInfo {
     var description: String? = null
 
     @Column
-    var category: String? = null
+    @Convert(converter = StringToListConverter::class)
+    var category: MutableList<String> = mutableListOf()
 
     @Column
     var eventPrice: Double = 0.0;
 
     @Column
-    var labels: String? = null
+    @Convert(converter = StringToListConverter::class)
+    var labels: MutableList<String> = mutableListOf()
 
     @Column
     var posterId: Long? = null
