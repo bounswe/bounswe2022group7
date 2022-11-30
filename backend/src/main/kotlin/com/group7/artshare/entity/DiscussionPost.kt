@@ -1,7 +1,10 @@
 package com.group7.artshare.entity
 
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.group7.artshare.DTO.DiscussionPostDTO
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
+
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -25,7 +28,7 @@ class DiscussionPost {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator")
-    @JsonBackReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var creator: RegisteredUser? = null
 
     @Column
@@ -43,9 +46,11 @@ class DiscussionPost {
     var downvoteNo: Int = 0
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    @JsonIgnore
     var reports: MutableList<Report> = mutableListOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var commentList: MutableList<Comment> = mutableListOf()
 
     fun mapToDTO() : DiscussionPostDTO {
