@@ -87,7 +87,7 @@ class Post {
                 size: 12.0,
               ),
               const SizedBox(width: 5.0),
-              Text(event.location.address),
+              Text(event.location!.address),
             ],
           ),
         ],

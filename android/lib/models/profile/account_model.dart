@@ -6,19 +6,26 @@ import 'package:android/models/event/event_model.dart';
 import 'package:android/models/art_item/art_item_model.dart';
 import 'package:android/network/art_item/get_art_item_service.dart';
 import 'package:android/network/art_item/get_art_item_output.dart';
+import 'package:android/network/event/get_event_output.dart';
+import 'package:android/network/event/get_event_service.dart';
 
 
 Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
   List<Event> event_list = [];
   List<ArtItem> art_item_list = [];
-
   if(!json["hostedEvents"].isEmpty){
     for(int i=0; i<json["hostedEvents"].length; i++) {
-      Event ev = Event.fromJson(json["hostedEvents"][i]);
+      int id;
+      try {
+        id = json["hostedEvents"][i]["id"];
+      } catch(err) {
+        id = json["hostedEvents"][i];
+      }
+      GetEventOutput eo = await getEventNetworkWithIndex(id, i);
+      Event ev = eo.event!;
       event_list.add(ev);
     }
   }
-
   if(!json["artItems"].isEmpty) {
     for(int i=0; i<json["artItems"].length; i++) {
       GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);

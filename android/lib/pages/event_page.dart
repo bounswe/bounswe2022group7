@@ -159,7 +159,7 @@ class _EventPageState extends State<EventPage> {
                                             ),
                                           ]),
                                           Column(children: [
-                                            Text(currentEvent.location.address),
+                                            Text(currentEvent.location!.address),
                                           ]),
                                         ]),
                                       ],

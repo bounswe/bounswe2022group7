@@ -43,6 +43,18 @@ var post_lists = {
 };
 var selected_items = [];
 
+
+void updateSelectedItems() {
+  String selection = dropdown_selection.value;
+  if(selection == "Events") {
+    selected_items = post_lists[selection]!;
+  } else if(selection == "Art Items") {
+    selected_items = post_lists[selection]!;
+  } else {
+    selected_items = ["as"];
+  }
+}
+
 class ProfilePage extends StatefulWidget {
   String? username;
   ProfilePage({Key? key, this.username}) : super(key: key) {
@@ -125,6 +137,8 @@ class _ProfilePageState extends State<ProfilePage> {
               bool users_check = current_user != null;
               users_check = current_user!.email == user_account_info.email ? users_check : false;
               updatePostLists(user_account.all_events, user_account.all_art_items);
+              dropdown_selection.value = "Events";
+              updateSelectedItems();
 
               return Scaffold(
                 appBar: AppBar(), // app bar will be discussed later
@@ -252,7 +266,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-                      if (name == "") ...[
+                      if (user_account_info.name == null) ...[
                         Container(
                           height: 25.0,
                           child: LinearPercentIndicator(
@@ -433,7 +447,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     size: 12.0,
                                                   ),
                                                   const SizedBox(width: 5.0),
-                                                  Text(selected_items[index].location.address)
+                                                  Text(selected_items[index].location != null ? selected_items[index].location?.address : "Online"),
                                                 ],
                                               )
                                             ],

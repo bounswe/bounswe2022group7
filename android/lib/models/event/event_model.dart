@@ -9,7 +9,7 @@ class Event extends Post {
   final List<User> participants;
   final DateTime creationDate;
   final List<String> commentList;
-  final Location location;
+  final Location? location;
   final String? rules;
   final List<User> attendees;
   final List<User> bookmarkedBy;
@@ -22,7 +22,7 @@ class Event extends Post {
     required this.participants,
     required this.creationDate,
     required this.commentList,
-    required this.location,
+    this.location,
     this.rules,
     required this.attendees,
     required this.bookmarkedBy,
@@ -35,44 +35,24 @@ class Event extends Post {
 
   factory Event.fromJson(Map<String, dynamic> json) {
     EventInfo info;
-    if(json['eventInfo'] == null) {
-      info = EventInfo(
-        id: 1,
-        name: 'Van Gogh Exhibition',
-        endingDate: DateTime(2021, 12, 31),
-        startingDate: DateTime(2021, 12, 1),
-        description: 'A great exhibition of Van Gogh\'s works.',
-        category: 'Post-Impressionism ',
-        labels: ['french', 'post-impressionism', 'painting'],
-        posterId: 1,
-      );
-    } else {
-      info = EventInfo.fromJson(json['eventInfo']);
+    int? index = json["index"];
+
+    Map<String, dynamic> event_info;
+    event_info = json["eventInfo"] is int ? json["creator"]["hostedEvents"][index]["eventInfo"] : json["eventInfo"];
+    info = EventInfo.fromJson(event_info);
+
+    Map<String, dynamic>? location;
+    if(json["location"] != null) {
+      location = json["location"] is int
+          ? json["creator"]["hostedEvents"][index]["location"]
+          : json["location"];
     }
-    
+
+
     return Event(
       id: json['id'],
 
       eventInfo: info,
-      // eventInfo: json['eventInfo'] != null
-      //     ? EventInfo.fromJson(json['eventInfo'])
-      //     : EventInfo(
-      //         id: 1,
-      //         name: 'Van Gogh Exhibition',
-      //         endingDate: DateTime(2021, 12, 31),
-      //         startingDate: DateTime(2021, 12, 1),
-      //         description: 'A great exhibition of Van Gogh\'s works.',
-      //         category: 'Post-Impressionism ',
-      //         labels: ['french', 'post-impressionism', 'painting'],
-      //         posterId: 1,
-      //       ),
-      // *** User model has not been implemented by the back-end team yet ***
-      // use the dummy data for now, uncomment below when the back-end team is done
-
-      // creator: User.fromJson(json['creator']),
-      // collaborators: json['collaborators'].map((e) => User.fromJson(e)).toList(),
-      // participants: json['participants'].map((e) => User.fromJson(e)).toList(),
-
       creator: User.fromJson(json["creator"]["accountInfo"]),
       collaborators: [mehmet],
       participants: [tom],
@@ -82,14 +62,7 @@ class Event extends Post {
       // Comment model has not been implemented, just store as strings
       commentList: json['commentList'].cast<String>(),
 
-      location: json['location'] != null
-          ? Location.fromJson(json['location'])
-          : Location(
-              id: 1,
-              address: 'Van Gogh Museum, Amsterdam',
-              latitude: 52.358,
-              longitude: 4.881,
-            ),
+      location: location == null ? null : Location.fromJson(location),
       rules: json['rules'],
 
       // attendees: json['attendees'].map((e) => User.fromJson(e)).toList(),
