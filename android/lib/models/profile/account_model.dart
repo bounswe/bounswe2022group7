@@ -1,6 +1,45 @@
+import 'package:android/data/data.dart';
+import 'package:android/models/art_item/art_item_info_model.dart';
+import 'package:android/models/models.dart';
 import 'package:android/models/profile/account_info.dart';
 import 'package:android/models/event/event_model.dart';
 import 'package:android/models/art_item/art_item_model.dart';
+import 'package:android/network/art_item/get_art_item_service.dart';
+import 'package:android/network/art_item/get_art_item_output.dart';
+
+
+Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
+  List<Event> event_list = [];
+  List<ArtItem> art_item_list = [];
+
+  if(!json["hostedEvents"].isEmpty){
+    for(int i=0; i<json["hostedEvents"].length; i++) {
+      Event ev = Event.fromJson(json["hostedEvents"][i]);
+      event_list.add(ev);
+    }
+  }
+
+  if(!json["artItems"].isEmpty) {
+    for(int i=0; i<json["artItems"].length; i++) {
+      GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);
+      ArtItem ai = aio.artItem!;
+      art_item_list.add(ai!);
+    }
+  }
+
+  Account account = Account(
+    account_info: AccountInfo.fromJson(json['accountInfo']),
+    id: json["id"],
+    is_verified: json['isVerified'],
+    level: json['level'],
+    xp: json['xp'],
+    all_events: event_list,
+    all_art_items: art_item_list,
+  );
+
+  return account;
+}
+
 
 class Account{
   final AccountInfo account_info;
@@ -25,21 +64,20 @@ class Account{
 
   factory Account.fromJson(Map<String, dynamic> json) {
 
-    print(json["allEvents"].length);
     List<Event> event_list = [];
     List<ArtItem> art_item_list = [];
 
-    if(!json["allEvents"].isEmpty){
-      for(int i=0; i<json["allEvents"].length; i++) {
-        Event ev = Event.fromJson(json["allEvents"][i]);
+    if(!json["hostedEvents"].isEmpty){
+      for(int i=0; i<json["hostedEvents"].length; i++) {
+        Event ev = Event.fromJson(json["hostedEvents"][i]);
         event_list.add(ev);
       }
     }
-
     if(!json["artItems"].isEmpty) {
       for(int i=0; i<json["artItems"].length; i++) {
-        ArtItem ai = ArtItem.fromJson(json["artItems"][i]);
-        art_item_list.add(ai);
+        ArtItem? ai;
+        getArtItemNetwork(json["artItems"][i]).then((value) => ai = value.artItem);
+        art_item_list.add(ai!);
       }
     }
 

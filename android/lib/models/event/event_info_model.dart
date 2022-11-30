@@ -26,7 +26,7 @@ class EventInfo extends PostInfo {
         );
 
   factory EventInfo.fromJson(Map<String, dynamic> json) {
-    return EventInfo(
+    EventInfo info =  EventInfo(
       id: json['id'],
       name: json['title'],
       endingDate: DateTime.parse(json['endingDate']),
@@ -43,5 +43,7 @@ class EventInfo extends PostInfo {
 
       posterId: json['posterId'],
     );
+
+    return info;
   }
 }

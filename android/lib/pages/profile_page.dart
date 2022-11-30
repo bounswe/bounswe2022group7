@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/pages.dart';
 import 'package:android/widgets/feed_container.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,10 @@ import 'package:android/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:android/network/profile/get_user_output.dart';
 import 'package:android/network/profile/get_user_service.dart';
+import 'package:android/network/image/get_image_output.dart';
+import 'package:android/network/image/get_image_service.dart';
+import 'package:android/network/home/get_postlist_output.dart';
+import 'package:android/network/home/get_postlist_service.dart';
 
 class Item {
   Item(this.name, this.icon);
@@ -56,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   _ProfilePageState() {
     this.url = user.imageUrl;
-    this.name = user.name;
+    this.name = user.name!;
     this.username = user.username;
   }
 
@@ -81,7 +88,6 @@ class _ProfilePageState extends State<ProfilePage> {
     var show_data = events;
 
     CurrentUser? current_user = Provider.of<UserProvider>(context).user;
-    print("username $profile_username");
 
     return FutureBuilder(
       future: getUserNetwork(profile_username, current_user),
@@ -105,7 +111,6 @@ class _ProfilePageState extends State<ProfilePage> {
             if(snapshot.data != null) {
               getUserOutput user_output = snapshot.data!;
               if(user_output.status != "OK") {
-                print(user_output.status);
                 return const Text("An error occured while loading profile page!");
               }
 
@@ -132,10 +137,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          CircleAvatar(
-                            foregroundImage: NetworkImage(url),
-                            radius: 20,
-                          ),
+                          user_account_info.profile_picture_id == null
+                              ? profilePictureBuilder(3)
+                              : profilePictureBuilder(user_account_info.profile_picture_id),
                           Column(
                             children: [
                               Text(
@@ -341,86 +345,162 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Padding(padding: EdgeInsets.all(2.0)),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 20.0,
-                                                  backgroundColor: Colors.grey[300],
-                                                  backgroundImage: NetworkImage(
-                                                      selected_items[index].creator.imageUrl),
-                                                ),
-                                                const SizedBox(width: 10.0),
-                                                Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        selected_items[index].eventInfo.name,
-                                                        style: const TextStyle(
-                                                          fontSize: 16.0,
-                                                          fontWeight: FontWeight.w600,
+                                    if(dropdown_selection.value! == "Events")...[
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  user_account_info.profile_picture_id == null
+                                                      ? profilePictureBuilder(3)
+                                                      : profilePictureBuilder(user_account_info.profile_picture_id),
+                                                  const SizedBox(width: 10.0),
+                                                  Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          selected_items[index].postInfo.name,
+                                                          style: const TextStyle(
+                                                            fontSize: 16.0,
+                                                            fontWeight: FontWeight.w600,
+                                                          ),
+                                                          overflow: TextOverflow.ellipsis,
                                                         ),
-                                                        overflow: TextOverflow.ellipsis,
-                                                      ),
-                                                      const SizedBox(height: 4.0),
-                                                      Row(
-                                                        children: [
-                                                          Icon(Icons.supervisor_account,
-                                                              size: 12.0,
-                                                              color: Colors.grey[600]),
-                                                          const SizedBox(width: 5.0),
-                                                          Text(
-                                                              "Host: ${selected_items[index].creator.name}"),
-                                                        ],
-                                                      )
-                                                    ]),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 10.0),
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.calendar_month,
-                                                  color: Colors.grey[600],
-                                                  size: 12.0,
-                                                ),
-                                                const SizedBox(width: 5.0),
-                                                Text(
-                                                  selected_items[index]
-                                                      .eventInfo
-                                                      .startingDate
-                                                      .toString()
-                                                      .substring(0, 16),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.location_pin,
-                                                  color: Colors.grey[600],
-                                                  size: 12.0,
-                                                ),
-                                                const SizedBox(width: 5.0),
-                                                Text(selected_items[index].location.address)
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        const Spacer(),
-                                        IconButton(
-                                          onPressed: null,
-                                          icon: Icon(Icons.keyboard_arrow_right,
-                                              color: Colors.blueGrey.shade900, size: 35),
-                                        ),
-                                      ],
-                                    ),
+                                                        const SizedBox(height: 4.0),
+                                                        Row(
+                                                          children: [
+                                                            Icon(Icons.supervisor_account,
+                                                                size: 12.0,
+                                                                color: Colors.grey[600]),
+                                                            const SizedBox(width: 5.0),
+                                                            Text(
+                                                                "Host: ${selected_items[index].creator.name ?? ""} ${selected_items[index].creator.surname ?? ""}"),
+                                                          ],
+                                                        )
+                                                      ]
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10.0),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.calendar_month,
+                                                    color: Colors.grey[600],
+                                                    size: 12.0,
+                                                  ),
+                                                  const SizedBox(width: 5.0),
+                                                  Text(
+                                                    "${selected_items[index]
+                                                        .eventInfo
+                                                        .startingDate
+                                                        .toString()
+                                                        .substring(0, 16)
+                                                    } - ${selected_items[index]
+                                                            .eventInfo
+                                                            .endingDate
+                                                            .toString()
+                                                            .substring(0, 16)}",
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_pin,
+                                                    color: Colors.grey[600],
+                                                    size: 12.0,
+                                                  ),
+                                                  const SizedBox(width: 5.0),
+                                                  Text(selected_items[index].location.address)
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          IconButton(
+                                            onPressed: null,
+                                            icon: Icon(Icons.keyboard_arrow_right,
+                                                color: Colors.blueGrey.shade900, size: 35),
+                                          ),
+                                        ],
+                                      ),
+                                    ] else if(dropdown_selection.value == "Art Items")...[
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  user_account_info.profile_picture_id == null
+                                                      ? profilePictureBuilder(3)
+                                                      : profilePictureBuilder(user_account_info.profile_picture_id),
+                                                  const SizedBox(width: 10.0),
+                                                  Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          selected_items[index].postInfo.name,
+                                                          style: const TextStyle(
+                                                            fontSize: 16.0,
+                                                            fontWeight: FontWeight.w600,
+                                                          ),
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                        const SizedBox(height: 4.0),
+                                                        Row(
+                                                          children: [
+                                                            Icon(Icons.supervisor_account,
+                                                                size: 12.0,
+                                                                color: Colors.grey[600]),
+                                                            const SizedBox(width: 5.0),
+                                                            Text(
+                                                                "Creator: ${selected_items[index].creator.name ?? ""} ${selected_items[index].creator.surname ?? ""}"),
+                                                          ],
+                                                        )
+                                                      ]
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10.0),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.calendar_month,
+                                                    color: Colors.grey[600],
+                                                    size: 12.0,
+                                                  ),
+                                                  const SizedBox(width: 5.0),
+                                                  Text(selected_items[index].creationDate.toString().substring(0, 16)),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.money,
+                                                    color: Colors.grey[600],
+                                                    size: 12.0,
+                                                  ),
+                                                  const SizedBox(width: 5.0),
+                                                  Text("${selected_items[index].lastPrice.toString()} ₺"),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          IconButton(
+                                            onPressed: null,
+                                            icon: Icon(Icons.keyboard_arrow_right,
+                                                color: Colors.blueGrey.shade900, size: 35),
+                                          ),
+                                        ],
+                                      ),
+                                    ]
                                   ],
                                 ),
                               );
@@ -444,6 +524,39 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 
+Widget profilePictureBuilder(picture_id) {
+  return FutureBuilder(
+    future: getImageNetwork(picture_id),
+    builder: (context, snapshot) {
+      switch (snapshot.connectionState) {
+        case ConnectionState.none:
+        case ConnectionState.waiting:
+        default:
+          if (snapshot.hasError) {
+            return const Text("Error");
+          }
+
+          if (snapshot.data != null) {
+            GetImageOutput image_output = snapshot.data!;
+            if (image_output.status != "OK") {
+              return const Text("An error occured while loading profile page!");
+            }
+
+            return CircleAvatar(
+              radius: 20.0,
+              backgroundColor: Colors.grey[300],
+              backgroundImage: MemoryImage(
+                  base64Decode(image_output.image!.base64String)),
+            );
+          } else {
+            return const Text("");
+          }
+      }
+    }
+  );
+}
+
+
 class DropdownButtonExample extends StatefulWidget {
   const DropdownButtonExample({super.key});
 
@@ -456,10 +569,12 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 
   void updateSelectedItems() {
     String selection = dropdown_selection.value;
-    if(selection == "Events") {
+y    if(selection == "Events") {
+      selected_items = post_lists[selection]!;
+    } else if(selection == "Art Items") {
       selected_items = post_lists[selection]!;
     } else {
-      selected_items = [];
+      selected_items = ["as"];
     }
   }
 

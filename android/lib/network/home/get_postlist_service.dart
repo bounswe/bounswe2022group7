@@ -14,7 +14,7 @@ Future<GetPostListOutput> getGenericPost() async {
 
   try {
     response = await get(
-      Uri.parse(Uri.encodeFull('$homepageURL/getGenericEvents/')),
+      Uri.parse(Uri.encodeFull('$homepageURL/event/')),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
     );
     if (response.statusCode != 200) {
@@ -27,12 +27,13 @@ Future<GetPostListOutput> getGenericPost() async {
     if (kDebugMode) {
       print(err);
     }
+
     return GetPostListOutput(status: "Network Error");
   }
 
   try {
     response = await get(
-      Uri.parse(Uri.encodeFull('$homepageURL/getGenericArtItems/')),
+      Uri.parse(Uri.encodeFull('$homepageURL/artItem/')),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
     );
     if (response.statusCode != 200) {

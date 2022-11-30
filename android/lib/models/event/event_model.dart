@@ -34,20 +34,38 @@ class Event extends Post {
         );
 
   factory Event.fromJson(Map<String, dynamic> json) {
+    EventInfo info;
+    if(json['eventInfo'] == null) {
+      info = EventInfo(
+        id: 1,
+        name: 'Van Gogh Exhibition',
+        endingDate: DateTime(2021, 12, 31),
+        startingDate: DateTime(2021, 12, 1),
+        description: 'A great exhibition of Van Gogh\'s works.',
+        category: 'Post-Impressionism ',
+        labels: ['french', 'post-impressionism', 'painting'],
+        posterId: 1,
+      );
+    } else {
+      info = EventInfo.fromJson(json['eventInfo']);
+    }
+    
     return Event(
       id: json['id'],
-      eventInfo: json['eventInfo'] != null
-          ? EventInfo.fromJson(json['eventInfo'])
-          : EventInfo(
-              id: 1,
-              name: 'Van Gogh Exhibition',
-              endingDate: DateTime(2021, 12, 31),
-              startingDate: DateTime(2021, 12, 1),
-              description: 'A great exhibition of Van Gogh\'s works.',
-              category: 'Post-Impressionism ',
-              labels: ['french', 'post-impressionism', 'painting'],
-              posterId: 1,
-            ),
+
+      eventInfo: info,
+      // eventInfo: json['eventInfo'] != null
+      //     ? EventInfo.fromJson(json['eventInfo'])
+      //     : EventInfo(
+      //         id: 1,
+      //         name: 'Van Gogh Exhibition',
+      //         endingDate: DateTime(2021, 12, 31),
+      //         startingDate: DateTime(2021, 12, 1),
+      //         description: 'A great exhibition of Van Gogh\'s works.',
+      //         category: 'Post-Impressionism ',
+      //         labels: ['french', 'post-impressionism', 'painting'],
+      //         posterId: 1,
+      //       ),
       // *** User model has not been implemented by the back-end team yet ***
       // use the dummy data for now, uncomment below when the back-end team is done
 
@@ -55,7 +73,7 @@ class Event extends Post {
       // collaborators: json['collaborators'].map((e) => User.fromJson(e)).toList(),
       // participants: json['participants'].map((e) => User.fromJson(e)).toList(),
 
-      creator: ahmet,
+      creator: User.fromJson(json["creator"]["accountInfo"]),
       collaborators: [mehmet],
       participants: [tom],
 

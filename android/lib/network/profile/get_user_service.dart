@@ -44,7 +44,8 @@ Future<getUserOutput> getUserNetwork(String? username, CurrentUser? user) async 
       }
 
       Map<String, dynamic> data = json.decode(response.body);
-      user_output = getUserOutput.fromJson(data);
+      // user_output = getUserOutput.fromJson(data);
+      user_output = await userOutputJsonConverter(data);
     } catch (err) {
       if (kDebugMode) {
         print(err);

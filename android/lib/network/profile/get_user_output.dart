@@ -1,5 +1,14 @@
 import 'package:android/models/models.dart';
 
+Future<getUserOutput> userOutputJsonConverter(Map<String, dynamic> json) async {
+  Account acc = await accountJsonConverter(json);
+
+  return getUserOutput(
+    status: "OK",
+    account: acc,
+  );
+}
+
 class getUserOutput {
   final String status;
   final Account? account;

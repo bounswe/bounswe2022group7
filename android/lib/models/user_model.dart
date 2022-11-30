@@ -2,7 +2,7 @@ import "package:android/data/data.dart";
 
 class User {
   final int id;
-  final String name;
+  final String? name;
   final String? surname;
   final String email;
   final String imageUrl;
@@ -13,7 +13,7 @@ class User {
 
   User({
     required this.id,
-    required this.name,
+    this.name,
     required this.email,
     required this.imageUrl,
     required this.username,
@@ -24,7 +24,7 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> parsedJson) {
-    return User(
+    User us = User(
       id: parsedJson["id"],
       name: parsedJson["name"],
       surname: parsedJson["surname"],
@@ -40,6 +40,8 @@ class User {
       age: parsedJson["age"],
       country: parsedJson["country"],
     );
+
+    return us;
   }
 }
 
