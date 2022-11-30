@@ -1,6 +1,8 @@
 package com.group7.artshare.controller
 
 import com.group7.artshare.DTO.EventDTO
+import com.group7.artshare.DTO.OnlineGalleryDTO
+import com.group7.artshare.DTO.PhysicalExhibitionDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.OnlineGalleryRequest
@@ -50,11 +52,11 @@ class EventController(
         @RequestBody physicalExhibitionRequest: PhysicalExhibitionRequest, @RequestHeader(
             value = "Authorization", required = true
         ) authorizationHeader: String
-    ): PhysicalExhibition {
+    ): PhysicalExhibitionDTO {
         try {
             val user =
                 jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-            return eventService.createPhysicalExhibition(physicalExhibitionRequest, user)
+            return eventService.createPhysicalExhibition(physicalExhibitionRequest, user).mapToDTO()
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
@@ -71,11 +73,11 @@ class EventController(
         @RequestBody onlineGalleryRequest: OnlineGalleryRequest, @RequestHeader(
             value = "Authorization", required = true
         ) authorizationHeader: String
-    ): OnlineGallery {
+    ): OnlineGalleryDTO {
         try {
             val user =
                 jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-            return eventService.createOnlineGallery(onlineGalleryRequest, user)
+            return eventService.createOnlineGallery(onlineGalleryRequest, user).mapToDTO()
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
