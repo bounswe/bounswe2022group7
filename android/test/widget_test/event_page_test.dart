@@ -30,7 +30,7 @@ SERVER_IP=http://10.0.2.2
     int eventId = 1;
     Map<String, dynamic> eventResponse = {
       "id": 1,
-      "creator": null,
+      "creator": {"accountInfo": {"name": "Ahmet", "id": 0, "email": "user@xxx.com", "username": "userxxx"},},
       "collaborators": [],
       "participants": [],
       "creationDate": "2022-10-31T18:49:20.000+00:00",
@@ -48,7 +48,7 @@ SERVER_IP=http://10.0.2.2
       },
       "location": {
         "id": 28,
-        "lattitude": 0.0,
+        "latitude": 0.0,
         "longitude": 0.0,
         "address": "Venice"
       },
