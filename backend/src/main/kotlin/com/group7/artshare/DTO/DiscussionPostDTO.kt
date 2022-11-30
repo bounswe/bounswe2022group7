@@ -13,4 +13,5 @@ class DiscussionPostDTO{
     var lastEditDate : Date? = null
     var upvoteNo : Int? = null
     var downvoteNo : Int? = null
+    var commentList: MutableList<CommentDTO> = mutableListOf()
 }

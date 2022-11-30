@@ -63,6 +63,7 @@ class DiscussionPost {
         discussionPostDTO.lastEditDate = this.lastEditDate
         discussionPostDTO.upvoteNo = this.upvoteNo
         discussionPostDTO.downvoteNo = this.downvoteNo
+        discussionPostDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
         return discussionPostDTO
     }
 }
