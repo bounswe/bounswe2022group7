@@ -27,6 +27,7 @@ class OnlineGallery : Event(){
     override fun mapToDTO(): OnlineGalleryDTO {
         val dto = OnlineGalleryDTO()
         dto.id = this.id
+        dto.type = "online"
         dto.creatorId = this.creator?.id
         dto.creatorAccountInfo = this.creator?.accountInfo
         dto.creationDate = this.creationDate

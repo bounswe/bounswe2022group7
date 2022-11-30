@@ -8,6 +8,7 @@ import java.util.*
 @Data
 open class EventDTO {
     var id : Long? = null
+    var type: String? = null
     var creatorId: Long? = null
     var creatorAccountInfo: AccountInfo? = null
     var creationDate : Date? = null

@@ -23,6 +23,7 @@ class PhysicalExhibition : Event(){
     override fun mapToDTO() : PhysicalExhibitionDTO {
         val dto = PhysicalExhibitionDTO()
         dto.id = this.id
+        dto.type = "physical"
         dto.creatorId = this.creator?.id
         dto.creatorAccountInfo = this.creator?.accountInfo
         dto.creationDate = this.creationDate
