@@ -1,8 +1,10 @@
 package com.group7.artshare.entity
 
+import com.group7.artshare.DTO.DiscussionPostDTO
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
+
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -51,4 +53,17 @@ class DiscussionPost {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var commentList: MutableList<Comment> = mutableListOf()
 
+    fun mapToDTO() : DiscussionPostDTO {
+        var discussionPostDTO = DiscussionPostDTO()
+        discussionPostDTO.id = this.id
+        discussionPostDTO.title = this.title
+        discussionPostDTO.textBody = this.textBody
+        discussionPostDTO.posterId = this.posterId
+        discussionPostDTO.creationDate = this.creationDate
+        discussionPostDTO.lastEditDate = this.lastEditDate
+        discussionPostDTO.upvoteNo = this.upvoteNo
+        discussionPostDTO.downvoteNo = this.downvoteNo
+        discussionPostDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
+        return discussionPostDTO
+    }
 }
