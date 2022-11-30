@@ -1,5 +1,6 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.EventDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.OnlineGalleryRequest
@@ -28,13 +29,13 @@ class EventController(
     lateinit var onlineGalleryRepository: OnlineGalleryRepository
 
     @GetMapping("{id}")
-    fun getRecommendedEventsGeneric(@PathVariable("id") id: Long): Event {
+    fun getRecommendedEventsGeneric(@PathVariable("id") id: Long): EventDTO {
         var physicalExhibition: PhysicalExhibition? = physicalExhibitionRepository.findByIdOrNull(id)
         var onlineGallery: OnlineGallery? = onlineGalleryRepository.findByIdOrNull(id)
         if (physicalExhibition != null) {
-            return physicalExhibition
+            return physicalExhibition.mapToDTO()
         } else if (onlineGallery != null) {
-            return onlineGallery
+            return onlineGallery.mapToDTO()
         } else throw ResponseStatusException(
             HttpStatus.NOT_FOUND, "Id is not match with any of the events in the database"
         )
