@@ -48,7 +48,7 @@ class ArtItem{
     @Column
     var lastPrice: Double = 0.0;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var commentList: MutableList<Comment> = mutableListOf()
 
