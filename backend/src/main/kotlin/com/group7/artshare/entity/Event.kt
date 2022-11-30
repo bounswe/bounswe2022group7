@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
+import com.group7.artshare.DTO.EventDTO
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -13,7 +14,7 @@ import java.util.Calendar
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-open class Event{
+abstract class Event{
     @Id
     @GeneratedValue(strategy =  GenerationType.TABLE)
     var id: Long = 0L
@@ -52,4 +53,6 @@ open class Event{
     @ManyToMany(mappedBy = "bookmarkedEvents")
     @JsonIgnore
     var bookmarkedBy: MutableSet<RegisteredUser> = mutableSetOf()
+
+    abstract fun mapToDTO() : EventDTO
 }

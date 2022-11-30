@@ -2,8 +2,8 @@ package com.group7.artshare.service
 
 import com.group7.artshare.SettingDTO
 import com.group7.artshare.entity.RegisteredUser
-import com.group7.artshare.repository.ImageRepository
 import com.group7.artshare.repository.RegisteredUserRepository
+import com.group7.artshare.repository.ImageRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -16,7 +16,7 @@ class ProfileService(
     private val registeredUserRepository: RegisteredUserRepository,
     private val imageRepository: ImageRepository
 ) {
-
+    
     fun getUserByUsernameOrToken(username: String?, authorizationHeader: String?): RegisteredUser {
         try {
             username?.let {
@@ -38,7 +38,20 @@ class ProfileService(
         }
     }
 
-
+    fun followUser(username: String , user: RegisteredUser) : HttpStatus {
+        var followedUser : RegisteredUser? = registeredUserService.findByUsername(username)
+        if(Objects.nonNull(followedUser) && (followedUser?.id != user?.id)) {
+            user.following.add(followedUser!!)
+            followedUser.followedBy.add(user)
+            registeredUserRepository.save(followedUser)
+            registeredUserRepository.save(user)
+            return HttpStatus.ACCEPTED
+        }else if(followedUser?.id != user?.id)
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not find user with given username")
+        else
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot follow itself")
+    }
+    
     fun getSettings(user: RegisteredUser) : SettingDTO {
         var settings  = SettingDTO()
         settings.email = user.getEmail()
@@ -81,6 +94,4 @@ class ProfileService(
         if (Objects.nonNull(setting.profilePictureId))
             userFromDB.accountInfo?.profilePictureId = setting.profilePictureId
     }
-
-
 }
