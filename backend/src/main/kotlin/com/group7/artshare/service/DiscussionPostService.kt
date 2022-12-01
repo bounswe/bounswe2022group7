@@ -21,9 +21,6 @@ class DiscussionPostService(
         val newDiscussionPost = DiscussionPost()
         newDiscussionPost.creator = user
         user.writtenDiscussionPosts.add(newDiscussionPost)
-        if(discussionPostRequest.posterId?.let { imageRepository.existsById(it) } == false)
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
-        newDiscussionPost.posterId = discussionPostRequest.posterId
         newDiscussionPost.title = discussionPostRequest.title
         newDiscussionPost.textBody = discussionPostRequest.textBody
         discussionPostRepository.save(newDiscussionPost)
