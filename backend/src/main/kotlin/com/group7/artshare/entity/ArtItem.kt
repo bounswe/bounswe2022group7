@@ -72,12 +72,13 @@ class ArtItem{
         artItemDTO.onAuction = this.onAuction
         artItemDTO.auction = this.auction
         artItemDTO.lastPrice = this.lastPrice
+        artItemDTO.id = this.id
         for(comment in this.commentList){
             artItemDTO.commentList.add(comment.mapToDTO())
         }
-        for(user in this.bookmarkedBy){
+        /*for(user in this.bookmarkedBy){
             artItemDTO.bookMarkedByIds.add(user.id)
-        }
+        }*/
 
         return artItemDTO
     }
