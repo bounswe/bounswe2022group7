@@ -70,8 +70,12 @@ class DiscussionPost {
         discussionPostDTO.textBody = this.textBody
         discussionPostDTO.creationDate = this.creationDate
         discussionPostDTO.lastEditDate = this.lastEditDate
-        discussionPostDTO.upvoteNo = this.upvoteNo
-        discussionPostDTO.downvoteNo = this.downvoteNo
+        for(user in this.upVotedUsers){
+            discussionPostDTO.upVotedUserIds.add(user.id)
+        }
+        for(user in this.downVotedUsers){
+            discussionPostDTO.downVotedUserIds.add(user.id)
+        }
         discussionPostDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
         return discussionPostDTO
     }
