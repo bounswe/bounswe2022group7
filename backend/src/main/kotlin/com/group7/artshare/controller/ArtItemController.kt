@@ -74,11 +74,11 @@ class ArtItemController(
             value = "Authorization",
             required = true
         ) authorizationHeader: String
-    ): ArtItem {
+    ): ArtItemDTO {
         try {
             val user =
                 jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-            return artItemService.createArtItem(artItemRequest, user)
+            return artItemService.createArtItem(artItemRequest, user).mapToDTO()
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
