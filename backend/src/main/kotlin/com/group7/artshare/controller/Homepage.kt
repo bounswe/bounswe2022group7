@@ -1,6 +1,7 @@
 package com.group7.artshare.controller
 
 import com.group7.artshare.DTO.ArtItemDTO
+import com.group7.artshare.DTO.EventDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.ArtItemRepository
 import com.group7.artshare.repository.OnlineGalleryRepository
@@ -33,7 +34,7 @@ class Homepage(private val jwtService: JwtService) {
             value = "Authorization",
             required = false
         ) authorizationHeader: String?
-    ): List<Event> {
+    ): List<EventDTO> {
         try {
             authorizationHeader?.let {
                 val user =
@@ -71,13 +72,13 @@ class Homepage(private val jwtService: JwtService) {
         }
     }
 
-    fun getRecommendedEventsGeneric(): List<Event> {
-        return physicalExhibitionRepository.findAll() + onlineGalleryRepository.findAll()
+    fun getRecommendedEventsGeneric(): List<EventDTO> {
+        return physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
     }
 
-    fun getRecommendedEventsForUser(user: RegisteredUser): List<Event> {
+    fun getRecommendedEventsForUser(user: RegisteredUser): List<EventDTO> {
         //        #TODO: implement this
-        return physicalExhibitionRepository.findAll() + onlineGalleryRepository.findAll()
+        return physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
     }
 
     fun getRecommendedArtItemsGeneric(): List<ArtItemDTO> {

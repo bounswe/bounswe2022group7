@@ -45,6 +45,7 @@ dependencies:
   percent_indicator: ^4.0.1
   image_picker: ^0.8.6
   flutter_osm_plugin: ^0.41.0
+  font_awesome_flutter: ^10.2.1
 
 dev_dependencies:
   nock: ^1.1.2
