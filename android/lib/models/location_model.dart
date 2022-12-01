@@ -25,7 +25,7 @@ class Location {
       id: json['id'],
       // typo from the back-end team, should be 'latitude'
       //latitude: json['latitude'],
-      latitude: json['lattitude'],
+      latitude: json['latitude'],
       longitude: json['longitude'],
       address: json['address'],
     );

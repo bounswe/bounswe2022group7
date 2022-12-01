@@ -140,7 +140,7 @@ class _EventPageState extends State<EventPage> {
                                         ]),
                                         TableRow(children: [
                                           Column(children: [
-                                            Text(currentEvent.creator.name),
+                                            Text(currentEvent.creator.name == null ? "" : currentEvent.creator.name!),
                                             CircleAvatar(
                                               radius: 20.0,
                                               backgroundColor: Colors.grey[300],
@@ -159,7 +159,7 @@ class _EventPageState extends State<EventPage> {
                                             ),
                                           ]),
                                           Column(children: [
-                                            Text(currentEvent.location.address),
+                                            Text(currentEvent.location!.address),
                                           ]),
                                         ]),
                                       ],
