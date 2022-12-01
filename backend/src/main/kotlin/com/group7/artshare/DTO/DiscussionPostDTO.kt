@@ -8,10 +8,9 @@ class DiscussionPostDTO{
     var id : Long? = null
     var title : String? = null
     var textBody : String? = null
-    var posterId : Long? = null
     var creationDate : Date? = null
     var lastEditDate : Date? = null
-    var upVotedUserIds : MutableSet<Long> = mutableSetOf()
-    var downVotedUserIds : MutableSet<Long> = mutableSetOf()
+    var upVotedUsernames : MutableSet<String> = mutableSetOf()
+    var downVotedUsernames : MutableSet<String> = mutableSetOf()
     var commentList: MutableList<CommentDTO> = mutableListOf()
 }

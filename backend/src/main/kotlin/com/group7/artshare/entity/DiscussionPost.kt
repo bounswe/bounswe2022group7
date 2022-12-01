@@ -71,10 +71,10 @@ class DiscussionPost {
         discussionPostDTO.creationDate = this.creationDate
         discussionPostDTO.lastEditDate = this.lastEditDate
         for(user in this.upVotedUsers){
-            discussionPostDTO.upVotedUserIds.add(user.id)
+            discussionPostDTO.upVotedUsernames.add(user.username!!)
         }
         for(user in this.downVotedUsers){
-            discussionPostDTO.downVotedUserIds.add(user.id)
+            discussionPostDTO.downVotedUsernames.add(user.username!!)
         }
         discussionPostDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
         return discussionPostDTO
