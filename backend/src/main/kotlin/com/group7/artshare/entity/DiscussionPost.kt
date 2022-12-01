@@ -36,11 +36,24 @@ class DiscussionPost {
     @Temporal(TemporalType.TIMESTAMP)
     var lastEditDate: Date = Calendar.getInstance().time
 
-    @Column
-    var upvoteNo: Int = 0
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "discussion_post_upvoter",
+        joinColumns = [JoinColumn(name = "post_upvoter_user_id")],
+        inverseJoinColumns = [JoinColumn(name = "post_id")]
+    )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    var upVotedUsers : MutableSet<RegisteredUser> = mutableSetOf()
 
-    @Column
-    var downvoteNo: Int = 0
+
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "discussion_post_downvoter",
+        joinColumns = [JoinColumn(name = "post_downvoter_user_id")],
+        inverseJoinColumns = [JoinColumn(name = "post_id")]
+    )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    var downVotedUsers : MutableSet<RegisteredUser> = mutableSetOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     @JsonIgnore
