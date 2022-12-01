@@ -15,9 +15,9 @@ function CreatePhysicalEventForm() {
     {
       title: "",
       description: "",
-      category: "",
+      category: [],
       eventPrice: "",
-      labels: "",
+      labels: [],
       rules: "",
       address: ""
     }
@@ -32,9 +32,9 @@ function CreatePhysicalEventForm() {
       eventInfo: {
         title: formInput.title,
         description: formInput.description,
-        category: formInput.category,
+        category: [formInput.category],
         eventPrice: formInput.eventPrice,
-        labels: formInput.labels,
+        labels: [formInput.labels],
         posterId: posterId
       },
       location: {
