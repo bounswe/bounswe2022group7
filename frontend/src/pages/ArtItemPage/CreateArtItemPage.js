@@ -14,8 +14,8 @@ function CreateArtItemForm(props) {
       {
         name: "",
         description: "",
-        category: "",
-        labels: ""
+        category: [],
+        labels: []
       }
     );
     const [selectedImage, setSelectedImage] = React.useState(null);
@@ -26,8 +26,8 @@ function CreateArtItemForm(props) {
         artItemInfo: {
           name: formInput.name,
           description: formInput.description,
-          category: formInput.category,
-          labels: formInput.labels,
+          category: [formInput.category],
+          labels: [formInput.labels],
           imageId: imageId
         },
         lastPrice: 0

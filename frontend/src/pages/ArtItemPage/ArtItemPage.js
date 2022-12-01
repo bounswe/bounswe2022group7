@@ -49,27 +49,21 @@ function ArtItemPage() {
   return (
     <GenericCardLayout maxWidth={1000}>
       <Typography variant="h4" sx={{padding:2}}>
-        {artitem.artItemInfo.name}
+        {artitem.name}
       </Typography>
     
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
-          <ImageComponent imageId={artitem.artItemInfo.imageId}/>          
+          <ImageComponent imageId={artitem.imageId}/>          
         </ Grid>
         <Grid item xs={12} sm={4}>
-          {/*
-
-          // TODO: endpoint doesn't save owner, no art item has artist
-          // add owner back once issue is fixed.
-
           <Typography variant="h5">Owner:</Typography>
-          <UserCard author={artitem.owner}/>
-          */}
+          <UserCard data={artitem.creatorAccountInfo}/>
           
           <Typography variant="h5">Description:</Typography>
-          <Typography variant="body1">{artitem.artItemInfo.description}</Typography>
+          <Typography variant="body1">{artitem.description}</Typography>
 
-          {artitem.lastPrice && // if auction_id exists, render block below
+          {artitem.onAuction && // if auction_id exists, render block below
           // TODO render auction properly
             <div>
               <Typography variant="h5">Auction Price:</Typography>

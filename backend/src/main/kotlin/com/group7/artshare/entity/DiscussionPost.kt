@@ -68,6 +68,8 @@ class DiscussionPost {
         discussionPostDTO.id = this.id
         discussionPostDTO.title = this.title
         discussionPostDTO.textBody = this.textBody
+        discussionPostDTO.creatorAccountInfo = this.creator?.accountInfo
+        discussionPostDTO.creatorId = this.creator?.id
         discussionPostDTO.creationDate = this.creationDate
         discussionPostDTO.lastEditDate = this.lastEditDate
         for(user in this.upVotedUsers){
