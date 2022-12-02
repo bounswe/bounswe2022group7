@@ -12,7 +12,7 @@ class ArtItem extends Post {
 
   ArtItem({
     required int id,
-    required User creator,
+    required AccountInfo creatorAccountInfo,
     required this.artItemInfo,
     required this.creationDate,
     this.owner,
@@ -24,7 +24,7 @@ class ArtItem extends Post {
   }) : super(
           type: "Art Item",
           id: id,
-          creator: creator,
+          creatorAccountInfo: creatorAccountInfo,
           postInfo: artItemInfo,
         );
 
@@ -32,7 +32,7 @@ class ArtItem extends Post {
     ArtItem ai = ArtItem(
       id: json['id'] ?? 8,
       artItemInfo: ArtItemInfo.fromJson(json),
-      creator: User.fromJson(json['creatorAccountInfo']),
+      creatorAccountInfo: json['creatorAccountInfo'],
       creationDate: DateTime.parse(json['creationDate']),
       // why does this use accountInfo?
       // owner: User.fromJson(json['owner']["accountInfo"]),

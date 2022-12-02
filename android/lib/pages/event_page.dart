@@ -54,6 +54,8 @@ class _EventPageState extends State<EventPage> {
               }
               Event currentEvent = responseData.event!;
 
+              Widget profileImg = imageBuilder(
+                  currentEvent.creatorAccountInfo.profile_picture_id);
               return Scaffold(
                 appBar: AppBar(
                   title: const Text("Event"),
@@ -61,7 +63,8 @@ class _EventPageState extends State<EventPage> {
                 ),
                 body: Container(
                   color: Colors.blue[50],
-                  child: Column(
+                  child: SingleChildScrollView(
+                      child: Column(
                     children: [
                       Column(
                         children: [
@@ -140,14 +143,22 @@ class _EventPageState extends State<EventPage> {
                                         ]),
                                         TableRow(children: [
                                           Column(children: [
-                                            Text(currentEvent.creator.name == null ? "" : currentEvent.creator.name!),
-                                            CircleAvatar(
-                                              radius: 20.0,
-                                              backgroundColor: Colors.grey[300],
-                                              backgroundImage: NetworkImage(
-                                                  currentEvent
-                                                      .creator.imageUrl),
-                                            ),
+                                            Text(currentEvent.creatorAccountInfo
+                                                        .name ==
+                                                    null
+                                                ? ""
+                                                : currentEvent
+                                                    .creatorAccountInfo.name!),
+                                            profileImg.toString() != "Container"
+                                                ? CircleAvatar(
+                                                    radius: 20.0,
+                                                    backgroundColor:
+                                                        Colors.grey[300],
+                                                    backgroundImage:
+                                                        (profileImg as Image)
+                                                            .image,
+                                                  )
+                                                : Container(),
                                             const SizedBox(height: 3.0),
                                           ]),
                                           Column(children: [
@@ -159,7 +170,9 @@ class _EventPageState extends State<EventPage> {
                                             ),
                                           ]),
                                           Column(children: [
-                                            Text(currentEvent.location!.address),
+                                            Text(currentEvent.location != null
+                                                ? currentEvent.location!.address
+                                                : ""),
                                           ]),
                                         ]),
                                       ],
@@ -176,9 +189,11 @@ class _EventPageState extends State<EventPage> {
                                           ),
                                         ),
                                         Text(
-                                          currentEvent.collaborators
-                                              .map((e) => e.name)
-                                              .join(", "),
+                                          currentEvent.collaborators == null
+                                              ? ""
+                                              : currentEvent.collaborators!
+                                                  .map((e) => e.name)
+                                                  .join(", "),
                                           style: const TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
@@ -223,7 +238,7 @@ class _EventPageState extends State<EventPage> {
                         ],
                       ),
                     ],
-                  ),
+                  )),
                 ),
               );
             } else {

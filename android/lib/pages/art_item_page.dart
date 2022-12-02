@@ -101,7 +101,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                           size: 20.0,
                                         ),
                                         Text(
-                                          " by ${currentArtItem.creator.name} ${currentArtItem.creator.surname}",
+                                          " by ${currentArtItem.creatorAccountInfo.name} ${currentArtItem.creatorAccountInfo.surname}",
                                           style: const TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w600,
