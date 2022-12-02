@@ -33,7 +33,12 @@ Widget imageBuilder(int? imageId) {
             }
             ImageModel currentImage = responseData.image!;
             return currentImage.base64String != null
-                ? Image.memory(base64Decode(currentImage.base64String))
+                ? Image.memory(base64Decode(
+                    currentImage.base64String.contains("data:image/png;base64,")
+                        ? currentImage.base64String
+                            .split("data:image/png;base64,")
+                            .elementAt(1)
+                        : currentImage.base64String))
                 : Container();
           } else {
             // snapshot.data == null

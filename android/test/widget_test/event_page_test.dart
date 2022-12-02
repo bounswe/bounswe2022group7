@@ -30,31 +30,39 @@ SERVER_IP=http://10.0.2.2
     int eventId = 1;
     Map<String, dynamic> eventResponse = {
       "id": 1,
-      "creator": {"accountInfo": {"name": "Ahmet", "id": 0, "email": "user@xxx.com", "username": "userxxx"},},
-      "collaborators": [],
-      "participants": [],
-      "creationDate": "2022-10-31T18:49:20.000+00:00",
+      "type": "physical",
+      "creatorId": 3,
+      "creatorAccountInfo": {
+        "email": "ahmet@example.com",
+        "username": "artahm",
+        "id": 4,
+        "name": "Ahmet",
+        "surname": "Can",
+        "country": null,
+        "dateOfBirth": null,
+        "profilePictureId": null
+      },
+      "creationDate": "2022-12-02T09:14:28.000+00:00",
       "commentList": [],
       "eventInfo": {
-        "id": 27,
-        "title": "Venice the Mourning City",
-        "startingDate": "2022-10-31T18:49:20.000+00:00",
-        "endingDate": "2022-10-31T18:49:20.000+00:00",
-        "description": "Stories of seperations, tears of loves",
-        "category": "[\"kubism\", \"oil painting\", \"wooden sculpture\"]",
-        "eventPrice": 0.0,
-        "labels": "[\"romantic\", \"engraving\", \"carving\"]",
-        "posterId": 1
+        "id": 8,
+        "title": "Van Gogh Museum Tour",
+        "startingDate": "2022-12-03T09:14:28.000+00:00",
+        "endingDate": "2022-12-05T09:14:28.000+00:00",
+        "description": "Let us travel to Amsterdam together and visit the Van Gogh Museum!",
+        "category": ["post-impressionism", "french"],
+        "eventPrice": 20.0,
+        "labels": ["relaxing", "painting"],
+        "posterId": 7
       },
+      "participantUsernames": [],
       "location": {
-        "id": 28,
-        "latitude": 0.0,
-        "longitude": 0.0,
-        "address": "Venice"
+        "id": 9,
+        "latitude": 52.3,
+        "longitude": 4.8,
+        "address": "Amsterdam Van Gogh Museum"
       },
-      "rules": "",
-      "attendees": [],
-      "bookmarkedBy": []
+      "rules": "Just try to be nice."
     };
 
     // mock GET event http call
@@ -67,9 +75,10 @@ SERVER_IP=http://10.0.2.2
     await tester.pumpAndSettle();
 
     // test event title, description & address
-    expect(find.text('Venice the Mourning City'), findsOneWidget);
-    expect(find.text('Stories of seperations, tears of loves'), findsOneWidget);
-    expect(find.text('Venice'), findsOneWidget);
+    expect(find.text('Van Gogh Museum Tour'), findsOneWidget);
+    expect(find.text('Let us travel to Amsterdam together and visit the Van Gogh Museum!'),
+        findsOneWidget);
+    expect(find.text('Amsterdam Van Gogh Museum'), findsOneWidget);
 
     // test event host
     expect(find.text('Host'), findsOneWidget);
