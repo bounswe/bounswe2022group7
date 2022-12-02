@@ -30,7 +30,7 @@ SERVER_IP=http://10.0.2.2
     int eventId = 1;
     Map<String, dynamic> eventResponse = {
       "id": 1,
-      "creator": null,
+      "creator": {"accountInfo": {"name": "Ahmet", "id": 0, "email": "user@xxx.com", "username": "userxxx"},},
       "collaborators": [],
       "participants": [],
       "creationDate": "2022-10-31T18:49:20.000+00:00",
@@ -44,12 +44,11 @@ SERVER_IP=http://10.0.2.2
         "category": "[\"kubism\", \"oil painting\", \"wooden sculpture\"]",
         "eventPrice": 0.0,
         "labels": "[\"romantic\", \"engraving\", \"carving\"]",
-        "posterUrl":
-            "https://i.pinimg.com/originals/c7/9a/b6/c79ab6b3943e4e75fa0742a8ce9a76e6.jpg"
+        "posterId": 1
       },
       "location": {
         "id": 28,
-        "lattitude": 0.0,
+        "latitude": 0.0,
         "longitude": 0.0,
         "address": "Venice"
       },

@@ -4,6 +4,8 @@ import { useAuth } from "../../auth/useAuth"
 
 import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
+import ImageComponent from "../../components/ImageComponent"
+import GenericCardLayout from "../../layouts/GenericCardLayout";
 
 import { Typography, Grid } from '@mui/material';
 
@@ -29,7 +31,6 @@ function ArtItemPage() {
     fetch('/api/art_item/' + id, fetchArgs)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setState({error: null, isLoaded: true, artitem: data})
       },
         error => {
@@ -46,21 +47,21 @@ function ArtItemPage() {
     return <div>Loading...</div>
   } else {
   return (
-    <div>
+    <GenericCardLayout maxWidth={1000}>
       <Typography variant="h4" sx={{padding:2}}>
-        {artitem.artItemInfo.name}
+        {artitem.name}
       </Typography>
     
-      <Grid container>
-        <Grid item xs={6} sx={{padding:2}}>
-          <img src={artitem.artItemInfo.imageUrl} alt="Art Item" style={{width:'100%'}}/>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={8}>
+          <ImageComponent imageId={artitem.imageId}/>          
         </ Grid>
-        <Grid item xs={6} sx={{padding:2}}>
+        <Grid item xs={12} sm={4}>
           <Typography variant="h5">Owner:</Typography>
-          <UserCard author={artitem.owner}/>
+          <UserCard data={artitem.creatorAccountInfo}/>
           
           <Typography variant="h5">Description:</Typography>
-          <Typography variant="body1">{artitem.artItemInfo.description}</Typography>
+          <Typography variant="body1">{artitem.description}</Typography>
 
           {artitem.onAuction && // if auction_id exists, render block below
           // TODO render auction properly
@@ -72,12 +73,12 @@ function ArtItemPage() {
 
 
         </ Grid>
-        <CommentSection
-          id={id}
-          commentList={artitem.commentList.filter(x => !!x.author)}
-        />
       </ Grid>  
-    </div>
+      <CommentSection
+        contentId={id}
+        commentList={artitem.commentList}
+      />
+    </GenericCardLayout>
     
   )}
 }

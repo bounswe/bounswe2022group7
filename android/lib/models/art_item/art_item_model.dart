@@ -1,12 +1,9 @@
-import 'package:android/models/art_item/art_item_creator_model.dart';
 import 'package:android/models/models.dart';
 
-class ArtItem {
-  final int id;
+class ArtItem extends Post {
   final ArtItemInfo artItemInfo;
-  final ArtItemCreator creator;
   final DateTime creationDate;
-  final User owner;
+  final User? owner;
   final bool onAuction;
   final String? auction;
   final double? lastPrice;
@@ -14,25 +11,31 @@ class ArtItem {
   final List<User> bookmarkedBy;
 
   ArtItem({
-    required this.id,
+    required int id,
+    required User creator,
     required this.artItemInfo,
-    required this.creator,
     required this.creationDate,
-    required this.owner,
+    this.owner,
     required this.onAuction,
     this.auction,
     this.lastPrice,
     required this.commentList,
     required this.bookmarkedBy,
-  });
+  }) : super(
+          type: "Art Item",
+          id: id,
+          creator: creator,
+          postInfo: artItemInfo,
+        );
 
   factory ArtItem.fromJson(Map<String, dynamic> json) {
-    return ArtItem(
-      id: json['id'],
-      artItemInfo: ArtItemInfo.fromJson(json['artItemInfo']),
-      creator: ArtItemCreator.fromJson(json['creator']),
+    ArtItem ai = ArtItem(
+      id: json['id'] ?? 8,
+      artItemInfo: ArtItemInfo.fromJson(json),
+      creator: User.fromJson(json['creatorAccountInfo']),
       creationDate: DateTime.parse(json['creationDate']),
-      owner: User.fromJson(json['owner']["accountInfo"]),
+      // why does this use accountInfo?
+      // owner: User.fromJson(json['owner']["accountInfo"]),
 
       // Auction model has not been implemented yet
       onAuction: false,
@@ -45,7 +48,9 @@ class ArtItem {
           List<String>.from(json['commentList'].map((x) => x.toString())),
 
       bookmarkedBy:
-          List<User>.from(json['bookmarkedBy'].map((x) => User.fromJson(x))),
+          List<User>.from(json['bookMarkedByIds'].map((x) => User.fromJson(x))),
     );
+
+    return ai;
   }
 }

@@ -9,17 +9,13 @@
 name: Android CI
 
 on:
-#   push:
-#     branches:
-#       - develop
-#     paths:
-#       - 'mobile/**'
   pull_request:
     branches: 
       - develop
       - master
     paths:
-      - 'mobile/**'
+      - 'android/**'
+      - '.github/workflows/Android-CI.yml'
   workflow_call:
 
 jobs:
@@ -42,7 +38,9 @@ jobs:
       run: flutter pub get
     - name: Test project
       working-directory: ./android
-      run: flutter test
+      run: |
+        touch .env
+        flutter test
     - name: Build APK
       working-directory: ./android
       run: flutter build apk

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import "package:android/models/models.dart";
 import 'package:android/network/event/get_event_service.dart';
 import 'package:android/network/event/get_event_output.dart';
+import 'package:android/network/image/get_image_builder.dart';
 
 class EventPage extends StatefulWidget {
   final int id;
@@ -75,7 +76,7 @@ class _EventPageState extends State<EventPage> {
                                     Row(
                                       children: [
                                         Text(
-                                          currentEvent.eventInfo.title,
+                                          currentEvent.eventInfo.name,
                                           style: const TextStyle(
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.w600,
@@ -139,7 +140,7 @@ class _EventPageState extends State<EventPage> {
                                         ]),
                                         TableRow(children: [
                                           Column(children: [
-                                            Text(currentEvent.creator.name),
+                                            Text(currentEvent.creator.name == null ? "" : currentEvent.creator.name!),
                                             CircleAvatar(
                                               radius: 20.0,
                                               backgroundColor: Colors.grey[300],
@@ -158,7 +159,7 @@ class _EventPageState extends State<EventPage> {
                                             ),
                                           ]),
                                           Column(children: [
-                                            Text(currentEvent.location.address),
+                                            Text(currentEvent.location!.address),
                                           ]),
                                         ]),
                                       ],
@@ -187,18 +188,8 @@ class _EventPageState extends State<EventPage> {
                                       ],
                                     ),
                                     const SizedBox(height: 15.0),
-                                    currentEvent.eventInfo.posterUrl != null
-                                        ? Container(
-                                            height: 250.0,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(currentEvent
-                                                    .eventInfo.posterUrl!),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          )
-                                        : Container(),
+                                    imageBuilder(
+                                        currentEvent.eventInfo.imageId),
                                     const SizedBox(height: 15.0),
                                     Text(
                                       currentEvent.eventInfo.description,

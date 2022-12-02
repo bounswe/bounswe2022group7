@@ -5,16 +5,20 @@ import { Routes, Route } from "react-router-dom";
 
 import ResponsiveAppBar from './ResponsiveAppBar';
 import HomePage from "./pages/HomePage/HomePage"
+import Profile from "./pages/ProfilePage/Profile"
 import CreateArtItemPage from "./pages/ArtItemPage/CreateArtItemPage"
 import ArtItemPage from "./pages/ArtItemPage/ArtItemPage"
 import EventPage from "./pages/EventPage/EventPage"
 import SignInPage from './pages/Authentication/SignInPage';
 import SignUpPage from './pages/Authentication/SignUpPage';
 import ErrorPage from './pages/ErrorPage';
+import SettingsPage from './pages/ProfilePage/SettingsPage';
 
 import { AuthProvider } from './auth/useAuth';
 import {ProtectedRoute} from './auth/ProtectedRoute';
-
+import CreatePhysicalEventPage from './pages/EventPage/CreatePhysicalEventPage';
+import CreateDiscussionPostPage from './pages/DiscussionPage/CreateDiscussionPostPage';
+import DiscussionPostPage from './pages/DiscussionPage/DiscussionPostPage';
 
 function App() {
   return (
@@ -27,6 +31,10 @@ function App() {
             element={<HomePage />}
           />
           <Route
+            path="/:username"
+            element={<Profile />}
+          />
+          <Route
             path="/auth/signup"
             element={<SignUpPage />}
           />
@@ -35,18 +43,41 @@ function App() {
             element={<SignInPage />}
           />
           <Route
+            path="/artitem/new"
+            element={<ProtectedRoute><CreateArtItemPage/></ProtectedRoute>}
+          />
+          <Route
             path="/artitem/:id"
             element={<ArtItemPage />}
+          />
+          <Route
+            path="/event/newPhysical"
+            element={<ProtectedRoute><CreatePhysicalEventPage/></ProtectedRoute>}
           />
           <Route
             path="/event/:id"
             element={<EventPage />}
           />
           <Route
-            path="/new/art_item"
-            element={<ProtectedRoute><CreateArtItemPage /></ProtectedRoute>} 
+            path="/discussionPost/new"
+            element={<CreateDiscussionPostPage />}
           />
-          <Route path="*" element={<ErrorPage />} />
+          <Route
+            path="/discussionPost/:id"
+            element={<DiscussionPostPage />}
+          />
+          <Route
+            path="/profile/settings"
+            element={<ProtectedRoute><SettingsPage /></ProtectedRoute>}
+          />
+          <Route
+            path="*"
+            element={
+              <ErrorPage
+                message="It looks like you are trying to access a page that doesn't exist."
+              />
+              }
+            />
         </Routes>
       </AuthProvider>
     </div>
