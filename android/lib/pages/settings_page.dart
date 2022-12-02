@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:android/config/app_routes.dart';
 import 'package:android/providers/user_provider.dart';
 import 'package:android/models/user_model.dart';
+import 'package:android/pages/account_info_page.dart';
 
 import 'package:android/network/image/get_image_builder.dart';
 
@@ -59,8 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Scaffold settingsPage(GetSettingsOutput settings) {
-    Widget profilePicture =
-        circleAvatarBuilder(settings.profilePictureId!, 10);
+    Widget profilePicture = circleAvatarBuilder(settings.profilePictureId!, 10);
 
     return Scaffold(
       appBar: AppBar(
@@ -92,13 +92,25 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             InkWell(
               onTap: () {
-                //Navigator.pushNamed(context, '/accountInfo');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AccountInfoPage(
+                      email: settings.email,
+                      username: settings.username,
+                      name: settings.name,
+                      surname: settings.surname,
+                      country: settings.country,
+                      dateOfBirth: settings.dateOfBirth,
+                      profilePictureId: settings.profilePictureId,
+                    ),
+                  ),
+                );
               },
               child: Column(
                 children: [
                   const SizedBox(height: 15),
                   Row(
-                    // personal information
                     children: const [
                       Icon(
                         Icons.person,
@@ -129,7 +141,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                       SizedBox(width: 10),
                       Text(
-                        "Privacy",
+                        "Account Management",
                         style: TextStyle(fontSize: 16.0),
                       ),
                     ],
