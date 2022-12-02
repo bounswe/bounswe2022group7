@@ -38,15 +38,14 @@ class Event extends Post {
         );
 
   factory Event.fromJson(Map<String, dynamic> json) {
-    dynamic creatorAccountInfo =
+    AccountInfo creatorAccountInfo =
         AccountInfo.fromJson(json["creatorAccountInfo"]);
-    dynamic creationDate = DateTime.parse(json['creationDate']);
-    dynamic commentList = json['commentList'].cast<String>();
-    dynamic eventInfo = EventInfo.fromJson(json["eventInfo"]);
-    dynamic participants = json["participantUsernames"].cast<String>();
-    dynamic location =
+    DateTime creationDate = DateTime.parse(json['creationDate']);
+    List<String> commentList = json['commentList'].cast<String>();
+    EventInfo eventInfo = EventInfo.fromJson(json["eventInfo"]);
+    List<String> participants = json["participantUsernames"].cast<String>();
+    Location? location =
         json["location"] != null ? Location.fromJson(json["location"]) : null;
-    dynamic rules = json['rules'];
 
     return Event(
       id: json['id'],
@@ -58,7 +57,7 @@ class Event extends Post {
       collaborators: [],
       participants: participants,
       location: location,
-      rules: rules,
+      rules: json['rules'],
       attendees: [],
       bookmarkedBy: [],
       artItemList: json["artItemList"] != null
