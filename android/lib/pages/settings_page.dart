@@ -86,38 +86,57 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: Colors.blue[300],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              // personal information
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.person),
-                  onPressed: () {},
-                ),
-                const SizedBox(width: 10),
-                const Text(
-                  "Personal Information",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
+            InkWell(
+              onTap: () {
+                //Navigator.pushNamed(context, '/accountInfo');
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  Row(
+                    // personal information
+                    children: const [
+                      Icon(
+                        Icons.person,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Personal Information",
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
             ),
-            const SizedBox(height: 15),
-            Row(
-              // account management
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.settings),
-                  onPressed: () {},
-                ),
-                const SizedBox(width: 10),
-                const Text(
-                  "Account Management",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
+            const SizedBox(height: 5),
+            InkWell(
+              onTap: () {
+                //Navigator.pushNamed(context, '/privacy');
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.settings,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Privacy",
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
             ),
             const SizedBox(height: 15),
             const Divider(
@@ -128,64 +147,100 @@ class _SettingsPageState extends State<SettingsPage> {
               endIndent: 10,
             ),
             const SizedBox(height: 15),
-            Row(
-              // notifications
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.notifications),
-                  onPressed: () {},
-                ),
-                const SizedBox(width: 10),
-                const Text(
-                  "Notifications",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
+            InkWell(
+              onTap: () {
+                //Navigator.pushNamed(context, '/notifications');
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.notifications,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Notifications",
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
             ),
-            const SizedBox(height: 15),
-            Row(
-              // blocking
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.block),
-                  onPressed: () {},
-                ),
-                const SizedBox(width: 10),
-                const Text(
-                  "Blocking",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
+            const SizedBox(height: 5),
+            InkWell(
+              onTap: () {
+                //Navigator.pushNamed(context, '/blocking');
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.block,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Blocking",
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
             ),
-            const SizedBox(height: 15),
-            Row(
-              // copyright infringement reports
-
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.report),
-                  onPressed: () {},
-                ),
-                const SizedBox(width: 10),
-                const Text(
-                  "Copyright Reports",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
+            const SizedBox(height: 5),
+            InkWell(
+              onTap: () {
+                //Navigator.pushNamed(context, '/copyrightReports');
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.report,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Copyright Reports",
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
             ),
             const Spacer(),
-            Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.help),
-                  onPressed: () {},
-                ),
-                const SizedBox(width: 10),
-                const Text(
-                  "Help",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
+            InkWell(
+              onTap: () {
+                //Navigator.pushNamed(context, '/help');
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.help,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Help",
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
             ),
             const SizedBox(height: 15),
           ],
