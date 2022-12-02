@@ -25,7 +25,6 @@ class ArtItem extends Post {
         );
 
   factory ArtItem.fromJson(Map<String, dynamic> json) {
-    print("hey");
     ArtItem ai = ArtItem(
       id: json['id'] ?? 8,
       artItemInfo: ArtItemInfo.fromJson(json),
