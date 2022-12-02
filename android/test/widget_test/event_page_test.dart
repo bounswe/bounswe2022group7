@@ -30,7 +30,14 @@ SERVER_IP=http://10.0.2.2
     int eventId = 1;
     Map<String, dynamic> eventResponse = {
       "id": 1,
-      "creator": {"accountInfo": {"name": "Ahmet", "id": 0, "email": "user@xxx.com", "username": "userxxx"},},
+      "creatorAccountInfo": {
+        "accountInfo": {
+          "name": "Ahmet",
+          "id": 0,
+          "email": "user@xxx.com",
+          "username": "userxxx"
+        },
+      },
       "collaborators": [],
       "participants": [],
       "creationDate": "2022-10-31T18:49:20.000+00:00",
@@ -54,7 +61,8 @@ SERVER_IP=http://10.0.2.2
       },
       "rules": "",
       "attendees": [],
-      "bookmarkedBy": []
+      "bookmarkedBy": [],
+      "artItemList": []
     };
 
     // mock GET event http call
