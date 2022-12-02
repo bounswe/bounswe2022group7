@@ -30,16 +30,20 @@ SERVER_IP=http://10.0.2.2
     int eventId = 1;
     Map<String, dynamic> eventResponse = {
       "id": 1,
+      "type": "physical",
+      "creatorId": 1,
       "creatorAccountInfo": {
         "accountInfo": {
           "name": "Ahmet",
           "id": 0,
           "email": "user@xxx.com",
-          "username": "userxxx"
+          "username": "userxxx",
+          "surname": null,
+          "country": null,
+          "dateOfBirth": null,
+          "profilePictureId": null
         },
       },
-      "collaborators": [],
-      "participants": [],
       "creationDate": "2022-10-31T18:49:20.000+00:00",
       "commentList": [],
       "eventInfo": {
@@ -51,7 +55,7 @@ SERVER_IP=http://10.0.2.2
         "category": "[\"kubism\", \"oil painting\", \"wooden sculpture\"]",
         "eventPrice": 0.0,
         "labels": "[\"romantic\", \"engraving\", \"carving\"]",
-        "posterId": 1
+        "posterId": null
       },
       "location": {
         "id": 28,
@@ -60,9 +64,8 @@ SERVER_IP=http://10.0.2.2
         "address": "Venice"
       },
       "rules": "",
-      "attendees": [],
-      "bookmarkedBy": [],
-      "artItemList": null
+      "participantUsernames": [],
+      "artItemList": []
     };
 
     // mock GET event http call
