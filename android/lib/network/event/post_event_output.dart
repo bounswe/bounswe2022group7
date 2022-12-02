@@ -9,7 +9,7 @@ class PostEventOutput {
 
   factory PostEventOutput.fromJson(Map<String, dynamic> parsedJson) {
     return PostEventOutput(
-      status: parsedJson["status"],
+      status: "OK",
       eventId: parsedJson["id"],
     );
   }
