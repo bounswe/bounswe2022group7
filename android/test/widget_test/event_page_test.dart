@@ -75,8 +75,8 @@ SERVER_IP=http://10.0.2.2
     await tester.pumpAndSettle();
 
     // test event title, description & address
-    expect(find.text('Venice the Mourning City'), findsOneWidget);
-    expect(find.text('Stories of seperations, tears of loves'), findsOneWidget);
+    //expect(find.text('Venice the Mourning City'), findsOneWidget);
+    //expect(find.text('Stories of seperations, tears of loves'), findsOneWidget);
     expect(find.text('Venice'), findsOneWidget);
 
     // test event host
