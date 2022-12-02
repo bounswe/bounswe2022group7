@@ -1,5 +1,6 @@
 package com.group7.artshare.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
@@ -48,8 +49,13 @@ open class RegisteredUser(
         joinColumns = [JoinColumn(name = "follower_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "followed_id", referencedColumnName = "id")]
     )
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    @JsonManagedReference
     var following: MutableSet<RegisteredUser> = mutableSetOf()
+
+    @ManyToMany(mappedBy = "following" ,cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JsonBackReference
+    var followedBy: MutableSet<RegisteredUser> = mutableSetOf()
+
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(

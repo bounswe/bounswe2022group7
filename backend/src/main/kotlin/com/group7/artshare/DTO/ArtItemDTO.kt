@@ -7,9 +7,10 @@ import java.util.*
 
 @Data
 class ArtItemDTO {
+    var id : Long? = null
     var name : String? = null
     var description : String? = null
-    var category : String? = null
+    var category : MutableList<String>  = mutableListOf()
     var imageId : Long? = null
     var labels : MutableList<String> = mutableListOf()
     var creatorAccountInfo : AccountInfo? = null
@@ -21,6 +22,6 @@ class ArtItemDTO {
     var auction : Auction? = null
     var lastPrice : Double? = null
     var commentList: MutableList<CommentDTO> = mutableListOf()
-    var bookMarkedByIds : MutableList<Long> = mutableListOf()
+//    var bookMarkedByIds : MutableList<Long> = mutableListOf()
 
 }

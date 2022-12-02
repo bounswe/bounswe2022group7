@@ -3,9 +3,7 @@ package com.group7.artshare.service
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.*
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
@@ -24,6 +22,7 @@ class ArtItemService(
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no image in the database with this id")
         newArtItem.artItemInfo = artItemRequest.artItemInfo
         newArtItem.lastPrice = artItemRequest.lastPrice!!
+        newArtItem.owner = user
         if (user is Artist){
             newArtItem.creator = user
             user.artItems.add(newArtItem)

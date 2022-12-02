@@ -20,13 +20,14 @@ class ArtItemInfo extends PostInfo {
         );
 
   factory ArtItemInfo.fromJson(Map<String, dynamic> json) {
-    return ArtItemInfo(
-      id: json['id'],
+    ArtItemInfo info = ArtItemInfo(
+      id: json['id'] ?? 8,
       name: json['name'],
       description: json['description'],
       category: json['category'],
       imageId: json['imageId'],
-      labels: stringToList(json['labels']),
+      labels: stringToList(json['labels'].toString()),
     );
+    return info;
   }
 }

@@ -1,5 +1,6 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.DiscussionPostDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.DiscussionPostRequest
@@ -24,7 +25,7 @@ class DiscussionPostController (
     lateinit var discussionPostRepository: DiscussionPostRepository
 
     @GetMapping("{id}")
-    fun getDiscussionPost(@PathVariable("id") id: Long) : DiscussionPost = discussionPostRepository.findByIdOrNull(id) ?:
+    fun getDiscussionPost(@PathVariable("id") id: Long) : DiscussionPostDTO = discussionPostRepository.findByIdOrNull(id)?.mapToDTO() ?:
         throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not matched with any of the discussion posts in the database")
 
     @PostMapping(
@@ -37,12 +38,12 @@ class DiscussionPostController (
             value = "Authorization",
             required = true
         ) authorizationHeader: String?
-    ): DiscussionPost {
+    ): DiscussionPostDTO {
         try {
             authorizationHeader?.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return discussionPostService.createDiscussionPost(discussionPostRequest, user)
+                return discussionPostService.createDiscussionPost(discussionPostRequest, user).mapToDTO()
             } ?: throw Exception("Token required")
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
@@ -53,8 +54,8 @@ class DiscussionPostController (
         }
     }
     @GetMapping()
-    fun getAllDiscussionPosts(): List<DiscussionPost> {
-        return discussionPostRepository.findAll()
+    fun getAllDiscussionPosts(): List<DiscussionPostDTO> {
+        return discussionPostRepository.findAll().map { discussionPost -> discussionPost.mapToDTO() }
     }
 
 //    @DeleteMapping("{id}")
