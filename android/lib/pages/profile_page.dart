@@ -88,6 +88,10 @@ class _ProfilePageState extends State<ProfilePage> {
     post_lists["Art Items"] = art_item_list;
   }
 
+  void followUser() {
+    print("followed");
+  }
+
   @override
   Widget build(BuildContext context) {
     String dropdown_value = dropdown_items[0];
@@ -262,6 +266,40 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 10.0),
+                      profile_username == null
+                          ? Container()
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(width: 1.5),
+                                      borderRadius: BorderRadius.circular(8.0)),
+                                  height: 35,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      followUser();
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "Follow",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                        const Icon(
+                                          Icons.people_outlined,
+                                          color: Colors.green,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                       Column(
                         children: const [
                           Padding(
