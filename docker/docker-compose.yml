@@ -18,7 +18,7 @@ services:
         aliases:
           - ${MYSQL_HOST}
     ports:
-       - ${MYSQL_PORT}:${MYSQL_PORT}
+      - ${MYSQL_PORT}:${MYSQL_PORT}
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -34,7 +34,8 @@ services:
     ports:
       - 8080:8080
 
-    volumes:  # Hot reload
+    volumes:
+      # Hot reload
       - ../backend:/app
 
   frontend:
@@ -42,15 +43,25 @@ services:
     build:
       context: ../frontend
       dockerfile: ../docker/frontend.development.Dockerfile
-    
+
     # env_file:
     #   - .env
 
     ports:
       - 3000:3000
 
-    volumes:  # Hot reload
+    volumes:
+      # Hot reload
       - ../frontend:/app
+
+    networks:
+      - default
+      - annotation
 
 volumes:
   mysql_data:
+
+
+networks:
+  annotation:
+    name: annotation

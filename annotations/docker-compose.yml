@@ -1,5 +1,5 @@
 services:
-  app:
+  annotation-service:
     image: node
     command: sh -c "npm i && node app.js"
     ports:
@@ -7,6 +7,8 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+    networks:
+      - annotation
   mongo:
     image: mongo
     ports:
@@ -16,6 +18,13 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: abcd1234
     volumes:
       - mongodb:/data/db
+    networks:
+      - annotation
 
 volumes:
   mongodb:
+
+networks:
+  annotation:
+    name: annotation
+    external: true
