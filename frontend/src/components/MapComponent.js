@@ -26,7 +26,7 @@ export default function MapComponent(props) {
   return (
     // map style must be set
     // ref: https://github.com/PaulLeCam/react-leaflet/issues/108#issuecomment-436213422
-    <MapContainer center={position} zoom={13} style={{ width: '100%', height: '600px' }} scrollWheelZoom={false}>
+    <MapContainer center={position} zoom={13} style={{ width: '100%', height: '400px  ' }} scrollWheelZoom={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
