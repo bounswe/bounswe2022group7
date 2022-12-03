@@ -18,6 +18,7 @@ import ImageUploader from './ImageUploader';
 import CustomOutlinedInput from './CustomOutlinedInput';
 import CountrySelect from './CountrySelect';
 import LoadingButton from "./LoadingButton";
+import ImageComponent from "./ImageComponent";
 
 const validationSchema = yup.object({
     name: yup
@@ -64,7 +65,7 @@ export default function EditUserInfo({ existingUser, name, surname, dateOfBirth,
         validateOnChange: true,
         onSubmit: (values) => {
 
-            headerTemplate = {
+            const headerTemplate = {
                 'Authorization': 'Bearer ' + token,
                 "Content-Type": "application/json",
             }
@@ -81,7 +82,7 @@ export default function EditUserInfo({ existingUser, name, surname, dateOfBirth,
                 })
                 .then((response) => response.json())
                 .then((data) => {
-                    if (json.error) {
+                    if (data.error) {
                         setError(data.message);
                     }
                     else {
@@ -145,7 +146,7 @@ export default function EditUserInfo({ existingUser, name, surname, dateOfBirth,
                     </Grid>
 
                     <Grid item xs={12}>
-                        <ImageUploader label="Upload profile photo" imgComponent={<Avatar sx={{ width: 96, height: 96 }} src={selectedImage} alt="username" />} value={selectedImage} onChange={setSelectedImage} />
+                        <ImageUploader label="Upload profile photo" imgComponent={<Avatar sx={{ width: 96, height: 96 }} alt="userphoto" src={selectedImage} />} value={selectedImage} onChange={setSelectedImage} />
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
