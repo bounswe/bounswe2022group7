@@ -20,13 +20,12 @@ function ImageComponent({ imageId }) {
         let annotorious = null;
 
         if (imgEl.current) {
-          // Init
           annotorious = new Annotorious({
             image: imgEl.current
           })
+
           annotorious.loadAnnotations(`/annotations/${imageId}`)
 
-          // Attach event handlers here
           annotorious.on('createAnnotation', annotation => {
             annotation.id = imageId + '-' + annotation.id
             fetch('/annotations',
@@ -37,8 +36,6 @@ function ImageComponent({ imageId }) {
                   'Content-Type': 'application/ld+json'
                 }
               })
-              .then(response => response.json())
-              .then(data => console.log(data))
           })
 
           annotorious.on('updateAnnotation', (annotation) => {
@@ -50,8 +47,6 @@ function ImageComponent({ imageId }) {
                   'Content-Type': 'application/ld+json'
                 }
               })
-              .then(response => response.json())
-              .then(data => console.log(data))
           })
 
           annotorious.on('deleteAnnotation', annotation => {
@@ -63,8 +58,6 @@ function ImageComponent({ imageId }) {
                   'Content-Type': 'application/ld+json'
                 }
               })
-              .then(response => response.json())
-              .then(data => console.log(data))
           })
         }
       })
