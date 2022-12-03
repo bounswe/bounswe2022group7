@@ -6,7 +6,7 @@ export default function FilterChip({filterState, label, onClick}) {
     return (
         <Chip
             variant={"outlined"}
-            color={filterState ? "secondary" : "default"}
+            color={filterState ? "primary" : "default"}
             onClick={onClick}
             onDelete={onClick}
             label={label}

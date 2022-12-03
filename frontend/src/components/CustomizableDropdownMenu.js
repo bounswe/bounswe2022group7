@@ -8,7 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
-export default function CustomizableDropdownMenu({tooltip, menuIcon, menuContent}) {
+export default function CustomizableDropdownMenu({color, tooltip, menuIcon, menuContent}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -27,6 +27,7 @@ export default function CustomizableDropdownMenu({tooltip, menuIcon, menuContent
           aria-controls={open ? 'account-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
+          color={color}
         >
           {menuIcon}
         </IconButton>

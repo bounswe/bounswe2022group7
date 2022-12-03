@@ -27,16 +27,16 @@ const theme = createTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#00ABB3',
+      main: '#F05454',
       contrastText: '#fffefe',
     },
     secondary: {
-      main: '#f50057',
+      main: '#30475E',
     },
     text: {
-      secondary: '#3C4048',
+      secondary: '#222831',
       disabled: '#3C4048',
-      primary: '#3C4048',
+      primary: '#222831',
     },
     background: {
       default: '#fafafa',
