@@ -47,11 +47,6 @@ function NewComment(props) {
     };
 
     return (
-      <Card sx={{
-        width: '%90',
-        padding: 2
-      }}>
-        <CardContent>
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
@@ -72,8 +67,6 @@ function NewComment(props) {
               color="primary"
             />
           </form>
-        </CardContent>  
-      </Card>
     )
   }
 }
