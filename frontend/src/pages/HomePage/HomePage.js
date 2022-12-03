@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { CircularProgress, Grid, Link, Typography } from '@mui/material';
-
-import { Event } from './Event'
-import { ArtItem } from './ArtItem'
-import { ForumOverview } from './ForumOverview'
+import { CircularProgress, Typography } from '@mui/material';
 
 import Stack from '@mui/material/Stack';
 import { useAuth } from "../../auth/useAuth"
@@ -25,22 +21,20 @@ const HomePage = () => {
     })
 
 
-    const [username, setUsername] = React.useState(null)
-
-
+    // const [username, setUsername] = React.useState(null)
     const { token } = useAuth()
 
 
     function handleFilter(event) {
         switch (event.target.textContent) {
             case "Artworks":
-                setFilter({...filter, artitem: !filter.artitem});
+                setFilter({ ...filter, artitem: !filter.artitem });
                 break;
             case "Events":
-                setFilter({...filter, event: !filter.event});
+                setFilter({ ...filter, event: !filter.event });
                 break;
             case "Discussions":
-                setFilter({...filter, discussionPost: !filter.discussionPost});
+                setFilter({ ...filter, discussionPost: !filter.discussionPost });
                 break;
             default:
                 break;
@@ -56,13 +50,14 @@ const HomePage = () => {
         }
         if (token) fetchArgs.headers = { Authorization: "Bearer " + token }
 
+        setLoaded(false);
         setContent([]);
 
         fetch('api/homepage/artItem', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
 
-                data.map((item) => {
+                data.forEach((item) => {
 
                     const artItem = {
                         creator: {
@@ -85,7 +80,7 @@ const HomePage = () => {
                 });
 
                 setLoaded(true);
-                setContent(content.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1));
+                // setContent((c) => c.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1));
 
 
             })
@@ -99,9 +94,7 @@ const HomePage = () => {
         fetch('api/homepage/event', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
-                setLoaded(true)
-
-                data.map((item) => {
+                data.forEach((item) => {
 
                     const event = {
                         creator: {
@@ -123,7 +116,8 @@ const HomePage = () => {
                     setContent(content => [...content, event])
                 });
 
-                setContent(content.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1));
+                setLoaded(true);
+                // setContent((c) => c.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1));
 
             })
             .catch((error) => {
@@ -134,9 +128,7 @@ const HomePage = () => {
         fetch('api/discussionPost', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
-                setLoaded(true);
-
-                data.map((item) => {
+                data.forEach((item) => {
 
                     const discussionPost = {
                         creator: {
@@ -157,7 +149,8 @@ const HomePage = () => {
                     setContent(content => [...content, discussionPost])
                 });
 
-                setContent(content.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1));
+                setLoaded(true);
+                // setContent((c) => c.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1));
 
             })
             .catch((error) => {
@@ -166,10 +159,14 @@ const HomePage = () => {
             })
 
 
-
     }, [token, filter])
 
 
+    // TODO: Sort by date
+    // useEffect(() => {
+    //     const sortedContent = content.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1);
+    //     setContent(sortedContent);
+    // }, [isLoaded])
 
     if (error) {
         return <div>Error: {error.message}</div>
@@ -191,9 +188,9 @@ const HomePage = () => {
 
                 </Stack>
                 <Stack spacing={2} direction="column">
-                    {content.map((item) => {
+                    {content.map((item, index) => {
                         return (
-                            <FeedCard filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)} content={item.content} creator={item.creator} />
+                            <FeedCard key={index} filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)} content={item.content} creator={item.creator} />
                         )
                     })}
                 </Stack>
