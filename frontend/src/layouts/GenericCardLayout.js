@@ -11,7 +11,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: 4,
+        // marginTop: 4,
         marginBottom: 4,
         paddingTop: 4,
         paddingBottom: 2,
@@ -22,10 +22,12 @@ const styles = {
 };
 
 export default function GenericCardLayout(props) {
+
+
     return (
         <main sx={styles.main}>
             <CssBaseline />
-            <Paper sx={{ ...styles.paper, maxWidth: props.maxWidth || "750" }} variant="outlined">
+            <Paper sx={{ ...styles.paper, maxWidth: props.maxWidth, marginTop: props.customTopMargin }} variant="outlined">
                 <Container>
                     {props.children}
                 </Container>
@@ -34,3 +36,7 @@ export default function GenericCardLayout(props) {
     );
 }
 
+GenericCardLayout.defaultProps = {
+    maxWidth: 750,
+    customTopMargin: 4,
+};
