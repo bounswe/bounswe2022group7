@@ -1,3 +1,4 @@
+import 'package:android/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
@@ -22,6 +23,15 @@ class _EventPageState extends State<EventPage> {
       ),
       body: const Center(
         child: Text("Event not found"),
+      ),
+    );
+  }
+
+  void navigateToHostProfile(_username) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfilePage(username: _username),
       ),
     );
   }
@@ -116,14 +126,21 @@ class _EventPageState extends State<EventPage> {
                                           TableCellVerticalAlignment.middle,
                                       children: [
                                         TableRow(children: [
-                                          Column(children: const [
-                                            Text('Host'),
-                                            SizedBox(height: 3.0),
-                                            Icon(
-                                              Icons.supervisor_account,
-                                              size: 25.0,
-                                            ),
-                                          ]),
+                                          GestureDetector(
+                                              onTap: () {
+                                                navigateToHostProfile(
+                                                    currentEvent
+                                                        .creatorAccountInfo
+                                                        .username);
+                                              },
+                                              child: Column(children: const [
+                                                Text('Host'),
+                                                SizedBox(height: 3.0),
+                                                Icon(
+                                                  Icons.supervisor_account,
+                                                  size: 25.0,
+                                                ),
+                                              ])),
                                           Column(children: const [
                                             Text('Date'),
                                             SizedBox(height: 3.0),
@@ -142,25 +159,38 @@ class _EventPageState extends State<EventPage> {
                                           ]),
                                         ]),
                                         TableRow(children: [
-                                          Column(children: [
-                                            Text(currentEvent.creatorAccountInfo
-                                                        .name ==
-                                                    null
-                                                ? ""
-                                                : currentEvent
-                                                    .creatorAccountInfo.name!),
-                                            profileImg.toString() != "Container"
-                                                ? CircleAvatar(
-                                                    radius: 20.0,
-                                                    backgroundColor:
-                                                        Colors.grey[300],
-                                                    backgroundImage:
-                                                        (profileImg as Image)
-                                                            .image,
-                                                  )
-                                                : Container(),
-                                            const SizedBox(height: 3.0),
-                                          ]),
+                                          GestureDetector(
+                                              onTap: () {
+                                                navigateToHostProfile(
+                                                    currentEvent
+                                                        .creatorAccountInfo
+                                                        .username);
+                                              },
+                                              child: Column(children: [
+                                                Text(currentEvent
+                                                            .creatorAccountInfo
+                                                            .name ==
+                                                        null
+                                                    ? currentEvent
+                                                        .creatorAccountInfo
+                                                        .username
+                                                    : currentEvent
+                                                        .creatorAccountInfo
+                                                        .name!),
+                                                profileImg.toString() !=
+                                                        "Container"
+                                                    ? CircleAvatar(
+                                                        radius: 20.0,
+                                                        backgroundColor:
+                                                            Colors.grey[300],
+                                                        backgroundImage:
+                                                            (profileImg
+                                                                    as Image)
+                                                                .image,
+                                                      )
+                                                    : Container(),
+                                                const SizedBox(height: 3.0),
+                                              ])),
                                           Column(children: [
                                             Text(
                                               currentEvent
