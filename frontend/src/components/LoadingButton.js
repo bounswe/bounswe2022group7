@@ -7,6 +7,7 @@ export default function LoadingButton(props) {
 
     return (
         <Button
+            hidden={props.hidden}
             type={props.type}
             variant={props.variant}
             color={props.color}
@@ -38,6 +39,7 @@ LoadingButton.propTypes = {
 }
 
 LoadingButton.defaultProps = {
+    hidden: false,
     loadingText: 'Loading',
     loading: false,
     type: 'button',
