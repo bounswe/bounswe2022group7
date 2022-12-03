@@ -9,7 +9,8 @@ import '../../models/user_model.dart';
 import '../../shared_prefs/user_preferences.dart';
 import 'post_art_item_input.dart';
 
-Future<PostArtItemOutput> postArtItemNetwork(PostArtItemInput createArtItemInput) async {
+Future<PostArtItemOutput> postArtItemNetwork(
+    PostArtItemInput createArtItemInput) async {
   Response response;
   try {
     CurrentUser? user = await getUser();
@@ -22,19 +23,22 @@ Future<PostArtItemOutput> postArtItemNetwork(PostArtItemInput createArtItemInput
       },
       body: jsonEncode(createArtItemInput.toJson()),
     );
-    print(createArtItemInput.toJson());
-    print(response.body);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       return PostArtItemOutput.fromJson(data);
     } else {
       return PostArtItemOutput(
-          status: response.statusCode.toString(), artItemId: -1);
+        status: response.statusCode.toString(),
+        artItemId: -1,
+      );
     }
   } catch (err) {
     if (kDebugMode) {
       print(err);
     }
-    return PostArtItemOutput(status: "Network Error", artItemId: -1);
+    return PostArtItemOutput(
+      status: "Network Error",
+      artItemId: -1,
+    );
   }
 }

@@ -144,7 +144,8 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
             name: _name!,
             description: _description!,
           ),
-          lastPrice: double.parse(_price!));
+          lastPrice: 0,
+      );
 
       if (_category != null) {
         postArtItemInput.artItemInfo.category = _category!.split(" ");
@@ -166,9 +167,11 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
       PostArtItemOutput postArtItemOutput = await postArtItemNetwork(postArtItemInput);
       isLoading.value = false;
 
-      showSnackBar(context, postArtItemOutput.status);
-      if (postArtItemOutput.status == "OK") {
-        Navigator.push(
+      if (postArtItemOutput.status == "400") {
+        showSnackBar(context, "You need to be an artist to create an art item");
+      }
+      else if (postArtItemOutput.status == "OK") {
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) =>
@@ -198,8 +201,6 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
                   categoryField,
                   const SizedBox(height: 10.0),
                   labelField,
-                  const SizedBox(height: 10.0),
-                  priceField,
                   const SizedBox(height: 10.0),
                   ValueListenableBuilder<XFile?>(
                     valueListenable: imageNotifier,
