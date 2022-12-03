@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:android/network/image/get_image_builder.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../util/validators.dart';
 import 'package:country_picker/country_picker.dart';
@@ -31,7 +35,7 @@ class AccountInfoPage extends StatefulWidget {
 }
 
 class _AccountInfoPageState extends State<AccountInfoPage> {
-  String? _username, _email, _name, _surname;
+  String? _username, _email, _name, _surname, _profilePicture;
   Country? _country;
   DateTime? _dateOfBirth;
 
@@ -42,6 +46,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     final emailFormKey = GlobalKey<FormState>();
     final nameFormKey = GlobalKey<FormState>();
     final surnameFormKey = GlobalKey<FormState>();
+
+    final ImagePicker picker = ImagePicker();
+    final ValueNotifier<XFile?> imageNotifier = ValueNotifier(null);
+    XFile? image;
 
     return Scaffold(
       appBar: AppBar(
@@ -157,10 +165,52 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     ],
                   ),
                   const Spacer(),
-                  if (widget.profilePictureId != null)
-                    imageBuilderWithSize(widget.profilePictureId!, 100, 100)
-                  else
-                    const Icon(Icons.account_circle, size: 150),
+                  widget.editing
+                      ? Column(
+                          children: [
+                            ValueListenableBuilder<XFile?>(
+                              valueListenable: imageNotifier,
+                              builder: (context, value, child) {
+                                return value != null
+                                    ? Image.file(File(image!.path), fit: BoxFit.fitWidth, width: 100, height: 100,)
+                                    : widget.profilePictureId != null
+                                        ? imageBuilderWithSize(
+                                            widget.profilePictureId!, 100, 100)
+                                        : const Icon(Icons.account_circle,
+                                            size: 100);
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                            InkWell(
+                              onTap: () async {
+                                image = await picker.pickImage(
+                                    source: ImageSource.gallery);
+                                if (image == null) return;
+                                imageNotifier.value = image;
+                                final bytes =
+                                    File(image!.path).readAsBytesSync();
+                                _profilePicture =
+                                    "data:image/png;base64,${base64Encode(bytes)}";
+                              },
+                              child: Container(
+                                  width: 100,
+                                  padding: const EdgeInsets.all(5.0),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black),
+                                      color: Colors.white,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5))),
+                                  child: const Text("Upload profile picture",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 12))),
+                            ),
+                          ],
+                        )
+                      : widget.profilePictureId != null
+                          ? imageBuilderWithSize(
+                              widget.profilePictureId!, 100, 100)
+                          : const Icon(Icons.account_circle, size: 100),
                 ],
               ),
             ),
