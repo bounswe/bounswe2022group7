@@ -19,9 +19,9 @@ Future<PostEventOutput> postOnlineEventNetwork(
       Uri.parse("$eventURL/online"),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer$token'
+        'Authorization': 'Bearer $token'
       },
-      body: json.encode(postEventInput),
+      body: jsonEncode(postEventInput.toJson()),
     );
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
@@ -48,9 +48,9 @@ Future<PostEventOutput> postPhysicalEventNetwork(
       Uri.parse("$eventURL/physical"),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer$token'
+        'Authorization': 'Bearer $token'
       },
-      body: json.encode(postEventInput),
+      body: jsonEncode(postEventInput.toJson()),
     );
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);

@@ -5,9 +5,9 @@ class PostEventInfo {
   final DateTime startingDate;
   final DateTime endingDate;
   final String? description;
-  final String? category;
+  final List<String>? category;
   final double? eventPrice;
-  final String? labels;
+  final List<String>? labels;
   final int? posterId;
 
   PostEventInfo({
@@ -27,8 +27,8 @@ class PostEventInfo {
       "title": title,
       "posterId": posterId,
       "description": description,
-      "startingDate": startingDate,
-      "endingDate": endingDate,
+      "startingDate": startingDate.toIso8601String(),
+      "endingDate": endingDate.toIso8601String(),
       "labels": labels,
       "eventPrice": eventPrice,
     };

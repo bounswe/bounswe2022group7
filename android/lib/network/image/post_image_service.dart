@@ -18,7 +18,7 @@ Future<PostImageOutput> postImageNetwork(PostImageInput postImageInput) async {
       Uri.parse(getImageURL),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer$token'
+        'Authorization': 'Bearer $token'
       },
       body: json.encode(postImageInput),
     );

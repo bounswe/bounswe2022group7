@@ -48,7 +48,7 @@ class ArtItem{
     @Column
     var lastPrice: Double = 0.0;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var commentList: MutableList<Comment> = mutableListOf()
 
@@ -61,9 +61,9 @@ class ArtItem{
         var artItemDTO = ArtItemDTO()
         artItemDTO.name = this.artItemInfo?.name
         artItemDTO.description = this.artItemInfo?.description
-        artItemDTO.category = this.artItemInfo?.category
+        artItemDTO.category = this.artItemInfo?.category!!
         artItemDTO.imageId = this.artItemInfo?.imageId
-        //labels = this.artItemInfo?.labels     TODO: gonna turn string into list
+        artItemDTO.labels = this.artItemInfo?.labels!!     //TODO: gonna turn string into list
         artItemDTO.creatorAccountInfo = this.creator?.accountInfo
         artItemDTO.creatorId = this.creator?.id
         artItemDTO.creationDate = this.creationDate
@@ -72,12 +72,13 @@ class ArtItem{
         artItemDTO.onAuction = this.onAuction
         artItemDTO.auction = this.auction
         artItemDTO.lastPrice = this.lastPrice
+        artItemDTO.id = this.id
         for(comment in this.commentList){
             artItemDTO.commentList.add(comment.mapToDTO())
         }
-        for(user in this.bookmarkedBy){
+        /*for(user in this.bookmarkedBy){
             artItemDTO.bookMarkedByIds.add(user.id)
-        }
+        }*/
 
         return artItemDTO
     }

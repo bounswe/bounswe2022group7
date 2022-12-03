@@ -17,6 +17,8 @@ import SettingsPage from './pages/ProfilePage/SettingsPage';
 import { AuthProvider } from './auth/useAuth';
 import {ProtectedRoute} from './auth/ProtectedRoute';
 import CreatePhysicalEventPage from './pages/EventPage/CreatePhysicalEventPage';
+import CreateDiscussionPostPage from './pages/DiscussionPage/CreateDiscussionPostPage';
+import DiscussionPostPage from './pages/DiscussionPage/DiscussionPostPage';
 
 function App() {
   return (
@@ -55,6 +57,14 @@ function App() {
           <Route
             path="/event/:id"
             element={<EventPage />}
+          />
+          <Route
+            path="/discussionPost/new"
+            element={<CreateDiscussionPostPage />}
+          />
+          <Route
+            path="/discussionPost/:id"
+            element={<DiscussionPostPage />}
           />
           <Route
             path="/profile/settings"

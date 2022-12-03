@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
           homepage: (context) => const HomePage(),
           createEventPage: (context) => const CreateEvent(),
           createArtItemPage: (context) => const CreateArtItemPage(),
+          profilePage: (context) => ProfilePage(),
         },
         navigatorKey: navigatorKey,
       ),

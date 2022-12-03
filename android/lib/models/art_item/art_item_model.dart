@@ -3,7 +3,7 @@ import 'package:android/models/models.dart';
 class ArtItem extends Post {
   final ArtItemInfo artItemInfo;
   final DateTime creationDate;
-  final User owner;
+  final User? owner;
   final bool onAuction;
   final String? auction;
   final double? lastPrice;
@@ -12,10 +12,10 @@ class ArtItem extends Post {
 
   ArtItem({
     required int id,
-    required User creator,
+    required AccountInfo creatorAccountInfo,
     required this.artItemInfo,
     required this.creationDate,
-    required this.owner,
+    this.owner,
     required this.onAuction,
     this.auction,
     this.lastPrice,
@@ -24,18 +24,18 @@ class ArtItem extends Post {
   }) : super(
           type: "Art Item",
           id: id,
-          creator: creator,
+          creatorAccountInfo: creatorAccountInfo,
           postInfo: artItemInfo,
         );
 
   factory ArtItem.fromJson(Map<String, dynamic> json) {
-    return ArtItem(
-      id: json['id'],
-      artItemInfo: ArtItemInfo.fromJson(json['artItemInfo']),
-      creator: User.fromJson(json['creator']),
+    ArtItem ai = ArtItem(
+      id: json['id'] ?? 8,
+      artItemInfo: ArtItemInfo.fromJson(json),
+      creatorAccountInfo: json['creatorAccountInfo'],
       creationDate: DateTime.parse(json['creationDate']),
       // why does this use accountInfo?
-      owner: User.fromJson(json['owner']["accountInfo"]),
+      // owner: User.fromJson(json['owner']["accountInfo"]),
 
       // Auction model has not been implemented yet
       onAuction: false,
@@ -48,7 +48,9 @@ class ArtItem extends Post {
           List<String>.from(json['commentList'].map((x) => x.toString())),
 
       bookmarkedBy:
-          List<User>.from(json['bookmarkedBy'].map((x) => User.fromJson(x))),
+          List<User>.from(json['bookMarkedByIds'].map((x) => User.fromJson(x))),
     );
+
+    return ai;
   }
 }

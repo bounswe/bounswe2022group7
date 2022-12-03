@@ -42,7 +42,7 @@ class ProfileController(
             authorizationHeader?.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return profileService.getSettings(user)
+                    return profileService.getSettings(user)
             } ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Unregistered user cannot view user settings")
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
@@ -52,7 +52,7 @@ class ProfileController(
             }
         }
     }
-
+    
     @PostMapping(
         value = ["settings"],
         consumes = ["application/json;charset=UTF-8"],
@@ -66,11 +66,11 @@ class ProfileController(
         ) authorizationHeader: String
     ) : SettingDTO {
         try {
-            authorizationHeader?.let {
+            authorizationHeader.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
                 return profileService.setSettings(user, setting)
-            } ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Unregistered user cannot modify user settings")
+            }
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)

@@ -1,5 +1,7 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.ArtItemDTO
+import com.group7.artshare.DTO.EventDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.ArtItemRepository
 import com.group7.artshare.repository.OnlineGalleryRepository
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import java.util.stream.Collectors
 
 
 @RestController
@@ -31,7 +34,7 @@ class Homepage(private val jwtService: JwtService) {
             value = "Authorization",
             required = false
         ) authorizationHeader: String?
-    ): List<Event> {
+    ): List<EventDTO> {
         try {
             authorizationHeader?.let {
                 val user =
@@ -53,7 +56,7 @@ class Homepage(private val jwtService: JwtService) {
             value = "Authorization",
             required = false
         ) authorizationHeader: String?
-    ): List<ArtItem> {
+    ): List<ArtItemDTO> {
         try {
             authorizationHeader?.let {
                 val user =
@@ -69,22 +72,22 @@ class Homepage(private val jwtService: JwtService) {
         }
     }
 
-    fun getRecommendedEventsGeneric(): List<Event> {
-        return physicalExhibitionRepository.findAll() + onlineGalleryRepository.findAll()
+    fun getRecommendedEventsGeneric(): List<EventDTO> {
+        return physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
     }
 
-    fun getRecommendedEventsForUser(user: RegisteredUser): List<Event> {
+    fun getRecommendedEventsForUser(user: RegisteredUser): List<EventDTO> {
         //        #TODO: implement this
-        return physicalExhibitionRepository.findAll() + onlineGalleryRepository.findAll()
+        return physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
     }
 
-    fun getRecommendedArtItemsGeneric(): List<ArtItem> {
-        return artItemRepository.findAll()
+    fun getRecommendedArtItemsGeneric(): List<ArtItemDTO> {
+        return artItemRepository.findAll().stream().map(ArtItem::mapToDTO).collect(Collectors.toList())
     }
 
-    fun getRecommendedArtItemsForUser(user: RegisteredUser): List<ArtItem> {
+    fun getRecommendedArtItemsForUser(user: RegisteredUser): List<ArtItemDTO> {
         //        #TODO: implement this
-        return artItemRepository.findAll()
-    }
+        return artItemRepository.findAll().stream().map(ArtItem::mapToDTO).collect(Collectors.toList())
+}
 
 }

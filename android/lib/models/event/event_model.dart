@@ -5,79 +5,64 @@ import 'package:android/data/data.dart';
 
 class Event extends Post {
   final EventInfo eventInfo;
-  final List<User> collaborators;
-  final List<User> participants;
+  final String eventType;
+  final List<User>? collaborators;
+  final List<String>? participants;
   final DateTime creationDate;
-  final List<String> commentList;
-  final Location location;
+  final List<String>? commentList;
+  final Location? location;
   final String? rules;
-  final List<User> attendees;
-  final List<User> bookmarkedBy;
+  final List<User>? attendees;
+  final List<User>? bookmarkedBy;
+  final List<int>? artItemList;
 
   Event({
     required int id,
-    required User creator,
+    required this.eventType,
+    required AccountInfo creatorAccountInfo,
     required this.eventInfo,
-    required this.collaborators,
-    required this.participants,
+    this.collaborators,
+    this.participants,
     required this.creationDate,
-    required this.commentList,
-    required this.location,
+    this.commentList,
+    this.location,
     this.rules,
-    required this.attendees,
-    required this.bookmarkedBy,
+    this.attendees,
+    this.bookmarkedBy,
+    this.artItemList,
   }) : super(
           type: "Event",
           id: id,
-          creator: creator,
+          creatorAccountInfo: creatorAccountInfo,
           postInfo: eventInfo,
         );
 
   factory Event.fromJson(Map<String, dynamic> json) {
+    AccountInfo creatorAccountInfo =
+        AccountInfo.fromJson(json["creatorAccountInfo"]);
+    DateTime creationDate = DateTime.parse(json['creationDate']);
+    List<String> commentList = json['commentList'].cast<String>();
+    EventInfo eventInfo = EventInfo.fromJson(json["eventInfo"]);
+    List<String> participants = json["participantUsernames"].cast<String>();
+    Location? location =
+        json["location"] != null ? Location.fromJson(json["location"]) : null;
+
     return Event(
       id: json['id'],
-      eventInfo: json['eventInfo'] != null
-          ? EventInfo.fromJson(json['eventInfo'])
-          : EventInfo(
-              id: 1,
-              name: 'Van Gogh Exhibition',
-              endingDate: DateTime(2021, 12, 31),
-              startingDate: DateTime(2021, 12, 1),
-              description: 'A great exhibition of Van Gogh\'s works.',
-              category: 'Post-Impressionism ',
-              labels: ['french', 'post-impressionism', 'painting'],
-              posterId: 1,
-            ),
-      // *** User model has not been implemented by the back-end team yet ***
-      // use the dummy data for now, uncomment below when the back-end team is done
-
-      // creator: User.fromJson(json['creator']),
-      // collaborators: json['collaborators'].map((e) => User.fromJson(e)).toList(),
-      // participants: json['participants'].map((e) => User.fromJson(e)).toList(),
-
-      creator: ahmet,
-      collaborators: [mehmet],
-      participants: [tom],
-
-      creationDate: DateTime.parse(json['creationDate']),
-
-      // Comment model has not been implemented, just store as strings
-      commentList: json['commentList'].cast<String>(),
-
-      location: json['location'] != null
-          ? Location.fromJson(json['location'])
-          : Location(
-              id: 1,
-              address: 'Van Gogh Museum, Amsterdam',
-              latitude: 52.358,
-              longitude: 4.881,
-            ),
+      eventType: json['type'],
+      creatorAccountInfo: creatorAccountInfo,
+      creationDate: creationDate,
+      commentList: commentList,
+      eventInfo: eventInfo,
+      collaborators: [],
+      participants: participants,
+      location: location,
       rules: json['rules'],
-
-      // attendees: json['attendees'].map((e) => User.fromJson(e)).toList(),
-      // bookmarkedBy: json['bookmarkedBy'].map((e) => User.fromJson(e)).toList(),
       attendees: [],
       bookmarkedBy: [],
+      artItemList: json["artItemList"] != null
+          ? List<int>.from(json["artItemList"])
+          : [],
     );
   }
 }

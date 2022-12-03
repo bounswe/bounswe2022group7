@@ -9,7 +9,7 @@ class PostImageOutput {
 
   factory PostImageOutput.fromJson(Map<String, dynamic> parsedJson) {
     return PostImageOutput(
-      status: parsedJson["status"],
+      status: "OK",
       id: parsedJson["id"],
     );
   }
