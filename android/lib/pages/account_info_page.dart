@@ -41,7 +41,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final userNameFormKey = GlobalKey<FormState>();
     final emailFormKey = GlobalKey<FormState>();
     final nameFormKey = GlobalKey<FormState>();
@@ -172,7 +171,12 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               valueListenable: imageNotifier,
                               builder: (context, value, child) {
                                 return value != null
-                                    ? Image.file(File(image!.path), fit: BoxFit.fitWidth, width: 100, height: 100,)
+                                    ? Image.file(
+                                        File(image!.path),
+                                        fit: BoxFit.fitWidth,
+                                        width: 100,
+                                        height: 100,
+                                      )
                                     : widget.profilePictureId != null
                                         ? imageBuilderWithSize(
                                             widget.profilePictureId!, 100, 100)
@@ -344,6 +348,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               ),
                               height: 25,
                               width: 180,
+                              padding: const EdgeInsets.only(left: 10),
                               child: GestureDetector(
                                 onTap: () => showCountryPicker(
                                     context: context,
@@ -357,32 +362,34 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     Expanded(
                                       child: Text(
                                         _country == null
-                                            ? '  N/A'
+                                            ? 'N/A'
                                             : _country!.name,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15,
-                                          color: widget.country == null
+                                          color: _country == null
                                               ? Colors.grey.shade600
                                               : Colors.black,
                                         ),
                                       ),
                                     ),
-                                    Visibility(
-                                      visible: _country != null,
-                                      maintainSize: true,
-                                      maintainAnimation: true,
-                                      maintainState: true,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _country = null;
-                                          });
-                                        },
-                                        icon: const Icon(
-                                            Icons.highlight_remove_outlined),
-                                        color: Colors.grey.shade600,
-                                      ),
-                                    ),
+                                    _country != null
+                                        ? Transform.scale(
+                                            scale: 0.8,
+                                            child: IconButton(
+                                              padding: const EdgeInsets.all(0.0),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _country = null;
+                                                });
+                                              },
+                                              icon: const Icon(Icons
+                                                  .highlight_remove_outlined),
+                                              color: Colors.grey.shade600,
+                                            ),
+                                          )
+                                        : const SizedBox.shrink(),
+                                    const Icon(Icons.arrow_drop_down),
                                   ],
                                 ),
                               ),
@@ -422,6 +429,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               ),
                               height: 25,
                               width: 180,
+                              padding: const EdgeInsets.only(left: 10),
                               child: GestureDetector(
                                 onTap: () {
                                   showDatePicker(
@@ -440,32 +448,33 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                     Expanded(
                                       child: Text(
                                         _dateOfBirth == null
-                                            ? '  N/A'
+                                            ? 'N/A'
                                             : "${_dateOfBirth!.day}/${_dateOfBirth!.month}/${_dateOfBirth!.year}",
                                         style: TextStyle(
                                           fontSize: 15,
-                                          color: widget.dateOfBirth == null
+                                          color: _dateOfBirth == null
                                               ? Colors.grey.shade600
                                               : Colors.black,
                                         ),
                                       ),
                                     ),
-                                    Visibility(
-                                      visible: _dateOfBirth != null,
-                                      maintainSize: true,
-                                      maintainAnimation: true,
-                                      maintainState: true,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _dateOfBirth = null;
-                                          });
-                                        },
-                                        icon: const Icon(
-                                            Icons.highlight_remove_outlined),
-                                        color: Colors.grey.shade600,
-                                      ),
-                                    ),
+                                    _dateOfBirth != null
+                                        ? Transform.scale(
+                                            scale: 0.8,
+                                            child: IconButton(
+                                              padding: const EdgeInsets.all(0.0),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _dateOfBirth = null;
+                                                });
+                                              },
+                                              icon: const Icon(Icons
+                                                  .highlight_remove_outlined),
+                                              color: Colors.grey.shade600,
+                                            ),
+                                          )
+                                        : const SizedBox.shrink(),
+                                    const Icon(Icons.arrow_drop_down),
                                   ],
                                 ),
                               ),
