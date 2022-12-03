@@ -1,4 +1,3 @@
-
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -8,15 +7,18 @@ import ShareIcon from '@mui/icons-material/Share';
 import WarningIcon from '@mui/icons-material/Warning';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 
+import React, { lazy, Suspense, useReducer } from 'react';
+
 import { Link } from 'react-router-dom';
 
-import ImageDisplay from './ImageDisplay';
 import UserAvatar from "./UserAvatar";
 import CustomizableDropdownMenu from "./CustomizableDropdownMenu";
 import LoadingButton from "./LoadingButton";
-import { IconButton } from '@mui/material';
+import { CircularProgress, IconButton } from '@mui/material';
 
+const ImageDisplay = lazy(() => import('./ImageDisplay'));
 
+// TODO: Implement menu items
 let menuContent = [
     {
         label: "Share",
@@ -45,8 +47,12 @@ export default function FeedCard(props) {
 
     }
 
+    function setBookmarked() {
+        // TODO: Implement bookmarking
+    }
+
     return (
-        <Box hidden={!props.filtered} fullWidth sx={{ p: 2, mb: 2 }}>
+        <Box hidden={!props.filtered} sx={{ p: 2, mb: 2 }}>
             <Grid container spacing={2}>
 
                 <Grid item xs={12}>
@@ -64,7 +70,7 @@ export default function FeedCard(props) {
                             <LoadingButton hidden={props.creator.followed} onClick={() => followRequest()} loading={false} label="Follow" loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />
                         </Stack>
                         <Stack spacing={2} direction="row" justifyContent="end" alignItems="center">
-                            <IconButton> <BookmarkBorderOutlinedIcon color="secondary" /></IconButton>
+                            <IconButton onClick={setBookmarked}> <BookmarkBorderOutlinedIcon color="secondary" /></IconButton>
                             <CustomizableDropdownMenu color="secondary" tooltip="More Actions" menuContent={menuContent} />
                         </Stack>
                     </Stack>
@@ -86,7 +92,9 @@ export default function FeedCard(props) {
                                         <Typography variant="body1" gutterBottom sx={{ fontSize: 16 }}>
                                             {props.content.description}
                                         </Typography>
-                                        <ImageDisplay imageId={props.content.imageId} />
+                                        <Suspense fallback={<div><CircularProgress /></div>}>
+                                            <ImageDisplay imageId={props.content.imageId} />
+                                        </Suspense>
                                     </> :
                                         <Stack direction="row" justifyContent="space-between" alignItems="center">
                                             <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start">
@@ -121,6 +129,7 @@ FeedCard.defaultProps = {
     },
 
     content: {
+        id: 0,
         type: "artitem",
         title: "Untitled",
         description: "Lorem Impsum",
