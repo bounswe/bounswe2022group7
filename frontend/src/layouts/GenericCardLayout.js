@@ -11,7 +11,6 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        // marginTop: 4,
         marginBottom: 4,
         paddingTop: 4,
         paddingBottom: 2,

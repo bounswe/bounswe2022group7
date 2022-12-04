@@ -93,7 +93,7 @@ export default function FeedCard(props) {
                 <Grid item xs={12}>
                     <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start" sx={{}}>
                         <Typography variant="body1" gutterBottom sx={{ fontSize: 14 }}>
-                            Posted a new <strong>{props.content.type === "artitem" ? "artwork" : (props.content.type === "event" ? "event" : "discussion")} </strong> on {date}.
+                            Posted a new <strong>{props.content.type === "artitem" ? "art item" : (props.content.type === "event" ? "event" : "discussion")} </strong> on {date}.
                         </Typography>
                         <Link to={"/" + props.content.type + "/" + props.content.id} style={{ width: '100%', textDecoration: 'none', color: "black" }}>
 

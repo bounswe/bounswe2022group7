@@ -42,7 +42,6 @@ function UserCard(props) {
   return (
     <Grid container wrap="nowrap" spacing={2}>
       <Grid item>
-        {/* <Avatar alt="User Profile" src={authorAccountInfo.profilePictureId} /> */}
         <UserAvatar id={authorAccountInfo.profilePictureId} />
       </Grid>
       <Grid justifyContent="left" item xs zeroMinWidth>
