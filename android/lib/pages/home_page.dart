@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../network/home/get_postlist_service.dart';
 import '../providers/user_provider.dart';
 import '../widgets/alert.dart';
+import 'discussion_forum_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -208,11 +209,21 @@ class _HomePageState extends State<HomePage> {
         currentIndex: 0,
         onTap: (index) {
           if (index == 0) {
-            //Navigator.pushNamed(context, '/home');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(),
+              ),
+            );
           } else if (index == 1) {
             //Navigator.pushNamed(context, '/events');
           } else if (index == 2) {
-            //Navigator.pushNamed(context, '/discussionPage');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DiscussionForumPage(),
+              ),
+            );
           }
         },
       ),
