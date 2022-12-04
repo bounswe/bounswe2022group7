@@ -1,13 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:android/models/models.dart';
+import 'package:android/network/image/post_image_input.dart';
+import 'package:android/network/image/post_image_service.dart';
 import 'package:flutter/material.dart';
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
+import '../config/app_routes.dart';
+import '../network/settings/post_settings_service.dart';
+import '../providers/user_provider.dart';
 import '../util/snack_bar.dart';
 import '../util/validators.dart';
 import 'package:country_picker/country_picker.dart';
+
+import '../network/settings/post_settings_input.dart';
 
 class AccountInfoPage extends StatefulWidget {
   const AccountInfoPage(
@@ -26,7 +35,7 @@ class AccountInfoPage extends StatefulWidget {
   final String? name;
   final String? surname;
   final String? country;
-  final String? dateOfBirth;
+  final DateTime? dateOfBirth;
   final int? profilePictureId;
 
   @override
@@ -34,36 +43,81 @@ class AccountInfoPage extends StatefulWidget {
 }
 
 class _AccountInfoPageState extends State<AccountInfoPage> {
+
+
+
   bool editing = false;
   String? _username, _email, _name, _surname, _profilePicture;
-  Country? _country;
+  String? _country;
   DateTime? _dateOfBirth;
+
+  Scaffold unauthorizedScreen() {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Settings'),
+        backgroundColor: Colors.blue[300],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("You are not logged in"),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, login);
+              },
+              child: const Text("Log in"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    CurrentUser? currentUser = Provider.of<UserProvider>(context).user;
+
+    if (currentUser == null) {
+      return unauthorizedScreen();
+    }
+
     final formKey = GlobalKey<FormState>();
 
     final ImagePicker picker = ImagePicker();
     final ValueNotifier<XFile?> imageNotifier = ValueNotifier(null);
     XFile? image;
 
+    final ValueNotifier<String?> countryNotifier =
+        ValueNotifier(widget.country);
+
+    final ValueNotifier<DateTime?> dateOfBirthNotifier =
+        ValueNotifier(widget.dateOfBirth);
+
     return Scaffold(
       appBar: AppBar(
         leading: editing
-          ? IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                setState(() {
-                  editing = false;
-                });
-              },
-            )
-          : IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+            ? IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () {
+                  setState(() {
+                    editing = false;
+                    _username = widget.username;
+                    _email = widget.email;
+                    _name = widget.name;
+                    _surname = widget.surname;
+                    _country = widget.country;
+                    _dateOfBirth = widget.dateOfBirth;
+                  });
+                },
+              )
+            : IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
         title: editing
             ? const Text('Edit Account Info')
             : const Text('Account Info'),
@@ -87,8 +141,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
           child: Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 15.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -161,6 +215,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                       height: 25,
                                       width: 180,
                                       child: TextFormField(
+                                        keyboardType:
+                                            TextInputType.emailAddress,
                                         autofocus: false,
                                         validator: validateEmail,
                                         onSaved: (value) => _email = value,
@@ -202,7 +258,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                                     widget.profilePictureId!,
                                                     100,
                                                     100)
-                                                : const Icon(Icons.account_circle,
+                                                : const Icon(
+                                                    Icons.account_circle,
                                                     size: 100);
                                       },
                                     ),
@@ -222,8 +279,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           width: 100,
                                           padding: const EdgeInsets.all(5.0),
                                           decoration: BoxDecoration(
-                                              border:
-                                                  Border.all(color: Colors.black),
+                                              border: Border.all(
+                                                  color: Colors.black),
                                               color: Colors.white,
                                               borderRadius:
                                                   const BorderRadius.all(
@@ -369,7 +426,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 ),
                               ),
                               editing // use country picker to select country
-                                  // with dropdown
                                   ? Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -383,44 +439,61 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                         onTap: () => showCountryPicker(
                                             context: context,
                                             onSelect: (Country country) {
-                                              setState(() {
-                                                _country = country;
-                                              });
+                                              _country = country.name;
+                                              countryNotifier.value =
+                                                  country.name;
                                             }),
                                         child: Row(
                                           children: [
                                             Expanded(
-                                              child: Text(
-                                                _country == null
-                                                    ? 'N/A'
-                                                    : _country!.name,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: _country == null
-                                                      ? Colors.grey.shade600
-                                                      : Colors.black,
-                                                ),
+                                              // show country's name with value listener:
+                                              child: ValueListenableBuilder(
+                                                valueListenable:
+                                                    countryNotifier,
+                                                builder: (context, value, _) =>
+                                                    value != null
+                                                        ? Text(
+                                                            value,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 16.0,
+                                                            ),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          )
+                                                        : const Text(
+                                                            "N/A",
+                                                            style: TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
+                                                          ),
                                               ),
                                             ),
-                                            _country != null
-                                                ? Transform.scale(
-                                                    scale: 0.8,
-                                                    child: IconButton(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              0.0),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _country = null;
-                                                        });
-                                                      },
-                                                      icon: const Icon(Icons
-                                                          .highlight_remove_outlined),
-                                                      color: Colors.grey.shade600,
-                                                    ),
-                                                  )
-                                                : const SizedBox.shrink(),
+                                            ValueListenableBuilder(
+                                              valueListenable: countryNotifier,
+                                              builder: (context, value, _) =>
+                                                  value != null
+                                                      ? Transform.scale(
+                                                          scale: 0.8,
+                                                          child: IconButton(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(0.0),
+                                                            onPressed: () {
+                                                              countryNotifier
+                                                                  .value = null;
+                                                              _country = null;
+                                                            },
+                                                            icon: const Icon(Icons
+                                                                .highlight_remove_outlined),
+                                                            color: Colors
+                                                                .grey.shade600,
+                                                          ))
+                                                      : const SizedBox.shrink(),
+                                            ),
                                             const Icon(Icons.arrow_drop_down),
                                           ],
                                         ),
@@ -460,8 +533,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       height: 25,
-                                      width: 180,
-                                      padding: const EdgeInsets.only(left: 10),
+                                      width: 190,
+                                      padding: const EdgeInsets.only(left: 10, right: 10),
                                       child: GestureDetector(
                                         onTap: () {
                                           showDatePicker(
@@ -470,53 +543,69 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                             firstDate: DateTime(1900),
                                             lastDate: DateTime.now(),
                                           ).then((value) {
-                                            setState(() {
+                                            if (value != null) {
                                               _dateOfBirth = value;
-                                            });
+                                              dateOfBirthNotifier.value = value;
+                                            }
                                           });
                                         },
                                         child: Row(
                                           children: [
                                             Expanded(
-                                              child: Text(
-                                                _dateOfBirth == null
-                                                    ? 'N/A'
-                                                    : "${_dateOfBirth!.day}/${_dateOfBirth!.month}/${_dateOfBirth!.year}",
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: _dateOfBirth == null
-                                                      ? Colors.grey.shade600
-                                                      : Colors.black,
-                                                ),
+                                              child: ValueListenableBuilder(
+                                                valueListenable:
+                                                    dateOfBirthNotifier,
+                                                builder: (context, value, _) =>
+                                                    value != null
+                                                        ? Text(
+                                                            "${value.day}/${value.month}/${value.year}",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          )
+                                                        : const Text(
+                                                            "N/A",
+                                                            style: TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
+                                                          ),
                                               ),
                                             ),
-                                            _dateOfBirth != null
-                                                ? Transform.scale(
-                                                    scale: 0.8,
-                                                    child: IconButton(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              0.0),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _dateOfBirth = null;
-                                                        });
-                                                      },
-                                                      icon: const Icon(Icons
-                                                          .highlight_remove_outlined),
-                                                      color: Colors.grey.shade600,
-                                                    ),
-                                                  )
-                                                : const SizedBox.shrink(),
-                                            const Icon(Icons.calendar_month),
-                                            const Icon(Icons.arrow_drop_down),
+                                            ValueListenableBuilder(
+                                              valueListenable:
+                                                  dateOfBirthNotifier,
+                                              builder: (context, value, _) =>
+                                                  value != null
+                                                      ? Transform.scale(
+                                                          scale: 0.8,
+                                                          child: IconButton(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(0.0),
+                                                            onPressed: () {
+                                                              dateOfBirthNotifier
+                                                                  .value = null;
+                                                              _dateOfBirth =
+                                                                  null;
+                                                            },
+                                                            icon: const Icon(Icons
+                                                                .highlight_remove_outlined),
+                                                            color: Colors
+                                                                .grey.shade600,
+                                                          ))
+                                                      : const SizedBox.shrink(),
+                                            ),
+                                            const Icon(Icons.edit_calendar),
                                           ],
                                         ),
                                       ),
                                     )
                                   : widget.dateOfBirth != null
                                       ? Text(
-                                          "${widget.dateOfBirth}",
+                                "${widget.dateOfBirth!.day}/${widget.dateOfBirth!.month}/${widget.dateOfBirth!.year}",
                                           style: const TextStyle(
                                             fontSize: 16.0,
                                           ),
@@ -559,16 +648,95 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     const SizedBox(height: 30.0),
                     editing
                         ? ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               final form = formKey.currentState!;
 
                               // don't register if form is not valid
                               if (!form.validate()) {
-                                showSnackBar(context, "Please complete the form properly");
+                                showSnackBar(context,
+                                    "Please complete the form properly");
                                 return;
                               }
                               form.save();
 
+                              List<dynamic> data = [
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
+                              ];
+
+                              if (_username != null &&
+                                  _username != widget.username) {
+                                data[0] = (_username!.trim());
+                              }
+                              if (_email != null && _email != widget.email) {
+                                data[1] = (_email!.trim());
+                              }
+                              if (_name != null && _name != widget.name) {
+                                data[2] = (_name!.trim());
+                              }
+                              if (_surname != null &&
+                                  _surname != widget.surname) {
+                                data[3] = (_surname!.trim());
+                              }
+                              if (_country != null &&
+                                  _country != widget.country) {
+                                data[4] = (_country!);
+                              }
+                              if (_dateOfBirth != null) {
+                                if (widget.dateOfBirth == null) {
+                                  data[5] = (_dateOfBirth);
+                                } else if (_dateOfBirth!.day !=
+                                        widget.dateOfBirth!.day ||
+                                    _dateOfBirth!.month !=
+                                        widget.dateOfBirth!.month ||
+                                    _dateOfBirth!.year !=
+                                        widget.dateOfBirth!.year) {
+                                  data[5] = (_dateOfBirth);
+                                }
+                              }
+                              if (_profilePicture != null) {
+                                final response = await postImageNetwork(
+                                    PostImageInput(
+                                        base64string: _profilePicture!));
+                                if (response.status == "OK") {
+                                  data[6] = response.id;
+                                }
+                              }
+
+                              PostSettingsInput requestInput = PostSettingsInput(
+                                username: data[0],
+                                email: data[1],
+                                name: data[2],
+                                surname: data[3],
+                                country: data[4],
+                                dateOfBirth: data[5],
+                                profilePictureId: data[6],
+                              );
+
+                              final response = await postSettingsNetwork(currentUser!, requestInput);
+
+                              if (response.status == "OK") {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => AccountInfoPage(
+                                      username: response.username ?? widget.username,
+                                      email: response.email ?? widget.email,
+                                      name: response.name ?? widget.name,
+                                      surname: response.surname ?? widget.surname,
+                                      country: response.country ?? widget.country,
+                                      dateOfBirth: response.dateOfBirth ?? widget.dateOfBirth,
+                                      profilePictureId: response.profilePictureId ?? widget.profilePictureId,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                showSnackBar(context, response.status);
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
@@ -607,12 +775,10 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 400.0), // so that the page is scrollable
             ],
           ),
         ),
       ),
-      resizeToAvoidBottomInset: false,
     );
   }
 }
