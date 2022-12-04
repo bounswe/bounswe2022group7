@@ -32,14 +32,10 @@ Widget imageBuilder(int? imageId) {
               return Container();
             }
             ImageModel currentImage = responseData.image!;
-            return currentImage.base64String != null
-                ? Image.memory(base64Decode(
-                    currentImage.base64String.contains("data:image/png;base64,")
-                        ? currentImage.base64String
-                            .split("data:image/png;base64,")
-                            .elementAt(1)
-                        : currentImage.base64String))
-                : Container();
+            return Image.memory(base64Decode(
+                currentImage.base64String.contains("data:image")
+                    ? currentImage.base64String.split(",").elementAt(1)
+                    : currentImage.base64String));
           } else {
             // snapshot.data == null
             return Container();
@@ -76,16 +72,13 @@ Widget imageBuilderWithSize(int? imageId, double width, double height) {
               return Container();
             }
             ImageModel currentImage = responseData.image!;
-            return currentImage.base64String != null
-                ? Image.memory(base64Decode(
-                    currentImage.base64String.contains("data:image/png;base64,")
-                        ? currentImage.base64String
-                            .split("data:image/png;base64,")
-                            .elementAt(1)
-                        : currentImage.base64String),
-                    width: width,
-                    height: height)
-                : Container();
+            return Image.memory(
+              base64Decode(currentImage.base64String.contains("data:image")
+                  ? currentImage.base64String.split(",").elementAt(1)
+                  : currentImage.base64String),
+              width: width,
+              height: height,
+            );
           } else {
             // snapshot.data == null
             return Container();
@@ -122,17 +115,15 @@ Widget circleAvatarBuilder(int? imageId, double radius) {
               return Icon(Icons.person, size: 2 * radius);
             }
             ImageModel currentImage = responseData.image!;
-            return currentImage.base64String != null
-                ? CircleAvatar(
+                return CircleAvatar(
                     radius: radius,
-                    backgroundImage: MemoryImage(base64Decode(
-                        currentImage.base64String.contains(
-                                "data:image/png;base64,")
-                            ? currentImage.base64String
-                                .split("data:image/png;base64,")
-                                .elementAt(1)
-                            : currentImage.base64String)))
-                :  Icon(Icons.person, size: 2 * radius);
+                    backgroundImage: MemoryImage(base64Decode(currentImage
+                            .base64String
+                            .contains("data:image")
+                        ? currentImage.base64String
+                            .split(",")
+                            .elementAt(1)
+                        : currentImage.base64String)));
           } else {
             // snapshot.data == null
             return Icon(Icons.person, size: 2 * radius);
