@@ -1,3 +1,4 @@
+import 'package:android/models/comment/comment_model.dart';
 import 'package:android/models/models.dart';
 
 // imported to use dummy data for now
@@ -9,7 +10,7 @@ class Event extends Post {
   final List<User>? collaborators;
   final List<String>? participants;
   final DateTime creationDate;
-  final List<String>? commentList;
+  final List<Comment> commentList;
   final Location? location;
   final String? rules;
   final List<User>? attendees;
@@ -24,7 +25,7 @@ class Event extends Post {
     this.collaborators,
     this.participants,
     required this.creationDate,
-    this.commentList,
+    required this.commentList,
     this.location,
     this.rules,
     this.attendees,
@@ -41,7 +42,13 @@ class Event extends Post {
     AccountInfo creatorAccountInfo =
         AccountInfo.fromJson(json["creatorAccountInfo"]);
     DateTime creationDate = DateTime.parse(json['creationDate']);
-    List<String> commentList = json['commentList'].cast<String>();
+
+    List<Comment> commentList = [];
+    for (int i = 0; i < json["commentList"].length; i++) {
+      Comment c = Comment.fromJson(json["commentList"][i]);
+      commentList.add(c);
+    }
+
     EventInfo eventInfo = EventInfo.fromJson(json["eventInfo"]);
     List<String> participants = json["participantUsernames"].cast<String>();
     Location? location =
