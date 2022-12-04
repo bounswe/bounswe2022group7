@@ -5,7 +5,7 @@ class GetSettingsOutput {
   final String? name;
   final String? surname;
   final String? country;
-  final String? dateOfBirth;
+  final DateTime? dateOfBirth;
   final int? profilePictureId;
 
   GetSettingsOutput({
@@ -27,7 +27,9 @@ class GetSettingsOutput {
       name: json['name'],
       surname: json['surname'],
       country: json['country'],
-      dateOfBirth: json['dateOfBirth'],
+      dateOfBirth: json['dateOfBirth'] != null
+          ? DateTime.parse(json['dateOfBirth'])
+          : null,
       profilePictureId: json['profilePictureId'],
     );
   }
