@@ -21,7 +21,6 @@ class AccountInfo {
     this.profile_picture_id,
   });
 
-
   factory AccountInfo.fromJson(Map<String, dynamic> json) {
     AccountInfo info = AccountInfo(
       id: json["id"],

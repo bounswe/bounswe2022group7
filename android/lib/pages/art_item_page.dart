@@ -5,6 +5,7 @@ import "package:android/network/art_item/get_art_item_service.dart";
 import "package:android/network/art_item/get_art_item_output.dart";
 
 import '../network/image/get_image_builder.dart';
+import '../widgets/comment.dart';
 
 class ArtItemPage extends StatefulWidget {
   final int id;
@@ -142,7 +143,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                         const SizedBox(width: 5.0),
                                         Text(
                                           // TODO: Add number of comments
-                                          "Comments (0)",
+                                          "Comments ${currentArtItem.commentList.length}",
                                           style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w600,
@@ -165,6 +166,13 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                             )),
                                       ],
                                     ),
+
+                                    const Padding(padding: EdgeInsets.all(8.0)),
+                                    CommentListWidget(
+                                      commentList: currentArtItem.commentList,
+                                    ),
+                                    const Padding(padding: EdgeInsets.all(4.0)),
+                                    CommentWidget(postid: currentArtItem.id),
                                   ])),
                         ],
                       ),

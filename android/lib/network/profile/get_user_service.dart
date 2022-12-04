@@ -13,7 +13,7 @@ Future<getUserOutput> getUserNetwork(String? username, CurrentUser? user) async 
   if(user==null) {
     try {
       response = await get(
-        Uri.parse(Uri.encodeFull('$profileURL/username')),
+        Uri.parse(Uri.encodeFull('$profileURL/$username')),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
       );
       if (response.statusCode != 200) {

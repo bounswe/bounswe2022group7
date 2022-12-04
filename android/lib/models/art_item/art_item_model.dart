@@ -1,4 +1,6 @@
 import 'package:android/models/models.dart';
+import 'package:android/models/comment/comment_model.dart';
+
 
 class ArtItem extends Post {
   final ArtItemInfo artItemInfo;
@@ -7,7 +9,7 @@ class ArtItem extends Post {
   final bool onAuction;
   final String? auction;
   final double? lastPrice;
-  final List<String> commentList;
+  final List<Comment> commentList;
   final List<User> bookmarkedBy;
 
   ArtItem({
@@ -30,6 +32,11 @@ class ArtItem extends Post {
 
   factory ArtItem.fromJson(Map<String, dynamic> json) {
     print("art item accoun info: ${json["creatorAccountInfo"]}");
+    List<Comment> commentList = [];
+    for (int i = 0; i < json["commentList"].length; i++) {
+      Comment c = Comment.fromJson(json["commentList"][i]);
+      commentList.add(c);
+    }
     ArtItem ai = ArtItem(
       id: json['id'] ?? 8,
       artItemInfo: ArtItemInfo.fromJson(json),
@@ -45,9 +52,7 @@ class ArtItem extends Post {
       lastPrice: json['lastPrice'],
 
       // Comment model has not been implemented yet just store as strings
-      commentList: json['commentList'] != null
-          ? List<String>.from(json['commentList'].map((x) => x.toString()))
-          : [],
+      commentList: commentList,
 
       bookmarkedBy: json['bookMarkedByIds'] != null
           ? List<User>.from(
