@@ -64,8 +64,6 @@ class _EventPageState extends State<EventPage> {
               }
               Event currentEvent = responseData.event!;
 
-              Widget profileImg = imageBuilder(
-                  currentEvent.creatorAccountInfo.profile_picture_id);
               return Scaffold(
                 appBar: AppBar(
                   title: const Text("Event"),
@@ -177,18 +175,9 @@ class _EventPageState extends State<EventPage> {
                                                     : currentEvent
                                                         .creatorAccountInfo
                                                         .name!),
-                                                profileImg.toString() !=
-                                                        "Container"
-                                                    ? CircleAvatar(
-                                                        radius: 20.0,
-                                                        backgroundColor:
-                                                            Colors.grey[300],
-                                                        backgroundImage:
-                                                            (profileImg
-                                                                    as Image)
-                                                                .image,
-                                                      )
-                                                    : Container(),
+                                                imageCircleBuilder(currentEvent
+                                                    .creatorAccountInfo
+                                                    .profile_picture_id),
                                                 const SizedBox(height: 3.0),
                                               ])),
                                           Column(children: [
