@@ -1,3 +1,4 @@
+import 'package:android/widgets/annotatable_text.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
@@ -126,7 +127,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                     imageBuilder(
                                         currentArtItem.artItemInfo.imageId),
                                     const SizedBox(height: 15.0),
-                                    Text(
+                                    AnnotatableText(
                                       currentArtItem.artItemInfo.description,
                                       style: const TextStyle(
                                         fontSize: 16.0,
