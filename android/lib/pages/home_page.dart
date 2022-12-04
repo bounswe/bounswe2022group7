@@ -168,9 +168,11 @@ class _HomePageState extends State<HomePage> {
             ),
             if (user != null)
               ListTile(
-                leading: Icon(Icons.settings),
-                title: Text("Settings"),
-                onTap: () {},
+                leading: const Icon(Icons.settings),
+                title: const Text("Settings"),
+                onTap: () {
+                  Navigator.pushNamed(context, settingsPage);
+                },
               ),
             if (user != null)
               ListTile(
