@@ -60,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Scaffold settingsPage(GetSettingsOutput settings) {
-    Widget profilePicture = circleAvatarBuilder(settings.profilePictureId!, 10);
+    Widget profilePicture = circleAvatarBuilder(settings.profilePictureId, 10);
 
     return Scaffold(
       appBar: AppBar(
@@ -68,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, homepage);
           },
         ),
         actions: [

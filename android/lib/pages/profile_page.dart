@@ -80,9 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void navigateToEditPage() {
     print("navigator, alligator");
-    /*
-      This function will redirect user to the edit page
-    */
+    Navigator.pushNamed(context, settingsPage);
   }
 
   void updatePostLists(List<Event> event_list, List<ArtItem> art_item_list) {
@@ -178,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           if (users_check) ...[
                             IconButton(
-                              onPressed: null,
+                              onPressed: navigateToEditPage,
                               icon: Icon(
                                 Icons.settings,
                                 size: 40,
