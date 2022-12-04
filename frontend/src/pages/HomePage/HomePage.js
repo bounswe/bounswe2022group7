@@ -40,7 +40,7 @@ const HomePage = () => {
 
     function handleFilter(event) {
         switch (event.target.textContent) {
-            case "Artworks":
+            case "Art Items":
                 setFilter({ ...filter, artitem: !filter.artitem });
                 break;
             case "Events":
@@ -105,7 +105,6 @@ const HomePage = () => {
             .then((response) => response.json())
             .then((data) => {
                 data.forEach((item) => {
-                    console.log(item.creatorAccountInfo);
                     const event = {
                         creator: {
                             id: item.creatorAccountInfo.id,
@@ -191,7 +190,7 @@ const HomePage = () => {
                     <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>
                         Filters:
                     </Typography>
-                    <FilterChip label="Artworks" filterState={filter.artitem} onClick={(event) => handleFilter(event)} />
+                    <FilterChip label="Art Items" filterState={filter.artitem} onClick={(event) => handleFilter(event)} />
                     <FilterChip label="Events" filterState={filter.event} onClick={(event) => handleFilter(event)} />
                     <FilterChip label="Discussions" filterState={filter.discussionPost} onClick={(event) => handleFilter(event)} />
 
