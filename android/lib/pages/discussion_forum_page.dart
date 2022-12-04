@@ -1,6 +1,7 @@
 import 'package:android/network/discussion/get_discussionlist_output.dart';
 import 'package:android/network/discussion/get_discussionlist_service.dart';
 import 'package:android/network/image/get_image_builder.dart';
+import 'package:android/pages/discussion_page.dart';
 import 'package:android/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,12 +17,12 @@ Widget buildDiscussion(BuildContext context, Discussion discussion) {
       color: Colors.blue[100],
       child: InkWell(
           onTap: () {
-            /*Navigator.push(
+            Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => post.pageRoute(),
+                builder: (context) => DiscussionPage(id: discussion.id),
               ),
-            );*/
+            );
           },
           child: Column(children: [
             Padding(
@@ -68,11 +69,11 @@ Widget buildDiscussion(BuildContext context, Discussion discussion) {
                                 IconButton(
                                     onPressed: () {},
                                     icon: const Icon(Icons.arrow_downward,
-                                        color: Colors.black, size: 30.0)),
+                                        color: Colors.deepOrange, size: 30.0)),
                                 IconButton(
                                     onPressed: () {},
                                     icon: const Icon(Icons.arrow_upward,
-                                        color: Colors.black, size: 30.0)),
+                                        color: Colors.green, size: 30.0)),
                               ],
                             ),
                             const SizedBox(height: 10.0),
