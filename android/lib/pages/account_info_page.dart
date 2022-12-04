@@ -12,7 +12,6 @@ import 'package:country_picker/country_picker.dart';
 class AccountInfoPage extends StatefulWidget {
   const AccountInfoPage(
       {Key? key,
-      this.editing = false,
       this.email,
       this.username,
       this.name,
@@ -22,7 +21,6 @@ class AccountInfoPage extends StatefulWidget {
       this.profilePictureId})
       : super(key: key);
 
-  final bool editing;
   final String? email;
   final String? username;
   final String? name;
@@ -36,6 +34,7 @@ class AccountInfoPage extends StatefulWidget {
 }
 
 class _AccountInfoPageState extends State<AccountInfoPage> {
+  bool editing = false;
   String? _username, _email, _name, _surname, _profilePicture;
   Country? _country;
   DateTime? _dateOfBirth;
@@ -50,15 +49,32 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: widget.editing
+        leading: editing
+          ? IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                setState(() {
+                  editing = false;
+                });
+              },
+            )
+          : IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: editing
             ? const Text('Edit Account Info')
             : const Text('Account Info'),
         actions: [
-          widget.editing
+          editing
               ? Container()
               : IconButton(
                   onPressed: () {
-                    redirectToEdit(context);
+                    setState(() {
+                      editing = true;
+                    });
                   },
                   icon: const Icon(Icons.edit),
                 )
@@ -96,7 +112,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              widget.editing
+                              editing
                                   ? Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -135,7 +151,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              widget.editing
+                              editing
                                   ? Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -168,7 +184,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                             ],
                           ),
                           const Spacer(),
-                          widget.editing
+                          editing
                               ? Column(
                                   children: [
                                     ValueListenableBuilder<XFile?>(
@@ -254,7 +270,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              widget.editing
+                              editing
                                   ? Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -303,7 +319,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              widget.editing
+                              editing
                                   ? Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -352,7 +368,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              widget.editing // use country picker to select country
+                              editing // use country picker to select country
                                   // with dropdown
                                   ? Container(
                                       decoration: BoxDecoration(
@@ -436,7 +452,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              widget.editing
+                              editing
                                   ? Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -517,7 +533,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         ],
                       ),
                     ),
-                    if (!widget.editing &&
+                    if (!editing &&
                         (widget.name == null ||
                             widget.surname == null ||
                             widget.country == null ||
@@ -541,7 +557,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         ],
                       ),
                     const SizedBox(height: 30.0),
-                    widget.editing
+                    editing
                         ? ElevatedButton(
                             onPressed: () {
                               final form = formKey.currentState!;
@@ -570,7 +586,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                           )
                         : ElevatedButton(
                             onPressed: () {
-                              redirectToEdit(context);
+                              setState(() {
+                                editing = true;
+                              });
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
@@ -595,24 +613,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         ),
       ),
       resizeToAvoidBottomInset: false,
-    );
-  }
-
-  void redirectToEdit(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AccountInfoPage(
-          editing: true,
-          email: widget.email,
-          username: widget.username,
-          name: widget.name,
-          surname: widget.surname,
-          country: widget.country,
-          dateOfBirth: widget.dateOfBirth,
-          profilePictureId: widget.profilePictureId,
-        ),
-      ),
     );
   }
 }
