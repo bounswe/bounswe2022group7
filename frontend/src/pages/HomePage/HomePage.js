@@ -105,7 +105,6 @@ const HomePage = () => {
             .then((response) => response.json())
             .then((data) => {
                 data.forEach((item) => {
-                    console.log(item.creatorAccountInfo);
                     const event = {
                         creator: {
                             id: item.creatorAccountInfo.id,
