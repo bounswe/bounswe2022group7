@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 
-import { Grid, Avatar } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import UserAvatar from "../components/UserAvatar";
 
 function UserCard(props) {

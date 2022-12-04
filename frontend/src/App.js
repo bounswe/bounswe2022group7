@@ -21,7 +21,7 @@ import CreateDiscussionPostPage from './pages/DiscussionPage/CreateDiscussionPos
 import DiscussionPostPage from './pages/DiscussionPage/DiscussionPostPage';
 
 
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {

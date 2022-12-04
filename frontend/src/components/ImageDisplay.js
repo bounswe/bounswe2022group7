@@ -8,7 +8,7 @@ Image in the center fills the whole space
 */
 
 import React from 'react'
-import { Container, CssBaseline, Paper } from '@mui/material';
+import Paper from '@mui/material/Paper';
 
 import ImageComponent from "./ImageComponent"
 

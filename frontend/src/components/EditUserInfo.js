@@ -18,7 +18,6 @@ import ImageUploader from './ImageUploader';
 import CustomOutlinedInput from './CustomOutlinedInput';
 import CountrySelect from './CountrySelect';
 import LoadingButton from "./LoadingButton";
-import ImageComponent from "./ImageComponent";
 
 const validationSchema = yup.object({
     name: yup
