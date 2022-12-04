@@ -20,10 +20,36 @@ import CreatePhysicalEventPage from './pages/EventPage/CreatePhysicalEventPage';
 import CreateDiscussionPostPage from './pages/DiscussionPage/CreateDiscussionPostPage';
 import DiscussionPostPage from './pages/DiscussionPage/DiscussionPostPage';
 
+
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#00ABB3',
+      contrastText: '#fffefe',
+    },
+    secondary: {
+      main: '#f50057',
+    },
+    text: {
+      secondary: '#3C4048',
+      disabled: '#3C4048',
+      primary: '#3C4048',
+    },
+    background: {
+      default: '#fafafa',
+      paper: '#fffefe',
+    },
+  },
+})
+
 function App() {
   return (
     <div>
       <AuthProvider>
+        <ThemeProvider theme={theme}>
         <ResponsiveAppBar />
         <Routes>
           <Route
@@ -79,6 +105,7 @@ function App() {
               }
             />
         </Routes>
+      </ThemeProvider>
       </AuthProvider>
     </div>
   );

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Annotorious } from '@recogito/annotorious';
 import '@recogito/annotorious/dist/annotorious.min.css';
 
-function ImageComponent({ imageId }) {
+
+function ImageComponent({imageId, imageStyle}) {
   const imgEl = useRef(null)
 
   const [state, setState] = useState({
@@ -66,18 +67,11 @@ function ImageComponent({ imageId }) {
   }, [imageId])
 
   return (
-    <>
-      {
-        state.base64String
-          ?
-          <img ref={imgEl} src={state.base64String} alt="image" style={{ width: '100%' }} />
-          :
-          <div style={{ textAlign: "center" }}>
-            <img src="https://www.ign.gob.ar/geodesiaapp/ntrip-registro/img/loader.gif" alt="loading" style={{ width: '25%' }} />
-          </div>
 
-      }
-    </>
+    <img ref={imgEl} src={
+      state.base64String ||
+      "https://www.ign.gob.ar/geodesiaapp/ntrip-registro/img/loader.gif"
+    } alt="image" style={imageStyle}/>
   )
 }
 

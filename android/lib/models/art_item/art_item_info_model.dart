@@ -2,7 +2,7 @@ import 'package:android/util/string_helpers.dart';
 import 'package:android/models/models.dart';
 
 class ArtItemInfo extends PostInfo {
-  final String? category;
+  final List<dynamic>? category;
   final List<String>? labels;
 
   ArtItemInfo({
