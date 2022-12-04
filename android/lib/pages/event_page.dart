@@ -241,7 +241,7 @@ class _EventPageState extends State<EventPage> {
                                             .substring(0, 16)),
                                       ],
                                     ),
-                                    const Padding(padding: EdgeInsets.all(8.0)),
+                                    // const Padding(padding: EdgeInsets.all(8.0)),
                                     CommentListWidget(
                                       commentList: currentEvent.commentList,
                                     ),
