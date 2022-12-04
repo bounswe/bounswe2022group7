@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../main.dart';
+import '../util/annotation.dart';
 
 Widget cancelButton = TextButton(
   child: const Text("Cancel"),
@@ -41,7 +42,35 @@ AlertDialog annotationDialog(String body, String username) {
   );
 }
 
-AlertDialog makeAnnotationDialog(Function(String, int, int) makeAnnotation, int start, int end) {
+AlertDialog multipleAnnotationDialog(List<Annotation> annotationList, context) {
+  return AlertDialog(
+    title: const Text("Annotations on this text:"),
+    content: SingleChildScrollView(
+      child: ListBody(
+          children: annotationList
+              .map((a) => TextButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return annotationDialog(
+                              a.body,
+                              a.author,
+                            );
+                          });
+                    },
+                    child: Text("Annotated by: ${a.author}"),
+                  ))
+              .toList()),
+    ),
+    actions: [
+      cancelButton,
+    ],
+  );
+}
+
+AlertDialog makeAnnotationDialog(
+    Function(String, int, int) makeAnnotation, int start, int end) {
   TextEditingController _controller = TextEditingController();
   return alert(
     "Make an annotation",

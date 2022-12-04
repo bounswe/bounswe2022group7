@@ -24,7 +24,11 @@ class AnnotatableText extends StatefulWidget {
 
 class _AnnotatableTextState extends State<AnnotatableText> {
   final List<int> selections = List.filled(text.length, 0);
-  final List<Annotation?> annotations = List.filled(text.length, null);
+  // create 2d array of annotations
+  final List<List<Annotation>> annotations = List.generate(
+    text.length,
+    (index) => List.empty(growable: true),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,7 @@ class _AnnotatableTextState extends State<AnnotatableText> {
       setState(() {
         for (int i = start; i < end; i++) {
           selections[i] += 1;
-          annotations[i] = a;
+          annotations[i].add(a);
         }
       });
     }
@@ -52,14 +56,20 @@ class _AnnotatableTextState extends State<AnnotatableText> {
         ),
         recognizer: TapGestureRecognizer()
           ..onTap = () {
-            print(i);
-            Annotation? annotation = annotations[i];
-            if (annotation != null) {
+            List<Annotation> annotationList = annotations[i];
+            if (annotationList.length == 1) {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return annotationDialog(
-                        annotations[i]!.body, annotations[i]!.author);
+                        annotationList[0].body, annotationList[0].author,
+                    );
+                  });
+            } else if (annotationList.length > 1) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return multipleAnnotationDialog(annotationList, context);
                   });
             }
           },
