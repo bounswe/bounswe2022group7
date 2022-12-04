@@ -10,6 +10,13 @@ Widget cancelButton = TextButton(
   },
 );
 
+Widget closeButton = TextButton(
+  child: const Text("Close"),
+  onPressed: () {
+    navigatorKey.currentState?.pop();
+  },
+);
+
 AlertDialog alert(String title, TextButton continueButton, {content: Widget}) {
   return AlertDialog(
     title: Text(title),
@@ -37,7 +44,7 @@ AlertDialog annotationDialog(String body, String username) {
     title: Text("Annotated by: $username"),
     content: Text(body),
     actions: [
-      cancelButton,
+      closeButton,
     ],
   );
 }
@@ -64,7 +71,7 @@ AlertDialog multipleAnnotationDialog(List<Annotation> annotationList, context) {
               .toList()),
     ),
     actions: [
-      cancelButton,
+      closeButton,
     ],
   );
 }
