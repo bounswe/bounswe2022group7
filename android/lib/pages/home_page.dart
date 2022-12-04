@@ -99,13 +99,22 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
         ListTile(
           leading: Icon(Icons.home),
           title: Text("Home"),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(),
+              ),
+            );
+          },
         ),
         if (user != null)
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text("Profile"),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, profilePage);
+            },
           ),
         if (user != null)
           ListTile(
@@ -141,7 +150,14 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
         ListTile(
           leading: Icon(Icons.forum),
           title: Text("Discussion Page"),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DiscussionForumPage(),
+              ),
+            );
+          },
         ),
         if (user != null)
           ListTile(
