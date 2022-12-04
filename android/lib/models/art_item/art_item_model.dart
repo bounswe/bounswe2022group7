@@ -29,10 +29,11 @@ class ArtItem extends Post {
         );
 
   factory ArtItem.fromJson(Map<String, dynamic> json) {
+    print("art item accoun info: ${json["creatorAccountInfo"]}");
     ArtItem ai = ArtItem(
       id: json['id'] ?? 8,
       artItemInfo: ArtItemInfo.fromJson(json),
-      creatorAccountInfo: json['creatorAccountInfo'],
+      creatorAccountInfo: AccountInfo.fromJson(json['creatorAccountInfo']),
       creationDate: DateTime.parse(json['creationDate']),
       // why does this use accountInfo?
       // owner: User.fromJson(json['owner']["accountInfo"]),
@@ -44,13 +45,17 @@ class ArtItem extends Post {
       lastPrice: json['lastPrice'],
 
       // Comment model has not been implemented yet just store as strings
-      commentList:
-          List<String>.from(json['commentList'].map((x) => x.toString())),
+      commentList: json['commentList'] != null
+          ? List<String>.from(json['commentList'].map((x) => x.toString()))
+          : [],
 
-      bookmarkedBy:
-          List<User>.from(json['bookMarkedByIds'].map((x) => User.fromJson(x))),
+      bookmarkedBy: json['bookMarkedByIds'] != null
+          ? List<User>.from(
+              json['bookMarkedByIds'].map((x) => User.fromJson(x)))
+          : [],
     );
 
+    print("ai");
     return ai;
   }
 }
