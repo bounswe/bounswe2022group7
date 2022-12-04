@@ -35,7 +35,12 @@ class _AnnotatableTextState extends State<AnnotatableText> {
     CurrentUser? currentUser = Provider.of<UserProvider>(context).user;
     List<TextSpan> spans = [];
     void makeAnnotation(String body, int start, int end) {
-      Annotation a = Annotation(body, currentUser!.email, start, end);
+      late Annotation a;
+      if (currentUser!.username == null) {
+        a = Annotation(body, currentUser.email, start, end);
+      } else {
+        a = Annotation(body, currentUser.username!, start, end);
+      }
       setState(() {
         for (int i = start; i < end; i++) {
           selections[i] += 1;
