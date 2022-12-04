@@ -28,19 +28,12 @@ class Post {
   Widget infoColumn() {
     if (type == "Event") {
       Event event = this as Event;
-      Widget profileImg = imageBuilder(creatorAccountInfo.profile_picture_id);
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              profileImg.toString() != "Container"
-                  ? CircleAvatar(
-                      radius: 20.0,
-                      backgroundColor: Colors.grey[300],
-                      backgroundImage: (profileImg as Image).image,
-                    )
-                  : Container(),
+              imageCircleBuilder(creatorAccountInfo.profile_picture_id),
               const SizedBox(width: 10.0),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
@@ -97,19 +90,12 @@ class Post {
       );
     } else {
       ArtItem artItem = this as ArtItem;
-      Widget profileImg = imageBuilder(creatorAccountInfo.profile_picture_id);
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              profileImg.toString() != "Container"
-                  ? CircleAvatar(
-                      radius: 20.0,
-                      backgroundColor: Colors.grey[300],
-                      backgroundImage: (profileImg as Image).image,
-                    )
-                  : Container(),
+              imageCircleBuilder(creatorAccountInfo.profile_picture_id),
               const SizedBox(width: 10.0),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
@@ -138,19 +124,20 @@ class Post {
             ],
           ),
           const SizedBox(height: 10.0),
-          Row(
-            children: [
-              Icon(
-                Icons.category,
-                color: Colors.grey[600],
-                size: 12.0,
-              ),
-              const SizedBox(width: 5.0),
-              Text(
-                artItem.artItemInfo.category.toString(),
-              ),
-            ],
-          ),
+          if (artItem.artItemInfo.category != null)
+            Row(
+              children: [
+                Icon(
+                  Icons.category,
+                  color: Colors.grey[600],
+                  size: 12.0,
+                ),
+                const SizedBox(width: 5.0),
+                Text(
+                  artItem.artItemInfo.category!.join(", "),
+                ),
+              ],
+            ),
         ],
       );
     }

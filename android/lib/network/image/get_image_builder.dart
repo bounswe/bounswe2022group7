@@ -32,14 +32,55 @@ Widget imageBuilder(int? imageId) {
               return Container();
             }
             ImageModel currentImage = responseData.image!;
-            return currentImage.base64String != null
-                ? Image.memory(base64Decode(
-                    currentImage.base64String.contains("data:image/png;base64,")
-                        ? currentImage.base64String
-                            .split("data:image/png;base64,")
-                            .elementAt(1)
-                        : currentImage.base64String))
-                : Container();
+            return Image.memory(base64Decode(
+                currentImage.base64String.contains("data:image")
+                    ? currentImage.base64String.split(",").elementAt(1)
+                    : currentImage.base64String));
+          } else {
+            // snapshot.data == null
+            return Container();
+          }
+      }
+    },
+  );
+}
+
+Widget imageCircleBuilder(int? imageId) {
+  if (imageId == null) return Container();
+  return FutureBuilder(
+    future: getImageNetwork(imageId),
+    builder: (context, snapshot) {
+      switch (snapshot.connectionState) {
+        case ConnectionState.none:
+        case ConnectionState.waiting:
+          return const CircularProgressIndicator();
+        default:
+          if (snapshot.hasError) {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Snapshot Error!"),
+              ),
+              body: Center(
+                child: Text("Error: ${snapshot.error}"),
+              ),
+            );
+          }
+
+          if (snapshot.data != null) {
+            GetImageOutput responseData = snapshot.data!;
+            if (responseData.status != "OK") {
+              return Container();
+            }
+            ImageModel currentImage = responseData.image!;
+            return CircleAvatar(
+              radius: 20.0,
+              backgroundColor: Colors.grey[300],
+              backgroundImage: Image.memory(base64Decode(
+                      currentImage.base64String.contains("data:image")
+                          ? currentImage.base64String.split(",").elementAt(1)
+                          : currentImage.base64String))
+                  .image,
+            );
           } else {
             // snapshot.data == null
             return Container();
