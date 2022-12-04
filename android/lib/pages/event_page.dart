@@ -1,4 +1,5 @@
 import 'package:android/pages/profile_page.dart';
+import 'package:android/widgets/comment.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
@@ -16,6 +17,7 @@ class EventPage extends StatefulWidget {
 }
 
 class _EventPageState extends State<EventPage> {
+  String comment = "";
   Scaffold erroneousEventPage() {
     return Scaffold(
       appBar: AppBar(
@@ -34,6 +36,10 @@ class _EventPageState extends State<EventPage> {
         builder: (context) => ProfilePage(username: _username),
       ),
     );
+  }
+
+  void leaveComment() {
+    print("comment: $comment");
   }
 
   @override
@@ -253,6 +259,12 @@ class _EventPageState extends State<EventPage> {
                                             .substring(0, 16)),
                                       ],
                                     ),
+                                    const Padding(padding: EdgeInsets.all(8.0)),
+                                    CommentListWidget(
+                                      commentList: currentEvent.commentList,
+                                    ),
+                                    const Padding(padding: EdgeInsets.all(4.0)),
+                                    CommentWidget(postid: currentEvent.id),
                                   ])),
                         ],
                       ),

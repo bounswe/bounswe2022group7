@@ -23,6 +23,8 @@ import 'package:android/network/home/get_postlist_output.dart';
 import 'package:android/network/home/get_postlist_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'art_item_page.dart';
+
 class Item {
   Item(this.name, this.icon);
   String name;
@@ -164,7 +166,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           user_account_info.profile_picture_id == null
-                              ? profilePictureBuilder(3)
+                              ? CircleAvatar(
+                                  radius: 20.0,
+                                  backgroundColor: Colors.grey[300],
+                                  backgroundImage:
+                                      MemoryImage(base64Decode(defaultbase64)),
+                                )
                               : profilePictureBuilder(
                                   user_account_info.profile_picture_id),
                           Column(
@@ -447,7 +454,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Padding(padding: EdgeInsets.all(2.0)),
-                                    if (dropdown_selection.value! ==
+                                    if (dropdown_selection.value ==
                                         "Events") ...[
                                       Row(
                                         crossAxisAlignment:
@@ -462,7 +469,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   user_account_info
                                                               .profile_picture_id ==
                                                           null
-                                                      ? profilePictureBuilder(3)
+                                                      ? CircleAvatar(
+                                                          radius: 20.0,
+                                                          backgroundColor:
+                                                              Colors.grey[300],
+                                                          backgroundImage:
+                                                              MemoryImage(
+                                                                  base64Decode(
+                                                                      defaultbase64)),
+                                                        )
                                                       : profilePictureBuilder(
                                                           user_account_info
                                                               .profile_picture_id),
@@ -539,7 +554,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ),
                                           const Spacer(),
                                           IconButton(
-                                            onPressed: null,
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EventPage(
+                                                    id: selected_items[index]
+                                                        .id,
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                             icon: Icon(
                                                 Icons.keyboard_arrow_right,
                                                 color: Colors.blueGrey.shade900,
@@ -635,7 +661,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ),
                                           const Spacer(),
                                           IconButton(
-                                            onPressed: null,
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ArtItemPage(
+                                                    id: selected_items[index]
+                                                        .id,
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                             icon: Icon(
                                                 Icons.keyboard_arrow_right,
                                                 color: Colors.blueGrey.shade900,
@@ -727,7 +764,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
-          dropdown_selection.value = value!;
+          dropdown_selection.value = value;
           updateSelectedItems();
         });
       },
