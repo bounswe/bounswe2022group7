@@ -6,6 +6,7 @@ import 'package:android/widgets/feed_container.dart';
 import 'package:flutter/material.dart';
 
 import '../config/app_routes.dart';
+import '../network/profile/post_follow_service.dart';
 import '../widgets/form_app_bar.dart';
 import 'package:android/models/models.dart';
 import 'package:android/models/user_model.dart';
@@ -33,6 +34,7 @@ class Item {
 
 const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
 var dropdown_selection = ValueNotifier<String>("Events");
+final followButtonText = ValueNotifier<String>("Follow");
 
 String? profile_username;
 var post_lists = {
@@ -88,8 +90,11 @@ class _ProfilePageState extends State<ProfilePage> {
     post_lists["Art Items"] = art_item_list;
   }
 
-  void followUser() {
-    print("followed");
+  Future<void> followUser() async {
+    if (followButtonText.value == "Follow") {
+      final statuscode = await postFollowNetwork(profile_username!);
+      if (statuscode == 202) followButtonText.value = "Following";
+    }
   }
 
   @override
@@ -117,7 +122,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               );
             }
-
             if (snapshot.data != null) {
               getUserOutput user_output = snapshot.data!;
               if (user_output.status != "OK") {
@@ -272,31 +276,39 @@ class _ProfilePageState extends State<ProfilePage> {
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(width: 1.5),
-                                      borderRadius: BorderRadius.circular(8.0)),
-                                  height: 35,
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      followUser();
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "Follow",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle2,
+                                ValueListenableBuilder(
+                                  valueListenable: followButtonText,
+                                  builder: (context, value, widget) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          border: Border.all(width: 1.5),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0)),
+                                      height: 35,
+                                      child: OutlinedButton(
+                                        onPressed: () {
+                                          followUser();
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              value,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2,
+                                            ),
+                                            Icon(
+                                              Icons.people_outlined,
+                                              color: value == "Follow"
+                                                  ? Colors.green
+                                                  : Colors.grey,
+                                            ),
+                                          ],
                                         ),
-                                        const Icon(
-                                          Icons.people_outlined,
-                                          color: Colors.green,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ],
                             ),
