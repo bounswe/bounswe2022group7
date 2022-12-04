@@ -6,6 +6,7 @@ import 'package:android/widgets/feed_container.dart';
 import 'package:flutter/material.dart';
 
 import '../config/app_routes.dart';
+import '../network/profile/post_follow_service.dart';
 import '../widgets/form_app_bar.dart';
 import 'package:android/models/models.dart';
 import 'package:android/models/user_model.dart';
@@ -22,6 +23,8 @@ import 'package:android/network/home/get_postlist_output.dart';
 import 'package:android/network/home/get_postlist_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'art_item_page.dart';
+
 class Item {
   Item(this.name, this.icon);
   String name;
@@ -33,6 +36,7 @@ class Item {
 
 const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
 var dropdown_selection = ValueNotifier<String>("Events");
+final followButtonText = ValueNotifier<String>("Follow");
 
 String? profile_username;
 var post_lists = {
@@ -43,12 +47,11 @@ var post_lists = {
 };
 var selected_items = [];
 
-
 void updateSelectedItems() {
   String selection = dropdown_selection.value;
-  if(selection == "Events") {
+  if (selection == "Events") {
     selected_items = post_lists[selection]!;
-  } else if(selection == "Art Items") {
+  } else if (selection == "Art Items") {
     selected_items = post_lists[selection]!;
   } else {
     selected_items = ["as"];
@@ -58,9 +61,8 @@ void updateSelectedItems() {
 class ProfilePage extends StatefulWidget {
   String? username;
   ProfilePage({Key? key, this.username}) : super(key: key) {
-   profile_username = username;
+    profile_username = username;
   }
-
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -71,8 +73,6 @@ class _ProfilePageState extends State<ProfilePage> {
   late String name;
   late String username;
   late User user = dali;
-
-
 
   _ProfilePageState() {
     this.url = user.imageUrl;
@@ -92,8 +92,12 @@ class _ProfilePageState extends State<ProfilePage> {
     post_lists["Art Items"] = art_item_list;
   }
 
-
-
+  Future<void> followUser() async {
+    if (followButtonText.value == "Follow") {
+      final statuscode = await postFollowNetwork(profile_username!);
+      if (statuscode == 202) followButtonText.value = "Following";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +105,10 @@ class _ProfilePageState extends State<ProfilePage> {
     var show_data = events;
 
     CurrentUser? current_user = Provider.of<UserProvider>(context).user;
+
+    //Check if already following
+    followButtonText.value = "Follow";
+    //?: "Following";
 
     return FutureBuilder(
       future: getUserNetwork(profile_username, current_user),
@@ -120,23 +128,28 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               );
             }
-
-            if(snapshot.data != null) {
+            if (snapshot.data != null) {
               getUserOutput user_output = snapshot.data!;
-              if(user_output.status != "OK") {
-                return const Text("An error occured while loading profile page!");
+              if (user_output.status != "OK") {
+                return const Text(
+                    "An error occured while loading profile page!");
               }
 
               Account user_account = user_output.account!;
               AccountInfo user_account_info = user_account.account_info;
               String fullname = "";
-              if(user_account_info.name != null && user_account_info.surname != null) {
-                fullname = "${user_account_info.name} ${user_account_info.surname}";
+              if (user_account_info.name != null &&
+                  user_account_info.surname != null) {
+                fullname =
+                    "${user_account_info.name} ${user_account_info.surname}";
               }
 
               bool users_check = current_user != null;
-              users_check = current_user!.email == user_account_info.email ? users_check : false;
-              updatePostLists(user_account.all_events, user_account.all_art_items);
+              users_check = current_user!.email == user_account_info.email
+                  ? users_check
+                  : false;
+              updatePostLists(
+                  user_account.all_events, user_account.all_art_items);
               dropdown_selection.value = "Events";
               updateSelectedItems();
 
@@ -153,8 +166,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           user_account_info.profile_picture_id == null
-                              ? profilePictureBuilder(3)
-                              : profilePictureBuilder(user_account_info.profile_picture_id),
+                              ? CircleAvatar(
+                                  radius: 20.0,
+                                  backgroundColor: Colors.grey[300],
+                                  backgroundImage:
+                                      MemoryImage(base64Decode(defaultbase64)),
+                                )
+                              : profilePictureBuilder(
+                                  user_account_info.profile_picture_id),
                           Column(
                             children: [
                               Text(
@@ -169,7 +188,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ],
                           ),
-                          if(users_check)...[
+                          if (users_check) ...[
                             IconButton(
                               onPressed: null,
                               icon: Icon(
@@ -201,7 +220,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Text(
                                     "Followers",
-                                    style: Theme.of(context).textTheme.subtitle2,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
                                   ),
                                   const Icon(
                                     Icons.people_outlined,
@@ -224,7 +244,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Text(
                                     "Followings",
-                                    style: Theme.of(context).textTheme.subtitle2,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
                                   ),
                                   const Icon(
                                     Icons.people_outlined,
@@ -247,7 +268,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Text(
                                     "Invite",
-                                    style: Theme.of(context).textTheme.subtitle2,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
                                   ),
                                   Icon(
                                     Icons.people_outlined,
@@ -259,6 +281,51 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 10.0),
+                      (profile_username == null ||
+                              current_user.username ==
+                                  user_account_info.username)
+                          ? Container()
+                          : Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(width: 12.0),
+                                ValueListenableBuilder(
+                                  valueListenable: followButtonText,
+                                  builder: (context, value, widget) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          border: Border.all(width: 1.5),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0)),
+                                      height: 35,
+                                      child: OutlinedButton(
+                                        onPressed: () {
+                                          followUser();
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              value,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2,
+                                            ),
+                                            Icon(
+                                              Icons.people_outlined,
+                                              color: value == "Follow"
+                                                  ? Colors.green
+                                                  : Colors.grey,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                       Column(
                         children: const [
                           Padding(
@@ -275,7 +342,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             lineHeight: 25.0,
                             animationDuration: 1200,
                             percent: 0.5,
-                            center: const Text("You completed 1/2 steps of your profile.", style: TextStyle(color: Colors.white, fontSize: 12.0), selectionColor: Colors.white,),
+                            center: const Text(
+                              "You completed 1/2 steps of your profile.",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 12.0),
+                              selectionColor: Colors.white,
+                            ),
                             // linearStrokeCap: LinearStrokeCap.roundAll,
                             progressColor: Colors.lightBlue,
                             barRadius: Radius.circular(4.0),
@@ -283,8 +355,15 @@ class _ProfilePageState extends State<ProfilePage> {
                               onPressed: null,
                               child: Row(
                                 children: [
-                                  Text("Go complete!", style: TextStyle(color: Colors.blueGrey.shade900),),
-                                  Icon(Icons.double_arrow_sharp, color: Colors.blueGrey.shade900,),
+                                  Text(
+                                    "Go complete!",
+                                    style: TextStyle(
+                                        color: Colors.blueGrey.shade900),
+                                  ),
+                                  Icon(
+                                    Icons.double_arrow_sharp,
+                                    color: Colors.blueGrey.shade900,
+                                  ),
                                 ],
                               ),
                             ),
@@ -353,7 +432,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             width: 150,
                             child: DropdownButtonExample(),
                           ),
-
                         ],
                       ),
                       Column(
@@ -363,7 +441,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-
                       Expanded(
                         child: ValueListenableBuilder(
                           valueListenable: dropdown_selection,
@@ -377,43 +454,69 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Padding(padding: EdgeInsets.all(2.0)),
-                                    if(dropdown_selection.value! == "Events")...[
+                                    if (dropdown_selection.value ==
+                                        "Events") ...[
                                       Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
-                                                  user_account_info.profile_picture_id == null
-                                                      ? profilePictureBuilder(3)
-                                                      : profilePictureBuilder(user_account_info.profile_picture_id),
+                                                  user_account_info
+                                                              .profile_picture_id ==
+                                                          null
+                                                      ? CircleAvatar(
+                                                          radius: 20.0,
+                                                          backgroundColor:
+                                                              Colors.grey[300],
+                                                          backgroundImage:
+                                                              MemoryImage(
+                                                                  base64Decode(
+                                                                      defaultbase64)),
+                                                        )
+                                                      : profilePictureBuilder(
+                                                          user_account_info
+                                                              .profile_picture_id),
                                                   const SizedBox(width: 10.0),
                                                   Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
                                                         Text(
-                                                          selected_items[index].postInfo.name,
-                                                          style: const TextStyle(
+                                                          selected_items[index]
+                                                              .postInfo
+                                                              .name,
+                                                          style:
+                                                              const TextStyle(
                                                             fontSize: 16.0,
-                                                            fontWeight: FontWeight.w600,
+                                                            fontWeight:
+                                                                FontWeight.w600,
                                                           ),
-                                                          overflow: TextOverflow.ellipsis,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                         ),
-                                                        const SizedBox(height: 4.0),
+                                                        const SizedBox(
+                                                            height: 4.0),
                                                         Row(
                                                           children: [
-                                                            Icon(Icons.supervisor_account,
+                                                            Icon(
+                                                                Icons
+                                                                    .supervisor_account,
                                                                 size: 12.0,
-                                                                color: Colors.grey[600]),
-                                                            const SizedBox(width: 5.0),
+                                                                color: Colors
+                                                                    .grey[600]),
+                                                            const SizedBox(
+                                                                width: 5.0),
                                                             Text(
-                                                                "Host: ${selected_items[index].creator.name ?? ""} ${selected_items[index].creator.surname ?? ""}"),
+                                                                "Host: ${selected_items[index].creatorAccountInfo.name ?? ""} ${selected_items[index].creatorAccountInfo.surname ?? ""}"),
                                                           ],
                                                         )
-                                                      ]
-                                                  ),
+                                                      ]),
                                                 ],
                                               ),
                                               const SizedBox(height: 10.0),
@@ -426,16 +529,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ),
                                                   const SizedBox(width: 5.0),
                                                   Text(
-                                                    "${selected_items[index]
-                                                        .eventInfo
-                                                        .startingDate
-                                                        .toString()
-                                                        .substring(0, 16)
-                                                    } - ${selected_items[index]
-                                                            .eventInfo
-                                                            .endingDate
-                                                            .toString()
-                                                            .substring(0, 16)}",
+                                                    "${selected_items[index].eventInfo.startingDate.toString().substring(0, 16)} - ${selected_items[index].eventInfo.endingDate.toString().substring(0, 16)}",
                                                   ),
                                                 ],
                                               ),
@@ -447,56 +541,93 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     size: 12.0,
                                                   ),
                                                   const SizedBox(width: 5.0),
-                                                  Text(selected_items[index].location != null ? selected_items[index].location?.address : "Online"),
+                                                  Text(selected_items[index]
+                                                              .location !=
+                                                          null
+                                                      ? selected_items[index]
+                                                          .location
+                                                          ?.address
+                                                      : "Online"),
                                                 ],
                                               )
                                             ],
                                           ),
                                           const Spacer(),
                                           IconButton(
-                                            onPressed: null,
-                                            icon: Icon(Icons.keyboard_arrow_right,
-                                                color: Colors.blueGrey.shade900, size: 35),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EventPage(
+                                                    id: selected_items[index]
+                                                        .id,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            icon: Icon(
+                                                Icons.keyboard_arrow_right,
+                                                color: Colors.blueGrey.shade900,
+                                                size: 35),
                                           ),
                                         ],
                                       ),
-                                    ] else if(dropdown_selection.value == "Art Items")...[
+                                    ] else if (dropdown_selection.value ==
+                                        "Art Items") ...[
                                       Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
-                                                  user_account_info.profile_picture_id == null
+                                                  user_account_info
+                                                              .profile_picture_id ==
+                                                          null
                                                       ? profilePictureBuilder(3)
-                                                      : profilePictureBuilder(user_account_info.profile_picture_id),
+                                                      : profilePictureBuilder(
+                                                          user_account_info
+                                                              .profile_picture_id),
                                                   const SizedBox(width: 10.0),
                                                   Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
                                                         Text(
-                                                          selected_items[index].postInfo.name,
-                                                          style: const TextStyle(
+                                                          selected_items[index]
+                                                              .postInfo
+                                                              .name,
+                                                          style:
+                                                              const TextStyle(
                                                             fontSize: 16.0,
-                                                            fontWeight: FontWeight.w600,
+                                                            fontWeight:
+                                                                FontWeight.w600,
                                                           ),
-                                                          overflow: TextOverflow.ellipsis,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                         ),
-                                                        const SizedBox(height: 4.0),
+                                                        const SizedBox(
+                                                            height: 4.0),
                                                         Row(
                                                           children: [
-                                                            Icon(Icons.supervisor_account,
+                                                            Icon(
+                                                                Icons
+                                                                    .supervisor_account,
                                                                 size: 12.0,
-                                                                color: Colors.grey[600]),
-                                                            const SizedBox(width: 5.0),
+                                                                color: Colors
+                                                                    .grey[600]),
+                                                            const SizedBox(
+                                                                width: 5.0),
                                                             Text(
-                                                                "Creator: ${selected_items[index].creator.name ?? ""} ${selected_items[index].creator.surname ?? ""}"),
+                                                                "Creator: ${selected_items[index].creatorAccountInfo.name ?? ""} ${selected_items[index].creatorAccountInfo.surname ?? ""}"),
                                                           ],
                                                         )
-                                                      ]
-                                                  ),
+                                                      ]),
                                                 ],
                                               ),
                                               const SizedBox(height: 10.0),
@@ -508,7 +639,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     size: 12.0,
                                                   ),
                                                   const SizedBox(width: 5.0),
-                                                  Text(selected_items[index].creationDate.toString().substring(0, 16)),
+                                                  Text(selected_items[index]
+                                                      .creationDate
+                                                      .toString()
+                                                      .substring(0, 16)),
                                                 ],
                                               ),
                                               Row(
@@ -519,16 +653,30 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     size: 12.0,
                                                   ),
                                                   const SizedBox(width: 5.0),
-                                                  Text("${selected_items[index].lastPrice.toString()} ₺"),
+                                                  Text(
+                                                      "${selected_items[index].lastPrice.toString()} ₺"),
                                                 ],
                                               )
                                             ],
                                           ),
                                           const Spacer(),
                                           IconButton(
-                                            onPressed: null,
-                                            icon: Icon(Icons.keyboard_arrow_right,
-                                                color: Colors.blueGrey.shade900, size: 35),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ArtItemPage(
+                                                    id: selected_items[index]
+                                                        .id,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            icon: Icon(
+                                                Icons.keyboard_arrow_right,
+                                                color: Colors.blueGrey.shade900,
+                                                size: 35),
                                           ),
                                         ],
                                       ),
@@ -540,7 +688,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -551,43 +698,40 @@ class _ProfilePageState extends State<ProfilePage> {
         }
       },
     );
-
   }
 }
 
-
 Widget profilePictureBuilder(picture_id) {
   return FutureBuilder(
-    future: getImageNetwork(picture_id),
-    builder: (context, snapshot) {
-      switch (snapshot.connectionState) {
-        case ConnectionState.none:
-        case ConnectionState.waiting:
-        default:
-          if (snapshot.hasError) {
-            return const Text("Error");
-          }
-
-          if (snapshot.data != null) {
-            GetImageOutput image_output = snapshot.data!;
-            if (image_output.status != "OK") {
-              return const Text("An error occured while loading profile page!");
+      future: getImageNetwork(picture_id),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+          default:
+            if (snapshot.hasError) {
+              return const Text("Error");
             }
 
-            return CircleAvatar(
-              radius: 20.0,
-              backgroundColor: Colors.grey[300],
-              backgroundImage: MemoryImage(
-                  base64Decode(image_output.image!.base64String)),
-            );
-          } else {
-            return const Text("");
-          }
-      }
-    }
-  );
-}
+            if (snapshot.data != null) {
+              GetImageOutput image_output = snapshot.data!;
+              if (image_output.status != "OK") {
+                return const Text(
+                    "An error occured while loading profile page!");
+              }
 
+              return CircleAvatar(
+                radius: 20.0,
+                backgroundColor: Colors.grey[300],
+                backgroundImage:
+                    MemoryImage(base64Decode(image_output.image!.base64String)),
+              );
+            } else {
+              return const Text("");
+            }
+        }
+      });
+}
 
 class DropdownButtonExample extends StatefulWidget {
   const DropdownButtonExample({super.key});
@@ -601,9 +745,9 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 
   void updateSelectedItems() {
     String selection = dropdown_selection.value;
-    if(selection == "Events") {
+    if (selection == "Events") {
       selected_items = post_lists[selection]!;
-    } else if(selection == "Art Items") {
+    } else if (selection == "Art Items") {
       selected_items = post_lists[selection]!;
     } else {
       selected_items = ["as"];
@@ -613,23 +757,21 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      isExpanded : true,
+      isExpanded: true,
       value: dropdownValue,
       icon: const Icon(Icons.keyboard_arrow_down),
-
       onChanged: (String? value) {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
-          dropdown_selection.value = value!;
+          dropdown_selection.value = value;
           updateSelectedItems();
         });
       },
       items: dropdown_items.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value, style: Theme.of(context).textTheme.headline6)
-        );
+            value: value,
+            child: Text(value, style: Theme.of(context).textTheme.headline6));
       }).toList(),
     );
   }
