@@ -5,15 +5,19 @@ import { koaBody } from 'koa-body'
 import bodyParser from 'koa-bodyparser'
 import { ObjectId } from 'mongodb'
 
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
+
 const app = new Koa()
 const router = new Router()
 
 
 app.use(mongo({
-    host: 'mongo',
-    user: 'root',
-    pass: 'abcd1234',
-    db: 'admin',
+    host: process.env.MONGO_HOST,
+    user: process.env.MONGO_USER,
+    pass: process.env.MONGO_PASS,
+    db: process.env.MONGO_DB,
+    port: process.env.MONGO_PORT,
     acquireTimeoutMillis: 10000
 }))
 
