@@ -45,7 +45,7 @@ Widget imageBuilder(int? imageId) {
   );
 }
 
-Widget imageBuilderWithSize(int? imageId, double width, double height) {
+Widget imageCircleBuilder(int? imageId) {
   if (imageId == null) return Container();
   return FutureBuilder(
     future: getImageNetwork(imageId),
@@ -72,61 +72,18 @@ Widget imageBuilderWithSize(int? imageId, double width, double height) {
               return Container();
             }
             ImageModel currentImage = responseData.image!;
-            return Image.memory(
-              base64Decode(currentImage.base64String.contains("data:image")
-                  ? currentImage.base64String.split(",").elementAt(1)
-                  : currentImage.base64String),
-              width: width,
-              height: height,
+            return CircleAvatar(
+              radius: 20.0,
+              backgroundColor: Colors.grey[300],
+              backgroundImage: Image.memory(base64Decode(
+                      currentImage.base64String.contains("data:image")
+                          ? currentImage.base64String.split(",").elementAt(1)
+                          : currentImage.base64String))
+                  .image,
             );
           } else {
             // snapshot.data == null
             return Container();
-          }
-      }
-    },
-  );
-}
-
-Widget circleAvatarBuilder(int? imageId, double radius) {
-  if (imageId == null) return Container();
-  return FutureBuilder(
-    future: getImageNetwork(imageId),
-    builder: (context, snapshot) {
-      switch (snapshot.connectionState) {
-        case ConnectionState.none:
-        case ConnectionState.waiting:
-          return const CircularProgressIndicator();
-        default:
-          if (snapshot.hasError) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text("Snapshot Error!"),
-              ),
-              body: Center(
-                child: Text("Error: ${snapshot.error}"),
-              ),
-            );
-          }
-
-          if (snapshot.data != null) {
-            GetImageOutput responseData = snapshot.data!;
-            if (responseData.status != "OK") {
-              return Icon(Icons.person, size: 2 * radius);
-            }
-            ImageModel currentImage = responseData.image!;
-                return CircleAvatar(
-                    radius: radius,
-                    backgroundImage: MemoryImage(base64Decode(currentImage
-                            .base64String
-                            .contains("data:image")
-                        ? currentImage.base64String
-                            .split(",")
-                            .elementAt(1)
-                        : currentImage.base64String)));
-          } else {
-            // snapshot.data == null
-            return Icon(Icons.person, size: 2 * radius);
           }
       }
     },

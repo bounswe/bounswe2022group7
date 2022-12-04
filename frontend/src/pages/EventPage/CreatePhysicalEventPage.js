@@ -1,7 +1,9 @@
 import React, { useReducer } from "react";
 import { useAuth } from "../../auth/useAuth";
 
-import {TextField, Typography, Stack} from "@mui/material";
+import {TextField, Typography, Stack, Grid, OutlinedInput} from "@mui/material";
+// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import ImageUploader from '../../components/ImageUploader';
 import LoadingButton from '../../components/LoadingButton';
@@ -19,7 +21,9 @@ function CreatePhysicalEventForm() {
       eventPrice: "",
       labels: [],
       rules: "",
-      address: ""
+      address: "",
+      startTime: null,
+      endTime: null
     }
   );
   const [selectedImage, setSelectedImage] = React.useState(null);
@@ -31,6 +35,8 @@ function CreatePhysicalEventForm() {
     return {
       eventInfo: {
         title: formInput.title,
+        startingDate: formInput.startTime,
+        endingDate: formInput.endTime,
         description: formInput.description,
         category: [formInput.category],
         eventPrice: formInput.eventPrice,
@@ -134,6 +140,44 @@ function CreatePhysicalEventForm() {
             sx = {{marginY: 1}}
           />
 
+          <br/>
+
+          <Typography variant="h6" component="h3">
+            Start & End Time
+          </Typography>
+
+          <Grid container spacing={2} alignItems="center" justifyContent="center" sx={{ width: "100%" }}>
+
+            <Grid item xs={12} sm={6}>
+              Start Time
+              <OutlinedInput
+                required
+                label="Start Time"
+                type="datetime-local"
+                name="startTime"
+                onChange={handleInput}
+                renderInput={(params) => <TextField {...params} />}
+                style={{width: "100%"}}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              End Time
+              <OutlinedInput
+                required
+                label="End Time"
+                type="datetime-local"
+                name="endTime"
+                onChange={handleInput}
+                renderInput={(params) => <TextField {...params} />}
+                style={{width: "100%"}}
+              />
+            </Grid>
+
+          </Grid>
+
+          <br/>
+
           <Typography variant="h6" component="h3">
             Location
           </Typography>
@@ -152,6 +196,8 @@ function CreatePhysicalEventForm() {
             position = {position}
             setPosition = {setPosition}
           />
+
+          <br/>
 
           <Typography variant="h6" component="h3">
             Poster
