@@ -83,7 +83,7 @@ test('Creator Details Different', async () => {
     expect(screen.queryByTestId('bookmarkButton')).not.toBeInTheDocument();
 });
 
-test('Custom artwork, not signed in', async () => {
+test('Custom art item, not signed in', async () => {
     mockToken = null;
 
     let customDate = "2021-05-01T00:00:00.000Z";
@@ -104,7 +104,7 @@ test('Custom artwork, not signed in', async () => {
     expect(screen.getByText('undefined')).toBeInTheDocument();
     expect(screen.getByText('testTitle')).toBeInTheDocument();
     expect(screen.getByText('testDescription')).toBeInTheDocument();
-    expect(screen.getByText(`artwork`)).toBeInTheDocument();
+    expect(screen.getByText(`art item`)).toBeInTheDocument();
     expect(screen.findByTestId('imageDisplay'));
     expect(screen.queryByTestId('followButton')).not.toBeInTheDocument();
     expect(screen.queryByTestId('bookmarkButton')).not.toBeInTheDocument();
@@ -179,7 +179,7 @@ test("Default values, bookmarked & signed in", async () => {
 
     expect(screen.getByText('Undefined')).toBeInTheDocument();
     expect(screen.getByText('Lorem Impsum')).toBeInTheDocument();
-    expect(screen.getByText(`artwork`)).toBeInTheDocument();
+    expect(screen.getByText(`art item`)).toBeInTheDocument();
     expect(screen.queryByTestId('bookmarkButton')).toBeInTheDocument();
     expect(screen.queryByTestId('notBookmarked')).not.toBeInTheDocument();
     expect(screen.queryByTestId('bookmarked')).toBeInTheDocument();
