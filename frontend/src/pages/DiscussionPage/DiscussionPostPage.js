@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Typography, Stack } from "@mui/material";
-import { useAuth } from "../../auth/useAuth"
+import { Typography, useTheme } from "@mui/material";
 import {useParams} from "react-router-dom";
 import UserCard from "../../common/UserCard"
 import GenericCardLayout from '../../layouts/GenericCardLayout';
@@ -15,16 +14,13 @@ function DiscussionPostPage() {
     discussionPost: [] 
   })
 
-  // TODO: remove token
-  const { token } = useAuth()
+  const theme = useTheme()
+
   useEffect(() => {
 
-    const fetchArgs = {
+    fetch('/api/discussionPost/' + id, {
       method: "GET",  
-    }
-
-    if (token) fetchArgs.headers = {Authorization: "Bearer " + token}
-    fetch('/api/discussionPost/' + id, fetchArgs)
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
@@ -34,7 +30,7 @@ function DiscussionPostPage() {
           setState({error: error})
         }
       )
-  }, [id, token])
+  }, [id])
 
   const {error, isLoaded, artitem} = state
 
@@ -45,25 +41,30 @@ function DiscussionPostPage() {
   } else {
     return (
       <GenericCardLayout maxWidth={1000}>
+        <Typography
+          variant="h5"
+          color={theme.palette.primary.main}
+        >
+          Discussion Post:
+        </Typography>
+        <Typography variant="h4">
+          {state.discussionPost.title}
+        </Typography>
+        <br/>
 
-        <Stack>
-          <Typography variant="h4" sx={{padding:2}}>
-            {state.discussionPost.title}
-          </Typography>
-          <br/>
+        <Typography variant="body1">
+          {state.discussionPost.textBody}
+        </Typography>
 
-          <Typography variant="body1">
-            {state.discussionPost.textBody}
-          </Typography>
+        <br/>
 
-          <UserCard data={state.discussionPost.creatorAccountInfo} />
+        <UserCard data={state.discussionPost} />
 
-          <CommentSection
-            contentId={id}
-            commentList={state.discussionPost.commentList}
-          />
+        <CommentSection
+          contentId={id}
+          commentList={state.discussionPost.commentList}
+        />
 
-        </Stack>
 
       </GenericCardLayout>
     )
