@@ -33,7 +33,7 @@ class Post {
         children: [
           Row(
             children: [
-              imageCircleBuilder(creatorAccountInfo.profile_picture_id),
+              circleAvatarBuilder(creatorAccountInfo.profile_picture_id, 20.0),
               const SizedBox(width: 10.0),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
@@ -95,7 +95,7 @@ class Post {
         children: [
           Row(
             children: [
-              imageCircleBuilder(creatorAccountInfo.profile_picture_id),
+              circleAvatarBuilder(creatorAccountInfo.profile_picture_id, 20.0),
               const SizedBox(width: 10.0),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
