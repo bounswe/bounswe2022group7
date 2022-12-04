@@ -104,6 +104,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
     CurrentUser? current_user = Provider.of<UserProvider>(context).user;
 
+    //Check if already following
+    followButtonText.value = "Follow";
+    //?: "Following";
+
     return FutureBuilder(
       future: getUserNetwork(profile_username, current_user),
       builder: (context, snapshot) {
@@ -271,11 +275,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                       const SizedBox(height: 10.0),
-                      profile_username == null
+                      (profile_username == null ||
+                              current_user.username ==
+                                  user_account_info.username)
                           ? Container()
                           : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
+                                const SizedBox(width: 12.0),
                                 ValueListenableBuilder(
                                   valueListenable: followButtonText,
                                   builder: (context, value, widget) {
