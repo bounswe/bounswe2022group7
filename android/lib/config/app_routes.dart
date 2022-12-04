@@ -5,3 +5,4 @@ String profilePage = "profile";
 String eventPage = "eventPage";
 String createArtItemPage = "createArtItemPage";
 String createEventPage = "createEventPage";
+String discussionForumPage = "discussionForumPage";
