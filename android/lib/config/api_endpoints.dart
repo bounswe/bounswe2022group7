@@ -12,3 +12,4 @@ String homepageURL = "$baseURL/homepage";
 String profileURL = "$baseURL/profile";
 String getImageURL = "$baseURL/image";
 String followURL = "$baseURL/follow";
+String discussionURL = "$baseURL/discussionPost";
