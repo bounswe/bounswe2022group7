@@ -8,13 +8,13 @@ Image in the center fills the whole space
 */
 
 import React from 'react'
-import { Container, CssBaseline, Paper } from '@mui/material';
+import Paper from '@mui/material/Paper';
 
 import ImageComponent from "./ImageComponent"
 
 function ImageDisplay({imageId}) {
   return (
-    <Paper style={{display: 'flex', width: "100%"}}>
+    <Paper elevation={0} style={{display: 'flex', width: "100%"}}>
       <div style={{maxHeight: 400, textAlign: "center", backgroundColor: '#fafafa', width: "100%"}}>
         <ImageComponent imageId={imageId} imageStyle={{maxWidth: "80%", display: "block", margin: "auto", height: '100%'}}/>
       </div>  

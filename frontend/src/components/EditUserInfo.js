@@ -63,43 +63,66 @@ export default function EditUserInfo({ existingUser, name, surname, dateOfBirth,
         validationSchema: validationSchema,
         validateOnChange: true,
         onSubmit: (values) => {
-            const data = {
-                name: values.name,
-                surname: values.surname,
-                country: selectedCountry,
-                dateOfBirth: selectedDateOfBirth,
-                image: selectedImage,
+
+            const headerTemplate = {
+                'Authorization': 'Bearer ' + token,
+                "Content-Type": "application/json",
             }
 
             setLoading(true);
             setError(null);
 
-            fetch('/api/profile/settings', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
+
+            fetch("/api/image",
+                {
+                    method: "POST",
+                    body: JSON.stringify({ base64String: selectedImage }),
+                    headers: headerTemplate,
+                })
                 .then((response) => response.json())
                 .then((data) => {
-                    setLoading(false);
                     if (data.error) {
                         setError(data.message);
                     }
                     else {
-                        if (existingUser) {
-                            navigate('/profile');
-                        } else {
-                            navigate('/');
+                        const requestBody = {
+                            name: values.name,
+                            surname: values.surname,
+                            country: selectedCountry,
+                            dateOfBirth: selectedDateOfBirth,
+                            profilePictureId: data.id,
                         }
+
+                        fetch('/api/profile/settings', {
+                            method: 'POST',
+                            headers: headerTemplate,
+                            body: JSON.stringify(requestBody),
+                        })
+                            .then((response) => response.json())
+                            .then((json) => {
+                                setLoading(false);
+                                if (json.error) {
+                                    setError(data.message);
+                                }
+                                else {
+                                    if (existingUser) {
+                                        navigate('/profile/'+json.username);
+                                    } else {
+                                        navigate('/');
+                                    }
+                                }
+                            })
+                            .catch((error) => {
+                                setLoading(false);
+                                setError(error);
+                            });
                     }
                 })
                 .catch((error) => {
                     setLoading(false);
                     setError(error);
-                });
+                }
+                );
         },
         enableReinitialize: true,
     });
@@ -122,7 +145,7 @@ export default function EditUserInfo({ existingUser, name, surname, dateOfBirth,
                     </Grid>
 
                     <Grid item xs={12}>
-                        <ImageUploader label="Upload profile photo" imgComponent={<Avatar sx={{ width: 96, height: 96 }} src={selectedImage} alt="username" />} value={selectedImage} onChange={setSelectedImage} />
+                        <ImageUploader label="Upload profile photo" imgComponent={<Avatar sx={{ width: 96, height: 96 }} alt="userphoto" src={selectedImage} />} value={selectedImage} onChange={setSelectedImage} />
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
