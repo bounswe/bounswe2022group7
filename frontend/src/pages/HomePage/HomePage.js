@@ -5,13 +5,13 @@ import { CircularProgress, Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { useAuth } from "../../auth/useAuth"
 import GenericCardLayout from '../../layouts/GenericCardLayout';
-import FeedCard from '../../components/FeedCard';
+import FeedCard from './FeedCard';
 import FilterChip from '../../components/FilterChip';
 
 const HomePage = () => {
     const [error, setError] = React.useState(null)
     const [isLoaded, setLoaded] = React.useState(false)
-
+    const [userData, setUserData] = React.useState(null)
     const [content, setContent] = React.useState([])
 
     const [filter, setFilter] = React.useState({
@@ -21,8 +21,21 @@ const HomePage = () => {
     })
 
 
-    // const [username, setUsername] = React.useState(null)
     const { token } = useAuth()
+
+    useEffect(() => {
+        fetch("/api/profile", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setUserData(data);
+            }
+            )
+    }, [token])
 
 
     function handleFilter(event) {
@@ -40,7 +53,6 @@ const HomePage = () => {
                 break;
         }
     }
-
 
 
 
@@ -63,7 +75,7 @@ const HomePage = () => {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
-                            // followed: item.creatorAccountInfo.followedBy.includes(username),
+                            followed: userData ? userData.following.includes(item.creatorAccountInfo.username) : false,
                             imageId: item.creatorAccountInfo.profilePictureId,
                         },
                         content: {
@@ -80,13 +92,11 @@ const HomePage = () => {
                 });
 
                 setLoaded(true);
-                // setContent((c) => c.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1));
 
 
             })
             .catch((error) => {
                 setLoaded(true);
-
                 setError(error)
             })
 
@@ -95,12 +105,12 @@ const HomePage = () => {
             .then((response) => response.json())
             .then((data) => {
                 data.forEach((item) => {
-
+                    console.log(item.creatorAccountInfo);
                     const event = {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
-                            // followed: item.creatorAccountInfo.followedBy.includes(username),
+                            followed: userData ? userData.following.includes(item.creatorAccountInfo.username) : false,
                             imageId: item.creatorAccountInfo.profilePictureId,
                         },
                         content: {
@@ -134,7 +144,7 @@ const HomePage = () => {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
-                            // followed: item.creatorAccountInfo.followedBy.includes(username),
+                            followed: userData ? userData.following.includes(item.creatorAccountInfo.username) : false,
                             imageId: item.creatorAccountInfo.profilePictureId,
                         },
                         content: {
@@ -150,7 +160,6 @@ const HomePage = () => {
                 });
 
                 setLoaded(true);
-                // setContent((c) => c.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1));
 
             })
             .catch((error) => {
@@ -159,7 +168,7 @@ const HomePage = () => {
             })
 
 
-    }, [token, filter])
+    }, [token, filter, userData])
 
 
     // TODO: Sort by date

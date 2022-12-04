@@ -1,8 +1,7 @@
 
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import FeedCard from '../components/FeedCard';
-import { act } from 'react-dom/test-utils';
+import FeedCard from '../pages/HomePage/FeedCard';
 
 afterEach(() => {
     cleanup();

@@ -14,14 +14,14 @@ import React, { lazy, Suspense } from 'react';
 
 // import { Link } from 'react-router-dom';
 
-import { useAuth } from '../auth/useAuth';
+import { useAuth } from '../../auth/useAuth';
 
-import UserAvatar from "./UserAvatar";
-import CustomizableDropdownMenu from "./CustomizableDropdownMenu";
-import LoadingButton from "./LoadingButton";
+import UserAvatar from "../../components/UserAvatar";
+import CustomizableDropdownMenu from "../../components/CustomizableDropdownMenu";
+import LoadingButton from "../../components/LoadingButton";
 import { CircularProgress, IconButton } from '@mui/material';
 
-const ImageDisplay = lazy(() => import('./ImageDisplay'));
+const ImageDisplay = lazy(() => import('../../components/ImageDisplay'));
 
 // TODO: Implement menu items
 let menuContent = [
@@ -45,6 +45,8 @@ export default function FeedCard(props) {
 
     const { token } = useAuth();
 
+    const [followStatus, setFollowStatus] = React.useState(props.creator.followed);
+
 
     function followRequest() {
         fetch('/api/follow/' + props.creator.username,
@@ -53,14 +55,9 @@ export default function FeedCard(props) {
                     'Authorization': 'Bearer ' + token,
                 }
             })
-            .then(response => {
-                if (response.ok) {
-                    props.followed = true;
-                } else {
-                    throw new Error('Something went wrong ...');
-                }
-            })
-
+            .then(response => response.json())
+            .then(data => {
+                setFollowStatus(data.followed);            })
             .catch(error => {
                 console.log(error);
             });
@@ -86,7 +83,7 @@ export default function FeedCard(props) {
                                     {props.creator.username}
                                 </Typography>
                             </Link>
-                            {(token && !props.creator.followed) && <LoadingButton dataTestId="followButton" onClick={() => followRequest()} loading={false} label="Follow" loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />}
+                            {(token && !followStatus) && <LoadingButton dataTestId="followButton" onClick={() => followRequest()} loading={false} label="Follow" loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />}
                         </Stack>
                         <Stack spacing={2} direction="row" justifyContent="end" alignItems="center">
                             {(token) && <IconButton data-testid="bookmarkButton" onClick={setBookmarked} color="secondary"> {props.content.bookmarked ? <BookmarkIcon data-testid="bookmarked" />  : <BookmarkBorderOutlinedIcon data-testid="notBookmarked" />}</IconButton>}
