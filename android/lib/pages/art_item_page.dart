@@ -62,8 +62,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                 ),
                 body: Container(
                   color: Colors.blue[50],
-                  child: Column(
-                    children: [
+                  child: SingleChildScrollView(
+                    child:
                       Column(
                         children: [
                           Padding(
@@ -169,7 +169,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                   ])),
                         ],
                       ),
-                    ],
                   ),
                 ),
               );
