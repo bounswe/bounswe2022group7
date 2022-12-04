@@ -1,22 +1,16 @@
-class CreateArtItemInput {
+class PostArtItemInput {
   final ArtItemInfo artItemInfo;
-  final Auction auction;
   final double lastPrice;
-  final bool onAuction;
 
-  CreateArtItemInput({
+  PostArtItemInput({
     required this.artItemInfo,
-    required this.auction,
     required this.lastPrice,
-    required this.onAuction,
   });
 
   Map<String, dynamic> toJson() {
     return {
       "artItemInfo": artItemInfo.toJson(),
-      "auction": auction.toJson(),
       "lastPrice": lastPrice,
-      "onAuction": onAuction,
     };
   }
 }
@@ -24,15 +18,15 @@ class CreateArtItemInput {
 class ArtItemInfo {
   final String name;
   final String description;
-  final String? category;
-  final String? imageEncoding;
-  final String? labels;
+  List<String>? category;
+  int? imageId;
+  List<String>? labels;
 
   ArtItemInfo({
     required this.name,
     required this.description,
     this.category,
-    this.imageEncoding,
+    this.imageId,
     this.labels,
   });
 
@@ -40,13 +34,14 @@ class ArtItemInfo {
     return {
       "name": name,
       "description": description,
-      "category": category,
-      "imageEncoding": imageEncoding,
-      "labels": labels,
+      if (imageId != null) "imageId": imageId,
+      if (category != null) "category": category,
+      if (labels != null) "labels": labels,
     };
   }
 }
 
+// Auction not yet implemented
 class Auction {
   final int id;
 

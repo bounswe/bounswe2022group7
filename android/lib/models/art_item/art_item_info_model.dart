@@ -2,7 +2,7 @@ import 'package:android/util/string_helpers.dart';
 import 'package:android/models/models.dart';
 
 class ArtItemInfo extends PostInfo {
-  final List<String>? category;
+  final List<dynamic>? category;
   final List<String>? labels;
 
   ArtItemInfo({
@@ -31,7 +31,6 @@ class ArtItemInfo extends PostInfo {
           List<String>.from(json['labels'].map((label) => label.toString())),
     );
 
-    print("info");
     return info;
   }
 }

@@ -7,7 +7,6 @@ class ArtItem extends Post {
   final DateTime creationDate;
   final User? owner;
   final bool onAuction;
-  final String? auction;
   final double? lastPrice;
   final List<Comment> commentList;
   final List<User> bookmarkedBy;
@@ -19,7 +18,6 @@ class ArtItem extends Post {
     required this.creationDate,
     this.owner,
     required this.onAuction,
-    this.auction,
     this.lastPrice,
     required this.commentList,
     required this.bookmarkedBy,
@@ -31,7 +29,7 @@ class ArtItem extends Post {
         );
 
   factory ArtItem.fromJson(Map<String, dynamic> json) {
-    print("art item accoun info: ${json["creatorAccountInfo"]}");
+
     List<Comment> commentList = [];
     for (int i = 0; i < json["commentList"].length; i++) {
       Comment c = Comment.fromJson(json["commentList"][i]);
@@ -47,7 +45,6 @@ class ArtItem extends Post {
 
       // Auction model has not been implemented yet
       onAuction: false,
-      auction: null,
 
       lastPrice: json['lastPrice'],
 
@@ -60,7 +57,6 @@ class ArtItem extends Post {
           : [],
     );
 
-    print("ai");
     return ai;
   }
 }
