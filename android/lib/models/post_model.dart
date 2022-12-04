@@ -138,19 +138,20 @@ class Post {
             ],
           ),
           const SizedBox(height: 10.0),
-          Row(
-            children: [
-              Icon(
-                Icons.category,
-                color: Colors.grey[600],
-                size: 12.0,
-              ),
-              const SizedBox(width: 5.0),
-              Text(
-                artItem.artItemInfo.category.toString(),
-              ),
-            ],
-          ),
+          if (artItem.artItemInfo.category != null)
+            Row(
+              children: [
+                Icon(
+                  Icons.category,
+                  color: Colors.grey[600],
+                  size: 12.0,
+                ),
+                const SizedBox(width: 5.0),
+                Text(
+                  artItem.artItemInfo.category!.join(", "),
+                ),
+              ],
+            ),
         ],
       );
     }
