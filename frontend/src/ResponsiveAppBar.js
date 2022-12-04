@@ -72,7 +72,7 @@ const ResponsiveAppBar = () => {
 
     let newContent = [
         {
-            label: "New Artwork",
+            label: "New Art Item",
             icon: <BrushIcon />,
             action: () => {
                 navigate('/artitem/new');
