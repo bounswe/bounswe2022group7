@@ -32,19 +32,12 @@ Widget imageBuilder(int? imageId) {
               return Container();
             }
             ImageModel currentImage = responseData.image!;
-            late String base64String;
-            if (currentImage.base64String.contains("data:image/png;base64,")) {
-              base64String = currentImage.base64String
-                  .split("data:image/png;base64,")
-                  .elementAt(1);
-            } else if (currentImage.base64String.contains("data:image/jpeg;base64,")) {
-              base64String = currentImage.base64String
-                  .split("data:image/jpeg;base64,")
-                  .elementAt(1);
-            } else {
-              base64String = currentImage.base64String;
-            }
-            return Image.memory(base64Decode(base64String));
+            return Image.memory(base64Decode(
+                currentImage.base64String.contains("data:image")
+                    ? currentImage.base64String
+                    .split(",")
+                    .elementAt(1)
+                    : currentImage.base64String));
           } else {
             // snapshot.data == null
             return Container();
