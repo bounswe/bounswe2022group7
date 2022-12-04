@@ -686,6 +686,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.16"
+  text_selection_controls:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "7c93ae04e3950875966bbd9448576f756bd2cd80"
+      url: "https://github.com/atillaturkmen/flutter_text_selection_controls"
+    source: git
+    version: "0.0.2"
   typed_data:
     dependency: transitive
     description:
