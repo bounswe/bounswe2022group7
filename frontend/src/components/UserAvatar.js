@@ -2,7 +2,7 @@
 import React from 'react';
 import { Avatar } from "@mui/material";
 
-export default function UserAvatar({ id, sx}) {
+export default function UserAvatar({username, id, sx}) {
 
     const [image, setImage] = React.useState(null);
 
@@ -14,11 +14,12 @@ export default function UserAvatar({ id, sx}) {
     }, [id])
 
     return (
-        <Avatar alt="User" src={image} sx={{...sx}} />
+        <Avatar data-testid="userAvatar" alt={username} src={image} sx={{...sx}} />
     )
 }
 
 UserAvatar.defaultProps = {
+    username: null,
     id: 0,
     sx: {}
 }

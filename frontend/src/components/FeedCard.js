@@ -5,11 +5,16 @@ import Typography from '@mui/material/Typography';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ShareIcon from '@mui/icons-material/Share';
 import WarningIcon from '@mui/icons-material/Warning';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import Link from '@mui/material/Link';
 
-import React, { lazy, Suspense, useReducer } from 'react';
 
-import { Link } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+
+// import { Link } from 'react-router-dom';
+
+import { useAuth } from '../auth/useAuth';
 
 import UserAvatar from "./UserAvatar";
 import CustomizableDropdownMenu from "./CustomizableDropdownMenu";
@@ -38,13 +43,27 @@ export default function FeedCard(props) {
     let parsedDate = new Date(props.content.creationDate);
     let date = parsedDate.toLocaleString();
 
+    const { token } = useAuth();
+
 
     function followRequest() {
-        fetch('/api/follow/' + props.creator.username, { method: "POST" })
-            .then((response) => response.json())
-            .then((json) => console.log(json))
-            .catch((error) => console.log(error))
+        fetch('/api/follow/' + props.creator.username,
+            {
+                method: "POST", headers: {
+                    'Authorization': 'Bearer ' + token,
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    props.followed = true;
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
 
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     function setBookmarked() {
@@ -59,19 +78,19 @@ export default function FeedCard(props) {
                     <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
                         <Stack spacing={2} direction="row" justifyContent="left" alignItems="center">
 
-                            <Link to={"/profile/" + props.creator.username} style={{ textDecoration: 'none', color: "black" }}>
-                                <UserAvatar id={props.creator.imageId} sx={{ h: 32, w: 32, border: 1, borderColor: 'divider' }} />
+                            <Link href={"/profile/" + props.creator.username} style={{ textDecoration: 'none', color: "black" }}>
+                                <UserAvatar username={props.creator.username} id={props.creator.imageId} sx={{ h: 32, w: 32, border: 1, borderColor: 'divider' }} />
                             </Link>
-                            <Link to={"/profile/" + props.creator.username} style={{ textDecoration: 'none', color: "black" }}>
+                            <Link href={"/profile/" + props.creator.username} style={{ textDecoration: 'none', color: "black" }}>
                                 <Typography variant="h6" component="h2" sx={{ fontSize: 17, fontWeight: 700 }}>
                                     {props.creator.username}
                                 </Typography>
                             </Link>
-                            <LoadingButton hidden={props.creator.followed} onClick={() => followRequest()} loading={false} label="Follow" loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />
+                            {(token && !props.creator.followed) && <LoadingButton dataTestId="followButton" onClick={() => followRequest()} loading={false} label="Follow" loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />}
                         </Stack>
                         <Stack spacing={2} direction="row" justifyContent="end" alignItems="center">
-                            <IconButton onClick={setBookmarked}> <BookmarkBorderOutlinedIcon color="secondary" /></IconButton>
-                            <CustomizableDropdownMenu color="secondary" tooltip="More Actions" menuContent={menuContent} />
+                            {(token) && <IconButton data-testid="bookmarkButton" onClick={setBookmarked} color="secondary"> {props.content.bookmarked ? <BookmarkIcon data-testid="bookmarked" />  : <BookmarkBorderOutlinedIcon data-testid="notBookmarked" />}</IconButton>}
+                            <CustomizableDropdownMenu data-testid="menuButton" color="secondary" tooltip="More Actions" menuContent={menuContent} />
                         </Stack>
                     </Stack>
 
@@ -93,7 +112,7 @@ export default function FeedCard(props) {
                                             {props.content.description}
                                         </Typography>
                                         <Suspense fallback={<div><CircularProgress /></div>}>
-                                            <ImageDisplay imageId={props.content.imageId} />
+                                            <ImageDisplay data-testid="imageDisplay" imageId={props.content.imageId} />
                                         </Suspense>
                                     </> :
                                         <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -121,6 +140,7 @@ export default function FeedCard(props) {
 }
 
 FeedCard.defaultProps = {
+    filtered: true,
     creator: {
         username: "undefined",
         id: 0,
@@ -129,6 +149,7 @@ FeedCard.defaultProps = {
     },
 
     content: {
+        bookmarked: false,
         id: 0,
         type: "artitem",
         title: "Untitled",

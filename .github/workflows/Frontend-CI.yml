@@ -32,8 +32,13 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Build and test the frontend application
+    - name: Setup the project
       working-directory: ./frontend
       run: |
         npm ci
-        CI=false npm run build --if-present
+    - name: Test the project
+      working-directory: ./frontend
+      run: npm run test
+    - name: Build the project
+      working-directory: ./frontend
+      run: CI=false npm run build --if-present

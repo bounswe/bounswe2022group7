@@ -16,6 +16,7 @@ export default function LoadingButton(props) {
             disabled={props.disabled || props.loading}
             startIcon={props.loading && (props.loadingIcon)}
             sx={props.sx}
+            data-testid={props.dataTestId}
         >
             {props.loading ? props.loadingText : props.label}
         </Button>
