@@ -168,7 +168,7 @@ const HomePage = () => {
             })
 
 
-    }, [token, filter, userData])
+    }, [token, userData])
 
 
     // TODO: Sort by date

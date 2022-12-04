@@ -2,6 +2,7 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import FeedCard from '../pages/HomePage/FeedCard';
+import { BrowserRouter } from 'react-router-dom';
 
 afterEach(() => {
     cleanup();
@@ -17,7 +18,7 @@ jest.mock("../auth/useAuth", () => ({
 
 test('Default render, not logged in', async () => {
 
-    render(<FeedCard />);
+    render(<BrowserRouter><FeedCard /></BrowserRouter>);
 
     expect(screen.getByRole('progressbar')).toHaveClass('MuiCircularProgress-root');
     expect(screen.getByText('undefined')).toBeInTheDocument();
@@ -30,7 +31,7 @@ test('Default render, not logged in', async () => {
 test('Default render, logged in', async () => {
     mockToken = "testToken";
 
-    render(<FeedCard />);
+    render(<BrowserRouter><FeedCard /></BrowserRouter>);
 
     expect(screen.getByText('undefined')).toBeInTheDocument();
     expect(screen.getByText('Untitled')).toBeInTheDocument();
@@ -50,7 +51,7 @@ test('Default render, logged in, followed', async () => {
         imageId: 0
     }
 
-    render(<FeedCard creator={creator} />);
+    render(<BrowserRouter><FeedCard creator={creator} /></BrowserRouter>);
 
     expect(screen.getByText('undefined')).toBeInTheDocument();
     expect(screen.getByText('Untitled')).toBeInTheDocument();
@@ -72,7 +73,7 @@ test('Creator Details Different', async () => {
         imageId: 1
     }
 
-    render(<FeedCard creator={creator} />);
+    render(<BrowserRouter><FeedCard creator={creator} /></BrowserRouter>);
 
     expect(screen.getByText('tester')).toBeInTheDocument();
     expect(screen.getByText('Untitled')).toBeInTheDocument();
@@ -83,7 +84,6 @@ test('Creator Details Different', async () => {
 });
 
 test('Custom artwork, not signed in', async () => {
-    // mockToken = "testToken";
     mockToken = null;
 
     let customDate = "2021-05-01T00:00:00.000Z";
@@ -99,7 +99,7 @@ test('Custom artwork, not signed in', async () => {
         type: "artitem"
     }
 
-    render(<FeedCard content={content} />);
+    render(<BrowserRouter><FeedCard content={content} /></BrowserRouter>);
 
     expect(screen.getByText('undefined')).toBeInTheDocument();
     expect(screen.getByText('testTitle')).toBeInTheDocument();
@@ -125,7 +125,7 @@ test('Custom event, not signed in', async () => {
         type: "event"
     }
 
-    render(<FeedCard content={content} />);
+    render(<BrowserRouter><FeedCard content={content} /></BrowserRouter>);
 
     expect(screen.getByText('undefined')).toBeInTheDocument();
     expect(screen.getByText('testTitle')).toBeInTheDocument();
@@ -137,7 +137,6 @@ test('Custom event, not signed in', async () => {
 });
 
 test('Custom discussion, not signed in', async () => {
-    // mockToken = "testToken";
     mockToken = null;
 
     let customDate = "2021-05-01T00:00:00.000Z";
@@ -152,7 +151,7 @@ test('Custom discussion, not signed in', async () => {
         type: "discussion"
     }
 
-    render(<FeedCard content={content} />);
+    render(<BrowserRouter><FeedCard content={content} /></BrowserRouter>);
 
     expect(screen.getByText('testTitle')).toBeInTheDocument();
     expect(screen.getByText('testDescription')).toBeInTheDocument();
@@ -176,7 +175,7 @@ test("Default values, bookmarked & signed in", async () => {
         creationDate: "2021-05-01T00:00:00.000Z",
         type: "artitem"
     }
-    render(<FeedCard content={content} />);
+    render(<BrowserRouter><FeedCard content={content} /></BrowserRouter>);
 
     expect(screen.getByText('Undefined')).toBeInTheDocument();
     expect(screen.getByText('Lorem Impsum')).toBeInTheDocument();
