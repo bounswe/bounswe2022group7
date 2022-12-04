@@ -1,5 +1,6 @@
 import 'package:android/network/discussion/get_discussionlist_output.dart';
 import 'package:android/network/discussion/get_discussionlist_service.dart';
+import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,108 @@ import 'package:android/models/models.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/user_provider.dart';
+
+Widget buildDiscussion(BuildContext context, Discussion discussion) {
+  return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      color: Colors.blue[100],
+      child: InkWell(
+          onTap: () {
+            /*Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => post.pageRoute(),
+              ),
+            );*/
+          },
+          child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                imageCircleBuilder(discussion
+                                    .creatorAccountInfo.profile_picture_id),
+                                const SizedBox(width: 10.0),
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        discussion.title,
+                                        style: const TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(height: 4.0),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.supervisor_account,
+                                              size: 12.0,
+                                              color: Colors.grey[600]),
+                                          const SizedBox(width: 5.0),
+                                          Text(discussion
+                                              .creatorAccountInfo.username),
+                                        ],
+                                      )
+                                    ]),
+                                const Spacer(),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.arrow_downward,
+                                        color: Colors.black, size: 30.0)),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.arrow_upward,
+                                        color: Colors.black, size: 30.0)),
+                              ],
+                            ),
+                            const SizedBox(height: 10.0),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.calendar_month,
+                                  color: Colors.grey[600],
+                                  size: 12.0,
+                                ),
+                                const SizedBox(width: 5.0),
+                                Text(
+                                  discussion.creationDate
+                                      .toString()
+                                      .substring(0, 16),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10.0),
+                  Text(
+                    discussion.textBody,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                ],
+              ),
+            ),
+          ])));
+}
 
 class DiscussionForumPage extends StatefulWidget {
   const DiscussionForumPage({Key? key}) : super(key: key);
@@ -32,7 +135,7 @@ class _DiscussionForumPage extends State<DiscussionForumPage> {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return Container();
+              return buildDiscussion(context, discussionList[index]);
             },
             childCount: discussionList.length,
           ),

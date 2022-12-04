@@ -13,7 +13,7 @@ import '../providers/user_provider.dart';
 import '../widgets/alert.dart';
 import 'discussion_forum_page.dart';
 
-SliverAppBar mainAppBar(context, CurrentUser? user) {
+SliverAppBar mainAppBar(BuildContext context, CurrentUser? user) {
   return SliverAppBar(
     backgroundColor: Colors.blue[300],
     title: const Text(
@@ -69,7 +69,7 @@ SliverAppBar mainAppBar(context, CurrentUser? user) {
   );
 }
 
-Drawer mainDrawer(context, CurrentUser? user, Function() logout) {
+Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
   return Drawer(
     child: ListView(
       children: [
@@ -167,7 +167,7 @@ Drawer mainDrawer(context, CurrentUser? user, Function() logout) {
   );
 }
 
-BottomNavigationBar mainBottomBar(context, int currentIndex) {
+BottomNavigationBar mainBottomBar(BuildContext context, int currentIndex) {
   return BottomNavigationBar(
     items: const [
       BottomNavigationBarItem(
