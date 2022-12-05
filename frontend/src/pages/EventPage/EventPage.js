@@ -7,6 +7,7 @@ import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
 import ImageDisplay from "../../components/ImageDisplay"
 import IconWithText from "../../components/IconWithText"
+import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import MapComponent from "../../components/MapComponent"
 
@@ -80,7 +81,7 @@ function EventPage() {
             text="Description"
             variant="h5"
           />
-          <Typography variant="body1">{event.eventInfo.description}</Typography>
+          <AnnotatableText text={event.eventInfo.description}/>
         </ Grid>
         <Grid item xs={12} sm={4}>
 
