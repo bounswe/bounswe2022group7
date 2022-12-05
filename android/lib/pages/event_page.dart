@@ -1,3 +1,4 @@
+import 'package:android/widgets/annotatable_text.dart';
 import 'package:android/pages/profile_page.dart';
 import 'package:android/widgets/comment.dart';
 import 'package:flutter/material.dart';
@@ -231,7 +232,7 @@ class _EventPageState extends State<EventPage> {
                                     imageBuilder(
                                         currentEvent.eventInfo.imageId),
                                     const SizedBox(height: 15.0),
-                                    Text(
+                                    AnnotatableText(
                                       currentEvent.eventInfo.description,
                                       style: const TextStyle(
                                         fontSize: 16.0,

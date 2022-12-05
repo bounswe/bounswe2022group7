@@ -1,3 +1,4 @@
+import 'package:android/widgets/annotatable_text.dart';
 import 'package:android/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -71,8 +72,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                 ),
                 body: Container(
                   color: Colors.blue[50],
-                  child: Column(
-                    children: [
+                  child: SingleChildScrollView(
+                    child:
                       Column(
                         children: [
                           Padding(
@@ -141,7 +142,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                     imageBuilder(
                                         currentArtItem.artItemInfo.imageId),
                                     const SizedBox(height: 15.0),
-                                    Text(
+                                    AnnotatableText(
                                       currentArtItem.artItemInfo.description,
                                       style: const TextStyle(
                                         fontSize: 16.0,
@@ -183,7 +184,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                   ])),
                         ],
                       ),
-                    ],
                   ),
                 ),
               );
