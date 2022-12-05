@@ -175,10 +175,11 @@ class _DiscussionPageState extends State<DiscussionPage> {
                                                     : currentDiscussion
                                                         .creatorAccountInfo
                                                         .name!),
-                                                imageCircleBuilder(
+                                                circleAvatarBuilder(
                                                     currentDiscussion
                                                         .creatorAccountInfo
-                                                        .profile_picture_id),
+                                                        .profile_picture_id,
+                                                    20.0),
                                                 const SizedBox(height: 3.0),
                                               ])),
                                           Column(children: [

@@ -38,8 +38,10 @@ Widget buildDiscussion(BuildContext context, Discussion discussion) {
                           children: [
                             Row(
                               children: [
-                                imageCircleBuilder(discussion
-                                    .creatorAccountInfo.profile_picture_id),
+                                circleAvatarBuilder(
+                                    discussion
+                                        .creatorAccountInfo.profile_picture_id,
+                                    20.0),
                                 const SizedBox(width: 10.0),
                                 Column(
                                     crossAxisAlignment:

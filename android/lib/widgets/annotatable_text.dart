@@ -67,7 +67,8 @@ class _AnnotatableTextState extends State<AnnotatableText> {
                   context: context,
                   builder: (BuildContext context) {
                     return annotationDialog(
-                        annotationList[0].body, annotationList[0].author,
+                      annotationList[0].body,
+                      annotationList[0].author,
                     );
                   });
             } else if (annotationList.length > 1) {
