@@ -350,7 +350,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             progressColor: Colors.lightBlue,
                             barRadius: Radius.circular(4.0),
                             trailing: OutlinedButton(
-                              onPressed: null,
+                              onPressed: () {
+                                Navigator.pushNamed(context, accountInfoPage);
+                              },
                               child: Row(
                                 children: [
                                   Text(

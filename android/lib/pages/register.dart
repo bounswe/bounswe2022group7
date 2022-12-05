@@ -170,7 +170,7 @@ class _RegisterState extends State<Register> {
             // delete every route in navigation stack before navigating to homepage
             Navigator.pushNamed(
               context,
-              settingsPage,
+              accountInfoPage,
             );
 
         } else {

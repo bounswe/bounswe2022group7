@@ -68,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushNamed(context, homepage);
+            Navigator.pop(context);
           },
         ),
         actions: [
