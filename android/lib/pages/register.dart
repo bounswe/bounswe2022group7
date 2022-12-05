@@ -51,7 +51,6 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     RegisterProvider registerProvider = Provider.of<RegisterProvider>(context);
-    LoginProvider loginProvider = Provider.of<LoginProvider>(context);
 
     final emailField = inputField(TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
