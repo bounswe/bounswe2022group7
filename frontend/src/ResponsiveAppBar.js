@@ -2,64 +2,120 @@ import React from 'react'
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Container from '@mui/material/Container';
+import InputBase from '@mui/material/InputBase';
+import MenuIcon from '@mui/icons-material/Menu';
+import Paper from '@mui/material/Paper';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
+import AddIcon from '@mui/icons-material/Add';
+import BrushIcon from '@mui/icons-material/Brush';
+import EventIcon from '@mui/icons-material/Event';
+import ForumIcon from '@mui/icons-material/Forum';
+import SearchIcon from '@mui/icons-material/Search';
+import LoginIcon from '@mui/icons-material/Login';
+import EditIcon from '@mui/icons-material/Edit';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "./auth/useAuth";
 
+import CustomizableDropdownMenu from './components/CustomizableDropdownMenu';
+import UserAvatar from './components/UserAvatar';
+
 const ResponsiveAppBar = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
-    const pages = ['Discussion Forum', 'Events', 'Auctions'];
 
     const navigate = useNavigate()
     const { token, clearToken } = useAuth()
 
-    let settings = token ? [
-        {
-            "name": "Log Out",
-            "onClick": () => {
-                clearToken()
-            }
+    const [userData, setUserData] = React.useState(null);
+
+    React.useEffect(() => {
+        if (token) {
+            fetch('/api/profile', {
+                method: "GET", headers: {
+                    'Authorization': 'Bearer ' + token,
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setUserData(data);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        } else {
+            setUserData(null);
         }
-    ] : [
+    }, [token])
+
+    let authContent = [
         {
-            "name": "Sign Up",
-            "onClick": () => {
-                navigate("/auth/signup")
+            label: "Sign In",
+            icon: <LoginIcon />,
+            action: () => {
+                navigate('/auth/signin');
             }
         },
-        { // if no token add
-            "name": "Sign In",
-            "onClick": () => {
-                navigate("/auth/signin")
+        {
+            label: "Sign Up",
+            icon: <HowToRegIcon />,
+            action: () => {
+                navigate('/auth/signup');
+            }
+        },
+    ]
+
+    let newContent = [
+        {
+            label: "New Art Item",
+            icon: <BrushIcon />,
+            action: () => {
+                navigate('/artitem/new');
+            }
+        },
+        {
+            label: "New Event",
+            icon: <EventIcon />,
+            action: () => {
+                navigate('/event/newPhysical');
+            }
+        },
+        {
+            label: "New Discussion",
+            icon: <ForumIcon />,
+            action: () => {
+                navigate('/discussionPost/new');
+            }
+        },
+    ]
+
+
+    let menuContent = [
+        {
+            label: "Profile",
+            icon: <AccountCircleIcon />,
+            action: () => {
+                navigate('/profile');
+            }
+        },
+        {
+            label: "Edit Profile",
+            icon: <EditIcon />,
+            action: () => {
+                navigate('/profile/settings');
+            }
+        },
+        {
+            label: "Logout",
+            icon: <ExitToAppIcon />,
+            action: () => {
+                clearToken();
+                navigate('/');
             }
         }
     ]
@@ -68,7 +124,6 @@ const ResponsiveAppBar = () => {
         <AppBar position="static" color='secondary'>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                     <Typography
                         variant="h6"
                         noWrap
@@ -88,47 +143,13 @@ const ResponsiveAppBar = () => {
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
+                        <CustomizableDropdownMenu tooltip={"Menu"} icon={<MenuIcon color='inherit' />} content={authContent} sx={{ color: 'white' }} />
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
                         variant="h5"
                         noWrap
                         component="a"
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -140,49 +161,52 @@ const ResponsiveAppBar = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        ideart.
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
-                        ))}
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
+                        <Paper sx={{ width: '100%', maxWidth: 500 }} >
+                            <Box sx={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
+                                <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <InputBase size="small" sx={{ width: '100%', maxWidth: 500 }} />
+                            </Box>
+                        </Paper>
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Guney Izol" src="" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting.name} onClick={() => {setting.onClick(); handleCloseUserMenu()}}>
-                                    <Typography textAlign="center">{setting.name}</Typography>
-                                </MenuItem>
+                    {(token && userData) ?
+                        <>
+                            <Box sx={{ flexGrow: 0 }}>
+                                <CustomizableDropdownMenu
+                                    menuContent={newContent}
+                                    tooltip="Create"
+                                    menuIcon={
+                                        <Button
+                                            label="Create"
+                                            size="small"
+                                            sx={{ border: 1, borderColor: 'white', fontWeight: 600, color: 'white' }}
+                                            endIcon={<AddIcon fontSize='inherit' color="inherit" />} >Create</Button>
+                                    }
+                                />
+                            </Box>
+                            <Box sx={{ flexGrow: 0 }}>
+                                <CustomizableDropdownMenu menuContent={menuContent} tooltip="Profil" menuIcon={<UserAvatar id={userData.accountInfo.profilePictureId} sx={{ innterWidth: 40, innerHeight: 40, border: 1.5, borderColor: 'white' }} />} />
+                            </Box>
+                        </>
+                        :
+                        <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+                            {authContent.map((page) => (
+                                <Button
+                                    key={page.label}
+                                    onClick={page.action}
+                                    size="large"
+                                    sx={{ my: 2, color: 'white', display: 'block', fontWeight: 700, letterSpacing: '0.05rem' }}>
+                                    {page.label}
+                                </Button>
                             ))}
-                        </Menu>
-                    </Box>
+
+                        </Box>
+
+
+                    }
                 </Toolbar>
             </Container>
         </AppBar>
