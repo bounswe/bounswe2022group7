@@ -11,15 +11,24 @@ dotenv.config()
 const app = new Koa()
 const router = new Router()
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(mongo({
+        uri: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}`,
+        retryWrites: true,
+        w: 'majority',
+        ssl: true,
+    }))
+} else {
 
-app.use(mongo({
-    host: process.env.MONGO_HOST,
-    user: process.env.MONGO_USER,
-    pass: process.env.MONGO_PASS,
-    db: process.env.MONGO_DB,
-    port: process.env.MONGO_PORT,
-    acquireTimeoutMillis: 10000
-}))
+    app.use(mongo({
+        host: process.env.MONGO_HOST,
+        user: process.env.MONGO_USER,
+        pass: process.env.MONGO_PASS,
+        db: process.env.MONGO_DB,
+        port: process.env.MONGO_PORT,
+        acquireTimeoutMillis: 10000
+    }))
+}
 
 app.use(bodyParser({
     extendTypes: {
@@ -57,9 +66,11 @@ router.post('/annotations', koaBody(), async ctx => {
     })
     .get('/annotations/:imageId', async ctx => {
         ctx.body = await ctx.db.collection('annotations').find({
-            $where: `this.id.startsWith(${ctx.params.imageId})`
+            id: { $regex: `^${ctx.params.imageId}` }
         }).toArray()
     })
+
+
 
 app.use(router.routes())
 

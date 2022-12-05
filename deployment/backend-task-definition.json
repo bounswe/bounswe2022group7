@@ -5,7 +5,7 @@
           "name": "cmpe451-backend",
           "image": "810310430194.dkr.ecr.eu-central-1.amazonaws.com/cmpe451-backend:backendtest",
           "cpu": 0,
-          "memory": 512,
+          "memoryReservation": 512,
           "portMappings": [
               {
                   "containerPort": 8080,
