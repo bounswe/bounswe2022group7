@@ -29,12 +29,15 @@ class profilePictureWidget extends StatelessWidget {
                   return const Text(
                       "An error occured while loading profile page!");
                 }
-
+                String final_string = image_output.image!.base64String;
+                if(image_output.image!.base64String.contains("data:image/png;base64,")) {
+                  final_string = image_output.image!.base64String.split("data:image/png;base64,").elementAt(1);
+                }
                 return CircleAvatar(
                   radius: 4.0,
                   backgroundColor: Colors.grey[300],
                   backgroundImage: MemoryImage(
-                      base64Decode(image_output.image!.base64String)),
+                      base64Decode(final_string)),
                 );
               } else {
                 return const Text("");

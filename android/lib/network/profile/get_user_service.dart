@@ -45,12 +45,14 @@ Future<getUserOutput> getUserNetwork(
       }
 
       Map<String, dynamic> data = json.decode(response.body);
+      print("data fethed");
       // user_output = getUserOutput.fromJson(data);
       user_output = await userOutputJsonConverter(data);
     } catch (err) {
       if (kDebugMode) {
         print(err);
       }
+      print("network");
       return getUserOutput(status: "Network Error");
     }
   }

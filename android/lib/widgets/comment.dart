@@ -3,6 +3,7 @@ import 'package:android/network/art_item/get_art_item_output.dart';
 import 'package:android/network/art_item/get_art_item_service.dart';
 import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/event/get_event_service.dart';
+import 'package:android/network/image/get_image_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:android/widgets/form_widgets.dart';
 import 'package:android/network/comment/post_comment_input.dart';
@@ -26,6 +27,7 @@ class CommentWidget extends StatelessWidget {
 
   void leaveComment() async {
     if (comment == "") {
+      print("empty commnet");
       return;
     }
     print("comment: $comment of post $postid");
@@ -124,17 +126,18 @@ class _CommentListState extends State<CommentListWidget> {
               children: [
                 Row(
                   children: [
-                    comments.value[index].authorAccountInfo.profile_picture_id == null
-                        ? CircleAvatar(
-                      radius: 12.0,
-                      backgroundColor: Colors.grey[300],
-                      backgroundImage:
-                      MemoryImage(base64Decode(defaultbase64)),
-                    )
-                        : profilePictureWidget(
-                        pictureid: comments.value[index]
-                            .authorAccountInfo
-                            .profile_picture_id!),
+                    // comments.value[index].authorAccountInfo.profile_picture_id == null
+                    //     ? CircleAvatar(
+                    //   radius: 12.0,
+                    //   backgroundColor: Colors.grey[300],
+                    //   backgroundImage:
+                    //   MemoryImage(base64Decode(defaultbase64)),
+                    // )
+                    //     : profilePictureWidget(
+                    //     pictureid: comments.value[index]
+                    //         .authorAccountInfo
+                    //         .profile_picture_id!),
+                    circleAvatarBuilder(comments.value[index].authorAccountInfo.profile_picture_id, 12.0),
                     const Padding(padding: EdgeInsets.all(4.0)),
                     Column(
                       children: [

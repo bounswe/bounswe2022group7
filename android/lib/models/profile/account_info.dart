@@ -21,7 +21,11 @@ class AccountInfo {
     this.profile_picture_id,
   });
 
-  factory AccountInfo.fromJson(Map<String, dynamic> json) {
+  factory AccountInfo.fromJson(Map<String, dynamic> jsont) {
+    Map<String, dynamic> json = jsont;
+    if(jsont["email"] == null) {
+      json = jsont["accountInfo"];
+    }
     AccountInfo info = AccountInfo(
       id: json["id"],
       email: json["email"],
@@ -37,6 +41,7 @@ class AccountInfo {
       info.date_of_birth = DateTime.parse(json["dateOfBirth"]);
     }
 
+    print("accounr info return success");
     return info;
   }
 }
