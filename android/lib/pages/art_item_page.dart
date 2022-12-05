@@ -143,6 +143,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
 
     final ValueNotifier<List<Map<String, double>>> annotationListNotifier =
         ValueNotifier([]);
+    final ValueNotifier<int> annotationCountNotifier = ValueNotifier(0);
 
     return FutureBuilder(
       future: getArtItemNetwork(widget.id),
@@ -282,25 +283,26 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                       Row(
                                         children: [
                                           const Icon(
-                                            Icons.image,
+                                            Icons.sticky_note_2,
                                             color: Colors.black,
                                             size: 20.0,
                                           ),
                                           const SizedBox(width: 5.0),
                                           ValueListenableBuilder(
-                                            valueListenable:
-                                                annotationListNotifier,
-                                            builder: (context, value, child) =>
-                                                Text(
-                                              "${value.length} image annotations",
-                                              style: const TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w400,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
+                                              valueListenable:
+                                                  annotationCountNotifier,
+                                              builder: (context, value, child) {
+                                                return Text(
+                                                  "$value image annotations",
+                                                  style: const TextStyle(
+                                                    fontSize: 16.0,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                );
+                                              }),
                                           const Spacer(),
                                           ValueListenableBuilder(
                                               valueListenable:
@@ -388,6 +390,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                                                   .value
                                                                   .add(annotationNotifier
                                                                       .value!);
+                                                              annotationCountNotifier
+                                                                  .value++;
                                                               annotationNotifier
                                                                   .value = null;
                                                             }
