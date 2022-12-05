@@ -42,7 +42,7 @@ export default function SettingsPage() {
                         .then((imageData) => {
 
                             if (imageData.error) {
-                                setError(imageData.message);
+                                setUserInfo({...userInfo, image: ''})
                             }
                             else {
 
