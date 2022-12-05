@@ -1,8 +1,8 @@
 version: '3.9'
-name: artshare
+name: ideart
 services:
   db:
-    container_name: artshare-database
+    container_name: ideart-database
     image: mysql:8.0.31
     restart: on-failure
 
@@ -23,7 +23,7 @@ services:
       - mysql_data:/var/lib/mysql
 
   backend:
-    container_name: artshare-backend
+    container_name: ideart-backend
     build:
       context: ../backend
       dockerfile: ../docker/backend.development.Dockerfile
@@ -39,7 +39,7 @@ services:
       - ../backend:/app
 
   frontend:
-    container_name: artshare-frontend
+    container_name: ideart-frontend
     build:
       context: ../frontend
       dockerfile: ../docker/frontend.development.Dockerfile
@@ -53,7 +53,7 @@ services:
     volumes:
       # Hot reload
       - ../frontend:/app
-
+      
     networks:
       - default
       - annotation

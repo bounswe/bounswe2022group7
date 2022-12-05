@@ -46,6 +46,9 @@ dependencies:
   image_picker: ^0.8.6
   flutter_osm_plugin: ^0.41.0
   font_awesome_flutter: ^10.2.1
+  text_selection_controls:
+    git:
+      url: https://github.com/atillaturkmen/flutter_text_selection_controls
 
 dev_dependencies:
   nock: ^1.1.2
