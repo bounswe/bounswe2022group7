@@ -55,7 +55,8 @@ export default function FeedCard(props) {
             })
             .then(response => response.json())
             .then(data => {
-                setFollowStatus(data.followed);            })
+                setFollowStatus(data.followed);
+            })
             .catch(error => {
                 console.log(error);
             });
@@ -84,7 +85,7 @@ export default function FeedCard(props) {
                             {(token && !followStatus) && <LoadingButton dataTestId="followButton" onClick={() => followRequest()} loading={false} label="Follow" loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />}
                         </Stack>
                         <Stack spacing={2} direction="row" justifyContent="end" alignItems="center">
-                            {(token) && <IconButton data-testid="bookmarkButton" onClick={setBookmarked} color="secondary"> {props.content.bookmarked ? <BookmarkIcon data-testid="bookmarked" />  : <BookmarkBorderOutlinedIcon data-testid="notBookmarked" />}</IconButton>}
+                            {(token) && <IconButton data-testid="bookmarkButton" onClick={setBookmarked} color="secondary"> {props.content.bookmarked ? <BookmarkIcon data-testid="bookmarked" /> : <BookmarkBorderOutlinedIcon data-testid="notBookmarked" />}</IconButton>}
                             <CustomizableDropdownMenu data-testid="menuButton" color="secondary" tooltip="More Actions" menuContent={menuContent} />
                         </Stack>
                     </Stack>
@@ -99,7 +100,8 @@ export default function FeedCard(props) {
 
                             <Box sx={{ p: 2, width: "100%", border: 1, borderColor: "divider" }}>
                                 <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start">
-                                    {props.content.type !== "discussionPost" ? <>
+                                    {props.content.type !== "discussionPost" ? 
+                                    <>
                                         <Typography variant="title" gutterBottom sx={{ fontWeight: 700, fontSize: 18 }}>
                                             {props.content.title}
                                         </Typography>
@@ -110,8 +112,8 @@ export default function FeedCard(props) {
                                             <ImageDisplay data-testid="imageDisplay" imageId={props.content.imageId} />
                                         </Suspense>
                                     </> :
-                                        <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start">
+                                        <Box position="relative" width='100%'>
+                                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start" sx={{ display: 'relative' }} >
                                                 <Typography variant="title" sx={{ fontWeight: 700, fontSize: 18 }}>
                                                     {props.content.title}
                                                 </Typography>
@@ -119,9 +121,8 @@ export default function FeedCard(props) {
                                                     {props.content.description}
                                                 </Typography>
                                             </Stack>
-
-                                            <ArrowForwardIosIcon sx={{ color: 'gray' }} />
-                                        </Stack>
+                                            <ArrowForwardIosIcon sx={{ color: 'gray', position: 'absolute', top: '50%', right: 0, transform: 'translate(0, -50%)' }} />
+                                        </Box>
                                     }
                                 </Stack>
                             </Box>

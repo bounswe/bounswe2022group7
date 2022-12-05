@@ -10,9 +10,13 @@ import FilterChip from '../../components/FilterChip';
 
 const HomePage = () => {
     const [error, setError] = React.useState(null)
-    const [isLoaded, setLoaded] = React.useState(false)
     const [userData, setUserData] = React.useState(null)
-    const [content, setContent] = React.useState([])
+    const [displayContent, setDisplayContent] = React.useState([]);
+
+    const [artContent, setArtContent] = React.useState({ content: [], loaded: false });
+    const [eventContent, setEventContent] = React.useState({ content: [], loaded: false });
+    const [discussionContent, setDiscussionContent] = React.useState({ content: [], loaded: false });
+
 
     const [filter, setFilter] = React.useState({
         artitem: true,
@@ -62,16 +66,18 @@ const HomePage = () => {
         }
         if (token) fetchArgs.headers = { Authorization: "Bearer " + token }
 
-        setLoaded(false);
-        setContent([]);
+        setArtContent({ content: [], loaded: false });
+        setEventContent({ content: [], loaded: false });
+        setDiscussionContent({ content: [], loaded: false });
 
         fetch('api/homepage/artItem', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
 
-                data.forEach((item) => {
 
-                    const artItem = {
+                const artItems = data.map((item) => {
+
+                    return {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
@@ -87,16 +93,12 @@ const HomePage = () => {
                             creationDate: item.creationDate,
                         }
                     }
-
-                    setContent(content => [...content, artItem])
                 });
 
-                setLoaded(true);
-
-
+                setArtContent({ content: artItems, loaded: true });
             })
             .catch((error) => {
-                setLoaded(true);
+                setArtContent({ content: [], loaded: true });
                 setError(error)
             })
 
@@ -104,8 +106,8 @@ const HomePage = () => {
         fetch('api/homepage/event', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
-                data.forEach((item) => {
-                    const event = {
+                const events = data.map((item) => {
+                    return {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
@@ -121,25 +123,20 @@ const HomePage = () => {
                             creationDate: item.creationDate,
                         }
                     }
-
-                    setContent(content => [...content, event])
                 });
 
-                setLoaded(true);
-                // setContent((c) => c.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1));
-
+                setEventContent({ content: events, loaded: true });
             })
             .catch((error) => {
-                setLoaded(true)
+                setEventContent({ content: [], loaded: true });
                 setError(error)
             })
 
         fetch('api/discussionPost', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
-                data.forEach((item) => {
-
-                    const discussionPost = {
+                const discussionPosts = data.map((item) => {
+                    return {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
@@ -155,30 +152,34 @@ const HomePage = () => {
                         }
                     }
 
-                    setContent(content => [...content, discussionPost])
                 });
 
-                setLoaded(true);
+                setDiscussionContent({ content: discussionPosts, loaded: true });
 
             })
             .catch((error) => {
-                setLoaded(true);
+                setDiscussionContent({ content: [], loaded: true });
                 setError(error)
             })
 
 
     }, [token, userData])
 
+    // Merge and sort the content
+    React.useEffect(() => {
+        if (artContent.loaded && eventContent.loaded && discussionContent.loaded) {
+            const content = [...artContent.content, ...eventContent.content, ...discussionContent.content];
+            content.sort((a, b) => {
+                return new Date(b.content.creationDate) - new Date(a.content.creationDate);
+            });
+            setDisplayContent(content);
+        }
+    }, [artContent, eventContent, discussionContent])
 
-    // TODO: Sort by date
-    // useEffect(() => {
-    //     const sortedContent = content.sort((a, b) => (a.content.creationDate > b.content.creationDate) ? -1 : 1);
-    //     setContent(sortedContent);
-    // }, [isLoaded])
 
     if (error) {
         return <div>Error: {error.message}</div>
-    } else if (!isLoaded) {
+    } else if (!artContent.loaded || !eventContent.loaded || !discussionContent.loaded) {
         return <div><CircularProgress /></div>
     } else
         return (
@@ -196,7 +197,7 @@ const HomePage = () => {
 
                 </Stack>
                 <Stack spacing={2} direction="column">
-                    {content.map((item, index) => {
+                    {displayContent.map((item, index) => {
                         return (
                             <FeedCard key={index} filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)} content={item.content} creator={item.creator} />
                         )
