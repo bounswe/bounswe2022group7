@@ -31,7 +31,7 @@ function ImageComponent({ imageId, imageStyle }) {
 
             annotorious.on('createAnnotation', annotation => {
               annotation.id = imageId + '-' + annotation.id
-              fetch('/annotations',
+              fetch('/annotations/',
                 {
                   method: 'POST',
                   body: JSON.stringify(annotation),
@@ -42,7 +42,7 @@ function ImageComponent({ imageId, imageStyle }) {
             })
 
             annotorious.on('updateAnnotation', (annotation) => {
-              fetch('/annotations',
+              fetch('/annotations/',
                 {
                   method: 'PUT',
                   body: JSON.stringify(annotation),
@@ -53,7 +53,7 @@ function ImageComponent({ imageId, imageStyle }) {
             })
 
             annotorious.on('deleteAnnotation', annotation => {
-              fetch('/annotations',
+              fetch('/annotations/',
                 {
                   method: 'DELETE',
                   body: JSON.stringify(annotation),
