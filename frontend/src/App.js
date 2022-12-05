@@ -86,7 +86,7 @@ function App() {
           />
           <Route
             path="/discussionPost/new"
-            element={<CreateDiscussionPostPage />}
+            element={<ProtectedRoute><CreateDiscussionPostPage /></ProtectedRoute>}
           />
           <Route
             path="/discussionPost/:id"
