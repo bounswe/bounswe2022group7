@@ -57,10 +57,6 @@ function App() {
             element={<HomePage />}
           />
           <Route
-            path="/:username"
-            element={<Profile />}
-          />
-          <Route
             path="/auth/signup"
             element={<SignUpPage />}
           />
@@ -95,6 +91,10 @@ function App() {
           <Route
             path="/profile/settings"
             element={<ProtectedRoute><SettingsPage /></ProtectedRoute>}
+          />
+          <Route
+            path="/profile/:username"
+            element={<Profile />}
           />
           <Route
             path="*"
