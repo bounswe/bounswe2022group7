@@ -6,3 +6,4 @@ String eventPage = "eventPage";
 String createArtItemPage = "createArtItemPage";
 String createEventPage = "createEventPage";
 String settingsPage = "settingsPage";
+String accountInfoPage = "accountInfoPage";

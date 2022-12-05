@@ -276,7 +276,7 @@ class _EventPageState extends State<EventPage> {
                                       commentList: currentEvent.commentList,
                                     ),
                                     const Padding(padding: EdgeInsets.all(4.0)),
-                                    CommentWidget(postid: currentEvent.id),
+                                    CommentWidget(postid: currentEvent.id, post_type: "event"),
                                   ])),
                         ],
                       ),

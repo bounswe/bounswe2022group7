@@ -188,7 +188,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                       commentList: currentArtItem.commentList,
                                     ),
                                     const Padding(padding: EdgeInsets.all(4.0)),
-                                    CommentWidget(postid: currentArtItem.id),
+                                    CommentWidget(postid: currentArtItem.id, post_type: "artitem"),
                                   ])),
                         ],
                       ),
