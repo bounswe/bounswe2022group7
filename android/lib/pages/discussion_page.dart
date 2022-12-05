@@ -1,30 +1,28 @@
+import 'package:android/network/discussion/get_discussion_output.dart';
+import 'package:android/network/discussion/get_discussion_service.dart';
 import 'package:android/pages/profile_page.dart';
-import 'package:android/widgets/comment.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
-import 'package:android/network/event/get_event_service.dart';
-import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/image/get_image_builder.dart';
 
-class EventPage extends StatefulWidget {
+class DiscussionPage extends StatefulWidget {
   final int id;
 
-  const EventPage({Key? key, required this.id}) : super(key: key);
+  const DiscussionPage({Key? key, required this.id}) : super(key: key);
 
   @override
-  State<EventPage> createState() => _EventPageState();
+  State<DiscussionPage> createState() => _DiscussionPageState();
 }
 
-class _EventPageState extends State<EventPage> {
-  String comment = "";
-  Scaffold erroneousEventPage() {
+class _DiscussionPageState extends State<DiscussionPage> {
+  Scaffold erroneousDiscussionPage() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Event"),
+        title: const Text("Discussion"),
       ),
       body: const Center(
-        child: Text("Event not found"),
+        child: Text("Discussion not found"),
       ),
     );
   }
@@ -38,14 +36,10 @@ class _EventPageState extends State<EventPage> {
     );
   }
 
-  void leaveComment() {
-    print("comment: $comment");
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getEventNetwork(widget.id),
+      future: getDiscussionNetwork(widget.id),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -64,15 +58,15 @@ class _EventPageState extends State<EventPage> {
             }
 
             if (snapshot.data != null) {
-              GetEventOutput responseData = snapshot.data!;
+              GetDiscussionOutput responseData = snapshot.data!;
               if (responseData.status != "OK") {
-                return erroneousEventPage();
+                return erroneousDiscussionPage();
               }
-              Event currentEvent = responseData.event!;
+              Discussion currentDiscussion = responseData.discussion!;
 
               return Scaffold(
                 appBar: AppBar(
-                  title: const Text("Event"),
+                  title: const Text("Discussion"),
                   backgroundColor: Colors.blue[300],
                 ),
                 body: Container(
@@ -93,7 +87,7 @@ class _EventPageState extends State<EventPage> {
                                     Row(
                                       children: [
                                         Text(
-                                          currentEvent.eventInfo.name,
+                                          currentDiscussion.title,
                                           style: const TextStyle(
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.w600,
@@ -104,15 +98,15 @@ class _EventPageState extends State<EventPage> {
                                         IconButton(
                                             onPressed: () {},
                                             icon: const Icon(
-                                              Icons.bookmark_add_outlined,
-                                              color: Colors.black,
+                                              Icons.arrow_downward,
+                                              color: Colors.deepOrange,
                                               size: 30.0,
                                             )),
                                         IconButton(
                                             onPressed: () {},
                                             icon: const Icon(
-                                              Icons.check_circle_outline,
-                                              color: Colors.black,
+                                              Icons.arrow_upward,
+                                              color: Colors.green,
                                               size: 30.0,
                                             )),
                                       ],
@@ -133,12 +127,12 @@ class _EventPageState extends State<EventPage> {
                                           GestureDetector(
                                               onTap: () {
                                                 navigateToHostProfile(
-                                                    currentEvent
+                                                    currentDiscussion
                                                         .creatorAccountInfo
                                                         .username);
                                               },
                                               child: Column(children: const [
-                                                Text('Host'),
+                                                Text('Creator'),
                                                 SizedBox(height: 3.0),
                                                 Icon(
                                                   Icons.supervisor_account,
@@ -146,7 +140,7 @@ class _EventPageState extends State<EventPage> {
                                                 ),
                                               ])),
                                           Column(children: const [
-                                            Text('Date'),
+                                            Text('Creation Date'),
                                             SizedBox(height: 3.0),
                                             Icon(
                                               Icons.calendar_today,
@@ -154,10 +148,10 @@ class _EventPageState extends State<EventPage> {
                                             ),
                                           ]),
                                           Column(children: const [
-                                            Text('Location'),
+                                            Text('Last Edit'),
                                             SizedBox(height: 3.0),
                                             Icon(
-                                              Icons.location_on,
+                                              Icons.calendar_month,
                                               size: 25.0,
                                             ),
                                           ]),
@@ -166,73 +160,47 @@ class _EventPageState extends State<EventPage> {
                                           GestureDetector(
                                               onTap: () {
                                                 navigateToHostProfile(
-                                                    currentEvent
+                                                    currentDiscussion
                                                         .creatorAccountInfo
                                                         .username);
                                               },
                                               child: Column(children: [
-                                                Text(currentEvent
+                                                Text(currentDiscussion
                                                             .creatorAccountInfo
                                                             .name ==
                                                         null
-                                                    ? currentEvent
+                                                    ? currentDiscussion
                                                         .creatorAccountInfo
                                                         .username
-                                                    : currentEvent
+                                                    : currentDiscussion
                                                         .creatorAccountInfo
                                                         .name!),
-                                                imageCircleBuilder(currentEvent
-                                                    .creatorAccountInfo
-                                                    .profile_picture_id),
+                                                imageCircleBuilder(
+                                                    currentDiscussion
+                                                        .creatorAccountInfo
+                                                        .profile_picture_id),
                                                 const SizedBox(height: 3.0),
                                               ])),
                                           Column(children: [
                                             Text(
-                                              currentEvent
-                                                  .eventInfo.startingDate
+                                              currentDiscussion.creationDate
                                                   .toString()
                                                   .substring(0, 16),
                                             ),
                                           ]),
                                           Column(children: [
-                                            Text(currentEvent.location != null
-                                                ? currentEvent.location!.address
-                                                : ""),
+                                            Text(
+                                              currentDiscussion.lastEditDate
+                                                  .toString()
+                                                  .substring(0, 16),
+                                            ),
                                           ]),
                                         ]),
                                       ],
                                     ),
-                                    const SizedBox(height: 10.0),
-                                    Row(
-                                      children: [
-                                        const Text(
-                                          'Collaborators: ',
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                        ),
-                                        Text(
-                                          currentEvent.collaborators == null
-                                              ? ""
-                                              : currentEvent.collaborators!
-                                                  .map((e) => e.name)
-                                                  .join(", "),
-                                          style: const TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w400,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 15.0),
-                                    imageBuilder(
-                                        currentEvent.eventInfo.imageId),
                                     const SizedBox(height: 15.0),
                                     Text(
-                                      currentEvent.eventInfo.description,
+                                      currentDiscussion.textBody,
                                       style: const TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w400,
@@ -254,17 +222,11 @@ class _EventPageState extends State<EventPage> {
                                           ),
                                         ),
                                         const Spacer(),
-                                        Text(currentEvent.creationDate
+                                        Text(currentDiscussion.creationDate
                                             .toString()
                                             .substring(0, 16)),
                                       ],
                                     ),
-                                    const Padding(padding: EdgeInsets.all(8.0)),
-                                    CommentListWidget(
-                                      commentList: currentEvent.commentList,
-                                    ),
-                                    const Padding(padding: EdgeInsets.all(4.0)),
-                                    CommentWidget(postid: currentEvent.id),
                                   ])),
                         ],
                       ),
@@ -274,7 +236,7 @@ class _EventPageState extends State<EventPage> {
               );
             } else {
               // snapshot.data == null
-              return erroneousEventPage();
+              return erroneousDiscussionPage();
             }
         }
       },
