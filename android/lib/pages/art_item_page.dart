@@ -1,3 +1,5 @@
+import 'package:android/widgets/annotatable_text.dart';
+import 'package:android/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
@@ -23,6 +25,15 @@ class _ArtItemPageState extends State<ArtItemPage> {
       ),
       body: const Center(
         child: Text("Art Item Not Found"),
+      ),
+    );
+  }
+
+  void navigateToHostProfile(_username) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfilePage(username: _username),
       ),
     );
   }
@@ -61,8 +72,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                 ),
                 body: Container(
                   color: Colors.blue[50],
-                  child: Column(
-                    children: [
+                  child: SingleChildScrollView(
+                    child:
                       Column(
                         children: [
                           Padding(
@@ -93,40 +104,45 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                             )),
                                       ],
                                     ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.brush_outlined,
-                                          color: Colors.black,
-                                          size: 20.0,
-                                        ),
-                                        Text(
-                                          " by ${currentArtItem.creatorAccountInfo.username}",
-                                          style: const TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          currentArtItem.artItemInfo.labels!
-                                              .map((label) => label)
-                                              .join(", "),
-                                          style: const TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w400,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          navigateToHostProfile(currentArtItem
+                                              .creatorAccountInfo.username);
+                                        },
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.brush_outlined,
+                                              color: Colors.black,
+                                              size: 20.0,
+                                            ),
+                                            Text(
+                                              " by ${currentArtItem.creatorAccountInfo.username}",
+                                              style: const TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              currentArtItem.artItemInfo.labels!
+                                                  .map((label) => label)
+                                                  .join(", "),
+                                              style: const TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.italic,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        )),
                                     const SizedBox(height: 15.0),
                                     imageBuilder(
                                         currentArtItem.artItemInfo.imageId),
                                     const SizedBox(height: 15.0),
-                                    Text(
+                                    AnnotatableText(
                                       currentArtItem.artItemInfo.description,
                                       style: const TextStyle(
                                         fontSize: 16.0,
@@ -168,7 +184,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                   ])),
                         ],
                       ),
-                    ],
                   ),
                 ),
               );
