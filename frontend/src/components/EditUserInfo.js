@@ -40,7 +40,7 @@ export default function EditUserInfo({ existingUser, name, surname, dateOfBirth,
 
     const navigate = useNavigate();
 
-    const { token } = useAuth();
+    const { token, userData } = useAuth();
 
     React.useEffect(() => {
         setSelecteddateOfBirth(dateOfBirth);
@@ -106,7 +106,7 @@ export default function EditUserInfo({ existingUser, name, surname, dateOfBirth,
                                 }
                                 else {
                                     if (existingUser) {
-                                        navigate('/profile');
+                                        navigate('/profile/' + userData.accountInfo.username);
                                     } else {
                                         navigate('/');
                                     }

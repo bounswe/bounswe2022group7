@@ -30,28 +30,7 @@ import UserAvatar from './components/UserAvatar';
 const ResponsiveAppBar = () => {
 
     const navigate = useNavigate()
-    const { token, clearToken } = useAuth()
-
-    const [userData, setUserData] = React.useState(null);
-
-    React.useEffect(() => {
-        if (token) {
-            fetch('/api/profile', {
-                method: "GET", headers: {
-                    'Authorization': 'Bearer ' + token,
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    setUserData(data);
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        } else {
-            setUserData(null);
-        }
-    }, [token])
+    const { token, clearToken, userData } = useAuth()
 
     let authContent = [
         {
@@ -94,13 +73,12 @@ const ResponsiveAppBar = () => {
         },
     ]
 
-
     let menuContent = [
         {
             label: "Profile",
             icon: <AccountCircleIcon />,
             action: () => {
-                navigate('/profile');
+                navigate('/profile/' + userData.accountInfo.username);
             }
         },
         {
