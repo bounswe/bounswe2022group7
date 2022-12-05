@@ -163,7 +163,9 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text("Settings"),
-            onTap: () {},
+            onTap: () {                  
+            Navigator.pushNamed(context, settingsPage);
+        },
           ),
         if (user != null)
           ListTile(

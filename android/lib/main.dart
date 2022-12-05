@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
           createArtItemPage: (context) => const CreateArtItemPage(),
           profilePage: (context) => ProfilePage(),
           discussionForumPage: (context) => DiscussionForumPage(),
+          settingsPage: (context) => const SettingsPage(),
         },
         navigatorKey: navigatorKey,
       ),
