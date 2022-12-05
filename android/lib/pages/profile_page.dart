@@ -38,7 +38,7 @@ const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
 var dropdown_selection = ValueNotifier<String>("Events");
 final followButtonText = ValueNotifier<String>("Follow");
 
-String? profile_username;
+String? profileUsername;
 var post_lists = {
   "Events": [],
   "Art Items": [],
@@ -61,7 +61,7 @@ void updateSelectedItems() {
 class ProfilePage extends StatefulWidget {
   String? username;
   ProfilePage({Key? key, this.username}) : super(key: key) {
-    profile_username = username;
+    profileUsername = username;
   }
 
   @override
@@ -94,24 +94,24 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> followUser() async {
     if (followButtonText.value == "Follow") {
-      final statuscode = await postFollowNetwork(profile_username!);
+      final statuscode = await postFollowNetwork(profileUsername!);
       if (statuscode == 202) followButtonText.value = "Following";
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    String dropdown_value = dropdown_items[0];
-    var show_data = events;
+    String dropdownValue = dropdown_items[0];
+    var showData = events;
 
-    CurrentUser? current_user = Provider.of<UserProvider>(context).user;
+    CurrentUser? currentUser = Provider.of<UserProvider>(context).user;
 
     //Check if already following
     followButtonText.value = "Follow";
     //?: "Following";
 
     return FutureBuilder(
-      future: getUserNetwork(profile_username, current_user),
+      future: getUserNetwork(profileUsername, currentUser),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -135,21 +135,20 @@ class _ProfilePageState extends State<ProfilePage> {
                     "An error occured while loading profile page!");
               }
 
-              Account user_account = user_output.account!;
-              AccountInfo user_account_info = user_account.account_info;
+              Account userAccount = user_output.account!;
+              AccountInfo userAccountInfo = userAccount.account_info;
               String fullname = "";
-              if (user_account_info.name != null &&
-                  user_account_info.surname != null) {
-                fullname =
-                    "${user_account_info.name} ${user_account_info.surname}";
+              if (userAccountInfo.name != null &&
+                  userAccountInfo.surname != null) {
+                fullname = "${userAccountInfo.name} ${userAccountInfo.surname}";
               }
 
-              bool users_check = current_user != null;
-              users_check = current_user!.email == user_account_info.email
-                  ? users_check
+              bool usersCheck = currentUser != null;
+              usersCheck = currentUser!.email == userAccountInfo.email
+                  ? usersCheck
                   : false;
               updatePostLists(
-                  user_account.all_events, user_account.all_art_items);
+                  userAccount.all_events, userAccount.all_art_items);
               dropdown_selection.value = "Events";
               updateSelectedItems();
 
@@ -165,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          user_account_info.profile_picture_id == null
+                          userAccountInfo.profile_picture_id == null
                               ? CircleAvatar(
                                   radius: 20.0,
                                   backgroundColor: Colors.grey[300],
@@ -173,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       MemoryImage(base64Decode(defaultbase64)),
                                 )
                               : profilePictureBuilder(
-                                  user_account_info.profile_picture_id),
+                                  userAccountInfo.profile_picture_id),
                           Column(
                             children: [
                               Text(
@@ -182,13 +181,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                 textScaleFactor: 1.25,
                               ),
                               Text(
-                                "@${user_account_info.username}",
+                                "@${userAccountInfo.username}",
                                 style: Theme.of(context).textTheme.subtitle2,
                                 textScaleFactor: 1.25,
                               ),
                             ],
                           ),
-                          if (users_check) ...[
+                          if (usersCheck) ...[
                             IconButton(
                               onPressed: null,
                               icon: Icon(
@@ -282,9 +281,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                       const SizedBox(height: 10.0),
-                      (profile_username == null ||
-                              current_user.username ==
-                                  user_account_info.username)
+                      (profileUsername == null ||
+                              currentUser.username == userAccountInfo.username)
                           ? Container()
                           : Row(
                               //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -333,7 +331,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-                      if (user_account_info.name == null) ...[
+                      if (userAccountInfo.name == null) ...[
                         Container(
                           height: 25.0,
                           child: LinearPercentIndicator(
@@ -454,7 +452,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Padding(padding: EdgeInsets.all(2.0)),
-                                    if (dropdown_selection.value ==
+                                    if (dropdown_selection.value! ==
                                         "Events") ...[
                                       Row(
                                         crossAxisAlignment:
@@ -466,7 +464,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  user_account_info
+                                                  userAccountInfo
                                                               .profile_picture_id ==
                                                           null
                                                       ? CircleAvatar(
@@ -479,7 +477,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                                       defaultbase64)),
                                                         )
                                                       : profilePictureBuilder(
-                                                          user_account_info
+                                                          userAccountInfo
                                                               .profile_picture_id),
                                                   const SizedBox(width: 10.0),
                                                   Column(
@@ -585,12 +583,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  user_account_info
+                                                  userAccountInfo
                                                               .profile_picture_id ==
                                                           null
                                                       ? profilePictureBuilder(3)
                                                       : profilePictureBuilder(
-                                                          user_account_info
+                                                          userAccountInfo
                                                               .profile_picture_id),
                                                   const SizedBox(width: 10.0),
                                                   Column(
@@ -764,7 +762,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
-          dropdown_selection.value = value;
+          dropdown_selection.value = value!;
           updateSelectedItems();
         });
       },
