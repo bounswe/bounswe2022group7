@@ -351,7 +351,20 @@ class _ProfilePageState extends State<ProfilePage> {
                             barRadius: Radius.circular(4.0),
                             trailing: OutlinedButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, accountInfoPage);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AccountInfoPage(
+                                      email: user_account_info.email,
+                                      username: user_account_info.username,
+                                      name: user_account_info.name,
+                                      surname: user_account_info.surname,
+                                      country: user_account_info.country,
+                                      dateOfBirth: user_account_info.date_of_birth,
+                                      profilePictureId: user_account_info.profile_picture_id,
+                                    ),
+                                  ),
+                                );
                               },
                               child: Row(
                                 children: [
