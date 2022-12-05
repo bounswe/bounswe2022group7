@@ -18,9 +18,9 @@ services:
         aliases:
           - ${MYSQL_HOST}
     ports:
-       - ${MYSQL_PORT}:${MYSQL_PORT}
-    # volumes:
-      # - mysql_data:/var/lib/mysql
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    volumes:
+      - mysql_data:/var/lib/mysql
 
   backend:
     container_name: ideart-backend
@@ -34,7 +34,8 @@ services:
     ports:
       - 8080:8080
 
-    volumes:  # Hot reload
+    volumes:
+      # Hot reload
       - ../backend:/app
 
   frontend:
@@ -42,15 +43,55 @@ services:
     build:
       context: ../frontend
       dockerfile: ../docker/frontend.development.Dockerfile
-    
+
     # env_file:
     #   - .env
 
     ports:
       - 3000:3000
 
-    volumes:  # Hot reload
+    volumes:
+      # Hot reload
       - ../frontend:/app
+      
+    networks:
+      - default
+      - annotation
 
-# volumes:
-#   mysql_data:
+  annotation-service:
+    container_name: ideart-annotation
+    build:
+      context: ../annotations
+      dockerfile: ../docker/annotation.development.Dockerfile
+    environment:
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASS: ${MONGO_PASS}
+      MONGO_DB: ${MONGO_DB}
+      MONGO_HOST: ${MONGO_HOST}
+      MONGO_PORT: ${MONGO_PORT}
+    ports:
+      - 3001:3001
+    volumes:
+      - ../annotations:/app
+    networks:
+      - annotation
+  mongo:
+    image: mongo
+    ports:
+      - ${MONGO_PORT}:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    volumes:
+      - mongodb:/data/db
+    networks:
+      - annotation
+
+volumes:
+  mysql_data:
+  mongodb:
+
+
+networks:
+  annotation:
+    name: annotation
