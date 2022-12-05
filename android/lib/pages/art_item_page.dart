@@ -16,6 +16,9 @@ class ArtItemPage extends StatefulWidget {
 }
 
 class _ArtItemPageState extends State<ArtItemPage> {
+
+  bool annotating = false;
+
   Scaffold erroneousArtItemPage() {
     return Scaffold(
       appBar: AppBar(
@@ -24,6 +27,21 @@ class _ArtItemPageState extends State<ArtItemPage> {
       body: const Center(
         child: Text("Art Item Not Found"),
       ),
+    );
+  }
+
+  GestureDetector annotatableImage(Widget imageBuilderResult) {
+    return GestureDetector(
+      onLongPressStart: (LongPressStartDetails details) {
+        print(details.toString());
+      },
+      onLongPressMoveUpdate: (details) {
+        print("Image long pressed move update");
+      },
+      onLongPressEnd: (details) {
+        print("Image long press ended");
+      },
+      child: imageBuilderResult,
     );
   }
 
@@ -59,116 +77,148 @@ class _ArtItemPageState extends State<ArtItemPage> {
                   title: const Text("Art Item"),
                   backgroundColor: Colors.blue[300],
                 ),
-                body: Container(
-                  color: Colors.blue[50],
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12.0),
-                              child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    const SizedBox(height: 10.0),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          currentArtItem.artItemInfo.name,
-                                          style: const TextStyle(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w600,
+                body: SingleChildScrollView(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: Colors.blue[50],
+                    child: Column(
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12.0),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      const SizedBox(height: 10.0),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            currentArtItem.artItemInfo.name,
+                                            style: const TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
                                           ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const Spacer(),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.bookmark_add_outlined,
-                                              color: Colors.black,
-                                              size: 30.0,
-                                            )),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.brush_outlined,
-                                          color: Colors.black,
-                                          size: 20.0,
-                                        ),
-                                        Text(
-                                          " by ${currentArtItem.creatorAccountInfo.username}",
-                                          style: const TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          currentArtItem.artItemInfo.labels!
-                                              .map((label) => label)
-                                              .join(", "),
-                                          style: const TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w400,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 15.0),
-                                    imageBuilder(
-                                        currentArtItem.artItemInfo.imageId),
-                                    const SizedBox(height: 15.0),
-                                    Text(
-                                      currentArtItem.artItemInfo.description,
-                                      style: const TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400,
+                                          const Spacer(),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                Icons.bookmark_add_outlined,
+                                                color: Colors.black,
+                                                size: 30.0,
+                                              )),
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(height: 5.0),
-                                    const Divider(color: Colors.black),
-                                    const SizedBox(height: 5.0),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.chat, size: 13.0),
-                                        const SizedBox(width: 5.0),
-                                        Text(
-                                          // TODO: Add number of comments
-                                          "Comments (0)",
-                                          style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w600,
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.brush_outlined,
+                                            color: Colors.black,
+                                            size: 20.0,
                                           ),
+                                          Text(
+                                            " by ${currentArtItem.creatorAccountInfo.username}",
+                                            style: const TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const Spacer(),
+                                          const Icon(
+                                            Icons.category_outlined,
+                                            color: Colors.black,
+                                            size: 20.0,
+                                          ),
+                                          const SizedBox(width: 5.0),
+                                          Text(
+                                            currentArtItem.artItemInfo.category!
+                                                .map((category) => category)
+                                                .join(", "),
+                                            style: const TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10.0),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.tag_outlined,
+                                            color: Colors.black,
+                                            size: 20.0,
+                                          ),
+                                          const SizedBox(width: 5.0),
+                                          Text(
+                                            currentArtItem.artItemInfo.labels!
+                                                .map((labels) => labels)
+                                                .join(", "),
+                                            style: const TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 15.0),
+                                      annotatableImage(imageBuilder(
+                                          currentArtItem.artItemInfo.imageId)),
+                                      const SizedBox(height: 15.0),
+                                      Text(
+                                        currentArtItem.artItemInfo.description,
+                                        style: const TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w400,
                                         ),
-                                        const Spacer(),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.black,
-                                              size: 30.0,
-                                            )),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.share,
-                                              color: Colors.black,
-                                              size: 30.0,
-                                            )),
-                                      ],
-                                    ),
-                                  ])),
-                        ],
-                      ),
-                    ],
+                                      ),
+                                      const SizedBox(height: 5.0),
+                                      const Divider(color: Colors.black),
+                                      const SizedBox(height: 5.0),
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.chat, size: 13.0),
+                                          const SizedBox(width: 5.0),
+                                          Text(
+                                            // TODO: Add number of comments
+                                            "Comments (0)",
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                Icons.favorite_border,
+                                                color: Colors.black,
+                                                size: 30.0,
+                                              )),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                Icons.share,
+                                                color: Colors.black,
+                                                size: 30.0,
+                                              )),
+                                        ],
+                                      ),
+                                    ])),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
