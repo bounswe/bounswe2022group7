@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:android/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,6 +9,7 @@ import 'package:network_image_mock/network_image_mock.dart';
 
 import 'package:android/pages/event_page.dart';
 import 'package:android/config/api_endpoints.dart';
+import 'package:provider/provider.dart';
 
 Widget makeTestableWidget() => MaterialApp(home: Image.network(''));
 
@@ -94,8 +96,13 @@ class TestApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: child,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ],
+      child: MaterialApp(
+        home: child,
+      ),
     );
   }
 }
