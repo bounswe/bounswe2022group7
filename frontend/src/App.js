@@ -23,6 +23,9 @@ import DiscussionPostPage from './pages/DiscussionPage/DiscussionPostPage';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { Recogito } from '@recogito/recogito-js';
+import '@recogito/recogito-js/dist/recogito.min.css';
+
 const theme = createTheme({
   palette: {
     type: 'light',
@@ -46,6 +49,9 @@ const theme = createTheme({
 })
 
 function App() {
+
+  const r = new Recogito({ content: document.getElementById("root") });
+
   return (
     <div>
       <AuthProvider>

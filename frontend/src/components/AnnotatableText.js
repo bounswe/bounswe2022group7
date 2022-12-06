@@ -16,15 +16,19 @@ function AnnotatableText(props) {
   );
   */
  
+  /*
   const textElement = document.getElementById('annnotatedText')
 
   if (textElement) {
     const r = new Recogito({ content: "annnotatedText" });
   }
-  
+
   return (
     <div id="annnotatedText">{props.text}</div>
   );
+  */
+
+  return (<>{props.text}</>)
 }
 
 export default AnnotatableText
