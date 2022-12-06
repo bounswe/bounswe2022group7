@@ -68,3 +68,28 @@ docker run -p 80:80 -t "production-frontend-image
 
 #### Notes:
 - Fill the parts between `""` as you wish.
+
+
+---
+
+## Annotation
+
+`WORKDIR=./docker`
+
+### Development
+
+To run the annotation microservice in development mode `docker-compose up` will be the best way, but if you want to manually build and run the image the following command will work:
+
+```bash
+docker build -f annotation.development.Dockerfile -t "annotation-image-name"  ../annotations
+docker run -p 3001:3001 -t "annotation-image-name" 
+```
+
+### Production
+
+The production build doesn't work differently then the development build, the only difference is the db connection settings on production environment. Using the following commands will build and run the image.
+
+```bash
+docker build -f annotation.production.Dockerfile -t "production-annotation-image" ../annotations
+docker run -p 3001:3001 -t "production-annotation-image
+```
