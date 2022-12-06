@@ -38,7 +38,7 @@ const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
 var dropdown_selection = ValueNotifier<String>("Events");
 final followButtonText = ValueNotifier<String>("Follow");
 
-String? profile_username;
+String? profileUsername;
 var post_lists = {
   "Events": [],
   "Art Items": [],
@@ -61,7 +61,7 @@ void updateSelectedItems() {
 class ProfilePage extends StatefulWidget {
   String? username;
   ProfilePage({Key? key, this.username}) : super(key: key) {
-    profile_username = username;
+    profileUsername = username;
   }
 
   @override
@@ -92,24 +92,24 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> followUser() async {
     if (followButtonText.value == "Follow") {
-      final statuscode = await postFollowNetwork(profile_username!);
+      final statuscode = await postFollowNetwork(profileUsername!);
       if (statuscode == 202) followButtonText.value = "Following";
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    String dropdown_value = dropdown_items[0];
-    var show_data = events;
+    String dropdownValue = dropdown_items[0];
+    var showData = events;
 
-    CurrentUser? current_user = Provider.of<UserProvider>(context).user;
+    CurrentUser? currentUser = Provider.of<UserProvider>(context).user;
 
     //Check if already following
     followButtonText.value = "Follow";
     //?: "Following";
 
     return FutureBuilder(
-      future: getUserNetwork(profile_username, current_user),
+      future: getUserNetwork(profileUsername, currentUser),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -134,21 +134,20 @@ class _ProfilePageState extends State<ProfilePage> {
                     "An error occured while loading profile page!");
               }
 
-              Account user_account = user_output.account!;
-              AccountInfo user_account_info = user_account.account_info;
+              Account userAccount = user_output.account!;
+              AccountInfo userAccountInfo = userAccount.account_info;
               String fullname = "";
-              if (user_account_info.name != null &&
-                  user_account_info.surname != null) {
-                fullname =
-                    "${user_account_info.name} ${user_account_info.surname}";
+              if (userAccountInfo.name != null &&
+                  userAccountInfo.surname != null) {
+                fullname = "${userAccountInfo.name} ${userAccountInfo.surname}";
               }
 
-              bool users_check = current_user != null;
-              users_check = current_user!.email == user_account_info.email
-                  ? users_check
+              bool usersCheck = currentUser != null;
+              usersCheck = currentUser!.email == userAccountInfo.email
+                  ? usersCheck
                   : false;
               updatePostLists(
-                  user_account.all_events, user_account.all_art_items);
+                  userAccount.all_events, userAccount.all_art_items);
               dropdown_selection.value = "Events";
               updateSelectedItems();
               print("before return scaffold");
@@ -165,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          circleAvatarBuilder(user_account_info.profile_picture_id, 20.0),
+                          circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
                           Column(
                             children: [
                               Text(
@@ -174,13 +173,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                 textScaleFactor: 1.25,
                               ),
                               Text(
-                                "@${user_account_info.username}",
+                                "@${userAccountInfo.username}",
                                 style: Theme.of(context).textTheme.subtitle2,
                                 textScaleFactor: 1.25,
                               ),
                             ],
                           ),
-                          if (users_check) ...[
+                          if (usersCheck) ...[
                             IconButton(
                               onPressed: navigateToEditPage,
                               icon: Icon(
@@ -274,9 +273,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                       const SizedBox(height: 10.0),
-                      (profile_username == null ||
-                              current_user.username ==
-                                  user_account_info.username)
+                      (profileUsername == null ||
+                              currentUser.username == userAccountInfo.username)
                           ? Container()
                           : Row(
                               //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -325,7 +323,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-                      if (user_account_info.name == null && current_user.email == user_account_info.email) ...[
+                      if (userAccountInfo.name == null && currentUser.email == userAccountInfo.email) ...[
                         Container(
                           height: 25.0,
                           child: LinearPercentIndicator(
@@ -349,13 +347,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => AccountInfoPage(
-                                      email: user_account_info.email,
-                                      username: user_account_info.username,
-                                      name: user_account_info.name,
-                                      surname: user_account_info.surname,
-                                      country: user_account_info.country,
-                                      dateOfBirth: user_account_info.date_of_birth,
-                                      profilePictureId: user_account_info.profile_picture_id,
+                                      email: userAccountInfo.email,
+                                      username: userAccountInfo.username,
+                                      name: userAccountInfo.name,
+                                      surname: userAccountInfo.surname,
+                                      country: userAccountInfo.country,
+                                      dateOfBirth: userAccountInfo.date_of_birth,
+                                      profilePictureId: userAccountInfo.profile_picture_id,
                                     ),
                                   ),
                                 );
@@ -461,7 +459,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Padding(padding: EdgeInsets.all(2.0)),
-                                    if (dropdown_selection.value ==
+                                    if (dropdown_selection.value! ==
                                         "Events") ...[
                                       Row(
                                         crossAxisAlignment:
@@ -473,7 +471,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(user_account_info.profile_picture_id, 20.0),
+                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
@@ -584,7 +582,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(user_account_info.profile_picture_id, 20.0),
+                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
@@ -732,7 +730,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
-          dropdown_selection.value = value;
+          dropdown_selection.value = value!;
           updateSelectedItems();
         });
       },
