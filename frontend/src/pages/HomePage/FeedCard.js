@@ -74,10 +74,10 @@ export default function FeedCard(props) {
                     <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
                         <Stack spacing={2} direction="row" justifyContent="left" alignItems="center">
 
-                            <Link href={"/profile/" + props.creator.username} style={{ textDecoration: 'none', color: "black" }}>
+                            <Link to={"/profile/" + props.creator.username} style={{ textDecoration: 'none', color: "black" }}>
                                 <UserAvatar username={props.creator.username} id={props.creator.imageId} sx={{ h: 32, w: 32, border: 1, borderColor: 'divider' }} />
                             </Link>
-                            <Link href={"/profile/" + props.creator.username} style={{ textDecoration: 'none', color: "black" }}>
+                            <Link to={"/profile/" + props.creator.username} style={{ textDecoration: 'none', color: "black" }}>
                                 <Typography variant="h6" component="h2" sx={{ fontSize: 17, fontWeight: 700 }}>
                                     {props.creator.username}
                                 </Typography>
@@ -113,7 +113,7 @@ export default function FeedCard(props) {
                                         </Suspense>
                                     </> :
                                         <Box position="relative" width='100%'>
-                                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start" sx={{ display: 'relative' }} >
+                                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start" sx={{ display: 'relative', width: '90%'}} >
                                                 <Typography variant="title" sx={{ fontWeight: 700, fontSize: 18 }}>
                                                     {props.content.title}
                                                 </Typography>
