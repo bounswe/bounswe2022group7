@@ -60,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Scaffold settingsPage(GetSettingsOutput settings) {
-    Widget profilePicture = circleAvatarBuilder(settings.profilePictureId!, 10);
+    Widget profilePicture = circleAvatarBuilder(settings.profilePictureId, 10);
 
     return Scaffold(
       appBar: AppBar(

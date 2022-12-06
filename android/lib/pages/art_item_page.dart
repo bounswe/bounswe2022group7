@@ -7,6 +7,7 @@ import "package:android/network/art_item/get_art_item_service.dart";
 import "package:android/network/art_item/get_art_item_output.dart";
 
 import '../network/image/get_image_builder.dart';
+import '../widgets/comment.dart';
 
 class ArtItemPage extends StatefulWidget {
   final int id;
@@ -179,11 +180,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                   backgroundColor: Colors.blue[300],
                 ),
                 body: SingleChildScrollView(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    color: Colors.blue[50],
-                    child: Column(
+                  child: Column(
                       children: [
                         Column(
                           children: [
@@ -449,7 +446,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                           const SizedBox(width: 5.0),
                                           Text(
                                             // TODO: Add number of comments
-                                            "Comments (0)",
+                                            "Comments ${currentArtItem.commentList.length}",
                                             style: TextStyle(
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.w600,
@@ -472,12 +469,18 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                               )),
                                         ],
                                       ),
+
+                                      // const Padding(padding: EdgeInsets.all(4.0)),
+                                      CommentListWidget(
+                                        commentList: currentArtItem.commentList,
+                                      ),
+                                      const Padding(padding: EdgeInsets.all(4.0)),
+                                      CommentWidget(postid: currentArtItem.id, post_type: "artitem"),
                                     ])),
                           ],
                         ),
                       ],
                     ),
-                  ),
                 ),
               );
             } else {

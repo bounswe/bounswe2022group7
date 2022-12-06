@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
           profilePage: (context) => ProfilePage(),
           discussionForumPage: (context) => DiscussionForumPage(),
           settingsPage: (context) => const SettingsPage(),
+          accountInfoPage: (context) => const AccountInfoPage(),
         },
         navigatorKey: navigatorKey,
       ),

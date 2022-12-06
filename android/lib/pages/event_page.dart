@@ -248,9 +248,9 @@ class _EventPageState extends State<EventPage> {
                                       children: [
                                         const Icon(Icons.chat, size: 13.0),
                                         const SizedBox(width: 5.0),
-                                        const Text(
+                                        Text(
                                           // TODO: Add number of comments
-                                          "Comments (0)",
+                                          "Comments ${currentEvent.commentList.length}",
                                           style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w600,
@@ -262,12 +262,12 @@ class _EventPageState extends State<EventPage> {
                                             .substring(0, 16)),
                                       ],
                                     ),
-                                    const Padding(padding: EdgeInsets.all(8.0)),
+                                    // const Padding(padding: EdgeInsets.all(8.0)),
                                     CommentListWidget(
                                       commentList: currentEvent.commentList,
                                     ),
                                     const Padding(padding: EdgeInsets.all(4.0)),
-                                    CommentWidget(postid: currentEvent.id),
+                                    CommentWidget(postid: currentEvent.id, post_type: "event"),
                                   ])),
                         ],
                       ),

@@ -82,9 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void navigateToEditPage() {
     print("navigator, alligator");
-    /*
-      This function will redirect user to the edit page
-    */
+    Navigator.pushNamed(context, settingsPage);
   }
 
   void updatePostLists(List<Event> event_list, List<ArtItem> art_item_list) {
@@ -130,6 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
             }
             if (snapshot.data != null) {
               getUserOutput user_output = snapshot.data!;
+              print("status: ${user_output.status}");
               if (user_output.status != "OK") {
                 return const Text(
                     "An error occured while loading profile page!");
@@ -151,6 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   userAccount.all_events, userAccount.all_art_items);
               dropdown_selection.value = "Events";
               updateSelectedItems();
+              print("before return scaffold");
 
               return Scaffold(
                 appBar: AppBar(), // app bar will be discussed later
@@ -164,15 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          userAccountInfo.profile_picture_id == null
-                              ? CircleAvatar(
-                                  radius: 20.0,
-                                  backgroundColor: Colors.grey[300],
-                                  backgroundImage:
-                                      MemoryImage(base64Decode(defaultbase64)),
-                                )
-                              : profilePictureBuilder(
-                                  userAccountInfo.profile_picture_id),
+                          circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
                           Column(
                             children: [
                               Text(
@@ -189,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           if (usersCheck) ...[
                             IconButton(
-                              onPressed: null,
+                              onPressed: navigateToEditPage,
                               icon: Icon(
                                 Icons.settings,
                                 size: 40,
@@ -331,7 +323,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-                      if (userAccountInfo.name == null) ...[
+                      if (userAccountInfo.name == null && currentUser.email == userAccountInfo.email) ...[
                         Container(
                           height: 25.0,
                           child: LinearPercentIndicator(
@@ -350,7 +342,22 @@ class _ProfilePageState extends State<ProfilePage> {
                             progressColor: Colors.lightBlue,
                             barRadius: Radius.circular(4.0),
                             trailing: OutlinedButton(
-                              onPressed: null,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AccountInfoPage(
+                                      email: userAccountInfo.email,
+                                      username: userAccountInfo.username,
+                                      name: userAccountInfo.name,
+                                      surname: userAccountInfo.surname,
+                                      country: userAccountInfo.country,
+                                      dateOfBirth: userAccountInfo.date_of_birth,
+                                      profilePictureId: userAccountInfo.profile_picture_id,
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Row(
                                 children: [
                                   Text(
@@ -464,39 +471,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  userAccountInfo
-                                                              .profile_picture_id ==
-                                                          null
-                                                      ? CircleAvatar(
-                                                          radius: 20.0,
-                                                          backgroundColor:
-                                                              Colors.grey[300],
-                                                          backgroundImage:
-                                                              MemoryImage(
-                                                                  base64Decode(
-                                                                      defaultbase64)),
-                                                        )
-                                                      : profilePictureBuilder(
-                                                          userAccountInfo
-                                                              .profile_picture_id),
+                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          selected_items[index]
-                                                              .postInfo
-                                                              .name,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 16.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
+                                                        SizedBox(
+                                                          width: MediaQuery.of(context).size.width - 160,
+                                                          child: Text(
+                                                            selected_items[index]
+                                                                .postInfo
+                                                                .name,
+                                                            style:
+                                                            const TextStyle(
+                                                              fontSize: 16.0,
+                                                              fontWeight:
+                                                              FontWeight.w600,
+                                                            ),
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
                                                           ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
                                                         ),
                                                         const SizedBox(
                                                             height: 4.0),
@@ -539,13 +535,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     size: 12.0,
                                                   ),
                                                   const SizedBox(width: 5.0),
-                                                  Text(selected_items[index]
-                                                              .location !=
-                                                          null
-                                                      ? selected_items[index]
-                                                          .location
-                                                          ?.address
-                                                      : "Online"),
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width - 160,
+                                                    child: Text(selected_items[index]
+                                                        .location !=
+                                                        null
+                                                        ? selected_items[index]
+                                                        .location
+                                                        ?.address
+                                                        : "Online"),
+                                                  ),
                                                 ],
                                               )
                                             ],
@@ -583,31 +582,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  userAccountInfo
-                                                              .profile_picture_id ==
-                                                          null
-                                                      ? profilePictureBuilder(3)
-                                                      : profilePictureBuilder(
-                                                          userAccountInfo
-                                                              .profile_picture_id),
+                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          selected_items[index]
-                                                              .postInfo
-                                                              .name,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 16.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
+                                                        SizedBox(
+                                                          width: MediaQuery.of(context).size.width - 160,
+                                                          child: Text(
+                                                            selected_items[index]
+                                                                .postInfo
+                                                                .name,
+                                                            style:
+                                                            const TextStyle(
+                                                              fontSize: 16.0,
+                                                              fontWeight:
+                                                              FontWeight.w600,
+                                                            ),
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
                                                           ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
                                                         ),
                                                         const SizedBox(
                                                             height: 4.0),
@@ -700,35 +696,7 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 Widget profilePictureBuilder(picture_id) {
-  return FutureBuilder(
-      future: getImageNetwork(picture_id),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-          default:
-            if (snapshot.hasError) {
-              return const Text("Error");
-            }
-
-            if (snapshot.data != null) {
-              GetImageOutput image_output = snapshot.data!;
-              if (image_output.status != "OK") {
-                return const Text(
-                    "An error occured while loading profile page!");
-              }
-
-              return CircleAvatar(
-                radius: 20.0,
-                backgroundColor: Colors.grey[300],
-                backgroundImage:
-                    MemoryImage(base64Decode(image_output.image!.base64String)),
-              );
-            } else {
-              return const Text("");
-            }
-        }
-      });
+  return circleAvatarBuilder(picture_id, 20.0);
 }
 
 class DropdownButtonExample extends StatefulWidget {
