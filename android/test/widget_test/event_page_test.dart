@@ -5,11 +5,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:nock/nock.dart';
-import 'package:network_image_mock/network_image_mock.dart';
 
 import 'package:android/pages/event_page.dart';
 import 'package:android/config/api_endpoints.dart';
 import 'package:provider/provider.dart';
+
+import '../data/mock_data.dart';
 
 Widget makeTestableWidget() => MaterialApp(home: Image.network(''));
 
@@ -26,7 +27,6 @@ SERVER_IP=http://10.0.2.2
 
   testWidgets('Should test Event Page with GET event http call',
       (WidgetTester tester) async {
-    await mockNetworkImagesFor(() => tester.pumpWidget(makeTestableWidget()));
 
     // mock data that is expected to be returned from the back-end
     int eventId = 1;
@@ -73,6 +73,15 @@ SERVER_IP=http://10.0.2.2
           json.encode(eventResponse),
         );
 
+    // mock GET posterId http call
+    nock(getImageURL).get('/${eventResponse["eventInfo"]["posterId"]}/').reply(
+          200,
+          json.encode({
+            "id": 7,
+            "base64String": mockBase64Image,
+          }),
+        );
+
     await tester.pumpWidget(TestApp(EventPage(id: eventId)));
     await tester.pumpAndSettle();
 
@@ -85,7 +94,11 @@ SERVER_IP=http://10.0.2.2
     // test event host
     expect(find.text('Host'), findsOneWidget);
     expect(find.text('Ahmet'),
-        findsOneWidget); // since the User is not implemented, we use dummy data
+        findsOneWidget);
+
+    // test the event poster
+    expect(find.byType(Image), findsOneWidget);
+
   });
 }
 
