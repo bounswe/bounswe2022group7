@@ -28,8 +28,14 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
   }
   if(!json["artItems"].isEmpty) {
     for(int i=0; i<json["artItems"].length; i++) {
-      GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);
-      ArtItem ai = aio.artItem!;
+      // print(json["artItems"][i]["commentList"]);
+      ArtItem ai;
+      if(json["artItems"][i] is int) {
+        GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);
+        ai = aio.artItem!;
+      } else {
+        ai = ArtItem.fromJson(json["artItems"][i]);
+      }
       art_item_list.add(ai!);
     }
   }

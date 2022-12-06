@@ -1,3 +1,6 @@
+import 'package:android/widgets/annotatable_text.dart';
+import 'package:android/pages/profile_page.dart';
+import 'package:android/widgets/comment.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
@@ -15,6 +18,7 @@ class EventPage extends StatefulWidget {
 }
 
 class _EventPageState extends State<EventPage> {
+  String comment = "";
   Scaffold erroneousEventPage() {
     return Scaffold(
       appBar: AppBar(
@@ -24,6 +28,19 @@ class _EventPageState extends State<EventPage> {
         child: Text("Event not found"),
       ),
     );
+  }
+
+  void navigateToHostProfile(_username) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfilePage(username: _username),
+      ),
+    );
+  }
+
+  void leaveComment() {
+    print("comment: $comment");
   }
 
   @override
@@ -61,7 +78,8 @@ class _EventPageState extends State<EventPage> {
                 ),
                 body: Container(
                   color: Colors.blue[50],
-                  child: Column(
+                  child: SingleChildScrollView(
+                      child: Column(
                     children: [
                       Column(
                         children: [
@@ -113,14 +131,21 @@ class _EventPageState extends State<EventPage> {
                                           TableCellVerticalAlignment.middle,
                                       children: [
                                         TableRow(children: [
-                                          Column(children: const [
-                                            Text('Host'),
-                                            SizedBox(height: 3.0),
-                                            Icon(
-                                              Icons.supervisor_account,
-                                              size: 25.0,
-                                            ),
-                                          ]),
+                                          GestureDetector(
+                                              onTap: () {
+                                                navigateToHostProfile(
+                                                    currentEvent
+                                                        .creatorAccountInfo
+                                                        .username);
+                                              },
+                                              child: Column(children: const [
+                                                Text('Host'),
+                                                SizedBox(height: 3.0),
+                                                Icon(
+                                                  Icons.supervisor_account,
+                                                  size: 25.0,
+                                                ),
+                                              ])),
                                           Column(children: const [
                                             Text('Date'),
                                             SizedBox(height: 3.0),
@@ -139,17 +164,31 @@ class _EventPageState extends State<EventPage> {
                                           ]),
                                         ]),
                                         TableRow(children: [
-                                          Column(children: [
-                                            Text(currentEvent.creator.name == null ? "" : currentEvent.creator.name!),
-                                            CircleAvatar(
-                                              radius: 20.0,
-                                              backgroundColor: Colors.grey[300],
-                                              backgroundImage: NetworkImage(
-                                                  currentEvent
-                                                      .creator.imageUrl),
-                                            ),
-                                            const SizedBox(height: 3.0),
-                                          ]),
+                                          GestureDetector(
+                                              onTap: () {
+                                                navigateToHostProfile(
+                                                    currentEvent
+                                                        .creatorAccountInfo
+                                                        .username);
+                                              },
+                                              child: Column(children: [
+                                                Text(currentEvent
+                                                            .creatorAccountInfo
+                                                            .name ==
+                                                        null
+                                                    ? currentEvent
+                                                        .creatorAccountInfo
+                                                        .username
+                                                    : currentEvent
+                                                        .creatorAccountInfo
+                                                        .name!),
+                                                circleAvatarBuilder(
+                                                    currentEvent
+                                                        .creatorAccountInfo
+                                                        .profile_picture_id,
+                                                    20.0),
+                                                const SizedBox(height: 3.0),
+                                              ])),
                                           Column(children: [
                                             Text(
                                               currentEvent
@@ -159,7 +198,9 @@ class _EventPageState extends State<EventPage> {
                                             ),
                                           ]),
                                           Column(children: [
-                                            Text(currentEvent.location!.address),
+                                            Text(currentEvent.location != null
+                                                ? currentEvent.location!.address
+                                                : ""),
                                           ]),
                                         ]),
                                       ],
@@ -176,9 +217,11 @@ class _EventPageState extends State<EventPage> {
                                           ),
                                         ),
                                         Text(
-                                          currentEvent.collaborators
-                                              .map((e) => e.name)
-                                              .join(", "),
+                                          currentEvent.collaborators == null
+                                              ? ""
+                                              : currentEvent.collaborators!
+                                                  .map((e) => e.name)
+                                                  .join(", "),
                                           style: const TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
@@ -191,7 +234,7 @@ class _EventPageState extends State<EventPage> {
                                     imageBuilder(
                                         currentEvent.eventInfo.imageId),
                                     const SizedBox(height: 15.0),
-                                    Text(
+                                    AnnotatableText(
                                       currentEvent.eventInfo.description,
                                       style: const TextStyle(
                                         fontSize: 16.0,
@@ -205,9 +248,9 @@ class _EventPageState extends State<EventPage> {
                                       children: [
                                         const Icon(Icons.chat, size: 13.0),
                                         const SizedBox(width: 5.0),
-                                        const Text(
+                                        Text(
                                           // TODO: Add number of comments
-                                          "Comments (0)",
+                                          "Comments ${currentEvent.commentList.length}",
                                           style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w600,
@@ -219,11 +262,17 @@ class _EventPageState extends State<EventPage> {
                                             .substring(0, 16)),
                                       ],
                                     ),
+                                    // const Padding(padding: EdgeInsets.all(8.0)),
+                                    CommentListWidget(
+                                      commentList: currentEvent.commentList,
+                                    ),
+                                    const Padding(padding: EdgeInsets.all(4.0)),
+                                    CommentWidget(postid: currentEvent.id, post_type: "event"),
                                   ])),
                         ],
                       ),
                     ],
-                  ),
+                  )),
                 ),
               );
             } else {

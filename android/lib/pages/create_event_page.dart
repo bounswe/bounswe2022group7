@@ -56,7 +56,8 @@ class _CreateEventState extends State<CreateEvent> {
   final titleFormKey = GlobalKey<FormFieldState>();
   final eventCategoryFormKey = GlobalKey<FormFieldState>();
 
-  String? _description, _base64Image, _title, _eventType, _labels, _category;
+  String? _description, _base64Image, _title, _eventType;
+  List<String>? _labels, _category;
   double _price = 0;
   GeoPoint? _location;
 
@@ -88,7 +89,7 @@ class _CreateEventState extends State<CreateEvent> {
 
     final labelField = inputField(TextFormField(
       validator: validateNotEmpty,
-      onSaved: (value) => _labels = value,
+      onSaved: (value) => _labels = value?.split(" "),
       autofocus: false,
       decoration: const InputDecoration(
         border: InputBorder.none,
@@ -108,11 +109,11 @@ class _CreateEventState extends State<CreateEvent> {
 
     final categoryField = inputField(TextFormField(
       validator: validateNotEmpty,
-      onSaved: (value) => _labels = value,
+      onSaved: (value) => _category = value?.split(" "),
       autofocus: false,
       decoration: const InputDecoration(
         border: InputBorder.none,
-        hintText: 'Labels',
+        hintText: 'Categories',
       ),
     ));
 

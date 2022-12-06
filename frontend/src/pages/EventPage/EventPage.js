@@ -2,11 +2,20 @@ import React, {useEffect, useState} from 'react'
 import {useParams} from "react-router-dom";
 import { useAuth } from "../../auth/useAuth"
 
-import { Typography, Grid } from '@mui/material';
+import { Typography, Grid, useTheme, Divider } from '@mui/material';
 import CommentSection from "../../common/CommentSection"
-import ImageComponent from "../../components/ImageComponent"
+import UserCard from "../../common/UserCard"
+import ImageDisplay from "../../components/ImageDisplay"
+import IconWithText from "../../components/IconWithText"
+import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import MapComponent from "../../components/MapComponent"
+
+import PersonIcon from '@mui/icons-material/Person';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import LabelIcon from '@mui/icons-material/Label';
+import CategoryIcon from '@mui/icons-material/Category';
+import RuleIcon from '@mui/icons-material/Rule';
 
 function EventPage() {
   
@@ -18,6 +27,7 @@ function EventPage() {
     event: [] 
   })
 
+  const theme = useTheme();
   const { token } = useAuth()
   
   useEffect(() => {
@@ -45,38 +55,101 @@ function EventPage() {
   } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
+    let eventStartTime = new Date(event.eventInfo.startingDate)
+    eventStartTime = eventStartTime.toLocaleString()
+
+    let eventEndTime = new Date(event.eventInfo.endingDate)
+    eventEndTime = eventEndTime.toLocaleString()
+
   return (
     <GenericCardLayout maxWidth={1000}>
-      <Typography variant="h4" sx={{padding:2}}>
+      <Typography
+        variant="h5"
+        color={theme.palette.primary.main}
+      >
+        Event:
+      </Typography>
+      <Typography variant="h4">
         {event.eventInfo.title}
       </Typography>
     
+      <ImageDisplay imageId={event.eventInfo.posterId}/>          
+
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
-          <ImageComponent imageId={event.eventInfo.posterId}/>          
+          <IconWithText
+            text="Description"
+            variant="h5"
+          />
+          <AnnotatableText text={event.eventInfo.description}/>
         </ Grid>
-        <Grid item xs={12} sm={4}>          
-          <Typography variant="h5">Description:</Typography>
-          <Typography variant="body1">{event.eventInfo.description}</Typography>
+        <Grid item xs={12} sm={4}>
 
-          <Typography variant="h5">Start Date:</Typography>
-          <Typography variant="body1">{event.eventInfo.startingDate}</Typography>
+          <IconWithText
+            icon={<PersonIcon/>}
+            text="Organizer"
+            variant="h5"
+          />
+          <UserCard data={event.creatorAccountInfo}/>
 
-          <Typography variant="h5">End Date:</Typography>
-          <Typography variant="body1">{event.eventInfo.endingDate}</Typography>
+          <IconWithText
+            icon={<DateRangeIcon/>}
+            text="Event Time"
+            variant="h5"
+          />
+          <Typography variant="body1">Start: {eventStartTime}</Typography>
+          <Typography variant="body1">End: {eventEndTime}</Typography>
+          
+          <IconWithText
+            icon = {<LabelIcon/>}
+            text="Labels:"
+            variant="h5"
+          />
+          {event.eventInfo.labels.join(", ")}
 
-          <Typography variant="h5">Location:</Typography>
-          <Typography variant="body1">{event.location.address}</Typography>
+          <IconWithText
+            icon = {<CategoryIcon/>}
+            text="Categories:"
+            variant="h5"
+          />
+          {event.eventInfo.category.join(", ")}
+
+          <IconWithText
+            icon = {<RuleIcon/>}
+            text="Rules:"
+            variant="h5"
+          />
+          {event.rules}
         </ Grid>
 
-        <MapComponent
-          position={{
-            lat:event.location.latitude, 
-            lng:event.location.longitude
-          }}
-          eventTitle={event.eventInfo.title}
-        />
+        
       </ Grid>  
+
+      <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
+      
+      <IconWithText
+        text="Address"
+        variant="h5"
+      />
+      <br/>
+
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={8}>
+          <MapComponent
+            position={{
+              lat:event.location.latitude, 
+              lng:event.location.longitude
+            }}
+            eventTitle={event.eventInfo.title}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={4}>
+          <Typography variant="body1">{event.location.address}</Typography>
+        </Grid>
+
+        
+      </Grid>
       <CommentSection
         contentId={id}
         commentList={event.commentList}

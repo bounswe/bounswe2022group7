@@ -1,0 +1,40 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Annotation CI
+
+on:  
+  pull_request:
+    branches: 
+      - develop
+      - master
+    paths:
+      - 'annotations/**'
+      - 'docker/annotation*'
+      - '.github/workflows/Annotation-CI.yml'
+
+
+  workflow_call:
+
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+    - name: Setup the project
+      working-directory: ./annotations
+      run: |
+        npm ci
+    # - name: Test the project
+    #   working-directory: ./annotation
+    #   run: npm run test
+    - name: Build the project
+      working-directory: ./annotations
+      run: CI=false npm run build --if-present

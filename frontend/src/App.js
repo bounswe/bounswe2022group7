@@ -20,19 +20,47 @@ import CreatePhysicalEventPage from './pages/EventPage/CreatePhysicalEventPage';
 import CreateDiscussionPostPage from './pages/DiscussionPage/CreateDiscussionPostPage';
 import DiscussionPostPage from './pages/DiscussionPage/DiscussionPostPage';
 
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { Recogito } from '@recogito/recogito-js';
+import '@recogito/recogito-js/dist/recogito.min.css';
+
+const theme = createTheme({
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#F05454',
+      contrastText: '#fffefe',
+    },
+    secondary: {
+      main: '#30475E',
+    },
+    text: {
+      secondary: '#222831',
+      disabled: '#3C4048',
+      primary: '#222831',
+    },
+    background: {
+      default: '#fafafa',
+      paper: '#fffefe',
+    },
+  },
+})
+
 function App() {
+
+  const r = new Recogito({ content: document.getElementById("root") });
+
   return (
     <div>
       <AuthProvider>
+        <ThemeProvider theme={theme}>
         <ResponsiveAppBar />
         <Routes>
           <Route
             path="/"
             element={<HomePage />}
-          />
-          <Route
-            path="/:username"
-            element={<Profile />}
           />
           <Route
             path="/auth/signup"
@@ -60,7 +88,7 @@ function App() {
           />
           <Route
             path="/discussionPost/new"
-            element={<CreateDiscussionPostPage />}
+            element={<ProtectedRoute><CreateDiscussionPostPage /></ProtectedRoute>}
           />
           <Route
             path="/discussionPost/:id"
@@ -71,6 +99,10 @@ function App() {
             element={<ProtectedRoute><SettingsPage /></ProtectedRoute>}
           />
           <Route
+            path="/profile/:username"
+            element={<Profile />}
+          />
+          <Route
             path="*"
             element={
               <ErrorPage
@@ -79,6 +111,7 @@ function App() {
               }
             />
         </Routes>
+      </ThemeProvider>
       </AuthProvider>
     </div>
   );

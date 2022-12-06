@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:android/util/string_helpers.dart';
 import 'package:android/models/models.dart';
 
 class ArtItemInfo extends PostInfo {
-  final String? category;
+  final List<dynamic>? category;
   final List<String>? labels;
 
   ArtItemInfo({
@@ -20,14 +22,24 @@ class ArtItemInfo extends PostInfo {
         );
 
   factory ArtItemInfo.fromJson(Map<String, dynamic> json) {
+    print("name: ${json['name']}");
+    Map<String, dynamic> jsont = json;
+    if(json['name'] == null) {
+      jsont = json['artItemInfo'];
+      log("art item info log ${json.toString()}");
+    }
     ArtItemInfo info = ArtItemInfo(
-      id: json['id'] ?? 8,
-      name: json['name'],
-      description: json['description'],
-      category: json['category'],
-      imageId: json['imageId'],
-      labels: stringToList(json['labels'].toString()),
+      id: jsont['id'] ?? 8,
+      name: jsont['name'],
+      description: jsont['description'],
+      category:
+          List<String>.from(jsont["category"].map((item) => item.toString())),
+      imageId: jsont['imageId'],
+      labels:
+          List<String>.from(jsont['labels'].map((label) => label.toString())),
     );
+
+    print("art item return success");
     return info;
   }
 }

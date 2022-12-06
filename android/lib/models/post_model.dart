@@ -7,13 +7,13 @@ import 'package:android/pages/event_page.dart';
 class Post {
   final String type;
   final int id;
-  final User creator;
+  final AccountInfo creatorAccountInfo;
   final PostInfo postInfo;
 
   Post({
     required this.type,
     required this.id,
-    required this.creator,
+    required this.creatorAccountInfo,
     required this.postInfo,
   });
 
@@ -33,11 +33,7 @@ class Post {
         children: [
           Row(
             children: [
-              CircleAvatar(
-                radius: 20.0,
-                backgroundColor: Colors.grey[300],
-                backgroundImage: NetworkImage(creator.imageUrl),
-              ),
+              circleAvatarBuilder(creatorAccountInfo.profile_picture_id, 20.0),
               const SizedBox(width: 10.0),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
@@ -54,7 +50,7 @@ class Post {
                     Icon(Icons.supervisor_account,
                         size: 12.0, color: Colors.grey[600]),
                     const SizedBox(width: 5.0),
-                    Text("Host: ${creator.name}"),
+                    Text("Host: ${creatorAccountInfo.username}"),
                   ],
                 )
               ]),
@@ -87,7 +83,7 @@ class Post {
                 size: 12.0,
               ),
               const SizedBox(width: 5.0),
-              Text(event.location!.address),
+              Text(event.location != null ? event.location!.address : ""),
             ],
           ),
         ],
@@ -99,11 +95,7 @@ class Post {
         children: [
           Row(
             children: [
-              CircleAvatar(
-                radius: 20.0,
-                backgroundColor: Colors.grey[300],
-                backgroundImage: NetworkImage(creator.imageUrl),
-              ),
+              circleAvatarBuilder(creatorAccountInfo.profile_picture_id, 20.0),
               const SizedBox(width: 10.0),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
@@ -120,7 +112,7 @@ class Post {
                     Icon(Icons.brush_outlined,
                         size: 12.0, color: Colors.grey[600]),
                     const SizedBox(width: 5.0),
-                    Text("Artist: ${creator.name}"),
+                    Text("Artist: ${creatorAccountInfo.username}"),
                   ],
                 )
               ]),
@@ -132,19 +124,20 @@ class Post {
             ],
           ),
           const SizedBox(height: 10.0),
-          Row(
-            children: [
-              Icon(
-                Icons.category,
-                color: Colors.grey[600],
-                size: 12.0,
-              ),
-              const SizedBox(width: 5.0),
-              Text(
-                artItem.artItemInfo.category.toString(),
-              ),
-            ],
-          ),
+          if (artItem.artItemInfo.category != null)
+            Row(
+              children: [
+                Icon(
+                  Icons.category,
+                  color: Colors.grey[600],
+                  size: 12.0,
+                ),
+                const SizedBox(width: 5.0),
+                Text(
+                  artItem.artItemInfo.category!.join(", "),
+                ),
+              ],
+            ),
         ],
       );
     }
