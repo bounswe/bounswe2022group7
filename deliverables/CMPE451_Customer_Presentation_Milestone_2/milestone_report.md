@@ -411,6 +411,13 @@ http://3.121.123.234/api/
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/23843320-7f0920be-e1e0-43bf-b3fe-81f8a8b0236a?action=collection%2Ffork&collection-url=entityId%3D23843320-7f0920be-e1e0-43bf-b3fe-81f8a8b0236a%26entityType%3Dcollection%26workspaceId%3Df5538b89-0ba7-43a8-82d7-6ef4ca2c35da)
 
+To run the endpoints from Postman, following environment variables must be defined:
+- URL (in this case it is http://3.121.123.234)
+- userToken: required format is like this: "Bearer {TOKEN}". 
+TOKEN should be obtained by signing up as Regular user
+- artistToken: required format is like this: "Bearer {TOKEN}". 
+TOKEN should be obtained by signing up as Artist user
+
 ## 1.5. User Interface & User Experience
 
 ### Mobile:
