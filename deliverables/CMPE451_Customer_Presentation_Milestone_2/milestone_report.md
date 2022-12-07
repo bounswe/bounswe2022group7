@@ -139,6 +139,26 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 
 ### Demet Yayla
 
+| **Task** | **Link** |
+| -------- | ------------ |
+|Create-delete events & art items|[#394](https://github.com/bounswe/bounswe2022group7/issues/394) |
+|Author field missing fix and DTO addition.|[#420](https://github.com/bounswe/bounswe2022group7/issues/420)|
+|Endpoint for update and view profile settings.|[#437](https://github.com/bounswe/bounswe2022group7/issues/437)|
+|Endpoint to follow user.|[#447](https://github.com/bounswe/bounswe2022group7/issues/447)|
+|Converting a string to list of strings.|[#450](https://github.com/bounswe/bounswe2022group7/issues/450)|
+|Art item creator error bug fix.|[#457](https://github.com/bounswe/bounswe2022group7/issues/457)|
+|Change structure for upvote downvote.|[#467](https://github.com/bounswe/bounswe2022group7/issues/467)|
+|Attempt to write tests.|[#358](https://github.com/bounswe/bounswe2022group7/issues/358)|
+|Review of the issues.|[#453](https://github.com/bounswe/bounswe2022group7/issues/453), [#455](https://github.com/bounswe/bounswe2022group7/issues/455), [#457](https://github.com/bounswe/bounswe2022group7/issues/457), [#388](https://github.com/bounswe/bounswe2022group7/issues/388 ), [#438](https://github.com/bounswe/bounswe2022group7/issues/438), [#372](https://github.com/bounswe/bounswe2022group7/issues/372)|
+|Reviewer of PRs|[#440](https://github.com/bounswe/bounswe2022group7/pull/440), [#345](https://github.com/bounswe/bounswe2022group7/pull/345)|
+|Owner of the PRs|[#428](https://github.com/bounswe/bounswe2022group7/pull/428), [#436](https://github.com/bounswe/bounswe2022group7/pull/436), [#448](https://github.com/bounswe/bounswe2022group7/pull/448), [#456](https://github.com/bounswe/bounswe2022group7/pull/456), [#468](https://github.com/bounswe/bounswe2022group7/pull/468), [#477](https://github.com/bounswe/bounswe2022group7/pull/477)|
+|Form sample data to showcase in milestone presentation.|[#496](https://github.com/bounswe/bounswe2022group7/issues/496)|
+|Discussion on scenarios for milestone presentation.|[#497](https://github.com/bounswe/bounswe2022group7/issues/497)|
+|Tracking requirement progress for milestone report.|[#515](https://github.com/bounswe/bounswe2022group7/issues/515)|
+|Notetaker|[The meeting note](https://github.com/bounswe/bounswe2022group7/wiki/Meeting-Notes-%2315)|
+|Writing part three of group review for milestone 1.|[#370](https://github.com/bounswe/bounswe2022group7/issues/370)|
+|One of the notetakers for milestone 2 presentations.||
+
 ## 1.3. Progress According to Requirements
 
 - Signup with email and password
@@ -626,3 +646,44 @@ As Reviewer:
 ## Can Atakan Uğur
 
 ## Demet Yayla
+
+### MEMBER
+I am Demet Yayla and am a member of group seven. I am a part of the backend team, and also the team leader for it.
+### RESPONSIBILITIES
+I write the endpoints for the features we plan to implement along with required entities, repositories, DTOs, services. I had a major contribution with the testing but unfortunately just before the week of milestone 2, I learned that integration tests were not required. I searched and tried a lot to write integration tests with different kinds of libraries but never could overcome the compiler errors or runtime errors I faced.
+### MAIN CONTRIBUTIONS
+**CODE RELATED CONTRIBUTIONS**
+- In [issue #394]( https://github.com/bounswe/bounswe2022group7/issues/394) I was assigned to write endpoints to create and delete events and art items. I faced a lot of interconnected errors which we expected to face while writing the entity classes (spring boot annotations are really complex and since we had many connections between entities it was a hard task I could not overcome on my own). I had a really hard time solving them and collaborated with @askabderon after a point.
+- In [issue #420]( https://github.com/bounswe/bounswe2022group7/issues/420) we had author field missing for comments. I converted the return type to a DTO and tidied the code a little while solving the problem.
+- In [issue #437]( https://github.com/bounswe/bounswe2022group7/issues/437) I wrote the endpoints for updating and viewing user settings.
+- In [issue #447]( https://github.com/bounswe/bounswe2022group7/issues/447) I wrote endpoints for following a user. 
+- In [issue #450]( https://github.com/bounswe/bounswe2022group7/issues/450) I wrote endpoints for converting a string of list to a list.
+- In [issue #457]( https://github.com/bounswe/bounswe2022group7/issues/457) I fixed an error, art item creation owner is now not absent.
+- In [issue #467]( https://github.com/bounswe/bounswe2022group7/issues/467) I added a logic for enabling tracking who liked what. Otherwise we couldn’t see who liked and one could like multiple times also.
+- In [issue #358]( https://github.com/bounswe/bounswe2022group7/issues/358) I attempted to write tests.
+
+- Reviewer of [this issue]( https://github.com/bounswe/bounswe2022group7/issues/453)
+- Reviewer of [this issue]( https://github.com/bounswe/bounswe2022group7/issues/455)
+- Reviewer of [this issue]( https://github.com/bounswe/bounswe2022group7/issues/457)
+- Reviewer of [this issue](https://github.com/bounswe/bounswe2022group7/issues/388 )
+- Reviewer of [this issue](https://github.com/bounswe/bounswe2022group7/issues/438 )
+- Reviewer of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/440 )
+- Reviewer of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/345)
+
+- Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/428)
+- Owner of [this PR](https://github.com/bounswe/bounswe2022group7/pull/436)
+- Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/448)
+- Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/456)
+- Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/468)
+- Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/477)
+**MANAGEMENT RELATED CONTRIBUTIONS**
+- [Issue #372]( https://github.com/bounswe/bounswe2022group7/issues/372) reviewer.
+- In [issue #496]( https://github.com/bounswe/bounswe2022group7/issues/496) we formed the sample data to be showcased in milestone 2 group presentations.
+- In [issue #497]( https://github.com/bounswe/bounswe2022group7/issues/497) we discussed about scenarios for milestone 2 group presentations.
+- In [issue #515]( https://github.com/bounswe/bounswe2022group7/issues/515) I took the part of tracking progression related to project requirements for milestone 2 group report.
+- I was the notetaker for [meeting 15]( https://github.com/bounswe/bounswe2022group7/wiki/Meeting-Notes-%2315)
+- Writing part three of group review for milestone 1 in [this issue]( https://github.com/bounswe/bounswe2022group7/issues/370) 
+### UNIT TESTS
+- As I had been working on integration testing for a long time, I hadn’t gotten to unit tests yet, and this week was a week of all my lectures’ projects without exception, I couldn’t write them till milestone 2. I learned just last week we didn’t need integration tests.
+### ADDITIONAL INFORMATION
+- Some tasks that I undertake took a lot of research and struggle without being reflected to code base much but draining my time. One was writing create and delete endpoints for events and art items. That was going to be the first time we were to test the annotations of spring & hibernate on database and it blowed up in my hands. I tried loads of combinations and changed but it is not reflected in commit history. Another was as I mentioned the testing task. I had incredible errors which could not get comprehended by my term mates when I consulted them. I hope I don’t get low grading due to my unluck. Another long-lasting error was the request body always being filled with null. I spent hours to learn at the end that it was because I was importing from the wrong library the right annotation… 
