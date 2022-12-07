@@ -523,6 +523,49 @@ They can be seen here [#PR532](https://github.com/bounswe/bounswe2022group7/pull
 
 ## Ali Can Milani
 
+### Member
+&emsp; My name is Alican Milani. I am a member of Group 7 and the mobile team. 
+- [My Personal Wiki Page](https://github.com/bounswe/bounswe2022group7/wiki/Ali-Can-Milani)
+- [My Effort Trackings](https://github.com/bounswe/bounswe2022group7/wiki/Ali-Can-Milani-(Effort-Tracking)#cmpe-451)
+
+### Responsibilities
+&emsp; I worked on the mobile application implementation and debugging. My main responsibilities was the event creation and view features, discussions part.
+
+### Main Contributions
+#### &emsp; My Code Related Issues
+- [Implementation of Event Creation Page UI #397](https://github.com/bounswe/bounswe2022group7/issues/397)
+- [Implementation of Event Creation Page Network Calls #398](https://github.com/bounswe/bounswe2022group7/issues/398)
+- [Change image widgets in view event page #431](https://github.com/bounswe/bounswe2022group7/issues/431)
+- [Implementing follow functionality #435](https://github.com/bounswe/bounswe2022group7/issues/435)
+- [Update Event View and Create Page endpoints #479](https://github.com/bounswe/bounswe2022group7/issues/479)
+- [Test for Event Create Page #482](https://github.com/bounswe/bounswe2022group7/issues/482)
+- [Implementing Discussions #504](https://github.com/bounswe/bounswe2022group7/issues/504)
+
+#### &emsp; My Management Related Issues
+- [Mobile User Interface / User Experience #530](https://github.com/bounswe/bounswe2022group7/issues/530)
+
+#### &emsp; Issues I Reviewed
+- [Art Item Creation Page UI #403](https://github.com/bounswe/bounswe2022group7/issues/403)
+- [Final Version of the Profile Page #446](https://github.com/bounswe/bounswe2022group7/issues/446)
+
+### Pull Requests
+#### &emsp; PRs I Oppened
+- [#430](https://github.com/bounswe/bounswe2022group7/pull/430)
+- [#432](https://github.com/bounswe/bounswe2022group7/pull/432)
+- [#465](https://github.com/bounswe/bounswe2022group7/pull/465)
+- [#480](https://github.com/bounswe/bounswe2022group7/pull/480)
+- [#483](https://github.com/bounswe/bounswe2022group7/pull/483)
+- [#499](https://github.com/bounswe/bounswe2022group7/pull/499)
+- [#506](https://github.com/bounswe/bounswe2022group7/pull/506)
+#### &emsp; PRs I Reviewed
+- [#406](https://github.com/bounswe/bounswe2022group7/pull/406)
+- [#475](https://github.com/bounswe/bounswe2022group7/pull/475)
+- [#508](https://github.com/bounswe/bounswe2022group7/pull/508)
+### Unit Tests
+- [Test for Event Create Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/create_event_test.dart)
+
+
+
 ## Başak Önder
 
 ### Member
