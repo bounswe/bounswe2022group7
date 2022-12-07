@@ -338,6 +338,53 @@
 
 ## 1.5. User Interface & User Experience
 
+### Mobile:
+- [Home Page:](../../android/lib/pages/home_page.dart#229)
+
+![Alt text](Mobile_UI_UX/MobileHomePage.png)
+- [Login Page:](../../android/lib/pages/login.dart)
+
+![Alt text](Mobile_UI_UX/MobileLoginPage.png)
+- [Sign-up Page:](../../android/lib/pages/register.dart)
+
+![Alt text](Mobile_UI_UX/MobileSignUpPage.png)
+- [Drawer Menu:](../../android/lib/pages/home_page.dart#L72)
+
+![Alt text](Mobile_UI_UX/MobileSideDrawer.png)
+- [Profile Page:](../../android/lib/pages/profile_page.dart#L61)
+
+![Alt text](Mobile_UI_UX/MobileProfilePage.png)
+- [Settings Page:](../../android/lib/pages/settings_page.dart)
+
+![Alt text](Mobile_UI_UX/MobileSettings.png)
+- [Personal Information Page:](../../android/lib/pages/account_info_page.dart)
+
+![Alt text](Mobile_UI_UX/MobilePersonalPage.png)
+- [Create Art Item Page:](../../android/lib/pages/create_art_item_page.dart)
+
+![Alt text](Mobile_UI_UX/MobileCreateArt.png)
+- [Create Event Page:](../../android/lib/pages/create_event_page.dart)
+
+![Alt text](Mobile_UI_UX/MobileCreateEvent.png)
+- [View Art Item Page:](../../android/lib/pages/art_item_page.dart)
+
+![Alt text](Mobile_UI_UX/MobileArtItemView.png)
+- [View Event Page:](../../android/lib/pages/event_page.dart)
+
+![Alt text](Mobile_UI_UX/MobileEventView.png)
+- [Discussions Page:](../../android/lib/pages/discussion_forum_page.dart#L117)
+
+![Alt text](Mobile_UI_UX/MobileDiscussionPage.png)
+- [View Discussion Page:](../../android/lib/pages/discussion_page.dart)
+
+![Alt text](Mobile_UI_UX/MobileDiscussionView.png)
+- [Commenting:](../../android/lib/widgets/comment.dart)
+
+![Alt text](Mobile_UI_UX/MobileCommenting.png)
+- [Annotating:](../../android/lib/widgets/annotatable_text.dart)
+
+![Alt text](Mobile_UI_UX/MobileTextAnno.png)
+
 ## 1.6. Annotations
 
 ## 1.7. Standards
