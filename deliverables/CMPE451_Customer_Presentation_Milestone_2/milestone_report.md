@@ -63,99 +63,99 @@
 ## 1.3. Progress According to Requirements
 
 - Signup with email and password
-    - [ ] backend
+    - [X] backend
     - [ ] front
     - [ ] mobile
 - Choosing an account type
-    - [ ] backend
+    - [X] backend
     - [ ] front
     - [ ] mobile
 - Changing email and password
-    - [ ] backend
+    - [X] backend
     - [ ] front
     - [ ] mobile
 - Signin with email and password
-    - [ ] backend
+    - [X] backend
     - [ ] front
     - [ ] mobile
 - Guest user can view profile, art item, online exhibition, physical exhibition
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - 1.1.4.1 User can view comment belonging to art item or description **(generic user can too, but this is implied otherwise)**
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - Creating discussion posts
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - 1.1.5.1 Creating events that are online or physical 
-    - [ ] backend **(no collaborative implemented)**
+    - [x] backend **(no collaborative implemented)**
     - [ ] front
     - [ ] mobile
 - Deleting an event
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - Artist is able to mark the event location for the physical exhibition via geotagging
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - 1.1.9 User can view art items and events on the homepage 
-    - [ ] backend **(there is a ranking mechanism there which we haven’t implemented yet)**
+    - [x] backend **(there is a ranking mechanism there which we haven’t implemented yet)**
     - [ ] front
     - [ ] mobile
 - 1.1.10.1 Followers and the users that a certain user follows shall be visible in it’s profile page (followings can be viewed but followers cannot be viewed)
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - Profile page contains name, surname, location, username and profile picture
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - User can edit it’s profile page.
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - User’s verification status can be seen from it’s profile
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - Following another user
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - Labelling one’s own art items and events.
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - 1.1.13.3 bookmarking discussion comments, art items, events
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - 1.1.14 Searching and filtering
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - 1.1.15 Admin User requirements
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - System keeps track of the artists followed by the user or artist.
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - System keeps track of the data listed in 1.2.1.3
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - System keeps track of the geotagging information of the physically held events
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - Platform is in English
-    - [ ] backend
+    - [x] backend
     - [ ] front
     - [ ] mobile
 - 1.1.1.8 Deleting account
