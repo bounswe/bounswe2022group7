@@ -6,7 +6,7 @@
     + [Sabri Mete Akyüz](#sabri-mete-akyüz)
     + [Enes Aydoğduoğlu](#enes-aydoğduoğlu)
     + [Erim Erkin Doğan](#erim-erkin-doğan)
-    + [Güney İzol](#güney-İzol)
+    + [Güney İzol](#güney-i̇zol)
     + [Ali Can Milani](#ali-can-milani)
     + [Başak Önder](#başak-önder)
     + [Cahid Arda Öz](#cahid-arda-öz)
@@ -16,7 +16,9 @@
     + [Demet Yayla](#demet-yayla)
   * [1.3. Progress According to Requirements](#13-progress-according-to-requirements)
   * [1.4. API Endpoints](#14-api-endpoints)
-  * [1.5. User Interface & User Experience](#15-user-interface---user-experience)
+  * [1.5. User Interface & User Experience](#15-user-interface--user-experience)
+    + [1.5.1. Web](#151-web)
+    + [1.5.2. Mobile](#152-mobile)
   * [1.6. Annotations](#16-annotations)
   * [1.7. Standards](#17-standards)
 - [2. Individual Contribution Reports](#2-individual-contribution-reports)
@@ -433,8 +435,9 @@ TOKEN should be obtained by signing up as Regular user
 TOKEN should be obtained by signing up as Artist user
 
 ## 1.5. User Interface & User Experience
+### 1.5.1. Web:
 
-### Mobile:
+### 1.5.2. Mobile:
 - [Home Page:](../../android/lib/pages/home_page.dart#229)
 
 ![Alt text](Mobile_UI_UX/MobileHomePage.png)
