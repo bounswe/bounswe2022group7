@@ -2,6 +2,7 @@ package com.group7.artshare.controller
 
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
+import com.group7.artshare.service.ImageService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
@@ -13,33 +14,15 @@ import org.springframework.web.server.ResponseStatusException
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("image")
-class ImageController {
-
-    @Autowired
-    lateinit var imageRepository: ImageRepository
-
+class ImageController(private val imageService: ImageService) {
     @GetMapping("{id}")
-    fun getBase64ImageById(@PathVariable("id") id: Long) : Image = imageRepository.findByIdOrNull(id) ?:
-    throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the images in the database")
+    fun getBase64ImageById(@PathVariable("id") id: Long) : Image = imageService.getImageById(id)
 
     @PostMapping()
-    fun postBase64Image(@RequestBody image : Image) : Map<String, Long> {
-        try {
-            imageRepository.save(image)
-            return mapOf("id" to image.id)
-        } catch (e: Exception) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
-        }
-    }
+    fun postBase64Image(@RequestBody image : Image) : Map<String, Long>  = imageService.saveImage(image)
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteImage(@PathVariable id: Long) {
-        if (imageRepository.existsById(id)) {
-            imageRepository.deleteById(id)
-        }
-        else
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not match with any of the items in the database")
-    }
+    fun deleteImage(@PathVariable id: Long) = imageService.deleteImage(id)
 
 }
