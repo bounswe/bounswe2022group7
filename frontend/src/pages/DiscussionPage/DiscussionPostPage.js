@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Typography, useTheme } from "@mui/material";
 import {useParams} from "react-router-dom";
 import UserCard from "../../common/UserCard"
+import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from '../../layouts/GenericCardLayout';
 import CommentSection from '../../common/CommentSection';
 
@@ -53,7 +54,7 @@ function DiscussionPostPage() {
         <br/>
 
         <Typography variant="body1">
-          {state.discussionPost.textBody}
+          <AnnotatableText text={state.discussionPost.textBody}/>
         </Typography>
 
         <br/>

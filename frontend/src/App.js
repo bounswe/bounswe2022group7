@@ -21,22 +21,25 @@ import CreateDiscussionPostPage from './pages/DiscussionPage/CreateDiscussionPos
 import DiscussionPostPage from './pages/DiscussionPage/DiscussionPostPage';
 
 
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { Recogito } from '@recogito/recogito-js';
+import '@recogito/recogito-js/dist/recogito.min.css';
 
 const theme = createTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#00ABB3',
+      main: '#F05454',
       contrastText: '#fffefe',
     },
     secondary: {
-      main: '#f50057',
+      main: '#30475E',
     },
     text: {
-      secondary: '#3C4048',
+      secondary: '#222831',
       disabled: '#3C4048',
-      primary: '#3C4048',
+      primary: '#222831',
     },
     background: {
       default: '#fafafa',
@@ -46,6 +49,9 @@ const theme = createTheme({
 })
 
 function App() {
+
+  const r = new Recogito({ content: document.getElementById("root") });
+
   return (
     <div>
       <AuthProvider>
@@ -55,10 +61,6 @@ function App() {
           <Route
             path="/"
             element={<HomePage />}
-          />
-          <Route
-            path="/:username"
-            element={<Profile />}
           />
           <Route
             path="/auth/signup"
@@ -86,7 +88,7 @@ function App() {
           />
           <Route
             path="/discussionPost/new"
-            element={<CreateDiscussionPostPage />}
+            element={<ProtectedRoute><CreateDiscussionPostPage /></ProtectedRoute>}
           />
           <Route
             path="/discussionPost/:id"
@@ -95,6 +97,10 @@ function App() {
           <Route
             path="/profile/settings"
             element={<ProtectedRoute><SettingsPage /></ProtectedRoute>}
+          />
+          <Route
+            path="/profile/:username"
+            element={<Profile />}
           />
           <Route
             path="*"

@@ -6,6 +6,7 @@ import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
 import ImageDisplay from "../../components/ImageDisplay"
 import IconWithText from "../../components/IconWithText"
+import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 
 import BrushIcon from '@mui/icons-material/Brush';
@@ -73,7 +74,7 @@ function ArtItemPage() {
             text="Description "
             variant="h5"
           />
-          <Typography variant="body1">{artitem.description}</Typography>
+          <AnnotatableText text={artitem.description}/>
         </ Grid>
         <Grid item xs={12} sm={4}>
 

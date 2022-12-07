@@ -12,6 +12,8 @@ import 'package:android/util/snack_bar.dart';
 import 'package:android/widgets/loading.dart';
 
 import '../config/app_routes.dart';
+import '../network/profile/get_user_output.dart';
+import '../network/profile/get_user_service.dart';
 import '../providers/user_provider.dart';
 import '../widgets/form_app_bar.dart';
 
@@ -30,7 +32,6 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   final emailFormKey = GlobalKey<FormFieldState>();
   final passwordFormKey = GlobalKey<FormFieldState>();
-
   String? _email, _password;
 
   @override
@@ -59,15 +60,15 @@ class _LoginState extends State<Login> {
         password: _password!,
       );
 
-      loginProvider.login(loginInput).then((LoginOutput loginOutput) {
+      loginProvider.login(loginInput).then((LoginOutput loginOutput) async {
         if (loginOutput.status != "OK") {
           showSnackBar(context, loginOutput.status);
           return;
         }
-
         CurrentUser user =
             CurrentUser(token: loginOutput.token!, email: _email!);
-
+        await getUserNetwork(null, user).then((userProfile) =>
+            user.username = userProfile.account?.account_info.username);
         // save user in local storage
         saveUser(user);
 

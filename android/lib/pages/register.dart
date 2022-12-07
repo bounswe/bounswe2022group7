@@ -1,3 +1,4 @@
+import 'package:android/network/login/login_input.dart';
 import 'package:android/network/register/register_input.dart';
 import 'package:android/network/register/register_output.dart';
 import 'package:android/providers/register_provider.dart';
@@ -9,10 +10,16 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../config/app_routes.dart';
+import '../models/user_model.dart';
+import '../network/login/login_output.dart';
+import '../providers/user_provider.dart';
+import '../shared_prefs/user_preferences.dart';
 import '../util/snack_bar.dart';
 import '../util/validators.dart';
 import '../widgets/form_app_bar.dart';
 import '../widgets/form_widgets.dart';
+import 'package:android/providers/login_provider.dart';
+
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -149,13 +156,24 @@ class _RegisterState extends State<Register> {
       registerProvider
           .register(registerInput)
           .then((RegisterOutput registerOutput) {
-        showSnackBar(context, registerOutput.status);
-        if (registerOutput.status == "Signup successful") {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            login,
-            (route) => false,
-          );
+        // showSnackBar(context, registerOutput.status);
+        if (registerOutput.status == "OK") {
+            CurrentUser user = CurrentUser(token: registerOutput.token!, email: registerInput.email);
+
+            // save user in local storage
+            saveUser(user);
+
+            // notify other pages about the user via provider
+            Provider.of<UserProvider>(context, listen: false).setUser(user);
+
+            // delete every route in navigation stack before navigating to homepage
+            Navigator.pushNamed(
+              context,
+              profilePage,
+            );
+
+        } else {
+          showSnackBar(context, "Signup Failed!");
         }
       });
     }

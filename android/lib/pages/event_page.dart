@@ -1,5 +1,6 @@
+import 'package:android/widgets/annotatable_text.dart';
+import 'package:android/pages/profile_page.dart';
 import 'package:android/widgets/comment.dart';
-import 'package:android/widgets/form_widgets.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
@@ -25,6 +26,15 @@ class _EventPageState extends State<EventPage> {
       ),
       body: const Center(
         child: Text("Event not found"),
+      ),
+    );
+  }
+
+  void navigateToHostProfile(_username) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfilePage(username: _username),
       ),
     );
   }
@@ -61,8 +71,6 @@ class _EventPageState extends State<EventPage> {
               }
               Event currentEvent = responseData.event!;
 
-              Widget profileImg = imageBuilder(
-                  currentEvent.creatorAccountInfo.profile_picture_id);
               return Scaffold(
                 appBar: AppBar(
                   title: const Text("Event"),
@@ -123,14 +131,21 @@ class _EventPageState extends State<EventPage> {
                                           TableCellVerticalAlignment.middle,
                                       children: [
                                         TableRow(children: [
-                                          Column(children: const [
-                                            Text('Host'),
-                                            SizedBox(height: 3.0),
-                                            Icon(
-                                              Icons.supervisor_account,
-                                              size: 25.0,
-                                            ),
-                                          ]),
+                                          GestureDetector(
+                                              onTap: () {
+                                                navigateToHostProfile(
+                                                    currentEvent
+                                                        .creatorAccountInfo
+                                                        .username);
+                                              },
+                                              child: Column(children: const [
+                                                Text('Host'),
+                                                SizedBox(height: 3.0),
+                                                Icon(
+                                                  Icons.supervisor_account,
+                                                  size: 25.0,
+                                                ),
+                                              ])),
                                           Column(children: const [
                                             Text('Date'),
                                             SizedBox(height: 3.0),
@@ -149,25 +164,31 @@ class _EventPageState extends State<EventPage> {
                                           ]),
                                         ]),
                                         TableRow(children: [
-                                          Column(children: [
-                                            Text(currentEvent.creatorAccountInfo
-                                                        .name ==
-                                                    null
-                                                ? ""
-                                                : currentEvent
-                                                    .creatorAccountInfo.name!),
-                                            profileImg.toString() != "Container"
-                                                ? CircleAvatar(
-                                                    radius: 20.0,
-                                                    backgroundColor:
-                                                        Colors.grey[300],
-                                                    backgroundImage:
-                                                        (profileImg as Image)
-                                                            .image,
-                                                  )
-                                                : Container(),
-                                            const SizedBox(height: 3.0),
-                                          ]),
+                                          GestureDetector(
+                                              onTap: () {
+                                                navigateToHostProfile(
+                                                    currentEvent
+                                                        .creatorAccountInfo
+                                                        .username);
+                                              },
+                                              child: Column(children: [
+                                                Text(currentEvent
+                                                            .creatorAccountInfo
+                                                            .name ==
+                                                        null
+                                                    ? currentEvent
+                                                        .creatorAccountInfo
+                                                        .username
+                                                    : currentEvent
+                                                        .creatorAccountInfo
+                                                        .name!),
+                                                circleAvatarBuilder(
+                                                    currentEvent
+                                                        .creatorAccountInfo
+                                                        .profile_picture_id,
+                                                    20.0),
+                                                const SizedBox(height: 3.0),
+                                              ])),
                                           Column(children: [
                                             Text(
                                               currentEvent
@@ -213,7 +234,7 @@ class _EventPageState extends State<EventPage> {
                                     imageBuilder(
                                         currentEvent.eventInfo.imageId),
                                     const SizedBox(height: 15.0),
-                                    Text(
+                                    AnnotatableText(
                                       currentEvent.eventInfo.description,
                                       style: const TextStyle(
                                         fontSize: 16.0,
@@ -227,9 +248,9 @@ class _EventPageState extends State<EventPage> {
                                       children: [
                                         const Icon(Icons.chat, size: 13.0),
                                         const SizedBox(width: 5.0),
-                                        const Text(
+                                        Text(
                                           // TODO: Add number of comments
-                                          "Comments (0)",
+                                          "Comments ${currentEvent.commentList.length}",
                                           style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w600,
@@ -241,12 +262,12 @@ class _EventPageState extends State<EventPage> {
                                             .substring(0, 16)),
                                       ],
                                     ),
-                                    const Padding(padding: EdgeInsets.all(8.0)),
+                                    // const Padding(padding: EdgeInsets.all(8.0)),
                                     CommentListWidget(
                                       commentList: currentEvent.commentList,
                                     ),
                                     const Padding(padding: EdgeInsets.all(4.0)),
-                                    CommentWidget(postid: currentEvent.id),
+                                    CommentWidget(postid: currentEvent.id, post_type: "event"),
                                   ])),
                         ],
                       ),
