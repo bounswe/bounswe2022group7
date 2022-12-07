@@ -477,9 +477,12 @@ TOKEN should be obtained by signing up as Artist user
 - [Commenting:](../../android/lib/widgets/comment.dart)
 
 ![Alt text](Mobile_UI_UX/MobileCommenting.png)
-- [Annotating:](../../android/lib/widgets/annotatable_text.dart)
+- [Text Annotation:](../../android/lib/widgets/annotatable_text.dart)
 
 ![Alt text](Mobile_UI_UX/MobileTextAnno.png)
+- [Image Annotation:](../../android/lib/pages/art_item_page.dart#L42)
+
+![Alt text](Mobile_UI_UX/MobileImageAnno.png)
 
 ## 1.6. Annotations
 
