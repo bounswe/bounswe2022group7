@@ -1,19 +1,26 @@
 package com.group7.artshare.service
 
-import com.group7.artshare.entity.*
-import com.group7.artshare.repository.*
-import com.group7.artshare.request.*
+import com.group7.artshare.entity.DiscussionPost
+import com.group7.artshare.entity.RegisteredUser
+import com.group7.artshare.repository.DiscussionPostRepository
+import com.group7.artshare.request.DiscussionPostRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
 @Service
 class DiscussionPostService(
-    private val discussionPostRepository: DiscussionPostRepository,
-    private val imageRepository: ImageRepository
+    private val discussionPostRepository: DiscussionPostRepository
 ) {
+    fun getAllDiscussionPosts(): List<DiscussionPost> = discussionPostRepository.findAll()
+
+    fun getDiscussionPostById(id: Long): DiscussionPost =
+        discussionPostRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
+            HttpStatus.NOT_FOUND,
+            "Id is not matched with any of the discussion posts in the database"
+        )
+
     fun createDiscussionPost(
         discussionPostRequest: DiscussionPostRequest,
         user: RegisteredUser

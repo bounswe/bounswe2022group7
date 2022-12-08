@@ -21,12 +21,8 @@ class DiscussionPostController (
     private val discussionPostService: DiscussionPostService
     ) {
 
-    @Autowired
-    lateinit var discussionPostRepository: DiscussionPostRepository
-
     @GetMapping("{id}")
-    fun getDiscussionPost(@PathVariable("id") id: Long) : DiscussionPostDTO = discussionPostRepository.findByIdOrNull(id)?.mapToDTO() ?:
-        throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not matched with any of the discussion posts in the database")
+    fun getDiscussionPost(@PathVariable("id") id: Long) : DiscussionPostDTO = discussionPostService.getDiscussionPostById(id).mapToDTO()
 
     @PostMapping(
         consumes = ["application/json;charset=UTF-8"],
@@ -55,7 +51,7 @@ class DiscussionPostController (
     }
     @GetMapping()
     fun getAllDiscussionPosts(): List<DiscussionPostDTO> {
-        return discussionPostRepository.findAll().map { discussionPost -> discussionPost.mapToDTO() }
+        return discussionPostService.getAllDiscussionPosts().map { discussionPost -> discussionPost.mapToDTO() }
     }
 
 //    @DeleteMapping("{id}")
