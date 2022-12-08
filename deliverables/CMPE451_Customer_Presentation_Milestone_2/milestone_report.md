@@ -136,6 +136,26 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 
 ### Cahid Arda Öz
 
+
+| Task | Link |
+| ----- | ------|
+| Adding Form Layout to Sign-up and Sign-in Pages | [#387](https://github.com/bounswe/bounswe2022group7/pull/387) |
+| Learning about storing images as Base64, testing it on frontend and reviewing it on backend and mobile. | [#389](https://github.com/bounswe/bounswe2022group7/issues/389) |
+| Create event and create art item implementation for frontend | [#401](https://github.com/bounswe/bounswe2022group7/issues/401) |
+| Adding a layout for content on the app, fixing endpoints of homepage and improved error page. | [#417](https://github.com/bounswe/bounswe2022group7/pull/417) |
+| Completed integration of the new art item and new physical event pages with the endpoints | [#401](https://github.com/bounswe/bounswe2022group7/issues/401), [PR #459](https://github.com/bounswe/bounswe2022group7/pull/459) | 
+| Integrated comment section with the endpoints | [#460](https://github.com/bounswe/bounswe2022group7/issues/460), [PR #476](https://github.com/bounswe/bounswe2022group7/pull/476) |
+| Reported owner null bug in art item creation | [#457](https://github.com/bounswe/bounswe2022group7/issues/457) |
+| Reported duplicate comments bug | [#458](https://github.com/bounswe/bounswe2022group7/issues/458) |
+| Reported discussion page GET token requirement bug | [#469](https://github.com/bounswe/bounswe2022group7/issues/469) |
+| Reported bugs in comment list fields of event and discussion page endpoints | [#470](https://github.com/bounswe/bounswe2022group7/issues/470) |
+| Removed poster id field from the discussion post in the backend | [PR #474](https://github.com/bounswe/bounswe2022group7/pull/474) |
+| Merged updates in develop branch into master for deployment | [PR #478](https://github.com/bounswe/bounswe2022group7/pull/478) |
+| Added color theme to the app. Styled event, art item and discussion pages. Styled comment section component. Added start&end time selection to create physical event page | [#490](https://github.com/bounswe/bounswe2022group7/issues/490), [PR #491](https://github.com/bounswe/bounswe2022group7/pull/491) |
+| CommentSection Component unit tests | [PR #521](https://github.com/bounswe/bounswe2022group7/pull/521) |       
+| Mock Text Annotation for Frontend | [PR #522](https://github.com/bounswe/bounswe2022group7/pull/522) |
+| Tag for milestone 2 | [#526](https://github.com/bounswe/bounswe2022group7/issues/526) |
+
 ### Musa Şimşek
 
 ### Atilla Türkmen
@@ -537,7 +557,60 @@ As Reviewer:
 [Comment Tests](https://github.com/bounswe/bounswe2022group7/pull/532) that tests two success and two fail scenarios for comment endpoints.
 
 We had some issues about integrating the test tool Mockito to Kotlin because of the differences between Java and Kotlin. Unfortunately, we could not figure out the problems before Milestone 2. We are going to add more unit tests before the final presentation as backend team.
+
 ## Cahid Arda Öz
+
+### Member
+
+Group communicator and frontend team member. Links to [wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Cahid-Arda-%C3%96z) and [time tracking page](https://github.com/bounswe/bounswe2022group7/wiki/Cahid-Arda-%C3%96z-(Effort-Tracking)).
+
+### Responsibilities
+
+- Group communicator
+- Frontend team member
+- Milestone 2, frontend presenter
+- Creating View/Create Content (art item, event, discussion post) Pages
+- Comment Section Feature
+
+### Main Contributions
+
+Code Related Significant Issues:
+- [#421](https://github.com/bounswe/bounswe2022group7/issues/421): In this issue, I worked on adding create art item and physical event pages.
+- [#457](https://github.com/bounswe/bounswe2022group7/issues/457): In this issue, I reported a bug I noticed in the create art item endpoint.
+- [#458](https://github.com/bounswe/bounswe2022group7/issues/458): In this issue, I reported a bug I noticed in the create comment endpoint.
+- [#460](https://github.com/bounswe/bounswe2022group7/issues/460): In this issue, I worked on integrating the comment section I had written for milestone 1 to the new endpoints.
+- [#469](https://github.com/bounswe/bounswe2022group7/issues/469): In this issue, I reported a bug I noticed in the get discussion post endpoint.
+- [#470](https://github.com/bounswe/bounswe2022group7/issues/470): In this issue, I reported a bug I noticed in the create comment endpoint.
+- [#490](https://github.com/bounswe/bounswe2022group7/issues/490): In this issue, I worked on restyling content pages (art item, discussion post and physical event pages). I also styled the comment section.
+
+Management Related Significant Issues:
+- [#389](https://github.com/bounswe/bounswe2022group7/issues/389): In this issue, we looked into the possibilty of using base64 encoding when passing images.
+- [#526](https://github.com/bounswe/bounswe2022group7/issues/389): In this issue, we worked on creating a tag for milestone 2.
+
+### Pull Requests
+
+PRs I created:
+- [#387](https://github.com/bounswe/bounswe2022group7/pull/387): I created a form layout to contain the sign-in and sign-up forms.
+- [#417](https://github.com/bounswe/bounswe2022group7/pull/417): I added another layout to contain content pages. I also improved the error page and fixed endpoint requests in the home page.
+- [#459](https://github.com/bounswe/bounswe2022group7/pull/459): I added create art item and physical event pages.
+- [#474](https://github.com/bounswe/bounswe2022group7/pull/474): I removed an unnecessary field from a table in the backend and updated the requests. Field was `posterId` for discussion posts.
+- [#476](https://github.com/bounswe/bounswe2022group7/pull/476): Updated discussion post get respose of the endpoint and added create/view art item pages.
+- [#478](https://github.com/bounswe/bounswe2022group7/pull/478): We created a PR to transfer all changes to master branch.
+- [#491](https://github.com/bounswe/bounswe2022group7/pull/491): I restyled the content pages.
+- [#521](https://github.com/bounswe/bounswe2022group7/pull/521): I added unit tests to the CommentSection component.
+- [#522](https://github.com/bounswe/bounswe2022group7/pull/522): I added mock text annotation for milestone presentation.
+
+PRs I reviewed:
+- [#412](https://github.com/bounswe/bounswe2022group7/pull/412)
+- [#426](https://github.com/bounswe/bounswe2022group7/pull/426)
+- [#429](https://github.com/bounswe/bounswe2022group7/pull/429)
+- [#452](https://github.com/bounswe/bounswe2022group7/pull/452)
+- [#503](https://github.com/bounswe/bounswe2022group7/pull/503)
+- [#520](https://github.com/bounswe/bounswe2022group7/pull/520)
+
+### Unit Tests
+
+I have written [unit tests](../../frontend/src/tests/CommentSection.test.js) for the [CommentSection](../../frontend/src/common/CommentSection.js) component I wrote which was used under the content pages.
 
 ## Musa Şimşek
 
