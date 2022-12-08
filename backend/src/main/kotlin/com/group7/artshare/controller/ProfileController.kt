@@ -36,14 +36,14 @@ class ProfileController(
         @RequestHeader(
             value = "Authorization",
             required = true
-        ) authorizationHeader: String?
+        ) authorizationHeader: String
     ) : SettingDTO {
         try {
-            authorizationHeader?.let {
+            authorizationHeader.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                    return profileService.getSettings(user)
-            } ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Unregistered user cannot view user settings")
+                return profileService.getSettings(user)
+            }
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
