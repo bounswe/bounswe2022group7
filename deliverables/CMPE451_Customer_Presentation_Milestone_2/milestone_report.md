@@ -384,7 +384,7 @@ Note that the images are taken with different amounts of zoom.
 
 - [Home Page:](../../frontend/src/pages/HomePage/HomePage.js)
 
-![Alt Text](Front_UI_UX/Home.PNG)
+![Alt Text](Front_UI_UX/home.PNG)
 
 - [Sing in Page:](../../frontend/src/pages/Authentication/SignInPage.js)
 
