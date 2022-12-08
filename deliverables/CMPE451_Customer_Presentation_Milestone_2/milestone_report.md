@@ -380,6 +380,64 @@ TOKEN should be obtained by signing up as Artist user
 ## 1.5. User Interface & User Experience
 ### 1.5.1. Web:
 
+Note that the images are taken with different amounts of zoom.
+
+- [Home Page:](../../frontend/src/pages/HomePage/HomePage.js)
+
+![Alt Text](Front_UI_UX/Home.PNG)
+
+- [Sing in Page:](../../frontend/src/pages/Authentication/SignInPage.js)
+
+![Alt Text](Front_UI_UX/signin.PNG)
+
+- [Sign up Page:](../../frontend/src/pages/Authentication/SignUpPage.js)
+
+![Alt Text](Front_UI_UX/signup.PNG)
+
+- [Sign up, stage 2 Page:](../../frontend/src/components/EditUserInfo.js)
+
+![Alt Text](Front_UI_UX/signup-stage-2.PNG)
+
+- [Profile Page:](../../frontend/src/pages/ProfilePage/Profile.js)
+
+![Alt Text](Front_UI_UX/profile.PNG)
+
+- [Edit Profile Page:](../../frontend/src/pages/ProfilePage/SettingsPage.js)
+
+![Alt Text](Front_UI_UX/profile-edit.PNG)
+
+- [Art Item Page:](../../frontend/src/pages/ArtItemPage/ArtItemPage.js)
+
+![Alt Text](Front_UI_UX/art-item-page.PNG)
+
+- [Create Art Item Page:](../../frontend/src/pages/ArtItemPage/CreateArtItemPage.js)
+
+![Alt Text](Front_UI_UX/art-item-new.PNG)
+
+- [Physical Event Page:](../../frontend/src/pages/EventPage/EventPage.js)
+
+![Alt Text](Front_UI_UX/event-page.PNG)
+
+- [Create Physical Event Page:](../../frontend/src/pages/EventPage/CreatePhysicalEventPage.js)
+
+![Alt Text](Front_UI_UX/event-physical-new.PNG)
+
+- [Discussion Post Page:](../../frontend/src/pages/DiscussionPage/DiscussionPostPage.js)
+
+![Alt Text](Front_UI_UX/discussion-post.PNG)
+
+- [New Discussion Post Page:](../../frontend/src/pages/DiscussionPage/CreateDiscussionPostPage.js)
+
+![Alt Text](Front_UI_UX/discussion-post-new.PNG)
+
+- [Text Annotation:](../../frontend/src/App.js#53)
+
+![Alt Text](Front_UI_UX/annotation-text.PNG)
+
+- [Image Annotation:](../../frontend/src/components/ImageComponent.js#23)
+
+![Alt Text](Front_UI_UX/annotation-image.PNG)
+
 ### 1.5.2. Mobile:
 - [Home Page:](../../android/lib/pages/home_page.dart#229)
 
