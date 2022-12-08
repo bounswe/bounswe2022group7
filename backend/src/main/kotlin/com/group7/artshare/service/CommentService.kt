@@ -110,6 +110,7 @@ class CommentService(
                 "Vote value must be 1 or -1"
             )
         }
+        commentRepository.flush()
         return comment.mapToDTO()
     }
 
