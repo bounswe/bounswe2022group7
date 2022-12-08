@@ -568,6 +568,23 @@ They can be seen here [#PR532](https://github.com/bounswe/bounswe2022group7/pull
 
 ## Güney İzol
 
+### Member
+I am a member of the frontend team.
+- [Personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/G%C3%BCney-%C4%B0zol)
+- [Effort tracking page](https://github.com/bounswe/bounswe2022group7/wiki/G%C3%BCney-%C4%B0zol-(Effort-Tracking))
+
+### Responsibilities
+I have worked on both the backend and frontend implementation of web annotation features of our project. I researched about the web annotation standard and read the standard's documents.
+
+### Main Contributions
+#### Issues
+- Research for web annotation - [#441](https://github.com/bounswe/bounswe2022group7/issues/441) |
+- Implement web annotation service - [#488](https://github.com/bounswe/bounswe2022group7/issues/488) |
+- Implement image annotation frontend functionality - [#501](https://github.com/bounswe/bounswe2022group7/issues/501) |
+#### Pull requests
+- Merge pull request for web annotation functionality - [#502](https://github.com/bounswe/bounswe2022group7/pull/502) |
+- Reviewed pull request - [#498](https://github.com/bounswe/bounswe2022group7/pull/498)
+
 ## Ali Can Milani
 
 ### Member
