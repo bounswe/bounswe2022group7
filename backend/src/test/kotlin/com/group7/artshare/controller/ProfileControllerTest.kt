@@ -1,5 +1,6 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.SettingDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.request.ArtItemRequest
 import com.group7.artshare.service.ImageService
@@ -42,48 +43,41 @@ internal class ProfileControllerTest {
         }
     }
 
-//    @Test
-//    fun failsToGetIfInvalidToken() {
-//       // val accountInfo1 = AccountInfo("email@email.com", "janedoe", "31415926")
-//       // val mockUser = RegisteredUser(accountInfo1, setOf())
-//        assertThrows(ResponseStatusException::class.java) { profileController.getUserByToken("authorization") }
-//
-//
-//        `when`(profileService.getUserByUsernameOrToken(null, "Some Authorization")).thenReturn(mockUser)
-//        val response = mockUser.username?.let { profileController.getUserByUsername(it, null) }
-//        assert(response != null)
-//        if (response != null) {
-//            assert(response.username == mockUser.username)
-//        }
+    @Test
+    fun successfullyReturnsPrivateProfile() {
+        val accountInfo1 = AccountInfo("email@email.com", "janedoe", "31415926")
+        val mockUser = RegisteredUser(accountInfo1, setOf())
+        `when`(profileService.getUserByUsernameOrToken(null, "authorizationHeader")).thenReturn(mockUser)
+        val response = profileController.getUserByToken("authorizationHeader")
+        assert(response.username == mockUser.username)
     }
 
-//    @Test
-//    fun failsToDeleteIfNotHasAuthorization() {
-//        assertThrows(ResponseStatusException::class.java) { artItemController.delete(ArgumentMatchers.anyLong(), "someAuthorization") }
-//
-//    }
+    @Test
+    fun failsToGetSettingsIfNotHasAuthorization() {
+        assertThrows(ResponseStatusException::class.java) { profileController.getSettingsForUser("someAuthorization") }
+    }
 
-//    @Test
-//    fun successfullyPostsArtItem() {
-//        val mockArtItemInfo = ArtItemInfo()
-//        val mockArtItemRequest = ArtItemRequest(mockArtItemInfo, 1.0)
-//        val accountInfo1 = AccountInfo("email@email.com", "janedoe", "31415926")
-//        val mockArtist= Artist(accountInfo1, setOf())
-//        var mockArtItem = ArtItem()
-//        mockArtItem.artItemInfo = mockArtItemInfo
-//        mockArtItem.lastPrice = mockArtItemRequest.lastPrice!!
-//        `when`(artItemService.createArtItem(mockArtItemRequest, mockArtist)).thenReturn(mockArtItem)
-//        `when`(jwtService.getUserFromAuthorizationHeader("authorizationHeader")).thenReturn(mockArtist)
-//        val response = artItemController.create(mockArtItemRequest, "authorizationHeader")
-//        assert(response.lastPrice == mockArtItemRequest.lastPrice)
-//    }
-//
-//    @Test
-//    fun successfullyDeletesComment() {
-//        val accountInfo1 = AccountInfo("email@email.com", "janedoe", "31415926")
-//        val mockUser = RegisteredUser(accountInfo1, setOf())
-//        `when`(jwtService.getUserFromAuthorizationHeader("authorizationHeader")).thenReturn(mockUser)
-//        val response = artItemController.delete(3,"authorizationHeader")
-//        assert(response == Unit)
-//    }
+    @Test
+    fun successfullyGetSettings() {
+        val accountInfo1 = AccountInfo("email@email.com", "janedoe", "31415926")
+        val mockUser = RegisteredUser(accountInfo1, setOf())
+        val mockSettingDTO = SettingDTO()
+        mockSettingDTO.username = mockUser.username
+        `when`(jwtService.getUserFromAuthorizationHeader("authorizationHeader")).thenReturn(mockUser)
+        `when`(profileService.getSettings(mockUser)).thenReturn(mockSettingDTO)
+        val response = profileController.getSettingsForUser("authorizationHeader")
+        assert(response.username == mockUser.username)
+    }
+
+    @Test
+    fun successfullySetSettings() {
+        val accountInfo1 = AccountInfo("email@email.com", "janedoe", "31415926")
+        val mockUser = RegisteredUser(accountInfo1, setOf())
+        val mockSettingDTO = SettingDTO()
+        mockSettingDTO.username = "newUsername"
+        `when`(jwtService.getUserFromAuthorizationHeader("authorizationHeader")).thenReturn(mockUser)
+        `when`(profileService.setSettings(mockUser, mockSettingDTO)).thenReturn(mockSettingDTO)
+        val response = profileController.setSettingsForUser(mockSettingDTO, "authorizationHeader")
+        assert(response.username == mockSettingDTO.username)
+    }
 }
