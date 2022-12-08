@@ -4,6 +4,7 @@ import com.group7.artshare.DTO.DiscussionPostDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.DiscussionPostRequest
+import com.group7.artshare.request.VoteRequest
 import com.group7.artshare.service.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
@@ -54,6 +55,23 @@ class DiscussionPostController (
         return discussionPostService.getAllDiscussionPosts().map { discussionPost -> discussionPost.mapToDTO() }
     }
 
+    @PostMapping("/vote")
+    fun voteDiscussionPost(
+        @RequestBody voteRequest: VoteRequest,
+        @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
+    ): DiscussionPostDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return discussionPostService.voteDiscussionPost(voteRequest, user)
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
 //    @DeleteMapping("{id}")
 //    @ResponseStatus(HttpStatus.NO_CONTENT)
 //    fun delete(
