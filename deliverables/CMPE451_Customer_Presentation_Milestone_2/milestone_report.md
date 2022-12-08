@@ -38,10 +38,10 @@
 
 ## 1.1. Executive Summary
 
-#### What is Ideart.
+#### What is Ideart. / Project Status
 Ideart. is an art platform that was created to engage artists and art lovers by sharing events, art items, and discussion posts. Everyone can sign up as a regular user or an artist, but you can also view the public pages as a guest without additional functionalities. Regular users have the ability to follow other users, whether they are regular users or artists, post discussions, and leave comments on events, art items, and discussion posts. Along with the mentioned benefits available to regular users, artists may publish their art works and host physical exhibitions. Our application works on web and mobile both with additional annotation feature which is in developing right now! On web, you can annotate images and see the annotated parts of other users. On the mobile, you can annotate texts, however, backend part has not integrated yet. Fully functional image and text annotation is going to be added to the platform in the next version.
 
-#### Changes from latest version
+#### Changes from the Latest Version
 * To achieve more simple UI, optional fields of sign up page are transferred to the settings page. Hence, you can sign up by providing e-mail, username, password, and user type. If you want to give us some additional information about yourself, you can complete the other optional fields whenever you want.
 * Age field is updated to take birthday as input to have more consistent data about the users.
 * To facilitate tracking, events are showing the exact location by using Geolocation now!
