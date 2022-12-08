@@ -39,8 +39,8 @@ class DiscussionPost {
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "discussion_post_upvoter",
-        joinColumns = [JoinColumn(name = "post_upvoter_user_id")],
-        inverseJoinColumns = [JoinColumn(name = "post_id")]
+        joinColumns = [JoinColumn(name = "post_id")],
+        inverseJoinColumns = [JoinColumn(name = "post_upvoter_user_id")]
     )
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var upVotedUsers : MutableSet<RegisteredUser> = mutableSetOf()
@@ -49,8 +49,8 @@ class DiscussionPost {
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
         name = "discussion_post_downvoter",
-        joinColumns = [JoinColumn(name = "post_downvoter_user_id")],
-        inverseJoinColumns = [JoinColumn(name = "post_id")]
+        joinColumns = [JoinColumn(name = "post_id")],
+        inverseJoinColumns = [JoinColumn(name = "post_downvoter_user_id")]
     )
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var downVotedUsers : MutableSet<RegisteredUser> = mutableSetOf()
