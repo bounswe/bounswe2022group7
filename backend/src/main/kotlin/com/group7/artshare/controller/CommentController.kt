@@ -1,8 +1,10 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.CommentDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.CommentRequest
+import com.group7.artshare.request.CommentVoteRequest
 import com.group7.artshare.service.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
@@ -15,8 +17,7 @@ import org.springframework.web.server.ResponseStatusException
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("comment")
 class CommentController(
-    private val jwtService: JwtService,
-    private val commentService: CommentService
+    private val jwtService: JwtService, private val commentService: CommentService
 ) {
 
     @Autowired
@@ -25,19 +26,15 @@ class CommentController(
     @GetMapping("{id}")
     fun getComment(@PathVariable("id") id: Long): Comment =
         commentRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
-            HttpStatus.NOT_FOUND,
-            "Id is not matched with any of the comments in the database"
+            HttpStatus.NOT_FOUND, "Id is not matched with any of the comments in the database"
         )
 
     @PostMapping(
-        consumes = ["application/json;charset=UTF-8"],
-        produces = ["application/json;charset=UTF-8"]
+        consumes = ["application/json;charset=UTF-8"], produces = ["application/json;charset=UTF-8"]
     )
     fun create(
-        @RequestBody commentRequest: CommentRequest,
-        @RequestHeader(
-            value = "Authorization",
-            required = true
+        @RequestBody commentRequest: CommentRequest, @RequestHeader(
+            value = "Authorization", required = true
         ) authorizationHeader: String?
     ): Comment {
         try {
@@ -58,19 +55,34 @@ class CommentController(
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteComment(
-        @PathVariable id: Long,
-        @RequestBody json: Map<String, Long>,
-        @RequestHeader(
-            value = "Authorization",
-            required = true
+        @PathVariable id: Long, @RequestBody json: Map<String, Long>, @RequestHeader(
+            value = "Authorization", required = true
         ) authorizationHeader: String?
-    ){
+    ) {
         try {
             authorizationHeader?.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
                 json["commentedObjectId"]?.let { it1 -> commentService.deleteComment(id, it1, user) }
             } ?: throw Exception("Token required")
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @PostMapping("/vote")
+    fun voteComment(
+        @RequestBody commentVoteRequest: CommentVoteRequest,
+        @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
+    ): CommentDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return commentService.voteComment(commentVoteRequest.id, user, commentVoteRequest.vote)
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
