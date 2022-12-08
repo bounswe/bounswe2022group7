@@ -89,6 +89,7 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 | Implement web annotation service | [#488](https://github.com/bounswe/bounswe2022group7/issues/488) |
 | Implement image annotation frontend functionality | [#501](https://github.com/bounswe/bounswe2022group7/issues/501) |
 | Merge pull request for web annotation functionality | [#502](https://github.com/bounswe/bounswe2022group7/pull/502) |
+| Reviewed pull request | [#498](https://github.com/bounswe/bounswe2022group7/pull/498)
 
 ### Ali Can Milani
 | Task | Link |
