@@ -5,7 +5,4 @@ import lombok.RequiredArgsConstructor
 import javax.validation.constraints.NotEmpty
 
 @Data
-class CommentVoteRequest {
-    val id: Long = -1;
-    val vote: Int = 0;
-}
+class CommentVoteRequest(var id: Long, var vote: Int)
