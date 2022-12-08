@@ -584,6 +584,10 @@ Debugging related significant issues:
 As Reviewer:
 [#PR404](https://github.com/bounswe/bounswe2022group7/pull/404), [#PR424](https://github.com/bounswe/bounswe2022group7/pull/424), [#PR436](https://github.com/bounswe/bounswe2022group7/pull/436), [#PR448](https://github.com/bounswe/bounswe2022group7/pull/448), [#PR456](https://github.com/bounswe/bounswe2022group7/pull/456), [#PR463](https://github.com/bounswe/bounswe2022group7/pull/463), [#PR464](https://github.com/bounswe/bounswe2022group7/pull/464), [#PR468](https://github.com/bounswe/bounswe2022group7/pull/468), [#PR473](https://github.com/bounswe/bounswe2022group7/pull/473)
 
+### Unit Tests
+[Comment Tests](https://github.com/bounswe/bounswe2022group7/pull/532) that tests two success and two fail scenarios for comment endpoints.
+
+We had some issues about integrating the test tool Mockito to Kotlin because of the differences between Java and Kotlin. Unfortunately, we could not figure out the problems before Milestone 2. We are going to add more unit tests before the final presentation as backend team.
 ## Cahid Arda Öz
 
 ## Musa Şimşek
