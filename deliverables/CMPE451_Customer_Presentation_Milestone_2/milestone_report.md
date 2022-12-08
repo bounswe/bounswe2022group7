@@ -449,8 +449,10 @@ As Reviewer:
 
 I tried to start writing unit tests one week before the demo. However, I was able to run unit tests after almost 6 hours of work. That's why I don't have many unit tests for now but I will add more until Final presentation.
 
-I wrote unit tests for Image Controller: get/post/delete endpoints.
+I wrote unit tests for **Image Controller**: get/post/delete endpoints.
 They can be seen here [#PR532](https://github.com/bounswe/bounswe2022group7/pull/532)
+
+Also there are tests for discussion post and comment voting in these PRs: [#PR536](https://github.com/bounswe/bounswe2022group7/pull/536), [#PR538](https://github.com/bounswe/bounswe2022group7/pull/538) 
 
 ## Enes Aydoğduoğlu
 
