@@ -62,12 +62,8 @@ class Comment {
         commentDTO.text = this.text
         commentDTO.creationDate = this.creationDate
         commentDTO.lastEditDate = this.lastEditDate
-        for(user in this.upVotedUsers){
-            commentDTO.upVotedUserIds.add(user.id)
-        }
-        for(user in this.downVotedUsers){
-            commentDTO.downVotedUserIds.add(user.id)
-        }
+        commentDTO.downVotedUsernames = this.downVotedUsers.map { it.username }.toHashSet()
+        commentDTO.upVotedUsernames = this.upVotedUsers.map { it.username }.toHashSet()
         commentDTO.reports = this.reports
         commentDTO.authorAccountInfo = this.author?.accountInfo
         commentDTO.authorId = this.author?.id

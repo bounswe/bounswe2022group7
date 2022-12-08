@@ -1,5 +1,6 @@
 package com.group7.artshare.service
 
+import com.group7.artshare.DTO.CommentDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.*
@@ -75,4 +76,35 @@ class CommentService(
             commentRepository.deleteById(id)
         }
     }
+
+    fun voteComment(
+        id: Long,
+        user: RegisteredUser,
+        vote: Int
+    ): CommentDTO {
+        val comment = commentRepository.findByIdOrNull(id)?: throw ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "There is no comment object in the database with this id"
+        )
+        if(vote == 1){
+            comment.downVotedUsers.remove(user)
+            comment.upVotedUsers.add(user)
+            user.upVotedComments.add(comment)
+            user.downVotedComments.remove(comment)
+        }
+        else if(vote == -1){
+            comment.upVotedUsers.remove(user)
+            comment.downVotedUsers.add(user)
+            user.downVotedComments.add(comment)
+            user.upVotedComments.remove(comment)
+        }
+        else{
+            throw ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Vote value must be 1 or -1"
+            )
+        }
+        return comment.mapToDTO()
+    }
+
 }

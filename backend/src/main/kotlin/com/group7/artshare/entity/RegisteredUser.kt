@@ -148,7 +148,7 @@ open class RegisteredUser(
     }
 
     @JsonIgnore
-    override fun getUsername(): String? {
+    override fun getUsername(): String {
         return accountInfo.username
     }
 
@@ -171,5 +171,14 @@ open class RegisteredUser(
     override fun isEnabled(): Boolean {
         return true
     }
+    override fun equals(other: Any?): Boolean {
+        if(other == null || other !is RegisteredUser) return false
+        if (this === other) return true
+        if (username != other.username) return false
+        return true
+    }
 
+    override fun hashCode(): Int {
+        return username.hashCode()
+    }
 }
