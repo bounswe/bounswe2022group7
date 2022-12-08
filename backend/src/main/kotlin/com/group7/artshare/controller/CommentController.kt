@@ -4,7 +4,7 @@ import com.group7.artshare.DTO.CommentDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.CommentRequest
-import com.group7.artshare.request.CommentVoteRequest
+import com.group7.artshare.request.VoteRequest
 import com.group7.artshare.service.*
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -63,13 +63,13 @@ class CommentController(
 
     @PostMapping("/vote")
     fun voteComment(
-        @RequestBody commentVoteRequest: CommentVoteRequest,
+        @RequestBody voteRequest: VoteRequest,
         @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
     ): CommentDTO {
         try {
             val user =
                 jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-            return commentService.voteComment(commentVoteRequest.id, user, commentVoteRequest.vote)
+            return commentService.voteComment(voteRequest.id, user, voteRequest.vote)
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
