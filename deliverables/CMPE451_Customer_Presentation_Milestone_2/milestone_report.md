@@ -83,6 +83,11 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 ### Erim Erkin Doğan
 
 ### Güney İzol
+| Task | Link |
+| --- | --- |
+| Research for web annotation | [#441](https://github.com/bounswe/bounswe2022group7/issues/441) |
+| Implement web annotation service | [#488](https://github.com/bounswe/bounswe2022group7/issues/488) |
+| Implement image annotation frontend functionality | [#501](https://github.com/bounswe/bounswe2022group7/issues/501) |
 
 ### Ali Can Milani
 | Task | Link |
