@@ -19,15 +19,8 @@ import org.springframework.web.server.ResponseStatusException
 class CommentController(
     private val jwtService: JwtService, private val commentService: CommentService
 ) {
-
-    @Autowired
-    lateinit var commentRepository: CommentRepository
-
     @GetMapping("{id}")
-    fun getComment(@PathVariable("id") id: Long): Comment =
-        commentRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
-            HttpStatus.NOT_FOUND, "Id is not matched with any of the comments in the database"
-        )
+    fun getComment(@PathVariable("id") id: Long): Comment = commentService.getCommentById(id)
 
     @PostMapping(
         consumes = ["application/json;charset=UTF-8"], produces = ["application/json;charset=UTF-8"]

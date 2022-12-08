@@ -17,6 +17,12 @@ class CommentService(
     private val onlineGalleryRepository: OnlineGalleryRepository,
     private val physicalExhibitionRepository: PhysicalExhibitionRepository
 ) {
+
+    fun getCommentById(id: Long): Comment {
+        return commentRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
+            HttpStatus.NOT_FOUND, "Comment with id $id not found"
+        )
+    }
     fun createComment(
         commentRequest: CommentRequest,
         user: RegisteredUser
