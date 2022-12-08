@@ -89,7 +89,8 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 | Implement web annotation service | [#488](https://github.com/bounswe/bounswe2022group7/issues/488) |
 | Implement image annotation frontend functionality | [#501](https://github.com/bounswe/bounswe2022group7/issues/501) |
 | Merge pull request for web annotation functionality | [#502](https://github.com/bounswe/bounswe2022group7/pull/502) |
-| Reviewed pull request | [#498](https://github.com/bounswe/bounswe2022group7/pull/498)
+| Reviewed pull request | [#498](https://github.com/bounswe/bounswe2022group7/pull/498) |
+| Write the annotation part of the report | [#512](https://github.com/bounswe/bounswe2022group7/issues/512) |
 
 ### Ali Can Milani
 | Task | Link |
@@ -515,6 +516,11 @@ TOKEN should be obtained by signing up as Artist user
 ![Alt text](Mobile_UI_UX/MobileImageAnno.png)
 
 ## 1.6. Annotations
+The web annotation feature uses the JSON-LD data format to store and transfer annotations. It has various fields, the two most important ones are the target and the body. The target indicates which web resource the annotation annotates and the body contains the annotation content.
+
+We implemented the annotation server using Koa, a ligthweight web framework that runs on the Node.js platform. As the data store, MongoDB is very well-suited for JSON data, so we used it as our database of the web annotation service.
+
+[Annotorious](https://recogito.github.io/annotorious/) is an open source image annotation library that complies with the web annotation standard. We used it to provide a reliable image annotation functionality to our users. It works well with React, the frontend library that we use to implement our web frontend.
 
 ## 1.7. Standards
 
@@ -578,11 +584,13 @@ I have worked on both the backend and frontend implementation of web annotation 
 
 ### Main Contributions
 #### Issues
-- Research for web annotation - [#441](https://github.com/bounswe/bounswe2022group7/issues/441) |
-- Implement web annotation service - [#488](https://github.com/bounswe/bounswe2022group7/issues/488) |
-- Implement image annotation frontend functionality - [#501](https://github.com/bounswe/bounswe2022group7/issues/501) |
+- Research for web annotation - [#441](https://github.com/bounswe/bounswe2022group7/issues/441)
+- Implement web annotation service - [#488](https://github.com/bounswe/bounswe2022group7/issues/488)
+- Implement image annotation frontend functionality - [#501](https://github.com/bounswe/bounswe2022group7/issues/501)
+- Write the annotation part of the report - [#512](https://github.com/bounswe/bounswe2022group7/issues/512)
+
 #### Pull requests
-- Merge pull request for web annotation functionality - [#502](https://github.com/bounswe/bounswe2022group7/pull/502) |
+- Merge pull request for web annotation functionality - [#502](https://github.com/bounswe/bounswe2022group7/pull/502)
 - Reviewed pull request - [#498](https://github.com/bounswe/bounswe2022group7/pull/498)
 
 ## Ali Can Milani
