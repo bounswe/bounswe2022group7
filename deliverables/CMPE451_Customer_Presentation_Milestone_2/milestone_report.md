@@ -85,8 +85,8 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 | --- | --- |
 |Attending weekly group meetings||
 |Implementing Profile Page for Frontend|[#400](https://github.com/bounswe/bounswe2022group7/issues/400)|
-|Updating Project Plan|[#402](https://github.com/bounswe/bounswe2022group7/issues/402)|
-|Reviewing and task management||
+|Preparing the Final version of the Project Plan|[#402](https://github.com/bounswe/bounswe2022group7/issues/402)|
+|Reviewing and task management|[#497](https://github.com/bounswe/bounswe2022group7/issues/497),[#509](https://github.com/bounswe/bounswe2022group7/issues/509),[#510](https://github.com/bounswe/bounswe2022group7/issues/510)|
 |Writing individual milestone report||
 
 ### Erim Erkin Doğan
@@ -647,7 +647,6 @@ I actively participated in the weekly team meetings, implemented the Profile Pag
 
 #### Code Related Significant Issues:
 
-- [Frontend of profile page #400](https://github.com/bounswe/bounswe2022group7/issues/400)
 - [Frontend of profile page #400](https://github.com/bounswe/bounswe2022group7/issues/400)
 
 #### Management Related Significant Issues:
