@@ -387,8 +387,8 @@ NOT YET STARTED
 
 | Requirement | Status |
 | ----- | ------|
-| 2.1.1 Annotations shall comply with the [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#annotations).|Partially completed|
-| 2.1.2 Annotations shall follow [W3C standards](https://www.w3.org/TR/annotation-model/#annotations).|Partially completed|
+| 2.1.1 Annotations shall comply with the [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#annotations).|In progress|
+| 2.1.2 Annotations shall follow [W3C standards](https://www.w3.org/TR/annotation-model/#annotations).|In progress|
 
 ### 2.2 Accessibility
 
