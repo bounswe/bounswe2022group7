@@ -14,13 +14,14 @@
     + [Atilla Türkmen](#atilla-türkmen)
     + [Can Atakan Uğur](#can-atakan-uğur)
     + [Demet Yayla](#demet-yayla)
-  * [1.3. Progress According to Requirements](#13-progress-according-to-requirements)
-  * [1.4. API Endpoints](#14-api-endpoints)
-  * [1.5. User Interface & User Experience](#15-user-interface--user-experience)
-    + [1.5.1. Web](#151-web)
-    + [1.5.2. Mobile](#152-mobile)
-  * [1.6. Annotations](#16-annotations)
-  * [1.7. Standards](#17-standards)
+  * [1.3. Status of the deliverables of Milestone 1](#13-status-of-the-deliverables-of-milestone-1)
+  * [1.4. Progress According to Requirements](#14-progress-according-to-requirements)
+  * [1.5. API Endpoints](#15-api-endpoints)
+  * [1.6. User Interface & User Experience](#16-user-interface--user-experience)
+    + [1.6.1. Web](#161-web)
+    + [1.6.2. Mobile](#162-mobile)
+  * [1.7. Annotations](#17-annotations)
+  * [1.8. Standards](#18-standards)
 - [2. Individual Contribution Reports](#2-individual-contribution-reports)
   * [Sabri Mete Akyüz](#sabri-mete-akyüz-1)
   * [Enes Aydoğduoğlu](#enes-aydoğduoğlu-1)
@@ -228,7 +229,19 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 |Writing part three of group review for milestone 1.|[#370](https://github.com/bounswe/bounswe2022group7/issues/370)|
 |One of the notetakers for milestone 2 presentations.||
 
-## 1.3. Progress According to Requirements
+## 1.3. Status of the deliverables of Milestone 1
+We have changed our requirements and project plan after milestone 1. Furthermore, all deliverables were submitted in time. 
+
+The evaluation for status of the each deliverable can be seen below.
+#### Software Requirements Specification
+We have simplified our requirements about annotations. Specifically 1.1.13.1 and 1.1.13.2 which allowed annotations by user type. Now all users are allowed to annotate all text and images.
+#### Project Plan
+We updated our project plan according to what we implemented between milestone 1 and milestone 2.
+#### Individual Contribution Reports
+Each member filled their own contributions and we submitted it before the decided deadline.
+
+
+## 1.4. Progress According to Requirements
 
 ## 1\. Functional Requirements
 
@@ -397,7 +410,7 @@ NOT YET STARTED
 
 NOT YET STARTED
 
-## 1.4. API Endpoints
+## 1.5. API Endpoints
 
 ### The API documentation:
 
@@ -418,8 +431,8 @@ TOKEN should be obtained by signing up as Regular user
 - artistToken: required format is like this: "Bearer {TOKEN}". 
 TOKEN should be obtained by signing up as Artist user
 
-## 1.5. User Interface & User Experience
-### 1.5.1. Web:
+## 1.6. User Interface & User Experience
+### 1.6.1. Web:
 
 Note that the images are taken with different amounts of zoom.
 
@@ -479,7 +492,7 @@ Note that the images are taken with different amounts of zoom.
 
 ![Alt Text](Front_UI_UX/annotation-image.PNG)
 
-### 1.5.2. Mobile:
+### 1.6.2. Mobile:
 - [Home Page:](../../android/lib/pages/home_page.dart#229)
 
 ![Alt text](Mobile_UI_UX/MobileHomePage.png)
@@ -529,7 +542,7 @@ Note that the images are taken with different amounts of zoom.
 
 ![Alt text](Mobile_UI_UX/MobileImageAnno.png)
 
-## 1.6. Annotations
+## 1.7. Annotations
 
 ### Web
 
@@ -543,7 +556,7 @@ We implemented the annotation server using Koa, a ligthweight web framework that
 
 Although we were not able to complete the entire implementation of annotations, we provided a fundamental UI for creating and viewing them. There is no connection with the back-end yet but this basic interface shows how our final implementation will look like. Speaking of the standards that we should follow according to the requirements of the customer, since we are not done with the back-end implementation and we did not actually create annotations yet, we also did not work on creating annotation objects that comply with the W3C standards. However, we made our research and we are going to prioritize the completion of annotations, right after this milestone.
 
-## 1.7. Standards
+## 1.8. Standards
 
 In our current implementation of annotations, we tried to stick to 2 standards: [Web Annotation Protocol](https://www.w3.org/TR/annotation-model/) and [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/). 
 
