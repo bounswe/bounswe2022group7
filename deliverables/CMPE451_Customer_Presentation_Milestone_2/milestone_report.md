@@ -171,6 +171,17 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 
 ### Musa Şimşek
 
+| **Task** | **Link** |
+| -------- | ------------- |
+| Removal of Optional Fields in Signup Page | [#410](https://github.com/bounswe/bounswe2022group7/issues/410) |
+| Final Version of the Profile Page | [#446](https://github.com/bounswe/bounswe2022group7/issues/446) |
+| Comment Feature | [#486](https://github.com/bounswe/bounswe2022group7/issues/486) |
+| Navigation From Signup Page | [#518](https://github.com/bounswe/bounswe2022group7/issues/518) |
+| Review of several issues | [#335](https://github.com/bounswe/bounswe2022group7/issues/335), [#359](https://github.com/bounswe/bounswe2022group7/issues/359), [#374](https://github.com/bounswe/bounswe2022group7/issues/374), [#379](https://github.com/bounswe/bounswe2022group7/issues/375), [#398](https://github.com/bounswe/bounswe2022group7/issues/398), [#479](https://github.com/bounswe/bounswe2022group7/issues/479), [#495](https://github.com/bounswe/bounswe2022group7/issues/495), [#504](https://github.com/bounswe/bounswe2022group7/issues/504) |
+| Review of several pull requests | [#465](https://github.com/bounswe/bounswe2022group7/pull/465), [#480](https://github.com/bounswe/bounswe2022group7/pull/480), [#506](https://github.com/bounswe/bounswe2022group7/pull/506), [#511](https://github.com/bounswe/bounswe2022group7/pull/511), [#524](https://github.com/bounswe/bounswe2022group7/pull/524) |
+| Pull requests | [#414](https://github.com/bounswe/bounswe2022group7/pull/414), [#475](https://github.com/bounswe/bounswe2022group7/pull/475), [#508](https://github.com/bounswe/bounswe2022group7/pull/508), [#519](https://github.com/bounswe/bounswe2022group7/pull/519) |
+
+
 ### Atilla Türkmen
 
 ### Can Atakan Uğur
