@@ -81,6 +81,14 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 
 ### Enes Aydoğduoğlu
 
+| Task | Link |
+| --- | --- |
+|Attending weekly group meetings||
+|Implementing Profile Page for Frontend|[#400](https://github.com/bounswe/bounswe2022group7/issues/400)|
+|Preparing the Final version of the Project Plan|[#402](https://github.com/bounswe/bounswe2022group7/issues/402)|
+|Reviewing and task management|[#497](https://github.com/bounswe/bounswe2022group7/issues/497),[#509](https://github.com/bounswe/bounswe2022group7/issues/509),[#510](https://github.com/bounswe/bounswe2022group7/issues/510)|
+|Writing individual milestone report||
+
 ### Erim Erkin Doğan
 | Task | Link |
 | --- | --- |
@@ -624,6 +632,38 @@ They can be seen here [#PR532](https://github.com/bounswe/bounswe2022group7/pull
 Also there are tests for discussion post and comment voting in these PRs: [#PR536](https://github.com/bounswe/bounswe2022group7/pull/536), [#PR538](https://github.com/bounswe/bounswe2022group7/pull/538) 
 
 ## Enes Aydoğduoğlu
+
+### Member
+
+My name is Enes Aydoğduoğlu and I'm a member of frontend team. You can find [My Personal Wiki Page](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu) and [My Time Tracking](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu-(Effort-Tracking))
+
+### Responsibilities
+
+In this milestone, I was responsible for updating the project plan and implementing the profile page in the frontend.
+
+### Main Contributions
+
+I actively participated in the weekly team meetings, implemented the Profile Page for the Frontend part, and updated the Project Plan several times and prepared the final version. I participated in research, task tracking, planning and implementation processes.
+
+#### Code Related Significant Issues:
+
+- [Frontend of profile page #400](https://github.com/bounswe/bounswe2022group7/issues/400)
+
+#### Management Related Significant Issues:
+
+- [Update the Project Plan after Milestone 1 #402](https://github.com/bounswe/bounswe2022group7/issues/402)
+- [Prepare the scenarios for Milestone-2 Presentation #497](https://github.com/bounswe/bounswe2022group7/issues/497)
+- [Prepare Executive Summary For Group Milestone 2 Report #509](https://github.com/bounswe/bounswe2022group7/issues/509)
+- [Prepare the Annotations Documentation Part for Milestone 2 Report #510](https://github.com/bounswe/bounswe2022group7/issues/510)
+
+
+### Pull Requests
+
+- [#513](https://github.com/bounswe/bounswe2022group7/pull/513)
+- [#514](https://github.com/bounswe/bounswe2022group7/pull/514)
+- [#516](https://github.com/bounswe/bounswe2022group7/pull/516)
+
+### Unit Tests
 
 ## Erim Erkin Doğan
 ### Member
