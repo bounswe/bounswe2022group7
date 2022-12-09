@@ -184,37 +184,7 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 
 ### Atilla Türkmen
 
-| Task | Link |
-| ----- | ------|
-| Research about base 64 image implementation |[Issue #389](https://github.com/bounswe/bounswe2022group7/issues/389)|
-| Implementing Create Art Item Page UI |[Issue #403](https://github.com/bounswe/bounswe2022group7/issues/403), [PR #406](https://github.com/bounswe/bounswe2022group7/pull/406)|
-| Implementing Geotagging in Create Event Page |[Issue #439](https://github.com/bounswe/bounswe2022group7/issues/439), [PR #443](https://github.com/bounswe/bounswe2022group7/pull/443)|
-| Implementing Create Art Item Page Network Functionality |[Issue #484](https://github.com/bounswe/bounswe2022group7/issues/484), [PR #485](https://github.com/bounswe/bounswe2022group7/pull/485)|
-| Error Fix when Backend Sends JPG Images |[Issue #493](https://github.com/bounswe/bounswe2022group7/issues/493), [PR #494](https://github.com/bounswe/bounswe2022group7/pull/494)|
-| Implementing Text Annotaton UI |[Issue #495](https://github.com/bounswe/bounswe2022group7/issues/482), [PR #511](https://github.com/bounswe/bounswe2022group7/pull/511)|
-| Pull Requests I Reviewed |[PR #407](https://github.com/bounswe/bounswe2022group7/pull/407), [PR #426](https://github.com/bounswe/bounswe2022group7/pull/426), [PR #430](https://github.com/bounswe/bounswe2022group7/pull/430), [PR #444](https://github.com/bounswe/bounswe2022group7/pull/444), [PR #529](https://github.com/bounswe/bounswe2022group7/pull/529) |
-| Group Meetings I Attend | [Meeting #6](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%236), [Meeting #7](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%237)|
-| Mobile Team Meeting I Attend | [Meeting #4](https://github.com/bounswe/bounswe2022group7/wiki/MOBILE-Meeting-Notes-%234), [Meeting #5](https://github.com/bounswe/bounswe2022group7/wiki/MOBILE-Meeting-Notes-%235)|
-
 ### Can Atakan Uğur
-
-| **Task** | **Remarks** |
-| -------- | ------------ |
-| Create Mobile Metting Notes #4 | [#409](https://github.com/bounswe/bounswe2022group7/issues/409) |
-| Complete post widgets in homepage | [#442](https://github.com/bounswe/bounswe2022group7/issues/442), [PR #444](https://github.com/bounswe/bounswe2022group7/pull/444) |
-| Update Home Page endpoints & images | [#445](https://github.com/bounswe/bounswe2022group7/issues/442), [PR #471](https://github.com/bounswe/bounswe2022group7/pull/471) | 
-|Implement user profile settings | [#481](https://github.com/bounswe/bounswe2022group7/issues/481), [PR #505](https://github.com/bounswe/bounswe2022group7/pull/505)|
-| Implement the UI for Image Annotations | [#507](https://github.com/bounswe/bounswe2022group7/issues/507), [PR #524](https://github.com/bounswe/bounswe2022group7/pull/524)|
-| Add widget tests for Settings Page | [#528](https://github.com/bounswe/bounswe2022group7/issues/528), [PR #529](https://github.com/bounswe/bounswe2022group7/pull/529)|
-| Prepare the scenario for the presentation and present the mobile part | [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/497#issuecomment-1336476540)| 
-| Contribute to fixing the image processing issue | [Commit](https://github.com/bounswe/bounswe2022group7/commit/8d79b5fd26ce676918dc16a84ff8772fea0afad9), [PR #494](https://github.com/bounswe/bounswe2022group7/pull/494)|
-| *Review the Removal of Optional Fields in Signup Page* | [#410](https://github.com/bounswe/bounswe2022group7/issues/410)|
-| *Review the Follow feature* | [#435](https://github.com/bounswe/bounswe2022group7/issues/435), [PR #499](https://github.com/bounswe/bounswe2022group7/pull/499), [Approval with feedback](https://github.com/bounswe/bounswe2022group7/pull/499#pullrequestreview-1203698532) |
-| *Review the Geotagging feature* | [#439](https://github.com/bounswe/bounswe2022group7/issues/439), [PR #443](https://github.com/bounswe/bounswe2022group7/pull/443)|
-| *Review the Art Item model fix* | [#484](https://github.com/bounswe/bounswe2022group7/issues/484), [PR #485](https://github.com/bounswe/bounswe2022group7/pull/485), [Approval with feedback](https://github.com/bounswe/bounswe2022group7/pull/485#pullrequestreview-1203465465) |
-| *Review updates in develop branch into master for deployment* | [PR #478](https://github.com/bounswe/bounswe2022group7/pull/478) |
-| *Review the Comment feature* | [#486](https://github.com/bounswe/bounswe2022group7/issues/486), [PR #519](https://github.com/bounswe/bounswe2022group7/pull/519), [Requested changes](https://github.com/bounswe/bounswe2022group7/pull/519#pullrequestreview-1205223883), [Final approval](https://github.com/bounswe/bounswe2022group7/pull/519#pullrequestreview-1205555360)|
-
 
 ### Demet Yayla
 
@@ -831,45 +801,38 @@ I have written [unit tests](../../frontend/src/tests/CommentSection.test.js) for
 
 ## Musa Şimşek
 
-## Atilla Türkmen
 
 ### Member
-&emsp; My name is Atilla Türkmen. I am a member of Group 7 and the mobile team. 
-- [My Personal Wiki Page](https://github.com/bounswe/bounswe2022group7/wiki/Atilla-T%C3%BCrkmen)
-- [My Effort Trackings](https://github.com/bounswe/bounswe2022group7/wiki/Atilla-T%C3%BCrkmen-(Effort-Tracking))
+I am Musa Şimşek and a member in the mobile team of Group7.
 
 ### Responsibilities
-&emsp; I worked on the mobile application implementation and debugging. My main responsibilities was text annotation, location selection for geolocation feature and create art item page.
+- Mobile team member
+- Comment section of events and art items
+- Signup Page revisions
+- Profile Page revisions
 
 ### Main Contributions
-#### &emsp; My Code Related Issues
-- [Research about base 64 image implementation #389](https://github.com/bounswe/bounswe2022group7/issues/389)
-- [Implementing Create Art Item Page UI #403](https://github.com/bounswe/bounswe2022group7/issues/403)
-- [Implementing Geotagging in Create Event Page #439](https://github.com/bounswe/bounswe2022group7/issues/439)
-- [Implementing Create Art Item Page Network Functionality #484](https://github.com/bounswe/bounswe2022group7/issues/484)
-- [Error Fix when Backend Sends JPG Images #493](https://github.com/bounswe/bounswe2022group7/issues/493)
-- [Implementing Text Annotaton UI #495](https://github.com/bounswe/bounswe2022group7/issues/495)
 
-#### &emsp; My Management Related Issues
-- [Write Status of the Deliverables of Milestone 1 #541](https://github.com/bounswe/bounswe2022group7/issues/541)
+**Code Related Contributions**
+- in [issue #410](https://github.com/bounswe/bounswe2022group7/issues/410), I was assigned to remove the fields(like fullname, date of birth etc.) that is optional to fill in the signup page. I also added a functionality to the profile page while completing this issue: The progress bar in the navigation page is in accordance with the status of the optional fields of the user, from that moment on.
+- in [issue #446](https://github.com/bounswe/bounswe2022group7/issues/446), I was assigned to update the profile page to the product level, which included dropdown button functionality, the real user profile info, real creations of that real user and progress bar customization.
+- in [issue #486](https://github.com/bounswe/bounswe2022group7/issues/486), I was assigned to implement comment related features. In order to complete this task, I had to create new models and network connections while I had to update the existing models and network connections. Additionally, I had implemented widgets and classes for UI/UX.
+- in [issue #518](https://github.com/bounswe/bounswe2022group7/issues/518), I was assigned to navigate the user that registered successfully to his/her profile page, where s/he can complete the profile. This was one of the relatively easy tasks: after a successful register, log user in and navigate him/her to the his/her profile page directly.
 
-### Pull Requests
-#### &emsp; Pull requests I Opened
-- [#406](https://github.com/bounswe/bounswe2022group7/pull/406)
-- [#443](https://github.com/bounswe/bounswe2022group7/pull/443)
-- [#485](https://github.com/bounswe/bounswe2022group7/pull/485)
-- [#494](https://github.com/bounswe/bounswe2022group7/pull/494)
+**Created Pull Requests**
+- [PR #414](https://github.com/bounswe/bounswe2022group7/pull/414): pull request for changes I made in order to remove the optional fields from register page.
+- [PR #475](https://github.com/bounswe/bounswe2022group7/pull/475): pull request for changes I made in order to finalize profile page.
+- PRs [#508](https://github.com/bounswe/bounswe2022group7/pull/508) and [#519](https://github.com/bounswe/bounswe2022group7/pull/519): pull request for changes I made in order to introduce comment feature to the application.
+
+**Reviewed Pull Requests**
+- [#465](https://github.com/bounswe/bounswe2022group7/pull/465)
+- [#480](https://github.com/bounswe/bounswe2022group7/pull/480)
+- [#506](https://github.com/bounswe/bounswe2022group7/pull/506)
 - [#511](https://github.com/bounswe/bounswe2022group7/pull/511)
-#### &emsp; Pull requests I Reviewed
-- [#407](https://github.com/bounswe/bounswe2022group7/pull/407)
-- [#426](https://github.com/bounswe/bounswe2022group7/pull/426)
-- [#430](https://github.com/bounswe/bounswe2022group7/pull/430)
-- [444](https://github.com/bounswe/bounswe2022group7/pull/444)
-- [529](https://github.com/bounswe/bounswe2022group7/pull/529)
-### Unit Tests
-- [Unit Test for email validator function](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/unit_test/validator_test.dart)
-- [Widget Test for register page](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/register_test.dart)
+- [#524](https://github.com/bounswe/bounswe2022group7/pull/524)
 
+
+## Atilla Türkmen
 
 ## Can Atakan Uğur
 
