@@ -337,7 +337,7 @@ Rest not yet started
 
 | Requirement | Status |
 | ----- | ------|
-| 2.4.1 The platform shall support HTTPS protocol |Not yet started|
+| 2.4.1 The platform shall support HTTPS protocol |Completed|
 | 2.4.2 The passwords of users shall be encrypted in the database |Completed|
 | 2.4.3 The password shall be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter and 1 special symbol. |Completed|
 | 2.4.4 A verification email shall be sent for the verification of the user email address. |Completed|
