@@ -186,6 +186,26 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 
 ### Can Atakan Uğur
 
+| **Task** | **Remarks** |
+| -------- | ------------ |
+| Create Mobile Metting Notes #4 | [#409](https://github.com/bounswe/bounswe2022group7/issues/409) |
+| Complete post widgets in homepage | [#442](https://github.com/bounswe/bounswe2022group7/issues/442), [PR #444](https://github.com/bounswe/bounswe2022group7/pull/444) |
+| Update Home Page endpoints & images | [#445](https://github.com/bounswe/bounswe2022group7/issues/442), [PR #471](https://github.com/bounswe/bounswe2022group7/pull/471) | 
+|Implement user profile settings | [#481](https://github.com/bounswe/bounswe2022group7/issues/481), [PR #505](https://github.com/bounswe/bounswe2022group7/pull/505)|
+| Implement the UI for Image Annotations | [#507](https://github.com/bounswe/bounswe2022group7/issues/507), [PR #524](https://github.com/bounswe/bounswe2022group7/pull/524)|
+| Add widget tests for Settings Page | [#528](https://github.com/bounswe/bounswe2022group7/issues/528), [PR #529](https://github.com/bounswe/bounswe2022group7/pull/529)|
+| Prepare the scenario for the presentation and present the mobile part | [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/497#issuecomment-1336476540)| 
+| Contribute to fixing the image processing issue | [Commit](https://github.com/bounswe/bounswe2022group7/commit/8d79b5fd26ce676918dc16a84ff8772fea0afad9), [PR #494](https://github.com/bounswe/bounswe2022group7/pull/494)|
+| Fill the Mobile Annotations part in the Milestone 2 Group Report | [#512](https://github.com/bounswe/bounswe2022group7/issues/512)|
+| *Review Android CI workflow* | [PR #412](https://github.com/bounswe/bounswe2022group7/pull/412)|
+| *Review the Removal of Optional Fields in Signup Page* | [#410](https://github.com/bounswe/bounswe2022group7/issues/410)|
+| *Review the Follow feature* | [#435](https://github.com/bounswe/bounswe2022group7/issues/435), [PR #499](https://github.com/bounswe/bounswe2022group7/pull/499), [Approval with feedback](https://github.com/bounswe/bounswe2022group7/pull/499#pullrequestreview-1203698532) |
+| *Review the Geotagging feature* | [#439](https://github.com/bounswe/bounswe2022group7/issues/439), [PR #443](https://github.com/bounswe/bounswe2022group7/pull/443)|
+| *Review the Art Item model fix* | [#484](https://github.com/bounswe/bounswe2022group7/issues/484), [PR #485](https://github.com/bounswe/bounswe2022group7/pull/485), [Approval with feedback](https://github.com/bounswe/bounswe2022group7/pull/485#pullrequestreview-1203465465) |
+| *Review updates in develop branch into master for deployment* | [PR #478](https://github.com/bounswe/bounswe2022group7/pull/478) |
+| *Review the Comment feature* | [#486](https://github.com/bounswe/bounswe2022group7/issues/486), [PR #519](https://github.com/bounswe/bounswe2022group7/pull/519), [Requested changes](https://github.com/bounswe/bounswe2022group7/pull/519#pullrequestreview-1205223883), [Final approval](https://github.com/bounswe/bounswe2022group7/pull/519#pullrequestreview-1205555360)|
+
+
 ### Demet Yayla
 
 | **Task** | **Link** |
