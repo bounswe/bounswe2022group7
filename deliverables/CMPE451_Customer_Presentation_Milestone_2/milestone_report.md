@@ -185,6 +185,19 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 
 ### Atilla Türkmen
 
+| Task | Link |
+| ----- | ------|
+| Research about base 64 image implementation |[Issue #389](https://github.com/bounswe/bounswe2022group7/issues/389)|
+| Implementing Create Art Item Page UI |[Issue #403](https://github.com/bounswe/bounswe2022group7/issues/403), [PR #406](https://github.com/bounswe/bounswe2022group7/pull/406)|
+| Implementing Geotagging in Create Event Page |[Issue #439](https://github.com/bounswe/bounswe2022group7/issues/439), [PR #443](https://github.com/bounswe/bounswe2022group7/pull/443)|
+| Implementing Create Art Item Page Network Functionality |[Issue #484](https://github.com/bounswe/bounswe2022group7/issues/484), [PR #485](https://github.com/bounswe/bounswe2022group7/pull/485)|
+| Error Fix when Backend Sends JPG Images |[Issue #493](https://github.com/bounswe/bounswe2022group7/issues/493), [PR #494](https://github.com/bounswe/bounswe2022group7/pull/494)|
+| Implementing Text Annotaton UI |[Issue #495](https://github.com/bounswe/bounswe2022group7/issues/482), [PR #511](https://github.com/bounswe/bounswe2022group7/pull/511)|
+| Pull Requests I Reviewed |[PR #407](https://github.com/bounswe/bounswe2022group7/pull/407), [PR #426](https://github.com/bounswe/bounswe2022group7/pull/426), [PR #430](https://github.com/bounswe/bounswe2022group7/pull/430), [PR #444](https://github.com/bounswe/bounswe2022group7/pull/444), [PR #529](https://github.com/bounswe/bounswe2022group7/pull/529) |
+| Group Meetings I Attend | [Meeting #6](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%236), [Meeting #7](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%237)|
+| Mobile Team Meeting I Attend | [Meeting #4](https://github.com/bounswe/bounswe2022group7/wiki/MOBILE-Meeting-Notes-%234), [Meeting #5](https://github.com/bounswe/bounswe2022group7/wiki/MOBILE-Meeting-Notes-%235)|
+
+
 ### Can Atakan Uğur
 
 | **Task** | **Remarks** |
@@ -866,6 +879,43 @@ I am Musa Şimşek and a member in the mobile team of Group7.
 
 
 ## Atilla Türkmen
+
+### Member
+&emsp; My name is Atilla Türkmen. I am a member of Group 7 and the mobile team. 
+- [My Personal Wiki Page](https://github.com/bounswe/bounswe2022group7/wiki/Atilla-T%C3%BCrkmen)
+- [My Effort Trackings](https://github.com/bounswe/bounswe2022group7/wiki/Atilla-T%C3%BCrkmen-(Effort-Tracking))
+
+### Responsibilities
+&emsp; I worked on the mobile application implementation and debugging. My main responsibilities was text annotation, location selection for geolocation feature and create art item page.
+
+### Main Contributions
+#### &emsp; My Code Related Issues
+- [Research about base 64 image implementation #389](https://github.com/bounswe/bounswe2022group7/issues/389)
+- [Implementing Create Art Item Page UI #403](https://github.com/bounswe/bounswe2022group7/issues/403)
+- [Implementing Geotagging in Create Event Page #439](https://github.com/bounswe/bounswe2022group7/issues/439)
+- [Implementing Create Art Item Page Network Functionality #484](https://github.com/bounswe/bounswe2022group7/issues/484)
+- [Error Fix when Backend Sends JPG Images #493](https://github.com/bounswe/bounswe2022group7/issues/493)
+- [Implementing Text Annotaton UI #495](https://github.com/bounswe/bounswe2022group7/issues/495)
+
+#### &emsp; My Management Related Issues
+- [Write Status of the Deliverables of Milestone 1 #541](https://github.com/bounswe/bounswe2022group7/issues/541)
+
+### Pull Requests
+#### &emsp; Pull requests I Opened
+- [#406](https://github.com/bounswe/bounswe2022group7/pull/406)
+- [#443](https://github.com/bounswe/bounswe2022group7/pull/443)
+- [#485](https://github.com/bounswe/bounswe2022group7/pull/485)
+- [#494](https://github.com/bounswe/bounswe2022group7/pull/494)
+- [#511](https://github.com/bounswe/bounswe2022group7/pull/511)
+#### &emsp; Pull requests I Reviewed
+- [#407](https://github.com/bounswe/bounswe2022group7/pull/407)
+- [#426](https://github.com/bounswe/bounswe2022group7/pull/426)
+- [#430](https://github.com/bounswe/bounswe2022group7/pull/430)
+- [444](https://github.com/bounswe/bounswe2022group7/pull/444)
+- [529](https://github.com/bounswe/bounswe2022group7/pull/529)
+### Unit Tests
+- [Unit Test for email validator function](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/unit_test/validator_test.dart)
+- [Widget Test for register page](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/register_test.dart)
 
 ## Can Atakan Uğur
 
