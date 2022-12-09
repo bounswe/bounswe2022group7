@@ -199,8 +199,7 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 | 1.1.1.5: Guest users could provide extra information while signing up, like name, surname, location, age. | Completed |
 | 1.1.1.6: Guest users shall choose their account type, "Artist" or a "Regular User". | Completed |
 |1.1.1.7: Users shall be able to change their email address and password, anytime.|In progress|
-
-Rest not yet started
+|1.1.1.8: Users shall be able to delete their accounts without any requisites, anytime.|Not yet started|
 
 ### 1.1.2. Sign In
 
@@ -208,6 +207,7 @@ Rest not yet started
 | ----- | ------|
 | 1.1.2.1: Users shall be able to sign in using their email and password combination.|Completed|
 | 1.1.2.2: Users shall be able to sign out without a restriction.|Completed|
+|1.1.2.3: Users shall be able to use "Remember Me" option when signing in. This way, they will automatically be signed in when they access the platform|Not yet started|
 
 Rest not yet started
 
@@ -227,19 +227,22 @@ Rest not yet started
 | 1.1.4.1: Registered users and artists shall be able to view comments that belong to art items or exhibitions |Completed|
 | 1.1.4.2: Registered users and artists shall be able to create comments on the discussion page. |Completed|
 | 1.1.4.2.1: Registered users and artists shall be able to edit their comments in the discussion page. |Completed|
-
-Rest not yet started
+|1.1.4.2.2: Registered users and artists shall be able to remove their comments in the discussion page.|Not yet started|
 
 ### 1.1.5 Events
 
 | Requirement | Status |
 | ----- | ------|
 | 1.1.5.1: Artists shall be able to arrange physical events |Completed|
+|1.1.5.2: Artists shall be able to edit events|Not yet started|
 |1.1.5.3: Artists shall be able to remove events they created.|In progress|
+|1.1.5.4: Artists shall be able to arrange Online Galleries using the platform|In progress|
 | 1.1.5.5: Artists shall be able to arrange **Physical Exhibitions** using the platform.|Completed|
 | 1.1.5.5.1: Artists shall be able to mark event location in Physical Exhibitions via using geotagging. |Completed|
+|1.1.5.6: Users shall be able to indicate that their participation in the event.|Not yet started|
+|1.1.5.7: Users shall be able to cancel their participation to a event.|Not yet started|
+|1.1.5.8: Users shall be notified when an event is created by a followed artist.|Not yet started|
 
-Rest not yet started
 
 ### 1.1.6 Copyright
 NOT YET STARTED
@@ -255,20 +258,20 @@ NOT YET STARTED
 | Requirement | Status |
 | ----- | ------|
 | 1.1.9.1: The home page shall highlight the most popular artworks and events of the previous week as well as the events in the coming days that are highly anticipated by the users for the guests.|Completed|
-
-Rest not yet started
+|1.1.9.2: The home page shall be customized for registered users with upcoming events and artworks of the followed artists.|Not yet started|
+|1.1.9.3: Guest users shall be able to see popular artworks and events in the home page.| Not yet started|
 
 ### 1.1.10 Profile Page
 
 | Requirement | Status |
 | ----- | ------|
 | 1.1.10.1 Followers and the users that a certain user follows shall be visible in his/her profile page.|Completed|
+|1.1.10.2 The physical exhibitions/online galleries that a user is attending shall be visible in his/her profile page.|Not yet started|
 | 1.1.10.3 The profile page shall include name, surname, location, username and profile picture.|Completed|
-| 1.1.10.6 The users shall be able to edit the information included in their profile pages.|Completed|
+|1.1.10.4 The profile page shall include the art items that the user has made a bid for.|Not yet started|
 |1.1.10.5 The profile page shall include the verification status of the user.|In progress|
+| 1.1.10.6 The users shall be able to edit the information included in their profile pages.|Completed|
 | 1.1.10.7 Art items that an artist have shall be visible in his/her profile page.|Completed|
-
-Rest not yet started
 
 ### 1.1.11 Reporting and Blocking
 NOT YET STARTED
@@ -277,8 +280,7 @@ NOT YET STARTED
 | Requirement | Status |
 | ----- | ------|
 |1.1.12.1: Registered users and artists shall be able to follow other users.|In progress|
-
-Rest not yet started
+|1.1.12.2: Registered users and artists shall be notified about activities done by followed users.|Not yet started|
 
 ### 1.1.13 Annotations
 
@@ -286,8 +288,7 @@ Rest not yet started
 | ----- | ------|
 | 1.1.13.1: Users shall be able to annotate text content on the platform. (Should be marked as In progress)|Completed|
 |1.1.13.2: Users shall be able to annotate images on the platform. (Should be marked as In progress)|Completed|
-
-Rest not yet started
+|1.1.13.3: Registered users shall be able to bookmark discussion comments, art items, exhibitions and online galleries.|Not yet started|
 
 ### 1.1.14 Search and Filter
 NOT YET STARTED
@@ -300,9 +301,15 @@ NOT YET STARTED
 | ----- | ------|
 |1.2.1.1: System shall keep track of the artists followed by the user or artist.|Completed|
 |1.2.1.2: System shall track certain activities and calculate interaction level|Completed|
+|1.2.1.3: System shall keep track of number of followers, number of copyrighted items and number of art exhibitions. Using these data, system shall calculate a popularity level.|Not yet started|
+|1.2.1.6: System shall enable or disable a user's certain activities according to the user's level.|Not yet started|
 |1.2.2.1: System shall keep track of the geotagging information of the physically held events. This information will be used to infer the location of the events by search engine.|Completed|
-
-Rest not yet started
+|1.2.3.1: When a user or an artist applies to be verified, system shall be able to verify their account based on calculated artistic values. (See the glossary for the definition of artistic values and the factors that affect the calculations.)|Not yet started|
+|1.2.4.1: System shall end the auction after some time, say 1 day|Not yet started|
+|1.2.5.1: System shall be able to recommend users artworks or artists based on their activities|Not yet started|
+|1.2.5.2: System shall be able to recommend the user events using the data about the events attended by the user.|Not yet started|
+|1.2.6.1: System shall calculate artistic values of its users so that additional functionalities are provided to those users who have sufficient artistic value.|Not yet started|
+|1.2.6.2: Custom coefficients shall be used to calculate a user's activity points.|Not yet started|
 
 ## 2\. Non-Functional Requirements
 
@@ -345,7 +352,6 @@ Rest not yet started
 ### 2.5 Legal and Ethical Issues
 
 NOT YET STARTED
-
 
 ## 1.4. API Endpoints
 
