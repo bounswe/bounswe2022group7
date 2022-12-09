@@ -186,85 +186,168 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 
 ## 1.3. Progress According to Requirements
 
+## 1\. Functional Requirements
 
 ### 1.1.1. Sign Up
-* 1.1.1.1: Guest users shall be able to register for an account by providing an email address and a password.
-* 1.1.1.2: Duplicate email addresses shall not be accepted.
-* 1.1.1.3: Guest users who are trying to sign up shall also pick a unique username to complete the registration process.
-* 1.1.1.4: Duplicate usernames shall not be accepted.
-* 1.1.1.5: Guest users could provide extra information while signing up, like name, surname, location, age.
-* 1.1.1.6: Guest users shall choose their account type, "Artist" or a "Regular User".
+
+| Requirement | Status |
+| ----- | ------|
+| 1.1.1.1: Guest users shall be able to register for an account by providing an email address and a password. | Completed |
+| 1.1.1.2: Duplicate email addresses shall not be accepted. | Completed |
+| 1.1.1.3: Guest users who are trying to sign up shall also pick a unique username to complete the registration process. | Completed |
+| 1.1.1.4: Duplicate usernames shall not be accepted. | Completed |
+| 1.1.1.5: Guest users could provide extra information while signing up, like name, surname, location, age. | Completed |
+| 1.1.1.6: Guest users shall choose their account type, "Artist" or a "Regular User". | Completed |
+|1.1.1.7: Users shall be able to change their email address and password, anytime.|In progress|
+
+Rest not yet started
 
 ### 1.1.2. Sign In
-* 1.1.2.1: Users shall be able to sign in using their email and password combination.
-* 1.1.2.2: Users shall be able to sign out without a restriction.
+
+| Requirement | Status |
+| ----- | ------|
+| 1.1.2.1: Users shall be able to sign in using their email and password combination.|Completed|
+| 1.1.2.2: Users shall be able to sign out without a restriction.|Completed|
+
+Rest not yet started
 
 ### 1.1.3. Guest Users
-* 1.1.3.1: Guest Users shall be able to view profile pages, art items, pages of online/physical exhibitions.
-* 1.1.3.3: Guest Users shall not be able to make any changes in the state of the system.
+
+| Requirement | Status |
+| ----- | ------|
+| 1.1.3.1: Guest Users shall be able to view profile pages, art items, pages of online/physical exhibitions. |Completed|
+|1.1.3.2: Guest Users shall be able to use the search/filter functionality.|In progress|
+| 1.1.3.3: Guest Users shall not be able to make any changes in the state of the system. |Completed| 
 
 
 ### 1.1.4 Comments
 
-* 1.1.4.1: Registered users and artists shall be able to view comments that belong to art items or exhibitions
-* 1.1.4.2: Registered users and artists shall be able to create comments on the discussion page.
-   * 1.1.4.2.1: Registered users and artists shall be able to edit their comments in the discussion page.
+| Requirement | Status |
+| ----- | ------|
+| 1.1.4.1: Registered users and artists shall be able to view comments that belong to art items or exhibitions |Completed|
+| 1.1.4.2: Registered users and artists shall be able to create comments on the discussion page. |Completed|
+| 1.1.4.2.1: Registered users and artists shall be able to edit their comments in the discussion page. |Completed|
 
+Rest not yet started
 
 ### 1.1.5 Events
 
-* 1.1.5.1: Artists shall be able to arrange physical events
-* 1.1.5.5: Artists shall be able to arrange **Physical Exhibitions** using the platform.
-   * 1.1.5.5.1: Artists shall be able to mark event location in Physical Exhibitions via using geotagging. 
+| Requirement | Status |
+| ----- | ------|
+| 1.1.5.1: Artists shall be able to arrange physical events |Completed|
+|1.1.5.3: Artists shall be able to remove events they created.|In progress|
+| 1.1.5.5: Artists shall be able to arrange **Physical Exhibitions** using the platform.|Completed|
+| 1.1.5.5.1: Artists shall be able to mark event location in Physical Exhibitions via using geotagging. |Completed|
 
+Rest not yet started
+
+### 1.1.6 Copyright
+NOT YET STARTED
+
+### 1.1.7 Account Verification
+NOT YET STARTED
+
+### 1.1.8 Bidding
+NOT YET STARTED
 
 ### 1.1.9 Home Page
 
-* 1.1.9.1: The home page shall highlight the most popular artworks and events of the previous week as well as the events in the coming days that are highly anticipated by the users for the guests.
+| Requirement | Status |
+| ----- | ------|
+| 1.1.9.1: The home page shall highlight the most popular artworks and events of the previous week as well as the events in the coming days that are highly anticipated by the users for the guests.|Completed|
+
+Rest not yet started
 
 ### 1.1.10 Profile Page
 
-* 1.1.10.1 Followers and the users that a certain user follows shall be visible in his/her profile page.
-* 1.1.10.3 The profile page shall include name, surname, location, username and profile picture.
-* 1.1.10.6 The users shall be able to edit the information included in their profile pages.
-* 1.1.10.7 Art items that an artist have shall be visible in his/her profile page.
+| Requirement | Status |
+| ----- | ------|
+| 1.1.10.1 Followers and the users that a certain user follows shall be visible in his/her profile page.|Completed|
+| 1.1.10.3 The profile page shall include name, surname, location, username and profile picture.|Completed|
+| 1.1.10.6 The users shall be able to edit the information included in their profile pages.|Completed|
+|1.1.10.5 The profile page shall include the verification status of the user.|In progress|
+| 1.1.10.7 Art items that an artist have shall be visible in his/her profile page.|Completed|
+
+Rest not yet started
+
+### 1.1.11 Reporting and Blocking
+NOT YET STARTED
+
+### 1.1.12 Communications
+| Requirement | Status |
+| ----- | ------|
+|1.1.12.1: Registered users and artists shall be able to follow other users.|In progress|
+
+Rest not yet started
 
 ### 1.1.13 Annotations
-* 1.1.13.1: Users shall be able to annotate text content on the platform. (Should be marked as In progress)
-* 1.1.13.2: Users shall be able to annotate images on the platform. (Should be marked as In progress)
+
+| Requirement | Status |
+| ----- | ------|
+| 1.1.13.1: Users shall be able to annotate text content on the platform. (Should be marked as In progress)|Completed|
+|1.1.13.2: Users shall be able to annotate images on the platform. (Should be marked as In progress)|Completed|
+
+Rest not yet started
+
+### 1.1.14 Search and Filter
+NOT YET STARTED
+
+### 1.1.15 Admin User
+NOT YET STARTED
+
+### 1.2 System Requirements
+| Requirement | Status |
+| ----- | ------|
+|1.2.1.1: System shall keep track of the artists followed by the user or artist.|Completed|
+|1.2.1.2: System shall track certain activities and calculate interaction level|Completed|
+|1.2.2.1: System shall keep track of the geotagging information of the physically held events. This information will be used to infer the location of the events by search engine.|Completed|
+
+Rest not yet started
 
 ## 2\. Non-Functional Requirements
 
-## 2.1 Annotations
+### 2.1 Annotations
 
-* 2.1.1 Annotations shall comply with the [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#annotations
-).
-* 2.1.2 Annotations shall follow [W3C standards](https://www.w3.org/TR/annotation-model/#annotations
-).
+| Requirement | Status |
+| ----- | ------|
+| 2.1.1 Annotations shall comply with the [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#annotations).|Completed|
+| 2.1.2 Annotations shall follow [W3C standards](https://www.w3.org/TR/annotation-model/#annotations).|Completed|
 
-## 2.2 Accessibility
-* 2.2.1 Platform shall support English language.
-* 2.2.2 Platform shall be accessible via a web browser and an android device.
-    * 2.2.2.1 Platform shall support modern web browsers (Chrome, Opera, Safari, Firefox, Edge)
-    * 2.2.2.2 Platform shall support Android version 10 or above.
-    * 2.2.2.3 The size of android application should be less than 200MB.
-* 2.2.3 The user interface of the platform (color theme, design etc.) shall not obscure the artworks displayed on the screen. The design shall emphasize and bring the displayed artworks into the forefront.
+### 2.2 Accessibility
 
-## 2.3 Performance and Reliability
-* 2.3.1 The uptime shall be at least 99%.
-* 2.3.2 The response time shall be as short as possible(maximum limit 3 sec).
-* 2.3.3 The platform shall support at least 5000 users actively using it at the same time.
-* 2.3.4 The platform shall have 85 percent maintainability for 24 hours.
+| Requirement | Status |
+| ----- | ------|
+| 2.2.1 Platform shall support English language. |Completed|
+| 2.2.2 Platform shall be accessible via a web browser and an android device. |Completed|
+| 2.2.2.1 Platform shall support modern web browsers (Chrome, Opera, Safari, Firefox, Edge) |Completed|
+| 2.2.2.2 Platform shall support Android version 10 or above. |Completed|
+| 2.2.2.3 The size of android application should be less than 200MB. |Completed|
+| 2.2.3 The user interface of the platform (color theme, design etc.) shall not obscure the artworks displayed on the screen. The design shall emphasize and bring the displayed artworks into the forefront.|Completed|
 
-## 2.4 Security
-* 2.4.1 The platform shall support HTTPS protocol
-* 2.4.2 The passwords of users shall be encrypted in the database
-* 2.4.3 The password shall be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter and 1 special symbol.
-* 2.4.4 A verification email shall be sent for the verification of the user email address.
+### 2.3 Performance and Reliability
 
-## 2.5 Legal and Ethical Issues
-* 2.5.1 Usage of personal information should shall comply with the rules of [GDPR](https://gdpr.eu/) and [KVKK](https://www.kvkk.gov.tr/).
-* 2.5.2 Users shall read and accept “Terms of Use” and “Privacy Policy” before signing up
+| Requirement | Status |
+| ----- | ------|
+| 2.3.1 The uptime shall be at least 99%. |Completed|
+| 2.3.2 The response time shall be as short as possible(maximum limit 3 sec). |Completed|
+| 2.3.3 The platform shall support at least 5000 users actively using it at the same time. |Completed|
+| 2.3.4 The platform shall have 85 percent maintainability for 24 hours. |Completed|
+
+### 2.4 Security
+
+| Requirement | Status |
+| ----- | ------|
+| 2.4.1 The platform shall support HTTPS protocol |Completed|
+| 2.4.2 The passwords of users shall be encrypted in the database |Completed|
+| 2.4.3 The password shall be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter and 1 special symbol. |Completed|
+| 2.4.4 A verification email shall be sent for the verification of the user email address. |Completed|
+
+### 2.5 Legal and Ethical Issues
+
+| Requirement | Status |
+| ----- | ------|
+| 2.5.1 Usage of personal information should shall comply with the rules of [GDPR](https://gdpr.eu/) and [KVKK](https://www.kvkk.gov.tr/). |Completed|
+| 2.5.2 Users shall read and accept “Terms of Use” and “Privacy Policy” before signing up. |Completed|
 
 
 ## 1.4. API Endpoints
