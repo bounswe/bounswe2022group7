@@ -856,6 +856,72 @@ I am Musa Şimşek and a member in the mobile team of Group7.
 
 ## Can Atakan Uğur
 
+### Member
+
+Member of the Mobile Team. [Wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Can-Atakan-U%C4%9Fur) and [time tracking page](https://github.com/bounswe/bounswe2022group7/wiki/Can-Atakan-U%C4%9Fur-(Effort-Tracking)) can be found in the relevant links.
+
+### Responsibilities
+
+- Member of the Mobile Team
+- Milestone 2, mobile presenter
+- Fixing the Home Page by implementing a new Post model 
+- Implementing Profile Settings and Account Information pages
+- Implementing Image Annotation UI
+- Reviewing most of the new features introduced by the Mobile Team
+
+### Main Contributions
+
+**Code Related Significant Issues:**
+- Complete post widgets in homepage ([#442](https://github.com/bounswe/bounswe2022group7/issues/442))
+- Update Home Page endpoints & images ([#445](https://github.com/bounswe/bounswe2022group7/issues/442))
+- Implement user profile settings ([#481](https://github.com/bounswe/bounswe2022group7/issues/481))
+- Implement the UI for Image Annotations ([#507](https://github.com/bounswe/bounswe2022group7/issues/507))
+
+
+**Management Related Significant Issues:**
+- Create Mobile Metting Notes #4 ([#409](https://github.com/bounswe/bounswe2022group7/issues/409))
+- Contribute to preparing the scenario for the presentation and present the mobile part ([#497](https://github.com/bounswe/bounswe2022group7/issues/497)) 
+- Fill the Mobile Annotations part in the Milestone 2 Group Report ([#512](https://github.com/bounswe/bounswe2022group7/issues/512))
+
+
+### Pull Requests
+
+**PRs I created:**
+- Post model fix ([#444](https://github.com/bounswe/bounswe2022group7/pull/444))
+- Homepage integration ([#471](https://github.com/bounswe/bounswe2022group7/pull/471))
+- Profile Settings ([#505](https://github.com/bounswe/bounswe2022group7/pull/505))
+- Partial implementation of Image Annotations ([#524](https://github.com/bounswe/bounswe2022group7/pull/524))
+- Settings Page widget tests ([#529](https://github.com/bounswe/bounswe2022group7/pull/529))
+
+**PRs I reviewed:**
+- Android continuous workflow to master ([#411](https://github.com/bounswe/bounswe2022group7/pull/411))
+- Android continuous workflow to develop ([#412](https://github.com/bounswe/bounswe2022group7/pull/412))
+- Removal of Optional Fields from Register Page ([#414](https://github.com/bounswe/bounswe2022group7/pull/414))
+- Geotagging for the Create Event Page ([#443](https://github.com/bounswe/bounswe2022group7/pull/443))
+- String to list implementation of back-end ([#456](https://github.com/bounswe/bounswe2022group7/pull/456))
+- Milestone II Deployment Test ([#478](https://github.com/bounswe/bounswe2022group7/pull/478))
+- Event creation unit tests ([#483](https://github.com/bounswe/bounswe2022group7/pull/483))
+- Art Item model fix  ([#485](https://github.com/bounswe/bounswe2022group7/pull/485))
+- Art Item category fix in homepage ([#492](https://github.com/bounswe/bounswe2022group7/pull/492))
+- Fix image handling ([#494](https://github.com/bounswe/bounswe2022group7/pull/494))
+- Follow & Discussion Page features ([#499](https://github.com/bounswe/bounswe2022group7/pull/499))
+- Comment feature ([#519](https://github.com/bounswe/bounswe2022group7/pull/519))
+
+
+### Tests
+
+**Unit Tests**
+
+In Milestone 1, I wrote unit tests for a function that handles string to array of strings conversion. This file can be found [here](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/unit_test/string_helpers_test.dart). In Milestone 2, however, I only wrote Widget Tests.
+
+**Widget Tests**
+
+In the Widget Tests I wrote, I mocked the HTTP requests and also provided a mock image data for the testing purposes. Utilizing those, I load the relevant page and checked whether the loaded widgets are correct.
+
+- Widget tests for Event Page ([Test file](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/event_page_test.dart))
+- Widget tests for Settings Page ([#528](https://github.com/bounswe/bounswe2022group7/issues/528), [PR #529](https://github.com/bounswe/bounswe2022group7/pull/529), [Test file](https://github.com/bounswe/bounswe2022group7/blob/develop/android/test/widget_test/settings_page_test.dart))
+
+
 ## Demet Yayla
 
 ### MEMBER
