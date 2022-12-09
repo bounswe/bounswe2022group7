@@ -81,6 +81,19 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 ### Enes Aydoğduoğlu
 
 ### Erim Erkin Doğan
+| Task | Link |
+| --- | --- |
+| Setup Swagger for endpoint documentation | [#399](https://github.com/bounswe/bounswe2022group7/issues/399), [PR #404](https://github.com/bounswe/bounswe2022group7/pull/404) |
+| Configuring Continuous Integration workflow for mobile application | [#408](https://github.com/bounswe/bounswe2022group7/issues/408), PRs [#411](https://github.com/bounswe/bounswe2022group7/pull/411), [#412](https://github.com/bounswe/bounswe2022group7/pull/412) |
+| Revising sign-up experience in frontend | [#418](https://github.com/bounswe/bounswe2022group7/issues/418), [PR #452](https://github.com/bounswe/bounswe2022group7/pull/452) |
+| Fixing frontend's layout behaviour in Low Resolution Screens | [#422](https://github.com/bounswe/bounswe2022group7/issues/422), [PR #429](https://github.com/bounswe/bounswe2022group7/pull/429) |
+| Fixing Android CI to run on Pull Requests | [#425](https://github.com/bounswe/bounswe2022group7/issues/425), [PR #426](https://github.com/bounswe/bounswe2022group7/pull/426) |
+| Updating frontend homepage's visual style and fixing the api connection | [#487](https://github.com/bounswe/bounswe2022group7/issues/487), [PR #498](https://github.com/bounswe/bounswe2022group7/pull/498) |
+| Revising the frontend's navigation bar design | [#489](https://github.com/bounswe/bounswe2022group7/issues/489), [PR #503](https://github.com/bounswe/bounswe2022group7/pull/503) |
+| Setup deployment & tests for Annotation microservice | [#517](https://github.com/bounswe/bounswe2022group7/issues/526), [PR #520](https://github.com/bounswe/bounswe2022group7/pull/517) |
+| Fixing the connection of annotation microservice to MongoDB | [#523](https://github.com/bounswe/bounswe2022group7/issues/523), [PR #525](https://github.com/bounswe/bounswe2022group7/pull/525) | 
+| Creating tag for milestone 2 | [#526](https://github.com/bounswe/bounswe2022group7/issues/526), [Tag](https://github.com/bounswe/bounswe2022group7/tree/customer-presentation-2) |
+| Researching Web Annotation Protocol | [#466](https://github.com/bounswe/bounswe2022group7/issues/466) |
 
 ### Güney İzol
 | Task | Link |
@@ -501,6 +514,10 @@ Although we were not able to complete the entire implementation of annotations, 
 
 ## 1.7. Standards
 
+In our current implementation of annotations, we tried to stick to 2 standards: [Web Annotation Protocol](https://www.w3.org/TR/annotation-model/) and [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/). The Web Annotation Protocol standards ensures that the calls between the annotation and the client server is standardized so that any other client can also make request to the server. So the aim of us to create a microservice meeting with the Web Annotation Protocol standard, but because of the time limit of the milestone our current implementation comforms part of the protocol standard.
+
+The Web Annotation Data Model standard is used to set a standard for the data medium of the annotations, which is JSON-LD. In application's current step the full checking and implementation of the WADM standard is not finalized with mobile application not having implemented the backbone of document creation. For the web application various packages (annotorious, recogito) is used to handle annotation and create document with the standard in mind.
+
 # 2. Individual Contribution Reports
 
 ## Sabri Mete Akyüz
@@ -550,6 +567,62 @@ Also there are tests for discussion post and comment voting in these PRs: [#PR53
 ## Enes Aydoğduoğlu
 
 ## Erim Erkin Doğan
+### Member
+
+I am a frontend team member sometimes working on DevOps related tasks in side. My profile can be accessed [here](https://github.com/bounswe/bounswe2022group7/wiki/Erim-Erkin-Do%C4%9Fan) and time tracking information can be accessed [here](https://github.com/bounswe/bounswe2022group7/wiki/Erim-Erkin-Do%C4%9Fan-(Effort-Tracking)).
+
+### Responsibilities
+
+In this milestone I have generally worked on visual part and revisions on the frontend. I also worked on annotation microservice creation/research and deployment steps. I have also added and configured swagger on API for management and easier documentation for our team.
+
+### Main Contributions
+
+#### Code Related Significant Issues:
+
+- [Revising sign-up experience in frontend #418](https://github.com/bounswe/bounswe2022group7/issues/418)
+- [Updating frontend homepage's visual style and fixing the api connection #487](https://github.com/bounswe/bounswe2022group7/issues/487)
+- [Revising the frontend's navigation bar design #489](https://github.com/bounswe/bounswe2022group7/issues/489)
+
+#### Management Related Significant Issues:
+
+- [Setup Swagger for endpoint documentation #399](https://github.com/bounswe/bounswe2022group7/issues/399)
+- [Setup deployment & tests for Annotation microservice #517](https://github.com/bounswe/bounswe2022group7/issues/526)
+- [Creating tag for milestone 2 #526](https://github.com/bounswe/bounswe2022group7/issues/526)
+
+### Pull Requests
+
+#### Pull Requests opened by me
+
+- [Merge swagger configuration to develop #404](https://github.com/bounswe/bounswe2022group7/pull/404)
+- [Merge android continuous workflow to master #411](https://github.com/bounswe/bounswe2022group7/pull/411)
+- [Merge android continuous integration workflow to develop #412](https://github.com/bounswe/bounswe2022group7/pull/412)
+- [Update and fix continuous integration workflows #426](https://github.com/bounswe/bounswe2022group7/pull/426)
+- [Fix and update FormLayout for lower resolution and mobile screens #429](https://github.com/bounswe/bounswe2022group7/pull/429)
+- [Revised Sign-up experience #452](https://github.com/bounswe/bounswe2022group7/pull/452)
+- [[Frontend] Merge the revised homepage & QoL changes #498](https://github.com/bounswe/bounswe2022group7/pull/498)
+- [[Frontend] Merge Revised Navigation Bar #503](https://github.com/bounswe/bounswe2022group7/pull/503)
+- [Merge Annotation microservice CI & CD config #520](https://github.com/bounswe/bounswe2022group7/pull/520)
+- [Annotation microservice bugfix for production #525](https://github.com/bounswe/bounswe2022group7/pull/525)
+- [Merge the latest implementation of application to master #527](https://github.com/bounswe/bounswe2022group7/pull/527)
+
+#### Reviewed Pull Requests
+
+- [Content Layout and Improvements #417](https://github.com/bounswe/bounswe2022group7/pull/417)
+- [return token after signup #421](https://github.com/bounswe/bounswe2022group7/pull/421)
+- [Add Create Physical Event And Art Item Pages #459](https://github.com/bounswe/bounswe2022group7/pull/459)
+- [Add Discussion Post #476](https://github.com/bounswe/bounswe2022group7/pull/476)
+- [Milestone II Deployment Test #478](https://github.com/bounswe/bounswe2022group7/pull/478)
+- [Frontend content page styling #491](https://github.com/bounswe/bounswe2022group7/pull/491)
+- [dev/frontend/profilepage3 #516](https://github.com/bounswe/bounswe2022group7/pull/516)
+- [Create CommentSection Tests #521](https://github.com/bounswe/bounswe2022group7/pull/521)
+- [Frontend text annotation #522](https://github.com/bounswe/bounswe2022group7/pull/522)
+
+### Unit Tests
+
+Since the frontend part along with components, pages changed a lot, unit tests were not written for the frontend. I tried to implement unit tests to finalized components of the web application. As the pages finalize there will be page tests created for them.
+
+- [LoadingButton unit test](https://github.com/bounswe/bounswe2022group7/blob/customer-presentation-2/frontend/src/tests/LoadingButton.test.js)
+- [FeedCard unit test](https://github.com/bounswe/bounswe2022group7/blob/customer-presentation-2/frontend/src/tests/FeedCard.test.js)
 
 ## Güney İzol
 
