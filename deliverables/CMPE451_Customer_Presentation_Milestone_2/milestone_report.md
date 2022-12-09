@@ -337,7 +337,7 @@ Rest not yet started
 
 | Requirement | Status |
 | ----- | ------|
-| 2.4.1 The platform shall support HTTPS protocol |Completed|
+| 2.4.1 The platform shall support HTTPS protocol |Not yet started|
 | 2.4.2 The passwords of users shall be encrypted in the database |Completed|
 | 2.4.3 The password shall be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter and 1 special symbol. |Completed|
 | 2.4.4 A verification email shall be sent for the verification of the user email address. |Completed|
@@ -480,17 +480,20 @@ Note that the images are taken with different amounts of zoom.
 ![Alt text](Mobile_UI_UX/MobileImageAnno.png)
 
 ## 1.6. Annotations
+
+### Web
+
 The web annotation feature uses the JSON-LD data format to store and transfer annotations. It has various fields, the two most important ones are the target and the body. The target indicates which web resource the annotation annotates and the body contains the annotation content.
 
 We implemented the annotation server using Koa, a ligthweight web framework that runs on the Node.js platform. As the data store, MongoDB is very well-suited for JSON data, so we used it as our database of the web annotation service.
 
 [Annotorious](https://recogito.github.io/annotorious/) is an open source image annotation library that complies with the web annotation standard. We used it to provide a reliable image annotation functionality to our users. It works well with React, the frontend library that we use to implement our web frontend.
 
+### Mobile
+
+Although we were not able to complete the entire implementation of annotations, we provided a fundamental UI for creating and viewing them. There is no connection with the back-end yet but this basic interface shows how our final implementation will look like. Speaking of the standards that we should follow according to the requirements of the customer, since we are not done with the back-end implementation and we did not actually create annotations yet, we also did not work on creating annotation objects that comply with the W3C standards. However, we made our research and we are going to prioritize the completion of annotations, right after this milestone.
+
 ## 1.7. Standards
-
-In our current implementation of annotations, we tried to stick to 2 standards: [Web Annotation Protocol](https://www.w3.org/TR/annotation-model/) and [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/). The Web Annotation Protocol standards ensures that the calls between the annotation and the client server is standardized so that any other client can also make request to the server. So the aim of us to create a microservice meeting with the Web Annotation Protocol standard, but because of the time limit of the milestone our current implementation comforms part of the protocol standard. 
-
-The Web Annotation Data Model standard is used to set a standard for the data medium of the annotations, which is JSON-LD. In application's current step the full checking and implementation of the WADM standard is not finalized with mobile application not having implemented the backbone of document creation. For the web application various packages (annotorious, recogito) is used to handle annotation and create document with the standard in mind.
 
 # 2. Individual Contribution Reports
 
