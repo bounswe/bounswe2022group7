@@ -310,8 +310,8 @@ Rest not yet started
 
 | Requirement | Status |
 | ----- | ------|
-| 2.1.1 Annotations shall comply with the [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#annotations).|Completed|
-| 2.1.2 Annotations shall follow [W3C standards](https://www.w3.org/TR/annotation-model/#annotations).|Completed|
+| 2.1.1 Annotations shall comply with the [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#annotations).|Partially completed|
+| 2.1.2 Annotations shall follow [W3C standards](https://www.w3.org/TR/annotation-model/#annotations).|Partially completed|
 
 ### 2.2 Accessibility
 
@@ -329,8 +329,8 @@ Rest not yet started
 | Requirement | Status |
 | ----- | ------|
 | 2.3.1 The uptime shall be at least 99%. |Completed|
-| 2.3.2 The response time shall be as short as possible(maximum limit 3 sec). |Completed|
-| 2.3.3 The platform shall support at least 5000 users actively using it at the same time. |Completed|
+| 2.3.2 The response time shall be as short as possible(maximum limit 3 sec). |In progress|
+| 2.3.3 The platform shall support at least 5000 users actively using it at the same time. |In progress|
 | 2.3.4 The platform shall have 85 percent maintainability for 24 hours. |Completed|
 
 ### 2.4 Security
@@ -344,10 +344,7 @@ Rest not yet started
 
 ### 2.5 Legal and Ethical Issues
 
-| Requirement | Status |
-| ----- | ------|
-| 2.5.1 Usage of personal information should shall comply with the rules of [GDPR](https://gdpr.eu/) and [KVKK](https://www.kvkk.gov.tr/). |Completed|
-| 2.5.2 Users shall read and accept “Terms of Use” and “Privacy Policy” before signing up. |Completed|
+NOT YET STARTED
 
 
 ## 1.4. API Endpoints
