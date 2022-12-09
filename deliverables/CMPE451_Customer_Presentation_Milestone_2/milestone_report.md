@@ -514,7 +514,9 @@ Although we were not able to complete the entire implementation of annotations, 
 
 ## 1.7. Standards
 
-In our current implementation of annotations, we tried to stick to 2 standards: [Web Annotation Protocol](https://www.w3.org/TR/annotation-model/) and [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/). The Web Annotation Protocol standards ensures that the calls between the annotation and the client server is standardized so that any other client can also make request to the server. So the aim of us to create a microservice meeting with the Web Annotation Protocol standard, but because of the time limit of the milestone our current implementation comforms part of the protocol standard.
+In our current implementation of annotations, we tried to stick to 2 standards: [Web Annotation Protocol](https://www.w3.org/TR/annotation-model/) and [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/). 
+
+The Web Annotation Protocol standard ensures that the calls between the annotation and the client server is standardized so that any other client can also make request to the server. So the aim of us to create a microservice meeting with the Web Annotation Protocol standard, but because of the time limit of the milestone our current implementation comforms part of the protocol standard. So far we have implemented `GET, POST, PUT, DELETE` requests as described in the document, with `HEAD, OPTIONS` requests remaining. In all implemented requests the headers and schema validation is not implemented fully as described by the protocol.
 
 The Web Annotation Data Model standard is used to set a standard for the data medium of the annotations, which is JSON-LD. In application's current step the full checking and implementation of the WADM standard is not finalized with mobile application not having implemented the backbone of document creation. For the web application various packages (annotorious, recogito) is used to handle annotation and create document with the standard in mind.
 
