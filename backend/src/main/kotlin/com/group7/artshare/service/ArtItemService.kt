@@ -26,6 +26,7 @@ class ArtItemService(
         if (user is Artist){
             newArtItem.creator = user
             user.artItems.add(newArtItem)
+            user.level++
         }
         else
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Regular users cannot create physical exhibitions")
