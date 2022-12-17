@@ -18,7 +18,7 @@ import java.util.*
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("homepage")
-class Homepage(
+class HomepageController(
     private val jwtService: JwtService, private val homepageService: HomepageService
 ) {
 
