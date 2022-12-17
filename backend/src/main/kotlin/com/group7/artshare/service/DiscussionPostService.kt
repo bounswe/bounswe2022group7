@@ -30,6 +30,7 @@ class DiscussionPostService(
         val newDiscussionPost = DiscussionPost()
         newDiscussionPost.creator = user
         user.writtenDiscussionPosts.add(newDiscussionPost)
+        user.level++
         newDiscussionPost.title = discussionPostRequest.title
         newDiscussionPost.textBody = discussionPostRequest.textBody
         discussionPostRepository.save(newDiscussionPost)
