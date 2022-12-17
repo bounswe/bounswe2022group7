@@ -1,0 +1,39 @@
+package com.group7.artshare.service
+
+import com.group7.artshare.DTO.ArtItemDTO
+import com.group7.artshare.DTO.EventDTO
+import com.group7.artshare.entity.*
+import com.group7.artshare.repository.*
+import com.group7.artshare.request.*
+import org.springframework.http.HttpStatus
+import org.springframework.stereotype.Service
+import org.springframework.web.server.ResponseStatusException
+import java.util.stream.Collectors
+
+@Service
+class HomepageService(
+    private val artItemRepository: ArtItemRepository,
+    private val onlineGalleryRepository: OnlineGalleryRepository,
+    private val physicalExhibitionRepository: PhysicalExhibitionRepository
+) {
+
+    fun getRecommendedEventsGeneric(): List<EventDTO> {
+        return (physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }).sorted()
+    }
+
+    fun getRecommendedEventsForUser(user: RegisteredUser): List<EventDTO> {
+        //        #TODO: implement this
+        val list = physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
+        return list.sorted()
+    }
+
+    fun getRecommendedArtItemsGeneric(): List<ArtItemDTO> {
+        return (artItemRepository.findAll().stream().map(ArtItem::mapToDTO).collect(Collectors.toList())).sorted()
+    }
+
+    fun getRecommendedArtItemsForUser(user: RegisteredUser): List<ArtItemDTO> {
+        //        #TODO: implement this
+        val list = artItemRepository.findAll().stream().map(ArtItem::mapToDTO).collect(Collectors.toList())
+        return list.sorted()
+    }
+}
