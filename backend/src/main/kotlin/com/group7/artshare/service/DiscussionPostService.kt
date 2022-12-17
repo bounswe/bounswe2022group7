@@ -42,11 +42,19 @@ class DiscussionPostService(
             "Id is not matched with any of the discussion posts in the database"
         )
         if(voteRequest.vote == 1){
-            discussionPost.upVotedUsers.add(user)
-            discussionPost.downVotedUsers.remove(user)
+            if(discussionPost.upVotedUsers.contains(user)){
+                discussionPost.upVotedUsers.remove(user)
+            }else{
+                discussionPost.upVotedUsers.add(user)
+                discussionPost.downVotedUsers.remove(user)
+            }
         }else if(voteRequest.vote == -1) {
-            discussionPost.downVotedUsers.add(user)
-            discussionPost.upVotedUsers.remove(user)
+            if(discussionPost.downVotedUsers.contains(user)){
+                discussionPost.downVotedUsers.remove(user)
+            }else{
+                discussionPost.downVotedUsers.add(user)
+                discussionPost.upVotedUsers.remove(user)
+            }
         }else{
             throw ResponseStatusException(
                 HttpStatus.BAD_REQUEST,

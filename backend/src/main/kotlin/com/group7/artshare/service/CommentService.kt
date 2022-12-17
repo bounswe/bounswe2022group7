@@ -93,16 +93,26 @@ class CommentService(
             "There is no comment object in the database with this id"
         )
         if(vote == 1){
-            comment.downVotedUsers.remove(user)
-            comment.upVotedUsers.add(user)
-            user.upVotedComments.add(comment)
-            user.downVotedComments.remove(comment)
+            if(comment.upVotedUsers.contains(user)) {
+                comment.upVotedUsers.remove(user)
+                user.upVotedComments.remove(comment)
+            } else {
+                comment.downVotedUsers.remove(user)
+                comment.upVotedUsers.add(user)
+                user.upVotedComments.add(comment)
+                user.downVotedComments.remove(comment)
+            }
         }
         else if(vote == -1){
-            comment.upVotedUsers.remove(user)
-            comment.downVotedUsers.add(user)
-            user.downVotedComments.add(comment)
-            user.upVotedComments.remove(comment)
+            if(comment.downVotedUsers.contains(user)) {
+                comment.downVotedUsers.remove(user)
+                user.downVotedComments.remove(comment)
+            } else {
+                comment.upVotedUsers.remove(user)
+                comment.downVotedUsers.add(user)
+                user.downVotedComments.add(comment)
+                user.upVotedComments.remove(comment)
+            }
         }
         else{
             throw ResponseStatusException(
