@@ -22,9 +22,11 @@ class HomepageService(
     }
 
     fun getRecommendedEventsForUser(user: RegisteredUser): List<EventDTO> {
-        //        #TODO: implement this
-        val list = physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
-        return list.sorted()
+        val followingUserIds = user.following.map { it.id }
+        val eventDTOs = physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
+        val followingEventDTOs = eventDTOs.filter {followingUserIds.contains(it.creatorId)}
+        val notFollowingEventDTOs = eventDTOs - followingEventDTOs.toSet()
+        return followingEventDTOs.sorted() + notFollowingEventDTOs.sorted()
     }
 
     fun getRecommendedArtItemsGeneric(): List<ArtItemDTO> {
