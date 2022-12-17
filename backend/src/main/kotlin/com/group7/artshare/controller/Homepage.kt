@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import java.util.*
 import java.util.stream.Collectors
 
 
@@ -73,21 +74,24 @@ class Homepage(private val jwtService: JwtService) {
     }
 
     fun getRecommendedEventsGeneric(): List<EventDTO> {
-        return physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
+        return (physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }).sorted()
     }
 
     fun getRecommendedEventsForUser(user: RegisteredUser): List<EventDTO> {
         //        #TODO: implement this
-        return physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
+        val list = physicalExhibitionRepository.findAll().map { it.mapToDTO() } + onlineGalleryRepository.findAll().map { it.mapToDTO() }
+
+        return list.sorted()
     }
 
     fun getRecommendedArtItemsGeneric(): List<ArtItemDTO> {
-        return artItemRepository.findAll().stream().map(ArtItem::mapToDTO).collect(Collectors.toList())
+        return (artItemRepository.findAll().stream().map(ArtItem::mapToDTO).collect(Collectors.toList())).sorted()
     }
 
     fun getRecommendedArtItemsForUser(user: RegisteredUser): List<ArtItemDTO> {
         //        #TODO: implement this
-        return artItemRepository.findAll().stream().map(ArtItem::mapToDTO).collect(Collectors.toList())
+        val list = artItemRepository.findAll().stream().map(ArtItem::mapToDTO).collect(Collectors.toList())
+        return list.sorted()
 }
 
 }
