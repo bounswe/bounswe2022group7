@@ -32,8 +32,10 @@ class HomepageService(
     }
 
     fun getRecommendedArtItemsForUser(user: RegisteredUser): List<ArtItemDTO> {
-        //        #TODO: implement this
-        val list = artItemRepository.findAll().stream().map(ArtItem::mapToDTO).collect(Collectors.toList())
-        return list.sorted()
+        val followingUserIds = user.following.map { it.id }
+        val artItemDTOs = artItemRepository.findAll().map { it.mapToDTO() }
+        val followingArtItemDTOs = artItemDTOs.filter {followingUserIds.contains(it.creatorId)}
+        val notFollowingArtItemDTOs = artItemDTOs - followingArtItemDTOs.toSet()
+        return followingArtItemDTOs.sorted() + notFollowingArtItemDTOs.sorted()
     }
 }
