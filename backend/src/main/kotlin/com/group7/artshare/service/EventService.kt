@@ -80,4 +80,24 @@ class EventService(
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Regular Users cannot delete events")
         }
     }
+
+    fun participateAnEvent(
+        id: Long, user: RegisteredUser
+    ) : Event {
+        val event : Event = physicalExhibitionRepository.findByIdOrNull(id) ?: onlineGalleryRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
+            HttpStatus.BAD_REQUEST, "There is no event in the database with corresponding id"
+        )
+        if(event.participants.contains(user)){
+            event.participants.remove(user)
+            user.allEvents.remove(event)
+        }
+        else{
+            event.participants.add(user)
+            user.allEvents.add(event)
+        }
+        physicalExhibitionRepository.flush()
+        onlineGalleryRepository.flush()
+        return event
+
+    }
 }
