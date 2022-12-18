@@ -133,8 +133,15 @@ class _DiscussionForumPage extends State<DiscussionForumPage> {
                                               discussions[index]
                                                   .updateVote(user.username);
                                             } else {
-                                              discussions[index].voteStatus =
-                                                  -1;
+                                              if (discussions[index]
+                                                      .voteStatus ==
+                                                  -1) {
+                                                discussions[index].voteStatus =
+                                                    0;
+                                              } else {
+                                                discussions[index].voteStatus =
+                                                    -1;
+                                              }
                                             }
                                           });
                                         }
@@ -161,7 +168,15 @@ class _DiscussionForumPage extends State<DiscussionForumPage> {
                                               discussions[index]
                                                   .updateVote(user.username);
                                             } else {
-                                              discussions[index].voteStatus = 1;
+                                              if (discussions[index]
+                                                      .voteStatus ==
+                                                  1) {
+                                                discussions[index].voteStatus =
+                                                    0;
+                                              } else {
+                                                discussions[index].voteStatus =
+                                                    1;
+                                              }
                                             }
                                           });
                                         }

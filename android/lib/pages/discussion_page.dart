@@ -93,7 +93,12 @@ class _DiscussionPageState extends State<DiscussionPage> {
                                           currentDiscussion!
                                               .updateVote(user.username);
                                         } else {
-                                          currentDiscussion!.voteStatus = -1;
+                                          if (currentDiscussion!.voteStatus ==
+                                              -1) {
+                                            currentDiscussion!.voteStatus = 0;
+                                          } else {
+                                            currentDiscussion!.voteStatus = -1;
+                                          }
                                         }
                                       });
                                     }
@@ -118,7 +123,12 @@ class _DiscussionPageState extends State<DiscussionPage> {
                                           currentDiscussion!
                                               .updateVote(user.username);
                                         } else {
-                                          currentDiscussion!.voteStatus = 1;
+                                          if (currentDiscussion!.voteStatus ==
+                                              1) {
+                                            currentDiscussion!.voteStatus = 0;
+                                          } else {
+                                            currentDiscussion!.voteStatus = 1;
+                                          }
                                         }
                                       });
                                     }
