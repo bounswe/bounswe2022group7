@@ -1,60 +1,67 @@
 package com.group7.artshare.service
 
-import com.group7.artshare.entity.ArtItem
+import com.group7.artshare.DTO.ArtItemDTO
+import com.group7.artshare.DTO.DiscussionPostDTO
+import com.group7.artshare.DTO.OnlineGalleryDTO
+import com.group7.artshare.DTO.PhysicalExhibitionDTO
+import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.Response
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
-import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 
 
 @Service
 class SearchService (
     private val artItemRepository: ArtItemRepository,
+    private val eventInfoRepository: EventInfoRepository,
     private val physicalExhibitionRepository: PhysicalExhibitionRepository,
     private val onlineGalleryRepository: OnlineGalleryRepository,
     private val registeredUserRepository: RegisteredUserRepository,
-    private val discussionPostRepository: DiscussionPostRepository
+    private val accountInfoRepository: AccountInfoRepository,
+    private val discussionPostRepository: DiscussionPostRepository,
+    private val artItemInfoRepository: ArtItemInfoRepository
 ){
-    private val client = OkHttpClient()
-    var API_URL = "https://api-inference.huggingface.co/models/sentence-transformers/msmarco-distilbert-base-tas-b"
-    //var headers = {"Authorization": "Bearer {api_token}"}
 
-    fun query(jsonPayload : String) : List<String>{
-        val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonPayload)
-        val request = Request.Builder()
-            .url(API_URL)
-            .header("Authorization", "Bearer "+ "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" )
-            .post(requestBody)
-            .build()
+    private fun searchArtItem(keys : String) : List<ArtItemDTO>{
+        var infoList =  artItemInfoRepository.findFullTextSearch(keys).mapNotNull { it.id }
+        return artItemRepository.findAllByArtItemInfo_IdIn(infoList).mapNotNull { it.mapToDTO() }
+    }
 
-        val response: Response = client.newCall(request).execute()
-        var responseBody = response.body()?.string()
+    private fun searchPhysicalExhibition(keys:String) : List<PhysicalExhibitionDTO>{
+        var infoList = eventInfoRepository.findFullTextSearch(keys).mapNotNull { it.id }
+        return physicalExhibitionRepository.findAllByEventInfo_IdIn(infoList).mapNotNull { it.mapToDTO() }
+    }
+
+    private fun searchOnlineGallery(keys : String) : List<OnlineGalleryDTO>{
+        var infoList = eventInfoRepository.findFullTextSearch(keys).mapNotNull { it.id }
+        return onlineGalleryRepository.findAllByEventInfo_IdIn(infoList).mapNotNull { it.mapToDTO() }
     }
 
 
-    fun search(keywordList : List<String>) : List<Object>{
+    private fun searchDiscussionPost(keys : String) : List<DiscussionPostDTO>{
+        return discussionPostRepository.findFullTextSearch(keys).mapNotNull { it.mapToDTO() }
+    }
 
+    private fun searchUser(keys : String) : List<RegisteredUser>{
+        var infoList = accountInfoRepository.findFullTextSearch(keys).mapNotNull { it.id }
+        return registeredUserRepository.findAllByAccountInfo_IdIn(infoList)
+    }
 
+    fun search(keywordList : List<String>) : List<Any>{
 
-        var listOfArtItems = mutableListOf<ArtItem>()
-        val firstPageWithTwoElements: Pageable = PageRequest.of(0, 5)
-        var artItemPage = artItemRepository.findAll(firstPageWithTwoElements)
-        var totalNumOfPages = artItemPage.totalPages
-        var artItemsInPage = artItemPage.content
-        //api call with the page given
-        //listOfArtItems.add(listFromAboveLine)
-
-
-        for(i in 1..totalNumOfPages){
-
+        var concatenation = ""
+        for(i in keywordList){
+            concatenation += i + " , "
         }
 
+        concatenation = concatenation.subSequence(0, concatenation.length - 3).toString()
 
+        var objectList = mutableListOf<Any>()
+        objectList.addAll(searchArtItem(concatenation))
+        objectList.addAll(searchPhysicalExhibition(concatenation))
+        objectList.addAll(searchOnlineGallery(concatenation))
+        objectList.addAll(searchDiscussionPost(concatenation))
+        objectList.addAll(searchUser(concatenation))
+        return objectList
     }
 
 

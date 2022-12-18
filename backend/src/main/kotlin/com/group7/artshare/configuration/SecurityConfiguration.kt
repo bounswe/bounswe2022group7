@@ -53,6 +53,7 @@ class SecurityConfiguration @Autowired constructor(
             .mvcMatchers(HttpMethod.GET, "/discussionPost").permitAll()
             .mvcMatchers(HttpMethod.GET, "/discussionPost/{id}").permitAll()
             .mvcMatchers(HttpMethod.GET, "/image/{id}").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/search").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement()
