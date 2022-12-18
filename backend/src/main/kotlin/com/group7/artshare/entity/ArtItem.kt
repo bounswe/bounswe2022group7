@@ -52,6 +52,10 @@ class ArtItem{
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var commentList: MutableList<Comment> = mutableListOf()
 
+    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    @JsonIgnore
+    var reportList: MutableList<Report> = mutableListOf()
+
     @ManyToMany(mappedBy = "bookmarkedArtItems",cascade = [CascadeType.MERGE, CascadeType.PERSIST])
     @JsonIgnore
     var bookmarkedBy: MutableSet<RegisteredUser> = mutableSetOf()

@@ -14,18 +14,20 @@ class Report {
     @GeneratedValue
     val id: Long = 0L
 
-    @Column
-    var reportedObjectId : Int? = null //we should update it either ArtItem, DiscussionPost, or Comment
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "reported_art_item_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    var reportedArtItem : ArtItem? = null
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     var date: Date = Calendar.getInstance().time
 
     @Column
-    var description : String = ""
+    var description : String? = null
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "author")
+    @JoinColumn(name = "reporter_user_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var reporter : RegisteredUser? = null
 
