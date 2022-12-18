@@ -1,3 +1,5 @@
+import 'package:android/network/discussion/get_discussion_output.dart';
+import 'package:android/network/discussion/get_discussion_service.dart';
 import 'package:android/network/discussion/post_discussion_vote_input.dart';
 import 'package:android/network/discussion/post_discussion_vote_service.dart';
 import 'package:android/network/image/get_image_builder.dart';
@@ -40,8 +42,33 @@ class _DiscussionForumPage extends State<DiscussionForumPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      DiscussionPage(id: discussions[index].id),
+                  builder: (context) => FutureBuilder(
+                    future: getDiscussionNetwork(discussions[index].id),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                          return const CircularProgressIndicator();
+                        default:
+                          if (snapshot.hasError) {
+                            return DiscussionPage(discussion: null);
+                          }
+                          if (snapshot.data != null) {
+                            GetDiscussionOutput responseData = snapshot.data!;
+                            if (responseData.status != "OK") {
+                              return DiscussionPage(discussion: null);
+                            }
+                            Discussion? currentDiscussion =
+                                responseData.discussion;
+                            currentDiscussion?.updateVote(user!.username);
+                            return DiscussionPage(
+                                discussion: currentDiscussion);
+                          } else {
+                            return DiscussionPage(discussion: null);
+                          }
+                      }
+                    },
+                  ),
                 ),
               );
             },
@@ -219,11 +246,6 @@ class _DiscussionForumPage extends State<DiscussionForumPage> {
     if (discussions.isEmpty) {
       return erroneousDiscussionForumPage();
     }
-    /*if (user != null) {
-      for (var disc in discussions) {
-        disc.updateVote(user!.username);
-      }
-    }*/
     return discussionForumPageScaffold(user);
   }
 }
