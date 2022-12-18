@@ -3,6 +3,8 @@ import 'dart:ffi';
 import 'dart:io';
 
 import 'package:android/models/location_model.dart';
+import 'package:android/network/event/get_event_output.dart';
+import 'package:android/network/event/get_event_service.dart';
 import 'package:android/network/event/post_event_input.dart';
 import 'package:android/network/event/post_event_output.dart';
 import 'package:android/network/image/post_image_input.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../models/models.dart';
 import '../network/event/post_event_service.dart';
 import '../network/image/post_image_output.dart';
 import '../network/image/post_image_service.dart';
@@ -298,8 +301,33 @@ class _CreateEventState extends State<CreateEvent> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        EventPage(id: postEventOutput.eventId),
+                    builder: (context) => FutureBuilder(
+                      future: getEventNetwork(postEventOutput.eventId),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                          case ConnectionState.waiting:
+                            return const CircularProgressIndicator();
+                          default:
+                            if (snapshot.hasError) {
+                              return EventPage(event: null);
+                            }
+
+                            if (snapshot.data != null) {
+                              GetEventOutput responseData = snapshot.data!;
+                              if (responseData.status != "OK") {
+                                return EventPage(event: null);
+                              }
+                              Event currentEvent = responseData.event!;
+
+                              return EventPage(event: currentEvent);
+                            } else {
+                              // snapshot.data == null
+                              return EventPage(event: null);
+                            }
+                        }
+                      },
+                    ),
                   ),
                 );
               }
@@ -324,8 +352,33 @@ class _CreateEventState extends State<CreateEvent> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        EventPage(id: postEventOutput.eventId),
+                    builder: (context) => FutureBuilder(
+                      future: getEventNetwork(postEventOutput.eventId),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                          case ConnectionState.waiting:
+                            return const CircularProgressIndicator();
+                          default:
+                            if (snapshot.hasError) {
+                              return EventPage(event: null);
+                            }
+
+                            if (snapshot.data != null) {
+                              GetEventOutput responseData = snapshot.data!;
+                              if (responseData.status != "OK") {
+                                return EventPage(event: null);
+                              }
+                              Event currentEvent = responseData.event!;
+
+                              return EventPage(event: currentEvent);
+                            } else {
+                              // snapshot.data == null
+                              return EventPage(event: null);
+                            }
+                        }
+                      },
+                    ),
                   ),
                 );
               }
