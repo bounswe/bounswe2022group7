@@ -33,6 +33,7 @@ class EventService(
         if (user is Artist) {
             newPhysicalExhibition.creator = user
             user.hostedEvents.add(newPhysicalExhibition)
+            user.level+=2
         } else throw ResponseStatusException(
             HttpStatus.BAD_REQUEST,
             "Regular users cannot create physical exhibitions"
@@ -57,6 +58,7 @@ class EventService(
         if (user is Artist) {
             newOnlineGallery.creator = user
             user.hostedEvents.add(newOnlineGallery)
+            user.level+=2
         } else throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Regular users cannot create online galleries")
         onlineGalleryRepository.save(newOnlineGallery)
         return newOnlineGallery

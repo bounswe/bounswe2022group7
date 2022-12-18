@@ -11,9 +11,8 @@ import javax.validation.constraints.NotEmpty
 
 @Data
 @RequiredArgsConstructor
-class ArtItemRequest {
-    @NotEmpty
-    val artItemInfo: ArtItemInfo? = null
+class ArtItemRequest (
+    val artItemInfo: ArtItemInfo? = null,
 
     val lastPrice: Double? = null
-}
+)

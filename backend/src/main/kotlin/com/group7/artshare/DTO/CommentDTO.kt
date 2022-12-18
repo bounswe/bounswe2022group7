@@ -12,8 +12,8 @@ class CommentDTO {
     var text : String? = null
     var creationDate : Date? = null
     var lastEditDate : Date? = null
-    var upVotedUserIds : MutableSet<Long> = mutableSetOf()
-    var downVotedUserIds : MutableSet<Long> = mutableSetOf()
+    var upVotedUsernames : MutableSet<String> = mutableSetOf()
+    var downVotedUsernames : MutableSet<String> = mutableSetOf()
     var reports : MutableList<Report> = mutableListOf()
     var authorAccountInfo : AccountInfo? = null
     var authorId : Long? = null

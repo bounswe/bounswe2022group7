@@ -4,6 +4,7 @@ import com.group7.artshare.DTO.DiscussionPostDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.DiscussionPostRequest
+import com.group7.artshare.request.VoteRequest
 import com.group7.artshare.service.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
@@ -21,12 +22,8 @@ class DiscussionPostController (
     private val discussionPostService: DiscussionPostService
     ) {
 
-    @Autowired
-    lateinit var discussionPostRepository: DiscussionPostRepository
-
     @GetMapping("{id}")
-    fun getDiscussionPost(@PathVariable("id") id: Long) : DiscussionPostDTO = discussionPostRepository.findByIdOrNull(id)?.mapToDTO() ?:
-        throw ResponseStatusException(HttpStatus.NOT_FOUND, "Id is not matched with any of the discussion posts in the database")
+    fun getDiscussionPost(@PathVariable("id") id: Long) : DiscussionPostDTO = discussionPostService.getDiscussionPostById(id).mapToDTO()
 
     @PostMapping(
         consumes = ["application/json;charset=UTF-8"],
@@ -55,9 +52,26 @@ class DiscussionPostController (
     }
     @GetMapping()
     fun getAllDiscussionPosts(): List<DiscussionPostDTO> {
-        return discussionPostRepository.findAll().map { discussionPost -> discussionPost.mapToDTO() }
+        return discussionPostService.getAllDiscussionPosts().map { discussionPost -> discussionPost.mapToDTO() }
     }
 
+    @PostMapping("/vote")
+    fun voteDiscussionPost(
+        @RequestBody voteRequest: VoteRequest,
+        @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
+    ): DiscussionPostDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return discussionPostService.voteDiscussionPost(voteRequest, user)
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
 //    @DeleteMapping("{id}")
 //    @ResponseStatus(HttpStatus.NO_CONTENT)
 //    fun delete(

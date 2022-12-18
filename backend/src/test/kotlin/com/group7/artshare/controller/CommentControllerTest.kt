@@ -18,6 +18,12 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException
 import java.util.*
+import com.group7.artshare.entity.Authority
+import com.group7.artshare.request.VoteRequest
+import org.junit.jupiter.api.Assertions.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.whenever
 
 
 @ExtendWith(MockitoExtension::class)
@@ -65,4 +71,24 @@ internal class CommentControllerTest {
         val response = commentController.deleteComment(3,  mapOf("commentedObjectId" to 5), "authorizationHeader")
         assert(response == Unit)
     }
+    fun voteCommentWithInvalidId() {
+        val authorizationHeader = "Bearer token"
+        val user = RegisteredUser(AccountInfo("email","username", "password"),setOf(Authority("ARTIST")))
+        whenever(jwtService.getUserFromAuthorizationHeader(authorizationHeader)).thenReturn(user)
+
+        val voteRequest = VoteRequest(-1, 1)
+        whenever(commentService.voteComment(eq(voteRequest.id), any(),eq(voteRequest.vote))).thenThrow(ResponseStatusException::class.java)
+        assertThrows(ResponseStatusException::class.java) { commentController.voteComment(voteRequest,authorizationHeader) }
+    }
+
+    @Test
+    fun voteCommentWithInvalidVote() {
+        val authorizationHeader = "Bearer token"
+        val user = RegisteredUser(AccountInfo("email","username", "password"),setOf(Authority("ARTIST")))
+        whenever(jwtService.getUserFromAuthorizationHeader(authorizationHeader)).thenReturn(user)
+        val voteRequest = VoteRequest(-1, 0)
+        whenever(commentService.voteComment(any(), any(),eq(0))).thenThrow(ResponseStatusException::class.java)
+        assertThrows(ResponseStatusException::class.java) { commentController.voteComment(voteRequest,authorizationHeader) }
+    }
+
 }
