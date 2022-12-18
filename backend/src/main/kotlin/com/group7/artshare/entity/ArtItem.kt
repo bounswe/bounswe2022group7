@@ -56,6 +56,9 @@ class ArtItem{
     @JsonIgnore
     var bookmarkedBy: MutableSet<RegisteredUser> = mutableSetOf()
 
+    @ManyToMany(mappedBy = "likedArtItems",cascade = [CascadeType.MERGE, CascadeType.PERSIST])
+    @JsonIgnore
+    var likedBy: MutableSet<RegisteredUser> = mutableSetOf()
 
     fun mapToDTO() : ArtItemDTO{
         var artItemDTO = ArtItemDTO()
@@ -63,7 +66,7 @@ class ArtItem{
         artItemDTO.description = this.artItemInfo?.description
         artItemDTO.category = this.artItemInfo?.category!!
         artItemDTO.imageId = this.artItemInfo?.imageId
-        artItemDTO.labels = this.artItemInfo?.labels!!     //TODO: gonna turn string into list
+        artItemDTO.labels = this.artItemInfo?.labels!!
         artItemDTO.creatorAccountInfo = this.creator?.accountInfo
         artItemDTO.creatorId = this.creator?.id
         artItemDTO.creationDate = this.creationDate
@@ -73,12 +76,9 @@ class ArtItem{
         artItemDTO.auction = this.auction
         artItemDTO.lastPrice = this.lastPrice
         artItemDTO.id = this.id
-        for(comment in this.commentList){
-            artItemDTO.commentList.add(comment.mapToDTO())
-        }
-        /*for(user in this.bookmarkedBy){
-            artItemDTO.bookMarkedByIds.add(user.id)
-        }*/
+        artItemDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
+        artItemDTO.bookMarkedByUsernames = this.bookmarkedBy.map { it.accountInfo.username }.toMutableList()
+        artItemDTO.likedByUsernames = this.likedBy.map { it.accountInfo.username }.toMutableList()
 
         return artItemDTO
     }

@@ -23,11 +23,10 @@ class ArtItemDTO : Comparable<ArtItemDTO> {
     var auction : Auction? = null
     var lastPrice : Double? = null
     var commentList: MutableList<CommentDTO> = mutableListOf()
-//    var bookMarkedByIds : MutableList<Long> = mutableListOf()
-
+    var bookMarkedByUsernames : MutableList<String> = mutableListOf()
+    var likedByUsernames : MutableList<String> = mutableListOf()
     override fun compareTo(other: ArtItemDTO): Int {
-        //TODO update this to number of likes
-        return other.commentList.size - this.commentList.size
+        return other.likedByUsernames.size - this.likedByUsernames.size
     }
 
 }
