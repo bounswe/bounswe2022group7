@@ -1,3 +1,5 @@
+import 'package:android/network/event/post_event_participate_service.dart';
+import 'package:android/providers/user_provider.dart';
 import 'package:android/widgets/annotatable_text.dart';
 import 'package:android/pages/profile_page.dart';
 import 'package:android/widgets/comment.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
 import 'package:android/network/image/get_image_builder.dart';
+import 'package:provider/provider.dart';
 
 Event? currentEvent;
 
@@ -47,6 +50,8 @@ class _EventPageState extends State<EventPage> {
 
   @override
   Widget build(BuildContext context) {
+    CurrentUser? user = Provider.of<UserProvider>(context).user;
+
     if (currentEvent == null) {
       return erroneousEventPage();
     }
@@ -87,10 +92,35 @@ class _EventPageState extends State<EventPage> {
                                     size: 30.0,
                                   )),
                               IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
+                                  onPressed: () async {
+                                    if (user != null) {
+                                      final output =
+                                          await postEventParticipateNetwork(
+                                              currentEvent!.id);
+                                      setState(() {
+                                        if (output.event != null) {
+                                          currentEvent = output.event!;
+                                          //currentEvent.updateParticipation(user.username);
+                                        } else {
+                                          if (currentEvent!
+                                                  .participationStatus ==
+                                              0) {
+                                            currentEvent!.participationStatus =
+                                                1;
+                                          } else {
+                                            currentEvent!.participationStatus =
+                                                0;
+                                          }
+                                        }
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
                                     Icons.check_circle_outline,
-                                    color: Colors.black,
+                                    color:
+                                        currentEvent!.participationStatus == 0
+                                            ? Colors.black
+                                            : Colors.green,
                                     size: 30.0,
                                   )),
                             ],

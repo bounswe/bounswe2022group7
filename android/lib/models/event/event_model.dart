@@ -1,9 +1,6 @@
 import 'package:android/models/comment/comment_model.dart';
 import 'package:android/models/models.dart';
 
-// imported to use dummy data for now
-import 'package:android/data/data.dart';
-
 class Event extends Post {
   final EventInfo eventInfo;
   final String eventType;
@@ -16,6 +13,7 @@ class Event extends Post {
   final List<User>? attendees;
   final List<User>? bookmarkedBy;
   final List<int>? artItemList;
+  int participationStatus;
 
   Event({
     required int id,
@@ -31,7 +29,8 @@ class Event extends Post {
     this.attendees,
     this.bookmarkedBy,
     this.artItemList,
-  }) : super(
+  })  : participationStatus = 0,
+        super(
           type: "Event",
           id: id,
           creatorAccountInfo: creatorAccountInfo,
