@@ -1,3 +1,5 @@
+import 'package:android/network/art_item/post_art_item_like_bookmark_service.dart';
+import 'package:android/providers/user_provider.dart';
 import 'package:android/widgets/annotatable_text.dart';
 import 'package:android/pages/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import "package:android/models/models.dart";
 import "package:android/network/art_item/get_art_item_service.dart";
 import "package:android/network/art_item/get_art_item_output.dart";
+import 'package:provider/provider.dart';
 
 import '../network/image/get_image_builder.dart';
 import '../widgets/comment.dart';
@@ -144,7 +147,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
     if (currentArtItem == null) {
       return erroneousArtItemPage();
     }
-
+    CurrentUser? user = Provider.of<UserProvider>(context).user;
     // enum annotationMode { Hidden, View, Edit }
     final ValueNotifier<int> annotationModeNotifier = ValueNotifier(0);
     final ValueNotifier<Map<String, double>?> annotationNotifier =
@@ -183,10 +186,60 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               ),
                               const Spacer(),
                               IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
+                                  onPressed: () async {
+                                    if (user != null) {
+                                      final output =
+                                          await postArtItemMarkNetwork(
+                                              currentArtItem!.id, "bookmark");
+                                      setState(() {
+                                        if (output.artItem != null) {
+                                          currentArtItem = output.artItem!;
+                                          currentArtItem!
+                                              .updateStatus(user.username);
+                                        } else {
+                                          if (currentArtItem!.bookmarkStatus ==
+                                              0) {
+                                            currentArtItem!.bookmarkStatus = 1;
+                                          } else {
+                                            currentArtItem!.bookmarkStatus = 0;
+                                          }
+                                        }
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
                                     Icons.bookmark_add_outlined,
-                                    color: Colors.black,
+                                    color: currentArtItem!.bookmarkStatus == 0
+                                        ? Colors.black
+                                        : Colors.orange,
+                                    size: 30.0,
+                                  )),
+                              IconButton(
+                                  onPressed: () async {
+                                    if (user != null) {
+                                      final output =
+                                          await postArtItemMarkNetwork(
+                                              currentArtItem!.id, "like");
+                                      setState(() {
+                                        if (output.artItem != null) {
+                                          currentArtItem = output.artItem!;
+                                          currentArtItem!
+                                              .updateStatus(user.username);
+                                        } else {
+                                          if (currentArtItem!.likeStatus == 0) {
+                                            currentArtItem!.likeStatus = 1;
+                                          } else {
+                                            currentArtItem!.likeStatus = 0;
+                                          }
+                                        }
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite_border,
+                                    color: currentArtItem!.likeStatus == 0
+                                        ? Colors.black
+                                        : Colors.red,
                                     size: 30.0,
                                   )),
                             ],
@@ -416,21 +469,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              const Spacer(),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.black,
-                                    size: 30.0,
-                                  )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.share,
-                                    color: Colors.black,
-                                    size: 30.0,
-                                  )),
                             ],
                           ),
 
