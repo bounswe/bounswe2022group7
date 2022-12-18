@@ -1,6 +1,5 @@
 package com.group7.artshare.entity
 
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
@@ -64,9 +63,9 @@ class ArtItem{
         var artItemDTO = ArtItemDTO()
         artItemDTO.name = this.artItemInfo?.name
         artItemDTO.description = this.artItemInfo?.description
-        artItemDTO.category = this.artItemInfo?.category!!
+        artItemDTO.category = this.artItemInfo?.category ?: mutableListOf()
         artItemDTO.imageId = this.artItemInfo?.imageId
-        artItemDTO.labels = this.artItemInfo?.labels!!
+        artItemDTO.labels = this.artItemInfo?.labels ?: mutableListOf()
         artItemDTO.creatorAccountInfo = this.creator?.accountInfo
         artItemDTO.creatorId = this.creator?.id
         artItemDTO.creationDate = this.creationDate
@@ -77,7 +76,7 @@ class ArtItem{
         artItemDTO.lastPrice = this.lastPrice
         artItemDTO.id = this.id
         artItemDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
-        artItemDTO.bookMarkedByUsernames = this.bookmarkedBy.map { it.accountInfo.username }.toMutableList()
+        artItemDTO.bookmarkedByUsernames = this.bookmarkedBy.map { it.accountInfo.username }.toMutableList()
         artItemDTO.likedByUsernames = this.likedBy.map { it.accountInfo.username }.toMutableList()
 
         return artItemDTO
