@@ -105,7 +105,7 @@ SERVER_IP=http://10.0.2.2
               Event currentEvent = responseData.event!;
               CurrentUser? user = Provider.of<UserProvider>(context).user;
               if (user != null) {
-                currentEvent.updateParticipation(user.username);
+                currentEvent.updateStatus(user.username);
               }
               return EventPage(event: currentEvent);
             } else {

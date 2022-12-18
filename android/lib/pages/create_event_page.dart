@@ -324,7 +324,7 @@ class _CreateEventState extends State<CreateEvent> {
                               CurrentUser? user =
                                   Provider.of<UserProvider>(context).user;
                               if (user != null) {
-                                currentEvent.updateParticipation(user.username);
+                                currentEvent.updateStatus(user.username);
                               }
                               return EventPage(event: currentEvent);
                             } else {
@@ -379,7 +379,7 @@ class _CreateEventState extends State<CreateEvent> {
                               CurrentUser? user =
                                   Provider.of<UserProvider>(context).user;
                               if (user != null) {
-                                currentEvent.updateParticipation(user.username);
+                                currentEvent.updateStatus(user.username);
                               }
                               return EventPage(event: currentEvent);
                             } else {

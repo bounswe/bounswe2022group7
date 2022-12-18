@@ -99,8 +99,8 @@ class _EventPageState extends State<EventPage> {
                                       setState(() {
                                         if (output.event != null) {
                                           currentEvent = output.event!;
-                                          currentEvent!.updateParticipation(
-                                              user.username);
+                                          currentEvent!
+                                              .updateStatus(user.username);
                                         } else {
                                           if (currentEvent!
                                                   .participationStatus ==

@@ -611,7 +611,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                                             Event currentEvent =
                                                                 responseData
                                                                     .event!;
-
+                                                            currentEvent
+                                                                .updateStatus(user
+                                                                    .username);
                                                             return EventPage(
                                                                 event:
                                                                     currentEvent);
