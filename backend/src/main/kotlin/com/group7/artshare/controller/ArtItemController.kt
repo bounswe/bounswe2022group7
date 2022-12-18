@@ -6,6 +6,7 @@ import com.group7.artshare.repository.ArtItemRepository
 import com.group7.artshare.repository.ArtistRepository
 import com.group7.artshare.repository.RegisteredUserRepository
 import com.group7.artshare.request.ArtItemRequest
+import com.group7.artshare.request.ReportRequest
 import com.group7.artshare.service.ArtItemService
 import com.group7.artshare.service.JwtService
 import org.springframework.beans.factory.annotation.Autowired
