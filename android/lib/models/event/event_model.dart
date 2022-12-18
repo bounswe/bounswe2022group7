@@ -71,4 +71,16 @@ class Event extends Post {
           : [],
     );
   }
+
+  void updateParticipation(String? username) {
+    int status = 0;
+    if (username != null && participants != null) {
+      for (var participant in participants!) {
+        if (participant == username) {
+          status = 1;
+        }
+      }
+    }
+    participationStatus = status;
+  }
 }

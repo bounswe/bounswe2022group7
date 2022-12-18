@@ -103,7 +103,10 @@ SERVER_IP=http://10.0.2.2
                 return EventPage(event: null);
               }
               Event currentEvent = responseData.event!;
-
+              CurrentUser? user = Provider.of<UserProvider>(context).user;
+              if (user != null) {
+                currentEvent.updateParticipation(user.username);
+              }
               return EventPage(event: currentEvent);
             } else {
               // snapshot.data == null

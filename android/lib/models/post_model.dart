@@ -1,10 +1,12 @@
 import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/event/get_event_service.dart';
+import 'package:android/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:android/models/models.dart';
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/art_item_page.dart';
 import 'package:android/pages/event_page.dart';
+import 'package:provider/provider.dart';
 
 class Post {
   final String type;
@@ -39,7 +41,10 @@ class Post {
                   return EventPage(event: null);
                 }
                 Event currentEvent = responseData.event!;
-
+                CurrentUser? user = Provider.of<UserProvider>(context).user;
+                if (user != null) {
+                  currentEvent.updateParticipation(user.username);
+                }
                 return EventPage(event: currentEvent);
               } else {
                 // snapshot.data == null

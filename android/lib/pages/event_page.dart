@@ -51,7 +51,6 @@ class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     CurrentUser? user = Provider.of<UserProvider>(context).user;
-
     if (currentEvent == null) {
       return erroneousEventPage();
     }
@@ -100,7 +99,8 @@ class _EventPageState extends State<EventPage> {
                                       setState(() {
                                         if (output.event != null) {
                                           currentEvent = output.event!;
-                                          //currentEvent.updateParticipation(user.username);
+                                          currentEvent!.updateParticipation(
+                                              user.username);
                                         } else {
                                           if (currentEvent!
                                                   .participationStatus ==

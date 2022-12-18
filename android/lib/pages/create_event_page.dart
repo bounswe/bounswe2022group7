@@ -9,9 +9,11 @@ import 'package:android/network/event/post_event_input.dart';
 import 'package:android/network/event/post_event_output.dart';
 import 'package:android/network/image/post_image_input.dart';
 import 'package:android/pages/pages.dart';
+import 'package:android/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../models/models.dart';
 import '../network/event/post_event_service.dart';
@@ -319,7 +321,11 @@ class _CreateEventState extends State<CreateEvent> {
                                 return EventPage(event: null);
                               }
                               Event currentEvent = responseData.event!;
-
+                              CurrentUser? user =
+                                  Provider.of<UserProvider>(context).user;
+                              if (user != null) {
+                                currentEvent.updateParticipation(user.username);
+                              }
                               return EventPage(event: currentEvent);
                             } else {
                               // snapshot.data == null
@@ -370,7 +376,11 @@ class _CreateEventState extends State<CreateEvent> {
                                 return EventPage(event: null);
                               }
                               Event currentEvent = responseData.event!;
-
+                              CurrentUser? user =
+                                  Provider.of<UserProvider>(context).user;
+                              if (user != null) {
+                                currentEvent.updateParticipation(user.username);
+                              }
                               return EventPage(event: currentEvent);
                             } else {
                               // snapshot.data == null
