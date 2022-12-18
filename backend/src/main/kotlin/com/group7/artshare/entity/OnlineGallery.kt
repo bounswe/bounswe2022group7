@@ -34,6 +34,7 @@ class OnlineGallery : Event(){
         dto.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
         dto.eventInfo = this.eventInfo
         dto.participantUsernames = this.participants.map { it.accountInfo.username }.toMutableList()
+        dto.bookmarkedByUsernames = this.bookmarkedBy.map { it.accountInfo.username }.toMutableList()
         dto.artItemList = this.artItems.map { it.mapToDTO() }.toMutableList()
         dto.externalUrl = this.externalUrl
         return dto

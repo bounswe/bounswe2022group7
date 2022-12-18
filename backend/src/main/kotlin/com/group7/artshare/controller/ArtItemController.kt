@@ -88,4 +88,42 @@ class ArtItemController(
         }
     }
 
+    @PostMapping("like/{id}")
+    fun likeAnArtItem(
+        @PathVariable("id") id: Long, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): ArtItemDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return artItemService.likeAnArtItem(id, user).mapToDTO()
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @PostMapping("bookmark/{id}")
+    fun bookmarkAnArtItem(
+        @PathVariable("id") id: Long, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): ArtItemDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return artItemService.bookmarkAnArtItem(id, user).mapToDTO()
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
 }

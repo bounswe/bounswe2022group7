@@ -106,4 +106,23 @@ class EventController(
             }
         }
     }
+
+    @PostMapping("bookmark/{id}")
+    fun bookmarkAnEvent(
+        @PathVariable("id") id: Long, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): EventDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return eventService.bookmarkAnEvent(id, user).mapToDTO()
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
 }
