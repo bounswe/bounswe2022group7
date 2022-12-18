@@ -58,5 +58,33 @@ internal class EventControllerTest {
         assertEquals(0, result.bookmarkedByUsernames.size)
     }
 
+    @Test
+    fun participateAnEvent() {
+        val authorizationHeader = "Bearer token"
+        val user = RegisteredUser(AccountInfo("email","username", "password"),setOf(Authority("ARTIST")))
+        whenever(jwtService.getUserFromAuthorizationHeader(authorizationHeader)).thenReturn(user)
+        val event = PhysicalExhibition()
+        Mockito.`when`(eventService.participateAnEvent(event.id,user)).then {
+            event.participants.add(user)
+            event
+        }
+        val result = eventController.participateAnEvent(event.id,authorizationHeader)
+        assertEquals(1, result.participantUsernames.size)
+        assertEquals(user.username, result.participantUsernames[0])
+    }
 
+    @Test
+    fun unparticipateAnEvent() {
+        val authorizationHeader = "Bearer token"
+        val user = RegisteredUser(AccountInfo("email","username", "password"),setOf(Authority("ARTIST")))
+        whenever(jwtService.getUserFromAuthorizationHeader(authorizationHeader)).thenReturn(user)
+        val event = PhysicalExhibition()
+        event.participants.add(user)
+        Mockito.`when`(eventService.participateAnEvent(event.id,user)).then {
+            event.participants.remove(user)
+            event
+        }
+        val result = eventController.participateAnEvent(event.id,authorizationHeader)
+        assertEquals(0, result.participantUsernames.size)
+    }
 }

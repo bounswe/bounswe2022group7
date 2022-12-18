@@ -90,12 +90,32 @@ class EventService(
         if (user.bookmarkedEvents.contains(event)) {
             user.bookmarkedEvents.remove(event)
             event.bookmarkedBy.remove(user)
-        }else{
+        } else {
             user.bookmarkedEvents.add(event)
             event.bookmarkedBy.add(user)
         }
         physicalExhibitionRepository.flush()
         onlineGalleryRepository.flush()
         return event
+    }
+
+    fun participateAnEvent(
+        id: Long, user: RegisteredUser
+    ) : Event {
+        val event : Event = physicalExhibitionRepository.findByIdOrNull(id) ?: onlineGalleryRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
+            HttpStatus.BAD_REQUEST, "There is no event in the database with corresponding id"
+        )
+        if(event.participants.contains(user)){
+            event.participants.remove(user)
+            user.allEvents.remove(event)
+        }
+        else{
+            event.participants.add(user)
+            user.allEvents.add(event)
+        }
+        physicalExhibitionRepository.flush()
+        onlineGalleryRepository.flush()
+        return event
+
     }
 }
