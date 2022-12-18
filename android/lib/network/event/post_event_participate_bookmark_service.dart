@@ -8,13 +8,13 @@ import 'package:http/http.dart';
 import '../../models/models.dart';
 import '../../shared_prefs/user_preferences.dart';
 
-Future<GetEventOutput> postEventParticipateNetwork(int id) async {
+Future<GetEventOutput> postEventMarkNetwork(int id, String url) async {
   Response response;
   try {
     CurrentUser? user = await getUser();
     final token = user == null ? "" : user.token;
     response = await post(
-      Uri.parse("$eventURL/participate/$id/"),
+      Uri.parse("$eventURL/$url/$id/"),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token'

@@ -1,4 +1,4 @@
-import 'package:android/network/event/post_event_participate_service.dart';
+import 'package:android/network/event/post_event_participate_bookmark_service.dart';
 import 'package:android/providers/user_provider.dart';
 import 'package:android/widgets/annotatable_text.dart';
 import 'package:android/pages/profile_page.dart';
@@ -84,18 +84,38 @@ class _EventPageState extends State<EventPage> {
                               ),
                               const Spacer(),
                               IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
+                                  onPressed: () async {
+                                    if (user != null) {
+                                      final output = await postEventMarkNetwork(
+                                          currentEvent!.id, "bookmark");
+                                      setState(() {
+                                        if (output.event != null) {
+                                          currentEvent = output.event!;
+                                          currentEvent!
+                                              .updateStatus(user.username);
+                                        } else {
+                                          if (currentEvent!.bookmarkStatus ==
+                                              0) {
+                                            currentEvent!.bookmarkStatus = 1;
+                                          } else {
+                                            currentEvent!.bookmarkStatus = 0;
+                                          }
+                                        }
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
                                     Icons.bookmark_add_outlined,
-                                    color: Colors.black,
+                                    color: currentEvent!.bookmarkStatus == 0
+                                        ? Colors.black
+                                        : Colors.orange,
                                     size: 30.0,
                                   )),
                               IconButton(
                                   onPressed: () async {
                                     if (user != null) {
-                                      final output =
-                                          await postEventParticipateNetwork(
-                                              currentEvent!.id);
+                                      final output = await postEventMarkNetwork(
+                                          currentEvent!.id, "participate");
                                       setState(() {
                                         if (output.event != null) {
                                           currentEvent = output.event!;
