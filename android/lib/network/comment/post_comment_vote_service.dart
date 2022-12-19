@@ -9,7 +9,7 @@ import 'package:http/http.dart';
 import '../../models/models.dart';
 import '../../shared_prefs/user_preferences.dart';
 
-Future<PostCommentVoteOutput> postDiscussionVoteNetwork(
+Future<PostCommentVoteOutput> postCommentVoteNetwork(
     PostCommentVoteInput postCommentVoteInput) async {
   Response response;
   try {
