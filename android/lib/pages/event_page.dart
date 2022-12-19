@@ -1,3 +1,4 @@
+import 'package:android/providers/user_provider.dart';
 import 'package:android/widgets/annotatable_text.dart';
 import 'package:android/pages/profile_page.dart';
 import 'package:android/widgets/comment.dart';
@@ -7,6 +8,7 @@ import "package:android/models/models.dart";
 import 'package:android/network/event/get_event_service.dart';
 import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/image/get_image_builder.dart';
+import 'package:provider/provider.dart';
 
 class EventPage extends StatefulWidget {
   final int id;
@@ -45,6 +47,8 @@ class _EventPageState extends State<EventPage> {
 
   @override
   Widget build(BuildContext context) {
+    CurrentUser? user = Provider.of<UserProvider>(context).user;
+
     return FutureBuilder(
       future: getEventNetwork(widget.id),
       builder: (context, snapshot) {
@@ -70,6 +74,12 @@ class _EventPageState extends State<EventPage> {
                 return erroneousEventPage();
               }
               Event currentEvent = responseData.event!;
+
+              if (user != null) {
+                for (var comment in currentEvent.commentList) {
+                  comment.updateStatus(user.id);
+                }
+              }
 
               return Scaffold(
                 appBar: AppBar(
@@ -267,7 +277,9 @@ class _EventPageState extends State<EventPage> {
                                       commentList: currentEvent.commentList,
                                     ),
                                     const Padding(padding: EdgeInsets.all(4.0)),
-                                    CommentWidget(postid: currentEvent.id, post_type: "event"),
+                                    CommentWidget(
+                                        postid: currentEvent.id,
+                                        post_type: "event"),
                                   ])),
                         ],
                       ),
