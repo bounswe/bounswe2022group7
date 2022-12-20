@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
+import com.group7.artshare.DTO.RegisteredUserDTO
 import lombok.Data
 import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
@@ -158,5 +159,24 @@ open class RegisteredUser(
 
     override fun hashCode(): Int {
         return username.hashCode()
+    }
+
+    fun mapToDTO(): RegisteredUserDTO {
+        val registeredUserDTO = RegisteredUserDTO()
+        registeredUserDTO.id = id
+        registeredUserDTO.accountInfo = accountInfo
+        registeredUserDTO.isVerified = isVerified
+        registeredUserDTO.level = level
+        registeredUserDTO.xp = xp
+        registeredUserDTO.isBanned = isBanned
+        registeredUserDTO.followingUsernames = following.map { it.accountInfo.username }.toMutableSet()
+        registeredUserDTO.followedByUsernames = followedBy.map { it.accountInfo.username }.toMutableSet()
+        registeredUserDTO.likedArtItemIds = likedArtItems.map { it.id }.toMutableList()
+        registeredUserDTO.bookmarkedArtItemIds = bookmarkedArtItems.map { it.id }.toMutableList()
+        registeredUserDTO.bookmarkedEventIds = bookmarkedEvents.map { it.id }.toMutableList()
+        registeredUserDTO.participatedEventIds = allEvents.map { it.id }.toMutableList()
+        registeredUserDTO.discussionPostIds = writtenDiscussionPosts.map { it.id }.toMutableList()
+        registeredUserDTO.commentIds = commentList.map { it.id }.toMutableList()
+        return registeredUserDTO
     }
 }
