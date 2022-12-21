@@ -1,5 +1,10 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.ArtItemDTO
+import com.group7.artshare.DTO.DiscussionPostDTO
+import com.group7.artshare.DTO.OnlineGalleryDTO
+import com.group7.artshare.DTO.PhysicalExhibitionDTO
+import com.group7.artshare.entity.RegisteredUser
 import com.group7.artshare.service.JwtService
 import com.group7.artshare.service.ProfileService
 import com.group7.artshare.service.SearchService
@@ -37,21 +42,21 @@ class UserInteractionController(
 
 
 
-    @GetMapping("search")
-    fun search(
+    @GetMapping("search_art_item")
+    fun searchArtItem(
         @RequestParam(value = "keywords") keywords: List<String>,
         @RequestHeader(
             value = "Authorization",
             required = false
         ) authorizationHeader: String?
-    ): List<Any> {
+    ): List<ArtItemDTO> {
         try {
             authorizationHeader?.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return searchService.search(keywords)
+                return searchService.searchArtItem(keywords)
 
-            } ?: return searchService.search(keywords) //if we want to customize the search results according to user, replace the method call here
+            } ?: return searchService.searchArtItem(keywords) //if we want to customize the search results according to user, replace the method call here
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
@@ -61,4 +66,99 @@ class UserInteractionController(
         }
     }
 
+    @GetMapping("search_physical_exhibition")
+    fun searchPhysicalExhibition(
+        @RequestParam(value = "keywords") keywords: List<String>,
+        @RequestHeader(
+            value = "Authorization",
+            required = false
+        ) authorizationHeader: String?
+    ): List<PhysicalExhibitionDTO> {
+        try {
+            authorizationHeader?.let {
+                val user =
+                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+                return searchService.searchPhysicalExhibition(keywords)
+
+            } ?: return searchService.searchPhysicalExhibition(keywords) //if we want to customize the search results according to user, replace the method call here
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @GetMapping("search_online_gallery")
+    fun searchOnlineGallery(
+        @RequestParam(value = "keywords") keywords: List<String>,
+        @RequestHeader(
+            value = "Authorization",
+            required = false
+        ) authorizationHeader: String?
+    ): List<OnlineGalleryDTO> {
+        try {
+            authorizationHeader?.let {
+                val user =
+                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+                return searchService.searchOnlineGallery(keywords)
+
+            } ?: return searchService.searchOnlineGallery(keywords) //if we want to customize the search results according to user, replace the method call here
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @GetMapping("search_discussion_post")
+    fun searchDiscussionPost(
+        @RequestParam(value = "keywords") keywords: List<String>,
+        @RequestHeader(
+            value = "Authorization",
+            required = false
+        ) authorizationHeader: String?
+    ): List<DiscussionPostDTO> {
+        try {
+            authorizationHeader?.let {
+                val user =
+                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+                return searchService.searchDiscussionPost(keywords)
+
+            } ?: return searchService.searchDiscussionPost(keywords) //if we want to customize the search results according to user, replace the method call here
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @GetMapping("search_user")
+    fun searchUser(
+        @RequestParam(value = "keywords") keywords: List<String>,
+        @RequestHeader(
+            value = "Authorization",
+            required = false
+        ) authorizationHeader: String?
+    ): List<RegisteredUser> {
+        try {
+            authorizationHeader?.let {
+                val user =
+                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+                return searchService.searchUser(keywords)
+
+            } ?: return searchService.searchUser(keywords) //if we want to customize the search results according to user, replace the method call here
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
 }

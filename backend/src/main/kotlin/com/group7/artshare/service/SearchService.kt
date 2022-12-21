@@ -46,7 +46,7 @@ class SearchService (
         return registeredUserRepository.findAllByAccountInfo_IdIn(infoList)
     }
 
-    fun search(keywordList : List<String>) : List<Any>{
+    fun searchArtItem(keywordList : List<String>) : List<ArtItemDTO>{
 
         var concatenation = ""
         for(i in keywordList){
@@ -54,15 +54,50 @@ class SearchService (
         }
 
         concatenation = concatenation.subSequence(0, concatenation.length - 3).toString()
-
-        var objectList = mutableListOf<Any>()
-        objectList.addAll(searchArtItem(concatenation))
-        objectList.addAll(searchPhysicalExhibition(concatenation))
-        objectList.addAll(searchOnlineGallery(concatenation))
-        objectList.addAll(searchDiscussionPost(concatenation))
-        objectList.addAll(searchUser(concatenation))
-        return objectList
+        return searchArtItem(concatenation)
     }
 
+    fun searchPhysicalExhibition(keywordList : List<String>) : List<PhysicalExhibitionDTO>{
+
+        var concatenation = ""
+        for(i in keywordList){
+            concatenation += i + " , "
+        }
+        concatenation = concatenation.subSequence(0, concatenation.length - 3).toString()
+        return searchPhysicalExhibition(concatenation)
+    }
+
+    fun searchOnlineGallery(keywordList : List<String>) : List<OnlineGalleryDTO>{
+
+        var concatenation = ""
+        for(i in keywordList){
+            concatenation += i + " , "
+        }
+
+        concatenation = concatenation.subSequence(0, concatenation.length - 3).toString()
+        return searchOnlineGallery(concatenation)
+    }
+
+    fun searchDiscussionPost(keywordList : List<String>) : List<DiscussionPostDTO>{
+
+        var concatenation = ""
+        for(i in keywordList){
+            concatenation += i + " , "
+        }
+
+        concatenation = concatenation.subSequence(0, concatenation.length - 3).toString()
+        return searchDiscussionPost(concatenation)
+    }
+
+    fun searchUser(keywordList : List<String>) : List<RegisteredUser>{
+
+        var concatenation = ""
+        for(i in keywordList){
+            concatenation += i + " , "
+        }
+
+        concatenation = concatenation.subSequence(0, concatenation.length - 3).toString()
+        return searchUser(concatenation)
+    }
 
 }
