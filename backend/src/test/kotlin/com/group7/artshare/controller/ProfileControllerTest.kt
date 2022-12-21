@@ -11,10 +11,12 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.test.context.TestPropertySource
 import org.springframework.web.server.ResponseStatusException
 
 
 @ExtendWith(MockitoExtension::class)
+@TestPropertySource(locations=["classpath:test.properties"])
 internal class ProfileControllerTest {
 
     @InjectMocks
