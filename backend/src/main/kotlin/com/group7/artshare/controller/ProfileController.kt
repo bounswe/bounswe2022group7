@@ -1,5 +1,6 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.RegisteredUserDTO
 import com.group7.artshare.SettingDTO
 import com.group7.artshare.entity.RegisteredUser
 import com.group7.artshare.service.JwtService
@@ -20,15 +21,15 @@ class ProfileController(
     fun getUserByUsername(
         @PathVariable(value = "username") username: String,
         @RequestHeader(value = "Authorization", required = false) authorizationHeader: String?
-    ): RegisteredUser {
-        return profileService.getUserByUsernameOrToken(username, authorizationHeader)
+    ): RegisteredUserDTO {
+        return profileService.getUserByUsernameOrToken(username, authorizationHeader).mapToDTO()
     }
 
     @GetMapping()
     fun getUserByToken(
         @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
-    ): RegisteredUser {
-        return profileService.getUserByUsernameOrToken(null, authorizationHeader)
+    ): RegisteredUserDTO {
+        return profileService.getUserByUsernameOrToken(null, authorizationHeader).mapToDTO()
     }
 
     @GetMapping("settings")
