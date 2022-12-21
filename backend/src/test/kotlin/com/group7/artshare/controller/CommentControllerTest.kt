@@ -16,11 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.any
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.whenever
-import org.springframework.test.context.TestPropertySource
 import org.springframework.web.server.ResponseStatusException
 
 @ExtendWith(MockitoExtension::class)
-@TestPropertySource(locations=["classpath:test.properties"])
 internal class CommentControllerTest {
 
     @InjectMocks

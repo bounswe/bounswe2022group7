@@ -6,7 +6,6 @@ import com.group7.artshare.entity.RegisteredUser
 import com.group7.artshare.request.VoteRequest
 import com.group7.artshare.service.DiscussionPostService
 import com.group7.artshare.service.JwtService
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -17,11 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.any
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.whenever
-import org.springframework.test.context.TestPropertySource
 import org.springframework.web.server.ResponseStatusException
 
 @ExtendWith(MockitoExtension::class)
-@TestPropertySource(locations=["classpath:test.properties"])
 internal class DiscussionPostControllerTest {
 
     @InjectMocks

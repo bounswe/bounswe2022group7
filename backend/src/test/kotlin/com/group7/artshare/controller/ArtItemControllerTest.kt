@@ -4,7 +4,6 @@ import com.group7.artshare.entity.*
 import com.group7.artshare.repository.ImageRepository
 import com.group7.artshare.request.ArtItemRequest
 import com.group7.artshare.service.ArtItemService
-import com.group7.artshare.service.ImageService
 import com.group7.artshare.service.JwtService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -14,14 +13,10 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
-import org.mockito.kotlin.whenever
-import org.springframework.test.context.TestPropertySource
 import org.springframework.web.server.ResponseStatusException
-import java.util.*
 
 
 @ExtendWith(MockitoExtension::class)
-@TestPropertySource(locations=["classpath:test.properties"])
 internal class ArtItemControllerTest {
 
     @InjectMocks
