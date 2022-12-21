@@ -14,7 +14,7 @@ open class EventDTO : Comparable<EventDTO> {
     var commentList: MutableList<CommentDTO> = mutableListOf()
     var eventInfo: EventInfo? = null
     var participantUsernames : MutableList<String> = mutableListOf()
-
+    var bookmarkedByUsernames : MutableList<String> = mutableListOf()
     override fun compareTo(other: EventDTO): Int {
         return other.participantUsernames.size - this.participantUsernames.size
     }

@@ -11,7 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
-
+// THIS CODE IS TAKEN FROM https://github.com/fatihdogmus/yte-intern-spring-security/tree/intern-2021-1-jwt
+// LITTLE OR NO MODIFICATIONS HAVE BEEN MADE TO THE CODE
 @Service
 class CustomAuthenticationProvider @Autowired constructor(
     registeredUserRepository: RegisteredUserRepository,

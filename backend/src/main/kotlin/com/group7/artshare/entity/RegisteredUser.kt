@@ -56,16 +56,6 @@ open class RegisteredUser(
     @JsonBackReference
     var followedBy: MutableSet<RegisteredUser> = mutableSetOf()
 
-
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @JoinTable(
-        name = "blockings",
-        joinColumns = [JoinColumn(name = "blocker_id", referencedColumnName = "id")],
-        inverseJoinColumns = [JoinColumn(name = "blocked_id", referencedColumnName = "id")]
-    )
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var blockedUsers: MutableSet<RegisteredUser> = mutableSetOf()
-
     @Column
     var isBanned: Boolean = false
 
@@ -80,6 +70,15 @@ open class RegisteredUser(
     @ManyToMany(mappedBy = "downVotedUsers")
     @JsonIgnore
     var downVotedComments: MutableSet<Comment> = mutableSetOf()
+
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "liked_art_items",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "art_item_id")]
+    )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    var likedArtItems: MutableSet<ArtItem> = mutableSetOf()
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
@@ -99,30 +98,9 @@ open class RegisteredUser(
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var bookmarkedEvents: MutableSet<Event> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @JoinTable(
-        name = "read_notifications",
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "notification_id")]
-    )
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var readNotifications: MutableSet<Notification> = mutableSetOf()
-
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @JoinTable(
-        name = "unread_notifications",
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "notification_id")]
-    )
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var unreadNotifications: MutableSet<Notification> = mutableSetOf()
-
-
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @JsonIgnore
     var writtenDiscussionPosts: MutableList<DiscussionPost> = mutableListOf()
-
-    //TODO past reply past posts
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     @JsonIgnore

@@ -2,7 +2,6 @@ package com.group7.artshare.DTO
 
 import com.group7.artshare.entity.AccountInfo
 import com.group7.artshare.entity.Auction
-import com.group7.artshare.entity.RegisteredUser
 import lombok.Data
 import java.util.*
 
@@ -23,11 +22,10 @@ class ArtItemDTO : Comparable<ArtItemDTO> {
     var auction : Auction? = null
     var lastPrice : Double? = null
     var commentList: MutableList<CommentDTO> = mutableListOf()
-//    var bookMarkedByIds : MutableList<Long> = mutableListOf()
-
+    var bookmarkedByUsernames : MutableList<String> = mutableListOf()
+    var likedByUsernames : MutableList<String> = mutableListOf()
     override fun compareTo(other: ArtItemDTO): Int {
-        //TODO update this to number of likes
-        return other.commentList.size - this.commentList.size
+        return other.likedByUsernames.size - this.likedByUsernames.size
     }
 
 }
