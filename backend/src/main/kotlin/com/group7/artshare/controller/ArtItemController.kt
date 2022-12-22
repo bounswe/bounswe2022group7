@@ -127,4 +127,23 @@ class ArtItemController(
         }
     }
 
+    @PostMapping("auction/{id}")
+    fun auctionAnArtItem(
+        @PathVariable("id") id: Long, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): ArtItemDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return artItemService.auctionAnArtItem(id, user).mapToDTO()
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
 }

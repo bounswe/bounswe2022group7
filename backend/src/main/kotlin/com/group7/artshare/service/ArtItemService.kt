@@ -93,4 +93,44 @@ class ArtItemService(
         artItemRepository.flush()
         return artItem
     }
+
+    fun auctionAnArtItem(
+        id: Long,
+        user: RegisteredUser
+    ): ArtItem {
+        val artItem: ArtItem = artItemRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "There is no art item in the database with corresponding id"
+        )
+        if(user is Artist) {
+            if(user.artItems.contains(artItem)){
+                artItem.onAuction = !artItem.onAuction
+            }
+            else
+                throw ResponseStatusException(
+                HttpStatus.UNAUTHORIZED,
+                "Art item does not belong to this user"
+            )
+        }
+        else
+            throw ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Regular Users cannot put art items on auction"
+            )
+        artItemRepository.flush()
+        return artItem
+    }
+
+    fun bidAnArtItem(
+        id: Long,
+        user: RegisteredUser
+    ): ArtItem {
+        val artItem: ArtItem = artItemRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "There is no art item in the database with corresponding id"
+        )
+
+        artItemRepository.flush()
+        return artItem
+    }
 }
