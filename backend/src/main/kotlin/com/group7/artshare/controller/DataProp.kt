@@ -72,7 +72,6 @@ class DataProp {
 
         var artItem1 = ArtItem()
         var artItemInfo1 = ArtItemInfo()
-        artItem1.auction =null
         var artist1 = Artist(accountInfo1,setOf())
 
         artItem1.creator = artist1
@@ -114,7 +113,6 @@ class DataProp {
         artItemInfo2.description = "Emotional hurricane on a dull landscape, too dull for an artistic soul as mine."
         artItemInfo2.category = mutableListOf("Classical")
         artItem2.artItemInfo = artItemInfo2
-        artItem2.auction = Auction()
         //var artist2 = Artist(accountInfo2,setOf())
         //artItem2.creator = artist2
         artItem2.commentList = mutableListOf(comment3)

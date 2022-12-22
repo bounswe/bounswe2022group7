@@ -1,6 +1,7 @@
 package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import lombok.Data
 import java.util.*
@@ -24,6 +25,6 @@ class Bid {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "artItemBided")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    @JsonIgnore
     var artItemBided : ArtItem? = null
 }
