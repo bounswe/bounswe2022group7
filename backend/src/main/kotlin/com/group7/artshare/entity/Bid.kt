@@ -14,6 +14,9 @@ class Bid {
     @GeneratedValue
     var id: Long = 0L
 
+    @Column
+    var bidAmount: Int = 0
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     @JoinColumn(name = "bidder")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
