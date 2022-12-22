@@ -6,6 +6,7 @@ import com.group7.artshare.repository.ArtItemRepository
 import com.group7.artshare.repository.ArtistRepository
 import com.group7.artshare.repository.RegisteredUserRepository
 import com.group7.artshare.request.ArtItemRequest
+import com.group7.artshare.request.ReportRequest
 import com.group7.artshare.service.ArtItemService
 import com.group7.artshare.service.JwtService
 import org.springframework.beans.factory.annotation.Autowired
@@ -79,6 +80,44 @@ class ArtItemController(
             val user =
                 jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
             return artItemService.createArtItem(artItemRequest, user).mapToDTO()
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @PostMapping("like/{id}")
+    fun likeAnArtItem(
+        @PathVariable("id") id: Long, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): ArtItemDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return artItemService.likeAnArtItem(id, user).mapToDTO()
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @PostMapping("bookmark/{id}")
+    fun bookmarkAnArtItem(
+        @PathVariable("id") id: Long, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): ArtItemDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return artItemService.bookmarkAnArtItem(id, user).mapToDTO()
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)

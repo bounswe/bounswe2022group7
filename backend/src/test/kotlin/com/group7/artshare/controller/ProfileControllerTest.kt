@@ -34,7 +34,7 @@ internal class ProfileControllerTest {
         val response = mockUser.username?.let { profileController.getUserByUsername(it, null) }
         assert(response != null)
         if (response != null) {
-            assert(response.username == mockUser.username)
+            assert(response.accountInfo?.username == mockUser.username)
         }
     }
 
@@ -44,7 +44,7 @@ internal class ProfileControllerTest {
         val mockUser = RegisteredUser(accountInfo1, setOf())
         `when`(profileService.getUserByUsernameOrToken(null, "authorizationHeader")).thenReturn(mockUser)
         val response = profileController.getUserByToken("authorizationHeader")
-        assert(response.username == mockUser.username)
+        assert(response.accountInfo?.username == mockUser.username)
     }
 
     @Test

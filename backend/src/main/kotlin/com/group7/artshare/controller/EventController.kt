@@ -106,4 +106,45 @@ class EventController(
             }
         }
     }
+
+
+    @PostMapping("bookmark/{id}")
+    fun bookmarkAnEvent(
+        @PathVariable("id") id: Long,
+        @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): EventDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return eventService.bookmarkAnEvent(id, user).mapToDTO()
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @PostMapping("participate/{id}")
+    fun participateAnEvent(
+        @PathVariable("id") id: Long,
+        @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): EventDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return eventService.participateAnEvent(id, user).mapToDTO()
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
 }

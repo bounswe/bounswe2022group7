@@ -6,7 +6,7 @@ import lombok.Data
 import java.util.*
 
 @Data
-class ArtItemDTO {
+class ArtItemDTO : Comparable<ArtItemDTO> {
     var id : Long? = null
     var name : String? = null
     var description : String? = null
@@ -22,6 +22,10 @@ class ArtItemDTO {
     var auction : Auction? = null
     var lastPrice : Double? = null
     var commentList: MutableList<CommentDTO> = mutableListOf()
-//    var bookMarkedByIds : MutableList<Long> = mutableListOf()
+    var bookmarkedByUsernames : MutableList<String> = mutableListOf()
+    var likedByUsernames : MutableList<String> = mutableListOf()
+    override fun compareTo(other: ArtItemDTO): Int {
+        return other.likedByUsernames.size - this.likedByUsernames.size
+    }
 
 }

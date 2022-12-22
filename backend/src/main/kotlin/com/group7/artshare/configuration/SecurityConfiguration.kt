@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
+// THIS CODE IS TAKEN FROM https://github.com/fatihdogmus/yte-intern-spring-security/tree/intern-2021-1-jwt
+// LITTLE OR NO MODIFICATIONS HAVE BEEN MADE TO THE CODE
 
 @EnableWebSecurity
 @Configuration

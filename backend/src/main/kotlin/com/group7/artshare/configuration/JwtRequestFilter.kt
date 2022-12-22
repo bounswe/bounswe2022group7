@@ -17,6 +17,8 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+// THIS CODE IS TAKEN FROM https://github.com/fatihdogmus/yte-intern-spring-security/tree/intern-2021-1-jwt
+// LITTLE OR NO MODIFICATIONS HAVE BEEN MADE TO THE CODE
 
 @Component
 class JwtRequestFilter(private val registeredUserService: RegisteredUserService) : OncePerRequestFilter() {

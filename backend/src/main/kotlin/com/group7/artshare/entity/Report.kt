@@ -1,6 +1,7 @@
 package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import lombok.Data
 import java.util.*
@@ -14,19 +15,21 @@ class Report {
     @GeneratedValue
     val id: Long = 0L
 
-    @Column
-    var reportedObjectId : Int? = null //we should update it either ArtItem, DiscussionPost, or Comment
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "reported_art_item_id")
+    @JsonIgnore
+    var reportedArtItem : ArtItem? = null
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    var date: Date = Calendar.getInstance().time
+    var creationDate: Date = Calendar.getInstance().time
 
     @Column
-    var description : String = ""
+    var description : String? = null
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "author")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    @JoinColumn(name = "reporter_user_id")
+    @JsonIgnore
     var reporter : RegisteredUser? = null
 
 }
