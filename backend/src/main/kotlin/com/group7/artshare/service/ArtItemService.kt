@@ -137,6 +137,11 @@ class ArtItemService(
                 HttpStatus.BAD_REQUEST,
                 "Corresponding art item is not on sale"
             )
+        if(artItem.creator == user)
+            throw ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Artists cannot bid their own art items"
+            )
         val previousBid = artItem.bids.find { it.bidder == user }
         if(previousBid == null) {
             var newBid = Bid()
