@@ -2,7 +2,7 @@ ALTER TABLE artshare.art_item_info
     ADD FULLTEXT(name, description, category, labels);
 
 ALTER TABLE artshare.event_info
-    ADD INDEX(title, description, category, labels);
+    ADD FULLTEXT(title, description, category, labels);
 
 ALTER TABLE artshare.discussion_ost
     ADD FULLTEXT(title, text_body);
