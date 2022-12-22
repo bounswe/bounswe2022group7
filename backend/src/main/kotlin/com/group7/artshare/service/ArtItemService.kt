@@ -137,11 +137,18 @@ class ArtItemService(
                 HttpStatus.BAD_REQUEST,
                 "Corresponding art item is not on sale"
             )
-        var newBid = Bid()
-        newBid.bidAmount = bidAmount
-        newBid.artItemBided = artItem
-        newBid.bidder = user
-        artItem.bids.add(newBid)
+        val previousBid = artItem.bids.find { it.bidder == user }
+        if(previousBid == null) {
+            var newBid = Bid()
+            newBid.bidAmount = bidAmount
+            newBid.artItemBided = artItem
+            newBid.bidder = user
+            artItem.bids.add(newBid)
+        }
+        else {
+            previousBid.bidAmount = bidAmount
+        }
+        artItemRepository.flush()
         return artItem
     }
 }
