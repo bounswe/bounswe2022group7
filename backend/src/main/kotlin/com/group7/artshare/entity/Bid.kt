@@ -14,17 +14,13 @@ class Bid {
     @GeneratedValue
     var id: Long = 0L
 
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    var expirationDate: Date? = null
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     @JoinColumn(name = "bidder")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var bidder: RegisteredUser? = null
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "auctionBided")
+    @JoinColumn(name = "artItemBided")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var auctionBided : Auction? = null
+    var artItemBided : ArtItem? = null
 }
