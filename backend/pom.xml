@@ -18,9 +18,7 @@
 		<kotlin.version>1.6.21</kotlin.version>
 	</properties>
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
 		<dependency>
-			<!-- Hot reload feature -->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>

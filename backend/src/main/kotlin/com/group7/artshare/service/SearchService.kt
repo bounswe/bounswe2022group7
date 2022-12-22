@@ -1,10 +1,6 @@
 package com.group7.artshare.service
 
-import com.group7.artshare.DTO.ArtItemDTO
-import com.group7.artshare.DTO.DiscussionPostDTO
-import com.group7.artshare.DTO.OnlineGalleryDTO
-import com.group7.artshare.DTO.PhysicalExhibitionDTO
-import com.group7.artshare.entity.*
+import com.group7.artshare.DTO.*
 import com.group7.artshare.repository.*
 import org.springframework.stereotype.Service
 
@@ -41,9 +37,9 @@ class SearchService (
         return discussionPostRepository.findFullTextSearch(keys).mapNotNull { it.mapToDTO() }
     }
 
-    private fun searchUser(keys : String) : List<RegisteredUser>{
+    private fun searchUser(keys : String) : List<RegisteredUserDTO>{
         var infoList = accountInfoRepository.findFullTextSearch(keys).mapNotNull { it.id }
-        return registeredUserRepository.findAllByAccountInfo_IdIn(infoList)
+        return registeredUserRepository.findAllByAccountInfo_IdIn(infoList).mapNotNull { it.mapToDTO() }
     }
 
     fun searchArtItem(keywordList : List<String>) : List<ArtItemDTO>{
@@ -89,7 +85,7 @@ class SearchService (
         return searchDiscussionPost(concatenation)
     }
 
-    fun searchUser(keywordList : List<String>) : List<RegisteredUser>{
+    fun searchUser(keywordList : List<String>) : List<RegisteredUserDTO>{
 
         var concatenation = ""
         for(i in keywordList){

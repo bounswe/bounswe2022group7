@@ -1,10 +1,6 @@
 package com.group7.artshare.controller
 
-import com.group7.artshare.DTO.ArtItemDTO
-import com.group7.artshare.DTO.DiscussionPostDTO
-import com.group7.artshare.DTO.OnlineGalleryDTO
-import com.group7.artshare.DTO.PhysicalExhibitionDTO
-import com.group7.artshare.entity.RegisteredUser
+import com.group7.artshare.DTO.*
 import com.group7.artshare.service.JwtService
 import com.group7.artshare.service.ProfileService
 import com.group7.artshare.service.SearchService
@@ -145,7 +141,7 @@ class UserInteractionController(
             value = "Authorization",
             required = false
         ) authorizationHeader: String?
-    ): List<RegisteredUser> {
+    ): List<RegisteredUserDTO> {
         try {
             authorizationHeader?.let {
                 val user =
