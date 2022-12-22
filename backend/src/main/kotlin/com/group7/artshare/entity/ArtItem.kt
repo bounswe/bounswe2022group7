@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import com.group7.artshare.DTO.ArtItemDTO
+import com.group7.artshare.DTO.BidDTO
 import lombok.Data;
 import java.util.*
 import javax.persistence.*;
@@ -75,7 +76,7 @@ class ArtItem{
         artItemDTO.ownerAccountInfo = this.owner?.accountInfo
         artItemDTO.ownerId = this.owner?.id
         artItemDTO.onAuction = this.onAuction
-        artItemDTO.bids = this.bids
+        artItemDTO.bids = this.bids.map { it.mapToDTO() }.toMutableList()
         artItemDTO.lastPrice = this.lastPrice
         artItemDTO.id = this.id
         artItemDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
