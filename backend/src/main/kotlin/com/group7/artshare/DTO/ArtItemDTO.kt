@@ -1,7 +1,6 @@
 package com.group7.artshare.DTO
 
-import com.group7.artshare.entity.AccountInfo
-import com.group7.artshare.entity.Auction
+import com.group7.artshare.entity.*
 import lombok.Data
 import java.util.*
 
@@ -19,7 +18,7 @@ class ArtItemDTO : Comparable<ArtItemDTO> {
     var ownerAccountInfo : AccountInfo? = null
     var ownerId : Long? = null
     var onAuction : Boolean? = null
-    var auction : Auction? = null
+    var bids : MutableList<Bid> = mutableListOf()
     var lastPrice : Double? = null
     var commentList: MutableList<CommentDTO> = mutableListOf()
     var bookmarkedByUsernames : MutableList<String> = mutableListOf()
