@@ -127,6 +127,60 @@ class _ArtItemPageState extends State<ArtItemPage> {
                           width: 2,
                         ),
                       ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Container(),
+                          ),
+                          Container(
+                            height: 40,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(),
+                                ),
+                                Container(
+                                  width: 35,
+                                  height: 35,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.all(5),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.note_add,
+                                        color: Color(0xFFB71C1C)),
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text("Add Text"),
+                                          content: TextField(
+                                            decoration: const InputDecoration(
+                                              hintText: "Enter text",
+                                            ),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text("Cancel"),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text("Add"),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
           ),
