@@ -40,9 +40,9 @@ class ArtItem{
     @Column
     var onAuction: Boolean = false
 
-    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
+    @OneToOne(orphanRemoval = true, cascade = [CascadeType.ALL])
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var bids: MutableList<Bid> = mutableListOf()
+    var maxBid: Bid? = null
 
     @Column
     var lastPrice: Double = 0.0;
@@ -76,7 +76,7 @@ class ArtItem{
         artItemDTO.ownerAccountInfo = this.owner?.accountInfo
         artItemDTO.ownerId = this.owner?.id
         artItemDTO.onAuction = this.onAuction
-        artItemDTO.bids = this.bids.map { it.mapToDTO() }.toMutableList()
+        artItemDTO.maxBid = this.maxBid
         artItemDTO.lastPrice = this.lastPrice
         artItemDTO.id = this.id
         artItemDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()

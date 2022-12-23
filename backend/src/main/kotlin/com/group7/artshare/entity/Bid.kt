@@ -20,12 +20,12 @@ class Bid {
     @Column
     var bidAmount: Double = 0.0
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bidder")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var bidder: RegisteredUser? = null
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "artItemBided")
     @JsonIgnore
     var artItemBided : ArtItem? = null

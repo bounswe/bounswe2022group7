@@ -18,7 +18,7 @@ class ArtItemDTO : Comparable<ArtItemDTO> {
     var ownerAccountInfo : AccountInfo? = null
     var ownerId : Long? = null
     var onAuction : Boolean? = null
-    var bids : MutableList<BidDTO> = mutableListOf()
+    var maxBid : Bid? = null
     var lastPrice : Double? = null
     var commentList: MutableList<CommentDTO> = mutableListOf()
     var bookmarkedByUsernames : MutableList<String> = mutableListOf()

@@ -142,17 +142,19 @@ class ArtItemService(
                 HttpStatus.BAD_REQUEST,
                 "Artists cannot bid their own art items"
             )
-        val previousBid = artItem.bids.find { it.bidder == user }
-        if(previousBid == null) {
+        val previousBid = artItem.maxBid
+        if((previousBid == null) || (previousBid.bidAmount < bidAmount)) {
             var newBid = Bid()
             newBid.bidAmount = bidAmount
             newBid.artItemBided = artItem
             newBid.bidder = user
-            artItem.bids.add(newBid)
+            artItem.maxBid = newBid
         }
-        else {
-            previousBid.bidAmount = bidAmount
-        }
+        else
+            throw ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "New bid should be higher than the existed one"
+            )
         artItemRepository.flush()
         return artItem
     }
