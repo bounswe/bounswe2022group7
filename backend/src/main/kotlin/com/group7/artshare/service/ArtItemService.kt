@@ -147,7 +147,7 @@ class ArtItemService(
             var newBid = Bid()
             newBid.bidAmount = bidAmount
             newBid.artItemBided = artItem
-            newBid.bidder = user
+            newBid.bidderAccountInfo = user.accountInfo
             artItem.maxBid = newBid
         }
         else
