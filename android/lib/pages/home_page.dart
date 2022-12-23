@@ -163,9 +163,9 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text("Settings"),
-            onTap: () {                  
-            Navigator.pushNamed(context, settingsPage);
-        },
+            onTap: () {
+              Navigator.pushNamed(context, settingsPage);
+            },
           ),
         if (user != null)
           ListTile(
@@ -242,16 +242,17 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Scaffold homePageScaffold(CurrentUser? user, List<Post> postlist) {
+  Scaffold homePageScaffold(
+      CurrentUser? user, List<PostAndImages> post_image_list) {
     return Scaffold(
       body: CustomScrollView(slivers: [
         mainAppBar(context, user),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return FeedContainer(post: postlist[index]);
+              return FeedContainer(post_and_images: post_image_list[index]);
             },
-            childCount: postlist.length,
+            childCount: post_image_list.length,
           ),
         ),
       ]),
@@ -300,7 +301,11 @@ class _HomePageState extends State<HomePage> {
                 return erroneousHomePage();
               }
               List<Post> postList = responseData.list!;
-              return homePageScaffold(user, postList);
+              List<PostAndImages> post_image_list = [];
+              for (var post in postList) {
+                post_image_list.add(PostAndImages(post: post));
+              }
+              return homePageScaffold(user, post_image_list);
             } else {
               // snapshot.data == null
               return erroneousHomePage();
