@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import com.group7.artshare.DTO.ArtItemDTO
+import com.group7.artshare.DTO.BidDTO
 import lombok.Data;
 import java.util.*
 import javax.persistence.*;
@@ -39,10 +40,9 @@ class ArtItem{
     @Column
     var onAuction: Boolean = false
 
-    @OneToOne(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "auction", referencedColumnName = "id")
+    @OneToOne(orphanRemoval = true, cascade = [CascadeType.ALL])
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var auction: Auction? = null
+    var maxBid: Bid? = null
 
     @Column
     var lastPrice: Double = 0.0;
@@ -76,7 +76,7 @@ class ArtItem{
         artItemDTO.ownerAccountInfo = this.owner?.accountInfo
         artItemDTO.ownerId = this.owner?.id
         artItemDTO.onAuction = this.onAuction
-        artItemDTO.auction = this.auction
+        artItemDTO.maxBid = this.maxBid?.mapToDTO()
         artItemDTO.lastPrice = this.lastPrice
         artItemDTO.id = this.id
         artItemDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
