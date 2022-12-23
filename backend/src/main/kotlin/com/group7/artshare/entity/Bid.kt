@@ -23,7 +23,7 @@ class Bid {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bidder")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var bidder: RegisteredUser? = null
+    var bidderAccountInfo: AccountInfo? = null
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "artItemBided")
@@ -34,7 +34,7 @@ class Bid {
         var bidDTO = BidDTO()
         bidDTO.id = this.id
         bidDTO.bidAmount = this.bidAmount
-        bidDTO.bidder = this.bidder?.mapToDTO()
+        bidDTO.bidderAccountInfo = this.bidderAccountInfo
         return bidDTO
     }
 }

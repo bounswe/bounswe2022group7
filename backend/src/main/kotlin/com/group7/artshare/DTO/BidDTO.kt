@@ -10,5 +10,5 @@ class BidDTO {
 
     var id : Long? = null
     var bidAmount : Double? = null
-    var bidder : RegisteredUserDTO? = null
+    var bidderAccountInfo : AccountInfo? = null
 }

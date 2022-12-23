@@ -76,7 +76,7 @@ class ArtItem{
         artItemDTO.ownerAccountInfo = this.owner?.accountInfo
         artItemDTO.ownerId = this.owner?.id
         artItemDTO.onAuction = this.onAuction
-        artItemDTO.maxBid = this.maxBid
+        artItemDTO.maxBid = this.maxBid?.mapToDTO()
         artItemDTO.lastPrice = this.lastPrice
         artItemDTO.id = this.id
         artItemDTO.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
