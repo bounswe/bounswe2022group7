@@ -3,6 +3,7 @@ package com.group7.artshare.controller
 import com.group7.artshare.entity.*
 import com.group7.artshare.service.JwtService
 import com.group7.artshare.service.ProfileService
+import com.group7.artshare.service.SearchService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -27,6 +28,9 @@ internal class UserInteractionControllerTest {
 
     @Mock
     lateinit var jwtService: JwtService
+
+    @Mock
+    lateinit var searchService: SearchService
 
     @Test
     fun successfullyFollowsUser() {
