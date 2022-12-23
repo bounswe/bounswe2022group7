@@ -42,16 +42,10 @@ internal class UserInteractionControllerTest {
     fun failsIfFollowItself() {
         val accountInfo1 = AccountInfo("email@email.com", "janedoe", "31415926")
         val mockUser = RegisteredUser(accountInfo1, setOf())
-        `when`(
-            profileService.followUser(
-                "username",
-                mockUser
-            )
-        ).thenThrow(ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot follow itself"))
         `when`(jwtService.getUserFromAuthorizationHeader("authorizationHeader")).thenReturn(mockUser)
         assertThrows(ResponseStatusException::class.java) {
             userInteractionController.followUser(
-                anyString(),
+                "janedoe",
                 "someAuthorization"
             )
         }
@@ -61,12 +55,6 @@ internal class UserInteractionControllerTest {
     fun failsIfCouldNotFindFollowedUser() {
         val accountInfo1 = AccountInfo("email@email.com", "janedoe", "31415926")
         val mockUser = RegisteredUser(accountInfo1, setOf())
-        `when`(
-            profileService.followUser(
-                "username",
-                mockUser
-            )
-        ).thenThrow(ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not find user with given username"))
         `when`(jwtService.getUserFromAuthorizationHeader("authorizationHeader")).thenReturn(mockUser)
         assertThrows(ResponseStatusException::class.java) {
             userInteractionController.followUser(
