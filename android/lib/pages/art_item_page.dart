@@ -40,7 +40,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
   }
 
   Widget annotatedImage(
-      Widget imageBuilderResult, List<Map<String, double>> annotations) {
+      Widget imageBuilderResult, List<Map<String, dynamic>> annotations) {
     /*
        Used for showing the annotations on the image.
      */
@@ -63,6 +63,25 @@ class _ArtItemPageState extends State<ArtItemPage> {
           ),
         ),
       );
+
+      annotationWidgets.add(
+        Positioned(
+          top: annotation["y"] + annotation["height"],
+          left: annotation["x"],
+          child: Container(
+            width: annotation["width"],
+            height: 20,
+            color: Colors.red,
+            child: Center(
+              child: Text(
+                annotation["text"],
+                style: const TextStyle(color: Colors.white),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ),
+      );
     }
 
     return Stack(
@@ -74,13 +93,18 @@ class _ArtItemPageState extends State<ArtItemPage> {
   }
 
   GestureDetector annotatableImage(Widget imageBuilderResult,
-      ValueNotifier<Map<String, double>?> annotation) {
+      ValueNotifier<Map<String, dynamic>?> annotation) {
     /*
       Used for creating annotations. When the user starts to hold the image, the
       there will be a rectangle drawn on the image. The user can move the
       rectangle around the image. When the user releases the image, the
       rectangle will be saved as an annotation.
      */
+
+    final formKey = GlobalKey<FormState>();
+    final TextEditingController annotationTextController =
+        TextEditingController();
+    final containsTextNotifier = ValueNotifier<bool>(false);
 
     late Offset topLeft;
 
@@ -90,8 +114,9 @@ class _ArtItemPageState extends State<ArtItemPage> {
         annotation.value = {
           "x": topLeft.dx,
           "y": topLeft.dy,
-          "width": 0,
-          "height": 0,
+          "width": 0.0,
+          "height": 0.0,
+          "text": "",
         };
       },
       onLongPressMoveUpdate: (details) {
@@ -105,6 +130,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
               : details.localPosition.dy,
           "width": (topLeft.dx - details.localPosition.dx).abs(),
           "height": (topLeft.dy - details.localPosition.dy).abs(),
+          "text": "",
         };
       },
       onLongPressEnd: (details) {},
@@ -118,69 +144,139 @@ class _ArtItemPageState extends State<ArtItemPage> {
                 : Positioned(
                     top: value["y"],
                     left: value["x"],
-                    child: Container(
-                      width: value["width"],
-                      height: value["height"],
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.red,
-                          width: 2,
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Container(),
-                          ),
-                          Container(
-                            height: 40,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Container(),
-                                ),
-                                Container(
-                                  width: 35,
-                                  height: 35,
-                                  alignment: Alignment.center,
-                                  padding: const EdgeInsets.all(5),
-                                  child: IconButton(
-                                    icon: const Icon(Icons.note_add,
-                                        color: Color(0xFFB71C1C)),
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: const Text("Add Text"),
-                                          content: TextField(
-                                            decoration: const InputDecoration(
-                                              hintText: "Enter text",
-                                            ),
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text("Cancel"),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text("Add"),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
+                    child: Column(
+                      children: [
+                        Container(
+                          width: value["width"],
+                          height: value["height"],
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.red,
+                              width: 2,
                             ),
                           ),
-                        ],
-                      ),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Container(),
+                              ),
+                              SizedBox(
+                                height: 40,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(),
+                                    ),
+                                    Container(
+                                      width: 35,
+                                      height: 35,
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(5),
+                                      child: IconButton(
+                                        icon: ValueListenableBuilder(
+                                          valueListenable: containsTextNotifier,
+                                          builder: (context, containsText,
+                                                  child) =>
+                                              !containsText
+                                                  ? const Icon(Icons.note_add,
+                                                      color: Colors.red)
+                                                  : const Icon(Icons.edit,
+                                                      color: Colors.red),
+                                        ),
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: ValueListenableBuilder(
+                                                valueListenable:
+                                                    containsTextNotifier,
+                                                builder: (context, containsText,
+                                                        child) =>
+                                                    containsText
+                                                        ? const Text(
+                                                            "Edit Text")
+                                                        : const Text(
+                                                            "Add Text to Annotation"),
+                                              ),
+                                              content: Form(
+                                                key: formKey,
+                                                child: TextField(
+                                                  controller:
+                                                      annotationTextController,
+                                                  onSubmitted: (txt) {
+                                                    annotation.value!["text"] =
+                                                        txt;
+                                                  },
+                                                ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text("Cancel"),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    formKey.currentState!
+                                                        .save();
+                                                    annotation.value!["text"] =
+                                                        annotationTextController
+                                                            .text;
+                                                    if (annotation
+                                                            .value!["text"] !=
+                                                        "") {
+                                                      containsTextNotifier
+                                                          .value = true;
+                                                    } else {
+                                                      containsTextNotifier
+                                                          .value = false;
+                                                    }
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: ValueListenableBuilder(
+                                                    valueListenable:
+                                                        containsTextNotifier,
+                                                    builder: (context,
+                                                            containsText,
+                                                            child) =>
+                                                        containsText
+                                                            ? const Text("Edit")
+                                                            : const Text("Add"),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        ValueListenableBuilder(
+                          valueListenable: containsTextNotifier,
+                          builder: (context, containsText, child) =>
+                              containsText
+                                  ? Container(
+                                      width: value["width"],
+                                      height: 20,
+                                      color: Colors.red,
+                                      child: Center(
+                                        child: Text(
+                                          annotation.value!["text"],
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    )
+                                  : Container(),
+                        ),
+                      ],
                     ),
                   ),
           ),
@@ -193,10 +289,10 @@ class _ArtItemPageState extends State<ArtItemPage> {
   Widget build(BuildContext context) {
     // enum annotationMode { Hidden, View, Edit }
     final ValueNotifier<int> annotationModeNotifier = ValueNotifier(0);
-    final ValueNotifier<Map<String, double>?> annotationNotifier =
+    final ValueNotifier<Map<String, dynamic>?> annotationNotifier =
         ValueNotifier(null);
 
-    final ValueNotifier<List<Map<String, double>>> annotationListNotifier =
+    final ValueNotifier<List<Map<String, dynamic>>> annotationListNotifier =
         ValueNotifier([]);
     final ValueNotifier<int> annotationCountNotifier = ValueNotifier(0);
 
