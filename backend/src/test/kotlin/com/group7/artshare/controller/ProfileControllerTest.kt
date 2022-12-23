@@ -1,22 +1,17 @@
 package com.group7.artshare.controller
 
-import com.group7.artshare.SettingDTO
+import com.group7.artshare.DTO.SettingDTO
 import com.group7.artshare.entity.*
-import com.group7.artshare.request.ArtItemRequest
-import com.group7.artshare.service.ImageService
 import com.group7.artshare.service.JwtService
 import com.group7.artshare.service.ProfileService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.ArgumentMatchers
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor
 import org.springframework.web.server.ResponseStatusException
-import java.util.*
 
 
 @ExtendWith(MockitoExtension::class)

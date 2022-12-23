@@ -1,8 +1,7 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.SettingDTO
 import com.group7.artshare.DTO.RegisteredUserDTO
-import com.group7.artshare.SettingDTO
-import com.group7.artshare.entity.RegisteredUser
 import com.group7.artshare.service.JwtService
 import com.group7.artshare.service.ProfileService
 import org.springframework.http.HttpStatus
