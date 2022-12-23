@@ -19,4 +19,6 @@ class PhysicalExhibitionRequest {
     val location: Location? = null
 
     val rules: String? = null
+
+    val collaboratorUsernames: MutableList<String> = mutableListOf()
 }

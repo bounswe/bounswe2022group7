@@ -17,7 +17,8 @@ class EventService(
     private val physicalExhibitionRepository: PhysicalExhibitionRepository,
     private val onlineGalleryRepository: OnlineGalleryRepository,
     private val artItemRepository: ArtItemRepository,
-    private val imageRepository: ImageRepository
+    private val imageRepository: ImageRepository,
+    private val registeredUserService: RegisteredUserService
 ) {
     fun createPhysicalExhibition(
         physicalExhibitionRequest: PhysicalExhibitionRequest, user: RegisteredUser
@@ -31,6 +32,17 @@ class EventService(
         newPhysicalExhibition.eventInfo = physicalExhibitionRequest.eventInfo
         if (user is Artist) {
             newPhysicalExhibition.creator = user
+            newPhysicalExhibition.collaborators = physicalExhibitionRequest.collaboratorUsernames.map {
+                val collaborator = registeredUserService.findByUsername(it)
+                if (collaborator is Artist) {
+                    collaborator.hostedEvents.add(newPhysicalExhibition)
+                    collaborator.level += 2
+                    collaborator
+                }
+                else throw ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "$it is not an artist, so it cannot be a collaborator"
+                )
+            }.toMutableSet()
             user.hostedEvents.add(newPhysicalExhibition)
             user.level += 2
         } else throw ResponseStatusException(
@@ -54,6 +66,17 @@ class EventService(
         }
         if (user is Artist) {
             newOnlineGallery.creator = user
+            newOnlineGallery.collaborators = onlineGalleryRequest.collaboratorUsernames.map {
+                val collaborator = registeredUserService.findByUsername(it)
+                if (collaborator is Artist) {
+                    collaborator.hostedEvents.add(newOnlineGallery)
+                    collaborator.level += 2
+                    collaborator
+                }
+                else throw ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "$it is not an artist, so it cannot be a collaborator"
+                )
+            }.toMutableSet()
             user.hostedEvents.add(newOnlineGallery)
             user.level += 2
         } else throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Regular users cannot create online galleries")

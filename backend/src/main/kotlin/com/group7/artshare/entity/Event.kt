@@ -23,8 +23,8 @@ abstract class Event{
     @JoinColumn(name = "creator")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var creator: Artist? = null
-    
-    @ManyToMany(mappedBy = "hostedEvents")
+
+    @ManyToMany(mappedBy = "hostedEvents", fetch = FetchType.EAGER,cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var collaborators: MutableSet<Artist> = mutableSetOf()
 
