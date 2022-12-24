@@ -164,7 +164,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
+                          circleAvatarBuilder(
+                              userAccountInfo.profile_picture_id, 20.0),
                           Column(
                             children: [
                               Text(
@@ -323,7 +324,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-                      if (userAccountInfo.name == null && currentUser.email == userAccountInfo.email) ...[
+                      if (userAccountInfo.name == null &&
+                          currentUser.email == userAccountInfo.email) ...[
                         Container(
                           height: 25.0,
                           child: LinearPercentIndicator(
@@ -352,8 +354,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       name: userAccountInfo.name,
                                       surname: userAccountInfo.surname,
                                       country: userAccountInfo.country,
-                                      dateOfBirth: userAccountInfo.date_of_birth,
-                                      profilePictureId: userAccountInfo.profile_picture_id,
+                                      dateOfBirth:
+                                          userAccountInfo.date_of_birth,
+                                      profilePictureId:
+                                          userAccountInfo.profile_picture_id,
                                     ),
                                   ),
                                 );
@@ -471,27 +475,34 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
-                                                  const SizedBox(width: 10.0),
+                                                  // circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
+                                                  // const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
                                                         SizedBox(
-                                                          width: MediaQuery.of(context).size.width - 160,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              160,
                                                           child: Text(
-                                                            selected_items[index]
+                                                            selected_items[
+                                                                    index]
                                                                 .postInfo
                                                                 .name,
                                                             style:
-                                                            const TextStyle(
+                                                                const TextStyle(
                                                               fontSize: 16.0,
                                                               fontWeight:
-                                                              FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                             ),
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ),
                                                         const SizedBox(
@@ -523,7 +534,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ),
                                                   const SizedBox(width: 5.0),
                                                   Text(
-                                                    "${selected_items[index].eventInfo.startingDate.toString().substring(0, 16)} - ${selected_items[index].eventInfo.endingDate.toString().substring(0, 16)}",
+                                                    "${selected_items[index].eventInfo.startingDate.toString().substring(0, 11)} - ${selected_items[index].eventInfo.endingDate.toString().substring(0, 11)}",
                                                   ),
                                                 ],
                                               ),
@@ -536,18 +547,36 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ),
                                                   const SizedBox(width: 5.0),
                                                   SizedBox(
-                                                    width: MediaQuery.of(context).size.width - 160,
-                                                    child: Text(selected_items[index]
-                                                        .location !=
-                                                        null
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            160,
+                                                    child: Text(selected_items[
+                                                                    index]
+                                                                .location !=
+                                                            null
                                                         ? selected_items[index]
-                                                        .location
-                                                        ?.address
+                                                            .location
+                                                            ?.address
                                                         : "Online"),
                                                   ),
                                                 ],
                                               )
                                             ],
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            height: 60,
+                                            width: 60,
+                                            child: imageBuilderWithSizeToFit(
+                                                selected_items[index]
+                                                    .postInfo
+                                                    .imageId,
+                                                60,
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height),
                                           ),
                                           const Spacer(),
                                           IconButton(
@@ -582,27 +611,32 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
-                                                  const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
                                                         SizedBox(
-                                                          width: MediaQuery.of(context).size.width - 160,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              160,
                                                           child: Text(
-                                                            selected_items[index]
+                                                            selected_items[
+                                                                    index]
                                                                 .postInfo
                                                                 .name,
                                                             style:
-                                                            const TextStyle(
+                                                                const TextStyle(
                                                               fontSize: 16.0,
                                                               fontWeight:
-                                                              FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                             ),
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ),
                                                         const SizedBox(
@@ -652,6 +686,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 ],
                                               )
                                             ],
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            height: 60,
+                                            width: 60,
+                                            child: imageBuilderWithSizeToFit(
+                                                selected_items[index]
+                                                    .postInfo
+                                                    .imageId,
+                                                60,
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height),
                                           ),
                                           const Spacer(),
                                           IconButton(
