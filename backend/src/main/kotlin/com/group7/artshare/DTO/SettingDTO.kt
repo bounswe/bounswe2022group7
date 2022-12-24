@@ -1,4 +1,4 @@
-package com.group7.artshare
+package com.group7.artshare.DTO
 
 import lombok.Data
 import lombok.RequiredArgsConstructor

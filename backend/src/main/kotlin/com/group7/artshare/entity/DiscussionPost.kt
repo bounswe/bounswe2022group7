@@ -56,10 +56,6 @@ class DiscussionPost {
     var downVotedUsers : MutableSet<RegisteredUser> = mutableSetOf()
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    @JsonIgnore
-    var reports: MutableList<Report> = mutableListOf()
-
-    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var commentList: MutableList<Comment> = mutableListOf()
 

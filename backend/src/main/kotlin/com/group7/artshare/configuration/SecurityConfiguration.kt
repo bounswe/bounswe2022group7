@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
+// THIS CODE IS TAKEN FROM https://github.com/fatihdogmus/yte-intern-spring-security/tree/intern-2021-1-jwt
+// LITTLE OR NO MODIFICATIONS HAVE BEEN MADE TO THE CODE
 
 @EnableWebSecurity
 @Configuration
@@ -53,6 +55,11 @@ class SecurityConfiguration @Autowired constructor(
             .mvcMatchers(HttpMethod.GET, "/discussionPost").permitAll()
             .mvcMatchers(HttpMethod.GET, "/discussionPost/{id}").permitAll()
             .mvcMatchers(HttpMethod.GET, "/image/{id}").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/search_art_item").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/search_physical_exhibition").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/search_online_gallery").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/search_discussion_post").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/search_user").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement()
