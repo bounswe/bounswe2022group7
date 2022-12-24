@@ -2,6 +2,7 @@ import 'package:android/network/art_item/post_art_item_like_bookmark_service.dar
 import 'package:android/providers/user_provider.dart';
 import 'package:android/widgets/annotatable_text.dart';
 import 'package:android/pages/profile_page.dart';
+import 'package:android/widgets/form_widgets.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
@@ -240,6 +241,45 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                     color: currentArtItem!.likeStatus == 0
                                         ? Colors.black
                                         : Colors.red,
+                                    size: 30.0,
+                                  )),
+                              IconButton(
+                                  onPressed: () => showDialog<String>(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          title: const Text('Report Art Item'),
+                                          content: inputField(TextFormField(
+                                            onChanged: (_) => {},
+                                            keyboardType:
+                                                TextInputType.multiline,
+                                            minLines: 3,
+                                            maxLines: 5,
+                                            autofocus: false,
+                                            decoration: const InputDecoration(
+                                              focusedBorder: InputBorder.none,
+                                              enabledBorder: InputBorder.none,
+                                              hintText:
+                                                  'Your reasoning for reporting',
+                                            ),
+                                          )),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  context, 'Cancel'),
+                                              child: const Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  context, 'Report'),
+                                              child: const Text('Report'),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                  icon: const Icon(
+                                    Icons.report,
+                                    color: Colors.black,
                                     size: 30.0,
                                   )),
                             ],
