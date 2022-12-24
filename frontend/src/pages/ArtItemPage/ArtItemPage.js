@@ -5,6 +5,7 @@ import { useAuth } from "../../auth/useAuth"
 import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
 import ImageDisplay from "../../components/ImageDisplay"
+import LoadingButton from "../../components/LoadingButton"
 import IconWithText from "../../components/IconWithText"
 import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
@@ -27,7 +28,7 @@ function ArtItemPage() {
   })
 
   const theme = useTheme();
-  const { token } = useAuth()
+  const { token, userData } = useAuth()
   
   useEffect(() => {
 
@@ -110,12 +111,39 @@ function ArtItemPage() {
           // if auction_id exists, render block below
           // TODO render auction properly
           <div>
-            <Typography variant="h5">Auction Price:</Typography>
-            Auction at id={artitem.lastPrice}
+            On Auction!
+            <br/>
+            {artitem.ownerId == userData?.id &&
+              <LoadingButton
+                type = "submit"
+                label = "End the Auction"
+                onClick = {() => {
+                  fetch("/api/art_item/auction/" + id, {
+                    method: "POST",
+                    headers: {"Authorization": "Bearer " + token}
+                  })
+                  .then(response => window.location.reload())
+                }}
+              />
+            }
           </div>
           :
           <div>
             Not currently on auction.
+            <br/>
+            {artitem.ownerId == userData?.id &&
+              <LoadingButton
+                type = "submit"
+                label = "Start Auction!"
+                onClick = {() => {
+                  fetch("/api/art_item/auction/" + id, {
+                    method: "POST",
+                    headers: {"Authorization": "Bearer " + token}
+                  })
+                  .then(response => window.location.reload())
+                }}
+              />
+            }
           </div>
           }
 
