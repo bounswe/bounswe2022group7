@@ -33,6 +33,11 @@ class _DiscussionForumPage extends State<DiscussionForumPage> {
   }
 
   Widget buildDiscussion(BuildContext context, CurrentUser? user, int index) {
+    if (user != null) {
+      for (var disc in discussions) {
+        disc.updateVote(user.username);
+      }
+    }
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 5.0),
         padding: const EdgeInsets.symmetric(vertical: 10.0),
