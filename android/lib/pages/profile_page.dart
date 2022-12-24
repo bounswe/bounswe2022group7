@@ -168,11 +168,19 @@ class _ProfilePageState extends State<ProfilePage> {
                               userAccountInfo.profile_picture_id, 20.0),
                           Column(
                             children: [
-                              Text(
-                                fullname,
-                                style: Theme.of(context).textTheme.subtitle1,
-                                textScaleFactor: 1.25,
-                              ),
+                              Row(children: [
+                                Text(
+                                  fullname,
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                  textScaleFactor: 1.25,
+                                ),
+                                if (userAccount.is_verified) ...[
+                                  const Icon(
+                                    Icons.verified,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ],
+                              ]),
                               Text(
                                 "@${userAccountInfo.username}",
                                 style: Theme.of(context).textTheme.subtitle2,
