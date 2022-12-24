@@ -31,12 +31,10 @@ class CommentWidget extends StatelessWidget {
       print("empty commnet");
       return;
     }
-    print("comment: $comment of post $postid");
 
     postCommentInfo info = postCommentInfo(text: comment, postid: postid);
     int status = await postCommentNetwork(info);
 
-    print("status: $status");
     if (status == 200) {
       controller.clear();
     }

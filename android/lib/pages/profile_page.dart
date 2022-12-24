@@ -128,7 +128,6 @@ class _ProfilePageState extends State<ProfilePage> {
             }
             if (snapshot.data != null) {
               getUserOutput user_output = snapshot.data!;
-              print("status: ${user_output.status}");
               if (user_output.status != "OK") {
                 return const Text(
                     "An error occured while loading profile page!");
@@ -150,7 +149,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   userAccount.all_events, userAccount.all_art_items);
               dropdown_selection.value = "Events";
               updateSelectedItems();
-              print("before return scaffold");
 
               return Scaffold(
                 appBar: AppBar(), // app bar will be discussed later
@@ -164,7 +162,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
+                          circleAvatarBuilder(
+                              userAccountInfo.profile_picture_id, 20.0),
                           Column(
                             children: [
                               Text(
@@ -323,7 +322,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-                      if (userAccountInfo.name == null && currentUser.email == userAccountInfo.email) ...[
+                      if (userAccountInfo.name == null &&
+                          currentUser.email == userAccountInfo.email) ...[
                         Container(
                           height: 25.0,
                           child: LinearPercentIndicator(
@@ -352,8 +352,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       name: userAccountInfo.name,
                                       surname: userAccountInfo.surname,
                                       country: userAccountInfo.country,
-                                      dateOfBirth: userAccountInfo.date_of_birth,
-                                      profilePictureId: userAccountInfo.profile_picture_id,
+                                      dateOfBirth:
+                                          userAccountInfo.date_of_birth,
+                                      profilePictureId:
+                                          userAccountInfo.profile_picture_id,
                                     ),
                                   ),
                                 );
@@ -471,7 +473,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
+                                                  circleAvatarBuilder(
+                                                      userAccountInfo
+                                                          .profile_picture_id,
+                                                      20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
@@ -479,19 +484,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                                               .start,
                                                       children: [
                                                         SizedBox(
-                                                          width: MediaQuery.of(context).size.width - 160,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              160,
                                                           child: Text(
-                                                            selected_items[index]
+                                                            selected_items[
+                                                                    index]
                                                                 .postInfo
                                                                 .name,
                                                             style:
-                                                            const TextStyle(
+                                                                const TextStyle(
                                                               fontSize: 16.0,
                                                               fontWeight:
-                                                              FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                             ),
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ),
                                                         const SizedBox(
@@ -536,13 +548,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ),
                                                   const SizedBox(width: 5.0),
                                                   SizedBox(
-                                                    width: MediaQuery.of(context).size.width - 160,
-                                                    child: Text(selected_items[index]
-                                                        .location !=
-                                                        null
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            160,
+                                                    child: Text(selected_items[
+                                                                    index]
+                                                                .location !=
+                                                            null
                                                         ? selected_items[index]
-                                                        .location
-                                                        ?.address
+                                                            .location
+                                                            ?.address
                                                         : "Online"),
                                                   ),
                                                 ],
@@ -582,7 +599,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
+                                                  circleAvatarBuilder(
+                                                      userAccountInfo
+                                                          .profile_picture_id,
+                                                      20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
@@ -590,19 +610,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                                               .start,
                                                       children: [
                                                         SizedBox(
-                                                          width: MediaQuery.of(context).size.width - 160,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              160,
                                                           child: Text(
-                                                            selected_items[index]
+                                                            selected_items[
+                                                                    index]
                                                                 .postInfo
                                                                 .name,
                                                             style:
-                                                            const TextStyle(
+                                                                const TextStyle(
                                                               fontSize: 16.0,
                                                               fontWeight:
-                                                              FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                             ),
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ),
                                                         const SizedBox(
