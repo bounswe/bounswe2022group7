@@ -8,6 +8,7 @@ import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/event/get_event_service.dart';
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/providers/user_provider.dart';
+import 'package:android/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:android/widgets/form_widgets.dart';
 import 'package:android/network/comment/post_comment_input.dart';
@@ -38,15 +39,26 @@ class CommentWidget extends StatelessWidget {
     if (status == 200) {
       controller.clear();
     }
+    CurrentUser? user = await getUser();
 
     if (post_type == "event") {
       GetEventOutput geo = await getEventNetwork(postid);
       Event eve = geo.event!;
       comments.value = eve.commentList;
+      if (user != null) {
+        for (var comment in eve.commentList) {
+          comment.updateStatus(user.username);
+        }
+      }
     } else if (post_type == "artitem") {
       GetArtItemOutput aio = await getArtItemNetwork(postid);
       ArtItem ai = aio.artItem!;
       comments.value = ai.commentList;
+      if (user != null) {
+        for (var comment in ai.commentList) {
+          comment.updateStatus(user.username);
+        }
+      }
     }
   }
 
