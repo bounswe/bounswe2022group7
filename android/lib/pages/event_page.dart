@@ -77,7 +77,7 @@ class _EventPageState extends State<EventPage> {
 
               if (user != null) {
                 for (var comment in currentEvent.commentList) {
-                  comment.updateStatus(user.id);
+                  comment.updateStatus(user.username);
                 }
               }
 

@@ -5,8 +5,8 @@ class Comment {
   final String text;
   final DateTime creationDate;
   final DateTime lastEditDate;
-  final List<int> downVotedUserIds;
-  final List<int> upVotedUserIds;
+  final List<String> downVotedUsernames;
+  final List<String> upVotedUsernames;
   final int upvotes, downvotes;
   final AccountInfo authorAccountInfo;
   int voteStatus;
@@ -16,8 +16,8 @@ class Comment {
     required this.text,
     required this.creationDate,
     required this.lastEditDate,
-    required this.downVotedUserIds,
-    required this.upVotedUserIds,
+    required this.downVotedUsernames,
+    required this.upVotedUsernames,
     required this.downvotes,
     required this.upvotes,
     required this.authorAccountInfo,
@@ -31,26 +31,26 @@ class Comment {
       text: json["text"],
       creationDate: creationDate,
       lastEditDate: editDate,
-      downVotedUserIds: List<int>.from(json["downVotedUserIds"]),
-      upVotedUserIds: List<int>.from(json["upVotedUserIds"]),
-      downvotes: json["downVotedUserIds"].length,
-      upvotes: json["upVotedUserIds"].length,
+      downVotedUsernames: List<String>.from(json["downVotedUsernames"]),
+      upVotedUsernames: List<String>.from(json["upVotedUsernames"]),
+      downvotes: json["downVotedUsernames"].length,
+      upvotes: json["upVotedUsernames"].length,
       authorAccountInfo: AccountInfo.fromJson(json["authorAccountInfo"]),
     );
 
     return com;
   }
 
-  void updateStatus(int? userId) {
+  void updateStatus(String? username) {
     int status = 0;
-    if (userId != null) {
-      for (var upvoteId in upVotedUserIds) {
-        if (upvoteId == userId) {
+    if (username != null) {
+      for (var upvoter in upVotedUsernames) {
+        if (upvoter == username) {
           status = 1;
         }
       }
-      for (var downvoteId in downVotedUserIds) {
-        if (downvoteId == userId) {
+      for (var downvoter in downVotedUsernames) {
+        if (downvoter == username) {
           status = -1;
         }
       }

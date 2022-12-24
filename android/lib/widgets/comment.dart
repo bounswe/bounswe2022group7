@@ -159,7 +159,8 @@ class _CommentListState extends State<CommentListWidget> {
                                 setState(() {
                                   if (output.comment != null) {
                                     comments.value[index] = output.comment!;
-                                    comments.value[index].updateStatus(user.id);
+                                    comments.value[index]
+                                        .updateStatus(user.username);
                                   } else {
                                     if (comments.value[index].voteStatus ==
                                         -1) {
@@ -185,7 +186,8 @@ class _CommentListState extends State<CommentListWidget> {
                                 setState(() {
                                   if (output.comment != null) {
                                     comments.value[index] = output.comment!;
-                                    comments.value[index].updateStatus(user.id);
+                                    comments.value[index]
+                                        .updateStatus(user.username);
                                   } else {
                                     if (comments.value[index].voteStatus == 1) {
                                       comments.value[index].voteStatus = 0;

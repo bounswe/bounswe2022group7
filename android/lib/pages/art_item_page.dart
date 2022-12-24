@@ -178,7 +178,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
 
               if (user != null) {
                 for (var comment in currentArtItem.commentList) {
-                  comment.updateStatus(user.id);
+                  comment.updateStatus(user.username);
                 }
               }
 
