@@ -63,7 +63,7 @@ function AuctionDisplay(props) {
   */
   
   // 1. Not onAuction, no max_bid
-  if (!on_auction && !max_bid) {return;}
+  if (!on_auction && !max_bid && (owner_id != user_id)) {return;}
   // 2. Not onAuction, there is a max_bid
   return (
     <Paper style={{ padding: "10px 20px", marginTop: 10 }}>
