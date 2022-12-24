@@ -9,6 +9,7 @@ import LoadingButton from "../../components/LoadingButton"
 import IconWithText from "../../components/IconWithText"
 import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
+import AuctionDisplay from "./AuctionDisplay"
 
 import BrushIcon from '@mui/icons-material/Brush';
 import SellIcon from '@mui/icons-material/Sell';
@@ -149,6 +150,12 @@ function ArtItemPage() {
 
         </ Grid>
       </ Grid>
+      <AuctionDisplay
+        max_bid = {artitem.maxBid}
+        art_item_id = {artitem.id}
+        user_can_bid = {userData && (userData?.id != artitem.ownerId)}
+        on_auction = {artitem.onAuction}
+      />
       <CommentSection
         contentId={id}
         commentList={artitem.commentList}
