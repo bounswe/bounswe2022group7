@@ -4,10 +4,12 @@ import LoadingButton from "../../components/LoadingButton"
 import { Typography, Grid, useTheme, Paper } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useAuth } from "../../auth/useAuth";
+import IconWithText from "../../components/IconWithText"
+import SellIcon from '@mui/icons-material/Sell';
 
 function BidForm(props) {
 
-  const {art_item_id} = props
+  const { art_item_id } = props
   const { token } = useAuth()
   
   const [bidState, setBidState] = React.useState(0)
@@ -48,7 +50,8 @@ function BidForm(props) {
 }
 
 function AuctionDisplay(props) {
-  const {art_item_id, user_can_bid, max_bid, on_auction} = props
+  const {art_item_id, max_bid, on_auction, user_id, owner_id } = props
+  const { token } = useAuth()
 
   /*
   States: 
@@ -64,7 +67,26 @@ function AuctionDisplay(props) {
   return (
     <Paper style={{ padding: "10px 20px", marginTop: 10 }}>
       <Grid container>
-        <Grid item xs={12} sm={6}>
+        <IconWithText
+          icon = {<SellIcon/>}
+          text = "Auction Status"
+          variant = "h5"
+        />
+        <Grid item xs={12} sm={4}>
+          {on_auction
+          ?
+          <div>On Auction!</div>
+          :
+          (
+            max_bid
+            ?
+            <div>Item was sold after an auction. Auction is closed.</div>
+            :
+            <div>Not on auction.</div>
+          )
+          }
+        </Grid>
+        <Grid item xs={12} sm={4}>
           {max_bid
           ?
           <div>
@@ -76,13 +98,39 @@ function AuctionDisplay(props) {
             Be first to bid!  
           </div>  
           }
+          
         </Grid>
-        <Grid item xs={12} sm={6}>
-          {(on_auction && user_can_bid)
-          ?
-            <BidForm art_item_id = {art_item_id}/>
-          :
-          (!on_auction ? <div>Not on auction.</div>:<div>You can not bid in your own auction.</div>)
+        <Grid item xs={12} sm={4}>
+          {user_id == owner_id
+          ? // user is the owner. Show end/start auction buttons
+            (on_auction
+            ?
+              <LoadingButton
+                type = "submit"
+                label = "End the Auction"
+                onClick = {() => {
+                  fetch("/api/art_item/auction/" + art_item_id, {
+                    method: "POST",
+                    headers: {"Authorization": "Bearer " + token}
+                  })
+                  .then(response => window.location.reload())
+                }}
+              />
+            :
+              <LoadingButton
+                type = "submit"
+                label = "Start Auction!"
+                onClick = {() => {
+                  fetch("/api/art_item/auction/" + art_item_id, {
+                    method: "POST",
+                    headers: {"Authorization": "Bearer " + token}
+                  })
+                  .then(response => window.location.reload())
+                }}
+              />
+            )
+          : // user is not the owner. Show bid button if on_auction&&user_id
+            (on_auction && user_id && <BidForm art_item_id = {art_item_id}/>)
           }
         </Grid>
       </Grid>

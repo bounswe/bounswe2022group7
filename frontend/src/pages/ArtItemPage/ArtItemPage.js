@@ -5,14 +5,12 @@ import { useAuth } from "../../auth/useAuth"
 import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
 import ImageDisplay from "../../components/ImageDisplay"
-import LoadingButton from "../../components/LoadingButton"
 import IconWithText from "../../components/IconWithText"
 import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import AuctionDisplay from "./AuctionDisplay"
 
 import BrushIcon from '@mui/icons-material/Brush';
-import SellIcon from '@mui/icons-material/Sell';
 import LabelIcon from '@mui/icons-material/Label';
 import CategoryIcon from '@mui/icons-material/Category';
 
@@ -100,60 +98,13 @@ function ArtItemPage() {
             variant="h5"
           />
           {artitem.category.join(", ")}
-
-          <IconWithText
-            icon = {<SellIcon/>}
-            text = "Auction Status"
-            variant = "h5"
-          />
-
-          {artitem.onAuction
-          ? 
-          // if auction_id exists, render block below
-          // TODO render auction properly
-          <div>
-            On Auction!
-            <br/>
-            {artitem.ownerId == userData?.id &&
-              <LoadingButton
-                type = "submit"
-                label = "End the Auction"
-                onClick = {() => {
-                  fetch("/api/art_item/auction/" + id, {
-                    method: "POST",
-                    headers: {"Authorization": "Bearer " + token}
-                  })
-                  .then(response => window.location.reload())
-                }}
-              />
-            }
-          </div>
-          :
-          <div>
-            Not currently on auction.
-            <br/>
-            {artitem.ownerId == userData?.id &&
-              <LoadingButton
-                type = "submit"
-                label = "Start Auction!"
-                onClick = {() => {
-                  fetch("/api/art_item/auction/" + id, {
-                    method: "POST",
-                    headers: {"Authorization": "Bearer " + token}
-                  })
-                  .then(response => window.location.reload())
-                }}
-              />
-            }
-          </div>
-          }
-
         </ Grid>
       </ Grid>
       <AuctionDisplay
         max_bid = {artitem.maxBid}
         art_item_id = {artitem.id}
-        user_can_bid = {userData && (userData?.id != artitem.ownerId)}
+        user_id = {userData?.id}
+        owner_id = {artitem.ownerId}
         on_auction = {artitem.onAuction}
       />
       <CommentSection
