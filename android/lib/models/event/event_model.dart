@@ -11,7 +11,7 @@ class Event extends Post {
   final Location? location;
   final String? rules;
   final List<User>? attendees;
-  final List<User>? bookmarkedBy;
+  final List<String>? bookmarkedBy;
   final List<int>? artItemList;
   int participationStatus;
   int bookmarkStatus;
@@ -67,7 +67,9 @@ class Event extends Post {
       location: location,
       rules: json['rules'],
       attendees: [],
-      bookmarkedBy: [],
+      bookmarkedBy: json['bookmarkedByUsernames'] != null
+          ? List<String>.from(json['bookmarkedByUsernames'])
+          : [],
       artItemList: json["artItemList"] != null
           ? List<int>.from(json["artItemList"])
           : [],
@@ -88,7 +90,7 @@ class Event extends Post {
       }
       if (bookmarkedBy != null) {
         for (var marker in bookmarkedBy!) {
-          if (marker.username == username) {
+          if (marker == username) {
             statusBookmark = 1;
           }
         }
