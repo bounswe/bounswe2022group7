@@ -1,4 +1,6 @@
 import 'package:android/network/art_item/post_art_item_like_bookmark_service.dart';
+import 'package:android/network/reporting/report_input.dart';
+import 'package:android/network/reporting/report_service.dart';
 import 'package:android/providers/user_provider.dart';
 import 'package:android/widgets/annotatable_text.dart';
 import 'package:android/pages/profile_page.dart';
@@ -143,6 +145,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
     );
   }
 
+  final reportController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     if (currentArtItem == null) {
@@ -249,7 +252,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                         builder: (BuildContext context) =>
                                             AlertDialog(
                                           title: const Text('Report Art Item'),
-                                          content: inputField(TextFormField(
+                                          content: inputField(TextField(
+                                            controller: reportController,
                                             onChanged: (_) => {},
                                             keyboardType:
                                                 TextInputType.multiline,
@@ -270,8 +274,38 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                               child: const Text('Cancel'),
                                             ),
                                             TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  context, 'Report'),
+                                              onPressed: () async {
+                                                ReportInput reportInput =
+                                                    ReportInput(
+                                                        artItemId:
+                                                            currentArtItem!.id,
+                                                        description:
+                                                            reportController
+                                                                .text);
+                                                await reportNetwork(
+                                                    reportInput);
+                                                Navigator.pop(
+                                                    context, 'Report');
+                                                showDialog<String>(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          AlertDialog(
+                                                    title: const Text(
+                                                        'Art Item Reported!'),
+                                                    content: const Text(
+                                                        'Will be reviewed soon'),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context, 'OK'),
+                                                        child: const Text('OK'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
                                               child: const Text('Report'),
                                             ),
                                           ],
