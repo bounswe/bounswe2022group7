@@ -10,7 +10,10 @@ class ArtItem extends Post {
   final bool onAuction;
   final double? lastPrice;
   final List<Comment> commentList;
-  final List<User> bookmarkedBy;
+  final List<String> bookmarkedBy;
+  final List<String> likedBy;
+  int likeStatus;
+  int bookmarkStatus;
 
   ArtItem({
     required int id,
@@ -22,7 +25,10 @@ class ArtItem extends Post {
     this.lastPrice,
     required this.commentList,
     required this.bookmarkedBy,
-  }) : super(
+    required this.likedBy,
+  })  : likeStatus = 0,
+        bookmarkStatus = 0,
+        super(
           type: "Art Item",
           id: id,
           creatorAccountInfo: creatorAccountInfo,
@@ -61,12 +67,33 @@ class ArtItem extends Post {
       // Comment model has not been implemented yet just store as strings
       commentList: commentList,
 
-      bookmarkedBy: json['bookMarkedByIds'] != null
-          ? List<User>.from(
-              json['bookMarkedByIds'].map((x) => User.fromJson(x)))
+      bookmarkedBy: json['bookmarkedByUsernames'] != null
+          ? List<String>.from(json['bookmarkedByUsernames'])
+          : [],
+      likedBy: json['likedByUsernames'] != null
+          ? List<String>.from(json['likedByUsernames'])
           : [],
     );
 
     return ai;
+  }
+
+  void updateStatus(String? username) {
+    int statusBookmark = 0;
+    int statusLike = 0;
+    if (username != null) {
+      for (var marker in bookmarkedBy) {
+        if (marker == username) {
+          statusBookmark = 1;
+        }
+      }
+      for (var liker in likedBy) {
+        if (liker == username) {
+          statusLike = 1;
+        }
+      }
+    }
+    bookmarkStatus = statusBookmark;
+    likeStatus = statusLike;
   }
 }

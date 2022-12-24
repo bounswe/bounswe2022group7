@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface RegisteredUserRepository : JpaRepository<RegisteredUser, Long> {
-
+    fun findAllByAccountInfo_IdIn(accountInfo : List<Long>) : List<RegisteredUser>
 }

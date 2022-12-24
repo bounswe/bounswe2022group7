@@ -1,7 +1,10 @@
 package com.group7.artshare.entity
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
+import com.group7.artshare.DTO.BidDTO
+import com.group7.artshare.DTO.CommentDTO
 import lombok.Data
 import java.util.*
 import javax.persistence.*
@@ -15,16 +18,23 @@ class Bid {
     var id: Long = 0L
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    var expirationDate: Date? = null
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "bidder")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var bidder: RegisteredUser? = null
+    var bidAmount: Double = 0.0
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "auctionBided")
+    @JoinColumn(name = "bidder")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var auctionBided : Auction? = null
+    var bidderAccountInfo: AccountInfo? = null
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "artItemBided")
+    @JsonIgnore
+    var artItemBided : ArtItem? = null
+
+    fun mapToDTO() : BidDTO {
+        var bidDTO = BidDTO()
+        bidDTO.id = this.id
+        bidDTO.bidAmount = this.bidAmount
+        bidDTO.bidderAccountInfo = this.bidderAccountInfo
+        return bidDTO
+    }
 }

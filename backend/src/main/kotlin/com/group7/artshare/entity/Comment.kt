@@ -45,10 +45,6 @@ class Comment {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var downVotedUsers : MutableSet<RegisteredUser> = mutableSetOf()
 
-    @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
-    @JsonIgnore
-    var reports: MutableList<Report> = mutableListOf()
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property ="id")
@@ -64,7 +60,6 @@ class Comment {
         commentDTO.lastEditDate = this.lastEditDate
         commentDTO.downVotedUsernames = this.downVotedUsers.map { it.username }.toHashSet()
         commentDTO.upVotedUsernames = this.upVotedUsers.map { it.username }.toHashSet()
-        commentDTO.reports = this.reports
         commentDTO.authorAccountInfo = this.author?.accountInfo
         commentDTO.authorId = this.author?.id
         return commentDTO

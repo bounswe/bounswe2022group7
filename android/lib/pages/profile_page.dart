@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:android/network/art_item/get_art_item_output.dart';
+import 'package:android/network/art_item/get_art_item_service.dart';
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/pages.dart';
 import 'package:android/widgets/feed_container.dart';
@@ -687,9 +689,60 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ArtItemPage(
-                                                    id: selected_items[index]
-                                                        .id,
+                                                      FutureBuilder(
+                                                    future: getArtItemNetwork(
+                                                        selected_items[index]
+                                                            .id),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      switch (snapshot
+                                                          .connectionState) {
+                                                        case ConnectionState
+                                                            .none:
+                                                        case ConnectionState
+                                                            .waiting:
+                                                          return const CircularProgressIndicator();
+                                                        default:
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return ArtItemPage(
+                                                              artItem: null,
+                                                            );
+                                                          }
+
+                                                          if (snapshot.data !=
+                                                              null) {
+                                                            GetArtItemOutput
+                                                                responseData =
+                                                                snapshot.data!;
+                                                            if (responseData
+                                                                    .status !=
+                                                                "OK") {
+                                                              return ArtItemPage(
+                                                                artItem: null,
+                                                              );
+                                                            }
+                                                            ArtItem
+                                                                currentArtItem =
+                                                                responseData
+                                                                    .artItem!;
+                                                            if (user != null) {
+                                                              currentArtItem
+                                                                  .updateStatus(
+                                                                      user.username);
+                                                            }
+                                                            return ArtItemPage(
+                                                              artItem:
+                                                                  currentArtItem,
+                                                            );
+                                                          } else {
+                                                            // snapshot.data == null
+                                                            return ArtItemPage(
+                                                              artItem: null,
+                                                            );
+                                                          }
+                                                      }
+                                                    },
                                                   ),
                                                 ),
                                               );

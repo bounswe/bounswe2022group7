@@ -27,6 +27,7 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
   }
   if (json["artItems"] != null && !json["artItems"].isEmpty) {
     for (int i = 0; i < json["artItems"].length; i++) {
+      // print(json["artItems"][i]["commentList"]);
       ArtItem ai;
       if (json["artItems"][i] is int) {
         GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);
