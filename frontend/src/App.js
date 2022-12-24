@@ -50,7 +50,12 @@ const theme = createTheme({
 
 function App() {
 
-  const r = new Recogito({ content: document.getElementById("root") });
+  const r = new Recogito({
+    content: document.getElementById("root"),
+    widgets: [
+      "COMMENT"
+    ]
+  });
 
   return (
     <div>

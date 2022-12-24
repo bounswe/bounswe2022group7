@@ -24,7 +24,10 @@ function ImageComponent({ imageId, imageStyle }) {
 
           if (imgEl.current) {
             annotorious = new Annotorious({
-              image: imgEl.current
+              image: imgEl.current,
+              widgets: [
+                "COMMENT"
+              ]
             })
 
             annotorious.loadAnnotations(`/annotations/${imageId}`)
