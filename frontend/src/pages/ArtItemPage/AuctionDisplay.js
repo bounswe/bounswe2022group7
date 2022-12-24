@@ -52,6 +52,7 @@ function BidForm(props) {
 function AuctionDisplay(props) {
   const {art_item_id, max_bid, on_auction, user_id, owner_id } = props
   const { token } = useAuth()
+  const theme = useTheme();
 
   /*
   States: 
@@ -67,12 +68,12 @@ function AuctionDisplay(props) {
   return (
     <Paper style={{ padding: "10px 20px", marginTop: 10 }}>
       <Grid container>
-        <IconWithText
-          icon = {<SellIcon/>}
-          text = "Auction Status"
-          variant = "h5"
-        />
         <Grid item xs={12} sm={4}>
+          <IconWithText
+            icon = {<SellIcon/>}
+            text = "Auction Status"
+            variant = "h5"
+          />
           {on_auction
           ?
           <div>On Auction!</div>
@@ -86,11 +87,16 @@ function AuctionDisplay(props) {
           )
           }
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={4} paddingTop={2}>
           {max_bid
           ?
           <div>
-            Max Bid: {max_bid.bidAmount}
+            <Typography
+              variant="h6"
+              color={theme.palette.primary.main}
+            >
+              Highest Bid: {max_bid.bidAmount}
+            </Typography>
             <UserCard data = {max_bid.bidderAccountInfo} />
           </div>  
           :
@@ -100,7 +106,7 @@ function AuctionDisplay(props) {
           }
           
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={4} paddingTop={2}>
           {user_id == owner_id
           ? // user is the owner. Show end/start auction buttons
             (on_auction
