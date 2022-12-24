@@ -34,7 +34,7 @@ class Item {
   bool operator ==(Object other) => other is Item && other.name == name;
 }
 
-const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
+const dropdown_items = ["Events", "Art Items", "Auctions"];
 var dropdown_selection = ValueNotifier<String>("Events");
 final followButtonText = ValueNotifier<String>("Follow");
 
@@ -42,7 +42,6 @@ String? profileUsername;
 var post_lists = {
   "Events": [],
   "Art Items": [],
-  "Comments": [],
   "Auctions": [],
 };
 var selected_items = [];
