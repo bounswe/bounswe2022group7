@@ -178,6 +178,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 style: Theme.of(context).textTheme.subtitle2,
                                 textScaleFactor: 1.25,
                               ),
+                              Text(
+                                "Level: ${userAccount.level}",
+                                style: Theme.of(context).textTheme.subtitle2,
+                                textScaleFactor: 1.25,
+                              ),
                             ],
                           ),
                           if (usersCheck) ...[
