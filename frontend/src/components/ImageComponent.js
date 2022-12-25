@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types';
 import { Annotorious } from '@recogito/annotorious';
 import '@recogito/annotorious/dist/annotorious.min.css';
-
+import "../styles/AnnotationEditor.css"
 
 function ImageComponent({ imageId, imageStyle }) {
   const imgEl = useRef(null)
@@ -24,7 +24,10 @@ function ImageComponent({ imageId, imageStyle }) {
 
           if (imgEl.current) {
             annotorious = new Annotorious({
-              image: imgEl.current
+              image: imgEl.current,
+              widgets: [
+                "COMMENT"
+              ]
             })
 
             annotorious.loadAnnotations(`/annotations/${imageId}`)
