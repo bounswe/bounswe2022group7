@@ -37,7 +37,7 @@ test('Default render, logged in', async () => {
     expect(screen.getByText('Untitled')).toBeInTheDocument();
     expect(screen.getByText('Lorem Impsum')).toBeInTheDocument();
     expect(screen.findByTestId('imageDisplay'));
-    expect(screen.getByTestId('followButton')).toHaveTextContent('Follow');
+    expect(screen.getByTestId('followButton')).toHaveTextContent('follow');
     expect(screen.getByTestId('bookmarkButton')).toHaveClass('MuiIconButton-root');
 });
 
@@ -58,7 +58,7 @@ test('Default render, logged in, followed', async () => {
     expect(screen.getByText('Lorem Impsum')).toBeInTheDocument();
     expect(screen.findByTestId('imageDisplay'));
 
-    expect(screen.queryByTestId('followButton')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('followButton')).toHaveTextContent("following");
     expect(screen.getByTestId('bookmarkButton')).toHaveClass('MuiIconButton-root');
 });
 
