@@ -30,14 +30,14 @@ function CommentVote(props) {
   
 
   const upVoteStateIconMap = (state) => {
-    if (state == 1) {      
+    if (state.voteStatus == 1) {      
       return <ThumbUpIcon/>
     }
     return <ThumbUpOutlinedIcon/>
   }
 
   const downVoteStateIconMap = (state) => {
-    if (state == -1) {
+    if (state.voteStatus == -1) {
       return <ThumbDownIcon/>  
     }
     return <ThumbDownOutlinedIcon/>
