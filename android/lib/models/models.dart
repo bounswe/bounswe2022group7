@@ -9,3 +9,4 @@ export 'image_model.dart';
 export 'post_info_model.dart';
 export 'profile/account_info.dart';
 export 'profile/account_model.dart';
+export 'discussion_model.dart';

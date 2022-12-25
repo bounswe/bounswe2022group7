@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:android/models/models.dart';
 
 class FeedContainer extends StatelessWidget {
-  final Post post;
+  final PostAndImages post_and_images;
 
-  const FeedContainer({Key? key, required this.post}) : super(key: key);
+  const FeedContainer({Key? key, required this.post_and_images})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class FeedContainer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => post.pageRoute(),
+                  builder: (context) => post_and_images.post.pageRoute(),
                 ),
               );
             },
@@ -30,14 +31,14 @@ class FeedContainer extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: post.infoColumn(),
+                          child: post_and_images.infoColumn(),
                         ),
                       ],
                     ),
                     const SizedBox(height: 10.0),
-                    post.imageNetwork(),
+                    post_and_images.image,
                     const SizedBox(height: 10.0),
-                    post.descriptionText(),
+                    post_and_images.post.descriptionText(),
                     const SizedBox(height: 4.0),
                   ],
                 ),

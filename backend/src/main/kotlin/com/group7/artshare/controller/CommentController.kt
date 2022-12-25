@@ -1,11 +1,11 @@
 package com.group7.artshare.controller
 
+import com.group7.artshare.DTO.CommentDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.CommentRequest
+import com.group7.artshare.request.VoteRequest
 import com.group7.artshare.service.*
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
@@ -15,37 +15,23 @@ import org.springframework.web.server.ResponseStatusException
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("comment")
 class CommentController(
-    private val jwtService: JwtService,
-    private val commentService: CommentService
+    private val jwtService: JwtService, private val commentService: CommentService
 ) {
-
-    @Autowired
-    lateinit var commentRepository: CommentRepository
-
     @GetMapping("{id}")
-    fun getComment(@PathVariable("id") id: Long): Comment =
-        commentRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
-            HttpStatus.NOT_FOUND,
-            "Id is not matched with any of the comments in the database"
-        )
+    fun getComment(@PathVariable("id") id: Long): CommentDTO = commentService.getCommentById(id).mapToDTO()
 
     @PostMapping(
-        consumes = ["application/json;charset=UTF-8"],
-        produces = ["application/json;charset=UTF-8"]
+        consumes = ["application/json;charset=UTF-8"], produces = ["application/json;charset=UTF-8"]
     )
     fun create(
-        @RequestBody commentRequest: CommentRequest,
-        @RequestHeader(
-            value = "Authorization",
-            required = true
-        ) authorizationHeader: String?
-    ): Comment {
+        @RequestBody commentRequest: CommentRequest, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ): CommentDTO {
         try {
-            authorizationHeader?.let {
-                val user =
-                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                return commentService.createComment(commentRequest, user)
-            } ?: throw Exception("Token required")
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return commentService.createComment(commentRequest, user).mapToDTO()
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
@@ -58,19 +44,32 @@ class CommentController(
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteComment(
-        @PathVariable id: Long,
-        @RequestBody json: Map<String, Long>,
-        @RequestHeader(
-            value = "Authorization",
-            required = true
-        ) authorizationHeader: String?
-    ){
+        @PathVariable id: Long, @RequestBody json: Map<String, Long>, @RequestHeader(
+            value = "Authorization", required = true
+        ) authorizationHeader: String
+    ) {
         try {
-            authorizationHeader?.let {
-                val user =
-                    jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                json["commentedObjectId"]?.let { it1 -> commentService.deleteComment(id, it1, user) }
-            } ?: throw Exception("Token required")
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            json["commentedObjectId"]?.let { it1 -> commentService.deleteComment(id, it1, user) }
+        } catch (e: Exception) {
+            if (e.message == "Invalid token") {
+                throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)
+            } else {
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
+            }
+        }
+    }
+
+    @PostMapping("/vote")
+    fun voteComment(
+        @RequestBody voteRequest: VoteRequest,
+        @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
+    ): CommentDTO {
+        try {
+            val user =
+                jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
+            return commentService.voteComment(voteRequest.id, user, voteRequest.vote)
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)

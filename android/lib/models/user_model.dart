@@ -49,10 +49,12 @@ class User {
 class CurrentUser {
   final String token;
   final String email;
+  String? username;
 
   CurrentUser({
     required this.token,
     required this.email,
+    this.username,
   });
 
   // Functions below are used to convert user to string and vice versa
@@ -63,6 +65,7 @@ class CurrentUser {
     return CurrentUser(
       token: parsedJson["token"],
       email: parsedJson["email"],
+      username: parsedJson["username"],
     );
   }
 
@@ -70,6 +73,7 @@ class CurrentUser {
     return {
       "token": token,
       "email": email,
+      "username": username,
     };
   }
 }

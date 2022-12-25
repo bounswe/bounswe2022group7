@@ -1,0 +1,42 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:eu-central-1:810310430194:task-definition/annotation:11",
+    "containerDefinitions": [
+        {
+            "name": "cmpe451-annotation",
+            "image": "810310430194.dkr.ecr.eu-central-1.amazonaws.com/cmpe451-annotation:latest",
+            "cpu": 0,
+            "memoryReservation": 200,
+            "portMappings": [
+                {
+                    "containerPort": 3001,
+                    "hostPort": 3001,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [
+                {
+                    "value": "arn:aws:s3:::cmpe451/annotation.production.env",
+                    "type": "s3"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": []
+        }
+    ],
+    "family": "annotation",
+    "taskRoleArn": "arn:aws:iam::810310430194:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::810310430194:role/ecsTaskExecutionRole",
+    "networkMode": "host",
+    "volumes": [],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EXTERNAL",
+        "EC2"
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "tags": []
+}

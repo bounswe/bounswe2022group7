@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface OnlineGalleryRepository : JpaRepository<OnlineGallery, Long> {
-
+    fun findAllByEventInfo_IdIn(eventInfo : List<Long>) : List<OnlineGallery>
 }

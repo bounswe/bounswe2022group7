@@ -1,7 +1,5 @@
+import 'package:android/models/comment/comment_model.dart';
 import 'package:android/models/models.dart';
-
-// imported to use dummy data for now
-import 'package:android/data/data.dart';
 
 class Event extends Post {
   final EventInfo eventInfo;
@@ -9,12 +7,14 @@ class Event extends Post {
   final List<User>? collaborators;
   final List<String>? participants;
   final DateTime creationDate;
-  final List<String>? commentList;
+  final List<Comment> commentList;
   final Location? location;
   final String? rules;
   final List<User>? attendees;
-  final List<User>? bookmarkedBy;
+  final List<String>? bookmarkedBy;
   final List<int>? artItemList;
+  int participationStatus;
+  int bookmarkStatus;
 
   Event({
     required int id,
@@ -24,13 +24,15 @@ class Event extends Post {
     this.collaborators,
     this.participants,
     required this.creationDate,
-    this.commentList,
+    required this.commentList,
     this.location,
     this.rules,
     this.attendees,
     this.bookmarkedBy,
     this.artItemList,
-  }) : super(
+  })  : participationStatus = 0,
+        bookmarkStatus = 0,
+        super(
           type: "Event",
           id: id,
           creatorAccountInfo: creatorAccountInfo,
@@ -41,7 +43,13 @@ class Event extends Post {
     AccountInfo creatorAccountInfo =
         AccountInfo.fromJson(json["creatorAccountInfo"]);
     DateTime creationDate = DateTime.parse(json['creationDate']);
-    List<String> commentList = json['commentList'].cast<String>();
+
+    List<Comment> commentList = [];
+    for (int i = 0; i < json["commentList"].length; i++) {
+      Comment c = Comment.fromJson(json["commentList"][i]);
+      commentList.add(c);
+    }
+
     EventInfo eventInfo = EventInfo.fromJson(json["eventInfo"]);
     List<String> participants = json["participantUsernames"].cast<String>();
     Location? location =
@@ -59,10 +67,36 @@ class Event extends Post {
       location: location,
       rules: json['rules'],
       attendees: [],
-      bookmarkedBy: [],
+      bookmarkedBy: json['bookmarkedByUsernames'] != null
+          ? List<String>.from(json['bookmarkedByUsernames'])
+          : [],
       artItemList: json["artItemList"] != null
           ? List<int>.from(json["artItemList"])
           : [],
     );
+  }
+
+  void updateStatus(String? username) {
+    int statusParticipation = 0;
+    int statusBookmark = 0;
+
+    if (username != null) {
+      if (participants != null) {
+        for (var participant in participants!) {
+          if (participant == username) {
+            statusParticipation = 1;
+          }
+        }
+      }
+      if (bookmarkedBy != null) {
+        for (var marker in bookmarkedBy!) {
+          if (marker == username) {
+            statusBookmark = 1;
+          }
+        }
+      }
+    }
+    participationStatus = statusParticipation;
+    bookmarkStatus = statusBookmark;
   }
 }

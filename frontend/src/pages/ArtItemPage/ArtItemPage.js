@@ -4,10 +4,17 @@ import { useAuth } from "../../auth/useAuth"
 
 import CommentSection from "../../common/CommentSection"
 import UserCard from "../../common/UserCard"
-import ImageComponent from "../../components/ImageComponent"
+import ImageDisplay from "../../components/ImageDisplay"
+import IconWithText from "../../components/IconWithText"
+import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 
-import { Typography, Grid } from '@mui/material';
+import BrushIcon from '@mui/icons-material/Brush';
+import SellIcon from '@mui/icons-material/Sell';
+import LabelIcon from '@mui/icons-material/Label';
+import CategoryIcon from '@mui/icons-material/Category';
+
+import { Typography, Grid, useTheme } from '@mui/material';
 
 function ArtItemPage() {
   
@@ -19,6 +26,7 @@ function ArtItemPage() {
     artitem: [] 
   })
 
+  const theme = useTheme();
   const { token } = useAuth()
   
   useEffect(() => {
@@ -48,32 +56,71 @@ function ArtItemPage() {
   } else {
   return (
     <GenericCardLayout maxWidth={1000}>
-      <Typography variant="h4" sx={{padding:2}}>
+      <Typography
+        variant="h5"
+        color={theme.palette.primary.main}
+      >
+        Art Item:
+      </Typography>
+      <Typography variant="h4">
         {artitem.name}
       </Typography>
-    
-      <Grid container spacing={2}>
+
+      <ImageDisplay imageId={artitem.imageId}/>
+
+      <Grid container>
         <Grid item xs={12} sm={8}>
-          <ImageComponent imageId={artitem.imageId}/>          
+          <IconWithText
+            text="Description "
+            variant="h5"
+          />
+          <AnnotatableText text={artitem.description}/>
         </ Grid>
         <Grid item xs={12} sm={4}>
-          <Typography variant="h5">Owner:</Typography>
-          <UserCard data={artitem.creatorAccountInfo}/>
-          
-          <Typography variant="h5">Description:</Typography>
-          <Typography variant="body1">{artitem.description}</Typography>
 
-          {artitem.onAuction && // if auction_id exists, render block below
+          <IconWithText
+            icon = {<BrushIcon/>}
+            text="Creator:"
+            variant="h5"
+          />
+          <UserCard data={artitem.creatorAccountInfo}/>
+
+          <IconWithText
+            icon = {<LabelIcon/>}
+            text="Labels:"
+            variant="h5"
+          />
+          {artitem.labels.join(", ")}
+
+          <IconWithText
+            icon = {<CategoryIcon/>}
+            text="Categories:"
+            variant="h5"
+          />
+          {artitem.category.join(", ")}
+
+          <IconWithText
+            icon = {<SellIcon/>}
+            text = "Auction Status"
+            variant = "h5"
+          />
+
+          {artitem.onAuction
+          ? 
+          // if auction_id exists, render block below
           // TODO render auction properly
-            <div>
-              <Typography variant="h5">Auction Price:</Typography>
-              Auction at id={artitem.lastPrice}
-            </div>
+          <div>
+            <Typography variant="h5">Auction Price:</Typography>
+            Auction at id={artitem.lastPrice}
+          </div>
+          :
+          <div>
+            Not currently on auction.
+          </div>
           }
 
-
         </ Grid>
-      </ Grid>  
+      </ Grid>
       <CommentSection
         contentId={id}
         commentList={artitem.commentList}

@@ -36,13 +36,26 @@ export default function SettingsPage() {
                     setError(data.message);
                 }
                 else {
-                    setUserInfo({
-                        name: data.name,
-                        surname: data.surname,
-                        country: data.country,
-                        dateOfBirth: data.dateOfBirth.split('T')[0],
-                        image: data.profilePhotoId,
-                    });
+
+                    fetch("/api/image/" + data.profilePictureId, fetchArgs)
+                        .then((response) => response.json())
+                        .then((imageData) => {
+
+                            if (imageData.error) {
+                                setUserInfo({...userInfo, image: ''})
+                            }
+                            else {
+
+                                setUserInfo({
+                                    name: data.name,
+                                    surname: data.surname,
+                                    country: data.country,
+                                    dateOfBirth: data.dateOfBirth ? data.dateOfBirth.split('T')[0] : null,
+                                    image: imageData.base64String,
+                                });
+
+                            }
+                        })
                 }
             })
             .catch((error) => {
@@ -54,6 +67,8 @@ export default function SettingsPage() {
 
 
 
+
+
     return (
         error ? <GenericCardLayout maxWidth={600}>
             <Typography variant="h4" component="h1" gutterBottom>
@@ -62,7 +77,7 @@ export default function SettingsPage() {
         </GenericCardLayout>
             :
             <GenericCardLayout maxWidth={600}>
-                <EditUserInfo existingUser name={userInfo.name} surname={userInfo.surname} country={userInfo.country} dateOfBirth={userInfo.dateOfBirth} formName="Profile Details" formDescription="You can change your profile information." />
+                <EditUserInfo existingUser image={userInfo.image} name={userInfo.name} surname={userInfo.surname} country={userInfo.country} dateOfBirth={userInfo.dateOfBirth} formName="Profile Details" formDescription="You can change your profile information." />
             </GenericCardLayout>
     );
 }

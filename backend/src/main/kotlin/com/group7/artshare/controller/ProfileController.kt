@@ -1,7 +1,7 @@
 package com.group7.artshare.controller
 
-import com.group7.artshare.SettingDTO
-import com.group7.artshare.entity.RegisteredUser
+import com.group7.artshare.DTO.SettingDTO
+import com.group7.artshare.DTO.RegisteredUserDTO
 import com.group7.artshare.service.JwtService
 import com.group7.artshare.service.ProfileService
 import org.springframework.http.HttpStatus
@@ -20,15 +20,15 @@ class ProfileController(
     fun getUserByUsername(
         @PathVariable(value = "username") username: String,
         @RequestHeader(value = "Authorization", required = false) authorizationHeader: String?
-    ): RegisteredUser {
-        return profileService.getUserByUsernameOrToken(username, authorizationHeader)
+    ): RegisteredUserDTO {
+        return profileService.getUserByUsernameOrToken(username, authorizationHeader).mapToDTO()
     }
 
     @GetMapping()
     fun getUserByToken(
         @RequestHeader(value = "Authorization", required = true) authorizationHeader: String
-    ): RegisteredUser {
-        return profileService.getUserByUsernameOrToken(null, authorizationHeader)
+    ): RegisteredUserDTO {
+        return profileService.getUserByUsernameOrToken(null, authorizationHeader).mapToDTO()
     }
 
     @GetMapping("settings")
@@ -36,14 +36,14 @@ class ProfileController(
         @RequestHeader(
             value = "Authorization",
             required = true
-        ) authorizationHeader: String?
+        ) authorizationHeader: String
     ) : SettingDTO {
         try {
-            authorizationHeader?.let {
+            authorizationHeader.let {
                 val user =
                     jwtService.getUserFromAuthorizationHeader(authorizationHeader) ?: throw Exception("Invalid token")
-                    return profileService.getSettings(user)
-            } ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Unregistered user cannot view user settings")
+                return profileService.getSettings(user)
+            }
         } catch (e: Exception) {
             if (e.message == "Invalid token") {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, e.message)

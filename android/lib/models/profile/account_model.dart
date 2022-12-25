@@ -9,16 +9,15 @@ import 'package:android/network/art_item/get_art_item_output.dart';
 import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/event/get_event_service.dart';
 
-
 Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
   List<Event> event_list = [];
   List<ArtItem> art_item_list = [];
-  if(!json["hostedEvents"].isEmpty){
-    for(int i=0; i<json["hostedEvents"].length; i++) {
+  if (json["hostedEvents"] != null && !json["hostedEvents"].isEmpty) {
+    for (int i = 0; i < json["hostedEvents"].length; i++) {
       int id;
       try {
         id = json["hostedEvents"][i]["id"];
-      } catch(err) {
+      } catch (err) {
         id = json["hostedEvents"][i];
       }
       GetEventOutput eo = await getEventNetworkWithIndex(id, i);
@@ -26,14 +25,19 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
       event_list.add(ev);
     }
   }
-  if(!json["artItems"].isEmpty) {
-    for(int i=0; i<json["artItems"].length; i++) {
-      GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);
-      ArtItem ai = aio.artItem!;
+  if (json["artItems"] != null && !json["artItems"].isEmpty) {
+    for (int i = 0; i < json["artItems"].length; i++) {
+      // print(json["artItems"][i]["commentList"]);
+      ArtItem ai;
+      if (json["artItems"][i] is int) {
+        GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);
+        ai = aio.artItem!;
+      } else {
+        ai = ArtItem.fromJson(json["artItems"][i]);
+      }
       art_item_list.add(ai!);
     }
   }
-
   Account account = Account(
     account_info: AccountInfo.fromJson(json['accountInfo']),
     id: json["id"],
@@ -47,8 +51,7 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
   return account;
 }
 
-
-class Account{
+class Account {
   final AccountInfo account_info;
   final int id;
   final bool is_verified;
@@ -56,7 +59,6 @@ class Account{
   final double xp;
   List<Event> all_events;
   List<ArtItem> all_art_items;
-
 
   Account({
     required this.account_info,
@@ -68,22 +70,21 @@ class Account{
     required this.all_art_items,
   });
 
-
   factory Account.fromJson(Map<String, dynamic> json) {
-
     List<Event> event_list = [];
     List<ArtItem> art_item_list = [];
 
-    if(!json["hostedEvents"].isEmpty){
-      for(int i=0; i<json["hostedEvents"].length; i++) {
+    if (!json["hostedEvents"].isEmpty) {
+      for (int i = 0; i < json["hostedEvents"].length; i++) {
         Event ev = Event.fromJson(json["hostedEvents"][i]);
         event_list.add(ev);
       }
     }
-    if(!json["artItems"].isEmpty) {
-      for(int i=0; i<json["artItems"].length; i++) {
+    if (!json["artItems"].isEmpty) {
+      for (int i = 0; i < json["artItems"].length; i++) {
         ArtItem? ai;
-        getArtItemNetwork(json["artItems"][i]).then((value) => ai = value.artItem);
+        getArtItemNetwork(json["artItems"][i])
+            .then((value) => ai = value.artItem);
         art_item_list.add(ai!);
       }
     }
@@ -99,9 +100,5 @@ class Account{
     );
 
     return account;
-
-
-
   }
-
 }

@@ -1,5 +1,6 @@
 package com.group7.artshare.service
 
+import com.group7.artshare.DTO.CommentDTO
 import com.group7.artshare.entity.*
 import com.group7.artshare.repository.*
 import com.group7.artshare.request.*
@@ -16,6 +17,12 @@ class CommentService(
     private val onlineGalleryRepository: OnlineGalleryRepository,
     private val physicalExhibitionRepository: PhysicalExhibitionRepository
 ) {
+
+    fun getCommentById(id: Long): Comment {
+        return commentRepository.findByIdOrNull(id) ?: throw ResponseStatusException(
+            HttpStatus.NOT_FOUND, "Comment with id $id not found"
+        )
+    }
     fun createComment(
         commentRequest: CommentRequest,
         user: RegisteredUser
@@ -75,4 +82,46 @@ class CommentService(
             commentRepository.deleteById(id)
         }
     }
+
+    fun voteComment(
+        id: Long,
+        user: RegisteredUser,
+        vote: Int
+    ): CommentDTO {
+        val comment = commentRepository.findByIdOrNull(id)?: throw ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "There is no comment object in the database with this id"
+        )
+        if(vote == 1){
+            if(comment.upVotedUsers.contains(user)) {
+                comment.upVotedUsers.remove(user)
+                user.upVotedComments.remove(comment)
+            } else {
+                comment.downVotedUsers.remove(user)
+                comment.upVotedUsers.add(user)
+                user.upVotedComments.add(comment)
+                user.downVotedComments.remove(comment)
+            }
+        }
+        else if(vote == -1){
+            if(comment.downVotedUsers.contains(user)) {
+                comment.downVotedUsers.remove(user)
+                user.downVotedComments.remove(comment)
+            } else {
+                comment.upVotedUsers.remove(user)
+                comment.downVotedUsers.add(user)
+                user.downVotedComments.add(comment)
+                user.upVotedComments.remove(comment)
+            }
+        }
+        else{
+            throw ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Vote value must be 1 or -1"
+            )
+        }
+        commentRepository.flush()
+        return comment.mapToDTO()
+    }
+
 }

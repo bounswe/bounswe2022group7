@@ -59,6 +59,8 @@ class MyApp extends StatelessWidget {
           createEventPage: (context) => const CreateEvent(),
           createArtItemPage: (context) => const CreateArtItemPage(),
           profilePage: (context) => ProfilePage(),
+          settingsPage: (context) => const SettingsPage(),
+          accountInfoPage: (context) => const AccountInfoPage(),
         },
         navigatorKey: navigatorKey,
       ),

@@ -1,14 +1,19 @@
+import 'dart:developer';
+
 import 'package:android/models/models.dart';
+import 'package:android/models/comment/comment_model.dart';
 
 class ArtItem extends Post {
   final ArtItemInfo artItemInfo;
   final DateTime creationDate;
   final User? owner;
   final bool onAuction;
-  final String? auction;
   final double? lastPrice;
-  final List<String> commentList;
-  final List<User> bookmarkedBy;
+  final List<Comment> commentList;
+  final List<String> bookmarkedBy;
+  final List<String> likedBy;
+  int likeStatus;
+  int bookmarkStatus;
 
   ArtItem({
     required int id,
@@ -17,11 +22,13 @@ class ArtItem extends Post {
     required this.creationDate,
     this.owner,
     required this.onAuction,
-    this.auction,
     this.lastPrice,
     required this.commentList,
     required this.bookmarkedBy,
-  }) : super(
+    required this.likedBy,
+  })  : likeStatus = 0,
+        bookmarkStatus = 0,
+        super(
           type: "Art Item",
           id: id,
           creatorAccountInfo: creatorAccountInfo,
@@ -29,28 +36,64 @@ class ArtItem extends Post {
         );
 
   factory ArtItem.fromJson(Map<String, dynamic> json) {
+    List<Comment> commentList = [];
+    log(json['commentList'].toString());
+    if (json['commentList'] != null) {
+      try {
+        for (int i = 0; i < json['commentList'].length; i++) {
+          Comment c = Comment.fromJson(json['commentList'][i]);
+          commentList.add(c);
+        }
+      } catch (err) {
+        commentList = [];
+      }
+    }
     ArtItem ai = ArtItem(
       id: json['id'] ?? 8,
       artItemInfo: ArtItemInfo.fromJson(json),
-      creatorAccountInfo: json['creatorAccountInfo'],
+      creatorAccountInfo: AccountInfo.fromJson(
+          json['creatorAccountInfo'] == null
+              ? json['creator']
+              : json['creatorAccountInfo']),
       creationDate: DateTime.parse(json['creationDate']),
       // why does this use accountInfo?
       // owner: User.fromJson(json['owner']["accountInfo"]),
 
       // Auction model has not been implemented yet
       onAuction: false,
-      auction: null,
 
       lastPrice: json['lastPrice'],
 
       // Comment model has not been implemented yet just store as strings
-      commentList:
-          List<String>.from(json['commentList'].map((x) => x.toString())),
+      commentList: commentList,
 
-      bookmarkedBy:
-          List<User>.from(json['bookMarkedByIds'].map((x) => User.fromJson(x))),
+      bookmarkedBy: json['bookmarkedByUsernames'] != null
+          ? List<String>.from(json['bookmarkedByUsernames'])
+          : [],
+      likedBy: json['likedByUsernames'] != null
+          ? List<String>.from(json['likedByUsernames'])
+          : [],
     );
 
     return ai;
+  }
+
+  void updateStatus(String? username) {
+    int statusBookmark = 0;
+    int statusLike = 0;
+    if (username != null) {
+      for (var marker in bookmarkedBy) {
+        if (marker == username) {
+          statusBookmark = 1;
+        }
+      }
+      for (var liker in likedBy) {
+        if (liker == username) {
+          statusLike = 1;
+        }
+      }
+    }
+    bookmarkStatus = statusBookmark;
+    likeStatus = statusLike;
   }
 }

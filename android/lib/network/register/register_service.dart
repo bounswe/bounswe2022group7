@@ -14,13 +14,20 @@ Future<RegisterOutput> registerNetwork(RegisterInput registerInput) async {
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: json.encode(registerInput),
     );
-    if (response.body == "true") {
-      return RegisterOutput(status: "Signup successful");
-    } else if (response.body == "false") {
-      return RegisterOutput(status: "Signup unsuccessful");
+    Map<String, dynamic> data = json.decode(response.body);
+
+    if(response.statusCode == 200) {
+      return RegisterOutput(status: "OK", token: data["token"]);
     } else {
-      return RegisterOutput(status: response.body);
+      return RegisterOutput(status: "ERROR");
     }
+    // if (response.body == "true") {
+    //   return RegisterOutput(status: "Signup successful");
+    // } else if (response.body == "false") {
+    //   return RegisterOutput(status: "Signup unsuccessful");
+    // } else {
+    //   return RegisterOutput(status: response.body);
+    // }
   } catch (err) {
     if (kDebugMode) {
       print(err);

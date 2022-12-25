@@ -1,11 +1,19 @@
 import 'dart:convert';
 
+
+import 'package:android/network/event/get_event_output.dart';
+import 'package:android/network/event/get_event_service.dart';
+
+import 'package:android/network/art_item/get_art_item_output.dart';
+import 'package:android/network/art_item/get_art_item_service.dart';
+
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/pages.dart';
 import 'package:android/widgets/feed_container.dart';
 import 'package:flutter/material.dart';
 
 import '../config/app_routes.dart';
+import '../network/profile/post_follow_service.dart';
 import '../widgets/form_app_bar.dart';
 import 'package:android/models/models.dart';
 import 'package:android/models/user_model.dart';
@@ -22,6 +30,8 @@ import 'package:android/network/home/get_postlist_output.dart';
 import 'package:android/network/home/get_postlist_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'art_item_page.dart';
+
 class Item {
   Item(this.name, this.icon);
   String name;
@@ -33,8 +43,9 @@ class Item {
 
 const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
 var dropdown_selection = ValueNotifier<String>("Events");
+final followButtonText = ValueNotifier<String>("Follow");
 
-String? profile_username;
+String? profileUsername;
 var post_lists = {
   "Events": [],
   "Art Items": [],
@@ -43,12 +54,11 @@ var post_lists = {
 };
 var selected_items = [];
 
-
 void updateSelectedItems() {
   String selection = dropdown_selection.value;
-  if(selection == "Events") {
+  if (selection == "Events") {
     selected_items = post_lists[selection]!;
-  } else if(selection == "Art Items") {
+  } else if (selection == "Art Items") {
     selected_items = post_lists[selection]!;
   } else {
     selected_items = ["as"];
@@ -58,9 +68,8 @@ void updateSelectedItems() {
 class ProfilePage extends StatefulWidget {
   String? username;
   ProfilePage({Key? key, this.username}) : super(key: key) {
-   profile_username = username;
+    profileUsername = username;
   }
-
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -72,8 +81,6 @@ class _ProfilePageState extends State<ProfilePage> {
   late String username;
   late User user = dali;
 
-
-
   _ProfilePageState() {
     this.url = user.imageUrl;
     this.name = user.name!;
@@ -82,9 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void navigateToEditPage() {
     print("navigator, alligator");
-    /*
-      This function will redirect user to the edit page
-    */
+    Navigator.pushNamed(context, settingsPage);
   }
 
   void updatePostLists(List<Event> event_list, List<ArtItem> art_item_list) {
@@ -92,18 +97,26 @@ class _ProfilePageState extends State<ProfilePage> {
     post_lists["Art Items"] = art_item_list;
   }
 
-
-
+  Future<void> followUser() async {
+    if (followButtonText.value == "Follow") {
+      final statuscode = await postFollowNetwork(profileUsername!);
+      if (statuscode == 202) followButtonText.value = "Following";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    String dropdown_value = dropdown_items[0];
-    var show_data = events;
+    String dropdownValue = dropdown_items[0];
+    var showData = events;
 
-    CurrentUser? current_user = Provider.of<UserProvider>(context).user;
+    CurrentUser? currentUser = Provider.of<UserProvider>(context).user;
+
+    //Check if already following
+    followButtonText.value = "Follow";
+    //?: "Following";
 
     return FutureBuilder(
-      future: getUserNetwork(profile_username, current_user),
+      future: getUserNetwork(profileUsername, currentUser),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -120,25 +133,31 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               );
             }
-
-            if(snapshot.data != null) {
+            if (snapshot.data != null) {
               getUserOutput user_output = snapshot.data!;
-              if(user_output.status != "OK") {
-                return const Text("An error occured while loading profile page!");
+              print("status: ${user_output.status}");
+              if (user_output.status != "OK") {
+                return const Text(
+                    "An error occured while loading profile page!");
               }
 
-              Account user_account = user_output.account!;
-              AccountInfo user_account_info = user_account.account_info;
+              Account userAccount = user_output.account!;
+              AccountInfo userAccountInfo = userAccount.account_info;
               String fullname = "";
-              if(user_account_info.name != null && user_account_info.surname != null) {
-                fullname = "${user_account_info.name} ${user_account_info.surname}";
+              if (userAccountInfo.name != null &&
+                  userAccountInfo.surname != null) {
+                fullname = "${userAccountInfo.name} ${userAccountInfo.surname}";
               }
 
-              bool users_check = current_user != null;
-              users_check = current_user!.email == user_account_info.email ? users_check : false;
-              updatePostLists(user_account.all_events, user_account.all_art_items);
+              bool usersCheck = currentUser != null;
+              usersCheck = currentUser!.email == userAccountInfo.email
+                  ? usersCheck
+                  : false;
+              updatePostLists(
+                  userAccount.all_events, userAccount.all_art_items);
               dropdown_selection.value = "Events";
               updateSelectedItems();
+              print("before return scaffold");
 
               return Scaffold(
                 appBar: AppBar(), // app bar will be discussed later
@@ -152,9 +171,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          user_account_info.profile_picture_id == null
-                              ? profilePictureBuilder(3)
-                              : profilePictureBuilder(user_account_info.profile_picture_id),
+                          circleAvatarBuilder(
+                              userAccountInfo.profile_picture_id, 20.0),
                           Column(
                             children: [
                               Text(
@@ -163,15 +181,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                 textScaleFactor: 1.25,
                               ),
                               Text(
-                                "@${user_account_info.username}",
+                                "@${userAccountInfo.username}",
                                 style: Theme.of(context).textTheme.subtitle2,
                                 textScaleFactor: 1.25,
                               ),
                             ],
                           ),
-                          if(users_check)...[
+                          if (usersCheck) ...[
                             IconButton(
-                              onPressed: null,
+                              onPressed: navigateToEditPage,
                               icon: Icon(
                                 Icons.settings,
                                 size: 40,
@@ -201,7 +219,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Text(
                                     "Followers",
-                                    style: Theme.of(context).textTheme.subtitle2,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
                                   ),
                                   const Icon(
                                     Icons.people_outlined,
@@ -224,7 +243,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Text(
                                     "Followings",
-                                    style: Theme.of(context).textTheme.subtitle2,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
                                   ),
                                   const Icon(
                                     Icons.people_outlined,
@@ -247,7 +267,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Text(
                                     "Invite",
-                                    style: Theme.of(context).textTheme.subtitle2,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
                                   ),
                                   Icon(
                                     Icons.people_outlined,
@@ -259,6 +280,50 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 10.0),
+                      (profileUsername == null ||
+                              currentUser.username == userAccountInfo.username)
+                          ? Container()
+                          : Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(width: 12.0),
+                                ValueListenableBuilder(
+                                  valueListenable: followButtonText,
+                                  builder: (context, value, widget) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          border: Border.all(width: 1.5),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0)),
+                                      height: 35,
+                                      child: OutlinedButton(
+                                        onPressed: () {
+                                          followUser();
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              value,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2,
+                                            ),
+                                            Icon(
+                                              Icons.people_outlined,
+                                              color: value == "Follow"
+                                                  ? Colors.green
+                                                  : Colors.grey,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                       Column(
                         children: const [
                           Padding(
@@ -266,7 +331,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-                      if (user_account_info.name == null) ...[
+                      if (userAccountInfo.name == null &&
+                          currentUser.email == userAccountInfo.email) ...[
                         Container(
                           height: 25.0,
                           child: LinearPercentIndicator(
@@ -275,16 +341,45 @@ class _ProfilePageState extends State<ProfilePage> {
                             lineHeight: 25.0,
                             animationDuration: 1200,
                             percent: 0.5,
-                            center: const Text("You completed 1/2 steps of your profile.", style: TextStyle(color: Colors.white, fontSize: 12.0), selectionColor: Colors.white,),
+                            center: const Text(
+                              "You completed 1/2 steps of your profile.",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 12.0),
+                              selectionColor: Colors.white,
+                            ),
                             // linearStrokeCap: LinearStrokeCap.roundAll,
                             progressColor: Colors.lightBlue,
                             barRadius: Radius.circular(4.0),
                             trailing: OutlinedButton(
-                              onPressed: null,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AccountInfoPage(
+                                      email: userAccountInfo.email,
+                                      username: userAccountInfo.username,
+                                      name: userAccountInfo.name,
+                                      surname: userAccountInfo.surname,
+                                      country: userAccountInfo.country,
+                                      dateOfBirth:
+                                          userAccountInfo.date_of_birth,
+                                      profilePictureId:
+                                          userAccountInfo.profile_picture_id,
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Row(
                                 children: [
-                                  Text("Go complete!", style: TextStyle(color: Colors.blueGrey.shade900),),
-                                  Icon(Icons.double_arrow_sharp, color: Colors.blueGrey.shade900,),
+                                  Text(
+                                    "Go complete!",
+                                    style: TextStyle(
+                                        color: Colors.blueGrey.shade900),
+                                  ),
+                                  Icon(
+                                    Icons.double_arrow_sharp,
+                                    color: Colors.blueGrey.shade900,
+                                  ),
                                 ],
                               ),
                             ),
@@ -353,7 +448,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             width: 150,
                             child: DropdownButtonExample(),
                           ),
-
                         ],
                       ),
                       Column(
@@ -363,7 +457,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-
                       Expanded(
                         child: ValueListenableBuilder(
                           valueListenable: dropdown_selection,
@@ -377,43 +470,68 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Padding(padding: EdgeInsets.all(2.0)),
-                                    if(dropdown_selection.value! == "Events")...[
+                                    if (dropdown_selection.value! ==
+                                        "Events") ...[
                                       Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
-                                                  user_account_info.profile_picture_id == null
-                                                      ? profilePictureBuilder(3)
-                                                      : profilePictureBuilder(user_account_info.profile_picture_id),
+                                                  circleAvatarBuilder(
+                                                      userAccountInfo
+                                                          .profile_picture_id,
+                                                      20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
-                                                        Text(
-                                                          selected_items[index].postInfo.name,
-                                                          style: const TextStyle(
-                                                            fontSize: 16.0,
-                                                            fontWeight: FontWeight.w600,
+                                                        SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              160,
+                                                          child: Text(
+                                                            selected_items[
+                                                                    index]
+                                                                .postInfo
+                                                                .name,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 16.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
-                                                          overflow: TextOverflow.ellipsis,
                                                         ),
-                                                        const SizedBox(height: 4.0),
+                                                        const SizedBox(
+                                                            height: 4.0),
                                                         Row(
                                                           children: [
-                                                            Icon(Icons.supervisor_account,
+                                                            Icon(
+                                                                Icons
+                                                                    .supervisor_account,
                                                                 size: 12.0,
-                                                                color: Colors.grey[600]),
-                                                            const SizedBox(width: 5.0),
+                                                                color: Colors
+                                                                    .grey[600]),
+                                                            const SizedBox(
+                                                                width: 5.0),
                                                             Text(
-                                                                "Host: ${selected_items[index].creator.name ?? ""} ${selected_items[index].creator.surname ?? ""}"),
+                                                                "Host: ${selected_items[index].creatorAccountInfo.name ?? ""} ${selected_items[index].creatorAccountInfo.surname ?? ""}"),
                                                           ],
                                                         )
-                                                      ]
-                                                  ),
+                                                      ]),
                                                 ],
                                               ),
                                               const SizedBox(height: 10.0),
@@ -426,16 +544,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ),
                                                   const SizedBox(width: 5.0),
                                                   Text(
-                                                    "${selected_items[index]
-                                                        .eventInfo
-                                                        .startingDate
-                                                        .toString()
-                                                        .substring(0, 16)
-                                                    } - ${selected_items[index]
-                                                            .eventInfo
-                                                            .endingDate
-                                                            .toString()
-                                                            .substring(0, 16)}",
+                                                    "${selected_items[index].eventInfo.startingDate.toString().substring(0, 16)} - ${selected_items[index].eventInfo.endingDate.toString().substring(0, 16)}",
                                                   ),
                                                 ],
                                               ),
@@ -447,56 +556,152 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     size: 12.0,
                                                   ),
                                                   const SizedBox(width: 5.0),
-                                                  Text(selected_items[index].location != null ? selected_items[index].location?.address : "Online"),
+                                                  SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            160,
+                                                    child: Text(selected_items[
+                                                                    index]
+                                                                .location !=
+                                                            null
+                                                        ? selected_items[index]
+                                                            .location
+                                                            ?.address
+                                                        : "Online"),
+                                                  ),
                                                 ],
                                               )
                                             ],
                                           ),
                                           const Spacer(),
                                           IconButton(
-                                            onPressed: null,
-                                            icon: Icon(Icons.keyboard_arrow_right,
-                                                color: Colors.blueGrey.shade900, size: 35),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      FutureBuilder(
+                                                    future: getEventNetwork(
+                                                        selected_items[index]
+                                                            .id),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      switch (snapshot
+                                                          .connectionState) {
+                                                        case ConnectionState
+                                                            .none:
+                                                        case ConnectionState
+                                                            .waiting:
+                                                          return const CircularProgressIndicator();
+                                                        default:
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return EventPage(
+                                                                event: null);
+                                                          }
+
+                                                          if (snapshot.data !=
+                                                              null) {
+                                                            GetEventOutput
+                                                                responseData =
+                                                                snapshot.data!;
+                                                            if (responseData
+                                                                    .status !=
+                                                                "OK") {
+                                                              return EventPage(
+                                                                  event: null);
+                                                            }
+                                                            Event currentEvent =
+                                                                responseData
+                                                                    .event!;
+                                                            currentEvent
+                                                                .updateStatus(user
+                                                                    .username);
+                                                            return EventPage(
+                                                                event:
+                                                                    currentEvent);
+                                                          } else {
+                                                            // snapshot.data == null
+                                                            return EventPage(
+                                                                event: null);
+                                                          }
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            icon: Icon(
+                                                Icons.keyboard_arrow_right,
+                                                color: Colors.blueGrey.shade900,
+                                                size: 35),
                                           ),
                                         ],
                                       ),
-                                    ] else if(dropdown_selection.value == "Art Items")...[
+                                    ] else if (dropdown_selection.value ==
+                                        "Art Items") ...[
                                       Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
-                                                  user_account_info.profile_picture_id == null
-                                                      ? profilePictureBuilder(3)
-                                                      : profilePictureBuilder(user_account_info.profile_picture_id),
+                                                  circleAvatarBuilder(
+                                                      userAccountInfo
+                                                          .profile_picture_id,
+                                                      20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
-                                                        Text(
-                                                          selected_items[index].postInfo.name,
-                                                          style: const TextStyle(
-                                                            fontSize: 16.0,
-                                                            fontWeight: FontWeight.w600,
+                                                        SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              160,
+                                                          child: Text(
+                                                            selected_items[
+                                                                    index]
+                                                                .postInfo
+                                                                .name,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 16.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
-                                                          overflow: TextOverflow.ellipsis,
                                                         ),
-                                                        const SizedBox(height: 4.0),
+                                                        const SizedBox(
+                                                            height: 4.0),
                                                         Row(
                                                           children: [
-                                                            Icon(Icons.supervisor_account,
+                                                            Icon(
+                                                                Icons
+                                                                    .supervisor_account,
                                                                 size: 12.0,
-                                                                color: Colors.grey[600]),
-                                                            const SizedBox(width: 5.0),
+                                                                color: Colors
+                                                                    .grey[600]),
+                                                            const SizedBox(
+                                                                width: 5.0),
                                                             Text(
-                                                                "Creator: ${selected_items[index].creator.name ?? ""} ${selected_items[index].creator.surname ?? ""}"),
+                                                                "Creator: ${selected_items[index].creatorAccountInfo.name ?? ""} ${selected_items[index].creatorAccountInfo.surname ?? ""}"),
                                                           ],
                                                         )
-                                                      ]
-                                                  ),
+                                                      ]),
                                                 ],
                                               ),
                                               const SizedBox(height: 10.0),
@@ -508,7 +713,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     size: 12.0,
                                                   ),
                                                   const SizedBox(width: 5.0),
-                                                  Text(selected_items[index].creationDate.toString().substring(0, 16)),
+                                                  Text(selected_items[index]
+                                                      .creationDate
+                                                      .toString()
+                                                      .substring(0, 16)),
                                                 ],
                                               ),
                                               Row(
@@ -519,16 +727,81 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     size: 12.0,
                                                   ),
                                                   const SizedBox(width: 5.0),
-                                                  Text("${selected_items[index].lastPrice.toString()} ₺"),
+                                                  Text(
+                                                      "${selected_items[index].lastPrice.toString()} ₺"),
                                                 ],
                                               )
                                             ],
                                           ),
                                           const Spacer(),
                                           IconButton(
-                                            onPressed: null,
-                                            icon: Icon(Icons.keyboard_arrow_right,
-                                                color: Colors.blueGrey.shade900, size: 35),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      FutureBuilder(
+                                                    future: getArtItemNetwork(
+                                                        selected_items[index]
+                                                            .id),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      switch (snapshot
+                                                          .connectionState) {
+                                                        case ConnectionState
+                                                            .none:
+                                                        case ConnectionState
+                                                            .waiting:
+                                                          return const CircularProgressIndicator();
+                                                        default:
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return ArtItemPage(
+                                                              artItem: null,
+                                                            );
+                                                          }
+
+                                                          if (snapshot.data !=
+                                                              null) {
+                                                            GetArtItemOutput
+                                                                responseData =
+                                                                snapshot.data!;
+                                                            if (responseData
+                                                                    .status !=
+                                                                "OK") {
+                                                              return ArtItemPage(
+                                                                artItem: null,
+                                                              );
+                                                            }
+                                                            ArtItem
+                                                                currentArtItem =
+                                                                responseData
+                                                                    .artItem!;
+                                                            if (user != null) {
+                                                              currentArtItem
+                                                                  .updateStatus(
+                                                                      user.username);
+                                                            }
+                                                            return ArtItemPage(
+                                                              artItem:
+                                                                  currentArtItem,
+                                                            );
+                                                          } else {
+                                                            // snapshot.data == null
+                                                            return ArtItemPage(
+                                                              artItem: null,
+                                                            );
+                                                          }
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            icon: Icon(
+                                                Icons.keyboard_arrow_right,
+                                                color: Colors.blueGrey.shade900,
+                                                size: 35),
                                           ),
                                         ],
                                       ),
@@ -540,7 +813,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -551,43 +823,12 @@ class _ProfilePageState extends State<ProfilePage> {
         }
       },
     );
-
   }
 }
 
-
 Widget profilePictureBuilder(picture_id) {
-  return FutureBuilder(
-    future: getImageNetwork(picture_id),
-    builder: (context, snapshot) {
-      switch (snapshot.connectionState) {
-        case ConnectionState.none:
-        case ConnectionState.waiting:
-        default:
-          if (snapshot.hasError) {
-            return const Text("Error");
-          }
-
-          if (snapshot.data != null) {
-            GetImageOutput image_output = snapshot.data!;
-            if (image_output.status != "OK") {
-              return const Text("An error occured while loading profile page!");
-            }
-
-            return CircleAvatar(
-              radius: 20.0,
-              backgroundColor: Colors.grey[300],
-              backgroundImage: MemoryImage(
-                  base64Decode(image_output.image!.base64String)),
-            );
-          } else {
-            return const Text("");
-          }
-      }
-    }
-  );
+  return circleAvatarBuilder(picture_id, 20.0);
 }
-
 
 class DropdownButtonExample extends StatefulWidget {
   const DropdownButtonExample({super.key});
@@ -601,9 +842,9 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 
   void updateSelectedItems() {
     String selection = dropdown_selection.value;
-    if(selection == "Events") {
+    if (selection == "Events") {
       selected_items = post_lists[selection]!;
-    } else if(selection == "Art Items") {
+    } else if (selection == "Art Items") {
       selected_items = post_lists[selection]!;
     } else {
       selected_items = ["as"];
@@ -613,10 +854,9 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      isExpanded : true,
+      isExpanded: true,
       value: dropdownValue,
       icon: const Icon(Icons.keyboard_arrow_down),
-
       onChanged: (String? value) {
         // This is called when the user selects an item.
         setState(() {
@@ -627,9 +867,8 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
       },
       items: dropdown_items.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value, style: Theme.of(context).textTheme.headline6)
-        );
+            value: value,
+            child: Text(value, style: Theme.of(context).textTheme.headline6));
       }).toList(),
     );
   }

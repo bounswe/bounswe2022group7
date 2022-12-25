@@ -11,3 +11,7 @@ String artItemURL = "$baseURL/art_item";
 String homepageURL = "$baseURL/homepage";
 String profileURL = "$baseURL/profile";
 String getImageURL = "$baseURL/image";
+String followURL = "$baseURL/follow";
+String discussionURL = "$baseURL/discussionPost";
+String settingsURL = "$baseURL/profile/settings";
+String commentURL = "$baseURL/comment";

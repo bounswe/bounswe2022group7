@@ -26,10 +26,12 @@ class PhysicalExhibition : Event(){
         dto.type = "physical"
         dto.creatorId = this.creator?.id
         dto.creatorAccountInfo = this.creator?.accountInfo
+        dto.collaboratorAccountInfos = this.collaborators.map { it.accountInfo }.toMutableList()
         dto.creationDate = this.creationDate
         dto.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
         dto.eventInfo = this.eventInfo
         dto.participantUsernames = this.participants.map { it.accountInfo.username }.toMutableList()
+        dto.bookmarkedByUsernames = this.bookmarkedBy.map { it.accountInfo.username }.toMutableList()
         dto.location = this.location
         dto.rules = this.rules
         return dto

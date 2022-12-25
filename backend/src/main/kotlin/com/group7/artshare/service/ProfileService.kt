@@ -1,6 +1,6 @@
 package com.group7.artshare.service
 
-import com.group7.artshare.SettingDTO
+import com.group7.artshare.DTO.SettingDTO
 import com.group7.artshare.entity.RegisteredUser
 import com.group7.artshare.repository.RegisteredUserRepository
 import com.group7.artshare.repository.ImageRepository
@@ -79,8 +79,6 @@ class ProfileService(
     }
 
     fun fillBlank(setting : SettingDTO, userFromDB : RegisteredUser) {
-        if (Objects.nonNull(setting.email))
-            userFromDB.accountInfo?.email = setting.email.orEmpty()
         if (Objects.nonNull(setting.username))
             userFromDB.accountInfo?.username = setting.username.orEmpty()
         if (Objects.nonNull(setting.name))
