@@ -8,9 +8,9 @@ import ImageDisplay from "../../components/ImageDisplay"
 import IconWithText from "../../components/IconWithText"
 import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
+import AuctionDisplay from "./AuctionDisplay"
 
 import BrushIcon from '@mui/icons-material/Brush';
-import SellIcon from '@mui/icons-material/Sell';
 import LabelIcon from '@mui/icons-material/Label';
 import CategoryIcon from '@mui/icons-material/Category';
 
@@ -27,7 +27,7 @@ function ArtItemPage() {
   })
 
   const theme = useTheme();
-  const { token } = useAuth()
+  const { token, userData } = useAuth()
   
   useEffect(() => {
 
@@ -98,29 +98,15 @@ function ArtItemPage() {
             variant="h5"
           />
           {artitem.category.join(", ")}
-
-          <IconWithText
-            icon = {<SellIcon/>}
-            text = "Auction Status"
-            variant = "h5"
-          />
-
-          {artitem.onAuction
-          ? 
-          // if auction_id exists, render block below
-          // TODO render auction properly
-          <div>
-            <Typography variant="h5">Auction Price:</Typography>
-            Auction at id={artitem.lastPrice}
-          </div>
-          :
-          <div>
-            Not currently on auction.
-          </div>
-          }
-
         </ Grid>
       </ Grid>
+      <AuctionDisplay
+        max_bid = {artitem.maxBid}
+        art_item_id = {artitem.id}
+        user_id = {userData?.id}
+        owner_id = {artitem.ownerId}
+        on_auction = {artitem.onAuction}
+      />
       <CommentSection
         contentId={id}
         commentList={artitem.commentList}
