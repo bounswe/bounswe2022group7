@@ -69,7 +69,7 @@ function EventPage() {
         variant="h5"
         color={theme.palette.primary.main}
       >
-        Event:
+        {event.type == "online" ? "Online Event:": "Physical Event:"}
       </Typography>
       <Typography variant="h4">
         {event.eventInfo.title}
