@@ -1,4 +1,6 @@
 import 'package:android/config/app_routes.dart';
+import 'package:android/network/discussion/get_discussionlist_output.dart';
+import 'package:android/network/discussion/get_discussionlist_service.dart';
 import 'package:android/network/home/get_postlist_output.dart';
 import 'package:android/pages/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -154,8 +156,47 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const DiscussionForumPage(),
-              ),
+                  builder: (context) => FutureBuilder(
+                        future: getDiscussionPosts(),
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.none:
+                            case ConnectionState.waiting:
+                              return const CircularProgressIndicator();
+                            default:
+                              if (snapshot.hasError) {
+                                return Scaffold(
+                                  appBar: AppBar(
+                                    title: const Text("Snapshot Error!"),
+                                  ),
+                                  body: Center(
+                                    child: Text("Error: ${snapshot.error}"),
+                                  ),
+                                );
+                              }
+                              if (snapshot.data != null) {
+                                GetDiscussionListOutput responseData =
+                                    snapshot.data!;
+                                if (responseData.status != "OK") {
+                                  return DiscussionForumPage(
+                                      discussionList: null);
+                                }
+                                List<Discussion> discussionList =
+                                    responseData.list!;
+                                if (user != null) {
+                                  for (var disc in discussions) {
+                                    disc.updateVote(user.username);
+                                  }
+                                }
+                                return DiscussionForumPage(
+                                    discussionList: discussionList);
+                              } else {
+                                return DiscussionForumPage(
+                                    discussionList: null);
+                              }
+                          }
+                        },
+                      )),
             );
           },
         ),
@@ -185,7 +226,8 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
   );
 }
 
-BottomNavigationBar mainBottomBar(BuildContext context, int currentIndex) {
+BottomNavigationBar mainBottomBar(
+    BuildContext context, CurrentUser? user, int currentIndex) {
   return BottomNavigationBar(
     items: const [
       BottomNavigationBarItem(
@@ -218,8 +260,45 @@ BottomNavigationBar mainBottomBar(BuildContext context, int currentIndex) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DiscussionForumPage(),
-          ),
+              builder: (context) => FutureBuilder(
+                    future: getDiscussionPosts(),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                          return const CircularProgressIndicator();
+                        default:
+                          if (snapshot.hasError) {
+                            return Scaffold(
+                              appBar: AppBar(
+                                title: const Text("Snapshot Error!"),
+                              ),
+                              body: Center(
+                                child: Text("Error: ${snapshot.error}"),
+                              ),
+                            );
+                          }
+                          if (snapshot.data != null) {
+                            GetDiscussionListOutput responseData =
+                                snapshot.data!;
+                            if (responseData.status != "OK") {
+                              return DiscussionForumPage(discussionList: null);
+                            }
+                            List<Discussion> discussionList =
+                                responseData.list!;
+                            if (user != null) {
+                              for (var disc in discussions) {
+                                disc.updateVote(user.username);
+                              }
+                            }
+                            return DiscussionForumPage(
+                                discussionList: discussionList);
+                          } else {
+                            return DiscussionForumPage(discussionList: null);
+                          }
+                      }
+                    },
+                  )),
         );
       }
     },
@@ -257,7 +336,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ]),
       drawer: mainDrawer(context, user, logout),
-      bottomNavigationBar: mainBottomBar(context, 0),
+      bottomNavigationBar: mainBottomBar(context, user, 0),
     );
   }
 

@@ -79,8 +79,6 @@ class ProfileService(
     }
 
     fun fillBlank(setting : SettingDTO, userFromDB : RegisteredUser) {
-        if (Objects.nonNull(setting.email))
-            userFromDB.accountInfo?.email = setting.email.orEmpty()
         if (Objects.nonNull(setting.username))
             userFromDB.accountInfo?.username = setting.username.orEmpty()
         if (Objects.nonNull(setting.name))
