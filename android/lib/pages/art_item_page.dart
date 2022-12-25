@@ -5,12 +5,11 @@ import 'package:android/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
-import "package:android/network/art_item/get_art_item_service.dart";
-import "package:android/network/art_item/get_art_item_output.dart";
 import 'package:provider/provider.dart';
 
 import '../network/image/get_image_builder.dart';
 import '../widgets/comment.dart';
+import '../widgets/annotation_bar.dart';
 
 ArtItem? currentArtItem;
 
@@ -124,6 +123,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
           "width": 0.0,
           "height": 0.0,
           "text": "",
+          "image": imageBuilderResult,
         };
       },
       onLongPressMoveUpdate: (details) {
@@ -138,6 +138,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
           "width": (topLeft.dx - details.localPosition.dx).abs(),
           "height": (topLeft.dy - details.localPosition.dy).abs(),
           "text": "",
+          "image": imageBuilderResult,
         };
       },
       onLongPressEnd: (details) {},
@@ -455,126 +456,11 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                 }
                               }),
                           const SizedBox(height: 10.0),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.sticky_note_2,
-                                color: Colors.black,
-                                size: 20.0,
-                              ),
-                              const SizedBox(width: 5.0),
-                              ValueListenableBuilder(
-                                  valueListenable: annotationCountNotifier,
-                                  builder: (context, value, child) {
-                                    return Text(
-                                      "$value image annotations",
-                                      style: const TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    );
-                                  }),
-                              const Spacer(),
-                              ValueListenableBuilder(
-                                  valueListenable: annotationModeNotifier,
-                                  builder: (context, value, child) {
-                                    // hidden
-                                    if (value == 0) {
-                                      return Row(
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                annotationModeNotifier.value =
-                                                    2;
-                                              },
-                                              icon: const Icon(
-                                                Icons.edit_outlined,
-                                                color: Colors.black,
-                                                size: 20.0,
-                                              )),
-                                          IconButton(
-                                              onPressed: () {
-                                                annotationModeNotifier.value =
-                                                    1;
-                                              },
-                                              icon: const Icon(
-                                                Icons.visibility_outlined,
-                                                color: Colors.black,
-                                                size: 20.0,
-                                              )),
-                                        ],
-                                      );
-                                    }
-                                    // view
-                                    else if (value == 1) {
-                                      return Row(
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                annotationModeNotifier.value =
-                                                    2;
-                                              },
-                                              icon: const Icon(
-                                                Icons.edit_outlined,
-                                                color: Colors.black,
-                                                size: 20.0,
-                                              )),
-                                          IconButton(
-                                              onPressed: () {
-                                                annotationModeNotifier.value =
-                                                    0;
-                                              },
-                                              icon: const Icon(
-                                                Icons.visibility_off_outlined,
-                                                color: Colors.black,
-                                                size: 20.0,
-                                              )),
-                                        ],
-                                      );
-                                    }
-                                    // create
-                                    else {
-                                      return Row(
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                annotationNotifier.value = null;
-                                                annotationModeNotifier.value =
-                                                    0;
-                                              },
-                                              icon: const Icon(
-                                                Icons.cancel_outlined,
-                                                color: Colors.black,
-                                                size: 20.0,
-                                              )),
-                                          IconButton(
-                                              onPressed: () {
-                                                if (annotationNotifier.value !=
-                                                    null) {
-                                                  annotationListNotifier.value
-                                                      .add(annotationNotifier
-                                                          .value!);
-                                                  annotationCountNotifier
-                                                      .value++;
-                                                  annotationNotifier.value =
-                                                      null;
-                                                }
-                                                annotationModeNotifier.value =
-                                                    1;
-                                              },
-                                              icon: const Icon(
-                                                Icons.check_circle_outline,
-                                                color: Colors.black,
-                                                size: 20.0,
-                                              )),
-                                        ],
-                                      );
-                                    }
-                                  }),
-                            ],
-                          ),
+                          AnnotationBar(
+                              countNotifier: annotationCountNotifier,
+                              modeNotifier: annotationModeNotifier,
+                              annotationNotifier: annotationNotifier,
+                              annotationListNotifier: annotationListNotifier),
                           const SizedBox(height: 5.0),
                           AnnotatableText(
                             currentArtItem!.artItemInfo.description,
