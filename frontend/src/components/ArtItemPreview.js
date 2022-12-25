@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Typography, CircularProgress, Button } from '@mui/material';
+import { Typography, CircularProgress, Button } from '@mui/material';
 import { useAuth } from '../auth/useAuth';
 import { Suspense } from 'react';
 import Stack from '@mui/material/Stack';
@@ -16,20 +16,16 @@ export default function ArtItemPreview(props) {
 
     const [likeStatus, setLikeStatus] = React.useState(false);
     const [likeCount, setLikeCount] = React.useState(props.content.likeCount || 0);
-    const [commentCount, setCommentCount] = React.useState(props.content.commentCount || 0);
 
 
-    // React.useEffect(() => {
-    //     setLikeStatus(props.content.liked);
-    // }, [props.content.liked]);
+    React.useEffect(() => {
+        setLikeStatus(props.content.liked);
+    }, [props.content.liked]);
 
-    // React.useEffect(() => {
-    //     setLikeCount(props.content.likeCount);
-    // }, [props.content.likeCount]);
+    React.useEffect(() => {
+        setLikeCount(props.content.likeCount);
+    }, [props.content.likeCount]);
 
-    // React.useEffect(() => {
-    //     setCommentCount(props.content.commentCount);
-    // }, [props.content.commentCount]);
 
     const { token } = useAuth();
 
@@ -42,9 +38,12 @@ export default function ArtItemPreview(props) {
             })
             .then(response => {
                 if (response.ok) {
-                    console.log(likeCount);
-                    setLikeCount(likeCount + 1);
-                    // setLikeStatus(!likeStatus);
+                    if (likeStatus) {
+                        setLikeCount(likeCount - 1);
+                    } else {
+                        setLikeCount(likeCount + 1);
+                    }
+                    setLikeStatus(!likeStatus);
                 }
             })
             .catch(error => console.log(error));
@@ -64,10 +63,10 @@ export default function ArtItemPreview(props) {
                 </Suspense>
             </Link>
 
-            <Box ml={1} sx={{width: '100%', marginTop: 2, alignItems: 'center', justifyItems: 'center' }} position="relative">
-                <Button onClick={handleLike} sx={{fontWeight: 600, color: likeStatus ? 'primary' : 'grey'}} startIcon={likeStatus ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}>Like | {likeCount}</Button>
-                <Typography variant="body1" sx={{position: 'absolute', fontSize: 14, fontWeight: 600, color: 'gray', display: 'inline', right: 8}}> {commentCount} comments</Typography>
-            </Box>
+            <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 2, width: '100%', color: 'grey' }}>
+                <Button color={likeStatus ? 'secondary' : 'inherit'} disabled={token ? false : true} onClick={handleLike} sx={{fontWeight: 600}} startIcon={likeStatus ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}>{likeStatus ? "liked | " + likeCount : "like | " + likeCount}</Button>
+                <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray'}}>{props.content.commentCount + ' comments'}</Typography>
+            </Stack>
         </Stack>
     );
 

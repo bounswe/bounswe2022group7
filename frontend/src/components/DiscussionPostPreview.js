@@ -17,36 +17,69 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 export default function DiscussionPostPreview(props) {
 
-    const [likeStatus, setLikeStatus] = React.useState(0);
-    const [likeCount, setLikeCount] = React.useState(props.content.likeCount || 0);
+    const [likeStatus, setLikeStatus] = React.useState(props.content.voteStatus || 0);
+    const [likeCount, setLikeCount] = React.useState(props.content.voteCount || 0);
 
+    const { token, userData } = useAuth();
 
-    // React.useEffect(() => {
-    //     setParticipantStatus(props.content.participated);
-    // }, [props.content.participated])
+    React.useEffect(() => {
+        setLikeStatus(props.content.voteStatus);
+    }, [props.content.voteStatus]);
 
-    const { token } = useAuth();
+    React.useEffect(() => {
+        setLikeCount(props.content.voteCount);
+    }, [props.content.voteCount]);
 
     function handleUpvote() {
-        setLikeStatus(1);
-        // console.log(participantCount);
-        // fetch('/api/event/participate/' + props.content.id,
-        //     {
-        //         method: "POST", headers: {
-        //             Authorization: 'Bearer ' + token,
-        //         }
-        //     })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             setParticipantCount(participantStatus ? participantCount - 1 : participantCount + 1);
-        //             setParticipantStatus(!participantStatus);
-        //         }
-        //     })
-        //     .catch(error => console.log(error));
+        fetch('/api/discussionPost/vote/',
+            {
+                method: "POST", headers: {
+                    Authorization: 'Bearer ' + token,
+                    "Content-Type": 'application/json',
+                },
+                body: JSON.stringify({
+                    id: props.content.id,
+                    vote: 1,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.upVotedUsernames.includes(userData.accountInfo.username)) {
+                    setLikeStatus(1);
+                    setLikeCount(likeCount + 1);
+                }
+                else {
+                    setLikeStatus(0);
+                    setLikeCount(likeCount - 1);
+                }
+            })
+            .catch(error => console.log(error));
     }
 
     function handleDownvote() {
-        setLikeStatus(-1);
+        fetch('/api/discussionPost/vote/',
+            {
+                method: "POST", headers: {
+                    Authorization: 'Bearer ' + token,
+                    "Content-Type": 'application/json',
+                },
+                body: JSON.stringify({
+                    id: props.content.id,
+                    vote: -1,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.downVotedUsernames.includes(userData.accountInfo.username)) {
+                    setLikeStatus(-1);
+                    setLikeCount(likeCount - 1);
+                }
+                else {
+                    setLikeStatus(0);
+                    setLikeCount(likeCount + 1);
+                }
+            })
+            .catch(error => console.log(error));
     }
 
     return (
@@ -66,16 +99,16 @@ export default function DiscussionPostPreview(props) {
             </Link>
 
             <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 2, width: '100%' }}>
-                <Box>
-                    <IconButton onClick={handleUpvote} sx={{ display: 'inline'}} variant="outlined">
-                        {likeStatus === 1 ? <ThumbUpAlt color='primary' /> : <ThumbUpOffAlt />}
+                {token && <Box>
+                    <IconButton onClick={handleUpvote} sx={{ display: 'inline' }} variant="outlined">
+                        {likeStatus === 1 ? <ThumbUpAlt color='secondary' /> : <ThumbUpOffAlt />}
                     </IconButton>
-                    <Typography variant="body1" sx={{ display: 'inline', fontWeight: 600, color: 'gray', fontSize: 14}}> {likeCount}</Typography>
-                    <IconButton onClick={handleDownvote} sx={{ display: 'inline', color: likeStatus === 1 ? 'primary' : 'grey'}} variant="outlined">
-                        {likeStatus === -1 ? <ThumbDownAltIcon size="small" color='primary' /> : <ThumbDownOffAltIcon size="small" />}
+                    <Typography variant="body1" sx={{ display: 'inline', fontWeight: 600, color: 'gray', fontSize: 14 }}>{likeCount}</Typography>
+                    <IconButton onClick={handleDownvote} sx={{ display: 'inline', color: likeStatus === 1 ? 'primary' : 'grey' }} variant="outlined">
+                        {likeStatus === -1 ? <ThumbDownAltIcon size="small" color='secondary' /> : <ThumbDownOffAltIcon size="small" />}
                     </IconButton>
-                </Box>
-                <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}> {props.commentCount} comments</Typography>
+                </Box>}
+                <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>{props.content.commentCount + " comments"}</Typography>
             </Stack>
         </Stack>
     );
