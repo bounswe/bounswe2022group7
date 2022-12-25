@@ -26,6 +26,7 @@ function Profile() {
     const [user, setUser] = useState(null);
     const [otherUser, setOtherUser] = useState(null);
     const [artItems, setArtItems] = useState(null);
+    const [level, setLevel] = useState(null);
     const { token } = useAuth()
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -47,6 +48,7 @@ function Profile() {
                 } else {
                     // Success
                     setUser(data.accountInfo)
+                    setLevel(data.level)
                     setOtherUser(data.following)
                     console.log(data)
                     data.artItems.forEach((artItem) => {
@@ -113,6 +115,11 @@ function Profile() {
                                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                         {user.name}
                                     </Typography>
+
+                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                        user level: {level}
+                                    </Typography>
+
                                     <Grid container
                                     >
                                         <Grid item xs={3}>
