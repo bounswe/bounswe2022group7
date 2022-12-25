@@ -15,3 +15,4 @@ String followURL = "$baseURL/follow";
 String discussionURL = "$baseURL/discussionPost";
 String settingsURL = "$baseURL/profile/settings";
 String commentURL = "$baseURL/comment";
+String reportURL = "$baseURL/report";
