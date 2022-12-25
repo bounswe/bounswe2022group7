@@ -3,10 +3,19 @@ import {Link} from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import UserAvatar from "../components/UserAvatar";
+import CommentVote from "../components/CommentVote"
 
 function UserCard(props) {
 
-  let { authorAccountInfo, creatorAccountInfo, text, creationDate } = props.data
+  let {
+    authorAccountInfo,
+    creatorAccountInfo,
+    text,
+    creationDate,
+    upVotedUsernames,
+    downVotedUsernames,
+  } = props.data
+
   if (!authorAccountInfo & !creatorAccountInfo) { //this is not a comment. It's a user card
     authorAccountInfo = props.data
   }
@@ -59,7 +68,13 @@ function UserCard(props) {
         <p style={{ textAlign: "left", color: "gray" }}>
           {creationDate}
         </p>
-
+        {upVotedUsernames && 
+        <CommentVote
+          upVotedUsernames = {upVotedUsernames}
+          downVotedUsernames = {downVotedUsernames}
+        />
+        }
+        
       </Grid>
     </Grid>
   )
