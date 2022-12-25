@@ -1,5 +1,12 @@
 import 'dart:convert';
 
+
+import 'package:android/network/event/get_event_output.dart';
+import 'package:android/network/event/get_event_service.dart';
+
+import 'package:android/network/art_item/get_art_item_output.dart';
+import 'package:android/network/art_item/get_art_item_service.dart';
+
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/pages.dart';
 import 'package:android/widgets/feed_container.dart';
@@ -164,7 +171,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
+                          circleAvatarBuilder(
+                              userAccountInfo.profile_picture_id, 20.0),
                           Column(
                             children: [
                               Text(
@@ -323,7 +331,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-                      if (userAccountInfo.name == null && currentUser.email == userAccountInfo.email) ...[
+                      if (userAccountInfo.name == null &&
+                          currentUser.email == userAccountInfo.email) ...[
                         Container(
                           height: 25.0,
                           child: LinearPercentIndicator(
@@ -352,8 +361,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       name: userAccountInfo.name,
                                       surname: userAccountInfo.surname,
                                       country: userAccountInfo.country,
-                                      dateOfBirth: userAccountInfo.date_of_birth,
-                                      profilePictureId: userAccountInfo.profile_picture_id,
+                                      dateOfBirth:
+                                          userAccountInfo.date_of_birth,
+                                      profilePictureId:
+                                          userAccountInfo.profile_picture_id,
                                     ),
                                   ),
                                 );
@@ -471,7 +482,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
+                                                  circleAvatarBuilder(
+                                                      userAccountInfo
+                                                          .profile_picture_id,
+                                                      20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
@@ -479,19 +493,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                                               .start,
                                                       children: [
                                                         SizedBox(
-                                                          width: MediaQuery.of(context).size.width - 160,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              160,
                                                           child: Text(
-                                                            selected_items[index]
+                                                            selected_items[
+                                                                    index]
                                                                 .postInfo
                                                                 .name,
                                                             style:
-                                                            const TextStyle(
+                                                                const TextStyle(
                                                               fontSize: 16.0,
                                                               fontWeight:
-                                                              FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                             ),
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ),
                                                         const SizedBox(
@@ -536,13 +557,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ),
                                                   const SizedBox(width: 5.0),
                                                   SizedBox(
-                                                    width: MediaQuery.of(context).size.width - 160,
-                                                    child: Text(selected_items[index]
-                                                        .location !=
-                                                        null
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            160,
+                                                    child: Text(selected_items[
+                                                                    index]
+                                                                .location !=
+                                                            null
                                                         ? selected_items[index]
-                                                        .location
-                                                        ?.address
+                                                            .location
+                                                            ?.address
                                                         : "Online"),
                                                   ),
                                                 ],
@@ -556,9 +582,53 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      EventPage(
-                                                    id: selected_items[index]
-                                                        .id,
+                                                      FutureBuilder(
+                                                    future: getEventNetwork(
+                                                        selected_items[index]
+                                                            .id),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      switch (snapshot
+                                                          .connectionState) {
+                                                        case ConnectionState
+                                                            .none:
+                                                        case ConnectionState
+                                                            .waiting:
+                                                          return const CircularProgressIndicator();
+                                                        default:
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return EventPage(
+                                                                event: null);
+                                                          }
+
+                                                          if (snapshot.data !=
+                                                              null) {
+                                                            GetEventOutput
+                                                                responseData =
+                                                                snapshot.data!;
+                                                            if (responseData
+                                                                    .status !=
+                                                                "OK") {
+                                                              return EventPage(
+                                                                  event: null);
+                                                            }
+                                                            Event currentEvent =
+                                                                responseData
+                                                                    .event!;
+                                                            currentEvent
+                                                                .updateStatus(user
+                                                                    .username);
+                                                            return EventPage(
+                                                                event:
+                                                                    currentEvent);
+                                                          } else {
+                                                            // snapshot.data == null
+                                                            return EventPage(
+                                                                event: null);
+                                                          }
+                                                      }
+                                                    },
                                                   ),
                                                 ),
                                               );
@@ -582,7 +652,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(userAccountInfo.profile_picture_id, 20.0),
+                                                  circleAvatarBuilder(
+                                                      userAccountInfo
+                                                          .profile_picture_id,
+                                                      20.0),
                                                   const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
@@ -590,19 +663,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                                               .start,
                                                       children: [
                                                         SizedBox(
-                                                          width: MediaQuery.of(context).size.width - 160,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              160,
                                                           child: Text(
-                                                            selected_items[index]
+                                                            selected_items[
+                                                                    index]
                                                                 .postInfo
                                                                 .name,
                                                             style:
-                                                            const TextStyle(
+                                                                const TextStyle(
                                                               fontSize: 16.0,
                                                               fontWeight:
-                                                              FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                             ),
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ),
                                                         const SizedBox(
@@ -660,9 +740,60 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ArtItemPage(
-                                                    id: selected_items[index]
-                                                        .id,
+                                                      FutureBuilder(
+                                                    future: getArtItemNetwork(
+                                                        selected_items[index]
+                                                            .id),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      switch (snapshot
+                                                          .connectionState) {
+                                                        case ConnectionState
+                                                            .none:
+                                                        case ConnectionState
+                                                            .waiting:
+                                                          return const CircularProgressIndicator();
+                                                        default:
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return ArtItemPage(
+                                                              artItem: null,
+                                                            );
+                                                          }
+
+                                                          if (snapshot.data !=
+                                                              null) {
+                                                            GetArtItemOutput
+                                                                responseData =
+                                                                snapshot.data!;
+                                                            if (responseData
+                                                                    .status !=
+                                                                "OK") {
+                                                              return ArtItemPage(
+                                                                artItem: null,
+                                                              );
+                                                            }
+                                                            ArtItem
+                                                                currentArtItem =
+                                                                responseData
+                                                                    .artItem!;
+                                                            if (user != null) {
+                                                              currentArtItem
+                                                                  .updateStatus(
+                                                                      user.username);
+                                                            }
+                                                            return ArtItemPage(
+                                                              artItem:
+                                                                  currentArtItem,
+                                                            );
+                                                          } else {
+                                                            // snapshot.data == null
+                                                            return ArtItemPage(
+                                                              artItem: null,
+                                                            );
+                                                          }
+                                                      }
+                                                    },
                                                   ),
                                                 ),
                                               );
