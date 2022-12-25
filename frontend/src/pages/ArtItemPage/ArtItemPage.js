@@ -74,7 +74,7 @@ function ArtItemPage() {
             text="Description "
             variant="h5"
           />
-          <AnnotatableText text={artitem.description}/>
+          <AnnotatableText id={id}>{artitem.description}</AnnotatableText>
         </ Grid>
         <Grid item xs={12} sm={4}>
 

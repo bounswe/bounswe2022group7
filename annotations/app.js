@@ -1,4 +1,3 @@
-import mongo from 'koa-mongo'
 import Koa from 'koa'
 import Router from '@koa/router'
 import { koaBody } from 'koa-body'
@@ -33,7 +32,7 @@ const client = new MongoClient(
 await client.connect()
     .then(client => {
         // Establish and verify connection
-        client.db(db_name).command({ ping: 1 })
+        client.db(process.env.MONGO_DB).command({ ping: 1 })
     })
     .catch(err => console.error(err.message))
 
@@ -84,8 +83,12 @@ router.post('/annotations', koaBody(), async ctx => {
             })
             .catch(err => console.error(err.message))
     })
-    .get('/annotations/:imageId', async ctx => {
-        ctx.body = await findOperations({ id: { $regex: `^${ctx.params.imageId}` } });
+    .get('/annotations/:id', async ctx => {
+        if (ctx.params.id.startsWith('c')) {
+            ctx.body = await findOperations({ id: { $regex: `^c${ctx.params.id}` } })
+        } else {
+        ctx.body = await findOperations({ id: { $regex: `^${ctx.params.id}` } })
+        }
     })
 
 app.use(router.routes())

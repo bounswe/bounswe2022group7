@@ -49,9 +49,6 @@ const theme = createTheme({
 })
 
 function App() {
-
-  const r = new Recogito({ content: document.getElementById("root") });
-
   return (
     <div>
       <AuthProvider>
