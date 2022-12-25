@@ -117,7 +117,7 @@ export default function FeedCard(props) {
                                     {props.creator.username}
                                 </Typography>
                             </Link>
-                            {(token && !followStatus) && <LoadingButton dataTestId="followButton" onClick={() => followRequest()} loading={false} label="Follow" loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />}
+                            {token && <LoadingButton disabled={followStatus} dataTestId="followButton" onClick={() => followRequest()} loading={false} label={followStatus ? "following" : "follow"} loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />}
                         </Stack>
                         <Stack spacing={2} direction="row" justifyContent="end" alignItems="center">
                             {(token) && <IconButton data-testid="bookmarkButton" onClick={handleBookmark} color="secondary"> {bookmarked ? <BookmarkIcon data-testid="bookmarked" /> : <BookmarkBorderOutlinedIcon data-testid="notBookmarked" />}</IconButton>}
