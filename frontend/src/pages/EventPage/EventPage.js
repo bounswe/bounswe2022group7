@@ -16,6 +16,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import LabelIcon from '@mui/icons-material/Label';
 import CategoryIcon from '@mui/icons-material/Category';
 import RuleIcon from '@mui/icons-material/Rule';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 function EventPage() {
   
@@ -124,6 +125,13 @@ function EventPage() {
             {event.rules}
           </>
           }
+
+          <IconWithText
+            icon = {<GroupsIcon/>}
+            text="All collaborators:"
+            variant="h6"
+          />
+          {event.collaboratorAccountInfos.map((info) => <UserCard data={info}/>)}
         </ Grid>
 
         
