@@ -10,6 +10,7 @@ import IconWithText from "../../components/IconWithText"
 import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import MapComponent from "../../components/MapComponent"
+import ImageCollection from "./ImageCollection"
 
 import PersonIcon from '@mui/icons-material/Person';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -138,31 +139,42 @@ function EventPage() {
       </ Grid>  
 
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-      
-      <IconWithText
-        text="Address"
-        variant="h5"
-      />
-      <br/>
 
       { event.location && // render locaiton iff there is one. (physical event)
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={8}>
-          <MapComponent
-            position={{
-              lat:event.location.latitude, 
-              lng:event.location.longitude
-            }}
-            eventTitle={event.eventInfo.title}
-          />
-        </Grid>
 
-        <Grid item xs={12} sm={4}>
-          <Typography variant="body1">{event.location.address}</Typography>
-        </Grid>        
-      </Grid>
+      <>
+        <IconWithText
+          text="Address"
+          variant="h5"
+        />
+        
+        <br/>
+
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={8}>
+            <MapComponent
+              position={{
+                lat:event.location.latitude, 
+                lng:event.location.longitude
+              }}
+              eventTitle={event.eventInfo.title}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={4}>
+            <Typography variant="body1">{event.location.address}</Typography>
+          </Grid>        
+        </Grid>
+      </>
       }
 
+      { event.artItemList && // render images iff there are any (online event)
+      <>
+        
+        <ImageCollection artItemList={event.artItemList}/>
+        <br/>
+      </>
+      }
       <CommentSection
         contentId={id}
         commentList={event.commentList}
