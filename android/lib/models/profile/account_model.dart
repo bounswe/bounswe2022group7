@@ -12,22 +12,23 @@ import 'package:android/network/event/get_event_service.dart';
 Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
   List<Event> event_list = [];
   List<ArtItem> art_item_list = [];
-  if (json["hostedEvents"] != null && !json["hostedEvents"].isEmpty) {
-    for (int i = 0; i < json["hostedEvents"].length; i++) {
+  if (json["hostedEventIds"] != null && !json["hostedEventIds"].isEmpty) {
+    for (int i = 0; i < json["hostedEventIds"].length; i++) {
       int id;
       try {
-        id = json["hostedEvents"][i]["id"];
+        id = json["hostedEventIds"][i]["id"];
       } catch (err) {
-        id = json["hostedEvents"][i];
+        id = json["hostedEventIds"][i];
       }
+
       GetEventOutput eo = await getEventNetworkWithIndex(id, i);
       Event ev = eo.event!;
       event_list.add(ev);
     }
   }
+
   if (json["artItems"] != null && !json["artItems"].isEmpty) {
     for (int i = 0; i < json["artItems"].length; i++) {
-      // print(json["artItems"][i]["commentList"]);
       ArtItem ai;
       if (json["artItems"][i] is int) {
         GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);
