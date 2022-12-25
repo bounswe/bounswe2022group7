@@ -114,12 +114,16 @@ function EventPage() {
           />
           {event.eventInfo.category.join(", ")}
 
-          <IconWithText
-            icon = {<RuleIcon/>}
-            text="Rules:"
-            variant="h5"
-          />
-          {event.rules}
+          {event.rules && // render rules if there are any
+          <>
+            <IconWithText
+              icon = {<RuleIcon/>}
+              text="Rules:"
+              variant="h5"
+            />
+            {event.rules}
+          </>
+          }
         </ Grid>
 
         
@@ -133,6 +137,7 @@ function EventPage() {
       />
       <br/>
 
+      { event.location && // render locaiton iff there is one. (physical event)
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
           <MapComponent
@@ -146,10 +151,10 @@ function EventPage() {
 
         <Grid item xs={12} sm={4}>
           <Typography variant="body1">{event.location.address}</Typography>
-        </Grid>
-
-        
+        </Grid>        
       </Grid>
+      }
+
       <CommentSection
         contentId={id}
         commentList={event.commentList}
