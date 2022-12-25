@@ -10,14 +10,14 @@ function InteractiveIcon(props) {
   const {state, stateToIconMap, onClick, text, clickDisabled} = props
 
   if (clickDisabled) {
-    return <div>
+    return <div style={{display: "table-cell", marginLeft:2}}>
       {stateToIconMap(state)}
       {text}
     </div>
   }
 
   return (
-    <div onClick={onClick} style={{cursor: "pointer"}}>
+    <div onClick={onClick} style={{cursor: "pointer", display: "table-cell", paddingLeft:10 }}>
       {stateToIconMap(state)}
       {text}
     </div>

@@ -30,14 +30,14 @@ function CommentVote(props) {
   
 
   const upVoteStateIconMap = (state) => {
-    if (state.voteStatus == 1) {      
+    if (state?.voteStatus == 1) {      
       return <ThumbUpIcon/>
     }
     return <ThumbUpOutlinedIcon/>
   }
 
   const downVoteStateIconMap = (state) => {
-    if (state.voteStatus == -1) {
+    if (state?.voteStatus == -1) {
       return <ThumbDownIcon/>  
     }
     return <ThumbDownOutlinedIcon/>
@@ -109,7 +109,7 @@ function CommentVote(props) {
   }
 
   return (
-    <div>
+    <div display="tableRow">
       <InteractiveIcon
         state = {state}
         onClick = {onUpVoteClick}
