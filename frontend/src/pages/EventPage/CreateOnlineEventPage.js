@@ -175,7 +175,6 @@ function CreatePhysicalEventForm() {
             Art Items
           </Typography>
 
-          // let user select from the list of their items
           <Select
             multiple
             label="Art Items"
