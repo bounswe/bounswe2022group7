@@ -9,8 +9,6 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 
 function CommentVote(props) {
   const {upVotedUsernames, downVotedUsernames, commentId} = props;
-  let upVoteCount = upVotedUsernames.length
-  let downVoteCount = downVotedUsernames.length
 
   const {userData, token} = useAuth();
   const username = userData?.accountInfo.username
@@ -28,7 +26,7 @@ function CommentVote(props) {
     upVoteCount: upVotedUsernames.length,
     downVoteCount: downVotedUsernames.length
   })}, [initialState] )
-  console.log(initialState, state, upVoteCount, downVoteCount)
+  console.log(initialState, state)
   
 
   const upVoteStateIconMap = (state) => {
@@ -60,27 +58,52 @@ function CommentVote(props) {
     })
   }
 
+  // could have written on upvote and on downvote
+  // functions as one function. Not doing it for
+  // the sake of readability.
   const onUpVoteClick = (e) => {
-    if (state == 1) {
-      upVoteCount -= 1
-      makeVoteRequest(1)
-      setState(0)
-    } else {
-      upVoteCount += 1
-      makeVoteRequest(1)
-      setState(1)
+    makeVoteRequest(1)
+    if (state.voteStatus == -1) {
+      setState({
+        voteStatus:1,
+        upVoteCount:state.upVoteCount+1,
+        downVoteCount:state.downVoteCount-1,
+      })
+    } else if (state.voteStatus == 0) {
+      setState({
+        voteStatus:1,
+        upVoteCount:state.upVoteCount+1,
+        downVoteCount:state.downVoteCount,
+      })
+    } else { // status == 1
+      setState({
+        voteStatus:0,
+        upVoteCount:state.upVoteCount-1,
+        downVoteCount:state.downVoteCount,
+      })
     }
   }
 
   const onDownVoteClick = (e) => {
-    if (state == -1) {
-      downVoteCount -= 1
-      makeVoteRequest(1)
-      setState(0)
-    } else {
-      downVoteCount += 1
-      makeVoteRequest(-1)
-      setState(-1)
+    makeVoteRequest(-1)
+    if (state.voteStatus == -1) {
+      setState({
+        voteStatus:0,
+        upVoteCount:state.upVoteCount,
+        downVoteCount:state.downVoteCount-1,
+      })
+    } else if (state.voteStatus == 0) {
+      setState({
+        voteStatus:-1,
+        upVoteCount:state.upVoteCount,
+        downVoteCount:state.downVoteCount+1,
+      })
+    } else { // status == 1
+      setState({
+        voteStatus:-1,
+        upVoteCount:state.upVoteCount-1,
+        downVoteCount:state.downVoteCount+1,
+      })
     }
 
   }
@@ -91,14 +114,14 @@ function CommentVote(props) {
         state = {state}
         onClick = {onUpVoteClick}
         stateToIconMap = {upVoteStateIconMap}
-        text = {"Number of upvotes: " + upVoteCount}
+        text = {state?.upVoteCount}
         clickDisabled = {userData == null}
       />
       <InteractiveIcon
         state = {state}
         onClick = {onDownVoteClick}
         stateToIconMap = {downVoteStateIconMap}
-        text = {"Number of downvotes:" + downVoteCount}
+        text = {state?.downVoteCount}
         clickDisabled = {userData == null}
       />
     </div>
