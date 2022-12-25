@@ -69,6 +69,7 @@ const HomePage = () => {
         }
     };
 
+    // Checks if the user is following the creator of the art item
     const followStatus = (username) => {
         if (userData === null) {
             return true;
@@ -81,6 +82,23 @@ const HomePage = () => {
         }
     };
 
+    // Checks if art item is liked by the user
+    const artLikeStatus = (id) => {
+        if (userData === null) {
+            return false;
+        }
+        return userData.likedArtItemIds.includes(id);
+    };
+
+    // Checks if event is participated by the user
+    const eventParticipateStatus = (id) => {
+        if (userData === null) {
+            return false;
+        }
+        return userData.participatedEventIds.includes(id);
+    };
+
+    // Updates the follow status of the user
     const followUpdate = (username) => {
 
         if (userData === null) {
@@ -97,7 +115,7 @@ const HomePage = () => {
         setDisplayContent(updatedContent);
     };
 
-
+    // Loads all items from the database
     useEffect(() => {
         const fetchArgs = {
             method: "GET",
@@ -130,6 +148,9 @@ const HomePage = () => {
                             description: item.description,
                             imageId: item.imageId,
                             creationDate: item.creationDate,
+                            commentCount: item.commentList.length,
+                            liked: artLikeStatus(item.id),
+                            likeCount: item.likedByUsernames.length,
                         }
                     }
                 });
@@ -160,6 +181,9 @@ const HomePage = () => {
                             description: item.eventInfo.description,
                             imageId: item.eventInfo.posterId,
                             creationDate: item.creationDate,
+                            participated: eventParticipateStatus(item.id),
+                            participantCount: item.participantUsernames.length,
+                            commentCount: item.commentList.length,
                         }
                     }
                 });
@@ -188,6 +212,9 @@ const HomePage = () => {
                             title: item.title,
                             description: item.textBody,
                             creationDate: item.creationDate,
+                            commentCount: item.commentList.length,
+                            voteCount: item.upVotedUsernames.length - item.downVotedUsernames.length,
+                            voteStatus: userData && (item.upVotedUsernames.includes(userData.accountInfo.username) ? 1 : item.downVotedUsernames.includes(userData.accountInfo.username) ? -1 : 0)
                         }
                     }
 

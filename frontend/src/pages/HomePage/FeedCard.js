@@ -1,25 +1,25 @@
+import React from 'react';
+
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ShareIcon from '@mui/icons-material/Share';
-import WarningIcon from '@mui/icons-material/Warning';
+
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-
-import React, { lazy, Suspense } from 'react';
-
-import { Link } from 'react-router-dom';
+import ShareIcon from '@mui/icons-material/Share';
+import WarningIcon from '@mui/icons-material/Warning';
 
 import { useAuth } from '../../auth/useAuth';
+import { Link } from 'react-router-dom';
 
 import UserAvatar from "../../components/UserAvatar";
 import CustomizableDropdownMenu from "../../components/CustomizableDropdownMenu";
 import LoadingButton from "../../components/LoadingButton";
-import { CircularProgress, IconButton } from '@mui/material';
-
-const ImageDisplay = lazy(() => import('../../components/ImageDisplay'));
+import ArtItemPreview from '../../components/ArtItemPreview';
+import EventPreview from '../../components/EventPreview';
+import DiscussionPostPreview from '../../components/DiscussionPostPreview';
 
 // TODO: Implement menu items
 let menuContent = [
@@ -48,7 +48,6 @@ export default function FeedCard(props) {
 
     React.useEffect(() => {
         setFollowStatus(props.creator.followed);
-        console.log(props.creator)
     }, [props.creator.followed])
 
     React.useEffect(() => {
@@ -76,7 +75,6 @@ export default function FeedCard(props) {
     }
 
     function handleBookmark() {
-        // TODO: Implement bookmarking
         var endpoint = "";
 
         if (props.content.type === "artitem") {
@@ -133,37 +131,18 @@ export default function FeedCard(props) {
                         <Typography variant="body1" gutterBottom sx={{ fontSize: 14 }}>
                             Posted a new <strong>{props.content.type === "artitem" ? "art item" : (props.content.type === "event" ? "event" : "discussion")} </strong> on {date}.
                         </Typography>
-                        <Link to={"/" + props.content.type + "/" + props.content.id} style={{ width: '100%', textDecoration: 'none', color: "black" }}>
 
-                            <Box sx={{ p: 2, width: "100%", border: 1, borderColor: "divider" }}>
-                                <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start">
-                                    {props.content.type !== "discussionPost" ?
-                                        <>
-                                            <Typography variant="title" gutterBottom sx={{ fontWeight: 700, fontSize: 18 }}>
-                                                {props.content.title}
-                                            </Typography>
-                                            <Typography variant="body1" gutterBottom sx={{ fontSize: 16 }}>
-                                                {props.content.description}
-                                            </Typography>
-                                            <Suspense fallback={<div><CircularProgress /></div>}>
-                                                <ImageDisplay data-testid="imageDisplay" imageId={props.content.imageId} />
-                                            </Suspense>
-                                        </> :
-                                        <Box position="relative" width='100%'>
-                                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start" sx={{ display: 'relative', width: '90%' }} >
-                                                <Typography variant="title" sx={{ fontWeight: 700, fontSize: 18 }}>
-                                                    {props.content.title}
-                                                </Typography>
-                                                <Typography variant="body1" gutterBottom sx={{ fontSize: 16 }}>
-                                                    {props.content.description}
-                                                </Typography>
-                                            </Stack>
-                                            <ArrowForwardIosIcon sx={{ color: 'gray', position: 'absolute', top: '50%', right: 0, transform: 'translate(0, -50%)' }} />
-                                        </Box>
-                                    }
-                                </Stack>
-                            </Box>
-                        </Link>
+                        <Box sx={{ p: 2, width: "100%", border: 1, borderColor: "divider" }}>
+                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start">
+                                {props.content.type === "artitem" ?
+                                    <ArtItemPreview content={props.content} /> :
+                                    props.content.type === "event" ?
+                                        <EventPreview content={props.content} />
+                                        :
+                                        <DiscussionPostPreview content={props.content} />
+                                }
+                            </Stack>
+                        </Box>
                     </Stack>
                 </Grid>
             </Grid>
