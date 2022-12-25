@@ -27,16 +27,7 @@ const client = new MongoClient(
     }
 )
 
-
-// Connect the client to the server (optional starting in v4.7)
-await client.connect()
-    .then(client => {
-        // Establish and verify connection
-        client.db(process.env.MONGO_DB).command({ ping: 1 })
-    })
-    .catch(err => console.error(err.message))
-
-let annotations = client.db(process.env.MONGO_DB).collection('annotations')
+const annotations = client.db(process.env.MONGO_DB).collection('annotations')
 
 app.use(bodyParser({
     extendTypes: {
@@ -48,47 +39,41 @@ const findOperations = async (query = null) =>
     annotations.find(query).toArray()
 
 router.post('/annotations', koaBody(), async ctx => {
-    annotations.insertOne(ctx.request.body)
-        .then(result => {
-            ctx.body = { id: ctx.request.body.id }
-            ctx.set(
-                'Content-Type',
-                'application/ld+json; charset=utf-8; profile=http://www.w3.org/ns/anno.jsonld'
-            )
-            ctx.set('ETag', `W/${result.insertedId}`)
-        })
+    const result = await annotations.insertOne(ctx.request.body)
         .catch(err => console.error(err.message))
+
+    ctx.body = { id: ctx.request.body.id }
+    ctx.set(
+        'Content-Type',
+        'application/ld+json; charset=utf-8; profile=http://www.w3.org/ns/anno.jsonld'
+    )
+    ctx.set('ETag', `W/${result.insertedId}`)
+
 })
     .get('/annotations', async ctx => {
         ctx.body = await findOperations()
     })
     .put('/annotations', koaBody(), async ctx => {
-        annotations.updateOne(
-            {
-                _id: ObjectId(ctx.request.body._id)
-            },
+        const result = await annotations.updateOne(
+            { $where: `this.id.startsWith('${ctx.params.id}')` },
             {
                 $set: {
                     body: ctx.request.body.body
                 }
-            }).then(result => {
-                ctx.body = result.modifiedCount
             })
             .catch(err => console.error(err.message))
+
+        ctx.body = result.modifiedCount
+
     })
     .del('/annotations', async ctx => {
-        annotations.deleteOne({ _id: ObjectId(ctx.request.body._id) })
-            .then(result => {
-                ctx.body = result.deletedCount
-            })
+        const result = await annotations.deleteOne({ $where: `this.id.startsWith('${ctx.params.id}')` })
             .catch(err => console.error(err.message))
+
+        ctx.body = result.deletedCount
     })
     .get('/annotations/:id', async ctx => {
-        if (ctx.params.id.startsWith('c')) {
-            ctx.body = await findOperations({ id: { $regex: `^c${ctx.params.id}` } })
-        } else {
-        ctx.body = await findOperations({ id: { $regex: `^${ctx.params.id}` } })
-        }
+        ctx.body = await findOperations({ $where: `this.id.startsWith('${ctx.params.id}')` })
     })
 
 app.use(router.routes())

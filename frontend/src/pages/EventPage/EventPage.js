@@ -81,7 +81,7 @@ function EventPage() {
             text="Description"
             variant="h5"
           />
-          <AnnotatableText text={event.eventInfo.description}/>
+          <AnnotatableText id={id}>{event.eventInfo.description}</AnnotatableText>
         </ Grid>
         <Grid item xs={12} sm={4}>
 
