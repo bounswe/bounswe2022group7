@@ -1,9 +1,6 @@
 import 'package:android/models/comment/comment_model.dart';
 import 'package:android/models/models.dart';
 
-// imported to use dummy data for now
-import 'package:android/data/data.dart';
-
 class Event extends Post {
   final EventInfo eventInfo;
   final String eventType;
@@ -14,8 +11,10 @@ class Event extends Post {
   final Location? location;
   final String? rules;
   final List<User>? attendees;
-  final List<User>? bookmarkedBy;
+  final List<String>? bookmarkedBy;
   final List<int>? artItemList;
+  int participationStatus;
+  int bookmarkStatus;
 
   Event({
     required int id,
@@ -31,7 +30,9 @@ class Event extends Post {
     this.attendees,
     this.bookmarkedBy,
     this.artItemList,
-  }) : super(
+  })  : participationStatus = 0,
+        bookmarkStatus = 0,
+        super(
           type: "Event",
           id: id,
           creatorAccountInfo: creatorAccountInfo,
@@ -66,10 +67,36 @@ class Event extends Post {
       location: location,
       rules: json['rules'],
       attendees: [],
-      bookmarkedBy: [],
+      bookmarkedBy: json['bookmarkedByUsernames'] != null
+          ? List<String>.from(json['bookmarkedByUsernames'])
+          : [],
       artItemList: json["artItemList"] != null
           ? List<int>.from(json["artItemList"])
           : [],
     );
+  }
+
+  void updateStatus(String? username) {
+    int statusParticipation = 0;
+    int statusBookmark = 0;
+
+    if (username != null) {
+      if (participants != null) {
+        for (var participant in participants!) {
+          if (participant == username) {
+            statusParticipation = 1;
+          }
+        }
+      }
+      if (bookmarkedBy != null) {
+        for (var marker in bookmarkedBy!) {
+          if (marker == username) {
+            statusBookmark = 1;
+          }
+        }
+      }
+    }
+    participationStatus = statusParticipation;
+    bookmarkStatus = statusBookmark;
   }
 }

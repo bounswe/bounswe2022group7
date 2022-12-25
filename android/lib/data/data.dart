@@ -120,7 +120,7 @@ final List<Event> events = [
       ),
       rules: 'No rules',
       attendees: [],
-      bookmarkedBy: [mehmet]),
+      bookmarkedBy: ["mehmet"]),
   Event(
       id: 2,
       eventType: "physical",
@@ -155,7 +155,7 @@ final List<Event> events = [
       ),
       rules: 'No rules',
       attendees: [],
-      bookmarkedBy: [mehmet, ahmet]),
+      bookmarkedBy: ["mehmet", "ahmet"]),
 ];
 
 const String defaultbase64 =

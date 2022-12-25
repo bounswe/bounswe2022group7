@@ -1,7 +1,11 @@
 import 'dart:convert';
 
+import 'package:android/network/event/get_event_output.dart';
+import 'package:android/network/event/get_event_service.dart';
+
 import 'package:android/network/art_item/get_art_item_output.dart';
 import 'package:android/network/art_item/get_art_item_service.dart';
+
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/pages.dart';
 import 'package:android/widgets/feed_container.dart';
@@ -36,7 +40,7 @@ class Item {
   bool operator ==(Object other) => other is Item && other.name == name;
 }
 
-const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
+const dropdown_items = ["Events", "Art Items", "Auctions"];
 var dropdown_selection = ValueNotifier<String>("Events");
 final followButtonText = ValueNotifier<String>("Follow");
 
@@ -44,7 +48,6 @@ String? profileUsername;
 var post_lists = {
   "Events": [],
   "Art Items": [],
-  "Comments": [],
   "Auctions": [],
 };
 var selected_items = [];
@@ -170,13 +173,26 @@ class _ProfilePageState extends State<ProfilePage> {
                               userAccountInfo.profile_picture_id, 20.0),
                           Column(
                             children: [
+                              Row(children: [
+                                Text(
+                                  fullname,
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                  textScaleFactor: 1.25,
+                                ),
+                                if (userAccount.is_verified) ...[
+                                  const Icon(
+                                    Icons.verified,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ],
+                              ]),
                               Text(
-                                fullname,
-                                style: Theme.of(context).textTheme.subtitle1,
+                                "@${userAccountInfo.username}",
+                                style: Theme.of(context).textTheme.subtitle2,
                                 textScaleFactor: 1.25,
                               ),
                               Text(
-                                "@${userAccountInfo.username}",
+                                "Level: ${userAccount.level}",
                                 style: Theme.of(context).textTheme.subtitle2,
                                 textScaleFactor: 1.25,
                               ),
@@ -477,11 +493,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(
-                                                      userAccountInfo
-                                                          .profile_picture_id,
-                                                      20.0),
-                                                  const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -539,7 +550,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ),
                                                   const SizedBox(width: 5.0),
                                                   Text(
-                                                    "${selected_items[index].eventInfo.startingDate.toString().substring(0, 16)} - ${selected_items[index].eventInfo.endingDate.toString().substring(0, 16)}",
+                                                    "${selected_items[index].eventInfo.startingDate.toString().substring(0, 11)} - ${selected_items[index].eventInfo.endingDate.toString().substring(0, 11)}",
                                                   ),
                                                 ],
                                               ),
@@ -571,15 +582,72 @@ class _ProfilePageState extends State<ProfilePage> {
                                             ],
                                           ),
                                           const Spacer(),
+                                          Container(
+                                            height: 60,
+                                            width: 60,
+                                            child: imageBuilderWithSizeToFit(
+                                                selected_items[index]
+                                                    .postInfo
+                                                    .imageId,
+                                                60,
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height),
+                                          ),
+                                          const Spacer(),
                                           IconButton(
                                             onPressed: () {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      EventPage(
-                                                    id: selected_items[index]
-                                                        .id,
+                                                      FutureBuilder(
+                                                    future: getEventNetwork(
+                                                        selected_items[index]
+                                                            .id),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      switch (snapshot
+                                                          .connectionState) {
+                                                        case ConnectionState
+                                                            .none:
+                                                        case ConnectionState
+                                                            .waiting:
+                                                          return const CircularProgressIndicator();
+                                                        default:
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return EventPage(
+                                                                event: null);
+                                                          }
+
+                                                          if (snapshot.data !=
+                                                              null) {
+                                                            GetEventOutput
+                                                                responseData =
+                                                                snapshot.data!;
+                                                            if (responseData
+                                                                    .status !=
+                                                                "OK") {
+                                                              return EventPage(
+                                                                  event: null);
+                                                            }
+                                                            Event currentEvent =
+                                                                responseData
+                                                                    .event!;
+                                                            currentEvent
+                                                                .updateStatus(user
+                                                                    .username);
+                                                            return EventPage(
+                                                                event:
+                                                                    currentEvent);
+                                                          } else {
+                                                            // snapshot.data == null
+                                                            return EventPage(
+                                                                event: null);
+                                                          }
+                                                      }
+                                                    },
                                                   ),
                                                 ),
                                               );
@@ -603,11 +671,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(
-                                                      userAccountInfo
-                                                          .profile_picture_id,
-                                                      20.0),
-                                                  const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -683,6 +746,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 ],
                                               )
                                             ],
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            height: 60,
+                                            width: 60,
+                                            child: imageBuilderWithSizeToFit(
+                                                selected_items[index]
+                                                    .postInfo
+                                                    .imageId,
+                                                60,
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height),
                                           ),
                                           const Spacer(),
                                           IconButton(

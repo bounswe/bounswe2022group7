@@ -1,5 +1,10 @@
+
+import 'package:android/network/event/get_event_output.dart';
+import 'package:android/network/event/get_event_service.dart';
+
 import 'package:android/network/art_item/get_art_item_output.dart';
 import 'package:android/network/art_item/get_art_item_service.dart';
+
 import 'package:android/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:android/models/models.dart';
@@ -23,7 +28,36 @@ class Post {
 
   Widget pageRoute() {
     if (type == "Event") {
-      return EventPage(id: id);
+      return FutureBuilder(
+        future: getEventNetwork(id),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return const CircularProgressIndicator();
+            default:
+              if (snapshot.hasError) {
+                return EventPage(event: null);
+              }
+
+              if (snapshot.data != null) {
+                GetEventOutput responseData = snapshot.data!;
+                if (responseData.status != "OK") {
+                  return EventPage(event: null);
+                }
+                Event currentEvent = responseData.event!;
+                CurrentUser? user = Provider.of<UserProvider>(context).user;
+                if (user != null) {
+                  currentEvent.updateStatus(user.username);
+                }
+                return EventPage(event: currentEvent);
+              } else {
+                // snapshot.data == null
+                return EventPage(event: null);
+              }
+          }
+        },
+      );
     } else {
       return FutureBuilder(
         future: getArtItemNetwork(id),
