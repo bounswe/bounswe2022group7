@@ -1,7 +1,12 @@
 import 'dart:convert';
 
+
+import 'package:android/network/event/get_event_output.dart';
+import 'package:android/network/event/get_event_service.dart';
+
 import 'package:android/network/art_item/get_art_item_output.dart';
 import 'package:android/network/art_item/get_art_item_service.dart';
+
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:android/pages/pages.dart';
 import 'package:android/widgets/feed_container.dart';
@@ -577,9 +582,53 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      EventPage(
-                                                    id: selected_items[index]
-                                                        .id,
+                                                      FutureBuilder(
+                                                    future: getEventNetwork(
+                                                        selected_items[index]
+                                                            .id),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      switch (snapshot
+                                                          .connectionState) {
+                                                        case ConnectionState
+                                                            .none:
+                                                        case ConnectionState
+                                                            .waiting:
+                                                          return const CircularProgressIndicator();
+                                                        default:
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return EventPage(
+                                                                event: null);
+                                                          }
+
+                                                          if (snapshot.data !=
+                                                              null) {
+                                                            GetEventOutput
+                                                                responseData =
+                                                                snapshot.data!;
+                                                            if (responseData
+                                                                    .status !=
+                                                                "OK") {
+                                                              return EventPage(
+                                                                  event: null);
+                                                            }
+                                                            Event currentEvent =
+                                                                responseData
+                                                                    .event!;
+                                                            currentEvent
+                                                                .updateStatus(user
+                                                                    .username);
+                                                            return EventPage(
+                                                                event:
+                                                                    currentEvent);
+                                                          } else {
+                                                            // snapshot.data == null
+                                                            return EventPage(
+                                                                event: null);
+                                                          }
+                                                      }
+                                                    },
                                                   ),
                                                 ),
                                               );

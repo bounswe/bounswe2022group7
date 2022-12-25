@@ -38,7 +38,6 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
       art_item_list.add(ai!);
     }
   }
-
   Account account = Account(
     account_info: AccountInfo.fromJson(json['accountInfo']),
     id: json["id"],
