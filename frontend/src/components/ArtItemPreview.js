@@ -44,9 +44,11 @@ export default function ArtItemPreview(props) {
                         setLikeCount(likeCount + 1);
                     }
                     setLikeStatus(!likeStatus);
+                } else {
+                    props.onResponse("error", "Error liking art item");
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => props.onResponse("error", error));
     }
 
     return (

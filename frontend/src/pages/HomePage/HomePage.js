@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
 
-import { CircularProgress, Typography } from '@mui/material';
-
+import Alert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
 import { useAuth } from "../../auth/useAuth"
 import GenericCardLayout from '../../layouts/GenericCardLayout';
 import FeedCard from './FeedCard';
@@ -12,6 +15,13 @@ const HomePage = () => {
     const [error, setError] = React.useState(null)
     const [userData, setUserData] = React.useState(null)
     const [displayContent, setDisplayContent] = React.useState([]);
+
+    const [snackbar, setSnackbar] = React.useState({
+        open: false,
+        message: "",
+        severity: "success",
+        handleClose: () => { setSnackbar({ ...snackbar, open: false }) }
+    });
 
     const [artContent, setArtContent] = React.useState({ content: [], loaded: false });
     const [eventContent, setEventContent] = React.useState({ content: [], loaded: false });
@@ -41,6 +51,7 @@ const HomePage = () => {
     }, [token])
 
 
+    // Filter function to filter out the content that is not selected
     function handleFilter(event) {
         switch (event.target.textContent) {
             case "Art Items":
@@ -57,6 +68,7 @@ const HomePage = () => {
         }
     }
 
+    // Checks if the art item is bookmarked by the user
     const bookmarkStatus = (type, id) => {
         if (userData === null) {
             return false;
@@ -254,6 +266,11 @@ const HomePage = () => {
     } else
         return (
             <GenericCardLayout maxWidth="md" customTopMargin={1}>
+                <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={snackbar.handleClose}>
+                    <Alert onClose={snackbar.handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
+                        {snackbar.message}
+                    </Alert>
+                </Snackbar>
                 <Typography variant="h4" component="h2" gutterBottom>
                     Feed
                 </Typography>
@@ -269,7 +286,21 @@ const HomePage = () => {
                 <Stack spacing={2} direction="column">
                     {displayContent.map((item, index) => {
                         return (
-                            <FeedCard followAction={() => followUpdate(item.creator.username)} key={index} filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)} content={item.content} creator={item.creator} />
+                            <FeedCard 
+                            followAction={() => followUpdate(item.creator.username)} 
+                            key={index} 
+                            filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)} 
+                            onResponse={(severity, message) => {
+                                setSnackbar({
+                                    ...snackbar,
+                                    open: true,
+                                    severity: severity,
+                                    message: message,
+                                })
+                            }}
+         
+                            content={item.content} 
+                            creator={item.creator} />
                         )
                     })}
                 </Stack>

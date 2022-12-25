@@ -67,11 +67,10 @@ export default function FeedCard(props) {
                     props.followAction();
                     setFollowStatus(!followStatus)
                 } else {
-                    console.log("Error");
+                    props.onResponse("error", "Couldn't complete follow request");
                 }
-
             })
-            .catch(error => console.log(error));
+            .catch(error => props.onResponse("error", error));
     }
 
     function handleBookmark() {
@@ -96,9 +95,11 @@ export default function FeedCard(props) {
             .then(response => {
                 if (response.ok) {
                     setBookmarked(!bookmarked);
+                } else {
+                    props.onResponse("error", "Couldn't complete bookmark request");
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => props.onResponse("error", error));
     }
 
     return (
@@ -135,11 +136,11 @@ export default function FeedCard(props) {
                         <Box sx={{ p: 2, width: "100%", border: 1, borderColor: "divider" }}>
                             <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start">
                                 {props.content.type === "artitem" ?
-                                    <ArtItemPreview content={props.content} /> :
+                                    <ArtItemPreview onResponse={(severity, message) => props.onResponse(severity, message)} content={props.content} /> :
                                     props.content.type === "event" ?
-                                        <EventPreview content={props.content} />
+                                        <EventPreview onResponse={(severity, message) => props.onResponse(severity, message)} content={props.content} />
                                         :
-                                        <DiscussionPostPreview content={props.content} />
+                                        <DiscussionPostPreview onResponse={(severity, message) => props.onResponse(severity, message)} content={props.content} />
                                 }
                             </Stack>
                         </Box>

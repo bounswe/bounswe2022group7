@@ -35,8 +35,11 @@ export default function EventPreview(props) {
                     setParticipantCount(participantStatus ? participantCount - 1 : participantCount + 1);
                     setParticipantStatus(!participantStatus);
                 }
+                else {
+                    props.onResponse("error", "Error participating in event");
+                }
             })
-            .catch(error => console.log(error));
+            .catch(error => props.onResponse("error", error));
     }
 
 

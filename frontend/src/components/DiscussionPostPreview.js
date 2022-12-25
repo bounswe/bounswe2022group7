@@ -44,16 +44,20 @@ export default function DiscussionPostPreview(props) {
             })
             .then(response => response.json())
             .then(data => {
-                if (data.upVotedUsernames.includes(userData.accountInfo.username)) {
-                    setLikeStatus(1);
-                    setLikeCount(likeCount + 1);
-                }
-                else {
-                    setLikeStatus(0);
-                    setLikeCount(likeCount - 1);
+                try {
+                    if (data.upVotedUsernames.includes(userData.accountInfo.username)) {
+                        setLikeStatus(1);
+                        setLikeCount(likeCount + 1);
+                    }
+                    else {
+                        setLikeStatus(0);
+                        setLikeCount(likeCount - 1);
+                    }
+                } catch (e) {
+                    props.onResponse("error", e);
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => props.onResponse("error", error));
     }
 
     function handleDownvote() {
@@ -70,16 +74,20 @@ export default function DiscussionPostPreview(props) {
             })
             .then(response => response.json())
             .then(data => {
-                if (data.downVotedUsernames.includes(userData.accountInfo.username)) {
-                    setLikeStatus(-1);
-                    setLikeCount(likeCount - 1);
-                }
-                else {
-                    setLikeStatus(0);
-                    setLikeCount(likeCount + 1);
+                try {
+                    if (data.downVotedUsernames.includes(userData.accountInfo.username)) {
+                        setLikeStatus(-1);
+                        setLikeCount(likeCount - 1);
+                    }
+                    else {
+                        setLikeStatus(0);
+                        setLikeCount(likeCount + 1);
+                    }
+                } catch (e) {
+                    props.onResponse("error", e);
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => props.onResponse("error", error));
     }
 
     return (
