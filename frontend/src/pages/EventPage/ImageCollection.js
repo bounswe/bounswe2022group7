@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 function ImageCollection(props) {
   const {artItemList} = props
-  console.log(artItemList)
   return (
     <div>
       <IconWithText
