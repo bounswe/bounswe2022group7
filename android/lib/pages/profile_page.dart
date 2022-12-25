@@ -493,11 +493,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(
-                                                      userAccountInfo
-                                                          .profile_picture_id,
-                                                      20.0),
-                                                  const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -676,11 +671,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(
-                                                      userAccountInfo
-                                                          .profile_picture_id,
-                                                      20.0),
-                                                  const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
