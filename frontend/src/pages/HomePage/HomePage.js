@@ -37,8 +37,7 @@ const HomePage = () => {
             .then(response => response.json())
             .then(data => {
                 setUserData(data);
-            }
-            )
+            })
     }, [token])
 
 
@@ -58,6 +57,45 @@ const HomePage = () => {
         }
     }
 
+    const bookmarkStatus = (type, id) => {
+        if (userData === null) {
+            return false;
+        }
+        if (type === "artitem") {
+            return userData ? userData.bookmarkedArtItemIds.includes(id) : false;
+        }
+        else if (type === "event") {
+            return userData ? userData.bookmarkedEventIds.includes(id) : false;
+        }
+    };
+
+    const followStatus = (username) => {
+        if (userData === null) {
+            return true;
+        }
+        if (userData.accountInfo.username === username) {
+            return true;
+        }
+        else {
+            return userData.followingUsernames.includes(username);
+        }
+    };
+
+    const followUpdate = (username) => {
+
+        if (userData === null) {
+            return;
+        }
+
+        const updatedContent = displayContent.map((item) => {
+            if (item.creator.username === username) {
+                item.creator.followed = true;
+            }
+            return item;
+        });
+
+        setDisplayContent(updatedContent);
+    };
 
 
     useEffect(() => {
@@ -81,10 +119,11 @@ const HomePage = () => {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
-                            followed: userData ? userData.following.includes(item.creatorAccountInfo.username) : false,
                             imageId: item.creatorAccountInfo.profilePictureId,
+                            followed: followStatus(item.creatorAccountInfo.username),
                         },
                         content: {
+                            bookmarked: bookmarkStatus("artitem", item.id),
                             type: "artitem",
                             id: item.id,
                             title: item.name,
@@ -94,7 +133,6 @@ const HomePage = () => {
                         }
                     }
                 });
-
                 setArtContent({ content: artItems, loaded: true });
             })
             .catch((error) => {
@@ -111,10 +149,11 @@ const HomePage = () => {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
-                            followed: userData ? userData.following.includes(item.creatorAccountInfo.username) : false,
                             imageId: item.creatorAccountInfo.profilePictureId,
+                            followed: followStatus(item.creatorAccountInfo.username),
                         },
                         content: {
+                            bookmarked: bookmarkStatus("event", item.id),
                             type: "event",
                             id: item.id,
                             title: item.eventInfo.title,
@@ -140,8 +179,8 @@ const HomePage = () => {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
-                            followed: userData ? userData.following.includes(item.creatorAccountInfo.username) : false,
                             imageId: item.creatorAccountInfo.profilePictureId,
+                            followed: followStatus(item.creatorAccountInfo.username),
                         },
                         content: {
                             type: "discussionPost",
@@ -161,9 +200,9 @@ const HomePage = () => {
                 setDiscussionContent({ content: [], loaded: true });
                 setError(error)
             })
-
-
     }, [token, userData])
+
+
 
     // Merge and sort the content
     React.useEffect(() => {
@@ -180,7 +219,11 @@ const HomePage = () => {
     if (error) {
         return <div>Error: {error.message}</div>
     } else if (!artContent.loaded || !eventContent.loaded || !discussionContent.loaded) {
-        return <div><CircularProgress /></div>
+        return (
+            <GenericCardLayout maxWidth="md" customTopMargin={1}>
+                <CircularProgress />
+            </GenericCardLayout>
+        );
     } else
         return (
             <GenericCardLayout maxWidth="md" customTopMargin={1}>
@@ -199,7 +242,7 @@ const HomePage = () => {
                 <Stack spacing={2} direction="column">
                     {displayContent.map((item, index) => {
                         return (
-                            <FeedCard key={index} filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)} content={item.content} creator={item.creator} />
+                            <FeedCard followAction={() => followUpdate(item.creator.username)} key={index} filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)} content={item.content} creator={item.creator} />
                         )
                     })}
                 </Stack>
@@ -207,4 +250,4 @@ const HomePage = () => {
         )
 }
 
-export default HomePage
+export default HomePage;

@@ -43,7 +43,17 @@ export default function FeedCard(props) {
 
     const { token } = useAuth();
 
-    const [followStatus, setFollowStatus] = React.useState(props.creator.followed);
+    const [followStatus, setFollowStatus] = React.useState(false);
+    const [bookmarked, setBookmarked] = React.useState(false);
+
+    React.useEffect(() => {
+        setFollowStatus(props.creator.followed);
+        console.log(props.creator)
+    }, [props.creator.followed])
+
+    React.useEffect(() => {
+        setBookmarked(props.content.bookmarked);
+    }, [props.content.bookmarked])
 
 
     function followRequest() {
@@ -53,17 +63,44 @@ export default function FeedCard(props) {
                     'Authorization': 'Bearer ' + token,
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                setFollowStatus(data.followed);
+            .then(response => {
+                if (response.status === 202) {
+                    props.followAction();
+                    setFollowStatus(!followStatus)
+                } else {
+                    console.log("Error");
+                }
+
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch(error => console.log(error));
     }
 
-    function setBookmarked() {
+    function handleBookmark() {
         // TODO: Implement bookmarking
+        var endpoint = "";
+
+        if (props.content.type === "artitem") {
+            endpoint = "art_item";
+        } else if (props.content.type === "event") {
+            endpoint = "event";
+        }
+        else {
+            return;
+        }
+
+
+        fetch('/api/' + endpoint + '/bookmark/' + props.content.id,
+            {
+                method: "POST", headers: {
+                    'Authorization': 'Bearer ' + token,
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    setBookmarked(!bookmarked);
+                }
+            })
+            .catch(error => console.log(error));
     }
 
     return (
@@ -85,7 +122,7 @@ export default function FeedCard(props) {
                             {(token && !followStatus) && <LoadingButton dataTestId="followButton" onClick={() => followRequest()} loading={false} label="Follow" loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />}
                         </Stack>
                         <Stack spacing={2} direction="row" justifyContent="end" alignItems="center">
-                            {(token) && <IconButton data-testid="bookmarkButton" onClick={setBookmarked} color="secondary"> {props.content.bookmarked ? <BookmarkIcon data-testid="bookmarked" /> : <BookmarkBorderOutlinedIcon data-testid="notBookmarked" />}</IconButton>}
+                            {(token) && <IconButton data-testid="bookmarkButton" onClick={handleBookmark} color="secondary"> {bookmarked ? <BookmarkIcon data-testid="bookmarked" /> : <BookmarkBorderOutlinedIcon data-testid="notBookmarked" />}</IconButton>}
                             <CustomizableDropdownMenu data-testid="menuButton" color="secondary" tooltip="More Actions" menuContent={menuContent} />
                         </Stack>
                     </Stack>
@@ -100,20 +137,20 @@ export default function FeedCard(props) {
 
                             <Box sx={{ p: 2, width: "100%", border: 1, borderColor: "divider" }}>
                                 <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start">
-                                    {props.content.type !== "discussionPost" ? 
-                                    <>
-                                        <Typography variant="title" gutterBottom sx={{ fontWeight: 700, fontSize: 18 }}>
-                                            {props.content.title}
-                                        </Typography>
-                                        <Typography variant="body1" gutterBottom sx={{ fontSize: 16 }}>
-                                            {props.content.description}
-                                        </Typography>
-                                        <Suspense fallback={<div><CircularProgress /></div>}>
-                                            <ImageDisplay data-testid="imageDisplay" imageId={props.content.imageId} />
-                                        </Suspense>
-                                    </> :
+                                    {props.content.type !== "discussionPost" ?
+                                        <>
+                                            <Typography variant="title" gutterBottom sx={{ fontWeight: 700, fontSize: 18 }}>
+                                                {props.content.title}
+                                            </Typography>
+                                            <Typography variant="body1" gutterBottom sx={{ fontSize: 16 }}>
+                                                {props.content.description}
+                                            </Typography>
+                                            <Suspense fallback={<div><CircularProgress /></div>}>
+                                                <ImageDisplay data-testid="imageDisplay" imageId={props.content.imageId} />
+                                            </Suspense>
+                                        </> :
                                         <Box position="relative" width='100%'>
-                                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start" sx={{ display: 'relative', width: '90%'}} >
+                                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start" sx={{ display: 'relative', width: '90%' }} >
                                                 <Typography variant="title" sx={{ fontWeight: 700, fontSize: 18 }}>
                                                     {props.content.title}
                                                 </Typography>
