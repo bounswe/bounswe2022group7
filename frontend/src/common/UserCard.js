@@ -72,6 +72,7 @@ function UserCard(props) {
         <CommentVote
           upVotedUsernames = {upVotedUsernames}
           downVotedUsernames = {downVotedUsernames}
+          commentId = {props.data.id}
         />
         }
         

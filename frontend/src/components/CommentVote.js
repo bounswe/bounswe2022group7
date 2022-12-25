@@ -8,20 +8,28 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 
 function CommentVote(props) {
-  const {upVotedUsernames, downVotedUsernames} = props;
+  const {upVotedUsernames, downVotedUsernames, commentId} = props;
   let upVoteCount = upVotedUsernames.length
   let downVoteCount = downVotedUsernames.length
 
-  const {userData} = useAuth();
+  const {userData, token} = useAuth();
   const username = userData?.accountInfo.username
 
   // set state
-  const [state, setState] = React.useState(0) // TODO decide on start state according to user status
+  let initialState = 0
   if (upVotedUsernames.includes(username)) {
-    setState(1)
+    initialState = 1
   } else if (downVotedUsernames.includes(username)) {
-    setState(-1)
+    initialState = -1
   }
+  const [state, setState] = React.useState(null) // TODO decide on start state according to user status
+  React.useEffect(() => { setState({
+    voteStatus: initialState,
+    upVoteCount: upVotedUsernames.length,
+    downVoteCount: downVotedUsernames.length
+  })}, [initialState] )
+  console.log(initialState, state, upVoteCount, downVoteCount)
+  
 
   const upVoteStateIconMap = (state) => {
     if (state == 1) {      
@@ -41,15 +49,25 @@ function CommentVote(props) {
   On click functions
   */
 
-  // const makeVoteRequest
+  const makeVoteRequest = (vote) => {
+    fetch("/api/comment/vote", {
+      method: "POST",
+      body: JSON.stringify({id: commentId, vote: vote}),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+    })
+  }
 
   const onUpVoteClick = (e) => {
-    console.log("clicked")
     if (state == 1) {
       upVoteCount -= 1
+      makeVoteRequest(1)
       setState(0)
     } else {
       upVoteCount += 1
+      makeVoteRequest(1)
       setState(1)
     }
   }
@@ -57,9 +75,11 @@ function CommentVote(props) {
   const onDownVoteClick = (e) => {
     if (state == -1) {
       downVoteCount -= 1
+      makeVoteRequest(1)
       setState(0)
     } else {
       downVoteCount += 1
+      makeVoteRequest(-1)
       setState(-1)
     }
 
