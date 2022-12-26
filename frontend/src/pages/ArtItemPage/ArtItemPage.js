@@ -11,6 +11,8 @@ import GenericCardLayout from "../../layouts/GenericCardLayout";
 import IconWithText from "../../components/IconWithText"
 import ImageDisplay from "../../components/ImageDisplay"
 import UserCard from "../../common/UserCard"
+import {ArtItemLike} from '../../components/ArtItemPreview';
+import LoadingButton from "../../components/LoadingButton"
 
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
@@ -111,6 +113,14 @@ function ArtItemPage(props) {
   }, [id, token])
 
   const { error, isLoaded, artitem } = state
+  const artLikeStatus = (id) => {
+    if (userData === null) {
+        return false;
+    }
+    return userData.likedArtItemIds.includes(id);
+  };
+
+
 
   if (error) {
     return <div>Error: {error.message}</div>
@@ -140,6 +150,13 @@ function ArtItemPage(props) {
       </Stack>
 
       <ImageDisplay imageId={artitem.imageId} />
+      
+      <ArtItemLike content={{
+        liked: artLikeStatus(artitem.id),
+        likeCount: artitem?.likedByUsernames?.length,
+        id: artitem.id,
+        commentCount: artitem?.commentList?.length,
+      }}/>
 
       <Grid container>
         <Grid item xs={12} sm={8}>
@@ -190,8 +207,26 @@ function ArtItemPage(props) {
           props.onResponse("success", "Report submitted");
           setReportOpen(false);
         }} />}
+      {artitem.ownerId == userData?.id &&
+        <div>
+          <br/>
+          As the owner user:
+          <br/>
+          <LoadingButton
+            label="Delete Art Item"
+            onClick={() => {
+              fetch("/api/art_item/" + artitem.id, {
+                method: "DELETE",
+                headers: {Authorization: "Bearer " + token}
+              }).then((response) => {window.location.href = "/"})
+            }}
+            type="submit"
+            variant="contained"
+            color="primary"
+          />
+        </div>
+      }
     </GenericCardLayout>
-
   )}
 }
 
