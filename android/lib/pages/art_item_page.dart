@@ -279,7 +279,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                           const SizedBox(height: 10.0),
                           currentArtItem!.artItemInfo.imageId != null
                               ? AnnotationBar(
-                                  imageId: currentArtItem!.artItemInfo.imageId!,
+                              editable: user != null,
+                              imageId: currentArtItem!.artItemInfo.imageId!,
                                   countNotifier: annotationCountNotifier,
                                   modeNotifier: annotationModeNotifier,
                                   annotationNotifier: annotationNotifier,

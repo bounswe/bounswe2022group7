@@ -4,6 +4,7 @@ import 'package:android/pages/image_annotation_page.dart';
 class AnnotationBar extends StatelessWidget {
   const AnnotationBar({
     Key? key,
+    required this.editable,
     required this.imageId,
     required this.countNotifier,
     required this.modeNotifier,
@@ -11,6 +12,7 @@ class AnnotationBar extends StatelessWidget {
     required this.annotationListNotifier,
   }) : super(key: key);
 
+  final bool editable;
   final int imageId;
   final ValueNotifier<int> countNotifier;
   final ValueNotifier<int> modeNotifier;
@@ -60,15 +62,17 @@ class AnnotationBar extends StatelessWidget {
               if (value == 0) {
                 return Row(
                   children: [
-                    IconButton(
-                        onPressed: () {
-                          modeNotifier.value = 2;
-                        },
-                        icon: const Icon(
-                          Icons.edit_outlined,
-                          color: Colors.black,
-                          size: 20.0,
-                        )),
+                    editable
+                        ? IconButton(
+                            onPressed: () {
+                              modeNotifier.value = 2;
+                            },
+                            icon: const Icon(
+                              Icons.edit_outlined,
+                              color: Colors.black,
+                              size: 20.0,
+                            ))
+                        : const SizedBox.shrink(),
                     IconButton(
                         onPressed: () {
                           modeNotifier.value = 1;
@@ -85,15 +89,17 @@ class AnnotationBar extends StatelessWidget {
               else if (value == 1) {
                 return Row(
                   children: [
-                    IconButton(
-                        onPressed: () {
-                          modeNotifier.value = 2;
-                        },
-                        icon: const Icon(
-                          Icons.edit_outlined,
-                          color: Colors.black,
-                          size: 20.0,
-                        )),
+                    editable
+                        ? IconButton(
+                            onPressed: () {
+                              modeNotifier.value = 2;
+                            },
+                            icon: const Icon(
+                              Icons.edit_outlined,
+                              color: Colors.black,
+                              size: 20.0,
+                            ))
+                        : const SizedBox.shrink(),
                     IconButton(
                         onPressed: () {
                           modeNotifier.value = 0;
