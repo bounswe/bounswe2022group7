@@ -1,25 +1,25 @@
+import React from 'react';
+
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ShareIcon from '@mui/icons-material/Share';
-import WarningIcon from '@mui/icons-material/Warning';
+
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-
-import React, { lazy, Suspense } from 'react';
-
-import { Link } from 'react-router-dom';
+import ShareIcon from '@mui/icons-material/Share';
+import WarningIcon from '@mui/icons-material/Warning';
 
 import { useAuth } from '../../auth/useAuth';
+import { Link } from 'react-router-dom';
 
 import UserAvatar from "../../components/UserAvatar";
 import CustomizableDropdownMenu from "../../components/CustomizableDropdownMenu";
 import LoadingButton from "../../components/LoadingButton";
-import { CircularProgress, IconButton } from '@mui/material';
-
-const ImageDisplay = lazy(() => import('../../components/ImageDisplay'));
+import ArtItemPreview from '../../components/ArtItemPreview';
+import EventPreview from '../../components/EventPreview';
+import DiscussionPostPreview from '../../components/DiscussionPostPreview';
 
 // TODO: Implement menu items
 let menuContent = [
@@ -43,7 +43,16 @@ export default function FeedCard(props) {
 
     const { token } = useAuth();
 
-    const [followStatus, setFollowStatus] = React.useState(props.creator.followed);
+    const [followStatus, setFollowStatus] = React.useState(false);
+    const [bookmarked, setBookmarked] = React.useState(false);
+
+    React.useEffect(() => {
+        setFollowStatus(props.creator.followed);
+    }, [props.creator.followed])
+
+    React.useEffect(() => {
+        setBookmarked(props.content.bookmarked);
+    }, [props.content.bookmarked])
 
 
     function followRequest() {
@@ -53,17 +62,44 @@ export default function FeedCard(props) {
                     'Authorization': 'Bearer ' + token,
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                setFollowStatus(data.followed);
+            .then(response => {
+                if (response.status === 202) {
+                    props.followAction();
+                    setFollowStatus(!followStatus)
+                } else {
+                    props.onResponse("error", "Couldn't complete follow request");
+                }
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch(error => props.onResponse("error", error));
     }
 
-    function setBookmarked() {
-        // TODO: Implement bookmarking
+    function handleBookmark() {
+        var endpoint = "";
+
+        if (props.content.type === "artitem") {
+            endpoint = "art_item";
+        } else if (props.content.type === "event") {
+            endpoint = "event";
+        }
+        else {
+            return;
+        }
+
+
+        fetch('/api/' + endpoint + '/bookmark/' + props.content.id,
+            {
+                method: "POST", headers: {
+                    'Authorization': 'Bearer ' + token,
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    setBookmarked(!bookmarked);
+                } else {
+                    props.onResponse("error", "Couldn't complete bookmark request");
+                }
+            })
+            .catch(error => props.onResponse("error", error));
     }
 
     return (
@@ -82,10 +118,10 @@ export default function FeedCard(props) {
                                     {props.creator.username}
                                 </Typography>
                             </Link>
-                            {(token && !followStatus) && <LoadingButton dataTestId="followButton" onClick={() => followRequest()} loading={false} label="Follow" loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />}
+                            {token && <LoadingButton disabled={followStatus} dataTestId="followButton" onClick={() => followRequest()} loading={false} label={followStatus ? "following" : "follow"} loadingText="Saving" variant="text" color="primary" size="small" sx={{ fontSize: 12, fontWeight: 600, borderRadius: '10%' }} />}
                         </Stack>
                         <Stack spacing={2} direction="row" justifyContent="end" alignItems="center">
-                            {(token) && <IconButton data-testid="bookmarkButton" onClick={setBookmarked} color="secondary"> {props.content.bookmarked ? <BookmarkIcon data-testid="bookmarked" /> : <BookmarkBorderOutlinedIcon data-testid="notBookmarked" />}</IconButton>}
+                            {(token) && <IconButton data-testid="bookmarkButton" onClick={handleBookmark} color="secondary"> {bookmarked ? <BookmarkIcon data-testid="bookmarked" /> : <BookmarkBorderOutlinedIcon data-testid="notBookmarked" />}</IconButton>}
                             <CustomizableDropdownMenu data-testid="menuButton" color="secondary" tooltip="More Actions" menuContent={menuContent} />
                         </Stack>
                     </Stack>
@@ -96,37 +132,18 @@ export default function FeedCard(props) {
                         <Typography variant="body1" gutterBottom sx={{ fontSize: 14 }}>
                             Posted a new <strong>{props.content.type === "artitem" ? "art item" : (props.content.type === "event" ? "event" : "discussion")} </strong> on {date}.
                         </Typography>
-                        <Link to={"/" + props.content.type + "/" + props.content.id} style={{ width: '100%', textDecoration: 'none', color: "black" }}>
 
-                            <Box sx={{ p: 2, width: "100%", border: 1, borderColor: "divider" }}>
-                                <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start">
-                                    {props.content.type !== "discussionPost" ? 
-                                    <>
-                                        <Typography variant="title" gutterBottom sx={{ fontWeight: 700, fontSize: 18 }}>
-                                            {props.content.title}
-                                        </Typography>
-                                        <Typography variant="body1" gutterBottom sx={{ fontSize: 16 }}>
-                                            {props.content.description}
-                                        </Typography>
-                                        <Suspense fallback={<div><CircularProgress /></div>}>
-                                            <ImageDisplay data-testid="imageDisplay" imageId={props.content.imageId} />
-                                        </Suspense>
-                                    </> :
-                                        <Box position="relative" width='100%'>
-                                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start" sx={{ display: 'relative', width: '90%'}} >
-                                                <Typography variant="title" sx={{ fontWeight: 700, fontSize: 18 }}>
-                                                    {props.content.title}
-                                                </Typography>
-                                                <Typography variant="body1" gutterBottom sx={{ fontSize: 16 }}>
-                                                    {props.content.description}
-                                                </Typography>
-                                            </Stack>
-                                            <ArrowForwardIosIcon sx={{ color: 'gray', position: 'absolute', top: '50%', right: 0, transform: 'translate(0, -50%)' }} />
-                                        </Box>
-                                    }
-                                </Stack>
-                            </Box>
-                        </Link>
+                        <Box sx={{ p: 2, width: "100%", border: 1, borderColor: "divider" }}>
+                            <Stack spacing={2} direction="column" justifyContent="center" alignItems="flex-start">
+                                {props.content.type === "artitem" ?
+                                    <ArtItemPreview onResponse={(severity, message) => props.onResponse(severity, message)} content={props.content} /> :
+                                    props.content.type === "event" ?
+                                        <EventPreview onResponse={(severity, message) => props.onResponse(severity, message)} content={props.content} />
+                                        :
+                                        <DiscussionPostPreview onResponse={(severity, message) => props.onResponse(severity, message)} content={props.content} />
+                                }
+                            </Stack>
+                        </Box>
                     </Stack>
                 </Grid>
             </Grid>
