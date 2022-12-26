@@ -77,22 +77,25 @@ class _ArtItemPageState extends State<ArtItemPage> {
         Positioned(
           top: annotation["y"] + annotation["height"],
           left: annotation["x"],
-          child: Container(
-            width: annotation["width"],
-            height: 12,
-            color: Colors.red,
-            child: Center(
-              child: Column(
-                children: [
-                  Text(
-                    annotation["text"],
-                    style: const TextStyle(color: Colors.white, fontSize: 8),
-                    overflow: TextOverflow.ellipsis,
+          child: annotation["text"] != null && annotation["text"] != ""
+              ? Container(
+                  width: annotation["width"],
+                  height: 12,
+                  color: Colors.red,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          annotation["text"],
+                          style:
+                              const TextStyle(color: Colors.white, fontSize: 8),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          ),
+                )
+              : Container(),
         ),
       );
     }
@@ -216,10 +219,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                                 child: TextField(
                                                   controller:
                                                       annotationTextController,
-                                                  onSubmitted: (txt) {
-                                                    annotation.value!["text"] =
-                                                        txt;
-                                                  },
                                                 ),
                                               ),
                                               actions: [
@@ -235,7 +234,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                                         .save();
                                                     annotation.value!["text"] =
                                                         annotationTextController
-                                                            .text;
+                                                            .text
+                                                            .trim();
                                                     if (annotation
                                                             .value!["text"] !=
                                                         "") {
@@ -304,6 +304,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
   }
 
   final reportController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     if (currentArtItem == null) {

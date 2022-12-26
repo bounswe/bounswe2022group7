@@ -123,7 +123,6 @@ class AnnotationBar extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           if (annotationNotifier.value != null) {
-                            annotationNotifier.value!["image"] = imageId;
                             annotationListNotifier.value
                                 .add(annotationNotifier.value!);
                             countNotifier.value++;
