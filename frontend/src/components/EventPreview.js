@@ -9,8 +9,7 @@ import { Link } from 'react-router-dom';
 const ImageDisplay = React.lazy(() => import('./ImageDisplay'));
 
 
-export default function EventPreview(props) {
-
+function EventParticipate(props) {
     const [participantStatus, setParticipantStatus] = React.useState("a");
     const [participantCount, setParticipantCount] = React.useState(props.content.participantCount || 0);
 
@@ -42,7 +41,17 @@ export default function EventPreview(props) {
             .catch(error => props.onResponse("error", error));
     }
 
+    return (
+        <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 2, width: '100%', color: 'grey' }}>
+            <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>{participantCount + " people participating"}</Typography>
+            {token && <Button color={participantStatus ? 'secondary' : 'inherit'} onClick={handleParticipate} sx={{ fontWeight: 600 }} variant="outlined">
+                {participantStatus ? "Participating" : "Participate"}
+            </Button>}
+        </Stack>
+    )
+}
 
+function EventPreview(props) {
 
     return (
         <Stack sx={{ width: '100%' }}>
@@ -60,13 +69,9 @@ export default function EventPreview(props) {
                 }
             </Link>
 
-            <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 2, width: '100%', color: 'grey' }}>
-                <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>{participantCount + " people participating"}</Typography>
-                {token && <Button color={participantStatus ? 'secondary' : 'inherit'} onClick={handleParticipate} sx={{ fontWeight: 600 }} variant="outlined">
-                    {participantStatus ? "Participating" : "Participate"}
-                </Button>}
-            </Stack>
+            <EventParticipate content={props.content}/>
         </Stack>
     );
-
 }
+
+export {EventParticipate, EventPreview}

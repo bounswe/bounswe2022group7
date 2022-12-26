@@ -11,9 +11,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 const ImageDisplay = React.lazy(() => import('./ImageDisplay'));
 
-
-export default function ArtItemPreview(props) {
-
+function ArtItemLike(props) {
     const [likeStatus, setLikeStatus] = React.useState(false);
     const [likeCount, setLikeCount] = React.useState(props.content.likeCount || 0);
 
@@ -52,6 +50,18 @@ export default function ArtItemPreview(props) {
     }
 
     return (
+        <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 2, width: '100%', color: 'grey' }}>
+            <Button color={likeStatus ? 'secondary' : 'inherit'} disabled={token ? false : true} onClick={handleLike} sx={{fontWeight: 600}} startIcon={likeStatus ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}>{likeStatus ? "liked | " + likeCount : "like | " + likeCount}</Button>
+            <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray'}}>{props.content.commentCount + ' comments'}</Typography>
+        </Stack>
+    )
+
+}
+
+function ArtItemPreview(props) {
+
+    
+    return (
         <Stack sx={{ width: '100%' }}>
             <Link to={"/" + props.content.type + "/" + props.content.id} style={{ width: '100%', textDecoration: 'none', color: "black" }}>
                 <Typography variant="title" gutterBottom sx={{ fontWeight: 700, fontSize: 18 }}>
@@ -65,11 +75,10 @@ export default function ArtItemPreview(props) {
                 </Suspense>
             </Link>
 
-            <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 2, width: '100%', color: 'grey' }}>
-                <Button color={likeStatus ? 'secondary' : 'inherit'} disabled={token ? false : true} onClick={handleLike} sx={{fontWeight: 600}} startIcon={likeStatus ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}>{likeStatus ? "liked | " + likeCount : "like | " + likeCount}</Button>
-                <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray'}}>{props.content.commentCount + ' comments'}</Typography>
-            </Stack>
+            <ArtItemLike content={props.content}/>
         </Stack>
     );
 
 }
+
+export {ArtItemLike, ArtItemPreview}
