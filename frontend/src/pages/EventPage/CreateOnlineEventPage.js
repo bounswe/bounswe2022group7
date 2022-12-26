@@ -2,7 +2,8 @@ import React, { useReducer } from "react";
 import { useAuth } from "../../auth/useAuth";
 
 import {TextField, Typography, Stack, Grid, OutlinedInput} from "@mui/material";
-// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import ImageUploader from '../../components/ImageUploader';
@@ -18,19 +19,16 @@ function CreatePhysicalEventForm() {
       title: "",
       description: "",
       category: [],
-      eventPrice: "",
+      eventPrice: 0,
       labels: [],
-      rules: "",
-      address: "",
       startTime: null,
       endTime: null,
-      collaborators: ""
+      collaborators: "",
+      artItemIds: []
     }
   );
   const [selectedImage, setSelectedImage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [position, setPosition] = React.useState({lat: 41, lng: 29});
-
 
   const formatFormInput = (posterId) => {
     return {
@@ -44,24 +42,19 @@ function CreatePhysicalEventForm() {
         labels: [formInput.labels],
         posterId: posterId
       },
-      location: {
-        latitude: position.lat,
-        longitude: position.lng,
-        address: formInput.address
-      },
-      rules: formInput.rules,
+      artItemIds: formInput.artItemIds,
       collaboratorUsernames: formInput.collaborators.split(",")
     }
   }
 
-  const { token } = useAuth()
+  const { token, userData } = useAuth()
 
   const handleSubmit = event => {
     event.preventDefault();
     setIsLoading(true)
     
     postRequestWithImage(
-      "/api/event/physical",
+      "/api/event/online",
       selectedImage,
       formatFormInput,
       (data) => "/event/"+data.id,
@@ -78,7 +71,7 @@ function CreatePhysicalEventForm() {
   return (
     <>
       <Typography variant="h5" component="h3">
-        New Physical Event
+        New Online Event
       </Typography>
 
       <form onSubmit={handleSubmit}>
@@ -131,21 +124,11 @@ function CreatePhysicalEventForm() {
             sx = {{marginY: 1}}
           />
           <TextField
-            required
             type="number"
-            id="outlined-required"
+            id="outlined"
             label="Event Price"
             name="eventPrice"
             defaultValue={formInput.eventPrice}
-            onChange={handleInput}
-            sx = {{marginY: 1}}
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Rules"
-            name="rules"
-            defaultValue={formInput.rules}
             onChange={handleInput}
             sx = {{marginY: 1}}
           />
@@ -189,23 +172,27 @@ function CreatePhysicalEventForm() {
           <br/>
 
           <Typography variant="h6" component="h3">
-            Location
+            Art Items
           </Typography>
 
-          <TextField
-            required
-            id="outlined-required"
-            label="Address"
-            name="address"
-            defaultValue={formInput.address}
-            onChange={handleInput}
-            sx = {{marginY: 1}}
-          />
+          <Select
+            multiple
+            label="Art Items"
+            name="artItemIds"
+            value={formInput.artItemIds}
+            onChange={handleInput} 
+          >
+            {userData?.artItems.map((artItem) =>
+              <MenuItem
+                key={artItem.id}
+                value={artItem.id}
+              >
+                {artItem.name}
+              </MenuItem>
+            )
 
-          <MapSelectComponent
-            position = {position}
-            setPosition = {setPosition}
-          />
+            }
+          </Select>
 
           <br/>
 

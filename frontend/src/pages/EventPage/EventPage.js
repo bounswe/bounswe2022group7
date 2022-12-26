@@ -10,12 +10,14 @@ import IconWithText from "../../components/IconWithText"
 import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import MapComponent from "../../components/MapComponent"
+import ImageCollection from "./ImageCollection"
 
 import PersonIcon from '@mui/icons-material/Person';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import LabelIcon from '@mui/icons-material/Label';
 import CategoryIcon from '@mui/icons-material/Category';
 import RuleIcon from '@mui/icons-material/Rule';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 function EventPage() {
   
@@ -67,7 +69,7 @@ function EventPage() {
         variant="h5"
         color={theme.palette.primary.main}
       >
-        Event:
+        {event.type == "online" ? "Online Event:": "Physical Event:"}
       </Typography>
       <Typography variant="h4">
         {event.eventInfo.title}
@@ -114,42 +116,65 @@ function EventPage() {
           />
           {event.eventInfo.category.join(", ")}
 
+          {event.rules && // render rules if there are any
+          <>
+            <IconWithText
+              icon = {<RuleIcon/>}
+              text="Rules:"
+              variant="h5"
+            />
+            {event.rules}
+          </>
+          }
+
           <IconWithText
-            icon = {<RuleIcon/>}
-            text="Rules:"
-            variant="h5"
+            icon = {<GroupsIcon/>}
+            text="All collaborators:"
+            variant="h6"
           />
-          {event.rules}
+          {event.collaboratorAccountInfos.map((info) => <UserCard data={info}/>)}
         </ Grid>
 
         
       </ Grid>  
 
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-      
-      <IconWithText
-        text="Address"
-        variant="h5"
-      />
-      <br/>
 
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={8}>
-          <MapComponent
-            position={{
-              lat:event.location.latitude, 
-              lng:event.location.longitude
-            }}
-            eventTitle={event.eventInfo.title}
-          />
-        </Grid>
+      { event.location && // render locaiton iff there is one. (physical event)
 
-        <Grid item xs={12} sm={4}>
-          <Typography variant="body1">{event.location.address}</Typography>
-        </Grid>
-
+      <>
+        <IconWithText
+          text="Address"
+          variant="h5"
+        />
         
-      </Grid>
+        <br/>
+
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={8}>
+            <MapComponent
+              position={{
+                lat:event.location.latitude, 
+                lng:event.location.longitude
+              }}
+              eventTitle={event.eventInfo.title}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={4}>
+            <Typography variant="body1">{event.location.address}</Typography>
+          </Grid>        
+        </Grid>
+      </>
+      }
+
+      { event.artItemList && // render images iff there are any (online event)
+      <>
+        
+        <ImageCollection artItemList={event.artItemList}/>
+        <br/>
+      </>
+      }
       <CommentSection
         contentId={id}
         commentList={event.commentList}
