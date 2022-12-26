@@ -34,6 +34,7 @@ function ImageComponent({ imageId, imageStyle }) {
 
             annotorious.on('createAnnotation', annotation => {
               annotation.id = imageId + '-' + annotation.id
+              annotation.target.source = "https://ideart.tk/api/image/" + imageId
               fetch('/annotations/',
                 {
                   method: 'POST',

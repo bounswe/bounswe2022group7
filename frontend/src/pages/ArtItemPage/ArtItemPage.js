@@ -112,13 +112,14 @@ function ArtItemPage(props) {
       )
   }, [id, token])
 
-  const { error, isLoaded, artitem } = state
   const artLikeStatus = (id) => {
     if (userData === null) {
         return false;
     }
     return userData.likedArtItemIds.includes(id);
   };
+
+  const { error, isLoaded, artitem } = state
 
 
 

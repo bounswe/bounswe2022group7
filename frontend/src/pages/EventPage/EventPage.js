@@ -12,6 +12,9 @@ import GenericCardLayout from "../../layouts/GenericCardLayout";
 import MapComponent from "../../components/MapComponent"
 import ImageCollection from "./ImageCollection"
 
+import {EventParticipate} from '../../components/EventPreview';
+import LoadingButton from "../../components/LoadingButton"
+
 import PersonIcon from '@mui/icons-material/Person';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import LabelIcon from '@mui/icons-material/Label';
@@ -30,7 +33,7 @@ function EventPage() {
   })
 
   const theme = useTheme();
-  const { token } = useAuth()
+  const { token, userData } = useAuth()
   
   useEffect(() => {
 
@@ -51,6 +54,13 @@ function EventPage() {
   }, [id, token])
 
   const {error, isLoaded, event} = state
+
+  const eventParticipateStatus = (id) => {
+    if (userData === null) {
+        return false;
+    }
+    return userData.participatedEventIds.includes(id);
+  };
 
   if (error) {
     return <div>Error: {error.message}</div>
@@ -75,7 +85,12 @@ function EventPage() {
         {event.eventInfo.title}
       </Typography>
     
-      <ImageDisplay imageId={event.eventInfo.posterId}/>          
+      <ImageDisplay imageId={event.eventInfo.posterId}/>   
+      <EventParticipate content={{
+        participated: eventParticipateStatus(event.id),
+        participantCount: event?.participantUsernames?.length,
+        id: event.id
+      }}/>       
 
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
@@ -154,8 +169,8 @@ function EventPage() {
           <Grid item xs={12} sm={8}>
             <MapComponent
               position={{
-                lat:event.location.latitude, 
-                lng:event.location.longitude
+                lat:event?.location?.latitude, 
+                lng:event?.location?.longitude
               }}
               eventTitle={event.eventInfo.title}
             />
@@ -179,6 +194,26 @@ function EventPage() {
         contentId={id}
         commentList={event.commentList}
       />
+
+      {event.creatorId == userData?.id &&
+        <div>
+          <br/>
+          As the owner user:
+          <br/>
+          <LoadingButton
+            label="Delete Event"
+            onClick={() => {
+              fetch("/api/event/" + event.id, {
+                method: "DELETE",
+                headers: {Authorization: "Bearer " + token}
+              }).then((response) => {window.location.href = "/"})
+            }}
+            type="submit"
+            variant="contained"
+            color="primary"
+          />
+        </div>
+      }
     </GenericCardLayout>
     
   )}

@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react'
 
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 import { useAuth } from "../../auth/useAuth"
 import GenericCardLayout from '../../layouts/GenericCardLayout';
 import FeedCard from './FeedCard';
 import FilterChip from '../../components/FilterChip';
 
-const HomePage = ({onResponse}) => {
+const HomePage = ({ onResponse }) => {
     const [error, setError] = React.useState(null)
     const [userData, setUserData] = React.useState(null)
     const [displayContent, setDisplayContent] = React.useState([]);
+    const [endpointType, setEndpointType] = React.useState(null);
 
     const [snackbar, setSnackbar] = React.useState({
         open: false,
@@ -34,8 +38,15 @@ const HomePage = ({onResponse}) => {
         discussionPost: true,
     })
 
-
     const { token } = useAuth()
+
+    useEffect(() => {
+        if (token === null) {
+            setEndpointType("generic");
+        } else {
+            setEndpointType("recommended");
+        }
+    }, [token])
 
     useEffect(() => {
         if (token) {
@@ -134,7 +145,8 @@ const HomePage = ({onResponse}) => {
         const fetchArgs = {
             method: "GET",
         }
-        if (token) fetchArgs.headers = { Authorization: "Bearer " + token }
+
+        if (token && endpointType === "recommended") fetchArgs.headers = { Authorization: "Bearer " + token }
 
         setArtContent({ content: [], loaded: false });
         setEventContent({ content: [], loaded: false });
@@ -240,7 +252,7 @@ const HomePage = ({onResponse}) => {
                 setDiscussionContent({ content: [], loaded: true });
                 setError(error)
             })
-    }, [token, userData])
+    }, [token, userData, endpointType])
 
 
 
@@ -257,18 +269,23 @@ const HomePage = ({onResponse}) => {
 
 
     if (error) {
-        return <div>Error: {error.message}</div>
-    } else if (!artContent.loaded || !eventContent.loaded || !discussionContent.loaded) {
-        return (
-            <GenericCardLayout maxWidth="md" customTopMargin={1}>
-                <CircularProgress />
-            </GenericCardLayout>
-        );
+        return <div>Error: {error.message}</div>;
     } else
         return (
             <GenericCardLayout maxWidth="md" customTopMargin={1}>
+                {token && <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    <Tabs value={endpointType} onChange={(event, newValue) => { setEndpointType(newValue) }} centered>
+                        <Tab sx={{ fontWeight: 600 }} label="Recommended" value="recommended" />
+                        <Tab sx={{ fontWeight: 600 }} label="All Posts" value="generic" />
+                    </Tabs>
+                </Box>}
+                <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={snackbar.handleClose}>
+                    <Alert onClose={snackbar.handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
+                        {snackbar.message}
+                    </Alert>
+                </Snackbar>
                 <Typography variant="h4" component="h2" gutterBottom>
-                    Feed
+                    {endpointType === "recommended" ? "Your Catalog" : "Explore"}
                 </Typography>
                 <Stack spacing={2} direction="row" justifyContent="flex-start" alignItems="center" sx={{ mb: 2, width: "100%" }}>
                     <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>
@@ -279,19 +296,21 @@ const HomePage = ({onResponse}) => {
                     <FilterChip label="Discussions" filterState={filter.discussionPost} onClick={(event) => handleFilter(event)} />
 
                 </Stack>
-                <Stack spacing={2} direction="column">
-                    {displayContent.map((item, index) => {
-                        return (
-                            <FeedCard
-                                followAction={() => followUpdate(item.creator.username)}
-                                key={index}
-                                filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)}
-                                onResponse={(severity, message) => onResponse(severity, message)}
-                                content={item.content}
-                                creator={item.creator} />
-                        )
-                    })}
-                </Stack>
+                {!artContent.loaded || !eventContent.loaded || !discussionContent.loaded ? <CircularProgress /> :
+                    <Stack spacing={2} direction="column">
+                        {displayContent.map((item, index) => {
+                            return (
+                                <FeedCard
+                                    followAction={() => followUpdate(item.creator.username)}
+                                    key={index}
+                                    filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)}
+                                    onResponse={(severity, message) => onResponse(severity, message)}
+                                    content={item.content}
+                                    creator={item.creator} />
+                            )
+                        })}
+                    </Stack>
+                }
             </GenericCardLayout>
         )
 }
