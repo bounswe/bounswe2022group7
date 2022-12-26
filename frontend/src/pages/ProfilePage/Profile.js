@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, ListItem } from '@mui/material';
 import { useParams } from "react-router-dom";
 import {useEffect,useState} from "react";
 import {useAuth} from "../../auth/useAuth";
@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import FeedCard from "../HomePage/FeedCard";
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -30,11 +31,17 @@ function Profile() {
     const [bookmarkedArtItems, setBookmarkedArtItems] = useState(null);
     const [participatedEvents, setParticipatedEvents] = useState(null);
     const [level, setLevel] = useState(null);
+    const [followingUsernames, setFollowingUsernames] = useState([]);
     const { token } = useAuth()
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+
+    // function handleOpen(){
+    //     setOpen(true);
+    //     console.log(followingUsernames,"den")
+    // }
 
     useEffect(() => {
         fetch(`/api/profile/${username}`, {
@@ -103,6 +110,20 @@ function Profile() {
                             })
                     })
 
+                    // data.followingUsernames.forEach((followingUsername) => {
+                    //     fetch(`/api/profile/${followingUsername}`, {
+                    //         method: "GET",
+                    //         headers: {
+                    //             "Authorization": `Bearer ${token}`
+                    //         }
+                    //     }).then((response) => response.json())
+                    //         .then((data) => {
+                    //             followingUsernames ? setFollowingUsernames([...followingUsernames, data]) : setFollowingUsernames([data])
+                    //             console.log(data.accountInfo.username)
+                    //         })
+                    // })
+                    
+                    setFollowingUsernames([data.followingUsernames])
                 }
             )
             .catch((error) => {
@@ -124,6 +145,9 @@ function Profile() {
                 <Box sx={style}>
                     <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
                         Following
+
+                        {followingUsernames}
+                        {followingUsernames && followingUsernames.map((item, i) => ( <ListItem text={item} /> ))} 
                     </Typography>
                     <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
                         <ul>
@@ -150,13 +174,12 @@ function Profile() {
                         <Card variant="outlined">
                             <>
                                 <CardContent>
-                                    <Typography variant="h5" component="div">
+                                    <Typography variant="h6" component="div">
                                        @{user.username}
                                     </Typography>
                                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                         {user.name}
                                     </Typography>
-
                                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                         user level: {level}
                                     </Typography>
@@ -176,7 +199,7 @@ function Profile() {
 
                                     </Grid>
                                     <Button color="info" onClick={handleOpen}>Following</Button>
-
+                                                                       
                                 </CardContent>
                             </>
                         </Card>
