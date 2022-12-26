@@ -231,19 +231,21 @@ class _EventPageState extends State<EventPage> {
                           const SizedBox(height: 10.0),
                           Row(
                             children: [
-                              const Text(
-                                'Collaborators: ',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
+                              currentEvent!.collaboratorAccountInfos != null
+                                  ? const Text(
+                                      'Collaborators: ',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    )
+                                  : const Text(""),
                               Text(
-                                currentEvent!.collaborators == null
+                                currentEvent!.collaboratorAccountInfos == null
                                     ? ""
-                                    : currentEvent!.collaborators!
-                                        .map((e) => e.name)
+                                    : currentEvent!.collaboratorAccountInfos!
+                                        .map((e) => e.username)
                                         .join(", "),
                                 style: const TextStyle(
                                   fontSize: 14.0,
