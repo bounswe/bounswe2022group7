@@ -11,6 +11,7 @@ import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import MapComponent from "../../components/MapComponent"
 import ImageCollection from "./ImageCollection"
+
 import {EventParticipate} from '../../components/EventPreview';
 import LoadingButton from "../../components/LoadingButton"
 
