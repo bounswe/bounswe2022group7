@@ -11,6 +11,7 @@ import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import MapComponent from "../../components/MapComponent"
 import ImageCollection from "./ImageCollection"
+import {EventParticipate} from '../../components/EventPreview';
 
 import PersonIcon from '@mui/icons-material/Person';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -30,7 +31,7 @@ function EventPage() {
   })
 
   const theme = useTheme();
-  const { token } = useAuth()
+  const { token, userData } = useAuth()
   
   useEffect(() => {
 
@@ -51,6 +52,13 @@ function EventPage() {
   }, [id, token])
 
   const {error, isLoaded, event} = state
+
+  const eventParticipateStatus = (id) => {
+    if (userData === null) {
+        return false;
+    }
+    return userData.participatedEventIds.includes(id);
+  };
 
   if (error) {
     return <div>Error: {error.message}</div>
@@ -75,7 +83,12 @@ function EventPage() {
         {event.eventInfo.title}
       </Typography>
     
-      <ImageDisplay imageId={event.eventInfo.posterId}/>          
+      <ImageDisplay imageId={event.eventInfo.posterId}/>   
+      <EventParticipate content={{
+        participated: eventParticipateStatus(event.id),
+        participantCount: event?.participantUsernames?.length,
+        id: event.id
+      }}/>       
 
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>

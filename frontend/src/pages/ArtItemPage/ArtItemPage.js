@@ -9,6 +9,7 @@ import IconWithText from "../../components/IconWithText"
 import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import AuctionDisplay from "./AuctionDisplay"
+import {ArtItemLike} from '../../components/ArtItemPreview';
 
 import BrushIcon from '@mui/icons-material/Brush';
 import LabelIcon from '@mui/icons-material/Label';
@@ -47,6 +48,13 @@ function ArtItemPage() {
       )
   }, [id, token])
 
+  const artLikeStatus = (id) => {
+    if (userData === null) {
+        return false;
+    }
+    return userData.likedArtItemIds.includes(id);
+  };
+
   const {error, isLoaded, artitem} = state
 
   if (error) {
@@ -67,6 +75,12 @@ function ArtItemPage() {
       </Typography>
 
       <ImageDisplay imageId={artitem.imageId}/>
+      <ArtItemLike content={{
+        liked: artLikeStatus(artitem.id),
+        likeCount: artitem?.likedByUsernames?.length,
+        id: artitem.id,
+        commentCount: artitem?.commentList?.length,
+      }}/>
 
       <Grid container>
         <Grid item xs={12} sm={8}>
