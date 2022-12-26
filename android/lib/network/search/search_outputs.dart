@@ -1,5 +1,10 @@
 import 'package:android/models/models.dart';
 
+Future<SearchUserOutput> searchuserOutputJsonConverter(Iterable json) async {
+  UserSearch us = await userSearchJsonConverter(json);
+  return SearchUserOutput(status: "OK", userSearch: us);
+}
+
 class SearchUserOutput {
   final String status;
   final UserSearch? userSearch;

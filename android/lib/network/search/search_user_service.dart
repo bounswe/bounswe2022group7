@@ -29,7 +29,7 @@ Future<SearchUserOutput> searchUserNetwork(String keys) async {
     }
 
     Iterable data = json.decode(response.body);
-    seo = SearchUserOutput.fromJson(data);
+    seo = await searchuserOutputJsonConverter(data);
   } catch (err) {
     print("error $err");
     return SearchUserOutput(status: err.toString());

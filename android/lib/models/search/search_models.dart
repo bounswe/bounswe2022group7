@@ -1,13 +1,26 @@
 import 'package:android/models/models.dart';
 
+Future<UserSearch> userSearchJsonConverter(Iterable json) async {
+  var user_list = <
+      Account>[]; //= await json.map((user) async => await accountJsonConverter(user)).toList();
+  for (var iter in json) {
+    Account acc = await accountJsonConverter(iter);
+    user_list.add(acc);
+  }
+  return UserSearch(
+    userList: user_list,
+  );
+}
+
 class UserSearch {
-  final List<User> userList;
+  final List<Account> userList;
 
   UserSearch({required this.userList});
 
   factory UserSearch.fromJson(Iterable listOfUsers) {
+    var user_list = listOfUsers.map((user) => Account.fromJson(user)).toList();
     return UserSearch(
-      userList: listOfUsers.map((user) => User.fromJson(user)).toList(),
+      userList: user_list,
     );
   }
 }
@@ -23,10 +36,6 @@ class EventSearch {
     );
   }
 }
-
-// class OnlineGallerySearch extends PhysicalExhibitonSearch {
-//   OnlineGallerySearch({required super.eventList});
-// }
 
 class DiscussionPostSearch {
   final List<Discussion> discussionList;

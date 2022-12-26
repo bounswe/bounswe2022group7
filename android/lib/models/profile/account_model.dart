@@ -75,9 +75,9 @@ class Account {
     List<Event> event_list = [];
     List<ArtItem> art_item_list = [];
 
-    if (!json["hostedEvents"].isEmpty) {
-      for (int i = 0; i < json["hostedEvents"].length; i++) {
-        Event ev = Event.fromJson(json["hostedEvents"][i]);
+    if (!json["hostedEventIds"].isEmpty) {
+      for (int i = 0; i < json["hostedEventIds"].length; i++) {
+        Event ev = Event.fromJson(json["hostedEventIds"][i]);
         event_list.add(ev);
       }
     }
