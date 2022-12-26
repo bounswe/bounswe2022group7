@@ -176,3 +176,17 @@ Widget imageBuilderWithSizeToFit(int? imageId, double width, double height) {
     },
   );
 }
+
+Future<Image?> getImageObjectWithSize(int imageId, double width) async {
+  GetImageOutput responseData = await getImageNetwork(imageId);
+  if (responseData.status != "OK") {
+    return null;
+  }
+  ImageModel currentImage = responseData.image!;
+  return Image.memory(
+    base64Decode(currentImage.base64String.contains("data:image")
+        ? currentImage.base64String.split(",").elementAt(1)
+        : currentImage.base64String),
+    width: width,
+  );
+}

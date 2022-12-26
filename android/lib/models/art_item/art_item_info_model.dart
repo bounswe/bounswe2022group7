@@ -22,11 +22,9 @@ class ArtItemInfo extends PostInfo {
         );
 
   factory ArtItemInfo.fromJson(Map<String, dynamic> json) {
-    print("name: ${json['name']}");
     Map<String, dynamic> jsont = json;
-    if(json['name'] == null) {
+    if (json['name'] == null) {
       jsont = json['artItemInfo'];
-      log("art item info log ${json.toString()}");
     }
     ArtItemInfo info = ArtItemInfo(
       id: jsont['id'] ?? 8,
@@ -39,7 +37,6 @@ class ArtItemInfo extends PostInfo {
           List<String>.from(jsont['labels'].map((label) => label.toString())),
     );
 
-    print("art item return success");
     return info;
   }
 }

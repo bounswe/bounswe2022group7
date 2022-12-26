@@ -45,6 +45,8 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
     is_verified: json['isVerified'],
     level: json['level'],
     xp: json['xp'],
+    followedByUsernames: List<String>.from(
+        json["followedByUsernames"].map((username) => username.toString())),
     all_events: event_list,
     all_art_items: art_item_list,
   );
@@ -58,6 +60,7 @@ class Account {
   final bool is_verified;
   final int level;
   final double xp;
+  final List<String> followedByUsernames;
   List<Event> all_events;
   List<ArtItem> all_art_items;
 
@@ -67,6 +70,7 @@ class Account {
     required this.is_verified,
     required this.level,
     required this.xp,
+    required this.followedByUsernames,
     required this.all_events,
     required this.all_art_items,
   });
@@ -75,9 +79,9 @@ class Account {
     List<Event> event_list = [];
     List<ArtItem> art_item_list = [];
 
-    if (!json["hostedEvents"].isEmpty) {
-      for (int i = 0; i < json["hostedEvents"].length; i++) {
-        Event ev = Event.fromJson(json["hostedEvents"][i]);
+    if (!json["hostedEventIds"].isEmpty) {
+      for (int i = 0; i < json["hostedEventIds"].length; i++) {
+        Event ev = Event.fromJson(json["hostedEventIds"][i]);
         event_list.add(ev);
       }
     }
@@ -96,6 +100,8 @@ class Account {
       is_verified: json['isVerified'],
       level: json['level'],
       xp: json['xp'],
+      followedByUsernames: List<String>.from(
+          json["followedByUsernames"].map((username) => username.toString())),
       all_events: event_list,
       all_art_items: art_item_list,
     );

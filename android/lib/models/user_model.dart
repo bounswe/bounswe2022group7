@@ -47,6 +47,7 @@ class User {
 
 /// User that is using the application has an extra token attribute that will be used for API calls
 class CurrentUser {
+  int? id;
   final String token;
   final String email;
   String? username;
@@ -55,6 +56,7 @@ class CurrentUser {
     required this.token,
     required this.email,
     this.username,
+    this.id,
   });
 
   // Functions below are used to convert user to string and vice versa
@@ -66,6 +68,7 @@ class CurrentUser {
       token: parsedJson["token"],
       email: parsedJson["email"],
       username: parsedJson["username"],
+      id: parsedJson["id"],
     );
   }
 
@@ -74,6 +77,7 @@ class CurrentUser {
       "token": token,
       "email": email,
       "username": username,
+      "id": id,
     };
   }
 }

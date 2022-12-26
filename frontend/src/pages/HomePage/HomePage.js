@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react'
 
-import { CircularProgress, Typography } from '@mui/material';
-
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
 import { useAuth } from "../../auth/useAuth"
 import GenericCardLayout from '../../layouts/GenericCardLayout';
 import FeedCard from './FeedCard';
@@ -12,6 +18,14 @@ const HomePage = () => {
     const [error, setError] = React.useState(null)
     const [userData, setUserData] = React.useState(null)
     const [displayContent, setDisplayContent] = React.useState([]);
+    const [endpointType, setEndpointType] = React.useState(null);
+
+    const [snackbar, setSnackbar] = React.useState({
+        open: false,
+        message: "",
+        severity: "success",
+        handleClose: () => { setSnackbar({ ...snackbar, open: false }) }
+    });
 
     const [artContent, setArtContent] = React.useState({ content: [], loaded: false });
     const [eventContent, setEventContent] = React.useState({ content: [], loaded: false });
@@ -24,8 +38,15 @@ const HomePage = () => {
         discussionPost: true,
     })
 
-
     const { token } = useAuth()
+
+    useEffect(() => {
+        if (token === null) {
+            setEndpointType("generic");
+        } else {
+            setEndpointType("recommended");
+        }
+    }, [token])
 
     useEffect(() => {
         fetch("/api/profile", {
@@ -37,11 +58,11 @@ const HomePage = () => {
             .then(response => response.json())
             .then(data => {
                 setUserData(data);
-            }
-            )
+            })
     }, [token])
 
 
+    // Filter function to filter out the content that is not selected
     function handleFilter(event) {
         switch (event.target.textContent) {
             case "Art Items":
@@ -58,13 +79,72 @@ const HomePage = () => {
         }
     }
 
+    // Checks if the art item is bookmarked by the user
+    const bookmarkStatus = (type, id) => {
+        if (userData === null) {
+            return false;
+        }
+        if (type === "artitem") {
+            return userData ? userData.bookmarkedArtItemIds.includes(id) : false;
+        }
+        else if (type === "event") {
+            return userData ? userData.bookmarkedEventIds.includes(id) : false;
+        }
+    };
 
+    // Checks if the user is following the creator of the art item
+    const followStatus = (username) => {
+        if (userData === null) {
+            return true;
+        }
+        if (userData.accountInfo.username === username) {
+            return true;
+        }
+        else {
+            return userData.followingUsernames.includes(username);
+        }
+    };
 
+    // Checks if art item is liked by the user
+    const artLikeStatus = (id) => {
+        if (userData === null) {
+            return false;
+        }
+        return userData.likedArtItemIds.includes(id);
+    };
+
+    // Checks if event is participated by the user
+    const eventParticipateStatus = (id) => {
+        if (userData === null) {
+            return false;
+        }
+        return userData.participatedEventIds.includes(id);
+    };
+
+    // Updates the follow status of the user
+    const followUpdate = (username) => {
+
+        if (userData === null) {
+            return;
+        }
+
+        const updatedContent = displayContent.map((item) => {
+            if (item.creator.username === username) {
+                item.creator.followed = true;
+            }
+            return item;
+        });
+
+        setDisplayContent(updatedContent);
+    };
+
+    // Loads all items from the database
     useEffect(() => {
         const fetchArgs = {
             method: "GET",
         }
-        if (token) fetchArgs.headers = { Authorization: "Bearer " + token }
+
+        if (token && endpointType === "recommended") fetchArgs.headers = { Authorization: "Bearer " + token }
 
         setArtContent({ content: [], loaded: false });
         setEventContent({ content: [], loaded: false });
@@ -81,20 +161,23 @@ const HomePage = () => {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
-                            followed: userData ? userData.following.includes(item.creatorAccountInfo.username) : false,
                             imageId: item.creatorAccountInfo.profilePictureId,
+                            followed: followStatus(item.creatorAccountInfo.username),
                         },
                         content: {
+                            bookmarked: bookmarkStatus("artitem", item.id),
                             type: "artitem",
                             id: item.id,
                             title: item.name,
                             description: item.description,
                             imageId: item.imageId,
                             creationDate: item.creationDate,
+                            commentCount: item.commentList.length,
+                            liked: artLikeStatus(item.id),
+                            likeCount: item.likedByUsernames.length,
                         }
                     }
                 });
-
                 setArtContent({ content: artItems, loaded: true });
             })
             .catch((error) => {
@@ -111,16 +194,20 @@ const HomePage = () => {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
-                            followed: userData ? userData.following.includes(item.creatorAccountInfo.username) : false,
                             imageId: item.creatorAccountInfo.profilePictureId,
+                            followed: followStatus(item.creatorAccountInfo.username),
                         },
                         content: {
+                            bookmarked: bookmarkStatus("event", item.id),
                             type: "event",
                             id: item.id,
                             title: item.eventInfo.title,
                             description: item.eventInfo.description,
                             imageId: item.eventInfo.posterId,
                             creationDate: item.creationDate,
+                            participated: eventParticipateStatus(item.id),
+                            participantCount: item.participantUsernames.length,
+                            commentCount: item.commentList.length,
                         }
                     }
                 });
@@ -140,8 +227,8 @@ const HomePage = () => {
                         creator: {
                             id: item.creatorAccountInfo.id,
                             username: item.creatorAccountInfo.username,
-                            followed: userData ? userData.following.includes(item.creatorAccountInfo.username) : false,
                             imageId: item.creatorAccountInfo.profilePictureId,
+                            followed: followStatus(item.creatorAccountInfo.username),
                         },
                         content: {
                             type: "discussionPost",
@@ -149,6 +236,9 @@ const HomePage = () => {
                             title: item.title,
                             description: item.textBody,
                             creationDate: item.creationDate,
+                            commentCount: item.commentList.length,
+                            voteCount: item.upVotedUsernames.length - item.downVotedUsernames.length,
+                            voteStatus: userData && (item.upVotedUsernames.includes(userData.accountInfo.username) ? 1 : item.downVotedUsernames.includes(userData.accountInfo.username) ? -1 : 0)
                         }
                     }
 
@@ -161,9 +251,9 @@ const HomePage = () => {
                 setDiscussionContent({ content: [], loaded: true });
                 setError(error)
             })
+    }, [token, userData, endpointType])
 
 
-    }, [token, userData])
 
     // Merge and sort the content
     React.useEffect(() => {
@@ -178,33 +268,61 @@ const HomePage = () => {
 
 
     if (error) {
-        return <div>Error: {error.message}</div>
-    } else if (!artContent.loaded || !eventContent.loaded || !discussionContent.loaded) {
-        return <div><CircularProgress /></div>
+        return <div>Error: {error.message}</div>;
     } else
         return (
-            <GenericCardLayout maxWidth="md" customTopMargin={1}>
-                <Typography variant="h4" component="h2" gutterBottom>
-                    Feed
-                </Typography>
-                <Stack spacing={2} direction="row" justifyContent="flex-start" alignItems="center" sx={{ mb: 2, width: "100%" }}>
-                    <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>
-                        Filters:
+            <>
+                <GenericCardLayout maxWidth="md" customTopMargin={1}>
+                    {token && <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                        <Tabs  value={endpointType} onChange={(event, newValue) => { setEndpointType(newValue) }} centered>
+                            <Tab sx={{fontWeight: 600}} label="Recommended" value="recommended" />
+                            <Tab sx={{fontWeight: 600}} label="All Posts" value="generic" />
+                        </Tabs>
+                    </Box>}
+                    <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={snackbar.handleClose}>
+                        <Alert onClose={snackbar.handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
+                            {snackbar.message}
+                        </Alert>
+                    </Snackbar>
+                    <Typography variant="h4" component="h2" gutterBottom>
+                        {endpointType === "recommended" ? "Your Catalog" : "Explore"}
                     </Typography>
-                    <FilterChip label="Art Items" filterState={filter.artitem} onClick={(event) => handleFilter(event)} />
-                    <FilterChip label="Events" filterState={filter.event} onClick={(event) => handleFilter(event)} />
-                    <FilterChip label="Discussions" filterState={filter.discussionPost} onClick={(event) => handleFilter(event)} />
+                    <Stack spacing={2} direction="row" justifyContent="flex-start" alignItems="center" sx={{ mb: 2, width: "100%" }}>
+                        <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>
+                            Filters:
+                        </Typography>
+                        <FilterChip label="Art Items" filterState={filter.artitem} onClick={(event) => handleFilter(event)} />
+                        <FilterChip label="Events" filterState={filter.event} onClick={(event) => handleFilter(event)} />
+                        <FilterChip label="Discussions" filterState={filter.discussionPost} onClick={(event) => handleFilter(event)} />
 
-                </Stack>
-                <Stack spacing={2} direction="column">
-                    {displayContent.map((item, index) => {
-                        return (
-                            <FeedCard key={index} filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)} content={item.content} creator={item.creator} />
-                        )
-                    })}
-                </Stack>
-            </GenericCardLayout>
+                    </Stack>
+                    {!artContent.loaded || !eventContent.loaded || !discussionContent.loaded ? <CircularProgress /> :
+
+                        <Stack spacing={2} direction="column">
+                            {displayContent.map((item, index) => {
+                                return (
+                                    <FeedCard
+                                        followAction={() => followUpdate(item.creator.username)}
+                                        key={index}
+                                        filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)}
+                                        onResponse={(severity, message) => {
+                                            setSnackbar({
+                                                ...snackbar,
+                                                open: true,
+                                                severity: severity,
+                                                message: message,
+                                            })
+                                        }}
+
+                                        content={item.content}
+                                        creator={item.creator} />
+                                )
+                            })}
+                        </Stack>
+                    }
+                </GenericCardLayout>
+            </>
         )
 }
 
-export default HomePage
+export default HomePage;
