@@ -19,20 +19,81 @@ class _AnnotationPageState extends State<AnnotationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Annotation Page"),
+        title: const Text("Image Annotations"),
       ),
-      body: ListView.builder(
-          itemCount: widget.annotationList.length,
-          itemBuilder: (context, index) {
-            final Map<String, dynamic> currentAnnotation =
-                widget.annotationList[index];
-            // return text and the annotated part of the source image:
-            return Column(
-              children: [
-                Row(
-                  children: [
-                    Text(index.toString()),
-                    FutureBuilder(
+      body: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 20.0,
+        ),
+        child: Table(
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          columnWidths: const {
+            0: FixedColumnWidth(32.0),
+            1: FixedColumnWidth(85.0),
+            2: FixedColumnWidth(120.0),
+            3: FixedColumnWidth(105.0),
+          },
+          border: TableBorder.symmetric(
+            inside: const BorderSide(color: Colors.grey, width: 0.5),
+          ),
+          children: [
+            const TableRow(children: [
+              Padding(
+                padding: EdgeInsets.all(2.0),
+                child: Center(
+                    child: Text("ID",
+                        style: TextStyle(fontWeight: FontWeight.bold))),
+              ),
+              Padding(
+                padding: EdgeInsets.all(2.0),
+                child: Center(
+                    child: Text("Creator",
+                        style: TextStyle(fontWeight: FontWeight.bold))),
+              ),
+              Padding(
+                padding: EdgeInsets.all(2.0),
+                child: Center(
+                  child: Text("Image",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text("Annotation",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ]),
+            for (var annotation in widget.annotationList)
+              TableRow(children: [
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Center(
+                      child:
+                          Text("${widget.annotationList.indexOf(annotation)}")),
+                ),
+                // TODO: add creator
+                //Text(annotation["user"].toString()),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Center(
+                      child: Text(
+                    "@ata123",
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.center,
+                  )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Center(
+                    child: FutureBuilder(
                       future: getSourceImage(widget.imageId,
                           MediaQuery.of(context).size.width - 24),
                       builder: (context, snapshot) {
@@ -56,10 +117,12 @@ class _AnnotationPageState extends State<AnnotationPage> {
                                 Image sourceImage = snapshot.data as Image;
                                 return buildCroppedImage(
                                     sourceImage,
-                                    currentAnnotation["x"],
-                                    currentAnnotation["y"],
-                                    currentAnnotation["width"],
-                                    currentAnnotation["height"]);
+                                    annotation["x"],
+                                    annotation["y"],
+                                    annotation["width"],
+                                    annotation["height"],
+                                    120,
+                                    120);
                               } else {
                                 return Scaffold(
                                   appBar: AppBar(
@@ -77,12 +140,26 @@ class _AnnotationPageState extends State<AnnotationPage> {
                         }
                       },
                     ),
-                    Text(currentAnnotation["text"]),
-                  ],
+                  ),
                 ),
-              ],
-            );
-          }),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      annotation["text"] != "" ? annotation["text"] : "-",
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
+          ],
+        ),
+      ),
     );
   }
 }

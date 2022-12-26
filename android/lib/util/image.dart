@@ -44,13 +44,14 @@ Future<Uint8List> getCroppedImage(
   return byteData!.buffer.asUint8List();
 }
 
-Widget buildCroppedImage(
-    Image src, double x, double y, double width, double height) {
+Widget buildCroppedImage(Image src, double x, double y, double width,
+    double height, double desiredWidth, double desiredHeight) {
   return FutureBuilder(
       future: getCroppedImage(src, x, y, width, height),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Image.memory(snapshot.data as Uint8List);
+          return Image.memory(snapshot.data as Uint8List,
+              width: desiredWidth, height: desiredHeight);
         } else {
           return const SizedBox();
         }
