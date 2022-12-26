@@ -15,8 +15,6 @@ Future<dynamic> postAuction(int id, CurrentUser user) async {
         'Authorization': 'Bearer ${user.token}',
       },
     );
-    print("auction:");
-    print(response.body);
     return response.body;
   } catch (err) {
     if (kDebugMode) {
