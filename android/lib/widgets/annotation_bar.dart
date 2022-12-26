@@ -4,6 +4,7 @@ import 'package:android/pages/image_annotation_page.dart';
 
 import 'package:android/network/annotation/post_annotation_service.dart';
 import '../models/user_model.dart';
+import 'package:android/util/snack_bar.dart';
 
 class AnnotationBar extends StatelessWidget {
   const AnnotationBar({
@@ -137,9 +138,14 @@ class AnnotationBar extends StatelessWidget {
                                 user!.username;
                             annotationNotifier.value!["imageId"] = imageId;
                             bool resp = await postAnnotation(annotationNotifier.value!);
-                            annotationListNotifier.value
-                                .add(annotationNotifier.value!);
-                            countNotifier.value++;
+                            if (resp) {
+                              showSnackBar(context, "Annotation created");
+                              annotationListNotifier.value
+                                  .add(annotationNotifier.value!);
+                              countNotifier.value++;
+                            } else {
+                              showSnackBar(context, "Failed to create annotation");
+                            }
                             annotationNotifier.value = null;
                           }
                           modeNotifier.value = 1;
