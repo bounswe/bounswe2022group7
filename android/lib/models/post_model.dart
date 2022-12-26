@@ -133,6 +133,14 @@ class PostAndImages {
 
     if (post.type == "Event") {
       Event event = post as Event;
+      if (user != null) {
+        event.updateStatus(user.username);
+        if (event.bookmarkStatus == 0) {
+          bookmarkColor.value = Colors.black;
+        } else {
+          bookmarkColor.value = Colors.orange;
+        }
+      }
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -219,6 +227,14 @@ class PostAndImages {
       );
     } else {
       ArtItem artItem = post as ArtItem;
+      if (user != null) {
+        artItem.updateStatus(user.username);
+        if (artItem.bookmarkStatus == 0) {
+          bookmarkColor.value = Colors.black;
+        } else {
+          bookmarkColor.value = Colors.orange;
+        }
+      }
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
