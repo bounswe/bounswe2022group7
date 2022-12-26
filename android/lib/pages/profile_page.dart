@@ -133,7 +133,6 @@ class _ProfilePageState extends State<ProfilePage> {
             }
             if (snapshot.data != null) {
               getUserOutput user_output = snapshot.data!;
-              print("status: ${user_output.status}");
               if (user_output.status != "OK") {
                 return const Text(
                     "An error occured while loading profile page!");
@@ -155,7 +154,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   userAccount.all_events, userAccount.all_art_items);
               dropdown_selection.value = "Events";
               updateSelectedItems();
-              print("before return scaffold");
 
               return Scaffold(
                 appBar: AppBar(), // app bar will be discussed later

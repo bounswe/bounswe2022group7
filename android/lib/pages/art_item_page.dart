@@ -2,6 +2,7 @@ import 'package:android/network/art_item/post_art_item_like_bookmark_service.dar
 import 'package:android/network/reporting/report_input.dart';
 import 'package:android/network/reporting/report_service.dart';
 import 'package:android/providers/user_provider.dart';
+import 'package:android/providers/user_provider.dart';
 import 'package:android/widgets/annotatable_text.dart';
 import 'package:android/pages/profile_page.dart';
 import 'package:android/widgets/form_widgets.dart';
@@ -160,6 +161,11 @@ class _ArtItemPageState extends State<ArtItemPage> {
     final ValueNotifier<List<Map<String, double>>> annotationListNotifier =
         ValueNotifier([]);
     final ValueNotifier<int> annotationCountNotifier = ValueNotifier(0);
+    if (user != null) {
+      for (var comment in currentArtItem!.commentList) {
+        comment.updateStatus(user.username);
+      }
+    }
     Widget imageBuilderResult =
         imageBuilder(currentArtItem!.artItemInfo.imageId);
     return Scaffold(

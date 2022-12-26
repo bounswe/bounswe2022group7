@@ -36,7 +36,6 @@ Future<GetEventOutput> getEventNetwork(int id) async {
   }
 }
 
-
 Future<GetEventOutput> getEventNetworkWithIndex(int id, int index) async {
   Response response;
 
@@ -60,7 +59,6 @@ Future<GetEventOutput> getEventNetworkWithIndex(int id, int index) async {
     }
     Map<String, dynamic> data = json.decode(response.body);
     data["index"] = index;
-    print("index data: ${data["index"]}");
     return GetEventOutput.fromJson(data);
   } catch (err) {
     if (kDebugMode) {

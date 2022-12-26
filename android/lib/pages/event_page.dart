@@ -54,6 +54,12 @@ class _EventPageState extends State<EventPage> {
     if (currentEvent == null) {
       return erroneousEventPage();
     }
+
+    if (user != null) {
+      for (var comment in currentEvent!.commentList) {
+        comment.updateStatus(user.username);
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Event"),
