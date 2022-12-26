@@ -54,7 +54,7 @@ function DiscussionPostPage() {
         <br/>
 
         <Typography variant="body1">
-          <AnnotatableText text={state.discussionPost.textBody}/>
+          <AnnotatableText id={id}>{state.discussionPost.textBody}</AnnotatableText>
         </Typography>
 
         <br/>
