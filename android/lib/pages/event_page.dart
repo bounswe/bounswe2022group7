@@ -53,11 +53,15 @@ class _EventPageState extends State<EventPage> {
 
   @override
   Widget build(BuildContext context) {
+    CurrentUser? user = Provider.of<UserProvider>(context).user;
     if (currentEvent == null) {
       return erroneousEventPage();
     }
-    CurrentUser? user = Provider.of<UserProvider>(context).user;
-
+    if (user != null) {
+      for (var comment in currentEvent!.commentList) {
+        comment.updateStatus(user.username);
+      }
+    }
     final ValueNotifier<int> annotationModeNotifier = ValueNotifier(0);
     final ValueNotifier<Map<String, dynamic>?> annotationNotifier =
     ValueNotifier(null);

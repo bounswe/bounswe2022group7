@@ -65,7 +65,11 @@ class _ArtItemPageState extends State<ArtItemPage> {
     final ValueNotifier<List<Map<String, dynamic>>> annotationListNotifier =
         ValueNotifier([]);
     final ValueNotifier<int> annotationCountNotifier = ValueNotifier(0);
-
+    if (user != null) {
+      for (var comment in currentArtItem!.commentList) {
+        comment.updateStatus(user.username);
+      }
+    }
     Widget imageBuilderResult =
         imageBuilder(currentArtItem!.artItemInfo.imageId);
 
