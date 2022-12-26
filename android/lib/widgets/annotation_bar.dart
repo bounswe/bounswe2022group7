@@ -4,12 +4,14 @@ import 'package:android/pages/image_annotation_page.dart';
 class AnnotationBar extends StatelessWidget {
   const AnnotationBar({
     Key? key,
+    required this.imageId,
     required this.countNotifier,
     required this.modeNotifier,
     required this.annotationNotifier,
     required this.annotationListNotifier,
   }) : super(key: key);
 
+  final int imageId;
   final ValueNotifier<int> countNotifier;
   final ValueNotifier<int> modeNotifier;
   final ValueNotifier<Map<String, dynamic>?> annotationNotifier;
@@ -34,6 +36,7 @@ class AnnotationBar extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => AnnotationPage(
+                              imageId: imageId,
                               annotationList: annotationListNotifier.value)));
                 },
                 child: Text(
@@ -120,6 +123,7 @@ class AnnotationBar extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           if (annotationNotifier.value != null) {
+                            annotationNotifier.value!["image"] = imageId;
                             annotationListNotifier.value
                                 .add(annotationNotifier.value!);
                             countNotifier.value++;
