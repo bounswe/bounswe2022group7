@@ -530,6 +530,24 @@ class _ArtItemPageState extends State<ArtItemPage> {
                             ],
                           ),
                           const SizedBox(height: 5.0),
+                          const Text("Auction Status:", style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w400,
+                          ),),
+                          const SizedBox(height: 5.0),
+                          if (currentArtItem!.onAuction)
+                            const Text("On Auction!")
+                          else if (currentArtItem!.maxBid == null)
+                            const Text("Not on Auction")
+                          else
+                            Column(
+                              children: [
+                                const Text("Item was sold after an auction. Auction is closed."),
+                                const SizedBox(height: 5.0),
+                                Text("Highest Bid: ${currentArtItem!.maxBid!.bidAmount} by ${currentArtItem!.maxBid!.username}"),
+                              ],
+                            ),
+                          const SizedBox(height: 5.0),
                           // auction button
                           if (user != null && user.username == currentArtItem!.creatorAccountInfo.username)
                             ElevatedButton(
