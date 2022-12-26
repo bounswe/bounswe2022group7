@@ -144,7 +144,6 @@ const HomePage = () => {
             .then((response) => response.json())
             .then((data) => {
 
-
                 const artItems = data.map((item) => {
 
                     return {
@@ -268,11 +267,6 @@ const HomePage = () => {
     } else
         return (
             <GenericCardLayout maxWidth="md" customTopMargin={1}>
-                <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={snackbar.handleClose}>
-                    <Alert onClose={snackbar.handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
-                        {snackbar.message}
-                    </Alert>
-                </Snackbar>
                 <Typography variant="h4" component="h2" gutterBottom>
                     Feed
                 </Typography>
@@ -292,15 +286,7 @@ const HomePage = () => {
                                 followAction={() => followUpdate(item.creator.username)}
                                 key={index}
                                 filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)}
-                                onResponse={(severity, message) => {
-                                    setSnackbar({
-                                        ...snackbar,
-                                        open: true,
-                                        severity: severity,
-                                        message: message,
-                                    })
-                                }}
-
+                                onResponse={(severity, message) => props.onResponse(severity, message)}
                                 content={item.content}
                                 creator={item.creator} />
                         )
