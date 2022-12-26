@@ -12,22 +12,23 @@ import 'package:android/network/event/get_event_service.dart';
 Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
   List<Event> event_list = [];
   List<ArtItem> art_item_list = [];
-  if (json["hostedEvents"] != null && !json["hostedEvents"].isEmpty) {
-    for (int i = 0; i < json["hostedEvents"].length; i++) {
+  if (json["hostedEventIds"] != null && !json["hostedEventIds"].isEmpty) {
+    for (int i = 0; i < json["hostedEventIds"].length; i++) {
       int id;
       try {
-        id = json["hostedEvents"][i]["id"];
+        id = json["hostedEventIds"][i]["id"];
       } catch (err) {
-        id = json["hostedEvents"][i];
+        id = json["hostedEventIds"][i];
       }
+
       GetEventOutput eo = await getEventNetworkWithIndex(id, i);
       Event ev = eo.event!;
       event_list.add(ev);
     }
   }
+
   if (json["artItems"] != null && !json["artItems"].isEmpty) {
     for (int i = 0; i < json["artItems"].length; i++) {
-      // print(json["artItems"][i]["commentList"]);
       ArtItem ai;
       if (json["artItems"][i] is int) {
         GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);
@@ -44,6 +45,8 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
     is_verified: json['isVerified'],
     level: json['level'],
     xp: json['xp'],
+    followedByUsernames: List<String>.from(
+        json["followedByUsernames"].map((username) => username.toString())),
     all_events: event_list,
     all_art_items: art_item_list,
   );
@@ -57,6 +60,7 @@ class Account {
   final bool is_verified;
   final int level;
   final double xp;
+  final List<String> followedByUsernames;
   List<Event> all_events;
   List<ArtItem> all_art_items;
 
@@ -66,6 +70,7 @@ class Account {
     required this.is_verified,
     required this.level,
     required this.xp,
+    required this.followedByUsernames,
     required this.all_events,
     required this.all_art_items,
   });
@@ -95,6 +100,8 @@ class Account {
       is_verified: json['isVerified'],
       level: json['level'],
       xp: json['xp'],
+      followedByUsernames: List<String>.from(
+          json["followedByUsernames"].map((username) => username.toString())),
       all_events: event_list,
       all_art_items: art_item_list,
     );

@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Paper from '@mui/material/Paper';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 
 import AddIcon from '@mui/icons-material/Add';
 import BrushIcon from '@mui/icons-material/Brush';
@@ -165,11 +166,10 @@ const ResponsiveAppBar = () => {
                                     menuContent={newContent}
                                     tooltip="Create"
                                     menuIcon={
-                                        <Button
-                                            label="Create"
-                                            size="small"
-                                            sx={{ border: 1, borderColor: 'white', fontWeight: 600, color: 'white' }}
-                                            endIcon={<AddIcon fontSize='inherit' color="inherit" />} >Create</Button>
+                                        <Stack direction="row" spacing={1} alignItems="center"
+                                            sx={{ borderRadius: '5%', p: 0.5, border: 1, borderColor: 'white', fontSize: 16, fontWeight: 600, color: 'white', }}>
+                                            CREATE <AddIcon sx={{ fontSize: 18 }} />
+                                        </Stack>
                                     }
                                 />
                             </Box>
