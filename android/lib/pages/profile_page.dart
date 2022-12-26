@@ -109,9 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     CurrentUser? currentUser = Provider.of<UserProvider>(context).user;
 
-    //Check if already following
     followButtonText.value = "Follow";
-    //?: "Following";
 
     return FutureBuilder(
       future: getUserNetwork(profileUsername, currentUser),
@@ -145,7 +143,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   userAccountInfo.surname != null) {
                 fullname = "${userAccountInfo.name} ${userAccountInfo.surname}";
               }
-
+              for (var username in userAccount.followedByUsernames) {
+                if (currentUser != null && currentUser.username == username) {
+                  followButtonText.value = "Following";
+                }
+              }
               bool usersCheck = currentUser != null;
               usersCheck = currentUser!.email == userAccountInfo.email
                   ? usersCheck

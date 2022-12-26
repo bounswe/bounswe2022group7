@@ -45,6 +45,8 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
     is_verified: json['isVerified'],
     level: json['level'],
     xp: json['xp'],
+    followedByUsernames: List<String>.from(
+        json["followedByUsernames"].map((username) => username.toString())),
     all_events: event_list,
     all_art_items: art_item_list,
   );
@@ -58,6 +60,7 @@ class Account {
   final bool is_verified;
   final int level;
   final double xp;
+  final List<String> followedByUsernames;
   List<Event> all_events;
   List<ArtItem> all_art_items;
 
@@ -67,6 +70,7 @@ class Account {
     required this.is_verified,
     required this.level,
     required this.xp,
+    required this.followedByUsernames,
     required this.all_events,
     required this.all_art_items,
   });
@@ -96,6 +100,8 @@ class Account {
       is_verified: json['isVerified'],
       level: json['level'],
       xp: json['xp'],
+      followedByUsernames: List<String>.from(
+          json["followedByUsernames"].map((username) => username.toString())),
       all_events: event_list,
       all_art_items: art_item_list,
     );
