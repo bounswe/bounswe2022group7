@@ -196,9 +196,9 @@ function Profile() {
                 }}>
 
                 {
-                    artItems && artItems.map((artItem)=>(
+                    artItems && artItems.map((artItem)=>{
                        
-                         (<FeedCard key={artItem.id}  content={{
+                        return (<FeedCard key={artItem.id}  content={{
                             type: "artitem",                           
                             id: 40,
                             title: artItem.name,
@@ -215,7 +215,7 @@ function Profile() {
                                               }
                                           } />)
 
-                    ))
+                                        })
                 }
 
 
@@ -231,9 +231,9 @@ function Profile() {
                 }}>
 
                 {
-                    bookmarkedEvents && bookmarkedEvents.map((bookmarkedEvent)=>(
+                    bookmarkedEvents && bookmarkedEvents.map((bookmarkedEvent)=>{
                      
-                         (<FeedCard key={bookmarkedEvent.id}  content={{
+                        return (<FeedCard key={bookmarkedEvent.id}  content={{
                             type: "event",
                             id: 40,
                             title: bookmarkedEvent.eventInfo.title,
@@ -250,7 +250,7 @@ function Profile() {
                                               }
                                           } />)
 
-                    ))
+                                        })
                 }
 
 
@@ -267,9 +267,9 @@ function Profile() {
                 }}>
 
                 {
-                    bookmarkedArtItems && bookmarkedArtItems.map((bookmarkedArtItem)=>(
+                    bookmarkedArtItems && bookmarkedArtItems.map((bookmarkedArtItem)=>{
                        
-                         (<FeedCard key={bookmarkedArtItem.id}  content={{
+                        return (<FeedCard key={bookmarkedArtItem.id}  content={{
                             type: "artitem",                           
                             id: 40,
                             title: bookmarkedArtItem.name,
@@ -286,7 +286,7 @@ function Profile() {
                                               }
                                           } />)
 
-                    ))
+                                        })
                 }
 
 
@@ -303,9 +303,9 @@ function Profile() {
                 }}>
 
                 {
-                    participatedEvents && participatedEvents.map((participatedEvent)=>(
+                    participatedEvents && participatedEvents.map((participatedEvent)=>{
                      
-                         (<FeedCard key={participatedEvent.id}  content={{
+                        return (<FeedCard key={participatedEvent.id}  content={{
                             type: "event",
                             id: 40,
                             title: participatedEvent.eventInfo.title,
@@ -322,7 +322,7 @@ function Profile() {
                                               }
                                           } />)
 
-                    ))
+                                        })
                 }
 
 
