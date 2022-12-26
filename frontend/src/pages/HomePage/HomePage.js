@@ -38,16 +38,18 @@ const HomePage = () => {
     const { token } = useAuth()
 
     useEffect(() => {
-        fetch("/api/profile", {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + token,
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                setUserData(data);
+        if (token) {
+            fetch("/api/profile", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                }
             })
+                .then(response => response.json())
+                .then(data => {
+                    setUserData(data);
+                })
+        }
     }, [token])
 
 
@@ -286,21 +288,21 @@ const HomePage = () => {
                 <Stack spacing={2} direction="column">
                     {displayContent.map((item, index) => {
                         return (
-                            <FeedCard 
-                            followAction={() => followUpdate(item.creator.username)} 
-                            key={index} 
-                            filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)} 
-                            onResponse={(severity, message) => {
-                                setSnackbar({
-                                    ...snackbar,
-                                    open: true,
-                                    severity: severity,
-                                    message: message,
-                                })
-                            }}
-         
-                            content={item.content} 
-                            creator={item.creator} />
+                            <FeedCard
+                                followAction={() => followUpdate(item.creator.username)}
+                                key={index}
+                                filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)}
+                                onResponse={(severity, message) => {
+                                    setSnackbar({
+                                        ...snackbar,
+                                        open: true,
+                                        severity: severity,
+                                        message: message,
+                                    })
+                                }}
+
+                                content={item.content}
+                                creator={item.creator} />
                         )
                     })}
                 </Stack>
