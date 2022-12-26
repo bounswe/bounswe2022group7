@@ -26,6 +26,9 @@ function Profile() {
     const [user, setUser] = useState(null);
     const [otherUser, setOtherUser] = useState(null);
     const [artItems, setArtItems] = useState(null);
+    const [bookmarkedEvents, setBookmarkedEvents] = useState(null);
+    const [bookmarkedArtItems, setBookmarkedArtItems] = useState(null);
+    const [participatedEvents, setParticipatedEvents] = useState(null);
     const [level, setLevel] = useState(null);
     const { token } = useAuth()
     const [open, setOpen] = useState(false);
@@ -33,8 +36,8 @@ function Profile() {
     const handleClose = () => setOpen(false);
 
 
-    useEffect(() => {
-        fetch(`/api/profile/${username}`, {
+    useEffect(async () => {
+        await fetch(`/api/profile/${username}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -50,16 +53,55 @@ function Profile() {
                     setUser(data.accountInfo)
                     setLevel(data.level)
                     setOtherUser(data.following)
-                    console.log(data)
-                    data.artItems.forEach((artItem) => {
-                        fetch(`/api/art_item/${artItem}`, {
+
+                    data.artItems.forEach( async (artItem,i) => {
+                        await fetch(`/api/art_item/${artItem.id}`, {
                             method: "GET",
                             headers: {
                                 "Authorization": `Bearer ${token}`
                             }
                         }).then((response) => response.json())
                             .then((data) => {
-                                artItems ? setArtItems([...artItems, data]) : setArtItems([data])
+                                // artItems ? setArtItems([...artItems, data]) : setArtItems([data])
+                                setArtItems([data])
+                                console.log(data)
+                            })
+                    })
+                    data.bookmarkedEventIds.forEach( async (bookmarkedEventId) => {
+                        await fetch(`/api/event/${bookmarkedEventId}`, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": `Bearer ${token}`
+                            }
+                        }).then((response) => response.json())
+                            .then((data) => {
+                                // bookmarkedEvents ? setBookmarkedEvents([...bookmarkedEvents, data]) : setBookmarkedEvents([data])
+                                setBookmarkedEvents([data])
+                            })
+                    })
+
+                    data.bookmarkedArtItemIds.forEach( async (bookmarkedArtItemId) => {
+                        await fetch(`/api/art_item/${bookmarkedArtItemId}`, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": `Bearer ${token}`
+                            }
+                        }).then((response) => response.json())
+                            .then((data) => {
+                                // bookmarkedArtItems ? setBookmarkedArtItems([...bookmarkedArtItems, data]) : setBookmarkedArtItems([data])
+                                setBookmarkedArtItems([data])
+                            })
+                    })
+
+                    data.participatedEventIds.forEach((participatedEventId) => {
+                        fetch(`/api/event/${participatedEventId}`, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": `Bearer ${token}`
+                            }
+                        }).then((response) => response.json())
+                            .then((data) => {
+                                participatedEvents ? setParticipatedEvents([...participatedEvents, data]) : setParticipatedEvents([data])
                             })
                     })
 
@@ -67,6 +109,7 @@ function Profile() {
             })
             .catch((error) => {
                 // Error
+                console.log(error);
             });
     },[])
     return (
@@ -134,7 +177,7 @@ function Profile() {
                                         </Grid>
 
                                     </Grid>
-                                    <Button  color="info" onClick={handleOpen}>Following</Button>
+                                    <Button color="info" onClick={handleOpen}>Following</Button>
 
                                 </CardContent>
                             </>
@@ -156,13 +199,48 @@ function Profile() {
 
                 {
                     artItems && artItems.map((artItem,index)=>{
-                        return (<FeedCard key={index}  content={{
+                         (<FeedCard key={index}  content={{
                             type: "artitem",
                             id: 40,
                             title: artItem.name,
                             description: artItem.description,
                             imageId: artItem.imageId,
                             creationDate: artItem.creationDate,
+                        }}
+                                          creator={
+                                              {
+                                                  id: user.id,
+                                                  username: user.username,
+                                                  followed: false,
+                                                  imageId: user.profilePictureId,
+                                              }
+                                          } />)
+
+                    })
+                }
+
+
+            </Grid>
+            <Grid
+                container
+                item
+                xs={12} md={6}
+                direction='column'
+                wrap='wrap'
+                sx={{
+                    // display: { xs: 'block', md: 'block' }
+                }}>
+
+                {
+                    bookmarkedEvents && bookmarkedEvents.map((bookmarkedEvent,index)=>{
+                        console.log(bookmarkedEvent);
+                         (<FeedCard key={index}  content={{
+                            type: "event",
+                            id: 40,
+                            title: bookmarkedEvent.eventInfo.title,
+                            description: bookmarkedEvent.eventInfo.description,
+                            imageId: bookmarkedEvent.eventInfo.posterId,
+                            creationDate: bookmarkedEvent.eventInfo.startingDate,
                         }}
                                           creator={
                                               {
