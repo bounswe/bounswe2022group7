@@ -1,3 +1,4 @@
+import 'package:android/network/art_item/post_art_item_auction_service.dart';
 import 'package:android/network/art_item/post_art_item_like_bookmark_service.dart';
 import 'package:android/network/reporting/report_input.dart';
 import 'package:android/network/reporting/report_service.dart';
@@ -529,6 +530,23 @@ class _ArtItemPageState extends State<ArtItemPage> {
                             ],
                           ),
                           const SizedBox(height: 5.0),
+                          // auction button
+                          if (user != null && user.username == currentArtItem!.creatorAccountInfo.username)
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              onPressed: () {
+                                postAuction(currentArtItem!.id, user);
+                                setState(() {
+                                  currentArtItem!.onAuction = !currentArtItem!.onAuction;
+                                });
+                              },
+                              child: currentArtItem!.onAuction ? const Text("End the auction") : const Text("Start Auction!"),
+                            ),
                           const Divider(color: Colors.black),
                           const SizedBox(height: 5.0),
                           Row(
@@ -536,9 +554,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               const Icon(Icons.chat, size: 13.0),
                               const SizedBox(width: 5.0),
                               Text(
-                                // TODO: Add number of comments
                                 "Comments ${currentArtItem!.commentList.length}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
                                 ),

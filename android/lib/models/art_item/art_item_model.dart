@@ -8,7 +8,7 @@ class ArtItem extends Post {
   final ArtItemInfo artItemInfo;
   final DateTime creationDate;
   final User? owner;
-  final bool onAuction;
+  bool onAuction;
   final double? lastPrice;
   final MaxBid? maxBid;
   final List<Comment> commentList;
