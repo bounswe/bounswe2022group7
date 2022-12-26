@@ -109,9 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     CurrentUser? currentUser = Provider.of<UserProvider>(context).user;
 
-    //Check if already following
     followButtonText.value = "Follow";
-    //?: "Following";
 
     return FutureBuilder(
       future: getUserNetwork(profileUsername, currentUser),
@@ -133,7 +131,6 @@ class _ProfilePageState extends State<ProfilePage> {
             }
             if (snapshot.data != null) {
               getUserOutput user_output = snapshot.data!;
-              print("status: ${user_output.status}");
               if (user_output.status != "OK") {
                 return const Text(
                     "An error occured while loading profile page!");
@@ -146,7 +143,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   userAccountInfo.surname != null) {
                 fullname = "${userAccountInfo.name} ${userAccountInfo.surname}";
               }
-
+              for (var username in userAccount.followedByUsernames) {
+                if (currentUser != null && currentUser.username == username) {
+                  followButtonText.value = "Following";
+                }
+              }
               bool usersCheck = currentUser != null;
               usersCheck = currentUser!.email == userAccountInfo.email
                   ? usersCheck
@@ -155,7 +156,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   userAccount.all_events, userAccount.all_art_items);
               dropdown_selection.value = "Events";
               updateSelectedItems();
-              print("before return scaffold");
 
               return Scaffold(
                 appBar: AppBar(), // app bar will be discussed later

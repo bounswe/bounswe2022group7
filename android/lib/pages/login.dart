@@ -67,8 +67,10 @@ class _LoginState extends State<Login> {
         }
         CurrentUser user =
             CurrentUser(token: loginOutput.token!, email: _email!);
-        await getUserNetwork(null, user).then((userProfile) =>
-            user.username = userProfile.account?.account_info.username);
+        await getUserNetwork(null, user).then((userProfile) => {
+              user.username = userProfile.account?.account_info.username,
+              user.id = userProfile.account?.account_info.id,
+            });
         // save user in local storage
         saveUser(user);
 

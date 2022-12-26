@@ -20,6 +20,7 @@ import Snackbar from '@mui/material/Snackbar';
 import { AuthProvider } from './auth/useAuth';
 import { ProtectedRoute } from './auth/ProtectedRoute';
 import CreatePhysicalEventPage from './pages/EventPage/CreatePhysicalEventPage';
+import CreateOnlineEventPage from "./pages/EventPage/CreateOnlineEventPage"
 import CreateDiscussionPostPage from './pages/DiscussionPage/CreateDiscussionPostPage';
 import DiscussionPostPage from './pages/DiscussionPage/DiscussionPostPage';
 
@@ -106,6 +107,10 @@ function App() {
             <Route
               path="/event/newPhysical"
               element={<ProtectedRoute><CreatePhysicalEventPage /></ProtectedRoute>}
+            />
+            <Route
+            path="/event/newOnline"
+            element={<ProtectedRoute><CreateOnlineEventPage/></ProtectedRoute>}
             />
             <Route
               path="/event/:id"

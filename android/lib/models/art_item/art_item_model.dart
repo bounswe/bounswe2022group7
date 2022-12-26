@@ -37,7 +37,7 @@ class ArtItem extends Post {
 
   factory ArtItem.fromJson(Map<String, dynamic> json) {
     List<Comment> commentList = [];
-    log(json['commentList'].toString());
+
     if (json['commentList'] != null) {
       try {
         for (int i = 0; i < json['commentList'].length; i++) {

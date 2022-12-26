@@ -21,6 +21,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import CollectionsIcon from '@mui/icons-material/Collections';
 
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "./auth/useAuth";
@@ -59,10 +60,17 @@ const ResponsiveAppBar = () => {
             }
         },
         {
-            label: "New Event",
+            label: "New Physical Event",
             icon: <EventIcon />,
             action: () => {
                 navigate('/event/newPhysical');
+            }
+        },
+        {
+            label: "New Online Event",
+            icon: <CollectionsIcon />,
+            action: () => {
+                navigate('/event/newOnline');
             }
         },
         {
