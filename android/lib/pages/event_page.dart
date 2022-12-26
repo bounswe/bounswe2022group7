@@ -276,7 +276,7 @@ class _EventPageState extends State<EventPage> {
                           const SizedBox(height: 10.0),
                           currentEvent!.eventInfo.imageId != null
                             ? AnnotationBar(
-                                editable: user != null,
+                                user: user,
                                 imageId: currentEvent!.eventInfo.imageId!,
                                 countNotifier: annotationCountNotifier,
                                 modeNotifier: annotationModeNotifier,

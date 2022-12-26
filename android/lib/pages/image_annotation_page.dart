@@ -77,13 +77,11 @@ class _AnnotationPageState extends State<AnnotationPage> {
                       child:
                           Text("${widget.annotationList.indexOf(annotation)}")),
                 ),
-                // TODO: add creator
-                //Text(annotation["user"].toString()),
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Center(
                       child: Text(
-                    "@ata123",
+                    "${annotation['creator']}",
                     style: const TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.w400,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:android/pages/image_annotation_page.dart';
 
+import '../models/user_model.dart';
+
 class AnnotationBar extends StatelessWidget {
   const AnnotationBar({
     Key? key,
-    required this.editable,
+    this.user,
     required this.imageId,
     required this.countNotifier,
     required this.modeNotifier,
@@ -12,7 +14,7 @@ class AnnotationBar extends StatelessWidget {
     required this.annotationListNotifier,
   }) : super(key: key);
 
-  final bool editable;
+  final CurrentUser? user;
   final int imageId;
   final ValueNotifier<int> countNotifier;
   final ValueNotifier<int> modeNotifier;
@@ -62,7 +64,7 @@ class AnnotationBar extends StatelessWidget {
               if (value == 0) {
                 return Row(
                   children: [
-                    editable
+                    user != null
                         ? IconButton(
                             onPressed: () {
                               modeNotifier.value = 2;
@@ -89,7 +91,7 @@ class AnnotationBar extends StatelessWidget {
               else if (value == 1) {
                 return Row(
                   children: [
-                    editable
+                    user != null
                         ? IconButton(
                             onPressed: () {
                               modeNotifier.value = 2;
@@ -129,6 +131,8 @@ class AnnotationBar extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           if (annotationNotifier.value != null) {
+                            annotationNotifier.value!["creator"] =
+                                user!.username;
                             annotationListNotifier.value
                                 .add(annotationNotifier.value!);
                             countNotifier.value++;
