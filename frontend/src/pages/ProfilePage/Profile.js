@@ -46,15 +46,13 @@ function Profile() {
             .then((response) => response.json())
             .then((data) => {
                 //TODO setLoading(false)
-                if (data.error) {
-                    // Error
-                } else {
-                    // Success
+                
+                    console.log(data)
                     setUser(data.accountInfo)
                     setLevel(data.level)
                     setOtherUser(data.following)
 
-                    data.artItems.forEach( async (artItem,i) => {
+                    data.artItems.forEach( async (artItem) => {
                         await fetch(`/api/art_item/${artItem.id}`, {
                             method: "GET",
                             headers: {
@@ -106,10 +104,10 @@ function Profile() {
                     })
 
                 }
-            })
+            )
             .catch((error) => {
                 // Error
-                console.log(error);
+                //console.log(error);
             });
     },[])
     return (
@@ -198,9 +196,10 @@ function Profile() {
                 }}>
 
                 {
-                    artItems && artItems.map((artItem,index)=>{
-                         (<FeedCard key={index}  content={{
-                            type: "artitem",
+                    artItems && artItems.map((artItem)=>(
+                       
+                         (<FeedCard key={artItem.id}  content={{
+                            type: "artitem",                           
                             id: 40,
                             title: artItem.name,
                             description: artItem.description,
@@ -216,7 +215,7 @@ function Profile() {
                                               }
                                           } />)
 
-                    })
+                    ))
                 }
 
 
@@ -232,9 +231,9 @@ function Profile() {
                 }}>
 
                 {
-                    bookmarkedEvents && bookmarkedEvents.map((bookmarkedEvent,index)=>{
-                        console.log(bookmarkedEvent);
-                         (<FeedCard key={index}  content={{
+                    bookmarkedEvents && bookmarkedEvents.map((bookmarkedEvent)=>(
+                     
+                         (<FeedCard key={bookmarkedEvent.id}  content={{
                             type: "event",
                             id: 40,
                             title: bookmarkedEvent.eventInfo.title,
@@ -251,7 +250,79 @@ function Profile() {
                                               }
                                           } />)
 
-                    })
+                    ))
+                }
+
+
+            </Grid>
+
+            <Grid
+                container
+                item
+                xs={12} md={6}
+                direction='column'
+                wrap='wrap'
+                sx={{
+                    // display: { xs: 'block', md: 'block' }
+                }}>
+
+                {
+                    bookmarkedArtItems && bookmarkedArtItems.map((bookmarkedArtItem)=>(
+                       
+                         (<FeedCard key={bookmarkedArtItem.id}  content={{
+                            type: "artitem",                           
+                            id: 40,
+                            title: bookmarkedArtItem.name,
+                            description: bookmarkedArtItem.description,
+                            imageId: bookmarkedArtItem.imageId,
+                            creationDate: bookmarkedArtItem.creationDate,
+                        }}
+                                          creator={
+                                              {
+                                                  id: user.id,
+                                                  username: user.username,
+                                                  followed: false,
+                                                  imageId: user.profilePictureId,
+                                              }
+                                          } />)
+
+                    ))
+                }
+
+
+            </Grid>
+
+            <Grid
+                container
+                item
+                xs={12} md={6}
+                direction='column'
+                wrap='wrap'
+                sx={{
+                    // display: { xs: 'block', md: 'block' }
+                }}>
+
+                {
+                    participatedEvents && participatedEvents.map((participatedEvent)=>(
+                     
+                         (<FeedCard key={participatedEvent.id}  content={{
+                            type: "event",
+                            id: 40,
+                            title: participatedEvent.eventInfo.title,
+                            description: participatedEvent.eventInfo.description,
+                            imageId: participatedEvent.eventInfo.posterId,
+                            creationDate: participatedEvent.eventInfo.startingDate,
+                        }}
+                                          creator={
+                                              {
+                                                  id: user.id,
+                                                  username: user.username,
+                                                  followed: false,
+                                                  imageId: user.profilePictureId,
+                                              }
+                                          } />)
+
+                    ))
                 }
 
 
