@@ -9,7 +9,10 @@ function AnnotatableText(props) {
 
   if (textEl.current) {
     const recogito = new Recogito({
-      content: textEl.current
+      content: textEl.current,
+      widgets: [
+        'COMMENT'
+      ]
     })
 
     recogito.loadAnnotations(`/annotations/c${props.id}`)
