@@ -9,8 +9,6 @@ import 'package:android/widgets/form_widgets.dart';
 import 'package:flutter/material.dart';
 
 import "package:android/models/models.dart";
-import "package:android/network/art_item/get_art_item_service.dart";
-import "package:android/network/art_item/get_art_item_output.dart";
 import 'package:provider/provider.dart';
 
 import '../network/image/get_image_builder.dart';
@@ -548,6 +546,45 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               ],
                             ),
                           const SizedBox(height: 5.0),
+                          // bid button
+                          if (currentArtItem!.onAuction && user != null && user.username != currentArtItem!.creatorAccountInfo.username)
+                            Column(
+                              children: [
+                                const Text("Place a bid:", style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                ),),
+                                const SizedBox(height: 5.0),
+                                Row(
+                                  children: [
+                                    const SizedBox(width: 5.0),
+                                    const Expanded(
+                                      child: TextField(
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                          hintText: "Enter bid amount",
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5.0),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        print("bid button pressed");
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                        ),
+                                      ),
+                                      child: const Text("Place Bid"),
+                                    ),
+                                    const SizedBox(width: 5.0),
+                                  ],
+                                ),
+                              ],
+                            ),
                           // auction button
                           if (user != null && user.username == currentArtItem!.creatorAccountInfo.username)
                             ElevatedButton(
