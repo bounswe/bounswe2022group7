@@ -4,6 +4,8 @@ String serverPort = dotenv.env['SERVER_PORT'] ?? "8080";
 String serverIP = dotenv.env['SERVER_IP'] ?? "http://10.0.2.2";
 String baseURL = "$serverIP:$serverPort/api";
 
+String annotationsURL = "$serverIP:$serverPort/annotations";
+
 String registerURL = "$baseURL/signup";
 String loginURL = "$baseURL/login";
 String eventURL = "$baseURL/event";

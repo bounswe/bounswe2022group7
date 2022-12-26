@@ -11,3 +11,4 @@ export 'profile/account_info.dart';
 export 'profile/account_model.dart';
 export 'discussion_model.dart';
 export 'search/search_models.dart';
+export 'image_annotation_model.dart';
