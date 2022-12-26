@@ -31,7 +31,7 @@ class FeedContainer extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: post_and_images.infoColumn(),
+                          child: post_and_images.infoColumn(context),
                         ),
                       ],
                     ),
