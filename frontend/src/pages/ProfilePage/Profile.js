@@ -36,8 +36,8 @@ function Profile() {
     const handleClose = () => setOpen(false);
 
 
-    useEffect(async () => {
-        await fetch(`/api/profile/${username}`, {
+    useEffect(() => {
+        fetch(`/api/profile/${username}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -52,8 +52,8 @@ function Profile() {
                     setLevel(data.level)
                     setOtherUser(data.following)
 
-                    data.artItems.forEach( async (artItem) => {
-                        await fetch(`/api/art_item/${artItem.id}`, {
+                    data.artItems.forEach((artItem) => {
+                        fetch(`/api/art_item/${artItem.id}`, {
                             method: "GET",
                             headers: {
                                 "Authorization": `Bearer ${token}`
@@ -65,8 +65,8 @@ function Profile() {
                                 console.log(data)
                             })
                     })
-                    data.bookmarkedEventIds.forEach( async (bookmarkedEventId) => {
-                        await fetch(`/api/event/${bookmarkedEventId}`, {
+                    data.bookmarkedEventIds.forEach((bookmarkedEventId) => {
+                        fetch(`/api/event/${bookmarkedEventId}`, {
                             method: "GET",
                             headers: {
                                 "Authorization": `Bearer ${token}`
@@ -78,8 +78,8 @@ function Profile() {
                             })
                     })
 
-                    data.bookmarkedArtItemIds.forEach( async (bookmarkedArtItemId) => {
-                        await fetch(`/api/art_item/${bookmarkedArtItemId}`, {
+                    data.bookmarkedArtItemIds.forEach((bookmarkedArtItemId) => {
+                        fetch(`/api/art_item/${bookmarkedArtItemId}`, {
                             method: "GET",
                             headers: {
                                 "Authorization": `Bearer ${token}`
