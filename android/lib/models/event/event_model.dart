@@ -12,7 +12,7 @@ class Event extends Post {
   final String? rules;
   final List<User>? attendees;
   final List<String>? bookmarkedBy;
-  final List<int>? artItemList;
+  final List<ArtItemInfo>? artItemList;
   int participationStatus;
   int bookmarkStatus;
 
@@ -71,7 +71,8 @@ class Event extends Post {
           ? List<String>.from(json['bookmarkedByUsernames'])
           : [],
       artItemList: json["artItemList"] != null
-          ? List<int>.from(json["artItemList"])
+          ? List<ArtItemInfo>.from(json["artItemList"]
+              .map((artItem) => ArtItemInfo.fromJson(artItem)))
           : [],
     );
   }
