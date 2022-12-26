@@ -11,7 +11,7 @@ import GenericCardLayout from '../../layouts/GenericCardLayout';
 import FeedCard from './FeedCard';
 import FilterChip from '../../components/FilterChip';
 
-const HomePage = () => {
+const HomePage = ({onResponse}) => {
     const [error, setError] = React.useState(null)
     const [userData, setUserData] = React.useState(null)
     const [displayContent, setDisplayContent] = React.useState([]);
@@ -286,7 +286,7 @@ const HomePage = () => {
                                 followAction={() => followUpdate(item.creator.username)}
                                 key={index}
                                 filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)}
-                                onResponse={(severity, message) => props.onResponse(severity, message)}
+                                onResponse={(severity, message) => onResponse(severity, message)}
                                 content={item.content}
                                 creator={item.creator} />
                         )
