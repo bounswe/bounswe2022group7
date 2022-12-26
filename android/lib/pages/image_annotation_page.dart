@@ -40,7 +40,8 @@ class _AnnotationPageState extends State<AnnotationPage> {
           children: [
             const TableRow(children: [
               Padding(
-                padding: EdgeInsets.all(2.0),
+                padding: EdgeInsets.only(
+                    bottom: 2.0, top: 2.0, left: 2.0, right: 4.0),
                 child: Center(
                     child: Text("ID",
                         style: TextStyle(fontWeight: FontWeight.bold))),
@@ -59,7 +60,8 @@ class _AnnotationPageState extends State<AnnotationPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.only(
+                    bottom: 2.0, top: 2.0, left: 4.0, right: 2.0),
                 child: Center(
                   child: Text("Annotation",
                       style: TextStyle(fontWeight: FontWeight.bold)),
@@ -69,7 +71,8 @@ class _AnnotationPageState extends State<AnnotationPage> {
             for (var annotation in widget.annotationList)
               TableRow(children: [
                 Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.only(
+    bottom: 2.0, top: 2.0, left: 2.0, right: 4.0),
                   child: Center(
                       child:
                           Text("${widget.annotationList.indexOf(annotation)}")),
@@ -143,7 +146,8 @@ class _AnnotationPageState extends State<AnnotationPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(
+                      bottom: 2.0, top: 2.0, left: 4.0, right: 2.0),
                   child: Center(
                     child: Text(
                       annotation["text"] != "" ? annotation["text"] : "-",
