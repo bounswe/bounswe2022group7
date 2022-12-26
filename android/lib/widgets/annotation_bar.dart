@@ -1,6 +1,8 @@
+import 'package:android/models/image_annotation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:android/pages/image_annotation_page.dart';
 
+import 'package:android/network/annotation/post_annotation_service.dart';
 import '../models/user_model.dart';
 
 class AnnotationBar extends StatelessWidget {
@@ -129,10 +131,12 @@ class AnnotationBar extends StatelessWidget {
                           size: 20.0,
                         )),
                     IconButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (annotationNotifier.value != null) {
                             annotationNotifier.value!["creator"] =
                                 user!.username;
+                            annotationNotifier.value!["imageId"] = imageId;
+                            bool resp = await postAnnotation(annotationNotifier.value!);
                             annotationListNotifier.value
                                 .add(annotationNotifier.value!);
                             countNotifier.value++;
