@@ -12,6 +12,7 @@ import GenericCardLayout from "../../layouts/GenericCardLayout";
 import MapComponent from "../../components/MapComponent"
 import ImageCollection from "./ImageCollection"
 import {EventParticipate} from '../../components/EventPreview';
+import LoadingButton from "../../components/LoadingButton"
 
 import PersonIcon from '@mui/icons-material/Person';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -167,8 +168,8 @@ function EventPage() {
           <Grid item xs={12} sm={8}>
             <MapComponent
               position={{
-                lat:event.location.latitude, 
-                lng:event.location.longitude
+                lat:event?.location?.latitude, 
+                lng:event?.location?.longitude
               }}
               eventTitle={event.eventInfo.title}
             />
@@ -192,6 +193,26 @@ function EventPage() {
         contentId={id}
         commentList={event.commentList}
       />
+
+      {event.creatorId == userData?.id &&
+        <div>
+          <br/>
+          As the owner user:
+          <br/>
+          <LoadingButton
+            label="Delete Event"
+            onClick={() => {
+              fetch("/api/event/" + event.id, {
+                method: "DELETE",
+                headers: {Authorization: "Bearer " + token}
+              }).then((response) => {window.location.href = "/"})
+            }}
+            type="submit"
+            variant="contained"
+            color="primary"
+          />
+        </div>
+      }
     </GenericCardLayout>
     
   )}

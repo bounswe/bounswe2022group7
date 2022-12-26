@@ -10,6 +10,7 @@ import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from "../../layouts/GenericCardLayout";
 import AuctionDisplay from "./AuctionDisplay"
 import {ArtItemLike} from '../../components/ArtItemPreview';
+import LoadingButton from "../../components/LoadingButton"
 
 import BrushIcon from '@mui/icons-material/Brush';
 import LabelIcon from '@mui/icons-material/Label';
@@ -125,8 +126,26 @@ function ArtItemPage() {
         contentId={id}
         commentList={artitem.commentList}
       />
+      {artitem.ownerId == userData?.id &&
+        <div>
+          <br/>
+          As the owner user:
+          <br/>
+          <LoadingButton
+            label="Delete Art Item"
+            onClick={() => {
+              fetch("/api/art_item/" + artitem.id, {
+                method: "DELETE",
+                headers: {Authorization: "Bearer " + token}
+              }).then((response) => {window.location.href = "/"})
+            }}
+            type="submit"
+            variant="contained"
+            color="primary"
+          />
+        </div>
+      }
     </GenericCardLayout>
-    
   )}
 }
 
