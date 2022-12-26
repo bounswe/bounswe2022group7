@@ -59,8 +59,7 @@ class ArtItem extends Post {
       // why does this use accountInfo?
       // owner: User.fromJson(json['owner']["accountInfo"]),
 
-      // Auction model has not been implemented yet
-      onAuction: false,
+      onAuction: json['onAuction'],
 
       lastPrice: json['lastPrice'],
 
