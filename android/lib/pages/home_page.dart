@@ -36,7 +36,7 @@ SliverAppBar mainAppBar(BuildContext context, CurrentUser? user) {
         iconSize: 30.0,
         color: Colors.white,
         onPressed: () {
-          Navigator.pushNamed(context, '/search');
+          Navigator.pushNamed(context, searchPage);
         },
       ),
       user == null

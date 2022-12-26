@@ -1,9 +1,10 @@
-
+import 'package:android/network/art_item/post_art_item_like_bookmark_service.dart';
 import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/event/get_event_service.dart';
 
 import 'package:android/network/art_item/get_art_item_output.dart';
 import 'package:android/network/art_item/get_art_item_service.dart';
+import 'package:android/network/event/post_event_participate_bookmark_service.dart';
 
 import 'package:android/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -126,9 +127,20 @@ class PostAndImages {
         avatar = circleAvatarBuilder(
             post.creatorAccountInfo.profile_picture_id, 20.0);
 
-  Widget infoColumn() {
+  Widget infoColumn(context) {
+    final bookmarkColor = ValueNotifier<Color>(Colors.black);
+    CurrentUser? user = Provider.of<UserProvider>(context).user;
+
     if (post.type == "Event") {
       Event event = post as Event;
+      if (user != null) {
+        event.updateStatus(user.username);
+        if (event.bookmarkStatus == 0) {
+          bookmarkColor.value = Colors.black;
+        } else {
+          bookmarkColor.value = Colors.orange;
+        }
+      }
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -155,10 +167,35 @@ class PostAndImages {
                 )
               ]),
               const Spacer(),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.bookmark_add_outlined,
-                      color: Colors.black, size: 30.0)),
+              ValueListenableBuilder(
+                valueListenable: bookmarkColor,
+                builder: (context, value, widget) {
+                  return IconButton(
+                      onPressed: () async {
+                        if (user != null) {
+                          final output =
+                              await postEventMarkNetwork(event.id, "bookmark");
+                          if (output.event != null) {
+                            event = output.event!;
+                            event.updateStatus(user.username);
+                            if (event.bookmarkStatus == 0) {
+                              bookmarkColor.value = Colors.black;
+                            } else {
+                              bookmarkColor.value = Colors.orange;
+                            }
+                          } else {
+                            if (event.bookmarkStatus == 0) {
+                              event.bookmarkStatus = 1;
+                            } else {
+                              event.bookmarkStatus = 0;
+                            }
+                          }
+                        }
+                      },
+                      icon: Icon(Icons.bookmark_add_outlined,
+                          color: value, size: 30.0));
+                },
+              )
             ],
           ),
           const SizedBox(height: 10.0),
@@ -190,6 +227,14 @@ class PostAndImages {
       );
     } else {
       ArtItem artItem = post as ArtItem;
+      if (user != null) {
+        artItem.updateStatus(user.username);
+        if (artItem.bookmarkStatus == 0) {
+          bookmarkColor.value = Colors.black;
+        } else {
+          bookmarkColor.value = Colors.orange;
+        }
+      }
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -217,10 +262,35 @@ class PostAndImages {
                 )
               ]),
               const Spacer(),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.bookmark_add_outlined,
-                      color: Colors.black, size: 30.0)),
+              ValueListenableBuilder(
+                valueListenable: bookmarkColor,
+                builder: (context, value, widget) {
+                  return IconButton(
+                      onPressed: () async {
+                        if (user != null) {
+                          final output = await postArtItemMarkNetwork(
+                              artItem.id, "bookmark");
+                          if (output.artItem != null) {
+                            artItem = output.artItem!;
+                            artItem.updateStatus(user.username);
+                            if (artItem.bookmarkStatus == 0) {
+                              bookmarkColor.value = Colors.black;
+                            } else {
+                              bookmarkColor.value = Colors.orange;
+                            }
+                          } else {
+                            if (artItem.bookmarkStatus == 0) {
+                              artItem.bookmarkStatus = 1;
+                            } else {
+                              artItem.bookmarkStatus = 0;
+                            }
+                          }
+                        }
+                      },
+                      icon: Icon(Icons.bookmark_add_outlined,
+                          color: value, size: 30.0));
+                },
+              )
             ],
           ),
           const SizedBox(height: 10.0),
