@@ -151,8 +151,15 @@ class _EventPageState extends State<EventPage> {
                                   )),
                             ],
                           ),
+
+                          const SizedBox(height: 15.0),
+                          imageBuilder(currentEvent!.eventInfo.imageId),
                           const SizedBox(height: 10.0),
                           Table(
+                            columnWidths: {
+                              0: FlexColumnWidth(1),
+                              1: FlexColumnWidth(2),
+                            },
                             border: TableBorder.symmetric(
                                 inside: BorderSide(
                                   color: Colors.grey[300]!,
@@ -168,32 +175,17 @@ class _EventPageState extends State<EventPage> {
                                       navigateToHostProfile(currentEvent!
                                           .creatorAccountInfo.username);
                                     },
-                                    child: Column(children: const [
-                                      Text('Host'),
-                                      SizedBox(height: 3.0),
-                                      Icon(
-                                        Icons.supervisor_account,
-                                        size: 25.0,
-                                      ),
-                                    ])),
-                                Column(children: const [
-                                  Text('Date'),
-                                  SizedBox(height: 3.0),
-                                  Icon(
-                                    Icons.calendar_today,
-                                    size: 25.0,
-                                  ),
-                                ]),
-                                Column(children: const [
-                                  Text('Location'),
-                                  SizedBox(height: 3.0),
-                                  Icon(
-                                    Icons.location_on,
-                                    size: 25.0,
-                                  ),
-                                ]),
-                              ]),
-                              TableRow(children: [
+                                    child: SizedBox(
+                                        height: 55.0,
+                                        child: Column(children: const [
+                                          SizedBox(height: 3.0),
+                                          Icon(
+                                            Icons.person_rounded,
+                                            size: 25.0,
+                                          ),
+                                          SizedBox(height: 3.0),
+                                          Text('Host'),
+                                        ]))),
                                 GestureDetector(
                                     onTap: () {
                                       navigateToHostProfile(currentEvent!
@@ -213,50 +205,91 @@ class _EventPageState extends State<EventPage> {
                                           20.0),
                                       const SizedBox(height: 3.0),
                                     ])),
+                              ]),
+                              TableRow(children: [
+                                SizedBox(
+                                    height: 55.0,
+                                    child: Column(children: const [
+                                      SizedBox(height: 3.0),
+                                      Icon(
+                                        Icons.calendar_today,
+                                        size: 25.0,
+                                      ),
+                                      SizedBox(height: 3.0),
+                                      Text('Date'),
+                                    ])),
                                 Column(children: [
                                   Text(
-                                    currentEvent!.eventInfo.startingDate
-                                        .toString()
-                                        .substring(0, 16),
-                                  ),
-                                ]),
-                                Column(children: [
-                                  Text(currentEvent!.location != null
-                                      ? currentEvent!.location!.address
-                                      : ""),
+                                      "${currentEvent!.eventInfo.startingDate.day}-${currentEvent!.eventInfo.startingDate.month}-${currentEvent!.eventInfo.startingDate.year} / ${currentEvent!.eventInfo.endingDate.day}-${currentEvent!.eventInfo.endingDate.month}-${currentEvent!.eventInfo.endingDate.year}"),
                                 ]),
                               ]),
-                            ],
-                          ),
-                          const SizedBox(height: 10.0),
-                          Row(
-                            children: [
+                              currentEvent!.location != null
+                                  ? TableRow(children: [
+                                      SizedBox(
+                                          height: 55.0,
+                                          child: Column(children: const [
+                                            SizedBox(height: 3.0),
+                                            Icon(
+                                              Icons.location_on,
+                                              size: 25.0,
+                                            ),
+                                            SizedBox(height: 3.0),
+                                            Text('Location'),
+                                          ])),
+                                      Column(children: [
+                                        Text(currentEvent!.location != null
+                                            ? currentEvent!.location!.address
+                                            : ""),
+                                      ]),
+                                    ])
+                                  : TableRow(children: [
+                                      TableCell(
+                                          child: Row(children: <Widget>[
+                                        Container(),
+                                      ])),
+                                      TableCell(
+                                          child: Row(children: <Widget>[
+                                        Container(),
+                                      ]))
+                                    ]),
                               currentEvent!.collaboratorAccountInfos != null
-                                  ? const Text(
-                                      'Collaborators: ',
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                    )
-                                  : const Text(""),
-                              Text(
-                                currentEvent!.collaboratorAccountInfos == null
-                                    ? ""
-                                    : currentEvent!.collaboratorAccountInfos!
-                                        .map((e) => e.username)
-                                        .join(", "),
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
+                                  ? TableRow(children: [
+                                      SizedBox(
+                                          height: 55.0,
+                                          child: Column(children: const [
+                                            SizedBox(height: 3.0),
+                                            Icon(
+                                              Icons.supervisor_account,
+                                              size: 25.0,
+                                            ),
+                                            SizedBox(height: 3.0),
+                                            Text('Collaborators'),
+                                          ])),
+                                      Column(children: [
+                                        Text(
+                                          currentEvent!
+                                                      .collaboratorAccountInfos !=
+                                                  null
+                                              ? currentEvent!
+                                                  .collaboratorAccountInfos!
+                                                  .map((e) => e.username)
+                                                  .join(", ")
+                                              : "",
+                                        ),
+                                      ]),
+                                    ])
+                                  : TableRow(children: [
+                                      TableCell(
+                                          child: Row(children: <Widget>[
+                                        Container(),
+                                      ])),
+                                      TableCell(
+                                          child: Row(children: <Widget>[
+                                        Container(),
+                                      ]))
+                                    ]),
                             ],
                           ),
-                          const SizedBox(height: 15.0),
-                          imageBuilder(currentEvent!.eventInfo.imageId),
                           const SizedBox(height: 15.0),
                           AnnotatableText(
                             currentEvent!.eventInfo.description,
