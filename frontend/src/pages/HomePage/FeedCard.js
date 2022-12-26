@@ -20,23 +20,17 @@ import LoadingButton from "../../components/LoadingButton";
 import ArtItemPreview from '../../components/ArtItemPreview';
 import EventPreview from '../../components/EventPreview';
 import DiscussionPostPreview from '../../components/DiscussionPostPreview';
+import CopyrightReporter from '../../common/CopyrightReporter';
 
-// TODO: Implement menu items
-let menuContent = [
-    {
-        label: "Share",
-        icon: <ShareIcon />,
-        action: () => { console.log("Share") }
-    },
-    {
-        label: "Report",
-        icon: <WarningIcon />,
-        action: () => { console.log("Report") }
-    }
-]
 
+const endpointMap = {
+    "artitem": "art_item",
+    "event": "event",
+    "discussion": "discussion"
+}
 
 export default function FeedCard(props) {
+
 
     let parsedDate = new Date(props.content.creationDate);
     let date = parsedDate.toLocaleString();
@@ -45,6 +39,7 @@ export default function FeedCard(props) {
 
     const [followStatus, setFollowStatus] = React.useState(false);
     const [bookmarked, setBookmarked] = React.useState(false);
+    const [reportOpen, setReportOpen] = React.useState(false);
 
     React.useEffect(() => {
         setFollowStatus(props.creator.followed);
@@ -53,6 +48,29 @@ export default function FeedCard(props) {
     React.useEffect(() => {
         setBookmarked(props.content.bookmarked);
     }, [props.content.bookmarked])
+
+
+    const menuContent = [
+        {
+            label: "Share",
+            icon: <ShareIcon />,
+            action: () => {
+                navigator.clipboard.writeText(window.location.href + props.content.type + "/" + props.content.id);
+                props.onResponse("success", "Link copied to clipboard");
+            }
+        },
+    ]
+
+    if (props.content.type === "artitem" && token !== null) {
+        menuContent.push(
+            {
+                label: "Report",
+                icon: <WarningIcon />,
+                action: () => { setReportOpen(true); }
+            }
+        );
+    }
+
 
 
     function followRequest() {
@@ -74,19 +92,8 @@ export default function FeedCard(props) {
     }
 
     function handleBookmark() {
-        var endpoint = "";
 
-        if (props.content.type === "artitem") {
-            endpoint = "art_item";
-        } else if (props.content.type === "event") {
-            endpoint = "event";
-        }
-        else {
-            return;
-        }
-
-
-        fetch('/api/' + endpoint + '/bookmark/' + props.content.id,
+        fetch('/api/' + endpointMap[props.content.type] + '/bookmark/' + props.content.id,
             {
                 method: "POST", headers: {
                     'Authorization': 'Bearer ' + token,
@@ -147,7 +154,12 @@ export default function FeedCard(props) {
                     </Stack>
                 </Grid>
             </Grid>
-
+            {reportOpen && <CopyrightReporter
+                id={props.content.id}
+                onResponse={(severity, message) => {
+                    props.onResponse(severity, message);
+                    setReportOpen(false);
+                }} />}
         </Box>
     );
 }
