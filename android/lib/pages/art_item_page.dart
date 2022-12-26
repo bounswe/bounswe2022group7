@@ -68,6 +68,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
 
     Widget imageBuilderResult =
         imageBuilder(currentArtItem!.artItemInfo.imageId);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Art Item"),
@@ -276,12 +277,15 @@ class _ArtItemPageState extends State<ArtItemPage> {
                             annotationListNotifier,
                           ),
                           const SizedBox(height: 10.0),
-                          AnnotationBar(
-                              imageId: currentArtItem!.artItemInfo.imageId!,
-                              countNotifier: annotationCountNotifier,
-                              modeNotifier: annotationModeNotifier,
-                              annotationNotifier: annotationNotifier,
-                              annotationListNotifier: annotationListNotifier),
+                          currentArtItem!.artItemInfo.imageId != null
+                              ? AnnotationBar(
+                                  imageId: currentArtItem!.artItemInfo.imageId!,
+                                  countNotifier: annotationCountNotifier,
+                                  modeNotifier: annotationModeNotifier,
+                                  annotationNotifier: annotationNotifier,
+                                  annotationListNotifier:
+                                      annotationListNotifier)
+                              : const SizedBox.shrink(),
                           const SizedBox(height: 5.0),
                           AnnotatableText(
                             currentArtItem!.artItemInfo.description,

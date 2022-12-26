@@ -270,12 +270,14 @@ class _EventPageState extends State<EventPage> {
                             annotationListNotifier,
                           ),
                           const SizedBox(height: 10.0),
-                          AnnotationBar(
-                              imageId: currentEvent!.eventInfo.imageId!,
-                              countNotifier: annotationCountNotifier,
-                              modeNotifier: annotationModeNotifier,
-                              annotationNotifier: annotationNotifier,
-                              annotationListNotifier: annotationListNotifier),
+                          currentEvent!.eventInfo.imageId != null
+                            ? AnnotationBar(
+                                imageId: currentEvent!.eventInfo.imageId!,
+                                countNotifier: annotationCountNotifier,
+                                modeNotifier: annotationModeNotifier,
+                                annotationNotifier: annotationNotifier,
+                                annotationListNotifier: annotationListNotifier)
+                            : const SizedBox.shrink(),
                           const SizedBox(height: 15.0),
                           AnnotatableText(
                             currentEvent!.eventInfo.description,
