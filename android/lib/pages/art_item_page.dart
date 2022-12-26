@@ -79,13 +79,17 @@ class _ArtItemPageState extends State<ArtItemPage> {
           left: annotation["x"],
           child: Container(
             width: annotation["width"],
-            height: 20,
+            height: 12,
             color: Colors.red,
             child: Center(
-              child: Text(
-                annotation["text"],
-                style: const TextStyle(color: Colors.white),
-                overflow: TextOverflow.ellipsis,
+              child: Column(
+                children: [
+                  Text(
+                    annotation["text"],
+                    style: const TextStyle(color: Colors.white, fontSize: 8),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
           ),
@@ -126,7 +130,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
           "width": 0.0,
           "height": 0.0,
           "text": "",
-          "image": imageBuilderResult,
         };
       },
       onLongPressMoveUpdate: (details) {
@@ -141,7 +144,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
           "width": (topLeft.dx - details.localPosition.dx).abs(),
           "height": (topLeft.dy - details.localPosition.dy).abs(),
           "text": "",
-          "image": imageBuilderResult,
         };
       },
       onLongPressEnd: (details) {},
@@ -274,14 +276,19 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               containsText
                                   ? Container(
                                       width: value["width"],
-                                      height: 20,
+                                      height: 12,
                                       color: Colors.red,
                                       child: Center(
-                                        child: Text(
-                                          annotation.value!["text"],
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                          overflow: TextOverflow.ellipsis,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              annotation.value!["text"],
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                              fontSize: 8),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     )
@@ -391,13 +398,17 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                       });
                                     }
                                   },
-                                  icon: Icon(
-                                    Icons.favorite_border,
-                                    color: currentArtItem!.likeStatus == 0
-                                        ? Colors.black
-                                        : Colors.red,
-                                    size: 30.0,
-                                  )),
+                                  icon: currentArtItem!.likeStatus == 0
+                                      ? Icon(
+                                          Icons.favorite_border_outlined,
+                                          color: Colors.black,
+                                          size: 30.0,
+                                        )
+                                      : Icon(
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                          size: 30.0,
+                                        )),
                               IconButton(
                                   onPressed: () => showDialog<String>(
                                         context: context,
@@ -531,6 +542,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               }),
                           const SizedBox(height: 10.0),
                           AnnotationBar(
+                              imageId: currentArtItem!.artItemInfo.imageId!,
                               countNotifier: annotationCountNotifier,
                               modeNotifier: annotationModeNotifier,
                               annotationNotifier: annotationNotifier,
@@ -573,7 +585,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               const Icon(Icons.chat, size: 13.0),
                               const SizedBox(width: 5.0),
                               Text(
-                                // TODO: Add number of comments
                                 "Comments ${currentArtItem!.commentList.length}",
                                 style: TextStyle(
                                   fontSize: 16.0,
