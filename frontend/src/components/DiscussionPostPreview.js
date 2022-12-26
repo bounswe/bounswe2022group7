@@ -15,7 +15,7 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 
-export default function DiscussionPostPreview(props) {
+function DiscussionPostVote(props) {
 
     const [likeStatus, setLikeStatus] = React.useState(props.content.voteStatus || 0);
     const [likeCount, setLikeCount] = React.useState(props.content.voteCount || 0);
@@ -91,6 +91,24 @@ export default function DiscussionPostPreview(props) {
     }
 
     return (
+        <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 2, width: '100%' }}>
+            {token && <Box>
+                <IconButton onClick={handleUpvote} sx={{ display: 'inline' }} variant="outlined">
+                    {likeStatus === 1 ? <ThumbUpAlt color='secondary' /> : <ThumbUpOffAlt />}
+                </IconButton>
+                <Typography variant="body1" sx={{ display: 'inline', fontWeight: 600, color: 'gray', fontSize: 14 }}>{likeCount}</Typography>
+                <IconButton onClick={handleDownvote} sx={{ display: 'inline', color: likeStatus === 1 ? 'primary' : 'grey' }} variant="outlined">
+                    {likeStatus === -1 ? <ThumbDownAltIcon size="small" color='secondary' /> : <ThumbDownOffAltIcon size="small" />}
+                </IconButton>
+            </Box>}
+            <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>{props.content.commentCount + " comments"}</Typography>
+        </Stack>
+    )
+}
+
+function DiscussionPostPreview(props) {    
+
+    return (
         <Stack sx={{ width: '100%' }}>
             <Link to={"/discussionPost/" + props.content.id} style={{ width: '100%', textDecoration: 'none', color: "black" }}>
                 <Box position="relative" width='100%'>
@@ -106,19 +124,9 @@ export default function DiscussionPostPreview(props) {
                 </Box>
             </Link>
 
-            <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 2, width: '100%' }}>
-                {token && <Box>
-                    <IconButton onClick={handleUpvote} sx={{ display: 'inline' }} variant="outlined">
-                        {likeStatus === 1 ? <ThumbUpAlt color='secondary' /> : <ThumbUpOffAlt />}
-                    </IconButton>
-                    <Typography variant="body1" sx={{ display: 'inline', fontWeight: 600, color: 'gray', fontSize: 14 }}>{likeCount}</Typography>
-                    <IconButton onClick={handleDownvote} sx={{ display: 'inline', color: likeStatus === 1 ? 'primary' : 'grey' }} variant="outlined">
-                        {likeStatus === -1 ? <ThumbDownAltIcon size="small" color='secondary' /> : <ThumbDownOffAltIcon size="small" />}
-                    </IconButton>
-                </Box>}
-                <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>{props.content.commentCount + " comments"}</Typography>
-            </Stack>
+            <DiscussionPostVote content={props.content}/>
         </Stack>
     );
-
 }
+
+export {DiscussionPostVote, DiscussionPostPreview}

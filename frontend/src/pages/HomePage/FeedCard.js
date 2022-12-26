@@ -17,9 +17,9 @@ import { Link } from 'react-router-dom';
 import UserAvatar from "../../components/UserAvatar";
 import CustomizableDropdownMenu from "../../components/CustomizableDropdownMenu";
 import LoadingButton from "../../components/LoadingButton";
-import ArtItemPreview from '../../components/ArtItemPreview';
-import EventPreview from '../../components/EventPreview';
-import DiscussionPostPreview from '../../components/DiscussionPostPreview';
+import {ArtItemPreview} from '../../components/ArtItemPreview';
+import {EventPreview} from '../../components/EventPreview';
+import {DiscussionPostPreview} from '../../components/DiscussionPostPreview';
 
 // TODO: Implement menu items
 let menuContent = [
