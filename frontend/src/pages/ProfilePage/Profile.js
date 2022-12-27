@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, ListItem } from '@mui/material';
 import { useParams } from "react-router-dom";
 import {useEffect,useState} from "react";
 import {useAuth} from "../../auth/useAuth";
@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import FeedCard from "../HomePage/FeedCard";
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -30,6 +31,7 @@ function Profile() {
     const [bookmarkedArtItems, setBookmarkedArtItems] = useState(null);
     const [participatedEvents, setParticipatedEvents] = useState(null);
     const [level, setLevel] = useState(null);
+    const [followingUsernames, setFollowingUsernames] = useState([]);
     const { token } = useAuth()
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -45,9 +47,8 @@ function Profile() {
         })
             .then((response) => response.json())
             .then((data) => {
-                //TODO setLoading(false)
-                
-                    console.log(data)
+                    //TODO setLoading(false)
+
                     setUser(data.accountInfo)
                     setLevel(data.level)
                     setOtherUser(data.following)
@@ -62,7 +63,6 @@ function Profile() {
                             .then((data) => {
                                 // artItems ? setArtItems([...artItems, data]) : setArtItems([data])
                                 setArtItems([data])
-                                console.log(data)
                             })
                     })
                     data.bookmarkedEventIds.forEach((bookmarkedEventId) => {
@@ -103,6 +103,8 @@ function Profile() {
                             })
                     })
 
+
+                    setFollowingUsernames([data.followingUsernames])
                 }
             )
             .catch((error) => {
@@ -128,8 +130,8 @@ function Profile() {
                     <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
                         <ul>
                             {
-                                otherUser&&otherUser.map((user,index)=>{
-                                    return <li key={index}>{user.accountInfo.username}</li>
+                                followingUsernames[0]&&followingUsernames[0].map((user,index)=>{
+                                    return <li key={index}>{user}</li>
                                 })
                             }
                         </ul>
@@ -150,13 +152,12 @@ function Profile() {
                         <Card variant="outlined">
                             <>
                                 <CardContent>
-                                    <Typography variant="h5" component="div">
-                                       @{user.username}
+                                    <Typography variant="h6" component="div">
+                                        @{user.username}
                                     </Typography>
                                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                         {user.name}
                                     </Typography>
-
                                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                         user level: {level}
                                     </Typography>
@@ -170,7 +171,7 @@ function Profile() {
                                         </Grid>
                                         <Grid item xs={3}>
                                             <Typography color="text.secondary">
-                                                 {new Date(user.dateOfBirth).toISOString().slice(0, 10)}
+                                                {new Date(user.dateOfBirth).toISOString().slice(0, 10)}
                                             </Typography>
                                         </Grid>
 
@@ -197,9 +198,9 @@ function Profile() {
 
                 {
                     artItems && artItems.map((artItem)=>{
-                       
+
                         return (<FeedCard key={artItem.id}  content={{
-                            type: "artitem",                           
+                            type: "artitem",
                             id: 40,
                             title: artItem.name,
                             description: artItem.description,
@@ -215,7 +216,7 @@ function Profile() {
                                               }
                                           } />)
 
-                                        })
+                    })
                 }
 
 
@@ -232,7 +233,7 @@ function Profile() {
 
                 {
                     bookmarkedEvents && bookmarkedEvents.map((bookmarkedEvent)=>{
-                     
+
                         return (<FeedCard key={bookmarkedEvent.id}  content={{
                             type: "event",
                             id: 40,
@@ -250,7 +251,7 @@ function Profile() {
                                               }
                                           } />)
 
-                                        })
+                    })
                 }
 
 
@@ -268,9 +269,9 @@ function Profile() {
 
                 {
                     bookmarkedArtItems && bookmarkedArtItems.map((bookmarkedArtItem)=>{
-                       
+
                         return (<FeedCard key={bookmarkedArtItem.id}  content={{
-                            type: "artitem",                           
+                            type: "artitem",
                             id: 40,
                             title: bookmarkedArtItem.name,
                             description: bookmarkedArtItem.description,
@@ -286,7 +287,7 @@ function Profile() {
                                               }
                                           } />)
 
-                                        })
+                    })
                 }
 
 
@@ -304,7 +305,7 @@ function Profile() {
 
                 {
                     participatedEvents && participatedEvents.map((participatedEvent)=>{
-                     
+
                         return (<FeedCard key={participatedEvent.id}  content={{
                             type: "event",
                             id: 40,
@@ -322,7 +323,7 @@ function Profile() {
                                               }
                                           } />)
 
-                                        })
+                    })
                 }
 
 
