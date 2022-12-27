@@ -236,7 +236,7 @@ function Profile() {
 
                         return (<FeedCard key={bookmarkedEvent.id}  content={{
                             type: "event",
-                            id: participatedEvent.id,
+                            id: bookmarkedEvent.id,
                             title: bookmarkedEvent.eventInfo.title,
                             description: bookmarkedEvent.eventInfo.description,
                             imageId: bookmarkedEvent.eventInfo.posterId,
