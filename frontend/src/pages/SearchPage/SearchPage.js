@@ -17,7 +17,7 @@ import UserPreview from "../../components/UserPreview";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import { Link, useLocation } from "react-router-dom";
-import { Paper } from "@mui/material";
+import { CircularProgress, Paper } from "@mui/material";
 
 
 function useQuery() {
@@ -34,6 +34,13 @@ export default function SearchPage() {
     const [artItemData, setArtItemData] = React.useState([]);
     const [userProfileData, setUserProfileData] = React.useState([]);
     const [discussionPostData, setDiscussionPostData] = React.useState([]);
+    const [loading, setLoading] = React.useState({
+        onlineGallery: true,
+        physicalExhibition: true,
+        artItem: true,
+        userProfile: true,
+        discussionPost: true,
+    });
 
     const { userData } = useAuth();
 
@@ -82,7 +89,7 @@ export default function SearchPage() {
                         return (
                             {
                                 username: item.accountInfo.username,
-                                imageId: item.accountInfo.profileImageId,
+                                imageId: item.accountInfo.profilePictureId,
                                 followed: followStatus(item.accountInfo.username),
                             })
                     });
@@ -92,6 +99,10 @@ export default function SearchPage() {
             .catch((error) => {
                 setError(error);
             })
+            .finally(() => {
+                setLoading((prev) => ({ ...prev, userProfile: false }));
+            }
+            );
     }, [query]);
 
 
@@ -107,7 +118,7 @@ export default function SearchPage() {
                         return {
                             creator: {
                                 username: item.creatorAccountInfo.username,
-                                imageId: item.creatorAccountInfo.profileImageId,
+                                imageId: item.creatorAccountInfo.profilePictureId,
                                 followed: followStatus(item.creatorAccountInfo.username),
 
                             },
@@ -129,6 +140,10 @@ export default function SearchPage() {
             .catch((error) => {
                 setError(error);
             })
+            .finally(() => {
+                setLoading((prev) => ({ ...prev, physicalExhibition: false }));
+            }
+            );
     }, [query]);
 
 
@@ -144,7 +159,7 @@ export default function SearchPage() {
                         return {
                             creator: {
                                 username: item.creatorAccountInfo.username,
-                                imageId: item.creatorAccountInfo.profileImageId,
+                                imageId: item.creatorAccountInfo.profilePictureId,
                                 followed: followStatus(item.creatorAccountInfo.username),
                             },
                             content: {
@@ -165,6 +180,11 @@ export default function SearchPage() {
             .catch((error) => {
                 setError(error);
             })
+            .finally(() => {
+                setLoading((prev) => ({ ...prev, onlineGallery: false }));
+            }
+            );
+
     }, [query]);
 
     React.useEffect(() => {
@@ -179,7 +199,7 @@ export default function SearchPage() {
                         return {
                             creator: {
                                 username: item.creatorAccountInfo.username,
-                                imageId: item.creatorAccountInfo.profileImageId,
+                                imageId: item.creatorAccountInfo.profilePictureId,
                                 followed: followStatus(item.creatorAccountInfo.username),
 
                             },
@@ -201,6 +221,11 @@ export default function SearchPage() {
             .catch((error) => {
                 setError(error);
             })
+            .finally(() => {
+                setLoading((prev) => ({ ...prev, discussionPost: false }));
+            }
+            );
+
     }, [query]);
 
 
@@ -218,7 +243,7 @@ export default function SearchPage() {
                         return {
                             creator: {
                                 username: item.creatorAccountInfo.username,
-                                imageId: item.creatorAccountInfo.profileImageId,
+                                imageId: item.creatorAccountInfo.profilePictureId,
                                 followed: followStatus(item.creatorAccountInfo.username),
 
                             },
@@ -240,6 +265,10 @@ export default function SearchPage() {
             .catch((error) => {
                 setError(error);
             })
+            .finally(() => {
+                setLoading((prev) => ({ ...prev, artItem: false }));
+            }
+            );
     }, [query]);
 
     const renderUser = (info, date) => {
@@ -259,102 +288,127 @@ export default function SearchPage() {
 
     return (
         <>
-            <Container sx={{ maxWidth: 750, mt: 4 }}>
+            <Container sx={{ width: '100%', maxWidth: 750, mt: 4 }}>
                 <Typography variant="h4" component="h3" gutterBottom sx={{ fontWeight: 600 }}>
                     Showing search results for "{query}"
                 </Typography>
             </Container>
-            <Stack spacing={2} >
-                {userProfileData.length > 0 &&
-                    <GenericCardLayout key="user-profile" customTopMargin={0}>
-                        <Stack direction="column" spacing={4}>
-                            <Typography key="users-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
-                                Users:
-                            </Typography>
-                            {userProfileData.map((item) => {
-                                return (
-                                    <Box key={"user-detail-" + item.username} width='100%'>
-                                        <Box position="relative" width='100%'>
-                                            <UserPreview user={item} />
-                                            <Link to={`/profile/${item.username}`} style={{ textDecoration: 'none' }}>
-                                                <ArrowForwardIosIcon fontSize="small" sx={{ color: 'gray', position: 'absolute', top: '50%', right: 0, transform: 'translate(0, -50%)' }} />
-                                            </Link>
-                                        </Box>
-                                    </Box>
-                                );
-                            })}
-                        </Stack>
-                    </GenericCardLayout>
-                }
-                {onlineGalleryData.length > 0 &&
-                    <GenericCardLayout key="online-galleries" customTopMargin={0}>
-                        <Stack direction="column" spacing={4}>
-                            <Typography key="online-galleries-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
-                                Online Galleries:
-                            </Typography>
-                            {onlineGalleryData.map((item) => {
-                                return (
-                                    <Box key={"online-gallery-" + item.content.id} width='100%'>
-                                        {renderUser(item.creator, item.content.creationDate)}
-                                        <EventPreview content={item.content} />
-                                    </Box>
-                                );
-                            })}
-                        </Stack>
-                    </GenericCardLayout>
-                }
-                {physicalExhibitionData.length > 0 &&
-                    <GenericCardLayout key="physical-exhibitions" customTopMargin={0}>
-                        <Stack direction="column" spacing={4}>
-                            <Typography key="physical-exhibitions-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
-                                Physical Exhibitions:
-                            </Typography>
-                            {physicalExhibitionData.map((item) => {
-                                return (
-                                    <Box key={"physical-exhibition-" + item.content.id} width='100%'>
-                                        {renderUser(item.creator, item.content.creationDate)}
-                                        <EventPreview content={item.content} />
-                                    </Box>
-                                );
-                            })}
-                        </Stack>
-                    </GenericCardLayout>
-                }
-                {artItemData.length > 0 &&
-                    <GenericCardLayout key="art-items" customTopMargin={0}>
-                        <Stack direction="column" spacing={4}>
-                            <Typography key="art-items-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
-                                Art Items:
-                            </Typography>
-                            {artItemData.map((item) => {
-                                return (
-                                    <Box key={"art-item-" + item.content.id} width='100%'>
-                                        {renderUser(item.creator, item.content.creationDate)}
-                                        <ArtItemPreview content={item.content} />
-                                    </Box>
-                                );
-                            })}
-                        </Stack>
-                    </GenericCardLayout>
-                }
-                {discussionPostData.length > 0 &&
-                    <GenericCardLayout key="discussion-posts" customTopMargin={0}>
-                        <Stack direction="column" spacing={4}>
-                            <Typography key="discussion-posts-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
-                                Discussion Posts:
-                            </Typography>
-                            {discussionPostData.map((item) => {
-                                return (
-                                    <Box key={"discussion-post-" + item.content.id} width='100%'>
-                                        {renderUser(item.creator, item.content.creationDate)}
-                                        <DiscussionPostPreview content={item.content} />
-                                    </Box>
-                                );
-                            })}
-                        </Stack>
-                    </GenericCardLayout>
-                }
-            </Stack>
+            {
+                loading.userProfile || loading.onlineGallery || loading.discussionPost || loading.artItem ?
+                    <GenericCardLayout customTopMargin={0}>
+                        <Container sx={{ width: '100%' }}>
+                            <CircularProgress />
+                        </Container>
+                    </GenericCardLayout> :
+
+                    <Stack spacing={2} >
+
+                        <GenericCardLayout key="user-profile" customTopMargin={0}>
+                            <Stack direction="column" spacing={4}>
+                                <Typography key="users-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
+                                    Users:
+                                </Typography>
+                                {userProfileData.length > 0 ?
+                                    userProfileData.map((item) => {
+                                        return (
+                                            <Box key={"user-detail-" + item.username} width='100%'>
+                                                <Box position="relative" width='100%'>
+                                                    <UserPreview user={item} />
+                                                    <Link to={`/profile/${item.username}`} style={{ textDecoration: 'none' }}>
+                                                        <ArrowForwardIosIcon fontSize="small" sx={{ color: 'gray', position: 'absolute', top: '50%', right: 0, transform: 'translate(0, -50%)' }} />
+                                                    </Link>
+                                                </Box>
+                                            </Box>
+                                        );
+                                    })
+                                    : <Typography variant="body1" color="text.secondary">
+                                        No users found.
+                                    </Typography>}
+                            </Stack>
+                        </GenericCardLayout>
+
+                        <GenericCardLayout key="online-galleries" customTopMargin={0}>
+                            <Stack direction="column" spacing={4}>
+                                <Typography key="online-galleries-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
+                                    Online Galleries:
+                                </Typography>
+                                {onlineGalleryData.length > 0 ?
+                                    onlineGalleryData.map((item) => {
+                                        return (
+                                            <Box key={"online-gallery-" + item.content.id} width='100%'>
+                                                {renderUser(item.creator, item.content.creationDate)}
+                                                <EventPreview content={item.content} />
+                                            </Box>
+                                        );
+                                    })
+                                    : <Typography variant="body1" color="text.secondary">
+                                        No online galleries found.
+                                    </Typography>}
+                            </Stack>
+                        </GenericCardLayout>
+
+                        <GenericCardLayout key="physical-exhibitions" customTopMargin={0}>
+                            <Stack direction="column" spacing={4}>
+                                <Typography key="physical-exhibitions-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
+                                    Physical Exhibitions:
+                                </Typography>
+                                {physicalExhibitionData.length > 0 ?
+                                    physicalExhibitionData.map((item) => {
+                                        return (
+                                            <Box key={"physical-exhibition-" + item.content.id} width='100%'>
+                                                {renderUser(item.creator, item.content.creationDate)}
+                                                <EventPreview content={item.content} />
+                                            </Box>
+                                        );
+                                    })
+                                    : <Typography variant="body1" color="text.secondary">
+                                        No physical exhibitions found.
+                                    </Typography>}
+                            </Stack>
+                        </GenericCardLayout>
+                        <GenericCardLayout key="art-items" customTopMargin={0}>
+                            <Stack direction="column" spacing={4}>
+                                <Typography key="art-items-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
+                                    Art Items:
+                                </Typography>
+                                {artItemData.length > 0 ?
+                                    artItemData.map((item) => {
+                                        return (
+                                            <Box key={"art-item-" + item.content.id} width='100%'>
+                                                {renderUser(item.creator, item.content.creationDate)}
+                                                <ArtItemPreview content={item.content} />
+                                            </Box>
+                                        );
+                                    })
+                                    : <Typography variant="body1" color="text.secondary">
+                                        No art items found.
+                                    </Typography>}
+
+                            </Stack>
+                        </GenericCardLayout>
+
+                        <GenericCardLayout key="discussion-posts" customTopMargin={0}>
+                            <Stack direction="column" spacing={4}>
+                                <Typography key="discussion-posts-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
+                                    Discussion Posts:
+                                </Typography>
+                                {discussionPostData.length > 0 ?
+                                    discussionPostData.map((item) => {
+                                        return (
+                                            <Box key={"discussion-post-" + item.content.id} width='100%'>
+                                                {renderUser(item.creator, item.content.creationDate)}
+                                                <DiscussionPostPreview content={item.content} />
+                                            </Box>
+                                        );
+                                    }) :
+                                    <Typography variant="body1" color="text.secondary">
+                                        No discussion posts found.
+                                    </Typography>
+                                }
+                            </Stack>
+                        </GenericCardLayout>
+                    </Stack>
+            }
         </>
     )
 }
