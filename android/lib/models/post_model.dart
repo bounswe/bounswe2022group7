@@ -208,19 +208,26 @@ class PostAndImages {
               ),
               const SizedBox(width: 5.0),
               Text(
-                event.eventInfo.startingDate.toString().substring(0, 16),
+                "${event.eventInfo.startingDate.day}-${event.eventInfo.startingDate.month}-${event.eventInfo.startingDate.year} / ${event.eventInfo.endingDate.day}-${event.eventInfo.endingDate.month}-${event.eventInfo.endingDate.year}",
               ),
             ],
           ),
           Row(
             children: [
-              Icon(
-                Icons.location_pin,
-                color: Colors.grey[600],
-                size: 12.0,
-              ),
+              event.location != null
+                  ? Icon(
+                      Icons.location_pin,
+                      color: Colors.grey[600],
+                      size: 12.0,
+                    )
+                  : Container(),
               const SizedBox(width: 5.0),
-              Text(event.location != null ? event.location!.address : ""),
+              Text(event.location != null
+                  ? event.location!.address.toString().substring(0, 8) !=
+                          "GeoPoint"
+                      ? event.location!.address.toString()
+                      : "Lat: ${event.location!.latitude.toString().substring(0, 7)} / Long: ${event.location!.longitude.toString().substring(0, 7)}"
+                  : ""),
             ],
           ),
         ],

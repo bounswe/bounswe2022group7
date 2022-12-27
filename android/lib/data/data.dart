@@ -108,7 +108,17 @@ final List<Event> events = [
           country: null,
           date_of_birth: null,
           profile_picture_id: null),
-      collaborators: [mehmet],
+      collaboratorAccountInfos: [
+        AccountInfo(
+            email: "mehmet@gmail.com",
+            username: "mehmet",
+            id: 1,
+            name: null,
+            surname: null,
+            country: null,
+            date_of_birth: null,
+            profile_picture_id: null)
+      ],
       participants: [],
       creationDate: DateTime(2021, 11, 20),
       commentList: [],
@@ -143,7 +153,7 @@ final List<Event> events = [
           country: null,
           date_of_birth: null,
           profile_picture_id: null),
-      collaborators: [],
+      collaboratorAccountInfos: [],
       participants: [],
       creationDate: DateTime(2021, 11, 20),
       commentList: [],

@@ -65,14 +65,13 @@ class _EventPageState extends State<EventPage> {
     }
     final ValueNotifier<int> annotationModeNotifier = ValueNotifier(0);
     final ValueNotifier<Map<String, dynamic>?> annotationNotifier =
-    ValueNotifier(null);
+        ValueNotifier(null);
 
     final ValueNotifier<List<Map<String, dynamic>>> annotationListNotifier =
-    ValueNotifier([]);
+        ValueNotifier([]);
     final ValueNotifier<int> annotationCountNotifier = ValueNotifier(0);
 
-    Widget imageBuilderResult =
-    imageBuilder(currentEvent!.eventInfo.imageId);
+    Widget imageBuilderResult = imageBuilder(currentEvent!.eventInfo.imageId);
 
     return Scaffold(
       appBar: AppBar(
@@ -131,6 +130,187 @@ class _EventPageState extends State<EventPage> {
                                         : Colors.orange,
                                     size: 30.0,
                                   )),
+                            ],
+                          ),
+
+                          const SizedBox(height: 15.0),
+                          Table(
+                            columnWidths: {
+                              0: FlexColumnWidth(1),
+                              1: FlexColumnWidth(2),
+                            },
+                            border: TableBorder.symmetric(
+                                inside: BorderSide(
+                                  color: Colors.grey[300]!,
+                                  width: 1.0,
+                                ),
+                                outside: BorderSide(color: Colors.grey[500]!)),
+                            defaultVerticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            children: [
+                              TableRow(children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      navigateToHostProfile(currentEvent!
+                                          .creatorAccountInfo.username);
+                                    },
+                                    child: SizedBox(
+                                        height: 55.0,
+                                        child: Column(children: const [
+                                          SizedBox(height: 5.0),
+                                          Icon(
+                                            Icons.person_rounded,
+                                            size: 25.0,
+                                          ),
+                                          SizedBox(height: 3.0),
+                                          Text('Host'),
+                                        ]))),
+                                GestureDetector(
+                                    onTap: () {
+                                      navigateToHostProfile(currentEvent!
+                                          .creatorAccountInfo.username);
+                                    },
+                                    child: Column(children: [
+                                      const SizedBox(height: 5.0),
+                                      circleAvatarBuilder(
+                                          currentEvent!.creatorAccountInfo
+                                              .profile_picture_id,
+                                          20.0),
+                                      Text(currentEvent!
+                                                  .creatorAccountInfo.name ==
+                                              null
+                                          ? currentEvent!
+                                              .creatorAccountInfo.username
+                                          : currentEvent!
+                                              .creatorAccountInfo.name!),
+                                      const SizedBox(height: 3.0),
+                                    ])),
+                              ]),
+                              TableRow(children: [
+                                SizedBox(
+                                    height: 55.0,
+                                    child: Column(children: const [
+                                      SizedBox(height: 5.0),
+                                      Icon(
+                                        Icons.calendar_today,
+                                        size: 25.0,
+                                      ),
+                                      SizedBox(height: 3.0),
+                                      Text('Date'),
+                                    ])),
+                                Column(children: [
+                                  Text(
+                                      "${currentEvent!.eventInfo.startingDate.day}-${currentEvent!.eventInfo.startingDate.month}-${currentEvent!.eventInfo.startingDate.year} / ${currentEvent!.eventInfo.endingDate.day}-${currentEvent!.eventInfo.endingDate.month}-${currentEvent!.eventInfo.endingDate.year}"),
+                                ]),
+                              ]),
+                              currentEvent!.location != null
+                                  ? TableRow(children: [
+                                      SizedBox(
+                                          height: 55.0,
+                                          child: Column(children: const [
+                                            SizedBox(height: 3.0),
+                                            Icon(
+                                              Icons.location_on,
+                                              size: 25.0,
+                                            ),
+                                            SizedBox(height: 3.0),
+                                            Text('Location'),
+                                          ])),
+                                      Column(children: [
+                                        Text(currentEvent!.location != null
+                                            ? currentEvent!.location!.address
+                                                        .toString()
+                                                        .substring(0, 8) !=
+                                                    "GeoPoint"
+                                                ? currentEvent!
+                                                    .location!.address
+                                                    .toString()
+                                                : "Lat: ${currentEvent!.location!.latitude.toString().substring(0, 7)} / Long: ${currentEvent!.location!.longitude.toString().substring(0, 7)}"
+                                            : ""),
+                                      ]),
+                                    ])
+                                  : TableRow(children: [
+                                      TableCell(
+                                          child: Row(children: <Widget>[
+                                        Container(),
+                                      ])),
+                                      TableCell(
+                                          child: Row(children: <Widget>[
+                                        Container(),
+                                      ]))
+                                    ]),
+                              (currentEvent!.collaboratorAccountInfos != null &&
+                                      currentEvent!.collaboratorAccountInfos!
+                                              .length >
+                                          1)
+                                  ? TableRow(children: [
+                                      SizedBox(
+                                          height: 55.0,
+                                          child: Column(children: const [
+                                            SizedBox(height: 3.0),
+                                            Icon(
+                                              Icons.supervisor_account,
+                                              size: 25.0,
+                                            ),
+                                            SizedBox(height: 3.0),
+                                            Text('Collaborators'),
+                                          ])),
+                                      Column(children: [
+                                        Text(
+                                          currentEvent!
+                                                      .collaboratorAccountInfos !=
+                                                  null
+                                              ? currentEvent!
+                                                  .collaboratorAccountInfos!
+                                                  .map((e) => e.username)
+                                                  .join(", ")
+                                              : "",
+                                        ),
+                                      ]),
+                                    ])
+                                  : TableRow(children: [
+                                      TableCell(
+                                          child: Row(children: <Widget>[
+                                        Container(),
+                                      ])),
+                                      TableCell(
+                                          child: Row(children: <Widget>[
+                                        Container(),
+                                      ]))
+                                    ]),
+                            ],
+                          ),
+                          const SizedBox(height: 15.0),
+                          buildAnnotatableImage(
+                            imageBuilderResult,
+                            annotationModeNotifier,
+                            annotationNotifier,
+                            annotationListNotifier,
+                          ),
+                          const SizedBox(height: 10.0),
+                          currentEvent!.eventInfo.imageId != null
+                              ? AnnotationBar(
+                                  user: user,
+                                  imageId: currentEvent!.eventInfo.imageId!,
+                                  countNotifier: annotationCountNotifier,
+                                  modeNotifier: annotationModeNotifier,
+                                  annotationNotifier: annotationNotifier,
+                                  annotationListNotifier:
+                                      annotationListNotifier)
+                              : const SizedBox.shrink(),
+                          const Divider(color: Colors.black),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text(
+                                "Description:",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const Spacer(),
                               IconButton(
                                   onPressed: () async {
                                     if (user != null) {
@@ -165,125 +345,7 @@ class _EventPageState extends State<EventPage> {
                                   )),
                             ],
                           ),
-                          const SizedBox(height: 10.0),
-                          Table(
-                            border: TableBorder.symmetric(
-                                inside: BorderSide(
-                                  color: Colors.grey[300]!,
-                                  width: 1.0,
-                                ),
-                                outside: BorderSide(color: Colors.grey[500]!)),
-                            defaultVerticalAlignment:
-                                TableCellVerticalAlignment.middle,
-                            children: [
-                              TableRow(children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      navigateToHostProfile(currentEvent!
-                                          .creatorAccountInfo.username);
-                                    },
-                                    child: Column(children: const [
-                                      Text('Host'),
-                                      SizedBox(height: 3.0),
-                                      Icon(
-                                        Icons.supervisor_account,
-                                        size: 25.0,
-                                      ),
-                                    ])),
-                                Column(children: const [
-                                  Text('Date'),
-                                  SizedBox(height: 3.0),
-                                  Icon(
-                                    Icons.calendar_today,
-                                    size: 25.0,
-                                  ),
-                                ]),
-                                Column(children: const [
-                                  Text('Location'),
-                                  SizedBox(height: 3.0),
-                                  Icon(
-                                    Icons.location_on,
-                                    size: 25.0,
-                                  ),
-                                ]),
-                              ]),
-                              TableRow(children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      navigateToHostProfile(currentEvent!
-                                          .creatorAccountInfo.username);
-                                    },
-                                    child: Column(children: [
-                                      Text(currentEvent!
-                                                  .creatorAccountInfo.name ==
-                                              null
-                                          ? currentEvent!
-                                              .creatorAccountInfo.username
-                                          : currentEvent!
-                                              .creatorAccountInfo.name!),
-                                      circleAvatarBuilder(
-                                          currentEvent!.creatorAccountInfo
-                                              .profile_picture_id,
-                                          20.0),
-                                      const SizedBox(height: 3.0),
-                                    ])),
-                                Column(children: [
-                                  Text(
-                                    currentEvent!.eventInfo.startingDate
-                                        .toString()
-                                        .substring(0, 16),
-                                  ),
-                                ]),
-                                Column(children: [
-                                  Text(currentEvent!.location != null
-                                      ? currentEvent!.location!.address
-                                      : ""),
-                                ]),
-                              ]),
-                            ],
-                          ),
-                          const SizedBox(height: 10.0),
-                          Row(
-                            children: [
-                              const Text(
-                                'Collaborators: ',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
-                              Text(
-                                currentEvent!.collaborators == null
-                                    ? ""
-                                    : currentEvent!.collaborators!
-                                        .map((e) => e.name)
-                                        .join(", "),
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 15.0),
-                          buildAnnotatableImage(
-                            imageBuilderResult,
-                            annotationModeNotifier,
-                            annotationNotifier,
-                            annotationListNotifier,
-                          ),
-                          const SizedBox(height: 10.0),
-                          currentEvent!.eventInfo.imageId != null
-                            ? AnnotationBar(
-                                user: user,
-                                imageId: currentEvent!.eventInfo.imageId!,
-                                countNotifier: annotationCountNotifier,
-                                modeNotifier: annotationModeNotifier,
-                                annotationNotifier: annotationNotifier,
-                                annotationListNotifier: annotationListNotifier)
-                            : const SizedBox.shrink(),
+
                           const SizedBox(height: 15.0),
                           AnnotatableText(
                             "$serverIP/event/${currentEvent!.id}",

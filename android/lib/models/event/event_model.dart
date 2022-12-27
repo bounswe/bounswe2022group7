@@ -4,7 +4,7 @@ import 'package:android/models/models.dart';
 class Event extends Post {
   final EventInfo eventInfo;
   final String eventType;
-  final List<User>? collaborators;
+  final List<AccountInfo>? collaboratorAccountInfos;
   final List<String>? participants;
   final DateTime creationDate;
   final List<Comment> commentList;
@@ -21,7 +21,7 @@ class Event extends Post {
     required this.eventType,
     required AccountInfo creatorAccountInfo,
     required this.eventInfo,
-    this.collaborators,
+    this.collaboratorAccountInfos,
     this.participants,
     required this.creationDate,
     required this.commentList,
@@ -62,7 +62,10 @@ class Event extends Post {
       creationDate: creationDate,
       commentList: commentList,
       eventInfo: eventInfo,
-      collaborators: [],
+      collaboratorAccountInfos: json["collaboratorAccountInfos"] != null
+          ? List<AccountInfo>.from(json["collaboratorAccountInfos"]
+              .map((info) => AccountInfo.fromJson(info)))
+          : [],
       participants: participants,
       location: location,
       rules: json['rules'],
