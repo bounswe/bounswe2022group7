@@ -101,66 +101,6 @@ class _EventPageState extends State<EventPage> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const Spacer(),
-                              IconButton(
-                                  onPressed: () async {
-                                    if (user != null) {
-                                      final output = await postEventMarkNetwork(
-                                          currentEvent!.id, "bookmark");
-                                      setState(() {
-                                        if (output.event != null) {
-                                          currentEvent = output.event!;
-                                          currentEvent!
-                                              .updateStatus(user.username);
-                                        } else {
-                                          if (currentEvent!.bookmarkStatus ==
-                                              0) {
-                                            currentEvent!.bookmarkStatus = 1;
-                                          } else {
-                                            currentEvent!.bookmarkStatus = 0;
-                                          }
-                                        }
-                                      });
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.bookmark_add_outlined,
-                                    color: currentEvent!.bookmarkStatus == 0
-                                        ? Colors.black
-                                        : Colors.orange,
-                                    size: 30.0,
-                                  )),
-                              IconButton(
-                                  onPressed: () async {
-                                    if (user != null) {
-                                      final output = await postEventMarkNetwork(
-                                          currentEvent!.id, "participate");
-                                      setState(() {
-                                        if (output.event != null) {
-                                          currentEvent = output.event!;
-                                          currentEvent!
-                                              .updateStatus(user.username);
-                                        } else {
-                                          if (currentEvent!
-                                                  .participationStatus ==
-                                              0) {
-                                            currentEvent!.participationStatus =
-                                                1;
-                                          } else {
-                                            currentEvent!.participationStatus =
-                                                0;
-                                          }
-                                        }
-                                      });
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.check_circle_outline,
-                                    color:
-                                        currentEvent!.participationStatus == 0
-                                            ? Colors.black
-                                            : Colors.green,
-                                    size: 30.0,
-                                  )),
                             ],
                           ),
 
@@ -329,6 +269,82 @@ class _EventPageState extends State<EventPage> {
                                   annotationListNotifier:
                                       annotationListNotifier)
                               : const SizedBox.shrink(),
+                          const Divider(color: Colors.black),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text(
+                                "Description:",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                  onPressed: () async {
+                                    if (user != null) {
+                                      final output = await postEventMarkNetwork(
+                                          currentEvent!.id, "bookmark");
+                                      setState(() {
+                                        if (output.event != null) {
+                                          currentEvent = output.event!;
+                                          currentEvent!
+                                              .updateStatus(user.username);
+                                        } else {
+                                          if (currentEvent!.bookmarkStatus ==
+                                              0) {
+                                            currentEvent!.bookmarkStatus = 1;
+                                          } else {
+                                            currentEvent!.bookmarkStatus = 0;
+                                          }
+                                        }
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.bookmark_add_outlined,
+                                    color: currentEvent!.bookmarkStatus == 0
+                                        ? Colors.black
+                                        : Colors.orange,
+                                    size: 30.0,
+                                  )),
+                              IconButton(
+                                  onPressed: () async {
+                                    if (user != null) {
+                                      final output = await postEventMarkNetwork(
+                                          currentEvent!.id, "participate");
+                                      setState(() {
+                                        if (output.event != null) {
+                                          currentEvent = output.event!;
+                                          currentEvent!
+                                              .updateStatus(user.username);
+                                        } else {
+                                          if (currentEvent!
+                                                  .participationStatus ==
+                                              0) {
+                                            currentEvent!.participationStatus =
+                                                1;
+                                          } else {
+                                            currentEvent!.participationStatus =
+                                                0;
+                                          }
+                                        }
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.check_circle_outline,
+                                    color:
+                                        currentEvent!.participationStatus == 0
+                                            ? Colors.black
+                                            : Colors.green,
+                                    size: 30.0,
+                                  )),
+                            ],
+                          ),
+
                           const SizedBox(height: 15.0),
                           AnnotatableText(
                             currentEvent!.eventInfo.description,
