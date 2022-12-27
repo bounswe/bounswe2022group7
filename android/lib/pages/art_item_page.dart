@@ -82,7 +82,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
         imageBuilder(currentArtItem!.artItemInfo.imageId);
 
     return FutureBuilder(
-      future: getAnnotationsNetworkByImageId(widget.artItem!.artItemInfo.imageId),
+      future:
+          getAnnotationsNetworkByImageId(widget.artItem!.artItemInfo.imageId),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -111,7 +112,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                   "text": annotation.text,
                 });
               }
-              annotationCountNotifier.value = annotationListNotifier.value.length;
+              annotationCountNotifier.value =
+                  annotationListNotifier.value.length;
 
               return artItemPage(
                   user,
@@ -121,7 +123,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                   annotationNotifier,
                   annotationListNotifier,
                   annotationCountNotifier);
-
             } else {
               // snapshot.data == null
               return artItemPage(
@@ -135,9 +136,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
             }
         }
       },
-
-
-
     );
   }
 
@@ -174,6 +172,79 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                   fontWeight: FontWeight.w600,
                                 ),
                                 overflow: TextOverflow.ellipsis,
+                              ),
+                              const Spacer(),
+                            ],
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                navigateToHostProfile(currentArtItem!
+                                    .creatorAccountInfo.username);
+                              },
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.brush_outlined,
+                                    color: Colors.black,
+                                    size: 20.0,
+                                  ),
+                                  Text(
+                                    " by ${currentArtItem!.creatorAccountInfo.username}",
+                                    style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const Spacer(),
+                                  const Icon(
+                                    Icons.category_outlined,
+                                    color: Colors.black,
+                                    size: 20.0,
+                                  ),
+                                  const SizedBox(width: 5.0),
+                                  Text(
+                                    currentArtItem!.artItemInfo.category!
+                                        .map((category) => category)
+                                        .join(", "),
+                                    style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w400,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              )),
+                          const SizedBox(height: 15.0),
+                          buildAnnotatableImage(
+                            imageBuilderResult,
+                            annotationModeNotifier,
+                            annotationNotifier,
+                            annotationListNotifier,
+                          ),
+                          const SizedBox(height: 10.0),
+                          currentArtItem!.artItemInfo.imageId != null
+                              ? AnnotationBar(
+                                  user: user,
+                                  imageId: currentArtItem!.artItemInfo.imageId!,
+                                  countNotifier: annotationCountNotifier,
+                                  modeNotifier: annotationModeNotifier,
+                                  annotationNotifier: annotationNotifier,
+                                  annotationListNotifier:
+                                      annotationListNotifier)
+                              : const SizedBox.shrink(),
+                          const Divider(color: Colors.black),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text(
+                                "Description:",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const Spacer(),
                               IconButton(
@@ -309,64 +380,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                   )),
                             ],
                           ),
-                          GestureDetector(
-                              onTap: () {
-                                navigateToHostProfile(currentArtItem!
-                                    .creatorAccountInfo.username);
-                              },
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.brush_outlined,
-                                    color: Colors.black,
-                                    size: 20.0,
-                                  ),
-                                  Text(
-                                    " by ${currentArtItem!.creatorAccountInfo.username}",
-                                    style: const TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  const Spacer(),
-                                  const Icon(
-                                    Icons.category_outlined,
-                                    color: Colors.black,
-                                    size: 20.0,
-                                  ),
-                                  const SizedBox(width: 5.0),
-                                  Text(
-                                    currentArtItem!.artItemInfo.category!
-                                        .map((category) => category)
-                                        .join(", "),
-                                    style: const TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              )),
-                          const SizedBox(height: 15.0),
-                          buildAnnotatableImage(
-                            imageBuilderResult,
-                            annotationModeNotifier,
-                            annotationNotifier,
-                            annotationListNotifier,
-                          ),
-                          const SizedBox(height: 10.0),
-                          currentArtItem!.artItemInfo.imageId != null
-                              ? AnnotationBar(
-                                  user: user,
-                                  imageId: currentArtItem!.artItemInfo.imageId!,
-                                  countNotifier: annotationCountNotifier,
-                                  modeNotifier: annotationModeNotifier,
-                                  annotationNotifier: annotationNotifier,
-                                  annotationListNotifier:
-                                      annotationListNotifier)
-                              : const SizedBox.shrink(),
                           const SizedBox(height: 5.0),
                           AnnotatableText(
                             currentArtItem!.artItemInfo.description,
@@ -398,10 +411,13 @@ class _ArtItemPageState extends State<ArtItemPage> {
                             ],
                           ),
                           const SizedBox(height: 5.0),
-                          const Text("Auction Status:", style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                          ),),
+                          const Text(
+                            "Auction Status:",
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
                           const SizedBox(height: 5.0),
                           if (currentArtItem!.onAuction)
                             const Text("On Auction!")
@@ -410,20 +426,28 @@ class _ArtItemPageState extends State<ArtItemPage> {
                           else
                             Column(
                               children: [
-                                const Text("Item was sold after an auction. Auction is closed."),
+                                const Text(
+                                    "Item was sold after an auction. Auction is closed."),
                                 const SizedBox(height: 5.0),
-                                Text("Highest Bid: ${currentArtItem!.maxBid!.bidAmount} by ${currentArtItem!.maxBid!.username}"),
+                                Text(
+                                    "Highest Bid: ${currentArtItem!.maxBid!.bidAmount} by ${currentArtItem!.maxBid!.username}"),
                               ],
                             ),
                           const SizedBox(height: 5.0),
                           // bid button
-                          if (currentArtItem!.onAuction && user != null && user.username != currentArtItem!.creatorAccountInfo.username)
+                          if (currentArtItem!.onAuction &&
+                              user != null &&
+                              user.username !=
+                                  currentArtItem!.creatorAccountInfo.username)
                             Column(
                               children: [
-                                const Text("Place a bid:", style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w400,
-                                ),),
+                                const Text(
+                                  "Place a bid:",
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
                                 const SizedBox(height: 5.0),
                                 Row(
                                   children: [
@@ -445,7 +469,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.red,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
                                       ),
                                       child: const Text("Place Bid"),
@@ -456,7 +481,9 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               ],
                             ),
                           // auction button
-                          if (user != null && user.username == currentArtItem!.creatorAccountInfo.username)
+                          if (user != null &&
+                              user.username ==
+                                  currentArtItem!.creatorAccountInfo.username)
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.red,
@@ -467,10 +494,13 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               onPressed: () {
                                 postAuction(currentArtItem!.id, user);
                                 setState(() {
-                                  currentArtItem!.onAuction = !currentArtItem!.onAuction;
+                                  currentArtItem!.onAuction =
+                                      !currentArtItem!.onAuction;
                                 });
                               },
-                              child: currentArtItem!.onAuction ? const Text("End the auction") : const Text("Start Auction!"),
+                              child: currentArtItem!.onAuction
+                                  ? const Text("End the auction")
+                                  : const Text("Start Auction!"),
                             ),
                           const Divider(color: Colors.black),
                           const SizedBox(height: 5.0),
