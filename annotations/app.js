@@ -55,7 +55,7 @@ router.post('/annotations', koaBody(), async ctx => {
     })
     .put('/annotations', koaBody(), async ctx => {
         const result = await annotations.updateOne(
-            { $where: `this.id.startsWith('${ctx.params.id}')` },
+            { id: { $regex: `^${ctx.params.id}` }},
             {
                 $set: {
                     body: ctx.request.body.body
@@ -67,13 +67,13 @@ router.post('/annotations', koaBody(), async ctx => {
 
     })
     .del('/annotations', async ctx => {
-        const result = await annotations.deleteOne({ $where: `this.id.startsWith('${ctx.params.id}')` })
+        const result = await annotations.deleteOne({ id: { $regex: `^${ctx.params.id}` } })
             .catch(err => console.error(err.message))
 
         ctx.body = result.deletedCount
     })
     .get('/annotations/:id', async ctx => {
-        ctx.body = await findOperations({ $where: `this.id.startsWith('${ctx.params.id}')` })
+        ctx.body = await findOperations({ id: { $regex: `^${ctx.params.id}` } })
     })
 
 app.use(router.routes())
