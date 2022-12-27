@@ -30,10 +30,12 @@ class OnlineGallery : Event(){
         dto.type = "online"
         dto.creatorId = this.creator?.id
         dto.creatorAccountInfo = this.creator?.accountInfo
+        dto.collaboratorAccountInfos = this.collaborators.map { it.accountInfo }.toMutableList()
         dto.creationDate = this.creationDate
         dto.commentList = this.commentList.map { it.mapToDTO() }.toMutableList()
         dto.eventInfo = this.eventInfo
         dto.participantUsernames = this.participants.map { it.accountInfo.username }.toMutableList()
+        dto.bookmarkedByUsernames = this.bookmarkedBy.map { it.accountInfo.username }.toMutableList()
         dto.artItemList = this.artItems.map { it.mapToDTO() }.toMutableList()
         dto.externalUrl = this.externalUrl
         return dto

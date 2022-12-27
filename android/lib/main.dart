@@ -1,6 +1,6 @@
 import 'package:android/pages/create_art_item_page.dart';
-import 'package:android/pages/discussion_forum_page.dart';
 import 'package:android/pages/pages.dart';
+import 'package:android/pages/search.dart';
 import 'package:android/providers/login_provider.dart';
 import 'package:android/providers/register_provider.dart';
 import 'package:android/providers/user_provider.dart';
@@ -60,9 +60,9 @@ class MyApp extends StatelessWidget {
           createEventPage: (context) => const CreateEvent(),
           createArtItemPage: (context) => const CreateArtItemPage(),
           profilePage: (context) => ProfilePage(),
-          discussionForumPage: (context) => DiscussionForumPage(),
           settingsPage: (context) => const SettingsPage(),
           accountInfoPage: (context) => const AccountInfoPage(),
+          searchPage: (context) => const SearchPage(),
         },
         navigatorKey: navigatorKey,
       ),

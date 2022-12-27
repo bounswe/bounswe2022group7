@@ -9,28 +9,28 @@ import 'package:android/network/art_item/get_art_item_output.dart';
 import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/event/get_event_service.dart';
 
-
 Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
   List<Event> event_list = [];
   List<ArtItem> art_item_list = [];
-  if(!json["hostedEvents"].isEmpty){
-    for(int i=0; i<json["hostedEvents"].length; i++) {
+  if (json["hostedEventIds"] != null && !json["hostedEventIds"].isEmpty) {
+    for (int i = 0; i < json["hostedEventIds"].length; i++) {
       int id;
       try {
-        id = json["hostedEvents"][i]["id"];
-      } catch(err) {
-        id = json["hostedEvents"][i];
+        id = json["hostedEventIds"][i]["id"];
+      } catch (err) {
+        id = json["hostedEventIds"][i];
       }
+
       GetEventOutput eo = await getEventNetworkWithIndex(id, i);
       Event ev = eo.event!;
       event_list.add(ev);
     }
   }
-  if(!json["artItems"].isEmpty) {
-    for(int i=0; i<json["artItems"].length; i++) {
-      // print(json["artItems"][i]["commentList"]);
+
+  if (json["artItems"] != null && !json["artItems"].isEmpty) {
+    for (int i = 0; i < json["artItems"].length; i++) {
       ArtItem ai;
-      if(json["artItems"][i] is int) {
+      if (json["artItems"][i] is int) {
         GetArtItemOutput aio = await getArtItemNetwork(json["artItems"][i]);
         ai = aio.artItem!;
       } else {
@@ -39,13 +39,14 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
       art_item_list.add(ai!);
     }
   }
-
   Account account = Account(
     account_info: AccountInfo.fromJson(json['accountInfo']),
     id: json["id"],
     is_verified: json['isVerified'],
     level: json['level'],
     xp: json['xp'],
+    followedByUsernames: List<String>.from(
+        json["followedByUsernames"].map((username) => username.toString())),
     all_events: event_list,
     all_art_items: art_item_list,
   );
@@ -53,16 +54,15 @@ Future<Account> accountJsonConverter(Map<String, dynamic> json) async {
   return account;
 }
 
-
-class Account{
+class Account {
   final AccountInfo account_info;
   final int id;
   final bool is_verified;
   final int level;
   final double xp;
+  final List<String> followedByUsernames;
   List<Event> all_events;
   List<ArtItem> all_art_items;
-
 
   Account({
     required this.account_info,
@@ -70,26 +70,26 @@ class Account{
     required this.is_verified,
     required this.level,
     required this.xp,
+    required this.followedByUsernames,
     required this.all_events,
     required this.all_art_items,
   });
 
-
   factory Account.fromJson(Map<String, dynamic> json) {
-
     List<Event> event_list = [];
     List<ArtItem> art_item_list = [];
 
-    if(!json["hostedEvents"].isEmpty){
-      for(int i=0; i<json["hostedEvents"].length; i++) {
-        Event ev = Event.fromJson(json["hostedEvents"][i]);
+    if (!json["hostedEventIds"].isEmpty) {
+      for (int i = 0; i < json["hostedEventIds"].length; i++) {
+        Event ev = Event.fromJson(json["hostedEventIds"][i]);
         event_list.add(ev);
       }
     }
-    if(!json["artItems"].isEmpty) {
-      for(int i=0; i<json["artItems"].length; i++) {
+    if (!json["artItems"].isEmpty) {
+      for (int i = 0; i < json["artItems"].length; i++) {
         ArtItem? ai;
-        getArtItemNetwork(json["artItems"][i]).then((value) => ai = value.artItem);
+        getArtItemNetwork(json["artItems"][i])
+            .then((value) => ai = value.artItem);
         art_item_list.add(ai!);
       }
     }
@@ -100,14 +100,12 @@ class Account{
       is_verified: json['isVerified'],
       level: json['level'],
       xp: json['xp'],
+      followedByUsernames: List<String>.from(
+          json["followedByUsernames"].map((username) => username.toString())),
       all_events: event_list,
       all_art_items: art_item_list,
     );
 
     return account;
-
-
-
   }
-
 }

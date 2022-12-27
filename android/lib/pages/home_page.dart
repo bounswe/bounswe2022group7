@@ -1,4 +1,6 @@
 import 'package:android/config/app_routes.dart';
+import 'package:android/network/discussion/get_discussionlist_output.dart';
+import 'package:android/network/discussion/get_discussionlist_service.dart';
 import 'package:android/network/home/get_postlist_output.dart';
 import 'package:android/pages/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +36,7 @@ SliverAppBar mainAppBar(BuildContext context, CurrentUser? user) {
         iconSize: 30.0,
         color: Colors.white,
         onPressed: () {
-          Navigator.pushNamed(context, '/search');
+          Navigator.pushNamed(context, searchPage);
         },
       ),
       user == null
@@ -126,27 +128,12 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
           ),
         if (user != null)
           ListTile(
-            leading: Icon(Icons.art_track),
+            leading: Icon(Icons.event_note),
             title: Text("Create Event"),
             onTap: () {
               Navigator.pushNamed(context, createEventPage);
             },
           ),
-        ListTile(
-          leading: Icon(Icons.photo_library),
-          title: Text("Online Galleries"),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Icon(Icons.museum),
-          title: Text("Exhibitions"),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Icon(Icons.attach_money),
-          title: Text("Art Item Auctions"),
-          onTap: () {},
-        ),
         ListTile(
           leading: Icon(Icons.forum),
           title: Text("Discussion Page"),
@@ -154,8 +141,47 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const DiscussionForumPage(),
-              ),
+                  builder: (context) => FutureBuilder(
+                        future: getDiscussionPosts(),
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.none:
+                            case ConnectionState.waiting:
+                              return const CircularProgressIndicator();
+                            default:
+                              if (snapshot.hasError) {
+                                return Scaffold(
+                                  appBar: AppBar(
+                                    title: const Text("Snapshot Error!"),
+                                  ),
+                                  body: Center(
+                                    child: Text("Error: ${snapshot.error}"),
+                                  ),
+                                );
+                              }
+                              if (snapshot.data != null) {
+                                GetDiscussionListOutput responseData =
+                                    snapshot.data!;
+                                if (responseData.status != "OK") {
+                                  return DiscussionForumPage(
+                                      discussionList: null);
+                                }
+                                List<Discussion> discussionList =
+                                    responseData.list!;
+                                if (user != null) {
+                                  for (var disc in discussions) {
+                                    disc.updateVote(user.username);
+                                  }
+                                }
+                                return DiscussionForumPage(
+                                    discussionList: discussionList);
+                              } else {
+                                return DiscussionForumPage(
+                                    discussionList: null);
+                              }
+                          }
+                        },
+                      )),
             );
           },
         ),
@@ -163,9 +189,9 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text("Settings"),
-            onTap: () {                  
-            Navigator.pushNamed(context, settingsPage);
-        },
+            onTap: () {
+              Navigator.pushNamed(context, settingsPage);
+            },
           ),
         if (user != null)
           ListTile(
@@ -185,16 +211,13 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
   );
 }
 
-BottomNavigationBar mainBottomBar(BuildContext context, int currentIndex) {
+BottomNavigationBar mainBottomBar(
+    BuildContext context, CurrentUser? user, int currentIndex) {
   return BottomNavigationBar(
     items: const [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
         label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.event_available),
-        label: 'Events',
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.forum),
@@ -213,13 +236,48 @@ BottomNavigationBar mainBottomBar(BuildContext context, int currentIndex) {
           ),
         );
       } else if (index == 1) {
-        //Navigator.pushNamed(context, '/events');
-      } else if (index == 2) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DiscussionForumPage(),
-          ),
+              builder: (context) => FutureBuilder(
+                    future: getDiscussionPosts(),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                          return const CircularProgressIndicator();
+                        default:
+                          if (snapshot.hasError) {
+                            return Scaffold(
+                              appBar: AppBar(
+                                title: const Text("Snapshot Error!"),
+                              ),
+                              body: Center(
+                                child: Text("Error: ${snapshot.error}"),
+                              ),
+                            );
+                          }
+                          if (snapshot.data != null) {
+                            GetDiscussionListOutput responseData =
+                                snapshot.data!;
+                            if (responseData.status != "OK") {
+                              return DiscussionForumPage(discussionList: null);
+                            }
+                            List<Discussion> discussionList =
+                                responseData.list!;
+                            if (user != null) {
+                              for (var disc in discussions) {
+                                disc.updateVote(user.username);
+                              }
+                            }
+                            return DiscussionForumPage(
+                                discussionList: discussionList);
+                          } else {
+                            return DiscussionForumPage(discussionList: null);
+                          }
+                      }
+                    },
+                  )),
         );
       }
     },
@@ -242,21 +300,22 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Scaffold homePageScaffold(CurrentUser? user, List<Post> postlist) {
+  Scaffold homePageScaffold(
+      CurrentUser? user, List<PostAndImages> post_image_list) {
     return Scaffold(
       body: CustomScrollView(slivers: [
         mainAppBar(context, user),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return FeedContainer(post: postlist[index]);
+              return FeedContainer(post_and_images: post_image_list[index]);
             },
-            childCount: postlist.length,
+            childCount: post_image_list.length,
           ),
         ),
       ]),
       drawer: mainDrawer(context, user, logout),
-      bottomNavigationBar: mainBottomBar(context, 0),
+      bottomNavigationBar: mainBottomBar(context, user, 0),
     );
   }
 
@@ -300,7 +359,11 @@ class _HomePageState extends State<HomePage> {
                 return erroneousHomePage();
               }
               List<Post> postList = responseData.list!;
-              return homePageScaffold(user, postList);
+              List<PostAndImages> post_image_list = [];
+              for (var post in postList) {
+                post_image_list.add(PostAndImages(post: post));
+              }
+              return homePageScaffold(user, post_image_list);
             } else {
               // snapshot.data == null
               return erroneousHomePage();

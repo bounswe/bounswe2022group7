@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PhysicalExhibitionRepository  : JpaRepository<PhysicalExhibition, Long> {
-
+    fun findAllByEventInfo_IdIn(eventInfo : List<Long>) : List<PhysicalExhibition>
 }

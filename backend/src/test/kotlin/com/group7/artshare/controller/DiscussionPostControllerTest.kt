@@ -6,7 +6,6 @@ import com.group7.artshare.entity.RegisteredUser
 import com.group7.artshare.request.VoteRequest
 import com.group7.artshare.service.DiscussionPostService
 import com.group7.artshare.service.JwtService
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*

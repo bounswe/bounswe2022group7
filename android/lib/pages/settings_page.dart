@@ -1,3 +1,4 @@
+import 'package:android/widgets/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,14 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  void logout() {
+    setState(() {
+      Provider.of<UserProvider>(context, listen: false).logout();
+      Navigator.pop(context); // close pop up
+      Navigator.pop(context); // close drawer
+    });
+  }
+
   Scaffold unauthorizedScreen() {
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Scaffold settingsPage(GetSettingsOutput settings) {
+  Scaffold settingsPage(GetSettingsOutput settings, CurrentUser? user) {
     Widget profilePicture = circleAvatarBuilder(settings.profilePictureId, 10);
 
     return Scaffold(
@@ -127,30 +136,6 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             const SizedBox(height: 5),
-            InkWell(
-              onTap: () {
-                //Navigator.pushNamed(context, '/privacy');
-              },
-              child: Column(
-                children: [
-                  const SizedBox(height: 15),
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.settings,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Account Management",
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                ],
-              ),
-            ),
-            const SizedBox(height: 15),
             const Divider(
               color: Colors.black,
               height: 20,
@@ -158,103 +143,36 @@ class _SettingsPageState extends State<SettingsPage> {
               indent: 10,
               endIndent: 10,
             ),
-            const SizedBox(height: 15),
-            InkWell(
-              onTap: () {
-                //Navigator.pushNamed(context, '/notifications');
-              },
-              child: Column(
-                children: [
-                  const SizedBox(height: 15),
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.notifications,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Notifications",
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                ],
-              ),
-            ),
             const SizedBox(height: 5),
-            InkWell(
-              onTap: () {
-                //Navigator.pushNamed(context, '/blocking');
-              },
-              child: Column(
-                children: [
-                  const SizedBox(height: 15),
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.block,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Blocking",
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                ],
+            if (user != null)
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return logoutDialog(logout);
+                    },
+                  );
+                },
+                child: Column(
+                  children: [
+                    const SizedBox(height: 15),
+                    Row(
+                      children: const [
+                        Icon(
+                          Icons.logout,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          "Logout",
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 5),
-            InkWell(
-              onTap: () {
-                //Navigator.pushNamed(context, '/copyrightReports');
-              },
-              child: Column(
-                children: [
-                  const SizedBox(height: 15),
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.report,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Copyright Reports",
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                ],
-              ),
-            ),
-            const Spacer(),
-            InkWell(
-              onTap: () {
-                //Navigator.pushNamed(context, '/help');
-              },
-              child: Column(
-                children: [
-                  const SizedBox(height: 15),
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.help,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Help",
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                ],
-              ),
-            ),
-            const SizedBox(height: 15),
           ],
         ),
       ),
@@ -295,7 +213,7 @@ class _SettingsPageState extends State<SettingsPage> {
               if (responseData.status != "OK") {
                 return erroneousSettingsPage();
               }
-              return settingsPage(responseData);
+              return settingsPage(responseData, currentUser);
             } else {
               // snapshot.data == null
               return erroneousSettingsPage();

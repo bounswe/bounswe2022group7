@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
+import com.group7.artshare.DTO.RegisteredUserDTO
 import lombok.Data
 import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
@@ -56,16 +57,6 @@ open class RegisteredUser(
     @JsonBackReference
     var followedBy: MutableSet<RegisteredUser> = mutableSetOf()
 
-
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @JoinTable(
-        name = "blockings",
-        joinColumns = [JoinColumn(name = "blocker_id", referencedColumnName = "id")],
-        inverseJoinColumns = [JoinColumn(name = "blocked_id", referencedColumnName = "id")]
-    )
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var blockedUsers: MutableSet<RegisteredUser> = mutableSetOf()
-
     @Column
     var isBanned: Boolean = false
 
@@ -80,6 +71,15 @@ open class RegisteredUser(
     @ManyToMany(mappedBy = "downVotedUsers")
     @JsonIgnore
     var downVotedComments: MutableSet<Comment> = mutableSetOf()
+
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinTable(
+        name = "liked_art_items",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "art_item_id")]
+    )
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
+    var likedArtItems: MutableSet<ArtItem> = mutableSetOf()
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
@@ -99,30 +99,9 @@ open class RegisteredUser(
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
     var bookmarkedEvents: MutableSet<Event> = mutableSetOf()
 
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @JoinTable(
-        name = "read_notifications",
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "notification_id")]
-    )
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var readNotifications: MutableSet<Notification> = mutableSetOf()
-
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @JoinTable(
-        name = "unread_notifications",
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "notification_id")]
-    )
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
-    var unreadNotifications: MutableSet<Notification> = mutableSetOf()
-
-
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @JsonIgnore
     var writtenDiscussionPosts: MutableList<DiscussionPost> = mutableListOf()
-
-    //TODO past reply past posts
 
     @OneToMany(orphanRemoval = true, cascade = [CascadeType.ALL])
     @JsonIgnore
@@ -180,5 +159,24 @@ open class RegisteredUser(
 
     override fun hashCode(): Int {
         return username.hashCode()
+    }
+
+    fun mapToDTO(): RegisteredUserDTO {
+        val registeredUserDTO = RegisteredUserDTO()
+        registeredUserDTO.id = id
+        registeredUserDTO.accountInfo = accountInfo
+        registeredUserDTO.isVerified = isVerified
+        registeredUserDTO.level = level
+        registeredUserDTO.xp = xp
+        registeredUserDTO.isBanned = isBanned
+        registeredUserDTO.followingUsernames = following.map { it.accountInfo.username }.toMutableSet()
+        registeredUserDTO.followedByUsernames = followedBy.map { it.accountInfo.username }.toMutableSet()
+        registeredUserDTO.likedArtItemIds = likedArtItems.map { it.id }.toMutableList()
+        registeredUserDTO.bookmarkedArtItemIds = bookmarkedArtItems.map { it.id }.toMutableList()
+        registeredUserDTO.bookmarkedEventIds = bookmarkedEvents.map { it.id }.toMutableList()
+        registeredUserDTO.participatedEventIds = allEvents.map { it.id }.toMutableList()
+        registeredUserDTO.discussionPostIds = writtenDiscussionPosts.map { it.id }.toMutableList()
+        registeredUserDTO.commentIds = commentList.map { it.id }.toMutableList()
+        return registeredUserDTO
     }
 }

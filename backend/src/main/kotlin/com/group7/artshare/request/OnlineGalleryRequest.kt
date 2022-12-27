@@ -16,4 +16,6 @@ class OnlineGalleryRequest {
 
     @NotEmpty
     val artItemIds: Set<Long>? = null
+
+    val collaboratorUsernames: MutableList<String> = mutableListOf()
 }

@@ -1,10 +1,8 @@
 package com.group7.artshare.repository
 
-import com.group7.artshare.entity.Auction
+import com.group7.artshare.entity.Report
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
-
 @Repository
-interface AuctionRepository : JpaRepository<Auction, Long> {
-}
+interface ReportRepository : JpaRepository<Report, Long>

@@ -65,11 +65,7 @@ SERVER_IP=http://10.0.2.2
     // check the basic widgets
     expect(find.text("Settings"), findsOneWidget);
     expect(find.text("Personal Information"), findsOneWidget);
-    expect(find.text("Account Management"), findsOneWidget);
-    expect(find.text("Notifications"), findsOneWidget);
-    expect(find.text("Blocking"), findsOneWidget);
-    expect(find.text("Copyright Reports"), findsOneWidget);
-    expect(find.text("Help"), findsOneWidget);
+    expect(find.text("Logout"), findsOneWidget);
 
     // check the user data
     expect(find.text("ahmet123"), findsOneWidget);

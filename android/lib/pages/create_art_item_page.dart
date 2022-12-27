@@ -1,15 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:android/models/art_item/art_item_model.dart';
+import 'package:android/models/user_model.dart';
+import 'package:android/network/art_item/get_art_item_output.dart';
+import 'package:android/network/art_item/get_art_item_service.dart';
 import 'package:android/network/art_item/post_art_item_input.dart';
 import 'package:android/network/art_item/post_art_item_output.dart';
 import 'package:android/network/art_item/post_art_item_service.dart';
 import 'package:android/network/image/post_image_output.dart';
 import 'package:android/network/image/post_image_service.dart';
 import 'package:android/pages/art_item_page.dart';
+import 'package:android/providers/user_provider.dart';
 import 'package:android/util/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../network/image/post_image_input.dart';
 import '../util/snack_bar.dart';
@@ -140,11 +146,11 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
       isLoading.value = true;
 
       PostArtItemInput postArtItemInput = PostArtItemInput(
-          artItemInfo: ArtItemInfo(
-            name: _name!,
-            description: _description!,
-          ),
-          lastPrice: 0,
+        artItemInfo: ArtItemInfo(
+          name: _name!,
+          description: _description!,
+        ),
+        lastPrice: 0,
       );
 
       if (_category != null) {
@@ -164,18 +170,56 @@ class _CreateArtItemPageState extends State<CreateArtItemPage> {
         }
       }
 
-      PostArtItemOutput postArtItemOutput = await postArtItemNetwork(postArtItemInput);
+      PostArtItemOutput postArtItemOutput =
+          await postArtItemNetwork(postArtItemInput);
       isLoading.value = false;
 
       if (postArtItemOutput.status == "400") {
         showSnackBar(context, "You need to be an artist to create an art item");
-      }
-      else if (postArtItemOutput.status == "OK") {
+      } else if (postArtItemOutput.status == "OK") {
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                ArtItemPage(id: postArtItemOutput.artItemId),
+            builder: (context) => FutureBuilder(
+              future: getArtItemNetwork(postArtItemOutput.artItemId),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return const CircularProgressIndicator();
+                  default:
+                    if (snapshot.hasError) {
+                      return ArtItemPage(
+                        artItem: null,
+                      );
+                    }
+
+                    if (snapshot.data != null) {
+                      GetArtItemOutput responseData = snapshot.data!;
+                      if (responseData.status != "OK") {
+                        return ArtItemPage(
+                          artItem: null,
+                        );
+                      }
+                      ArtItem currentArtItem = responseData.artItem!;
+                      CurrentUser? user =
+                          Provider.of<UserProvider>(context).user;
+                      if (user != null) {
+                        currentArtItem.updateStatus(user.username);
+                      }
+                      return ArtItemPage(
+                        artItem: currentArtItem,
+                      );
+                    } else {
+                      // snapshot.data == null
+                      return ArtItemPage(
+                        artItem: null,
+                      );
+                    }
+                }
+              },
+            ),
           ),
         );
       }
