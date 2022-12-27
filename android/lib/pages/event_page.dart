@@ -9,6 +9,7 @@ import "package:android/models/models.dart";
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:provider/provider.dart';
 
+import '../config/api_endpoints.dart';
 import '../widgets/annotatable_image.dart';
 import '../widgets/annotation_bar.dart';
 
@@ -285,6 +286,8 @@ class _EventPageState extends State<EventPage> {
                             : const SizedBox.shrink(),
                           const SizedBox(height: 15.0),
                           AnnotatableText(
+                            "$serverIP/event/${currentEvent!.id}",
+                            "e",
                             currentEvent!.eventInfo.description,
                             style: const TextStyle(
                               fontSize: 16.0,
@@ -299,7 +302,6 @@ class _EventPageState extends State<EventPage> {
                               const Icon(Icons.chat, size: 13.0),
                               const SizedBox(width: 5.0),
                               Text(
-                                // TODO: Add number of comments
                                 "Comments ${currentEvent!.commentList.length}",
                                 style: TextStyle(
                                   fontSize: 16.0,

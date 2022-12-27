@@ -1,3 +1,4 @@
+import 'package:android/config/api_endpoints.dart';
 import 'dart:convert';
 
 import 'package:android/network/art_item/post_art_item_auction_service.dart';
@@ -369,6 +370,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               : const SizedBox.shrink(),
                           const SizedBox(height: 5.0),
                           AnnotatableText(
+                            "$serverIP/artitem/${currentArtItem!.id}",
+                            "a",
                             currentArtItem!.artItemInfo.description,
                             style: const TextStyle(
                               fontSize: 16.0,
