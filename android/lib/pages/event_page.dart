@@ -269,7 +269,14 @@ class _EventPageState extends State<EventPage> {
                                           ])),
                                       Column(children: [
                                         Text(currentEvent!.location != null
-                                            ? "Lat: ${currentEvent!.location!.latitude.toString().substring(0, 7)} / Long: ${currentEvent!.location!.longitude.toString().substring(0, 7)}"
+                                            ? currentEvent!.location!.address
+                                                        .toString()
+                                                        .substring(0, 8) !=
+                                                    "GeoPoint"
+                                                ? currentEvent!
+                                                    .location!.address
+                                                    .toString()
+                                                : "Lat: ${currentEvent!.location!.latitude.toString().substring(0, 7)} / Long: ${currentEvent!.location!.longitude.toString().substring(0, 7)}"
                                             : ""),
                                       ]),
                                     ])

@@ -214,14 +214,21 @@ class PostAndImages {
           ),
           Row(
             children: [
-              Icon(
-                Icons.location_pin,
-                color: Colors.grey[600],
-                size: 12.0,
-              ),
+              event.location != null
+                  ? Icon(
+                      Icons.location_pin,
+                      color: Colors.grey[600],
+                      size: 12.0,
+                    )
+                  : Container(),
               const SizedBox(width: 5.0),
               Text(event.location != null
-                  ? "Lat: ${event.location!.latitude.toString().substring(0, 7)} / Long: ${event.location!.longitude.toString().substring(0, 7)}"
+                  ? currentEvent!.location!.address
+                              .toString()
+                              .substring(0, 8) !=
+                          "GeoPoint"
+                      ? currentEvent!.location!.address.toString()
+                      : "Lat: ${currentEvent!.location!.latitude.toString().substring(0, 7)} / Long: ${currentEvent!.location!.longitude.toString().substring(0, 7)}"
                   : ""),
             ],
           ),
