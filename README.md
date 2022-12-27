@@ -5,6 +5,11 @@ Welcome to the GitHub repository of Group 7, we are computer engineering student
 
 ideart. is an art community platform for browsing and sharing art content. The platform will offer functionalities such as exhibitions, online galleries, discussion forum, auctions and annotations. Currently, we are offering a subset of features which will be present in the final app. With the changes in this tag, we are adding signup and signin functionalities. In addition to signin and signup, we also have home, art item and event pages where we display data we fetch mock data from the database.
 
+* Website: https://ideart.tk/
+* API: https://ideart.tk/api/
+* API Documentation: https://ideart.tk/api/swagger-ui/index.html
+* Annotation Service: https://ideart.tk/annotations
+
 ## How To Run
 ### Docker Compose:
 
