@@ -136,6 +136,14 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             const SizedBox(height: 5),
+            const Divider(
+              color: Colors.black,
+              height: 20,
+              thickness: 1,
+              indent: 10,
+              endIndent: 10,
+            ),
+            const SizedBox(height: 5),
             if (user != null)
               InkWell(
                 onTap: () {
@@ -165,14 +173,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
               ),
-            const SizedBox(height: 15),
-            const Divider(
-              color: Colors.black,
-              height: 20,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-            ),
           ],
         ),
       ),

@@ -128,7 +128,7 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
           ),
         if (user != null)
           ListTile(
-            leading: Icon(Icons.art_track),
+            leading: Icon(Icons.event_note),
             title: Text("Create Event"),
             onTap: () {
               Navigator.pushNamed(context, createEventPage);
