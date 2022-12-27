@@ -1,4 +1,5 @@
 import 'package:android/config/api_endpoints.dart';
+import 'package:android/network/art_item/bid_art_item_service.dart';
 import 'dart:convert';
 
 import 'package:android/network/art_item/post_art_item_auction_service.dart';
@@ -34,7 +35,11 @@ class ArtItemPage extends StatefulWidget {
   State<ArtItemPage> createState() => _ArtItemPageState();
 }
 
+String _bid_amount = "0";
+
 class _ArtItemPageState extends State<ArtItemPage> {
+  TextEditingController controller = TextEditingController();
+
   Scaffold erroneousArtItemPage() {
     return Scaffold(
       appBar: AppBar(
@@ -467,10 +472,13 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                       Row(
                                         children: [
                                           const SizedBox(width: 5.0),
-                                          const Expanded(
+                                          Expanded(
                                             child: TextField(
-                                              keyboardType: TextInputType.number,
-                                              decoration: InputDecoration(
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              onChanged: (value) =>
+                                                  _bid_amount = value,
+                                              decoration: const InputDecoration(
                                                 hintText: "Enter bid amount",
                                                 border: OutlineInputBorder(),
                                               ),
@@ -478,8 +486,17 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                           ),
                                           const SizedBox(width: 5.0),
                                           ElevatedButton(
-                                            onPressed: () {
-                                              print("bid button pressed");
+                                            onPressed: () async {
+                                              final status = await postBid(
+                                                  currentArtItem!.id,
+                                                  _bid_amount);
+                                              final snackBar = SnackBar(
+                                                content: Text(status is int
+                                                    ? 'Bidding successful'
+                                                    : 'Bidding unsuccessful'),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Colors.red,
@@ -504,7 +521,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.red,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                       ),
                                     ),
                                     onPressed: () {
