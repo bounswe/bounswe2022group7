@@ -18,7 +18,7 @@ const HomePage = () => {
     const [error, setError] = React.useState(null)
     const [userData, setUserData] = React.useState(null)
     const [displayContent, setDisplayContent] = React.useState([]);
-    const [endpointType, setEndpointType] = React.useState(null);
+    const [endpointType, setEndpointType] = React.useState("generic");
 
     const [snackbar, setSnackbar] = React.useState({
         open: false,
