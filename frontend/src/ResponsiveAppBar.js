@@ -28,11 +28,29 @@ import { useAuth } from "./auth/useAuth";
 
 import CustomizableDropdownMenu from './components/CustomizableDropdownMenu';
 import UserAvatar from './components/UserAvatar';
+import LoadingButton from './components/LoadingButton';
 
 const ResponsiveAppBar = () => {
 
     const navigate = useNavigate()
     const { token, clearToken, userData } = useAuth()
+
+    const [searchValue, setSearchValue] = React.useState("")
+
+    const handleChange = (event) => {
+        setSearchValue(event.target.value);
+    };
+
+    const keyPress = (event) => {
+        if (event.keyCode == 13) {
+            handleSearch();
+        }
+    }
+
+    const handleSearch = () => {
+        navigate(`/search?keywords=${encodeURIComponent(searchValue)}`);
+        setSearchValue("");
+    }
 
     let authContent = [
         {
@@ -130,7 +148,7 @@ const ResponsiveAppBar = () => {
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <CustomizableDropdownMenu tooltip={"Menu"} icon={<MenuIcon color='inherit' />} content={authContent} sx={{ color: 'white' }} />
+                        <CustomizableDropdownMenu tooltip={"Menu"} icon={<MenuIcon color='inherit' />} menuContent={authContent} sx={{ color: 'white' }} />
                     </Box>
                     <Typography
                         variant="h5"
@@ -154,9 +172,11 @@ const ResponsiveAppBar = () => {
                         <Paper sx={{ width: '100%', maxWidth: 500 }} >
                             <Box sx={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
                                 <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                                <InputBase size="small" sx={{ width: '100%', maxWidth: 500 }} />
+                                <InputBase onKeyDown={keyPress} value={searchValue} onChange={handleChange} size="small" sx={{ width: '100%', maxWidth: 500 }} />
                             </Box>
                         </Paper>
+                        {searchValue && <LoadingButton sx={{ ml: 1 }} variant="contained" size="small" onClick={handleSearch} label="Search" />}
+
                     </Box>
 
                     {(token && userData) ?
