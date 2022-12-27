@@ -371,6 +371,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                           const SizedBox(height: 5.0),
                           AnnotatableText(
                             "$serverIP/artitem/${currentArtItem!.id}",
+                            "a",
                             currentArtItem!.artItemInfo.description,
                             style: const TextStyle(
                               fontSize: 16.0,

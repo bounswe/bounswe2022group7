@@ -15,7 +15,8 @@ late TextStyle textStyle;
 
 class AnnotatableText extends StatefulWidget {
   String source;
-  AnnotatableText(this.source, String t, {Key? key, required TextStyle style})
+  String type;
+  AnnotatableText(this.source, this.type, String t, {Key? key, required TextStyle style})
       : super(key: key) {
     text = t;
     textStyle = style;
@@ -37,7 +38,7 @@ class _AnnotatableTextState extends State<AnnotatableText> {
   void initState() {
     super.initState();
     // initialize annotations
-    getTextAnnotationsNetwork().then((value) {
+    getTextAnnotationsNetwork(widget.type).then((value) {
       for (dynamic a in value) {
         if (a["target"]["source"] == widget.source) {
           int start = a["target"]["selector"]["start"];
@@ -82,6 +83,7 @@ class _AnnotatableTextState extends State<AnnotatableText> {
         "source": widget.source,
         "start": a.start,
         "end": a.end,
+        "type": widget.type,
       };
       postTextAnnotation(annotation);
     }

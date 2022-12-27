@@ -287,6 +287,7 @@ class _EventPageState extends State<EventPage> {
                           const SizedBox(height: 15.0),
                           AnnotatableText(
                             "$serverIP/event/${currentEvent!.id}",
+                            "e",
                             currentEvent!.eventInfo.description,
                             style: const TextStyle(
                               fontSize: 16.0,

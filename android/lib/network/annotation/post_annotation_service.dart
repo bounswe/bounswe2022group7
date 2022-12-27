@@ -78,7 +78,7 @@ Future<bool> postTextAnnotation(Map<String, dynamic> annotation) async {
           "end": annotation['end'],
         }
       },
-      "id": "c_#${uuid.v4()}"
+      "id": "${annotation["type"]}_#${uuid.v4()}"
     };
 
     response = await post(

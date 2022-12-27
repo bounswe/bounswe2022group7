@@ -34,7 +34,7 @@ Future<List<ImageAnnotation>> getImageAnnotationsNetwork() async {
   }
 }
 
-Future<List<dynamic>> getTextAnnotationsNetwork() async {
+Future<List<dynamic>> getTextAnnotationsNetwork(String postType) async {
   Response response;
 
   try {
@@ -48,7 +48,7 @@ Future<List<dynamic>> getTextAnnotationsNetwork() async {
     List<dynamic> data = json.decode(response.body);
     List<dynamic> textAnnotations = [];
     for (var annotation in data) {
-      if (annotation['id'][0] == "c") {
+      if (annotation['id'][0] == postType) {
         textAnnotations.add(annotation);
       }
     }
