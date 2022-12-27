@@ -44,6 +44,9 @@ class _AnnotatableTextState extends State<AnnotatableText> {
           int end = a["target"]["selector"]["end"];
           String text = a["body"][0]["value"];
           String creator = a["creator"];
+          if (creator.split("/").length > 1) {
+            creator = creator.split("/")[4];
+          }
           Annotation annotation = Annotation(text, creator, start, end);
           setState(() {
             for (int i = start; i < end; i++) {

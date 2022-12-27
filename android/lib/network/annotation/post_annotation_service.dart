@@ -61,7 +61,7 @@ Future<bool> postTextAnnotation(Map<String, dynamic> annotation) async {
     Map<String, dynamic> body = {
       "@context": "http://www.w3.org/ns/anno.jsonld",
       "type": "Annotation",
-      "creator": annotation['creator'],
+      "creator": "$serverIP/profile/${annotation['creator']}",
       "body": [
         {
           "type": "TextualBody",
