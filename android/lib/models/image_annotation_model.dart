@@ -7,6 +7,7 @@ class ImageAnnotation {
   //   "_id": "<internal_mongo_db_id>",
   //   "@context": "http://www.w3.org/ns/anno.jsonld",
   //   "type": "Annotation",
+  //   "creator": "https://ideart.tk/api/profile/<username>",
   //   "body": [
   //     {
   //       "type": "TextualBody",
@@ -15,7 +16,7 @@ class ImageAnnotation {
   //     }
   //   ],
   //   "target": {
-  //     "source": "<base64-image>",
+  //     "source": "<image_source_link>",
   //     "selector": {
   //       "type": "FragmentSelector",
   //       "conformsTo": "http://www.w3.org/TR/media-frags/",
@@ -31,6 +32,7 @@ class ImageAnnotation {
   final double y;
   final double width;
   final double height;
+  final String? creatorUsername;
 
   ImageAnnotation({
     required this.imageId,
@@ -39,6 +41,7 @@ class ImageAnnotation {
     required this.y,
     required this.width,
     required this.height,
+    this.creatorUsername,
   });
 
   factory ImageAnnotation.fromJson(Map<String, dynamic> json) {
@@ -54,6 +57,8 @@ class ImageAnnotation {
       y: double.parse(coordinates[1]),
       width: double.parse(coordinates[2]),
       height: double.parse(coordinates[3]),
+      creatorUsername:
+          json.containsKey("creator") ? json['creator'].split('/').last : null,
     );
   }
 
@@ -65,6 +70,7 @@ class ImageAnnotation {
       'y': y,
       'width': width,
       'height': height,
+      'creatorUsername': creatorUsername,
     };
   }
 }
