@@ -1,0 +1,3 @@
+.r6o-widget.comment.editable:not(:first-child) {
+    display: none;
+}

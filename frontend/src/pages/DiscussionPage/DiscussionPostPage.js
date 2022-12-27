@@ -5,6 +5,8 @@ import UserCard from "../../common/UserCard"
 import AnnotatableText from "../../components/AnnotatableText"
 import GenericCardLayout from '../../layouts/GenericCardLayout';
 import CommentSection from '../../common/CommentSection';
+import {DiscussionPostVote} from '../../components/DiscussionPostPreview';
+import { useAuth } from "../../auth/useAuth"
 
 function DiscussionPostPage() {
 
@@ -33,6 +35,8 @@ function DiscussionPostPage() {
       )
   }, [id])
 
+  const { userData } = useAuth();
+
   const {error, isLoaded, artitem} = state
 
   if (error) {
@@ -56,7 +60,12 @@ function DiscussionPostPage() {
         <Typography variant="body1">
           <AnnotatableText id={id} contentType={'d'}>{state.discussionPost.textBody}</AnnotatableText>
         </Typography>
-
+        <DiscussionPostVote content= {{
+          id: state.discussionPost.id,
+          voteStatus: userData && (state.discussionPost.upVotedUsernames.includes(userData.accountInfo.username) ? 1 : state.discussionPost.downVotedUsernames.includes(userData.accountInfo.username) ? -1 : 0),
+          voteCount: state.discussionPost.upVotedUsernames.length - state.discussionPost.downVotedUsernames.length,
+          commentCount: state.discussionPost.commentList.length,
+        }}/>
         <br/>
 
         <UserCard data={state.discussionPost} />

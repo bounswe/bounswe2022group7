@@ -9,6 +9,9 @@ import "package:android/models/models.dart";
 import 'package:android/network/image/get_image_builder.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/annotatable_image.dart';
+import '../widgets/annotation_bar.dart';
+
 Event? currentEvent;
 
 class EventPage extends StatefulWidget {
@@ -54,6 +57,22 @@ class _EventPageState extends State<EventPage> {
     if (currentEvent == null) {
       return erroneousEventPage();
     }
+    if (user != null) {
+      for (var comment in currentEvent!.commentList) {
+        comment.updateStatus(user.username);
+      }
+    }
+    final ValueNotifier<int> annotationModeNotifier = ValueNotifier(0);
+    final ValueNotifier<Map<String, dynamic>?> annotationNotifier =
+    ValueNotifier(null);
+
+    final ValueNotifier<List<Map<String, dynamic>>> annotationListNotifier =
+    ValueNotifier([]);
+    final ValueNotifier<int> annotationCountNotifier = ValueNotifier(0);
+
+    Widget imageBuilderResult =
+    imageBuilder(currentEvent!.eventInfo.imageId);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Event"),
@@ -248,7 +267,22 @@ class _EventPageState extends State<EventPage> {
                             ],
                           ),
                           const SizedBox(height: 15.0),
-                          imageBuilder(currentEvent!.eventInfo.imageId),
+                          buildAnnotatableImage(
+                            imageBuilderResult,
+                            annotationModeNotifier,
+                            annotationNotifier,
+                            annotationListNotifier,
+                          ),
+                          const SizedBox(height: 10.0),
+                          currentEvent!.eventInfo.imageId != null
+                            ? AnnotationBar(
+                                user: user,
+                                imageId: currentEvent!.eventInfo.imageId!,
+                                countNotifier: annotationCountNotifier,
+                                modeNotifier: annotationModeNotifier,
+                                annotationNotifier: annotationNotifier,
+                                annotationListNotifier: annotationListNotifier)
+                            : const SizedBox.shrink(),
                           const SizedBox(height: 15.0),
                           AnnotatableText(
                             currentEvent!.eventInfo.description,
@@ -292,6 +326,5 @@ class _EventPageState extends State<EventPage> {
         )),
       ),
     );
-    ;
   }
 }

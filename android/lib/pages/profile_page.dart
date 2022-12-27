@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/event/get_event_service.dart';
 
@@ -41,7 +40,7 @@ class Item {
   bool operator ==(Object other) => other is Item && other.name == name;
 }
 
-const dropdown_items = ["Events", "Art Items", "Comments", "Auctions"];
+const dropdown_items = ["Events", "Art Items", "Auctions"];
 var dropdown_selection = ValueNotifier<String>("Events");
 final followButtonText = ValueNotifier<String>("Follow");
 
@@ -49,7 +48,6 @@ String? profileUsername;
 var post_lists = {
   "Events": [],
   "Art Items": [],
-  "Comments": [],
   "Auctions": [],
 };
 var selected_items = [];
@@ -111,9 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     CurrentUser? currentUser = Provider.of<UserProvider>(context).user;
 
-    //Check if already following
     followButtonText.value = "Follow";
-    //?: "Following";
 
     return FutureBuilder(
       future: getUserNetwork(profileUsername, currentUser),
@@ -135,7 +131,6 @@ class _ProfilePageState extends State<ProfilePage> {
             }
             if (snapshot.data != null) {
               getUserOutput user_output = snapshot.data!;
-              print("status: ${user_output.status}");
               if (user_output.status != "OK") {
                 return const Text(
                     "An error occured while loading profile page!");
@@ -148,7 +143,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   userAccountInfo.surname != null) {
                 fullname = "${userAccountInfo.name} ${userAccountInfo.surname}";
               }
-
+              for (var username in userAccount.followedByUsernames) {
+                if (currentUser != null && currentUser.username == username) {
+                  followButtonText.value = "Following";
+                }
+              }
               bool usersCheck = currentUser != null;
               usersCheck = currentUser!.email == userAccountInfo.email
                   ? usersCheck
@@ -157,7 +156,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   userAccount.all_events, userAccount.all_art_items);
               dropdown_selection.value = "Events";
               updateSelectedItems();
-              print("before return scaffold");
 
               return Scaffold(
                 appBar: AppBar(), // app bar will be discussed later
@@ -175,13 +173,26 @@ class _ProfilePageState extends State<ProfilePage> {
                               userAccountInfo.profile_picture_id, 20.0),
                           Column(
                             children: [
+                              Row(children: [
+                                Text(
+                                  fullname,
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                  textScaleFactor: 1.25,
+                                ),
+                                if (userAccount.is_verified) ...[
+                                  const Icon(
+                                    Icons.verified,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ],
+                              ]),
                               Text(
-                                fullname,
-                                style: Theme.of(context).textTheme.subtitle1,
+                                "@${userAccountInfo.username}",
+                                style: Theme.of(context).textTheme.subtitle2,
                                 textScaleFactor: 1.25,
                               ),
                               Text(
-                                "@${userAccountInfo.username}",
+                                "Level: ${userAccount.level}",
                                 style: Theme.of(context).textTheme.subtitle2,
                                 textScaleFactor: 1.25,
                               ),
@@ -482,11 +493,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(
-                                                      userAccountInfo
-                                                          .profile_picture_id,
-                                                      20.0),
-                                                  const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -544,7 +550,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ),
                                                   const SizedBox(width: 5.0),
                                                   Text(
-                                                    "${selected_items[index].eventInfo.startingDate.toString().substring(0, 16)} - ${selected_items[index].eventInfo.endingDate.toString().substring(0, 16)}",
+                                                    "${selected_items[index].eventInfo.startingDate.toString().substring(0, 11)} - ${selected_items[index].eventInfo.endingDate.toString().substring(0, 11)}",
                                                   ),
                                                 ],
                                               ),
@@ -574,6 +580,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 ],
                                               )
                                             ],
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            height: 60,
+                                            width: 60,
+                                            child: imageBuilderWithSizeToFit(
+                                                selected_items[index]
+                                                    .postInfo
+                                                    .imageId,
+                                                60,
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height),
                                           ),
                                           const Spacer(),
                                           IconButton(
@@ -652,11 +671,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  circleAvatarBuilder(
-                                                      userAccountInfo
-                                                          .profile_picture_id,
-                                                      20.0),
-                                                  const SizedBox(width: 10.0),
                                                   Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -732,6 +746,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 ],
                                               )
                                             ],
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            height: 60,
+                                            width: 60,
+                                            child: imageBuilderWithSizeToFit(
+                                                selected_items[index]
+                                                    .postInfo
+                                                    .imageId,
+                                                60,
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height),
                                           ),
                                           const Spacer(),
                                           IconButton(
