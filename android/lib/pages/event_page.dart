@@ -101,6 +101,34 @@ class _EventPageState extends State<EventPage> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const Spacer(),
+                              IconButton(
+                                  onPressed: () async {
+                                    if (user != null) {
+                                      final output = await postEventMarkNetwork(
+                                          currentEvent!.id, "bookmark");
+                                      setState(() {
+                                        if (output.event != null) {
+                                          currentEvent = output.event!;
+                                          currentEvent!
+                                              .updateStatus(user.username);
+                                        } else {
+                                          if (currentEvent!.bookmarkStatus ==
+                                              0) {
+                                            currentEvent!.bookmarkStatus = 1;
+                                          } else {
+                                            currentEvent!.bookmarkStatus = 0;
+                                          }
+                                        }
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.bookmark_add_outlined,
+                                    color: currentEvent!.bookmarkStatus == 0
+                                        ? Colors.black
+                                        : Colors.orange,
+                                    size: 30.0,
+                                  )),
                             ],
                           ),
 
@@ -282,34 +310,6 @@ class _EventPageState extends State<EventPage> {
                                 ),
                               ),
                               const Spacer(),
-                              IconButton(
-                                  onPressed: () async {
-                                    if (user != null) {
-                                      final output = await postEventMarkNetwork(
-                                          currentEvent!.id, "bookmark");
-                                      setState(() {
-                                        if (output.event != null) {
-                                          currentEvent = output.event!;
-                                          currentEvent!
-                                              .updateStatus(user.username);
-                                        } else {
-                                          if (currentEvent!.bookmarkStatus ==
-                                              0) {
-                                            currentEvent!.bookmarkStatus = 1;
-                                          } else {
-                                            currentEvent!.bookmarkStatus = 0;
-                                          }
-                                        }
-                                      });
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.bookmark_add_outlined,
-                                    color: currentEvent!.bookmarkStatus == 0
-                                        ? Colors.black
-                                        : Colors.orange,
-                                    size: 30.0,
-                                  )),
                               IconButton(
                                   onPressed: () async {
                                     if (user != null) {
