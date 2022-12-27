@@ -223,12 +223,10 @@ class PostAndImages {
                   : Container(),
               const SizedBox(width: 5.0),
               Text(event.location != null
-                  ? currentEvent!.location!.address
-                              .toString()
-                              .substring(0, 8) !=
+                  ? event.location!.address.toString().substring(0, 8) !=
                           "GeoPoint"
-                      ? currentEvent!.location!.address.toString()
-                      : "Lat: ${currentEvent!.location!.latitude.toString().substring(0, 7)} / Long: ${currentEvent!.location!.longitude.toString().substring(0, 7)}"
+                      ? event.location!.address.toString()
+                      : "Lat: ${event.location!.latitude.toString().substring(0, 7)} / Long: ${event.location!.longitude.toString().substring(0, 7)}"
                   : ""),
             ],
           ),

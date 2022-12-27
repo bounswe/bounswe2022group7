@@ -165,26 +165,6 @@ class _EventPageState extends State<EventPage> {
                           ),
 
                           const SizedBox(height: 15.0),
-
-                          const SizedBox(height: 15.0),
-                          buildAnnotatableImage(
-                            imageBuilderResult,
-                            annotationModeNotifier,
-                            annotationNotifier,
-                            annotationListNotifier,
-                          ),
-                          const SizedBox(height: 10.0),
-                          currentEvent!.eventInfo.imageId != null
-                              ? AnnotationBar(
-                                  user: user,
-                                  imageId: currentEvent!.eventInfo.imageId!,
-                                  countNotifier: annotationCountNotifier,
-                                  modeNotifier: annotationModeNotifier,
-                                  annotationNotifier: annotationNotifier,
-                                  annotationListNotifier:
-                                      annotationListNotifier)
-                              : const SizedBox.shrink(),
-                          const SizedBox(height: 15.0),
                           Table(
                             columnWidths: {
                               0: FlexColumnWidth(1),
@@ -208,7 +188,7 @@ class _EventPageState extends State<EventPage> {
                                     child: SizedBox(
                                         height: 55.0,
                                         child: Column(children: const [
-                                          SizedBox(height: 3.0),
+                                          SizedBox(height: 5.0),
                                           Icon(
                                             Icons.person_rounded,
                                             size: 25.0,
@@ -222,7 +202,7 @@ class _EventPageState extends State<EventPage> {
                                           .creatorAccountInfo.username);
                                     },
                                     child: Column(children: [
-                                      const SizedBox(height: 3.0),
+                                      const SizedBox(height: 5.0),
                                       circleAvatarBuilder(
                                           currentEvent!.creatorAccountInfo
                                               .profile_picture_id,
@@ -241,7 +221,7 @@ class _EventPageState extends State<EventPage> {
                                 SizedBox(
                                     height: 55.0,
                                     child: Column(children: const [
-                                      SizedBox(height: 3.0),
+                                      SizedBox(height: 5.0),
                                       Icon(
                                         Icons.calendar_today,
                                         size: 25.0,
@@ -290,7 +270,10 @@ class _EventPageState extends State<EventPage> {
                                         Container(),
                                       ]))
                                     ]),
-                              currentEvent!.collaboratorAccountInfos != null
+                              (currentEvent!.collaboratorAccountInfos != null &&
+                                      currentEvent!.collaboratorAccountInfos!
+                                              .length >
+                                          1)
                                   ? TableRow(children: [
                                       SizedBox(
                                           height: 55.0,
@@ -328,6 +311,24 @@ class _EventPageState extends State<EventPage> {
                                     ]),
                             ],
                           ),
+                          const SizedBox(height: 15.0),
+                          buildAnnotatableImage(
+                            imageBuilderResult,
+                            annotationModeNotifier,
+                            annotationNotifier,
+                            annotationListNotifier,
+                          ),
+                          const SizedBox(height: 10.0),
+                          currentEvent!.eventInfo.imageId != null
+                              ? AnnotationBar(
+                                  user: user,
+                                  imageId: currentEvent!.eventInfo.imageId!,
+                                  countNotifier: annotationCountNotifier,
+                                  modeNotifier: annotationModeNotifier,
+                                  annotationNotifier: annotationNotifier,
+                                  annotationListNotifier:
+                                      annotationListNotifier)
+                              : const SizedBox.shrink(),
                           const SizedBox(height: 15.0),
                           AnnotatableText(
                             currentEvent!.eventInfo.description,
