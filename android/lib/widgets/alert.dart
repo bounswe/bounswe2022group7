@@ -77,7 +77,16 @@ AlertDialog multipleAnnotationDialog(List<Annotation> annotationList, context) {
 }
 
 AlertDialog makeAnnotationDialog(
-    Function(String, int, int) makeAnnotation, int start, int end) {
+    Function(String, int, int) makeAnnotation, int start, int end, bool isLoggedIn) {
+  if (!isLoggedIn) {
+    return AlertDialog(
+      title: const Text("Attention!"),
+      content: const Text("You must be logged in to annotate text."),
+      actions: [
+        closeButton,
+      ],
+    );
+  }
   TextEditingController _controller = TextEditingController();
   return alert(
     "Make an annotation",
