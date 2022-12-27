@@ -11,7 +11,7 @@ Future<List<ImageAnnotation>> getAnnotationsNetwork() async {
   try {
     response = await get(
       Uri.parse(Uri.encodeFull(annotationsURL)),
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      headers: {'Content-Type': 'application/ld+json; charset=UTF-8'},
     );
     if (response.statusCode != 200) {
       return [];
