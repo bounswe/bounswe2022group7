@@ -8,3 +8,4 @@ String createEventPage = "createEventPage";
 String settingsPage = "settingsPage";
 String accountInfoPage = "accountInfoPage";
 String discussionForumPage = "discussionForumPage";
+String searchPage = "searchPage";
