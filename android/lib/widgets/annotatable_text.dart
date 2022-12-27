@@ -1,3 +1,5 @@
+import 'package:android/network/annotation/get_annotation_service.dart';
+import 'package:android/network/annotation/post_annotation_service.dart';
 import 'package:android/widgets/alert.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,8 @@ late String text;
 late TextStyle textStyle;
 
 class AnnotatableText extends StatefulWidget {
-  AnnotatableText(String t, {Key? key, required TextStyle style})
+  String source;
+  AnnotatableText(this.source, String t, {Key? key, required TextStyle style})
       : super(key: key) {
     text = t;
     textStyle = style;
@@ -31,22 +34,53 @@ class _AnnotatableTextState extends State<AnnotatableText> {
   );
 
   @override
+  void initState() {
+    super.initState();
+    // initialize annotations
+    getTextAnnotationsNetwork().then((value) {
+      for (dynamic a in value) {
+        if (a["target"]["source"] == widget.source) {
+          int start = a["target"]["selector"]["start"];
+          int end = a["target"]["selector"]["end"];
+          String text = a["body"][0]["value"];
+          String creator = a["creator"];
+          Annotation annotation = Annotation(text, creator, start, end);
+          setState(() {
+            for (int i = start; i < end; i++) {
+              selections[i] += 1;
+              annotations[i].add(annotation);
+            }
+          });
+        }
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     CurrentUser? currentUser = Provider.of<UserProvider>(context).user;
+    String? username = currentUser?.username ?? currentUser?.email;
     List<TextSpan> spans = [];
     void makeAnnotation(String body, int start, int end) {
-      late Annotation a;
-      if (currentUser!.username == null) {
-        a = Annotation(body, currentUser.email, start, end);
-      } else {
-        a = Annotation(body, currentUser.username!, start, end);
+      if (username == null) {
+        return;
       }
+      late Annotation a;
+      a = Annotation(body, username, start, end);
       setState(() {
         for (int i = start; i < end; i++) {
           selections[i] += 1;
           annotations[i].add(a);
         }
       });
+      Map<String, dynamic> annotation = {
+        "creator": a.author,
+        "text": a.body,
+        "source": widget.source,
+        "start": a.start,
+        "end": a.end,
+      };
+      postTextAnnotation(annotation);
     }
 
     for (int i = 0; i < text.length; i++) {
@@ -94,7 +128,7 @@ class _AnnotatableTextState extends State<AnnotatableText> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return makeAnnotationDialog(makeAnnotation, start, end);
+                  return makeAnnotationDialog(makeAnnotation, start, end, username != null);
                 },
               );
             }),
