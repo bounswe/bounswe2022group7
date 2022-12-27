@@ -135,21 +135,6 @@ Drawer mainDrawer(BuildContext context, CurrentUser? user, Function() logout) {
             },
           ),
         ListTile(
-          leading: Icon(Icons.photo_library),
-          title: Text("Online Galleries"),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Icon(Icons.museum),
-          title: Text("Exhibitions"),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Icon(Icons.attach_money),
-          title: Text("Art Item Auctions"),
-          onTap: () {},
-        ),
-        ListTile(
           leading: Icon(Icons.forum),
           title: Text("Discussion Page"),
           onTap: () {
@@ -235,10 +220,6 @@ BottomNavigationBar mainBottomBar(
         label: 'Home',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.event_available),
-        label: 'Events',
-      ),
-      BottomNavigationBarItem(
         icon: Icon(Icons.forum),
         label: 'Discussions',
       ),
@@ -255,8 +236,6 @@ BottomNavigationBar mainBottomBar(
           ),
         );
       } else if (index == 1) {
-        //Navigator.pushNamed(context, '/events');
-      } else if (index == 2) {
         Navigator.push(
           context,
           MaterialPageRoute(

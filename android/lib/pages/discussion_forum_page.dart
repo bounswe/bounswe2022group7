@@ -245,7 +245,7 @@ class _DiscussionForumPage extends State<DiscussionForumPage> {
         ),
       ]),
       drawer: mainDrawer(context, user, logout),
-      bottomNavigationBar: mainBottomBar(context, user, 2),
+      bottomNavigationBar: mainBottomBar(context, user, 1),
     );
   }
 
