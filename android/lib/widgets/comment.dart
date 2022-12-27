@@ -1,18 +1,20 @@
 import 'package:android/models/art_item/art_item_model.dart';
+import 'package:android/models/user_model.dart';
 import 'package:android/network/art_item/get_art_item_output.dart';
 import 'package:android/network/art_item/get_art_item_service.dart';
+import 'package:android/network/comment/post_comment_vote_input.dart';
+import 'package:android/network/comment/post_comment_vote_service.dart';
 import 'package:android/network/event/get_event_output.dart';
 import 'package:android/network/event/get_event_service.dart';
 import 'package:android/network/image/get_image_builder.dart';
+import 'package:android/providers/user_provider.dart';
+import 'package:android/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:android/widgets/form_widgets.dart';
 import 'package:android/network/comment/post_comment_input.dart';
 import 'package:android/network/comment/post_comment_service.dart';
 import 'package:android/models/comment/comment_model.dart';
-import 'package:android/data/data.dart';
-import 'dart:convert';
-import 'package:android/widgets/profile_picture.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../models/event/event_model.dart';
 
@@ -30,24 +32,33 @@ class CommentWidget extends StatelessWidget {
       print("empty commnet");
       return;
     }
-    print("comment: $comment of post $postid");
 
     postCommentInfo info = postCommentInfo(text: comment, postid: postid);
     int status = await postCommentNetwork(info);
 
-    print("status: $status");
     if (status == 200) {
       controller.clear();
     }
+    CurrentUser? user = await getUser();
 
-    if(post_type == "event") {
+    if (post_type == "event") {
       GetEventOutput geo = await getEventNetwork(postid);
       Event eve = geo.event!;
       comments.value = eve.commentList;
-    } else if(post_type == "artitem") {
+      if (user != null) {
+        for (var comment in eve.commentList) {
+          comment.updateStatus(user.username);
+        }
+      }
+    } else if (post_type == "artitem") {
       GetArtItemOutput aio = await getArtItemNetwork(postid);
       ArtItem ai = aio.artItem!;
       comments.value = ai.commentList;
+      if (user != null) {
+        for (var comment in ai.commentList) {
+          comment.updateStatus(user.username);
+        }
+      }
     }
   }
 
@@ -98,6 +109,8 @@ class CommentListWidget extends StatefulWidget {
 class _CommentListState extends State<CommentListWidget> {
   @override
   Widget build(BuildContext context) {
+    CurrentUser? user = Provider.of<UserProvider>(context).user;
+
     return ValueListenableBuilder(
       valueListenable: comments,
       builder: (context, value, widget) => ListView.builder(
@@ -105,7 +118,7 @@ class _CommentListState extends State<CommentListWidget> {
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           Duration difference =
-          DateTime.now().difference(comments.value[index].lastEditDate);
+              DateTime.now().difference(comments.value[index].lastEditDate);
           String time_passed = "";
           if (difference.inDays != 0) {
             time_passed = "${difference.inDays} days ago";
@@ -118,26 +131,14 @@ class _CommentListState extends State<CommentListWidget> {
           }
 
           return SizedBox(
-            // decoration: BoxDecoration(
-            //     shape: BoxShape.rectangle,
-            //     border: Border.all(width: 0.25),
-            //     borderRadius: BorderRadius.circular(4)),
             child: Column(
               children: [
                 Row(
                   children: [
-                    // comments.value[index].authorAccountInfo.profile_picture_id == null
-                    //     ? CircleAvatar(
-                    //   radius: 12.0,
-                    //   backgroundColor: Colors.grey[300],
-                    //   backgroundImage:
-                    //   MemoryImage(base64Decode(defaultbase64)),
-                    // )
-                    //     : profilePictureWidget(
-                    //     pictureid: comments.value[index]
-                    //         .authorAccountInfo
-                    //         .profile_picture_id!),
-                    circleAvatarBuilder(comments.value[index].authorAccountInfo.profile_picture_id, 12.0),
+                    circleAvatarBuilder(
+                        comments
+                            .value[index].authorAccountInfo.profile_picture_id,
+                        12.0),
                     const Padding(padding: EdgeInsets.all(4.0)),
                     Column(
                       children: [
@@ -159,48 +160,63 @@ class _CommentListState extends State<CommentListWidget> {
                     Row(
                       children: [
                         IconButton(
-                          iconSize: 20,
-                          icon: Icon(
-                            Icons.arrow_upward_outlined,
-                            size: 20,
-                            color: comments.value[index].liked!
-                                ? Colors.red
-                                : Colors.blueGrey.shade100,
-                          ),
-                          onPressed: () async {
-                            setState(() {
-                              comments.value[index].liked = !comments.value[index].liked!;
-                              comments.value[index].disliked = false;
-                            });
-                          },
-                        ),
-                        // const Padding(padding: EdgeInsets.all(3.0)),
+                            onPressed: () async {
+                              if (user != null) {
+                                final output = await postCommentVoteNetwork(
+                                    PostCommentVoteInput(
+                                        id: comments.value[index].id,
+                                        vote: -1));
+                                setState(() {
+                                  if (output.comment != null) {
+                                    comments.value[index] = output.comment!;
+                                    comments.value[index]
+                                        .updateStatus(user.username);
+                                  } else {
+                                    if (comments.value[index].voteStatus ==
+                                        -1) {
+                                      comments.value[index].voteStatus = 0;
+                                    } else {
+                                      comments.value[index]!.voteStatus = -1;
+                                    }
+                                  }
+                                });
+                              }
+                            },
+                            icon: Icon(Icons.arrow_downward,
+                                color: comments.value[index].voteStatus == -1
+                                    ? Colors.deepOrange
+                                    : Colors.grey,
+                                size: 20.0)),
                         IconButton(
-                          iconSize: 20,
-                          icon: Icon(
-                            Icons.arrow_downward_outlined,
-                            size: 20,
-                            color: comments.value[index].disliked!
-                                ? Colors.red
-                                : Colors.blueGrey.shade100,
-                          ),
-                          onPressed: () async {
-                            setState(() {
-                              comments.value[index].disliked =
-                              !comments.value[index].disliked!;
-                              comments.value[index].liked = false;
-                            });
-                          },
-                        ),
+                            onPressed: () async {
+                              if (user != null) {
+                                final output = await postCommentVoteNetwork(
+                                    PostCommentVoteInput(
+                                        id: comments.value[index].id, vote: 1));
+                                setState(() {
+                                  if (output.comment != null) {
+                                    comments.value[index] = output.comment!;
+                                    comments.value[index]
+                                        .updateStatus(user.username);
+                                  } else {
+                                    if (comments.value[index].voteStatus == 1) {
+                                      comments.value[index].voteStatus = 0;
+                                    } else {
+                                      comments.value[index].voteStatus = 1;
+                                    }
+                                  }
+                                });
+                              }
+                            },
+                            icon: Icon(Icons.arrow_upward,
+                                color: comments.value[index].voteStatus == 1
+                                    ? Colors.green
+                                    : Colors.grey,
+                                size: 20.0)),
                       ],
                     ),
                   ],
                 ),
-                // Row(
-                //   children: [
-
-                //   ],
-                // ),
               ],
             ),
           );

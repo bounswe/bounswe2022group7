@@ -23,7 +23,8 @@ function CreatePhysicalEventForm() {
       rules: "",
       address: "",
       startTime: null,
-      endTime: null
+      endTime: null,
+      collaborators: ""
     }
   );
   const [selectedImage, setSelectedImage] = React.useState(null);
@@ -48,7 +49,8 @@ function CreatePhysicalEventForm() {
         longitude: position.lng,
         address: formInput.address
       },
-      rules: formInput.rules
+      rules: formInput.rules,
+      collaboratorUsernames: formInput.collaborators.split(",")
     }
   }
 
@@ -103,6 +105,14 @@ function CreatePhysicalEventForm() {
             sx = {{marginY: 1}}
           />
           <TextField
+            id="outlined"
+            label="Collaborators"
+            name="collaborators"
+            defaultValue={formInput.collaborators}
+            onChange={handleInput}
+            sx = {{marginY: 1}}
+          />
+          <TextField
             required
             id="outlined-required"
             label="Category"
@@ -113,20 +123,20 @@ function CreatePhysicalEventForm() {
           />
           <TextField
             required
-            type="number"
             id="outlined-required"
-            label="Event Price"
-            name="eventPrice"
-            defaultValue={formInput.eventPrice}
+            label="Labels"
+            name="labels"
+            defaultValue={formInput.labels}
             onChange={handleInput}
             sx = {{marginY: 1}}
           />
           <TextField
             required
+            type="number"
             id="outlined-required"
-            label="Labels"
-            name="labels"
-            defaultValue={formInput.labels}
+            label="Event Price"
+            name="eventPrice"
+            defaultValue={formInput.eventPrice}
             onChange={handleInput}
             sx = {{marginY: 1}}
           />

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types';
 import { Annotorious } from '@recogito/annotorious';
 import '@recogito/annotorious/dist/annotorious.min.css';
-
+import "../styles/AnnotationEditor.css"
 
 function ImageComponent({ imageId, imageStyle }) {
   const imgEl = useRef(null)
@@ -34,6 +34,7 @@ function ImageComponent({ imageId, imageStyle }) {
 
             annotorious.on('createAnnotation', annotation => {
               annotation.id = imageId + '-' + annotation.id
+              annotation.target.source = "https://ideart.tk/api/image/" + imageId
               fetch('/annotations/',
                 {
                   method: 'POST',

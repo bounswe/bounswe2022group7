@@ -57,7 +57,7 @@ Future<GetPostListOutput> getUserPost(CurrentUser? user) async {
   GetEventListOutput eventoutput;
   try {
     response = await get(
-      Uri.parse(Uri.encodeFull('$homepageURL/getEventsForUser/')),
+      Uri.parse(Uri.encodeFull('$homepageURL/event/')),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $user;'
@@ -77,7 +77,7 @@ Future<GetPostListOutput> getUserPost(CurrentUser? user) async {
 
   try {
     response = await get(
-      Uri.parse(Uri.encodeFull('$homepageURL/getArtItemsForUser/')),
+      Uri.parse(Uri.encodeFull('$homepageURL/artItem/')),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
     );
     if (response.statusCode != 200) {
