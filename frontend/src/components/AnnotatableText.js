@@ -23,7 +23,7 @@ function AnnotatableText(props) {
       recogito.on('createAnnotation', annotation => {
         annotation.id = props.contentType + props.id + '-' + annotation.id
         console.log(annotation)
-        fetch('/annotations',
+        fetch('/annotations/',
           {
             method: 'POST',
             body: JSON.stringify(annotation),
@@ -35,7 +35,7 @@ function AnnotatableText(props) {
 
       recogito.on('updateAnnotation', annotation => {
         console.log(annotation)
-        fetch('/annotations',
+        fetch('/annotations/',
           {
             method: 'PUT',
             body: JSON.stringify(annotation),
@@ -46,7 +46,7 @@ function AnnotatableText(props) {
       })
 
       recogito.on('deleteAnnotation', annotation => {
-        fetch('/annotations',
+        fetch('/annotations/',
           {
             method: 'DELETE',
             body: JSON.stringify(annotation),
