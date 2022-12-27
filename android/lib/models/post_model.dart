@@ -208,7 +208,7 @@ class PostAndImages {
               ),
               const SizedBox(width: 5.0),
               Text(
-                event.eventInfo.startingDate.toString().substring(0, 16),
+                "${event.eventInfo.startingDate.day}-${event.eventInfo.startingDate.month}-${event.eventInfo.startingDate.year} / ${event.eventInfo.endingDate.day}-${event.eventInfo.endingDate.month}-${event.eventInfo.endingDate.year}",
               ),
             ],
           ),
@@ -220,7 +220,9 @@ class PostAndImages {
                 size: 12.0,
               ),
               const SizedBox(width: 5.0),
-              Text(event.location != null ? event.location!.address : ""),
+              Text(event.location != null
+                  ? "Lat: ${event.location!.latitude.toString().substring(0, 7)} / Long: ${event.location!.longitude.toString().substring(0, 7)}"
+                  : ""),
             ],
           ),
         ],

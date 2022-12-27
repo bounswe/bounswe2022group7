@@ -222,6 +222,11 @@ class _EventPageState extends State<EventPage> {
                                           .creatorAccountInfo.username);
                                     },
                                     child: Column(children: [
+                                      const SizedBox(height: 3.0),
+                                      circleAvatarBuilder(
+                                          currentEvent!.creatorAccountInfo
+                                              .profile_picture_id,
+                                          20.0),
                                       Text(currentEvent!
                                                   .creatorAccountInfo.name ==
                                               null
@@ -229,10 +234,6 @@ class _EventPageState extends State<EventPage> {
                                               .creatorAccountInfo.username
                                           : currentEvent!
                                               .creatorAccountInfo.name!),
-                                      circleAvatarBuilder(
-                                          currentEvent!.creatorAccountInfo
-                                              .profile_picture_id,
-                                          20.0),
                                       const SizedBox(height: 3.0),
                                     ])),
                               ]),
@@ -268,7 +269,7 @@ class _EventPageState extends State<EventPage> {
                                           ])),
                                       Column(children: [
                                         Text(currentEvent!.location != null
-                                            ? currentEvent!.location!.address
+                                            ? "Lat: ${currentEvent!.location!.latitude.toString().substring(0, 7)} / Long: ${currentEvent!.location!.longitude.toString().substring(0, 7)}"
                                             : ""),
                                       ]),
                                     ])
