@@ -27,7 +27,7 @@ function useQuery() {
 }
 
 
-export default function SearchPage(props) {
+export default function SearchPage() {
     const [error, setError] = React.useState(null);
     const [onlineGalleryData, setOnlineGalleryData] = React.useState([]);
     const [physicalExhibitionData, setPhysicalExhibitionData] = React.useState([]);

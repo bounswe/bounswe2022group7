@@ -29,6 +29,7 @@ import { useAuth } from "./auth/useAuth";
 import CustomizableDropdownMenu from './components/CustomizableDropdownMenu';
 import UserAvatar from './components/UserAvatar';
 import LoadingButton from './components/LoadingButton';
+import { replace } from 'formik';
 
 const ResponsiveAppBar = () => {
 
@@ -50,6 +51,7 @@ const ResponsiveAppBar = () => {
     const handleSearch = () => {
         navigate(`/search?keywords=${encodeURIComponent(searchValue)}`);
         setSearchValue("");
+        window.location.reload();
     }
 
     let authContent = [

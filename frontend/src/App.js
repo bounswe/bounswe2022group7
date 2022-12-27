@@ -115,7 +115,7 @@ function App() {
           />
           <Route
             path="/search"
-            element={<SearchPage />}
+            element={<SearchPage key={Math.random()*100} />}
           />
           <Route
             path="*"
