@@ -20,6 +20,7 @@ import CreatePhysicalEventPage from './pages/EventPage/CreatePhysicalEventPage';
 import CreateOnlineEventPage from "./pages/EventPage/CreateOnlineEventPage"
 import CreateDiscussionPostPage from './pages/DiscussionPage/CreateDiscussionPostPage';
 import DiscussionPostPage from './pages/DiscussionPage/DiscussionPostPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -111,6 +112,10 @@ function App() {
           <Route
             path="/profile/:username"
             element={<Profile />}
+          />
+          <Route
+            path="/search"
+            element={<SearchPage />}
           />
           <Route
             path="*"

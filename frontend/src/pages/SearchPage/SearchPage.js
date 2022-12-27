@@ -242,14 +242,14 @@ export default function SearchPage(props) {
             })
     }, [query]);
 
-    const renderUser = (key, info, date) => {
+    const renderUser = (info, date) => {
         const dateObject = new Date(date);
         const dateStr = dateObject.toLocaleString();
 
         return (
-            <Stack spacing={2} key={key + info.username} direction="row" justifyContent="space-between" alignItems="center">
-                <UserPreview key={"preview-" + key + '-' + info.username} user={info} followDisable />
-                <Typography key={key + '-' + dateStr} variant="body2" color="text.secondary">
+            <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center" sx={{ marginBottom: 1 }}>
+                <UserPreview user={info} followDisable />
+                <Typography variant="body2" color="text.secondary">
                     {"posted on " + dateStr}
                 </Typography>
             </Stack>
@@ -267,15 +267,15 @@ export default function SearchPage(props) {
             <Stack spacing={2} >
                 {userProfileData.length > 0 &&
                     <GenericCardLayout key="user-profile" customTopMargin={0}>
-                        <Stack direction="column" spacing={2}>
+                        <Stack direction="column" spacing={4}>
                             <Typography key="users-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
                                 Users:
                             </Typography>
                             {userProfileData.map((item) => {
                                 return (
-                                    <Box key={"user-detail-" + item.username} width='100%' >
-                                        <Box key={item.username} position="relative" width='100%'>
-                                            <UserPreview key={"test-" + item.username} user={item} />
+                                    <Box key={"user-detail-" + item.username} width='100%'>
+                                        <Box position="relative" width='100%'>
+                                            <UserPreview user={item} />
                                             <Link to={`/profile/${item.username}`} style={{ textDecoration: 'none' }}>
                                                 <ArrowForwardIosIcon fontSize="small" sx={{ color: 'gray', position: 'absolute', top: '50%', right: 0, transform: 'translate(0, -50%)' }} />
                                             </Link>
@@ -288,16 +288,15 @@ export default function SearchPage(props) {
                 }
                 {onlineGalleryData.length > 0 &&
                     <GenericCardLayout key="online-galleries" customTopMargin={0}>
-                        <Stack direction="column" spacing={2}>
+                        <Stack direction="column" spacing={4}>
                             <Typography key="online-galleries-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
                                 Online Galleries:
                             </Typography>
                             {onlineGalleryData.map((item) => {
                                 return (
                                     <Box key={"online-gallery-" + item.content.id} width='100%'>
-                                        {renderUser(item.content.id, item.creator, item.content.creationDate)}
-                                        <EventPreview key={item.content.id} content={item.content} />
-                                        <Divider key={"divider-" + item.content.id} />
+                                        {renderUser(item.creator, item.content.creationDate)}
+                                        <EventPreview content={item.content} />
                                     </Box>
                                 );
                             })}
@@ -306,16 +305,15 @@ export default function SearchPage(props) {
                 }
                 {physicalExhibitionData.length > 0 &&
                     <GenericCardLayout key="physical-exhibitions" customTopMargin={0}>
-                        <Stack direction="column" spacing={2}>
+                        <Stack direction="column" spacing={4}>
                             <Typography key="physical-exhibitions-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
                                 Physical Exhibitions:
                             </Typography>
                             {physicalExhibitionData.map((item) => {
                                 return (
                                     <Box key={"physical-exhibition-" + item.content.id} width='100%'>
-                                        {renderUser(item.content.id, item.creator, item.content.creationDate)}
-                                        <EventPreview key={item.content.id} content={item.content} />
-                                        <Divider key={"divider-" + item.content.id} />
+                                        {renderUser(item.creator, item.content.creationDate)}
+                                        <EventPreview content={item.content} />
                                     </Box>
                                 );
                             })}
@@ -324,16 +322,15 @@ export default function SearchPage(props) {
                 }
                 {artItemData.length > 0 &&
                     <GenericCardLayout key="art-items" customTopMargin={0}>
-                        <Stack direction="column" spacing={2}>
+                        <Stack direction="column" spacing={4}>
                             <Typography key="art-items-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
                                 Art Items:
                             </Typography>
                             {artItemData.map((item) => {
                                 return (
                                     <Box key={"art-item-" + item.content.id} width='100%'>
-                                        {renderUser(item.content.id, item.creator, item.content.creationDate)}
-                                        <ArtItemPreview key={item.content.id} content={item.content} />
-                                        <Divider key={"divider-" + item.content.id} />
+                                        {renderUser(item.creator, item.content.creationDate)}
+                                        <ArtItemPreview content={item.content} />
                                     </Box>
                                 );
                             })}
@@ -342,23 +339,21 @@ export default function SearchPage(props) {
                 }
                 {discussionPostData.length > 0 &&
                     <GenericCardLayout key="discussion-posts" customTopMargin={0}>
-                        <Stack direction="column" spacing={2}>
+                        <Stack direction="column" spacing={4}>
                             <Typography key="discussion-posts-title" variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
                                 Discussion Posts:
                             </Typography>
                             {discussionPostData.map((item) => {
                                 return (
                                     <Box key={"discussion-post-" + item.content.id} width='100%'>
-                                        {renderUser(item.content.id, item.creator, item.content.creationDate)}
-                                        <DiscussionPostPreview key={item.content.id} content={item.content} />
-                                        <Divider key={"divider-" + item.content.id} />
+                                        {renderUser(item.creator, item.content.creationDate)}
+                                        <DiscussionPostPreview content={item.content} />
                                     </Box>
                                 );
                             })}
                         </Stack>
                     </GenericCardLayout>
                 }
-
             </Stack>
         </>
     )
