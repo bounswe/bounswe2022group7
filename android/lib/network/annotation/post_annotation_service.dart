@@ -15,6 +15,7 @@ Future<bool> postImageAnnotation(Map<String, dynamic> annotation) async {
     Map<String, dynamic> body = {
       "@context": "http://www.w3.org/ns/anno.jsonld",
       "type": "Annotation",
+      "creator": "https://ideart.tk/api/profile/${annotation['creator']}",
       "body": [
         {
           "type": "TextualBody",

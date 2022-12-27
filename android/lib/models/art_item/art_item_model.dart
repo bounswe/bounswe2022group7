@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:android/models/art_item/max_bid_model.dart';
 import 'package:android/models/models.dart';
 import 'package:android/models/comment/comment_model.dart';
 
@@ -7,8 +8,9 @@ class ArtItem extends Post {
   final ArtItemInfo artItemInfo;
   final DateTime creationDate;
   final User? owner;
-  final bool onAuction;
+  bool onAuction;
   final double? lastPrice;
+  final MaxBid? maxBid;
   final List<Comment> commentList;
   final List<String> bookmarkedBy;
   final List<String> likedBy;
@@ -26,6 +28,7 @@ class ArtItem extends Post {
     required this.commentList,
     required this.bookmarkedBy,
     required this.likedBy,
+    this.maxBid,
   })  : likeStatus = 0,
         bookmarkStatus = 0,
         super(
@@ -52,9 +55,7 @@ class ArtItem extends Post {
       id: json['id'] ?? 8,
       artItemInfo: ArtItemInfo.fromJson(json),
       creatorAccountInfo: AccountInfo.fromJson(
-          json['creatorAccountInfo'] == null
-              ? json['creator']
-              : json['creatorAccountInfo']),
+          json['creatorAccountInfo'] ?? json['creator']),
       creationDate: DateTime.parse(json['creationDate']),
       // why does this use accountInfo?
       // owner: User.fromJson(json['owner']["accountInfo"]),
@@ -62,6 +63,7 @@ class ArtItem extends Post {
       onAuction: json['onAuction'],
 
       lastPrice: json['lastPrice'],
+      maxBid: json['maxBid'] == null ? null : MaxBid.fromJson(json['maxBid']),
 
       // Comment model has not been implemented yet just store as strings
       commentList: commentList,
