@@ -201,7 +201,7 @@ function Profile() {
 
                         return (<FeedCard key={artItem.id}  content={{
                             type: "artitem",
-                            id: 40,
+                            id: artItem.id,
                             title: artItem.name,
                             description: artItem.description,
                             imageId: artItem.imageId,
@@ -236,7 +236,7 @@ function Profile() {
 
                         return (<FeedCard key={bookmarkedEvent.id}  content={{
                             type: "event",
-                            id: 40,
+                            id: participatedEvent.id,
                             title: bookmarkedEvent.eventInfo.title,
                             description: bookmarkedEvent.eventInfo.description,
                             imageId: bookmarkedEvent.eventInfo.posterId,
@@ -272,7 +272,7 @@ function Profile() {
 
                         return (<FeedCard key={bookmarkedArtItem.id}  content={{
                             type: "artitem",
-                            id: 40,
+                            id: bookmarkedArtItem.id,
                             title: bookmarkedArtItem.name,
                             description: bookmarkedArtItem.description,
                             imageId: bookmarkedArtItem.imageId,
@@ -308,7 +308,7 @@ function Profile() {
 
                         return (<FeedCard key={participatedEvent.id}  content={{
                             type: "event",
-                            id: 40,
+                            id: participatedEvent.id,
                             title: participatedEvent.eventInfo.title,
                             description: participatedEvent.eventInfo.description,
                             imageId: participatedEvent.eventInfo.posterId,
