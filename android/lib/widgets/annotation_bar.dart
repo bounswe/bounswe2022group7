@@ -1,4 +1,3 @@
-import 'package:android/models/image_annotation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:android/pages/image_annotation_page.dart';
 
@@ -137,7 +136,7 @@ class AnnotationBar extends StatelessWidget {
                             annotationNotifier.value!["creator"] =
                                 user!.username;
                             annotationNotifier.value!["imageId"] = imageId;
-                            bool resp = await postAnnotation(annotationNotifier.value!);
+                            bool resp = await postImageAnnotation(annotationNotifier.value!);
                             if (resp) {
                               showSnackBar(context, "Annotation created");
                               annotationListNotifier.value
