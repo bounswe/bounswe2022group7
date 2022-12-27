@@ -38,11 +38,6 @@ function Profile() {
     const handleClose = () => setOpen(false);
 
 
-    // function handleOpen(){
-    //     setOpen(true);
-    //     console.log(followingUsernames,"den")
-    // }
-
     useEffect(() => {
         fetch(`/api/profile/${username}`, {
             method: "GET",
@@ -52,9 +47,8 @@ function Profile() {
         })
             .then((response) => response.json())
             .then((data) => {
-                //TODO setLoading(false)
-                
-                    console.log(data)
+                    //TODO setLoading(false)
+
                     setUser(data.accountInfo)
                     setLevel(data.level)
                     setOtherUser(data.following)
@@ -69,7 +63,6 @@ function Profile() {
                             .then((data) => {
                                 // artItems ? setArtItems([...artItems, data]) : setArtItems([data])
                                 setArtItems([data])
-                                console.log(data)
                             })
                     })
                     data.bookmarkedEventIds.forEach((bookmarkedEventId) => {
@@ -110,19 +103,7 @@ function Profile() {
                             })
                     })
 
-                    // data.followingUsernames.forEach((followingUsername) => {
-                    //     fetch(`/api/profile/${followingUsername}`, {
-                    //         method: "GET",
-                    //         headers: {
-                    //             "Authorization": `Bearer ${token}`
-                    //         }
-                    //     }).then((response) => response.json())
-                    //         .then((data) => {
-                    //             followingUsernames ? setFollowingUsernames([...followingUsernames, data]) : setFollowingUsernames([data])
-                    //             console.log(data.accountInfo.username)
-                    //         })
-                    // })
-                    
+
                     setFollowingUsernames([data.followingUsernames])
                 }
             )
@@ -145,15 +126,12 @@ function Profile() {
                 <Box sx={style}>
                     <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
                         Following
-
-                        {followingUsernames}
-                        {followingUsernames && followingUsernames.map((item, i) => ( <ListItem text={item} /> ))} 
                     </Typography>
                     <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
                         <ul>
                             {
-                                otherUser&&otherUser.map((user,index)=>{
-                                    return <li key={index}>{user.accountInfo.username}</li>
+                                followingUsernames[0]&&followingUsernames[0].map((user,index)=>{
+                                    return <li key={index}>{user}</li>
                                 })
                             }
                         </ul>
@@ -175,7 +153,7 @@ function Profile() {
                             <>
                                 <CardContent>
                                     <Typography variant="h6" component="div">
-                                       @{user.username}
+                                        @{user.username}
                                     </Typography>
                                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                         {user.name}
@@ -193,13 +171,13 @@ function Profile() {
                                         </Grid>
                                         <Grid item xs={3}>
                                             <Typography color="text.secondary">
-                                                 {new Date(user.dateOfBirth).toISOString().slice(0, 10)}
+                                                {new Date(user.dateOfBirth).toISOString().slice(0, 10)}
                                             </Typography>
                                         </Grid>
 
                                     </Grid>
                                     <Button color="info" onClick={handleOpen}>Following</Button>
-                                                                       
+
                                 </CardContent>
                             </>
                         </Card>
@@ -220,9 +198,9 @@ function Profile() {
 
                 {
                     artItems && artItems.map((artItem)=>{
-                       
+
                         return (<FeedCard key={artItem.id}  content={{
-                            type: "artitem",                           
+                            type: "artitem",
                             id: 40,
                             title: artItem.name,
                             description: artItem.description,
@@ -238,7 +216,7 @@ function Profile() {
                                               }
                                           } />)
 
-                                        })
+                    })
                 }
 
 
@@ -255,7 +233,7 @@ function Profile() {
 
                 {
                     bookmarkedEvents && bookmarkedEvents.map((bookmarkedEvent)=>{
-                     
+
                         return (<FeedCard key={bookmarkedEvent.id}  content={{
                             type: "event",
                             id: 40,
@@ -273,7 +251,7 @@ function Profile() {
                                               }
                                           } />)
 
-                                        })
+                    })
                 }
 
 
@@ -291,9 +269,9 @@ function Profile() {
 
                 {
                     bookmarkedArtItems && bookmarkedArtItems.map((bookmarkedArtItem)=>{
-                       
+
                         return (<FeedCard key={bookmarkedArtItem.id}  content={{
-                            type: "artitem",                           
+                            type: "artitem",
                             id: 40,
                             title: bookmarkedArtItem.name,
                             description: bookmarkedArtItem.description,
@@ -309,7 +287,7 @@ function Profile() {
                                               }
                                           } />)
 
-                                        })
+                    })
                 }
 
 
@@ -327,7 +305,7 @@ function Profile() {
 
                 {
                     participatedEvents && participatedEvents.map((participatedEvent)=>{
-                     
+
                         return (<FeedCard key={participatedEvent.id}  content={{
                             type: "event",
                             id: 40,
@@ -345,7 +323,7 @@ function Profile() {
                                               }
                                           } />)
 
-                                        })
+                    })
                 }
 
 
