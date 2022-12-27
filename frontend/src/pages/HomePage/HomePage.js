@@ -14,7 +14,7 @@ import GenericCardLayout from '../../layouts/GenericCardLayout';
 import FeedCard from './FeedCard';
 import FilterChip from '../../components/FilterChip';
 
-const HomePage = () => {
+const HomePage = ({ onResponse }) => {
     const [error, setError] = React.useState(null)
     const [userData, setUserData] = React.useState(null)
     const [displayContent, setDisplayContent] = React.useState([]);
@@ -49,16 +49,18 @@ const HomePage = () => {
     }, [token])
 
     useEffect(() => {
-        fetch("/api/profile", {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + token,
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                setUserData(data);
+        if (token) {
+            fetch("/api/profile", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                }
             })
+                .then(response => response.json())
+                .then(data => {
+                    setUserData(data);
+                })
+        }
     }, [token])
 
 
@@ -153,7 +155,6 @@ const HomePage = () => {
         fetch('api/homepage/artItem', fetchArgs)
             .then((response) => response.json())
             .then((data) => {
-
 
                 const artItems = data.map((item) => {
 
@@ -271,57 +272,46 @@ const HomePage = () => {
         return <div>Error: {error.message}</div>;
     } else
         return (
-            <>
-                <GenericCardLayout maxWidth="md" customTopMargin={1}>
-                    {token && <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                        <Tabs  value={endpointType} onChange={(event, newValue) => { setEndpointType(newValue) }} centered>
-                            <Tab sx={{fontWeight: 600}} label="Recommended" value="recommended" />
-                            <Tab sx={{fontWeight: 600}} label="All Posts" value="generic" />
-                        </Tabs>
-                    </Box>}
-                    <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={snackbar.handleClose}>
-                        <Alert onClose={snackbar.handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
-                            {snackbar.message}
-                        </Alert>
-                    </Snackbar>
-                    <Typography variant="h4" component="h2" gutterBottom>
-                        {endpointType === "recommended" ? "Your Catalog" : "Explore"}
+            <GenericCardLayout maxWidth="md" customTopMargin={1}>
+                {token && <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    <Tabs value={endpointType} onChange={(event, newValue) => { setEndpointType(newValue) }} centered>
+                        <Tab sx={{ fontWeight: 600 }} label="Recommended" value="recommended" />
+                        <Tab sx={{ fontWeight: 600 }} label="All Posts" value="generic" />
+                    </Tabs>
+                </Box>}
+                <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={snackbar.handleClose}>
+                    <Alert onClose={snackbar.handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
+                        {snackbar.message}
+                    </Alert>
+                </Snackbar>
+                <Typography variant="h4" component="h2" gutterBottom>
+                    {endpointType === "recommended" ? "Your Catalog" : "Explore"}
+                </Typography>
+                <Stack spacing={2} direction="row" justifyContent="flex-start" alignItems="center" sx={{ mb: 2, width: "100%" }}>
+                    <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>
+                        Filters:
                     </Typography>
-                    <Stack spacing={2} direction="row" justifyContent="flex-start" alignItems="center" sx={{ mb: 2, width: "100%" }}>
-                        <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 600, color: 'gray' }}>
-                            Filters:
-                        </Typography>
-                        <FilterChip label="Art Items" filterState={filter.artitem} onClick={(event) => handleFilter(event)} />
-                        <FilterChip label="Events" filterState={filter.event} onClick={(event) => handleFilter(event)} />
-                        <FilterChip label="Discussions" filterState={filter.discussionPost} onClick={(event) => handleFilter(event)} />
+                    <FilterChip label="Art Items" filterState={filter.artitem} onClick={(event) => handleFilter(event)} />
+                    <FilterChip label="Events" filterState={filter.event} onClick={(event) => handleFilter(event)} />
+                    <FilterChip label="Discussions" filterState={filter.discussionPost} onClick={(event) => handleFilter(event)} />
 
+                </Stack>
+                {!artContent.loaded || !eventContent.loaded || !discussionContent.loaded ? <CircularProgress /> :
+                    <Stack spacing={2} direction="column">
+                        {displayContent.map((item, index) => {
+                            return (
+                                <FeedCard
+                                    followAction={() => followUpdate(item.creator.username)}
+                                    key={index}
+                                    filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)}
+                                    onResponse={(severity, message) => onResponse(severity, message)}
+                                    content={item.content}
+                                    creator={item.creator} />
+                            )
+                        })}
                     </Stack>
-                    {!artContent.loaded || !eventContent.loaded || !discussionContent.loaded ? <CircularProgress /> :
-
-                        <Stack spacing={2} direction="column">
-                            {displayContent.map((item, index) => {
-                                return (
-                                    <FeedCard
-                                        followAction={() => followUpdate(item.creator.username)}
-                                        key={index}
-                                        filtered={item.content.type === "artitem" ? filter.artitem : (item.content.type === "event" ? filter.event : filter.discussionPost)}
-                                        onResponse={(severity, message) => {
-                                            setSnackbar({
-                                                ...snackbar,
-                                                open: true,
-                                                severity: severity,
-                                                message: message,
-                                            })
-                                        }}
-
-                                        content={item.content}
-                                        creator={item.creator} />
-                                )
-                            })}
-                        </Stack>
-                    }
-                </GenericCardLayout>
-            </>
+                }
+            </GenericCardLayout>
         )
 }
 

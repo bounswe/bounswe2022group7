@@ -49,6 +49,8 @@ dependencies:
   text_selection_controls:
     git:
       url: https://github.com/atillaturkmen/flutter_text_selection_controls
+  uuid: ^3.0.6
+
 
 dev_dependencies:
   nock: ^1.1.2

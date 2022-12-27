@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:android/network/art_item/post_art_item_auction_service.dart';
 import 'package:android/network/art_item/post_art_item_like_bookmark_service.dart';
 import 'package:android/network/reporting/report_input.dart';
 import 'package:android/network/reporting/report_service.dart';
@@ -11,6 +14,8 @@ import "package:android/models/models.dart";
 import 'package:provider/provider.dart';
 
 import '../network/image/get_image_builder.dart';
+import '../network/annotation/get_annotation_service.dart';
+
 import '../widgets/comment.dart';
 import '../widgets/annotation_bar.dart';
 import '../widgets/annotatable_image.dart';
@@ -57,6 +62,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
       return erroneousArtItemPage();
     }
     CurrentUser? user = Provider.of<UserProvider>(context).user;
+
     // enum annotationMode { Hidden, View, Edit }
     final ValueNotifier<int> annotationModeNotifier = ValueNotifier(0);
     final ValueNotifier<Map<String, dynamic>?> annotationNotifier =
@@ -65,14 +71,84 @@ class _ArtItemPageState extends State<ArtItemPage> {
     final ValueNotifier<List<Map<String, dynamic>>> annotationListNotifier =
         ValueNotifier([]);
     final ValueNotifier<int> annotationCountNotifier = ValueNotifier(0);
+
     if (user != null) {
       for (var comment in currentArtItem!.commentList) {
         comment.updateStatus(user.username);
       }
     }
+
     Widget imageBuilderResult =
         imageBuilder(currentArtItem!.artItemInfo.imageId);
 
+    return FutureBuilder(
+      future: getAnnotationsNetworkByImageId(widget.artItem!.artItemInfo.imageId),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return const CircularProgressIndicator();
+          default:
+            if (snapshot.hasError) {
+              return artItemPage(
+                  user,
+                  context,
+                  imageBuilderResult,
+                  annotationModeNotifier,
+                  annotationNotifier,
+                  annotationListNotifier,
+                  annotationCountNotifier);
+            }
+
+            if (snapshot.data != null) {
+              List<ImageAnnotation> responseData = snapshot.data!;
+              for (var annotation in responseData) {
+                annotationListNotifier.value.add({
+                  "x": annotation.x,
+                  "y": annotation.y,
+                  "width": annotation.width,
+                  "height": annotation.height,
+                  "text": annotation.text,
+                });
+              }
+              annotationCountNotifier.value = annotationListNotifier.value.length;
+
+              return artItemPage(
+                  user,
+                  context,
+                  imageBuilderResult,
+                  annotationModeNotifier,
+                  annotationNotifier,
+                  annotationListNotifier,
+                  annotationCountNotifier);
+
+            } else {
+              // snapshot.data == null
+              return artItemPage(
+                  user,
+                  context,
+                  imageBuilderResult,
+                  annotationModeNotifier,
+                  annotationNotifier,
+                  annotationListNotifier,
+                  annotationCountNotifier);
+            }
+        }
+      },
+
+
+
+    );
+  }
+
+  Scaffold artItemPage(
+      CurrentUser? user,
+      BuildContext context,
+      Widget imageBuilderResult,
+      ValueNotifier<int> annotationModeNotifier,
+      ValueNotifier<Map<String, dynamic>?> annotationNotifier,
+      ValueNotifier<List<Map<String, dynamic>>> annotationListNotifier,
+      ValueNotifier<int> annotationCountNotifier) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Art Item"),
@@ -283,8 +359,8 @@ class _ArtItemPageState extends State<ArtItemPage> {
                           const SizedBox(height: 10.0),
                           currentArtItem!.artItemInfo.imageId != null
                               ? AnnotationBar(
-                              user: user,
-                              imageId: currentArtItem!.artItemInfo.imageId!,
+                                  user: user,
+                                  imageId: currentArtItem!.artItemInfo.imageId!,
                                   countNotifier: annotationCountNotifier,
                                   modeNotifier: annotationModeNotifier,
                                   annotationNotifier: annotationNotifier,
@@ -322,6 +398,80 @@ class _ArtItemPageState extends State<ArtItemPage> {
                             ],
                           ),
                           const SizedBox(height: 5.0),
+                          const Text("Auction Status:", style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w400,
+                          ),),
+                          const SizedBox(height: 5.0),
+                          if (currentArtItem!.onAuction)
+                            const Text("On Auction!")
+                          else if (currentArtItem!.maxBid == null)
+                            const Text("Not on Auction")
+                          else
+                            Column(
+                              children: [
+                                const Text("Item was sold after an auction. Auction is closed."),
+                                const SizedBox(height: 5.0),
+                                Text("Highest Bid: ${currentArtItem!.maxBid!.bidAmount} by ${currentArtItem!.maxBid!.username}"),
+                              ],
+                            ),
+                          const SizedBox(height: 5.0),
+                          // bid button
+                          if (currentArtItem!.onAuction && user != null && user.username != currentArtItem!.creatorAccountInfo.username)
+                            Column(
+                              children: [
+                                const Text("Place a bid:", style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                ),),
+                                const SizedBox(height: 5.0),
+                                Row(
+                                  children: [
+                                    const SizedBox(width: 5.0),
+                                    const Expanded(
+                                      child: TextField(
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                          hintText: "Enter bid amount",
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5.0),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        print("bid button pressed");
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                        ),
+                                      ),
+                                      child: const Text("Place Bid"),
+                                    ),
+                                    const SizedBox(width: 5.0),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          // auction button
+                          if (user != null && user.username == currentArtItem!.creatorAccountInfo.username)
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              onPressed: () {
+                                postAuction(currentArtItem!.id, user);
+                                setState(() {
+                                  currentArtItem!.onAuction = !currentArtItem!.onAuction;
+                                });
+                              },
+                              child: currentArtItem!.onAuction ? const Text("End the auction") : const Text("Start Auction!"),
+                            ),
                           const Divider(color: Colors.black),
                           const SizedBox(height: 5.0),
                           Row(
@@ -330,7 +480,7 @@ class _ArtItemPageState extends State<ArtItemPage> {
                               const SizedBox(width: 5.0),
                               Text(
                                 "Comments ${currentArtItem!.commentList.length}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
                                 ),
