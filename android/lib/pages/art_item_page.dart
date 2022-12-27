@@ -174,8 +174,38 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const Spacer(),
+                              IconButton(
+                                  onPressed: () async {
+                                    if (user != null) {
+                                      final output =
+                                          await postArtItemMarkNetwork(
+                                              currentArtItem!.id, "bookmark");
+                                      setState(() {
+                                        if (output.artItem != null) {
+                                          currentArtItem = output.artItem!;
+                                          currentArtItem!
+                                              .updateStatus(user.username);
+                                        } else {
+                                          if (currentArtItem!.bookmarkStatus ==
+                                              0) {
+                                            currentArtItem!.bookmarkStatus = 1;
+                                          } else {
+                                            currentArtItem!.bookmarkStatus = 0;
+                                          }
+                                        }
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.bookmark_add_outlined,
+                                    color: currentArtItem!.bookmarkStatus == 0
+                                        ? Colors.black
+                                        : Colors.orange,
+                                    size: 30.0,
+                                  )),
                             ],
                           ),
+                          const SizedBox(height: 5.0),
                           GestureDetector(
                               onTap: () {
                                 navigateToHostProfile(currentArtItem!
@@ -247,35 +277,6 @@ class _ArtItemPageState extends State<ArtItemPage> {
                                 ),
                               ),
                               const Spacer(),
-                              IconButton(
-                                  onPressed: () async {
-                                    if (user != null) {
-                                      final output =
-                                          await postArtItemMarkNetwork(
-                                              currentArtItem!.id, "bookmark");
-                                      setState(() {
-                                        if (output.artItem != null) {
-                                          currentArtItem = output.artItem!;
-                                          currentArtItem!
-                                              .updateStatus(user.username);
-                                        } else {
-                                          if (currentArtItem!.bookmarkStatus ==
-                                              0) {
-                                            currentArtItem!.bookmarkStatus = 1;
-                                          } else {
-                                            currentArtItem!.bookmarkStatus = 0;
-                                          }
-                                        }
-                                      });
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.bookmark_add_outlined,
-                                    color: currentArtItem!.bookmarkStatus == 0
-                                        ? Colors.black
-                                        : Colors.orange,
-                                    size: 30.0,
-                                  )),
                               IconButton(
                                   onPressed: () async {
                                     if (user != null) {
@@ -411,97 +412,112 @@ class _ArtItemPageState extends State<ArtItemPage> {
                             ],
                           ),
                           const SizedBox(height: 5.0),
-                          const Text(
-                            "Auction Status:",
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w400,
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue[50],
+                              border: Border.all(color: Colors.blue[100]!),
+                              borderRadius: BorderRadius.circular(5.0),
                             ),
-                          ),
-                          const SizedBox(height: 5.0),
-                          if (currentArtItem!.onAuction)
-                            const Text("On Auction!")
-                          else if (currentArtItem!.maxBid == null)
-                            const Text("Not on Auction")
-                          else
-                            Column(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
-                                    "Item was sold after an auction. Auction is closed."),
-                                const SizedBox(height: 5.0),
-                                Text(
-                                    "Highest Bid: ${currentArtItem!.maxBid!.bidAmount} by ${currentArtItem!.maxBid!.username}"),
-                              ],
-                            ),
-                          const SizedBox(height: 5.0),
-                          // bid button
-                          if (currentArtItem!.onAuction &&
-                              user != null &&
-                              user.username !=
-                                  currentArtItem!.creatorAccountInfo.username)
-                            Column(
-                              children: [
-                                const Text(
-                                  "Place a bid:",
+                                  "Auction Status:",
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 const SizedBox(height: 5.0),
-                                Row(
-                                  children: [
-                                    const SizedBox(width: 5.0),
-                                    const Expanded(
-                                      child: TextField(
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                          hintText: "Enter bid amount",
-                                          border: OutlineInputBorder(),
+                                if (currentArtItem!.onAuction)
+                                  const Text("On Auction!")
+                                else if (currentArtItem!.maxBid == null)
+                                  const Text("Not on Auction")
+                                else
+                                  Column(
+                                    children: [
+                                      const Text(
+                                          "Item was sold after an auction. Auction is closed."),
+                                      const SizedBox(height: 5.0),
+                                      Text(
+                                          "Highest Bid: ${currentArtItem!.maxBid!.bidAmount} by ${currentArtItem!.maxBid!.username}"),
+                                    ],
+                                  ),
+                                const SizedBox(height: 5.0),
+                                // bid button
+                                if (currentArtItem!.onAuction &&
+                                    user != null &&
+                                    user.username !=
+                                        currentArtItem!
+                                            .creatorAccountInfo.username)
+                                  Column(
+                                    children: [
+                                      const Text(
+                                        "Place a bid:",
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 5.0),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        print("bid button pressed");
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.red,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
+                                      const SizedBox(height: 5.0),
+                                      Row(
+                                        children: [
+                                          const SizedBox(width: 5.0),
+                                          const Expanded(
+                                            child: TextField(
+                                              keyboardType: TextInputType.number,
+                                              decoration: InputDecoration(
+                                                hintText: "Enter bid amount",
+                                                border: OutlineInputBorder(),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 5.0),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              print("bid button pressed");
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.red,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                            ),
+                                            child: const Text("Place Bid"),
+                                          ),
+                                          const SizedBox(width: 5.0),
+                                        ],
                                       ),
-                                      child: const Text("Place Bid"),
+                                    ],
+                                  ),
+                                // auction button
+                                if (user != null &&
+                                    user.username ==
+                                        currentArtItem!
+                                            .creatorAccountInfo.username)
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
                                     ),
-                                    const SizedBox(width: 5.0),
-                                  ],
-                                ),
+                                    onPressed: () {
+                                      postAuction(currentArtItem!.id, user);
+                                      setState(() {
+                                        currentArtItem!.onAuction =
+                                            !currentArtItem!.onAuction;
+                                      });
+                                    },
+                                    child: currentArtItem!.onAuction
+                                        ? const Text("End the auction")
+                                        : const Text("Start Auction!"),
+                                  )
                               ],
                             ),
-                          // auction button
-                          if (user != null &&
-                              user.username ==
-                                  currentArtItem!.creatorAccountInfo.username)
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              onPressed: () {
-                                postAuction(currentArtItem!.id, user);
-                                setState(() {
-                                  currentArtItem!.onAuction =
-                                      !currentArtItem!.onAuction;
-                                });
-                              },
-                              child: currentArtItem!.onAuction
-                                  ? const Text("End the auction")
-                                  : const Text("Start Auction!"),
-                            ),
+                          ),
                           const Divider(color: Colors.black),
                           const SizedBox(height: 5.0),
                           Row(
