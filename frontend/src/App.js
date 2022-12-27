@@ -54,19 +54,11 @@ const theme = createTheme({
 })
 
 function App() {
-
   const [snackbar, setSnackbar] = React.useState({
     open: false,
     message: "",
     severity: "success",
     handleClose: () => { setSnackbar({ ...snackbar, open: false }) }
-  });
-
-  const r = new Recogito({
-    content: document.getElementById("root"),
-    widgets: [
-      "COMMENT"
-    ]
   });
 
   const handleResponse = (severity, message) => {
@@ -77,7 +69,7 @@ function App() {
       message: message,
     })
   };
-
+  
   return (
     <div>
       <AuthProvider>

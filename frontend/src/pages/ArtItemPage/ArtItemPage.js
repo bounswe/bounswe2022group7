@@ -165,7 +165,9 @@ function ArtItemPage(props) {
             text="Description "
             variant="h5"
           />
-          <AnnotatableText text={artitem.description} />
+
+          <AnnotatableText id={id} contentType={'a'}>{artitem.description}</AnnotatableText>
+
         </ Grid>
         <Grid item xs={12} sm={4}>
 

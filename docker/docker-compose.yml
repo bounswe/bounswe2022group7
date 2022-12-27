@@ -75,6 +75,7 @@ services:
       - ../annotations:/app
     networks:
       - annotation
+
   mongo:
     image: mongo
     ports:

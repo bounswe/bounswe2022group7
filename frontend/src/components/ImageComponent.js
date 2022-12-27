@@ -26,7 +26,7 @@ function ImageComponent({ imageId, imageStyle }) {
             annotorious = new Annotorious({
               image: imgEl.current,
               widgets: [
-                "COMMENT"
+                'COMMENT'
               ]
             })
 
@@ -73,7 +73,6 @@ function ImageComponent({ imageId, imageStyle }) {
   }, [imageId])
 
   return (
-
     <img ref={imgEl} src={
       state.base64String ||
       "https://www.ign.gob.ar/geodesiaapp/ntrip-registro/img/loader.gif"
