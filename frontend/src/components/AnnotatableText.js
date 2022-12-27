@@ -15,10 +15,10 @@ function AnnotatableText(props) {
       ]
     })
 
-    recogito.loadAnnotations(`/annotations/c${props.id}`)
+    recogito.loadAnnotations(`/annotations/${props.contentType}${props.id}`)
 
     recogito.on('createAnnotation', annotation => {
-      annotation.id = 'c' + props.id + '-' + annotation.id
+      annotation.id = props.contentType + props.id + '-' + annotation.id
       console.log(annotation)
       fetch('/annotations',
         {
