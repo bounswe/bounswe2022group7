@@ -19,7 +19,7 @@ Future<List<ImageAnnotation>> getImageAnnotationsNetwork() async {
     List<dynamic> data = json.decode(response.body);
     List<dynamic> imageAnnotations = [];
     for (var annotation in data) {
-      if (annotation['id'][0] != "c") {
+      if (annotation['id'][0] != 'a' || annotation['id'][0] != 'e' || annotation['id'][0] != 'd') {
         if (annotation['target']['source'] != null) {
           imageAnnotations.add(annotation);
         }
@@ -79,7 +79,7 @@ Future<List<ImageAnnotation>> getAnnotationsNetworkByImageId(int? imageId) async
     List<dynamic> data = json.decode(response.body);
     List<dynamic> imageAnnotations = [];
     for (var annotation in data) {
-      if (annotation['id'][0] != "c") {
+      if (annotation['id'][0] != 'a' || annotation['id'][0] != 'e' || annotation['id'][0] != 'd') {
         if (annotation['target']['source'] != null) {
           imageAnnotations.add(annotation);
         }
