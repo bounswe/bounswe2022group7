@@ -61,7 +61,7 @@
 | Text annotations | [#594](https://github.com/bounswe/bounswe2022group7/issues/594) |
 | Remove the unused tag field from the annotation editor | [#623](https://github.com/bounswe/bounswe2022group7/issues/623) |
 | Fix bugs in annotations | [#631](https://github.com/bounswe/bounswe2022group7/issues/631) |
-| Add web client interface screenshots to the final report | [Report section](https://github.com/bounswe/bounswe2022group7/edit/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#web)
+| Add web client interface screenshots to the final report | [Report section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#web) |
 
 ### Ali Can Milani
 
