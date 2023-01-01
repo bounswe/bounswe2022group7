@@ -121,8 +121,52 @@
 
 ### Demet Yayla
 
+### Demet Yayla
+
+#### Milestone 1:
 |Work|Link|
 |--------|-------|
+| Milestone 1 | --- |
+|I created the initial entity classes for backend|[#256](https://github.com/bounswe/bounswe2022group7/issues/256)|
+|I created the initial endpoints which are related to items that will appear in homepage|[#287](https://github.com/bounswe/bounswe2022group7/issues/287)|
+|I wrote the endpoint that will return a single event with the id provided by frontend. |[#301](https://github.com/bounswe/bounswe2022group7/issues/301)|
+|I fixed a database integration error.|[#295](https://github.com/bounswe/bounswe2022group7/issues/295)|
+|I searched on Spring Boot annotations for different kinds of database relations.|[#310](https://github.com/bounswe/bounswe2022group7/issues/310)|
+|I searched on fixing spring annotation for manytomany|[#309](https://github.com/bounswe/bounswe2022group7/issues/309)|
+|I did a research on how to write integration tests for secured restful methods.|[#358](https://github.com/bounswe/bounswe2022group7/issues/358)|
+|Reviewed issues.|[#302](https://github.com/bounswe/bounswe2022group7/issues/302), [#345](https://github.com/bounswe/bounswe2022group7/pull/345)|
+|Review and update class diagram with Can Atakan Uğur|[#239](https://github.com/bounswe/bounswe2022group7/issues/239)|
+|Review and update Project Plan with team leaders and Can Atakan Uğur|[#241](https://github.com/bounswe/bounswe2022group7/issues/241)|
+|Update communication plan.|[#244](https://github.com/bounswe/bounswe2022group7/issues/244)|
+|Review and update sequence diagram for Discussion forum.|[#245](https://github.com/bounswe/bounswe2022group7/issues/245)|
+|After the first backend meeting, update class diagram and requirements|[#250](https://github.com/bounswe/bounswe2022group7/issues/250)|
+|Update the sequence diagram for discussion forum related to the latest modification on class diagram|[#312](https://github.com/bounswe/bounswe2022group7/issues/312)|
+|I was the notetaker for 2 backend meetings. We did three backend, three general team meetings so far and I attended them all.||
+|Revision of this issue about deliverables|[#329](https://github.com/bounswe/bounswe2022group7/issues/329)|
+|Solving pop-up premilestone requests.|[#347](https://github.com/bounswe/bounswe2022group7/issues/347)|
+|Gave feedback on this issue related to milestone presentations on Tuesday.|[#353](https://github.com/bounswe/bounswe2022group7/issues/353)|
+|I was one of the notetakers in milestone presentations.||
+|I wrote individual milestone report.||
+|I wrote parts of milestone group review (wrote some of part 3 and my own sections in part 6 and 7.)|[#370](https://github.com/bounswe/bounswe2022group7/issues/370)|
+| Milestone 2 | --- |
+|Create-delete events & art items|[#394](https://github.com/bounswe/bounswe2022group7/issues/394) |
+|Author field missing fix and DTO addition.|[#420](https://github.com/bounswe/bounswe2022group7/issues/420)|
+|Endpoint for update and view profile settings.|[#437](https://github.com/bounswe/bounswe2022group7/issues/437)|
+|Endpoint to follow user.|[#447](https://github.com/bounswe/bounswe2022group7/issues/447)|
+|Converting a string to list of strings.|[#450](https://github.com/bounswe/bounswe2022group7/issues/450)|
+|Art item creator error bug fix.|[#457](https://github.com/bounswe/bounswe2022group7/issues/457)|
+|Change structure for upvote downvote.|[#467](https://github.com/bounswe/bounswe2022group7/issues/467)|
+|Attempt to write tests.|[#358](https://github.com/bounswe/bounswe2022group7/issues/358)|
+|Review of the issues.|[#453](https://github.com/bounswe/bounswe2022group7/issues/453), [#455](https://github.com/bounswe/bounswe2022group7/issues/455), [#457](https://github.com/bounswe/bounswe2022group7/issues/457), [#388](https://github.com/bounswe/bounswe2022group7/issues/388 ), [#438](https://github.com/bounswe/bounswe2022group7/issues/438), [#372](https://github.com/bounswe/bounswe2022group7/issues/372)|
+|Reviewer of PRs|[#440](https://github.com/bounswe/bounswe2022group7/pull/440), [#345](https://github.com/bounswe/bounswe2022group7/pull/345)|
+|Owner of the PRs|[#428](https://github.com/bounswe/bounswe2022group7/pull/428), [#436](https://github.com/bounswe/bounswe2022group7/pull/436), [#448](https://github.com/bounswe/bounswe2022group7/pull/448), [#456](https://github.com/bounswe/bounswe2022group7/pull/456), [#468](https://github.com/bounswe/bounswe2022group7/pull/468), [#477](https://github.com/bounswe/bounswe2022group7/pull/477)|
+|Form sample data to showcase in milestone presentation.|[#496](https://github.com/bounswe/bounswe2022group7/issues/496)|
+|Discussion on scenarios for milestone presentation.|[#497](https://github.com/bounswe/bounswe2022group7/issues/497)|
+|Tracking requirement progress for milestone report.|[#515](https://github.com/bounswe/bounswe2022group7/issues/515)|
+|Notetaker|[The meeting note](https://github.com/bounswe/bounswe2022group7/wiki/Meeting-Notes-%2315)|
+|Writing part three of group review for milestone 1.|[#370](https://github.com/bounswe/bounswe2022group7/issues/370)|
+|One of the notetakers for milestone 2 presentations.||
+| Milestone 3 | --- |
 |Implemented Search feature| [#547](https://github.com/bounswe/bounswe2022group7/issues/547)|
 |Reviewed issues| [#554](https://github.com/bounswe/bounswe2022group7/issues/554), [#555](https://github.com/bounswe/bounswe2022group7/issues/555),[#558](https://github.com/bounswe/bounswe2022group7/issues/558)|
 |Reviewed PRs|[#556](https://github.com/bounswe/bounswe2022group7/pull/556),[#561](https://github.com/bounswe/bounswe2022group7/pull/561),[#540](https://github.com/bounswe/bounswe2022group7/pull/540)|
@@ -130,6 +174,7 @@
 |Sample data formation for the application.||
 |Wrote "Process According to Requirements" part for final report||
 |Reviewed "Executive summary" part for final report.||
+
 
 ## 1.3. Progress According to Requirements
 
@@ -693,29 +738,85 @@ I have worked on frontend development infrastructure and implementation of the h
 ### Member:
 I am Demet Yayla and am a member of group 7. I am in backend team and the leader of the backend team. 
 ### Responsibilities:
-I provide the database communication with user, acting in behalf of the application in a nutshell providing domain specific functionalities. I created repositories, entity classes, data transfer objects, endpoints, configurations. I worked on testing. I also helped mainly with the formation of sample data for milestones. 
+- I provide the database communication with user, acting in behalf of the application in a nutshell providing domain specific functionalities. I created repositories, entity classes, data transfer objects, endpoints, configurations. I worked on testing. I also helped mainly with the formation of sample data for milestones. 
 ### Main Contribution:
+
 #### Code related issues:
+- [I created the initial entity classes for backend](https://github.com/bounswe/bounswe2022group7/issues/256)
+- [I wrote the endpoint that will return a single event with the id provided by frontend. If there is no such event in database with given id, endpoint will return nothing. The challenge here was to create an abstract class and connect two entity classes with this abstract class. The abstract class was not to be an entity class. Finding out the correct configuration of annotations was challenging](https://github.com/bounswe/bounswe2022group7/issues/301)
+- [We had problems connecting to database. I sensed that it had something to do with application.properties file. Also another error was popping up about database dialect. I found the correct configurations to be added to application.properties file and resolved the issue](https://github.com/bounswe/bounswe2022group7/issues/295)
+- [We have lists for entity classes interlaced. This requires usage of ManyToOne, OneToMany, OneToOne and ManyToMany annotations of Hibernate. We had to research and find the correct usages. The issue here is for this long-lasting attempt on research](https://github.com/bounswe/bounswe2022group7/issues/310)
+- [I did research on how to fix wrong usage of “cascade” type for many-to-many relations](https://github.com/bounswe/bounswe2022group7/issues/309)
+- [I researched about how to write integration tests for especially authenticated endpoints](https://github.com/bounswe/bounswe2022group7/issues/358
+- In [issue #394]( https://github.com/bounswe/bounswe2022group7/issues/394) I was assigned to write endpoints to create and delete events and art items. I faced a lot of interconnected errors which we expected to face while writing the entity classes (spring boot annotations are really complex and since we had many connections between entities it was a hard task I could not overcome on my own). I had a really hard time solving them and collaborated with @askabderon after a point.
+- In [issue #420]( https://github.com/bounswe/bounswe2022group7/issues/420) we had author field missing for comments. I converted the return type to a DTO and tidied the code a little while solving the problem.
+- In [issue #437]( https://github.com/bounswe/bounswe2022group7/issues/437) I wrote the endpoints for updating and viewing user settings.
+- In [issue #447]( https://github.com/bounswe/bounswe2022group7/issues/447) I wrote endpoints for following a user. 
+- In [issue #450]( https://github.com/bounswe/bounswe2022group7/issues/450) I wrote endpoints for converting a string of list to a list.
+- In [issue #457]( https://github.com/bounswe/bounswe2022group7/issues/457) I fixed an error, art item creation owner is now not absent.
+- In [issue #467]( https://github.com/bounswe/bounswe2022group7/issues/467) I added a logic for enabling tracking who liked what. Otherwise we couldn’t see who liked and one could like multiple times also.
+- In [issue #358]( https://github.com/bounswe/bounswe2022group7/issues/358) I attempted to write tests.
 - I implemented the search feature: [issue #547]( https://github.com/bounswe/bounswe2022group7/issues/547)
 - I did modifications requested from frontend on backend code base: [issue #590]( https://github.com/bounswe/bounswe2022group7/issues/590)
-- I reviewed [issue #554]( https://github.com/bounswe/bounswe2022group7/issues/554) related to event participation endpoints
-- I reviewed [issue #555](https://github.com/bounswe/bounswe2022group7/issues/555) related to reporting functionality endpoints
-- I reviewed [issue #558](https://github.com/bounswe/bounswe2022group7/issues/558) for creating registered user DTO
+
+- I was reviewer of following PRs:
+    - [Bug fix about Json](https://github.com/bounswe/bounswe2022group7/pull/345)
+    - [PR 276](https://github.com/bounswe/bounswe2022group7/pull/276)
+    - Reviewer of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/440 )
+    - Reviewer of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/345)
+    - Reviewer of [PR #556]( https://github.com/bounswe/bounswe2022group7/pull/556)
+    - Reviewer of [PR #561]( https://github.com/bounswe/bounswe2022group7/pull/561)
+    - Reviewer of [PR #540](https://github.com/bounswe/bounswe2022group7/pull/540)
+
+- I was the owner of below PRs:
+    - [PR about single event item endpoint](https://github.com/bounswe/bounswe2022group7/pull/319)
+    - [PR about inheritance](https://github.com/bounswe/bounswe2022group7/pull/303)
+    - [PR about homepage controller and endpoints](https://github.com/bounswe/bounswe2022group7/pull/275)
+    - Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/428)
+    - Owner of [this PR](https://github.com/bounswe/bounswe2022group7/pull/436)
+    - Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/448)
+    - Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/456)
+    - Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/468)
+    - Owner of [this PR]( https://github.com/bounswe/bounswe2022group7/pull/477)
+    - Owner of [PR #559]( https://github.com/bounswe/bounswe2022group7/pull/559)
+
+- I was the reviewer of below issues:
+    - [Issue about single art item endpoint](https://github.com/bounswe/bounswe2022group7/issues/302)
+    - [Issue about backend dockerization](https://github.com/bounswe/bounswe2022group7/issues/252)
+    - Reviewer of [this issue]( https://github.com/bounswe/bounswe2022group7/issues/453)
+    - Reviewer of [this issue]( https://github.com/bounswe/bounswe2022group7/issues/455)
+    - Reviewer of [this issue]( https://github.com/bounswe/bounswe2022group7/issues/457)
+    - Reviewer of [this issue](https://github.com/bounswe/bounswe2022group7/issues/388)
+    - Reviewer of [this issue](https://github.com/bounswe/bounswe2022group7/issues/438)
+
 #### Management related issues:
+- I was selected as the backend team leader
+- [Review and update class diagram with Can Atakan Uğur](https://github.com/bounswe/bounswe2022group7/issues/239)
+- [Review and update Project Plan with team leaders and Can Atakan Uğur](https://github.com/bounswe/bounswe2022group7/issues/241)
+- [Update Communication Plan](https://github.com/bounswe/bounswe2022group7/issues/244)
+- [Review and update sequence diagram for Discussion forum](https://github.com/bounswe/bounswe2022group7/issues/245)
+- [After the first backend meeting, update class diagram and requirements](https://github.com/bounswe/bounswe2022group7/issues/250)
+- [Update the sequence diagram for discussion forum related to the latest modification on class diagram](https://github.com/bounswe/bounswe2022group7/issues/312)
+- I was the notetaker for 2 backend meetings. We did three backend, three general team meetings so far and I attended them all. 
+- [Review annotation sequence diagram](https://github.com/bounswe/bounswe2022group7/issues/240)
+- Revision of [this issue](https://github.com/bounswe/bounswe2022group7/issues/329) about deliverables
+- [Before milestone presentations, there were some pop-up mock data related requests to be injected to database related to art items and events. I worked on those](https://github.com/bounswe/bounswe2022group7/issues/347)
+- Gave feedback on [this issue](https://github.com/bounswe/bounswe2022group7/issues/353) related to milestone presentations on Tuesday
+- I will be one of the notetakers in milestone presentations
+- [Participating with the documentation about backend endpoints for tagging the code base for milestone.](https://github.com/bounswe/bounswe2022group7/issues/368)
+- In [issue #496]( https://github.com/bounswe/bounswe2022group7/issues/496) we formed the sample data to be showcased in milestone 2 group presentations.
+- In [issue #497]( https://github.com/bounswe/bounswe2022group7/issues/497) we discussed about scenarios for milestone 2 group presentations.
+- In [issue #515]( https://github.com/bounswe/bounswe2022group7/issues/515) I took the part of tracking progression related to project requirements for milestone 2 group report.
+- I was the notetaker for [meeting 15]( https://github.com/bounswe/bounswe2022group7/wiki/Meeting-Notes-%2315)
+- Writing part three of group review for milestone 1 in [this issue]( https://github.com/bounswe/bounswe2022group7/issues/370) 
 - I helped with preparing scenarios for milestone presentations: [issue #607]( https://github.com/bounswe/bounswe2022group7/issues/607)
 - I was one of the notetakers for the final milestone
 - I was one of the members preparing sample data for final milestone to populate the application during demo
 - I reviewed executive summary part for the final milestone report. 
 - I wrote the “Process According to Requirements” part for the final milestone report.
 - I created sample data for the application to satisfy 100 database inputs constraint for the final milestone deliverables.
-### Pull Requests:
-- Owner of [PR #559]( https://github.com/bounswe/bounswe2022group7/pull/559)
-- Reviewer of [PR #556]( https://github.com/bounswe/bounswe2022group7/pull/556)
-- Reviewer of [PR #561]( https://github.com/bounswe/bounswe2022group7/pull/561)
-- Reviewer of [PR #540](https://github.com/bounswe/bounswe2022group7/pull/540)
+
 ### Unit tests:
 - I tried writing integration tests before a lot. I couldn’t manage to run them, they always gave error. Then with the initial examples done by my backend team mates for unit testing, I tried to implement one that was not running in happy path but the tests didn’t give the response I expected it to give. The commit can be found in the deleted branch with name: dev/backend/tests . I gave up writing unit tests after my failure on this. I did reviews on unit tests though, can be found on the review PRs and issues I mention here.
 ### Additional Information:
 - For the last milestone I mostly worked on search. I implemented two different solutions, one I cut in half since I thought it would not  be efficient with our given limited resources and started seeking smarter ways. I researched what kinds of other approaches existed that weren’t necessarily complicated. I finally decided on using full text indexing on our MySql database. I spent also a lot of time trying to automatize auto-index queries when application run for the first time and creating a db afresh. I almost managed to implement it but CICD tests exploded and I had to revert them, just providing the necessary indexing queries to be run manually if we drop the database and need to recreate it afresh.
-
-
