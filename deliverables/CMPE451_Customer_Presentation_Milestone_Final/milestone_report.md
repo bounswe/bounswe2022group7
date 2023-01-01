@@ -56,6 +56,19 @@
 
 | Task | Link |
 | --- | --- |
+| Milestone 1 | --- |
+| Setup and configuration of the frontend development infrastructure | [#253](https://github.com/bounswe/bounswe2022group7/issues/253) |
+| Develop the home page user interface | [#272](https://github.com/bounswe/bounswe2022group7/issues/272) |
+| Develop the main navigation of the website | |
+| Fetch data from the backend for the home page | [#332](https://github.com/bounswe/bounswe2022group7/issues/332) |
+| Milestone 2 | --- |
+| Research for web annotation | [#441](https://github.com/bounswe/bounswe2022group7/issues/441) |
+| Implement web annotation service | [#488](https://github.com/bounswe/bounswe2022group7/issues/488) |
+| Implement image annotation frontend functionality | [#501](https://github.com/bounswe/bounswe2022group7/issues/501) |
+| Merge pull request for web annotation functionality | [#502](https://github.com/bounswe/bounswe2022group7/pull/502) |
+| Reviewed pull request | [#498](https://github.com/bounswe/bounswe2022group7/pull/498) |
+| Write the annotation part of the report | [#512](https://github.com/bounswe/bounswe2022group7/issues/512) |
+| Final report tasks | --- |
 |  Try to implement web annotations service with different tools. (We decided that we didn't needed this so this issue was canceled) | [#570](https://github.com/bounswe/bounswe2022group7/issues/570) |
 | Use the [Promise API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) more effectively in our web annotations implementation | [#591](https://github.com/bounswe/bounswe2022group7/issues/591) |
 | Text annotations | [#594](https://github.com/bounswe/bounswe2022group7/issues/594) |
@@ -259,6 +272,36 @@ I am a member of the frontend team. You can find my weekly contributions on my [
 I have worked on frontend development infrastructure and implementation of the home page. I also worked on both the backend and frontend implementation of web annotation features of our project. I researched about the web annotation standard and read the standard's documents. 
 
 ### Main Contributions
+
+### Milestone 1
+#### Issues
+- Open our discord server for communication [#246](https://github.com/bounswe/bounswe2022group7/issues/246)
+- Research frontend libraries and tools that would make us as productive as possible and suggested the findings to our teammates.
+- Configure our frontend infrastructure so that other team members could have a head start in development. [#253](https://github.com/bounswe/bounswe2022group7/issues/253)
+- Design and implement the home page layout. 
+- Make the home page layout responsive so that it adapts to different screen sizes. [#272](https://github.com/bounswe/bounswe2022group7/issues?q=is%3Aissue+is%3Aclosed+assignee%3Aguneyizol)
+- Review the backend design and make suggestions
+- Fetch data from backend apis and display them on the home page. [#332](https://github.com/bounswe/bounswe2022group7/issues/332)
+- Switch our development and build environment from parcel to Create-React-App, which uses webpack. ([relevant commit](https://github.com/bounswe/bounswe2022group7/pull/337/commits/5ebd0ed4ce67d1d583483da0f3605182d4c2e6bc))
+
+#### Pull requests
+- Fetch data for home page [#337](https://github.com/bounswe/bounswe2022group7/pull/337)
+#### As Reviwers
+- [#349](https://github.com/bounswe/bounswe2022group7/pull/349)
+- [#289[(https://github.com/bounswe/bounswe2022group7/issues/289)
+
+### Milestone 2
+#### Issues
+- Research for web annotation - [#441](https://github.com/bounswe/bounswe2022group7/issues/441)
+- Implement web annotation service - [#488](https://github.com/bounswe/bounswe2022group7/issues/488)
+- Implement image annotation frontend functionality - [#501](https://github.com/bounswe/bounswe2022group7/issues/501)
+- Write the annotation part of the report - [#512](https://github.com/bounswe/bounswe2022group7/issues/512)
+
+#### Pull requests
+- Merge pull request for web annotation functionality - [#502](https://github.com/bounswe/bounswe2022group7/pull/502)
+- Reviewed pull request - [#498](https://github.com/bounswe/bounswe2022group7/pull/498)
+
+### Final Report Tasks
 #### Issues
 - Try to implement web annotations service with different tools. (We decided that we didn't needed this so this issue was canceled) [#570](https://github.com/bounswe/bounswe2022group7/issues/570)
 - Use the [Promise API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) more effectively in our web annotations implementation [#591](https://github.com/bounswe/bounswe2022group7/issues/591)
