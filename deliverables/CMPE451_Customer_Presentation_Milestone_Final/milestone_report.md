@@ -145,6 +145,12 @@ TOKEN should be obtained by signing up as Artist user
 - [Discussion Post](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/pages/DiscussionPage/DiscussionPostPage.js)
 ![image](https://user-images.githubusercontent.com/56518500/210166575-c324d9a9-e0ab-4f9f-b4be-426955ae0ee2.png)
 
+- [Image Annotation](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/components/ImageComponent.js)
+![image](https://user-images.githubusercontent.com/56518500/210177400-473913da-6c78-4b6c-9f89-459f1655a87c.png)
+
+- [Text Annotation](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/components/AnnotatableText.js)
+![image](https://user-images.githubusercontent.com/56518500/210177451-9203922e-f5e7-4628-8631-3df6c4277d98.png)
+
 ### Mobile
 - [Signup](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/register.dart)
 
