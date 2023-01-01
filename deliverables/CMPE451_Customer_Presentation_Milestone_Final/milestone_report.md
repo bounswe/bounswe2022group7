@@ -143,6 +143,28 @@ TOKEN should be obtained by signing up as Artist user
 ## Erim Erkin Doğan
 
 ## Güney İzol
+### Member
+I am a member of the frontend team. You can find my weekly contributions on my [effort page](https://github.com/bounswe/bounswe2022group7/wiki/G%C3%BCney-%C4%B0zol-(Effort-Tracking))
+
+### Responsibilities
+I have worked on frontend development infrastructure and implementation of the home page. I also worked on both the backend and frontend implementation of web annotation features of our project. I researched about the web annotation standard and read the standard's documents. 
+
+### Main Contributions
+#### Issues
+- Try to implement web annotations service with different tools. (We decided that we didn't needed this so this issue was canceled) [#570](https://github.com/bounswe/bounswe2022group7/issues/570)
+- Use the [Promise API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) more effectively in our web annotations implementation [#591](https://github.com/bounswe/bounswe2022group7/issues/591)
+- Text annotations [#594](https://github.com/bounswe/bounswe2022group7/issues/594)
+- Remove the unused tag field from the annotation editor [#623](https://github.com/bounswe/bounswe2022group7/issues/623)
+- Fix bugs in annotations [#631](https://github.com/bounswe/bounswe2022group7/issues/631)
+- Add web client interface screenshots to the final report
+
+#### Pull Requests
+- Improve annotations [#627](https://github.com/bounswe/bounswe2022group7/pull/627)
+##### Reviewed
+- [#612](https://github.com/bounswe/bounswe2022group7/pull/612)
+- [#628](https://github.com/bounswe/bounswe2022group7/pull/628)
+- [#635](https://github.com/bounswe/bounswe2022group7/pull/635)
+- [#637](https://github.com/bounswe/bounswe2022group7/pull/637)
 
 ## Ali Can Milani
 
