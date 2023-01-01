@@ -79,6 +79,28 @@
 | Write the standards part of the final report | [Report section](https://github.com/bounswe/bounswe2022group7/edit/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#17-standards) |
 
 ### Ali Can Milani
+| Task | Link |
+| --- | --- |
+|Implementation of Login Page|[#280](https://github.com/bounswe/bounswe2022group7/issues/280)|
+|Implement the Home page endpoint integrations|[#351](https://github.com/bounswe/bounswe2022group7/issues/351)|
+|Milestone1| |
+|Implementation of Event Creation Page UI|[#397](https://github.com/bounswe/bounswe2022group7/issues/397)|
+|Implementation of Event Creation Page Network Calls|[#398](https://github.com/bounswe/bounswe2022group7/issues/398)|
+|Change image widgets in view event page|[#431](https://github.com/bounswe/bounswe2022group7/issues/431)|
+|Implementing follow functionality|[#435](https://github.com/bounswe/bounswe2022group7/issues/435)|
+|Update Event View and Create Page endpoints|[#479](https://github.com/bounswe/bounswe2022group7/issues/479)|
+|Test for Event Create Page|[#482](https://github.com/bounswe/bounswe2022group7/issues/482)|
+|Implementing Discussions|[#504](https://github.com/bounswe/bounswe2022group7/issues/504)|
+|Milestone2| |
+|[Mobile] Home page image caching|[#545](https://github.com/bounswe/bounswe2022group7/issues/545)|
+|[Mobile] Discussion Post Vote Functionality|[#562](https://github.com/bounswe/bounswe2022group7/issues/562)|
+|[Mobile] Event Participation Functionality|[#564](https://github.com/bounswe/bounswe2022group7/issues/564)|
+|[Mobile] Art Item Like and Bookmark Functionality|[#566](https://github.com/bounswe/bounswe2022group7/issues/566)|
+|[Mobile] Comment Vote Functionality|[#568](https://github.com/bounswe/bounswe2022group7/issues/568)|
+|[Mobile] Reporting ArtItem|[#584](https://github.com/bounswe/bounswe2022group7/issues/584)|
+|[Mobile] Bookmark Functionality In Feed Page|[#587](https://github.com/bounswe/bounswe2022group7/issues/587)|
+|[Mobile] Art Item Auction Network Connection|[#602](https://github.com/bounswe/bounswe2022group7/issues/602)|
+|Milestone3| |
 
 ### Başak Önder
 
@@ -579,6 +601,82 @@ I have worked on frontend development infrastructure and implementation of the h
 - [#637](https://github.com/bounswe/bounswe2022group7/pull/637)
 
 ## Ali Can Milani
+
+### Member
+&emsp; My name is Alican Milani. I am a member of Group 7 and the mobile team. 
+- [My Personal Wiki Page](https://github.com/bounswe/bounswe2022group7/wiki/Ali-Can-Milani)
+- [My Effort Trackings](https://github.com/bounswe/bounswe2022group7/wiki/Ali-Can-Milani-(Effort-Tracking)#cmpe-451)
+
+### Responsibilities
+&emsp; I worked on the mobile application development. 
+&emsp; My main responsibilities was:
+- the user interface of the login page
+- integrations of the home page with the endpoints
+- the event creation feature
+- the event view feature
+- discussions list page
+- discussion view page
+- follow feature
+- discussion up/down vote feature
+- bookmark feature
+- like art item feature
+- report art item feature
+- comment  up/down vote feature
+
+### Main Contributions
+#### &emsp; My Code Related Issues
+- [Implementation of Login Page #280](https://github.com/bounswe/bounswe2022group7/issues/280)
+- [Implement the Home page endpoint integrations #351](https://github.com/bounswe/bounswe2022group7/issues/351)
+- Milestone1
+- [Implementation of Event Creation Page UI #397](https://github.com/bounswe/bounswe2022group7/issues/397)
+- [Implementation of Event Creation Page Network Calls #398](https://github.com/bounswe/bounswe2022group7/issues/398)
+- [Change image widgets in view event page #431](https://github.com/bounswe/bounswe2022group7/issues/431)
+- [Implementing follow functionality #435](https://github.com/bounswe/bounswe2022group7/issues/435)
+- [Update Event View and Create Page endpoints #479](https://github.com/bounswe/bounswe2022group7/issues/479)
+- [Test for Event Create Page #482](https://github.com/bounswe/bounswe2022group7/issues/482)
+- [Implementing Discussions #504](https://github.com/bounswe/bounswe2022group7/issues/504)
+- Milestone2
+- [[Mobile] Home page image caching #545](https://github.com/bounswe/bounswe2022group7/issues/545)
+- [[Mobile] Discussion Post Vote Functionality #562](https://github.com/bounswe/bounswe2022group7/issues/562)
+- [[Mobile] Event Participation Functionality #564](https://github.com/bounswe/bounswe2022group7/issues/564)
+- [[Mobile] Art Item Like and Bookmark Functionality #566](https://github.com/bounswe/bounswe2022group7/issues/566)
+- [[Mobile] Comment Vote Functionality #568](https://github.com/bounswe/bounswe2022group7/issues/568)
+- [[Mobile] Reporting ArtItem #584](https://github.com/bounswe/bounswe2022group7/issues/584)
+- [[Mobile] Bookmark Functionality In Feed Page #587](https://github.com/bounswe/bounswe2022group7/issues/587)
+- [[Mobile] Art Item Auction Network Connection #602](https://github.com/bounswe/bounswe2022group7/issues/602)
+- Milestone3
+
+#### &emsp; My Management Related Issues
+- [Review and Update the Use Case Diagram #248](https://github.com/bounswe/bounswe2022group7/issues/248)
+- [Mobile User Interface / User Experience #530](https://github.com/bounswe/bounswe2022group7/issues/530)
+
+### Pull Requests
+- [#281](https://github.com/bounswe/bounswe2022group7/pull/281)
+- [#362](https://github.com/bounswe/bounswe2022group7/pull/362)
+- Milestone1
+- [#430](https://github.com/bounswe/bounswe2022group7/pull/430)
+- [#432](https://github.com/bounswe/bounswe2022group7/pull/432)
+- [#465](https://github.com/bounswe/bounswe2022group7/pull/465)
+- [#480](https://github.com/bounswe/bounswe2022group7/pull/480)
+- [#483](https://github.com/bounswe/bounswe2022group7/pull/483)
+- [#499](https://github.com/bounswe/bounswe2022group7/pull/499)
+- [#506](https://github.com/bounswe/bounswe2022group7/pull/506)
+- Milestone2
+- [#546](https://github.com/bounswe/bounswe2022group7/pull/546)
+- [#563](https://github.com/bounswe/bounswe2022group7/pull/563)
+- [#565](https://github.com/bounswe/bounswe2022group7/pull/565)
+- [#567](https://github.com/bounswe/bounswe2022group7/pull/567)
+- [#569](https://github.com/bounswe/bounswe2022group7/pull/569)
+- [#596](https://github.com/bounswe/bounswe2022group7/pull/596)
+- [#603](https://github.com/bounswe/bounswe2022group7/pull/603)
+- [#604](https://github.com/bounswe/bounswe2022group7/pull/604)
+- [#605](https://github.com/bounswe/bounswe2022group7/pull/605)
+- [#629](https://github.com/bounswe/bounswe2022group7/pull/629)
+- Milestone3
+
+### Unit Tests
+- [Test for Event Create Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/create_event_test.dart)
+
 
 ## Başak Önder
 
