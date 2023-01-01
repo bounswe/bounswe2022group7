@@ -572,11 +572,25 @@ To build using Android Studio interface:
 
 ## 2.2. Software Requirements Specification
 
+* [Software Requirements Specification](https://github.com/bounswe/bounswe2022group7/wiki/Requirements-(Draft))
+
 ## 2.3. Software Design Documents
+
+* Software Design Documents:
+  * [Use-Case Diagram](https://github.com/bounswe/bounswe2022group7/wiki/Use-Case-Diagram)
+  * [Class Diagram](https://github.com/bounswe/bounswe2022group7/wiki/Class-Diagram)
+  * [Sequence Diagrams](https://github.com/bounswe/bounswe2022group7/wiki/Sequence-Diagrams)
 
 ## 2.4. User Scenarios And Mockups
 
+* User Scenarios and Mockups:
+  * [Scenario 1: Creating Events](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-1:-Creating-Events)
+  * [Scenario 2: Semantic Search and Discussion](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-2)
+  * [Scenario 3: Copyright Infringement Report](https://github.com/bounswe/bounswe2022group7/wiki/Scenario-3:-Copyright-Infringement-Report)
+
 ## 2.5. Project Plan
+
+* [Project Plan](https://github.com/bounswe/bounswe2022group7/wiki/Project-Plan)
 
 ## 2.6. Unit Tests
 
