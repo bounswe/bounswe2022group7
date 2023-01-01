@@ -125,6 +125,68 @@ TOKEN should be obtained by signing up as Artist user
 - [Discussion Post](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/pages/DiscussionPage/DiscussionPostPage.js)
 ![image](https://user-images.githubusercontent.com/56518500/210166575-c324d9a9-e0ab-4f9f-b4be-426955ae0ee2.png)
 
+### Mobile
+- [Signup](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/register.dart)
+
+![Screenshot (233)](https://user-images.githubusercontent.com/59166549/210167894-4e5a5180-97d0-487b-bfb6-ea7dd094d73a.png)
+
+- [Signin](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/login.dart)
+
+![Screenshot (232)](https://user-images.githubusercontent.com/59166549/210167938-be4e869e-2553-4faa-8dd9-61af27904cec.png)
+
+- [Homepage](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/home_page.dart)
+
+![Screenshot (231)](https://user-images.githubusercontent.com/59166549/210167974-c855a211-2534-48df-bfd8-e185b4afb667.png)
+![Screenshot (237)](https://user-images.githubusercontent.com/59166549/210167976-cab694f6-9a38-47b4-a194-963fe8a4a227.png)
+
+- [Search Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/search.dart)
+
+![Screenshot (238)](https://user-images.githubusercontent.com/59166549/210167992-649d30a3-7137-4afa-8e62-bbb49097f12d.png)
+
+- [Art Item Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/art_item_page.dart)
+
+![Screenshot (239)](https://user-images.githubusercontent.com/59166549/210168005-77116e53-26f7-401b-928b-e7f74c7153d5.png)
+
+- [Event Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/event_page.dart)
+
+![Screenshot (240)](https://user-images.githubusercontent.com/59166549/210168018-75624950-42db-45ab-9cbd-4d486fd127d2.png)
+![Screenshot (241)](https://user-images.githubusercontent.com/59166549/210168019-10d7fe99-d616-4e6c-9287-51e557bb67f0.png)
+
+- [Discussion Forum Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/discussion_forum_page.dart)
+
+![Screenshot (242)](https://user-images.githubusercontent.com/59166549/210168034-77397238-37da-4de2-9919-6b0e0b2cf27d.png)
+
+- [Discussion Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/discussion_page.dart)
+
+![Screenshot (243)](https://user-images.githubusercontent.com/59166549/210168040-444ad71e-8530-436b-bb59-b0e893be8add.png)
+
+- [Profile Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/profile_page.dart)
+
+![Screenshot (254)](https://user-images.githubusercontent.com/59166549/210168063-fb65edd3-06e6-4542-a323-141e672bf8c0.png)
+
+- [Account Info Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/account_info_page.dart)
+
+![Screenshot (235)](https://user-images.githubusercontent.com/59166549/210167916-01d545df-c86b-4f91-9f2e-384d02259494.png)
+![Screenshot (236)](https://user-images.githubusercontent.com/59166549/210167919-4cc2dc3c-a453-4968-8152-ff68d7d69d15.png)
+
+- [Settings Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/settings_page.dart)
+
+![Screenshot (244)](https://user-images.githubusercontent.com/59166549/210168117-ec1971d0-7eeb-4dbe-a9e9-44d5c2a44d15.png)
+
+- [Create Art Item Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/create_art_item_page.dart)
+
+![Screenshot (245)](https://user-images.githubusercontent.com/59166549/210168127-198fa526-c0c2-429c-a289-ac4fe45a6fa6.png)
+
+- [Create Event Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/create_event_page.dart)
+
+![Screenshot (246)](https://user-images.githubusercontent.com/59166549/210168135-3b333352-bd64-46af-9b20-ca36836c3e5c.png)
+![Screenshot (247)](https://user-images.githubusercontent.com/59166549/210168136-7c1c3f72-63db-4dec-a038-1a2c0f06bdf5.png)
+
+- [Image Annotation Page](https://github.com/bounswe/bounswe2022group7/blob/master/android/lib/pages/image_annotation_page.dart)
+
+![Screenshot (251)](https://user-images.githubusercontent.com/59166549/210168165-a2690a61-7a8c-4da5-9368-d93754650b95.png)
+![Screenshot (253)](https://user-images.githubusercontent.com/59166549/210168167-f403bdf5-1677-41db-ba88-4cdff754fa46.png)
+
 ## 1.6. Annotations
 We have implemented CRUD (Create, Read, Update, Delete) functionality with our web annotations web service. Since web annotations are json-ld documents, we used MongoDB as the database and implemented a minimal web service with the Koa framework on top of it. We return an identifier for the newly created annotations in the ETag response header. Our web client supports creating image and text annotations. Although we don't fully implemented every possible way to annotate web resources, the parts that are implemented are sufficient for our users to effectively benefit in their daily uses of the platform.
 
