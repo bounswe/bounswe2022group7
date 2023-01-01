@@ -21,7 +21,7 @@
   * [1.7. Standards](#17-standards)
   * [1.8. Scenarios](#18-scenarios)
 - [2. Project Artifacts](#2-project-artifacts)
-  * [2.1. Manuels](#21-manuels)
+  * [2.1. Manuals](#21-manuals)
   * [2.2. Software Requirements Specification](#22-software-requirements-specification)
   * [2.3. Software Design Documents](#23-software-design-documents)
   * [2.4. User Scenarios And Mockups](#24-user-scenarios-and-mockups)
@@ -199,7 +199,32 @@ Different type of annotations and different type of contents that are being anno
 
 # 2. Project Artifacts
 
-## 2.1. Manuels
+## 2.1. Manuals
+### System Manual
+#### Mobile
+- System Requirements:
+
+This application only runs on Android devices and requires Android 5.0 or higher.
+
+- Installation Instructions:
+
+You must have the latest stable Flutter version and Android Studio installed in order to build the application.
+
+Follow the instructions at https://flutter.dev/docs/get-started/install to install Flutter and set up your development environment. Furthermore, instructions on how to install Android Studio can be found at https://developer.android.com/studio/install.
+
+To run your Flutter app on an emulator, you'll need to install an emulator. There are a variety of options available, such as the Android Emulator that comes with Android Studio, or third-party emulators like Genymotion. Follow the instructions at https://developer.android.com/studio/run/emulator to setup the Android Emulator in Android Studio.
+
+After installing the emulator, you can download the dependencies and run the app from the terminal or via user interface in Android Studio.
+
+To build from the terminal run:
+```
+flutter pub get
+flutter run
+```
+
+To build using Android Studio interface:
+1. Open pubspec.yaml file and click on "pub get" button
+2. Press the green run button at the top or press Shift + F10.
 
 ## 2.2. Software Requirements Specification
 
