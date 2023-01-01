@@ -89,6 +89,12 @@ TOKEN should be obtained by signing up as Regular user
 TOKEN should be obtained by signing up as Artist user
 
 ## 1.5. User Interface & User Experience
+### Web
+- [Signup](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/pages/Authentication/SignUpPage.js)
+![image](https://user-images.githubusercontent.com/56518500/210164181-0239d93a-7923-41a6-bbb0-e5af683ed9f1.png)
+
+- [Signin](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/pages/Authentication/SignInPage.js)
+![image](https://user-images.githubusercontent.com/56518500/210164210-3bbf2fd2-d2e0-4b4f-8a7a-18cb1432eb10.png)
 
 ## 1.6. Annotations
 
