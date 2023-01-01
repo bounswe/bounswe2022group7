@@ -62,6 +62,8 @@
 | Remove the unused tag field from the annotation editor | [#623](https://github.com/bounswe/bounswe2022group7/issues/623) |
 | Fix bugs in annotations | [#631](https://github.com/bounswe/bounswe2022group7/issues/631) |
 | Add web client interface screenshots to the final report | [Report section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#web) |
+| Write the annotations part of the final report | [Report section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#16-annotations)
+| Write the standards part of the final report | [Report section](https://github.com/bounswe/bounswe2022group7/edit/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#17-standards) |
 
 ### Ali Can Milani
 
@@ -169,7 +171,9 @@ I have worked on frontend development infrastructure and implementation of the h
 - Text annotations [#594](https://github.com/bounswe/bounswe2022group7/issues/594)
 - Remove the unused tag field from the annotation editor [#623](https://github.com/bounswe/bounswe2022group7/issues/623)
 - Fix bugs in annotations [#631](https://github.com/bounswe/bounswe2022group7/issues/631)
-- Add web client interface screenshots to the final report
+- Add web client interface screenshots to the final report. [Report section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#web)
+- Write the annotations part of the final report. [Report section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#16-annotations)
+- Write the standards part of the final report. [Report section](https://github.com/bounswe/bounswe2022group7/edit/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#17-standards)
 
 #### Pull Requests
 - Improve annotations [#627](https://github.com/bounswe/bounswe2022group7/pull/627)
