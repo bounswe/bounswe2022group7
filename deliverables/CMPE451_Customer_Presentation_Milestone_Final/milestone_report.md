@@ -99,7 +99,259 @@
 
 ### Demet Yayla
 
+|Work|Link|
+|--------|-------|
+|Implemented Search feature| [#547](https://github.com/bounswe/bounswe2022group7/issues/547)|
+|Reviewed issues| [#554](https://github.com/bounswe/bounswe2022group7/issues/554), [#555](https://github.com/bounswe/bounswe2022group7/issues/555),[#558](https://github.com/bounswe/bounswe2022group7/issues/558)|
+|Reviewed PRs|[#556](https://github.com/bounswe/bounswe2022group7/pull/556),[#561](https://github.com/bounswe/bounswe2022group7/pull/561),[#540](https://github.com/bounswe/bounswe2022group7/pull/540)|
+|Helped with user scenarios for milestone presentation|[#607](https://github.com/bounswe/bounswe2022group7/issues/607)|
+|Sample data formation for the application.||
+|Wrote "Process According to Requirements" part for final report||
+|Reviewed "Executive summary" part for final report.||
+
 ## 1.3. Progress According to Requirements
+
+### 1\. Functional Requirements
+
+#### 1.1.1. Sign Up
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 1.1.1.1: Guest users shall be able to register for an account by providing an email address and a password. | Completed | Completed |
+| 1.1.1.2: Duplicate email addresses shall not be accepted. | Completed | Completed |
+| 1.1.1.3: Guest users who are trying to sign up shall also pick a unique username to complete the registration process. | Completed | Completed |
+| 1.1.1.4: Duplicate usernames shall not be accepted. | Completed | Completed |
+| 1.1.1.5: Guest users could provide extra information while signing up, like name, surname, location, age. | Completed | Completed |
+| 1.1.1.6: Guest users shall choose their account type, "Artist" or a "Regular User". | Completed | Completed |
+|1.1.1.7: Users shall be able to change their email address and password, anytime.|Not implemented|Not implemented|
+|1.1.1.8: Users shall be able to delete their accounts without any requisites, anytime.|Not implemented|Not implemented|
+
+#### 1.1.2. Sign In
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 1.1.2.1: Users shall be able to sign in using their email and password combination.|Completed|Completed|
+| 1.1.2.2: Users shall be able to sign out without a restriction.|Completed|Completed|
+|1.1.2.3: Users shall be able to use "Remember Me" option when signing in. This way, they will automatically be signed in when they access the platform|Not implemented|Not implemented|
+
+#### 1.1.3. Guest Users
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 1.1.3.1: Guest Users shall be able to view profile pages, art items, pages of online/physical exhibitions. |Completed|Completed|
+|1.1.3.2: Guest Users shall be able to use the search/filter functionality.|Completed|Completed|
+| 1.1.3.3: Guest Users shall not be able to make any changes in the state of the system. |Completed| Completed|
+
+
+#### 1.1.4 Comments
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 1.1.4.1: Registered users and artists shall be able to view comments that belong to art items or exhibitions |Completed|Completed|
+| 1.1.4.2: Registered users and artists shall be able to create comments on the discussion page. |Completed|Completed|
+| 1.1.4.2.1: Registered users and artists shall be able to edit their comments in the discussion page. |Completed|Completed|
+|1.1.4.2.2: Registered users and artists shall be able to remove their comments in the discussion page.|Not implemented|Not implemented|
+
+#### 1.1.5 Events
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 1.1.5.1: Artists shall be able to arrange physical events |Completed|Completed|
+|1.1.5.2: Artists shall be able to edit events|Not Not implemented|implemented|
+|1.1.5.3: Artists shall be able to remove events they created.|Implemented but not working|Implemented but not working|
+|1.1.5.4: Artists shall be able to arrange Online Galleries using the platform|Completed|Completed|
+|1.1.5.4.1: Artists shall be able to add art items to Online Galleries.|Not implemented|Not implemented|
+|1.1.5.4.2: Artists shall be able to remove art items from Online Galleries.|Not implemented|Not implemented|
+|1.1.5.4.3: Artists shall be able to indicate and link an outside platform for their Online Galleries if they choose to host it in another platform.|Completed|Completed|
+| 1.1.5.5: Artists shall be able to arrange **Physical Exhibitions** using the platform.|Completed|Completed|
+|1.1.5.5.1: Artists shall be able to mark event location in Physical Exhibitions via using geotagging.|Completed|Completed|
+| 1.1.5.5.1: Artists shall be able to mark event location in Physical Exhibitions via using geotagging. |Completed|Completed|
+|1.1.5.6: Users shall be able to indicate that their participation in the event.|Completed|Completed|
+|1.1.5.7: Users shall be able to cancel their participation to a event.|Completed|Completed|
+|1.1.5.8: Users shall be notified when an event is created by a followed artist.|Not implemented|Not implemented|
+
+
+#### 1.1.6 Copyright
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.1.6.1: Artists shall be able to demand copyright protection for their art items|Completed|Completed|
+|1.1.6.2: Users and artists shall be able to report infringements of copyright|Completed|Completed|
+
+**PS:** For 1.1.6.1, in our system copyright is given by default and its validity is guaranteed with 1.1.6.2.
+
+#### 1.1.7 Account Verification
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.1.7.1: Users shall be able to apply to be verified.|Not implemented|Not implemented|
+
+#### 1.1.8 Bidding
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.1.8.1: Artists shall be able to sell their copyrighted art items with a bidding system.|Completed|Completed|
+|1.1.8.2: Users and artists shall be able to bid for art items on the bidding system.|Completed|Completed|
+|1.1.8.2.1: An artist shall be able to determine a minimum limit that buyer can't bid below.|Not implemented|Not implemented|
+|1.1.8.2.2: Bidders shall not be able to bid below the last offer but can increase it.|Completed|Completed|
+|1.1.8.3: If an artist accepts an offer given, s/he can put a deadline for the owner of the winning offer to complete the payment so that fake bids, bid rigging, etc. can be prevented.|Completed|Completed|
+|1.1.8.4: Artists shall not be able to end the bidding by withdrawing the item and not selling it at all.|Not implemented|Not implemented|
+
+**PS:** 
+- 1.1.8.1 doesn't provide an interface for spesifically monetary procedures. It provides a medium of communication via comments and bidding button.
+- 1.1.8.3 can also be provided via comments and auction start-end auction buttons. When "end the auction" button is pressed, the highest offer data is preserved and is displayed when "start auction" button is pressed again.
+
+#### 1.1.9 Home Page
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 1.1.9.1: The home page shall highlight the most popular artworks and events of the previous week as well as the events in the coming days that are highly anticipated by the users for the guests.|Completed|Completed|
+|1.1.9.2: The home page shall be customized for registered users with upcoming events and artworks of the followed artists.|Completed|Completed|
+|1.1.9.3: Guest users shall be able to see popular artworks and events in the home page.|Completed | Completed|
+
+**PS:** 
+- For 1.1.9.3, there is sorting on backend and this provides that the content is demonstrated in a sorted order to the guest user.
+
+#### 1.1.10 Profile Page
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 1.1.10.1 Followers and the users that a certain user follows shall be visible in his/her profile page.|Completed|Completed|
+|1.1.10.2 The physical exhibitions/online galleries that a user is attending shall be visible in his/her profile page.|Completed|Completed|
+| 1.1.10.3 The profile page shall include name, surname, location, username and profile picture.|Completed|Completed|
+|1.1.10.4 The profile page shall include the art items that the user has made a bid for.|Completed|Completed|
+|1.1.10.5 The profile page shall include the verification status of the user.|Not implemented|Not implemented|
+| 1.1.10.6 The users shall be able to edit the information included in their profile pages.|Completed|Completed|
+| 1.1.10.7 Art items that an artist have shall be visible in his/her profile page.|Completed|Completed|
+
+
+#### 1.1.11 Reporting and Blocking
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.1.11.1 Users shall be able to block any other user as they would like.|Not implemented|Not implemented|
+|1.1.11.2 Users shall be able to unblock the users that they have previously blocked as they would like.|Not implemented|Not implemented|
+|1.1.11.3 Users shall be able to report the art works and the artists for copyright infringement by filling the details about the original art work.|Completed|Completed|
+
+#### 1.1.12 Communications
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.1.12.1: Registered users and artists shall be able to follow other users.|Completed|Completed|
+|1.1.12.2: Registered users and artists shall be notified about activities done by followed users.|Not implemented|Not implemented|
+
+#### 1.1.13 Annotations
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.1.13.1: Users shall be able to annotate text content on the platform. (Should be marked as In progress)|Completed|Completed|
+|1.1.13.2: Users shall be able to annotate images on the platform. (Should be marked as In progress)|Completed|Completed|
+|1.1.13.3: Registered users shall be able to bookmark discussion comments, art items, exhibitions and online galleries.|Completed|Completed|
+
+#### 1.1.14 Search and Filter
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.1.14.1: Guest and registered users shall be able to use the search bar to semantically search for exhibitions, art items, users, comments on the discussion page|Completed|Completed| //not semantic
+|1.1.14.2: Guest and registered users shall be able to filter the search results based on artist, location, date.|Not implemented|Not implemented|
+
+#### 1.1.15 Admin User
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.1.15.1: Admin user shall be able to view the copyright infringement reports.|Completed|Completed|
+|1.1.15.2: Admin user shall be able to accept or reject a copyright infringement report. When the report is accepted, the art item will be removed.|Completed|Completed|
+|1.1.15.3: Admin user shall be able to remove events from the platform.|Completed|Completed|
+|1.1.15.4: Admin user shall be able to remove replies from comments.|Completed|Completed|
+
+**PS:**
+- Our admin user in system does not use an application or web interface to do any of these. S/he do this via database workbench.They examine the reports table and on decision, may take the actions mentioned in above requirements under admin user.
+
+### 1.2 System Requirements
+
+#### 1.2.1 Registered User/Artist Data
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.2.1.1: System shall keep track of the artists followed by the user or artist.|Completed|Completed|
+|1.2.1.2: System shall track certain activities and calculate interaction level|Completed|Completed|
+|1.2.1.2.1: Replies under comments shall be tracked.|Completed|Completed|
+|1.2.1.2.2: comments about exhibitions, online galleries, collections or pieces of art shall be tracked.|Completed|Competed|
+|1.2.1.3: System shall keep track of number of followers, number of copyrighted items and number of art exhibitions. Using these data, system shall calculate a popularity level.|Completed|Completed|
+|1.2.1.6: System shall enable or disable a user's certain activities according to the user's level.|Not implemented|Not implemented|
+
+#### 1.2.2 Events
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.2.2.1: System shall keep track of the geotagging information of the physically held events. This information will be used to infer the location of the events by search engine.|Completed|Completed|
+
+#### 1.2.3 Account Verification
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.2.3.1: When a user or an artist applies to be verified, system shall be able to verify their account based on calculated artistic values. (See the glossary for the definition of artistic values and the factors that affect the calculations.)|Not implemented|Not implemented|
+
+#### 1.2.4 Bidding
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.2.4.1: System shall end the auction after some time, say 1 day|Not implemented|Not implemented|
+
+#### 1.2.5 Recommendation
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.2.5.1: System shall be able to recommend users artworks or artists based on their activities|Completed|Completed|
+|1.2.5.2: System shall be able to recommend the user events using the data about the events attended by the user.|Not implemented|Not implemented|
+
+#### 1.2.6 Artistic Value Calculation
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|1.2.6.1: System shall calculate artistic values of its users so that additional functionalities are provided to those users who have sufficient artistic value.|Half completed|Half completed|
+|1.2.6.1.1: The artistic value calculations include the number of online galleries hosted and the interaction those online galleries have got|Half ompleted|Half Completed|
+|1.2.6.1.2: The artistic value calculations include the number of physical exhibitions attended and the interest in those physical exhibitions|Not implemented|Not implemented|
+|1.2.6.1.3: The artistic value calculations include the number of artworks published on the online platform and the interaction those artworks have got|Half completed|Half completed|
+|1.2.6.1.4: The artistic value calculations include the participation in the discussions that take place on the online platform|Completed|Completed|
+|1.2.6.2: Custom coefficients shall be used to calculate a user's activity points.|Completed|Completed|
+
+**PS:**
+- The calculation mentioned in 1.2.6.1 is being done but the utilization of this value as mentioned in 1.2.6.1 does not exist.
+- The caluclations in 1.2.6.1.1 does contain the former data but not the latter one mentioned.
+- The calculations in 1.2.6.1.3 contains the former fata but not the latter one mentioned.
+
+### 2\. Non-Functional Requirements
+
+#### 2.1 Annotations
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 2.1.1 Annotations shall comply with the [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#annotations).|In progress|In progress|
+| 2.1.2 Annotations shall follow [W3C standards](https://www.w3.org/TR/annotation-model/#annotations).|In progress|In progress|
+
+#### 2.2 Accessibility
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 2.2.1 Platform shall support English language. |Completed|Completed|
+| 2.2.2 Platform shall be accessible via a web browser and an android device. |Completed|Completed|
+| 2.2.2.1 Platform shall support modern web browsers (Chrome, Opera, Safari, Firefox, Edge) |Completed|Completed|
+| 2.2.2.2 Platform shall support Android version 10 or above. |Completed|Completed|
+| 2.2.2.3 The size of android application should be less than 200MB. |Completed|Completed|
+| 2.2.3 The user interface of the platform (color theme, design etc.) shall not obscure the artworks displayed on the screen. The design shall emphasize and bring the displayed artworks into the forefront.|Completed|Completed|
+
+#### 2.3 Performance and Reliability
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 2.3.1 The uptime shall be at least 99%. |Completed|Completed|
+| 2.3.2 The response time shall be as short as possible(maximum limit 3 sec). |In progress|In progress| //what shall we say?
+| 2.3.3 The platform shall support at least 5000 users actively using it at the same time. |In progress|In progress| //what shall we say?
+| 2.3.4 The platform shall have 85 percent maintainability for 24 hours. |Completed|Completed|
+
+#### 2.4 Security
+
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+| 2.4.1 The platform shall support HTTPS protocol |Completed|Completed|
+| 2.4.2 The passwords of users shall be encrypted in the database |Completed|Completed|
+| 2.4.3 The password shall be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter and 1 special symbol. |Completed|Completed|
+| 2.4.4 A verification email shall be sent for the verification of the user email address. |Completed|Completed|
+
+#### 2.5 Legal and Ethical Issues
+| Requirement | Status for Web| Status for Mobile|
+| ----- | ------ | ------ |
+|2.5.1 Usage of personal information should shall comply with the rules of [GDPR](https://gdpr.eu/) and [KVKK](https://www.kvkk.gov.tr/).|||
+|2.5.2 Users shall read and accept “Terms of Use” and “Privacy Policy” before signing up|Not implemented|Not implemented|
+
 
 ## 1.4. API Endpoints
 
@@ -339,3 +591,33 @@ I have worked on frontend development infrastructure and implementation of the h
 ## Can Atakan Uğur
 
 ## Demet Yayla
+
+### Member:
+I am Demet Yayla and am a member of group 7. I am in backend team and the leader of the backend team. 
+### Responsibilities:
+I provide the database communication with user, acting in behalf of the application in a nutshell providing domain specific functionalities. I created repositories, entity classes, data transfer objects, endpoints, configurations. I worked on testing. I also helped mainly with the formation of sample data for milestones. 
+### Main Contribution:
+#### Code related issues:
+- I implemented the search feature: [issue #547]( https://github.com/bounswe/bounswe2022group7/issues/547)
+- I did modifications requested from frontend on backend code base: [issue #590]( https://github.com/bounswe/bounswe2022group7/issues/590)
+- I reviewed [issue #554]( https://github.com/bounswe/bounswe2022group7/issues/554) related to event participation endpoints
+- I reviewed [issue #555](https://github.com/bounswe/bounswe2022group7/issues/555) related to reporting functionality endpoints
+- I reviewed [issue #558](https://github.com/bounswe/bounswe2022group7/issues/558) for creating registered user DTO
+#### Management related issues:
+- I helped with preparing scenarios for milestone presentations: [issue #607]( https://github.com/bounswe/bounswe2022group7/issues/607)
+- I was one of the notetakers for the final milestone
+- I was one of the members preparing sample data for final milestone to populate the application during demo
+- I reviewed executive summary part for the final milestone report. 
+- I wrote the “Process According to Requirements” part for the final milestone report.
+- I created sample data for the application to satisfy 100 database inputs constraint for the final milestone deliverables.
+### Pull Requests:
+- Owner of [PR #559]( https://github.com/bounswe/bounswe2022group7/pull/559)
+- Reviewer of [PR #556]( https://github.com/bounswe/bounswe2022group7/pull/556)
+- Reviewer of [PR #561]( https://github.com/bounswe/bounswe2022group7/pull/561)
+- Reviewer of [PR #540](https://github.com/bounswe/bounswe2022group7/pull/540)
+### Unit tests:
+- I tried writing integration tests before a lot. I couldn’t manage to run them, they always gave error. Then with the initial examples done by my backend team mates for unit testing, I tried to implement one that was not running in happy path but the tests didn’t give the response I expected it to give. The commit can be found in the deleted branch with name: dev/backend/tests . I gave up writing unit tests after my failure on this. I did reviews on unit tests though, can be found on the review PRs and issues I mention here.
+### Additional Information:
+- For the last milestone I mostly worked on search. I implemented two different solutions, one I cut in half since I thought it would not  be efficient with our given limited resources and started seeking smarter ways. I researched what kinds of other approaches existed that weren’t necessarily complicated. I finally decided on using full text indexing on our MySql database. I spent also a lot of time trying to automatize auto-index queries when application run for the first time and creating a db afresh. I almost managed to implement it but CICD tests exploded and I had to revert them, just providing the necessary indexing queries to be run manually if we drop the database and need to recreate it afresh.
+
+
