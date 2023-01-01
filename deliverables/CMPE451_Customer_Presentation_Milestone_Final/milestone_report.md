@@ -75,6 +75,13 @@
 
 ### Atilla Türkmen
 
+| Task | Link |
+| --- | --- |
+|  Connect mobile text annotations to the backend | [#576](https://github.com/bounswe/bounswe2022group7/issues/576) |
+|  Implementing art item auction | [#599](https://github.com/bounswe/bounswe2022group7/issues/599) |
+| Write the system manual for the mobile application in the final report | [Report section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#21-manuals) |
+| Add mobile interface screenshots to the final report | [Report section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#mobile) |
+
 ### Can Atakan Uğur
 
 ### Demet Yayla
