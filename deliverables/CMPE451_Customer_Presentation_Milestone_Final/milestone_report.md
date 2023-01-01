@@ -159,7 +159,6 @@
 |Attempt to write tests.|[#358](https://github.com/bounswe/bounswe2022group7/issues/358)|
 |Review of the issues.|[#453](https://github.com/bounswe/bounswe2022group7/issues/453), [#455](https://github.com/bounswe/bounswe2022group7/issues/455), [#457](https://github.com/bounswe/bounswe2022group7/issues/457), [#388](https://github.com/bounswe/bounswe2022group7/issues/388 ), [#438](https://github.com/bounswe/bounswe2022group7/issues/438), [#372](https://github.com/bounswe/bounswe2022group7/issues/372)|
 |Reviewer of PRs|[#440](https://github.com/bounswe/bounswe2022group7/pull/440), [#345](https://github.com/bounswe/bounswe2022group7/pull/345)|
-|Owner of the PRs|[#428](https://github.com/bounswe/bounswe2022group7/pull/428), [#436](https://github.com/bounswe/bounswe2022group7/pull/436), [#448](https://github.com/bounswe/bounswe2022group7/pull/448), [#456](https://github.com/bounswe/bounswe2022group7/pull/456), [#468](https://github.com/bounswe/bounswe2022group7/pull/468), [#477](https://github.com/bounswe/bounswe2022group7/pull/477)|
 |Form sample data to showcase in milestone presentation.|[#496](https://github.com/bounswe/bounswe2022group7/issues/496)|
 |Discussion on scenarios for milestone presentation.|[#497](https://github.com/bounswe/bounswe2022group7/issues/497)|
 |Tracking requirement progress for milestone report.|[#515](https://github.com/bounswe/bounswe2022group7/issues/515)|
