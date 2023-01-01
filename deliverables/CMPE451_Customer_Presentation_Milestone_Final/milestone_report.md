@@ -54,6 +54,15 @@
 
 ### Güney İzol
 
+| Task | Link |
+| --- | --- |
+|  Try to implement web annotations service with different tools. (We decided that we didn't needed this so this issue was canceled) | [#570](https://github.com/bounswe/bounswe2022group7/issues/570) |
+| Use the [Promise API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) more effectively in our web annotations implementation | [#591](https://github.com/bounswe/bounswe2022group7/issues/591) |
+| Text annotations | [#594](https://github.com/bounswe/bounswe2022group7/issues/594) |
+| Remove the unused tag field from the annotation editor | [#623](https://github.com/bounswe/bounswe2022group7/issues/623) |
+| Fix bugs in annotations | [#631](https://github.com/bounswe/bounswe2022group7/issues/631) |
+| Add web client interface screenshots to the final report | [Report section](https://github.com/bounswe/bounswe2022group7/edit/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#web)
+
 ### Ali Can Milani
 
 ### Başak Önder
