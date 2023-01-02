@@ -1404,7 +1404,16 @@ To build using Android Studio interface:
 
 ## 2.6. Unit Tests
 
-Unit tests for backend: https://github.com/bounswe/bounswe2022group7/tree/master/backend/src/test/kotlin/com/group7/artshare
+Unit tests for backend:
+- https://github.com/bounswe/bounswe2022group7/blob/master/backend/src/test/kotlin/com/group7/artshare/controller/ArtItemControllerTest.kt
+- https://github.com/bounswe/bounswe2022group7/blob/master/backend/src/test/kotlin/com/group7/artshare/controller/CommentControllerTest.kt
+- https://github.com/bounswe/bounswe2022group7/blob/master/backend/src/test/kotlin/com/group7/artshare/controller/DiscussionPostControllerTest.kt
+- https://github.com/bounswe/bounswe2022group7/blob/master/backend/src/test/kotlin/com/group7/artshare/controller/EventControllerTest.kt
+- https://github.com/bounswe/bounswe2022group7/blob/master/backend/src/test/kotlin/com/group7/artshare/controller/HomepageControllerTest.kt
+- https://github.com/bounswe/bounswe2022group7/blob/master/backend/src/test/kotlin/com/group7/artshare/controller/ImageControllerTest.kt
+- https://github.com/bounswe/bounswe2022group7/blob/master/backend/src/test/kotlin/com/group7/artshare/controller/ProfileControllerTest.kt
+- https://github.com/bounswe/bounswe2022group7/blob/master/backend/src/test/kotlin/com/group7/artshare/controller/ReportControllerTest.kt
+- https://github.com/bounswe/bounswe2022group7/blob/master/backend/src/test/kotlin/com/group7/artshare/controller/UserInteractionControllerTest.kt
 
 Unit tests for frontend:
 - https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/CommentSection.test.js
