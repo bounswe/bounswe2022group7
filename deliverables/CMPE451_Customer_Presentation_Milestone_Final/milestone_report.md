@@ -176,6 +176,33 @@ Fix
 | Preparing individual Final milestone report | |
 
 ### Erim Erkin Doğan
+| Task | Link |
+| --- | --- |
+| Revising the Scenarios & Mockups | [#247](https://github.com/bounswe/bounswe2022group7/issues/247) | 
+| Revising the System Requirements | [#254](https://github.com/bounswe/bounswe2022group7/issues/254) | 
+| Setting up Dockerization, AWS deployment, CI/CD for web and API | [#282](https://github.com/bounswe/bounswe2022group7/issues/282), [PR #276](https://github.com/bounswe/bounswe2022group7/pull/276), [PR #354](https://github.com/bounswe/bounswe2022group7/pull/354), [PR #355](https://github.com/bounswe/bounswe2022group7/pull/355) |
+| Frontend Dockerization and CI/CD setup | [#283](https://github.com/bounswe/bounswe2022group7/issues/282), [PR #286](https://github.com/bounswe/bounswe2022group7/pull/286) | 
+| Revising and finishing integration with API for sign-in and sign-up pages for frontend | [#338](https://github.com/bounswe/bounswe2022group7/issues/338), [PR #346](https://github.com/bounswe/bounswe2022group7/pull/346) | 
+| Creating the release/tag of application for Customer Presentation 1 | [#368](https://github.com/bounswe/bounswe2022group7/issues/368) |
+| Milestone 1 | --- |
+| Setup Swagger for endpoint documentation | [#399](https://github.com/bounswe/bounswe2022group7/issues/399), [PR #404](https://github.com/bounswe/bounswe2022group7/pull/404) |
+| Configuring Continuous Integration workflow for mobile application | [#408](https://github.com/bounswe/bounswe2022group7/issues/408), PRs [#411](https://github.com/bounswe/bounswe2022group7/pull/411), [#412](https://github.com/bounswe/bounswe2022group7/pull/412) |
+| Revising sign-up experience in frontend | [#418](https://github.com/bounswe/bounswe2022group7/issues/418), [PR #452](https://github.com/bounswe/bounswe2022group7/pull/452) |
+| Fixing frontend's layout behaviour in Low Resolution Screens | [#422](https://github.com/bounswe/bounswe2022group7/issues/422), [PR #429](https://github.com/bounswe/bounswe2022group7/pull/429) |
+| Fixing Android CI to run on Pull Requests | [#425](https://github.com/bounswe/bounswe2022group7/issues/425), [PR #426](https://github.com/bounswe/bounswe2022group7/pull/426) |
+| Updating frontend homepage's visual style and fixing the api connection | [#487](https://github.com/bounswe/bounswe2022group7/issues/487), [PR #498](https://github.com/bounswe/bounswe2022group7/pull/498) |
+| Revising the frontend's navigation bar design | [#489](https://github.com/bounswe/bounswe2022group7/issues/489), [PR #503](https://github.com/bounswe/bounswe2022group7/pull/503) |
+| Setup deployment & tests for Annotation microservice | [#517](https://github.com/bounswe/bounswe2022group7/issues/526), [PR #520](https://github.com/bounswe/bounswe2022group7/pull/517) |
+| Fixing the connection of annotation microservice to MongoDB | [#523](https://github.com/bounswe/bounswe2022group7/issues/523), [PR #525](https://github.com/bounswe/bounswe2022group7/pull/525) | 
+| Creating tag for milestone 2 | [#526](https://github.com/bounswe/bounswe2022group7/issues/526), [Tag](https://github.com/bounswe/bounswe2022group7/tree/customer-presentation-2) |
+| Researching Web Annotation Protocol | [#466](https://github.com/bounswe/bounswe2022group7/issues/466) |
+| Milestone 2 | --- |
+| [Frontend] Implement Copyright Infringement reports | [#581](https://github.com/bounswe/bounswe2022group7/issues/581), [PR #612](https://github.com/bounswe/bounswe2022group7/pull/612) |  
+| [Frontend] Add like, participate, bookmark and follow functionalities to homepage | [#582](https://github.com/bounswe/bounswe2022group7/issues/582), [PR #600](https://github.com/bounswe/bounswe2022group7/pull/600) |
+| [Frontend] Implement a distiction between recommended and general homepage feed | [#613](https://github.com/bounswe/bounswe2022group7/issues/613), [PR #615](https://github.com/bounswe/bounswe2022group7/pull/615) |
+| [Frontend] Implement search | [#617](https://github.com/bounswe/bounswe2022group7/issues/617), [PR #628](https://github.com/bounswe/bounswe2022group7/pull/628), [Hotfix PR #634](https://github.com/bounswe/bounswe2022group7/pull/634)|
+| Hotfix for annotation microservice in production | PRs: [#635](https://github.com/bounswe/bounswe2022group7/pull/635), [#637](https://github.com/bounswe/bounswe2022group7/pull/637) | 
+| Write system manual for backend, frontend and annotation services | - |
 
 ### Güney İzol
 
@@ -1183,6 +1210,96 @@ For report endpoint: [#PR561](https://github.com/bounswe/bounswe2022group7/pull/
 ## Enes Aydoğduoğlu
 
 ## Erim Erkin Doğan
+### Member
+
+I am a frontend team member also working on DevOps related tasks. My profile can be accessed [here](https://github.com/bounswe/bounswe2022group7/wiki/Erim-Erkin-Do%C4%9Fan) and time tracking information can be accessed [here](https://github.com/bounswe/bounswe2022group7/wiki/Erim-Erkin-Do%C4%9Fan-(Effort-Tracking)).
+
+### Responsibilities
+
+- Frontend team member
+- Handling infrastructure & deployment
+- Dockerization and configuration of the application
+- Web application's homepage, search & new user experiences
+
+### Main Contributions
+
+#### Code Related Significant Issues:
+
+**Milestone 1:**
+- [Frontend Dockerization and CI/CD setup #283](https://github.com/bounswe/bounswe2022group7/issues/282)
+- [Revising and finishing integration with API for sign-in and sign-up pages for frontend #338](https://github.com/bounswe/bounswe2022group7/issues/338)
+
+**Milestone 2:**
+- [Revising sign-up experience in frontend #418](https://github.com/bounswe/bounswe2022group7/issues/418)
+- [Updating frontend homepage's visual style and fixing the api connection #487](https://github.com/bounswe/bounswe2022group7/issues/487)
+- [Revising the frontend's navigation bar design #489](https://github.com/bounswe/bounswe2022group7/issues/489)
+
+**Final Milestone:**
+- [Implementing copyright reporting to frontend #581](https://github.com/bounswe/bounswe2022group7/issues/581)
+- [Adding like, participate, bookmark and follow functionalities to frontend's homepage #582](https://github.com/bounswe/bounswe2022group7/issues/582)
+- [Implementing search functionality to web application #617](https://github.com/bounswe/bounswe2022group7/issues/617)
+
+
+#### Management Related Significant Issues:
+
+- [Creating the release/tag of application for Customer Presentation 1 #368](https://github.com/bounswe/bounswe2022group7/issues/368)
+- [Creating tag for milestone 2 #526](https://github.com/bounswe/bounswe2022group7/issues/526)
+- [Setup Swagger for endpoint documentation #399](https://github.com/bounswe/bounswe2022group7/issues/399)
+
+**Infrastructure & Deployment:**
+- [Setting up Dockerization, AWS deployment, CI/CD for web and API #282](https://github.com/bounswe/bounswe2022group7/issues/282)
+- [Setup deployment & tests for Annotation microservice #517](https://github.com/bounswe/bounswe2022group7/issues/526)
+
+### Pull Requests
+
+#### Pull Requests opened by me
+
+- [Merge swagger configuration to develop #404](https://github.com/bounswe/bounswe2022group7/pull/404)
+- [Merge android continuous workflow to master #411](https://github.com/bounswe/bounswe2022group7/pull/411)
+- [Merge android continuous integration workflow to develop #412](https://github.com/bounswe/bounswe2022group7/pull/412)
+- [Update and fix continuous integration workflows #426](https://github.com/bounswe/bounswe2022group7/pull/426)
+- [Fix and update FormLayout for lower resolution and mobile screens #429](https://github.com/bounswe/bounswe2022group7/pull/429)
+- [Revised Sign-up experience #452](https://github.com/bounswe/bounswe2022group7/pull/452)
+- [[Frontend] Merge the revised homepage & QoL changes #498](https://github.com/bounswe/bounswe2022group7/pull/498)
+- [[Frontend] Merge Revised Navigation Bar #503](https://github.com/bounswe/bounswe2022group7/pull/503)
+- [Merge Annotation microservice CI & CD config #520](https://github.com/bounswe/bounswe2022group7/pull/520)
+- [Annotation microservice bugfix for production #525](https://github.com/bounswe/bounswe2022group7/pull/525)
+- [Merge the latest implementation of application to master #527](https://github.com/bounswe/bounswe2022group7/pull/527)
+- [[Frontend] Follow, bookmark, like, participate on Homepage #600](https://github.com/bounswe/bounswe2022group7/pull/600)
+- [[Frontend] Add Copyright Report functionality for Art Items #612](https://github.com/bounswe/bounswe2022group7/pull/612)
+- [[Frontend] Added recommended and all post tabs to HomePage #615](https://github.com/bounswe/bounswe2022group7/pull/615)
+- [[Frontend] Adding search functionality #628](https://github.com/bounswe/bounswe2022group7/pull/628)
+- [[Frontend] Fix page load issue and user image issue in search #634](https://github.com/bounswe/bounswe2022group7/pull/634)
+- [[Annotation] Fix annotation service get & delete & put endpoint for production #635](https://github.com/bounswe/bounswe2022group7/pull/635)
+- [Add Build & Run instructions #636](https://github.com/bounswe/bounswe2022group7/pull/636)
+- [[Annotation] Fix for get request 2 #637](https://github.com/bounswe/bounswe2022group7/pull/637)
+- [Merge developed changes to master branch #638](https://github.com/bounswe/bounswe2022group7/pull/638)
+
+#### Reviewed Pull Requests
+
+- [Content Layout and Improvements #417](https://github.com/bounswe/bounswe2022group7/pull/417)
+- [return token after signup #421](https://github.com/bounswe/bounswe2022group7/pull/421)
+- [Add Create Physical Event And Art Item Pages #459](https://github.com/bounswe/bounswe2022group7/pull/459)
+- [Add Discussion Post #476](https://github.com/bounswe/bounswe2022group7/pull/476)
+- [Milestone II Deployment Test #478](https://github.com/bounswe/bounswe2022group7/pull/478)
+- [Frontend content page styling #491](https://github.com/bounswe/bounswe2022group7/pull/491)
+- [dev/frontend/profilepage3 #516](https://github.com/bounswe/bounswe2022group7/pull/516)
+- [Create CommentSection Tests #521](https://github.com/bounswe/bounswe2022group7/pull/521)
+- [Frontend text annotation #522](https://github.com/bounswe/bounswe2022group7/pull/522)
+- [Frontend Art Item Auction Functionality #585](https://github.com/bounswe/bounswe2022group7/pull/585)
+- [Comment Upvote Downvote Functionality #592](https://github.com/bounswe/bounswe2022group7/pull/592)
+- [[Frontend] Bookmarked events,Bookmarked artitems and participating events on Profile page #601](https://github.com/bounswe/bounswe2022group7/pull/601)
+- [[Frontend] Delete and Interaction Functionality for Content Pages #609](https://github.com/bounswe/bounswe2022group7/pull/609)
+- [[FE] Display following users on profile page #624](https://github.com/bounswe/bounswe2022group7/pull/624)
+
+### Unit Tests
+
+Because of the constant changes being done on pages and components of the frontend implementing unit tests and making sure the changes conformed to them was problematic, so the unit tests are limited for the web application.
+
+- [LoadingButton unit test](https://github.com/bounswe/bounswe2022group7/blob/f485d52821e0ac82aacc790b94f91e0a061d36f1/frontend/src/tests/LoadingButton.test.js)
+- [FeedCard unit test](https://github.com/bounswe/bounswe2022group7/blob/f485d52821e0ac82aacc790b94f91e0a061d36f1/frontend/src/tests/FeedCard.test.js)
+- [CopyrightReporter unit test](https://github.com/bounswe/bounswe2022group7/blob/f485d52821e0ac82aacc790b94f91e0a061d36f1/frontend/src/tests/CopyrightReporter.test.js)
+
 
 ## Güney İzol
 ### Member
