@@ -1482,10 +1482,10 @@ I actively participated in the weekly team meetings, implemented the Profile Pag
 
 #### Code related significant issues:
 
-- [#579](https://github.com/bounswe/bounswe2022group7/issues/579)
-- [#606](https://github.com/bounswe/bounswe2022group7/issues/606)
-- [#616](https://github.com/bounswe/bounswe2022group7/issues/616)
-- [#625](https://github.com/bounswe/bounswe2022group7/issues/625)
+- [[Frontend] Profile Page Revision #579](https://github.com/bounswe/bounswe2022group7/issues/579)
+- [[Frontend] bookmarked events, bookmarked art items and participating events for profile page #606](https://github.com/bounswe/bounswe2022group7/issues/606)
+- [[FE] Prepare test for profile page #616](https://github.com/bounswe/bounswe2022group7/issues/616)
+- [[FE] Display following users on profile page #625](https://github.com/bounswe/bounswe2022group7/issues/625)
 
 #### Management related significant issues:
 
