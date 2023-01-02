@@ -1406,11 +1406,11 @@ To build using Android Studio interface:
 
 ###Frontend
 
-*[Comment Section Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/CommentSection.test.js)
-*[Copyright Reporter Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/CopyrightReporter.test.js)
-*[Feed Card Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/FeedCard.test.js)
-*[Loading Button Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/LoadingButton.test.js)
-*[Profile Page Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/Profile.test.js)
+-[Comment Section Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/CommentSection.test.js)
+-Copyright Reporter Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/CopyrightReporter.test.js)
+-[Feed Card Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/FeedCard.test.js)
+-[Loading Button Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/LoadingButton.test.js)
+-[Profile Page Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/Profile.test.js)
 
 # 3. Individual Contribution Reports
 
