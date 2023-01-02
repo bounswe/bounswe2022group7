@@ -985,7 +985,7 @@ After logging in successfully, following actions is possible:
  1. Users can surf on homepage, which is a list of events and art items sorted according to the current user's preferences.
     <img src="https://user-images.githubusercontent.com/74203551/210259609-199805be-ab05-489d-8be6-cdff89297966.jpg" width="350" height="700">
      - Users can go to the page of the event/art item listed in the homepage by tapping on it.
-     <img src="https://user-images.githubusercontent.com/74203551/210260499-50717b1d-3813-4884-8f1e-bf0f4b06d4cc.jpg" width="350" height="700">
+         <img src="https://user-images.githubusercontent.com/74203551/210260499-50717b1d-3813-4884-8f1e-bf0f4b06d4cc.jpg" width="350" height="700">
      - Users can take an action using the menu of the application. Menu has rows for creating event, art item and discussion post; navigations to homepage, profile page and settings page, and a logout button. Those actions will be explained below.
      <img src="https://user-images.githubusercontent.com/74203551/210261024-7f83459a-3fee-41a1-809b-0e3ab3078e5c.jpg" width="350" height="700">
      - Users can go to the search page by tapping the _search icon_ and to the profile page by tapping the _profile icon_ on the app bar.
