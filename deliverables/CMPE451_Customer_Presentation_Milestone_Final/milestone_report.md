@@ -1886,6 +1886,92 @@ I have written [unittests for the comment section component](https://github.com/
 
 ## Musa Şimşek
 
+### Member
+
+My name is Musa Şimşek. Contacts can be found on [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Musa-Şimşek). You can also find [my time tracking on the wiki](https://github.com/bounswe/bounswe2022group7/wiki/Musa-Şimşek-(Effort-Tracking)).
+
+### Responsibilities
+
+- I am a member of the mobile team. I worked on research and implementation.
+
+### Main Contributions
+
+
+### First Milestone
+
+Before beginning to implementations, we decided to use Flutter on mobile app since one of the team members knows how to develop mobile apps in Flutter. After everyone in the mobile team learned the basics, we started to divide pages and I got profile page and made a research on [testing Flutter apps](https://github.com/bounswe/bounswe2022group7/wiki/Testing-Flutter-Apps), additionally. After implementing profile page, the first milestone was announced and I got the integration of the login page with backend.
+
+
+Issues I opened:
+- [#261 Research on Testing Fluttter Apps](https://github.com/bounswe/bounswe2022group7/issues/261)
+- [#263 Implementation of Profile Page](https://github.com/bounswe/bounswe2022group7/issues/262)
+- [#314 Integration of Login Page wtih Backend](https://github.com/bounswe/bounswe2022group7/issues/314)
+- [#333 Update the App according to the new CurrrentUser Structure](https://github.com/bounswe/bounswe2022group7/issues/333)
+
+
+Issues I was assigned
+- [Revising the Mock-ups #247](https://github.com/bounswe/bounswe2022group7/issues/247)
+
+Issues I reviewed
+- [Add Widget Test for Register Page #359](https://github.com/bounswe/bounswe2022group7/issues/359)
+- [Change Register Network Function According to Backend Endpoint #335](https://github.com/bounswe/bounswe2022group7/issues/335)
+- [Test Mobile Application Functionality #334](https://github.com/bounswe/bounswe2022group7/issues/334)
+- [Implement the Art Item page with endpoint integrations #331](https://github.com/bounswe/bounswe2022group7/issues/331)
+- [Implement Event page with endpoint integrations #330](https://github.com/bounswe/bounswe2022group7/issues/330)
+- [Implement Art Item and Event pages with endpoint integrations #316](https://github.com/bounswe/bounswe2022group7/issues/316)
+- [Update the Register Page #294](https://github.com/bounswe/bounswe2022group7/issues/294)
+- [[Mobile] Implement Home Page #265](https://github.com/bounswe/bounswe2022group7/issues/265)
+
+### Pull Requests
+
+- [[Mobile] Add Widget Test for Register Page #360](https://github.com/bounswe/bounswe2022group7/pull/360)
+- [[Mobile] Merge Event Page integrations to Develop #348](https://github.com/bounswe/bounswe2022group7/pull/348)
+- [final version of the login #340](https://github.com/bounswe/bounswe2022group7/pull/340)
+- [Updated the Register Network Function According to Backend Implementation #336](https://github.com/bounswe/bounswe2022group7/pull/336)
+- [Update register page #298](https://github.com/bounswe/bounswe2022group7/pull/298)
+- [Dev/profilepage musa #279](https://github.com/bounswe/bounswe2022group7/pull/279)
+- [Merge android/homepage to android #266](https://github.com/bounswe/bounswe2022group7/pull/266)
+
+
+### Second Milestone
+
+**Code Related Contributions**
+- in [issue #410](https://github.com/bounswe/bounswe2022group7/issues/410), I was assigned to remove the fields(like fullname, date of birth etc.) that is optional to fill in the signup page. I also added a functionality to the profile page while completing this issue: The progress bar in the navigation page is in accordance with the status of the optional fields of the user, from that moment on.
+- in [issue #446](https://github.com/bounswe/bounswe2022group7/issues/446), I was assigned to update the profile page to the product level, which included dropdown button functionality, the real user profile info, real creations of that real user and progress bar customization.
+- in [issue #486](https://github.com/bounswe/bounswe2022group7/issues/486), I was assigned to implement comment related features. In order to complete this task, I had to create new models and network connections while I had to update the existing models and network connections. Additionally, I had implemented widgets and classes for UI/UX.
+- in [issue #518](https://github.com/bounswe/bounswe2022group7/issues/518), I was assigned to navigate the user that registered successfully to his/her profile page, where s/he can complete the profile. This was one of the relatively easy tasks: after a successful register, log user in and navigate him/her to the his/her profile page directly.
+
+**Created Pull Requests**
+- [PR #414](https://github.com/bounswe/bounswe2022group7/pull/414): pull request for changes I made in order to remove the optional fields from register page.
+- [PR #475](https://github.com/bounswe/bounswe2022group7/pull/475): pull request for changes I made in order to finalize profile page.
+- PRs [#508](https://github.com/bounswe/bounswe2022group7/pull/508) and [#519](https://github.com/bounswe/bounswe2022group7/pull/519): pull request for changes I made in order to introduce comment feature to the application.
+
+**Reviewed Pull Requests**
+- [#465](https://github.com/bounswe/bounswe2022group7/pull/465)
+- [#480](https://github.com/bounswe/bounswe2022group7/pull/480)
+- [#506](https://github.com/bounswe/bounswe2022group7/pull/506)
+- [#511](https://github.com/bounswe/bounswe2022group7/pull/511)
+- [#524](https://github.com/bounswe/bounswe2022group7/pull/524)
+
+
+### Final Milestone
+
+**Code Related Contributions**
+- in [issue #633](https://github.com/bounswe/bounswe2022group7/issues/633), I was assigned to integrate backend side of the bidding mechanism. I implemented a simple mechanism so that when a user places a bid, s/he will be notified whether his/her bid was successful.
+- in [issue #593](https://github.com/bounswe/bounswe2022group7/issues/593), I was assigned to implement search functionaliy. I implemented both the backend integration and UI part of the search functionality.
+- in [issue #577](https://github.com/bounswe/bounswe2022group7/issues/577), I was assigned to update profile page according to the second milestone reviews and backend changes. Regarding those; I replaced profile pictures by image previews of the regarding post, displayed user levels, added an icon to the verified users.
+
+**Created Pull Requests**
+- [PR#578](https://github.com/bounswe/bounswe2022group7/pull/578): pull request for changes I made in order to update profile page as mentioned in [issue #577](https://github.com/bounswe/bounswe2022group7/issues/577).
+- [PR#589](https://github.com/bounswe/bounswe2022group7/pull/589): pull request for changes I made in order to fix a bug caused by backend changes.
+- [PR#618](https://github.com/bounswe/bounswe2022group7/pull/618): pull request for changes I made in order to implement total search functionality as mentioned in [issue #593](https://github.com/bounswe/bounswe2022group7/issues/593).
+- [PR#632](https://github.com/bounswe/bounswe2022group7/pull/632): pull request for changes I made in order to integrate backend side of the bidding functionality as mentioned in [issue #633](https://github.com/bounswe/bounswe2022group7/issues/633).
+- [PR#639](https://github.com/bounswe/bounswe2022group7/pull/639): pull request regarding documentation user manual for final milestone report.
+
+**Reviewed Pull Requests**
+- [PR#569](https://github.com/bounswe/bounswe2022group7/pull/569)
+- [PR#563](https://github.com/bounswe/bounswe2022group7/pull/563)
+
 ## Atilla Türkmen
 
 ### Member
