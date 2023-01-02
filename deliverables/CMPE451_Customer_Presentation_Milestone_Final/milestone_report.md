@@ -407,7 +407,7 @@ Fix
 | ----- | ------ | ------ |
 | 1.1.4.1: Registered users and artists shall be able to view comments that belong to art items or exhibitions |Completed|Completed|
 | 1.1.4.2: Registered users and artists shall be able to create comments on the discussion page. |Completed|Completed|
-| 1.1.4.2.1: Registered users and artists shall be able to edit their comments in the discussion page. |Completed|Completed|
+| 1.1.4.2.1: Registered users and artists shall be able to edit their comments in the discussion page. |Not implemented|Completed|
 |1.1.4.2.2: Registered users and artists shall be able to remove their comments in the discussion page.|Not implemented|Not implemented|
 
 #### 1.1.5 Events
@@ -416,14 +416,13 @@ Fix
 | ----- | ------ | ------ |
 | 1.1.5.1: Artists shall be able to arrange physical events |Completed|Completed|
 |1.1.5.2: Artists shall be able to edit events|Not Not implemented|implemented|
-|1.1.5.3: Artists shall be able to remove events they created.|Implemented but not working|Implemented but not working|
+|1.1.5.3: Artists shall be able to remove events they created.|Completed|Completed|
 |1.1.5.4: Artists shall be able to arrange Online Galleries using the platform|Completed|Completed|
-|1.1.5.4.1: Artists shall be able to add art items to Online Galleries.|Not implemented|Not implemented|
+|1.1.5.4.1: Artists shall be able to add art items to Online Galleries.|Completed|Not implemented|
 |1.1.5.4.2: Artists shall be able to remove art items from Online Galleries.|Not implemented|Not implemented|
 |1.1.5.4.3: Artists shall be able to indicate and link an outside platform for their Online Galleries if they choose to host it in another platform.|Completed|Completed|
 | 1.1.5.5: Artists shall be able to arrange **Physical Exhibitions** using the platform.|Completed|Completed|
 |1.1.5.5.1: Artists shall be able to mark event location in Physical Exhibitions via using geotagging.|Completed|Completed|
-| 1.1.5.5.1: Artists shall be able to mark event location in Physical Exhibitions via using geotagging. |Completed|Completed|
 |1.1.5.6: Users shall be able to indicate that their participation in the event.|Completed|Completed|
 |1.1.5.7: Users shall be able to cancel their participation to a event.|Completed|Completed|
 |1.1.5.8: Users shall be notified when an event is created by a followed artist.|Not implemented|Not implemented|
@@ -449,7 +448,7 @@ Fix
 |1.1.8.2: Users and artists shall be able to bid for art items on the bidding system.|Completed|Completed|
 |1.1.8.2.1: An artist shall be able to determine a minimum limit that buyer can't bid below.|Not implemented|Not implemented|
 |1.1.8.2.2: Bidders shall not be able to bid below the last offer but can increase it.|Completed|Completed|
-|1.1.8.3: If an artist accepts an offer given, s/he can put a deadline for the owner of the winning offer to complete the payment so that fake bids, bid rigging, etc. can be prevented.|Completed|Completed|
+|1.1.8.3: If an artist accepts an offer given, s/he can put a deadline for the owner of the winning offer to complete the payment so that fake bids, bid rigging, etc. can be prevented.|Not Implemented|Not Implemented|
 |1.1.8.4: Artists shall not be able to end the bidding by withdrawing the item and not selling it at all.|Not implemented|Not implemented|
 
 **PS:** 
@@ -472,9 +471,9 @@ Fix
 | Requirement | Status for Web| Status for Mobile|
 | ----- | ------ | ------ |
 | 1.1.10.1 Followers and the users that a certain user follows shall be visible in his/her profile page.|Completed|Completed|
-|1.1.10.2 The physical exhibitions/online galleries that a user is attending shall be visible in his/her profile page.|Completed|Completed|
+|1.1.10.2 The physical exhibitions/online galleries that a user is attending shall be visible in his/her profile page.|Not Implemented|Completed|
 | 1.1.10.3 The profile page shall include name, surname, location, username and profile picture.|Completed|Completed|
-|1.1.10.4 The profile page shall include the art items that the user has made a bid for.|Completed|Completed|
+|1.1.10.4 The profile page shall include the art items that the user has made a bid for.|Not Not Implemented|Completed|
 |1.1.10.5 The profile page shall include the verification status of the user.|Not implemented|Not implemented|
 | 1.1.10.6 The users shall be able to edit the information included in their profile pages.|Completed|Completed|
 | 1.1.10.7 Art items that an artist have shall be visible in his/her profile page.|Completed|Completed|
@@ -748,6 +747,9 @@ We have implemented CRUD (Create, Read, Update, Delete) functionality with our w
 In order to create an image annotation, the web client allows users to select and identify a portion of the image and sends a post request with the resulting json-ld document to the /annotations/ endpoint. Similarly, for annotation a portion of a text, the user highlights the portion they want to annotate, and the web client sends the resulting annotation document to the /annotations/ endpoint.
 
 Different type of annotations and different type of contents that are being annotated are differentiated by prepending the type and the id of the content to the annotation id with a dash character ('-') separating the two, so that the same endpoint (/annotations/{content-id} where {content-id} is the id of the content being annotated) can be used to retrieve the relevant annotation documents for different content types. For example, e23-afb445...76 represents a text annotation made on the description of an event. Image annotations don't have a letter at the beginning that indicates the type of the content being annotated. Ids of other type of annotations (all of which are text annotations) start with the first letter of the content type being annotated (a: art item, e: event, d: discussion post).
+
+All annotations generated in mobile can be viewed in mobile and same is the case for front aswell. But there is one issue with our current annotation implementation. Mobile app can not correctly display text & image annotations generated in the web client and vice versa. This is because they map to and read from different annotation formats. In the case of text annotation, there is a simple solution but image annotation is more complex. There are some pixel coordinate transformations in the library we used in the web client and we couldn't make it work together with the mobile image annotation.
+
 ## 1.7. Standards
 [The W3 Web Annotation Data Model](https://www.w3.org/TR/annotation-model/) standard precisely describes what web annotations are and includes clear examples of various ways they can be represented and modelled. In order not to reinvent the wheel, we used an existing library that complies with the W3 standard, called [Recogito](https://github.com/recogito/recogito-js). Using this library in our implementation of annotations in the web client of our app helped us tremendously in that it is used by many people and thus tested extensively. This way we delivered a standards-compliant web implementation of Web Annotation Data Model in a faster and more stable way.
 ## 1.8. Scenarios
