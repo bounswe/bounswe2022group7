@@ -1406,7 +1406,12 @@ To build using Android Studio interface:
 
 Unit tests for backend: https://github.com/bounswe/bounswe2022group7/tree/master/backend/src/test/kotlin/com/group7/artshare
 
-Unit tests for frontend: https://github.com/bounswe/bounswe2022group7/tree/master/frontend/src/tests
+Unit tests for frontend:
+- https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/CommentSection.test.js
+- https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/CopyrightReporter.test.js
+- https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/FeedCard.test.js
+- https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/LoadingButton.test.js
+- https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/Profile.test.js
 
 Unit tests for mobile: 
 - https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/create_event_test.dart
