@@ -145,6 +145,61 @@ Fix
 
 ### Başak Önder
 
+| Task | Link |
+| ----- | ------|
+| Created the personal wiki page and effort tracker | [#237](https://github.com/bounswe/bounswe2022group7/issues/237) | 
+| Revised the requirements of the project and noted the questions about them. | [#243](https://github.com/bounswe/bounswe2022group7/issues/243) | 
+| Researched about the backend tools. |  | 
+| Attended the [backend team meeting](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%231---12-10-2022). Discussed the structure of the backend by using Class Diagrams. Chose the techs that we use |  |
+| Researched about Kotlin, watched related videos, and tried several hands-on practice to experience it |  |
+| Researched on Docker and started to implement the functionality of Dockerization of backend and Sql database | [#252](https://github.com/bounswe/bounswe2022group7/issues/252), [PR #276](https://github.com/bounswe/bounswe2022group7/pull/276) |
+| Attended the backend team meeting and wrote [the report on wiki](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%232-20-10-2022). Planned the necessary fields that we should implement. | |
+| Implementation of home page related classes | [#257](https://github.com/bounswe/bounswe2022group7/issues/257), [PR #277](https://github.com/bounswe/bounswe2022group7/pull/277)|
+| Revision of the Mock Ups | [#247](https://github.com/bounswe/bounswe2022group7/issues/247) |
+| Attended the backend [team meeting](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%233). | |
+| Implementation of register related classes | [#299](https://github.com/bounswe/bounswe2022group7/issues/299), [#305](https://github.com/bounswe/bounswe2022group7/issues/305), [PR #300](https://github.com/bounswe/bounswe2022group7/pull/300), [PR #307](https://github.com/bounswe/bounswe2022group7/pull/307) |
+| Implementation of Single Art Item endpoint | [#302](https://github.com/bounswe/bounswe2022group7/issues/302), [PR #322](https://github.com/bounswe/bounswe2022group7/pull/322)|
+| Debugging the nested classes bug fix while trying to return the objects through endpoints, then update the classes structure regarding to the solution| [#323](https://github.com/bounswe/bounswe2022group7/issues/323), [#344](https://github.com/bounswe/bounswe2022group7/issues/344),  [PR #345](https://github.com/bounswe/bounswe2022group7/pull/345) |
+| Merged backend into develop branch | [PR #327](https://github.com/bounswe/bounswe2022group7/pull/327)|
+| Revision of the Class Diagram Update | [#296](https://github.com/bounswe/bounswe2022group7/issues/296) |
+| Revision of multiple backend issues | [#247](https://github.com/bounswe/bounswe2022group7/issues/247), [#250](https://github.com/bounswe/bounswe2022group7/issues/250), [#259](https://github.com/bounswe/bounswe2022group7/issues/259), [#271](https://github.com/bounswe/bounswe2022group7/issues/271), [#301](https://github.com/bounswe/bounswe2022group7/issues/301), [#308](https://github.com/bounswe/bounswe2022group7/issues/308)  |
+| Revision of backend related pull requests | [PR #275](https://github.com/bounswe/bounswe2022group7/pull/275), [PR #303](https://github.com/bounswe/bounswe2022group7/pull/303) |
+| One of the notetakers during the Customer Milestone 1||
+| Wrote individual milestone report||
+| Wrote the part 1 of this group review and my sections for part 6 & part 7|[#370](https://github.com/bounswe/bounswe2022group7/issues/370)|
+| Attended the weekly team meeting, planned the upcoming weeks and discussed the upcoming features. Decided on the endpoint structures and their functionalities | [#235](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%235) | 
+| Attended the weekly backend team meeting and took the meeting notes, work distribution is done among the team members | [#234](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%234) | 
+| Edited the endpoints to return HTTP Error and Success responses with corressponding messages | [#376](https://github.com/bounswe/bounswe2022group7/issues/376)  | 
+| Changed the age field of user to dateOfBirth because of the Customer Feedback during Milestone 1 |[#377](https://github.com/bounswe/bounswe2022group7/issues/377)  | 
+| Started to implementing the necessary classes for Milestone 2  | [#382](https://github.com/bounswe/bounswe2022group7/issues/382)  |
+| Attended weekly group meeting and took the meeting notes.|  [#236](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%236)|
+| Continued to implementing the necessary classes for Milestone 2 | [#382](https://github.com/bounswe/bounswe2022group7/issues/382) |
+| Researched about Json Indicators and edited the Json Responses to remove duplicate fields and deprecate user credentials | [#388](https://github.com/bounswe/bounswe2022group7/issues/388) |
+| Research about image storing as Base64 string  | [#389](https://github.com/bounswe/bounswe2022group7/issues/389) |
+| Creating a new image class and implementing POST/GET/DELETE endpoints for images |  [#389](https://github.com/bounswe/bounswe2022group7/issues/389) |
+| Attended weekly group meeting, discussed about reducing the size of Json responses. | [#237](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%237) |
+| Implementation of CREATE/DELETE endpoints for art item/physical exhibition/online gallery. | [#394](https://github.com/bounswe/bounswe2022group7/issues/394) |
+| Implementation of GET/POST endpoints for discussion posts and comments. | [#438](https://github.com/bounswe/bounswe2022group7/issues/438) |
+| Edited the POST image endpoint, remove base64 string from here to reduce response time | [#453](https://github.com/bounswe/bounswe2022group7/issues/453) |
+| Fix Namings for Endpoint About Discussion "Forum" to "Page" |  [#454](https://github.com/bounswe/bounswe2022group7/issues/454) |
+| Debugged the error of creation of several comments at once | [#458](https://github.com/bounswe/bounswe2022group7/issues/458) |
+| Debugged the error of backend building on CI and rebased the PR of @CahidArda to not to take up time of from frontend building. | [#PR474](https://github.com/bounswe/bounswe2022group7/pull/474) |
+| Review of multiple issues of backend team | [#472](https://github.com/bounswe/bounswe2022group7/issues/472), [#469](https://github.com/bounswe/bounswe2022group7/issues/469), [#447](https://github.com/bounswe/bounswe2022group7/issues/447), [#437](https://github.com/bounswe/bounswe2022group7/issues/437), [#423](https://github.com/bounswe/bounswe2022group7/issues/423), [#416](https://github.com/bounswe/bounswe2022group7/issues/416), [#399](https://github.com/bounswe/bounswe2022group7/issues/399), [#393](https://github.com/bounswe/bounswe2022group7/issues/393), [#391](https://github.com/bounswe/bounswe2022group7/issues/391), [#390](https://github.com/bounswe/bounswe2022group7/issues/390), [#384](https://github.com/bounswe/bounswe2022group7/issues/384), [#379](https://github.com/bounswe/bounswe2022group7/issues/379)|
+| Review of multiple PR's of backend team | [#PR404](https://github.com/bounswe/bounswe2022group7/pull/404), [#PR424](https://github.com/bounswe/bounswe2022group7/pull/424), [#PR436](https://github.com/bounswe/bounswe2022group7/pull/436), [#PR448](https://github.com/bounswe/bounswe2022group7/pull/448), [#PR456](https://github.com/bounswe/bounswe2022group7/pull/456), [#PR463](https://github.com/bounswe/bounswe2022group7/pull/463), [#PR464](https://github.com/bounswe/bounswe2022group7/pull/464), [#PR468](https://github.com/bounswe/bounswe2022group7/pull/468), [#PR473](https://github.com/bounswe/bounswe2022group7/pull/473)
+| One of the notetakers during the Customer Milestone 2||
+| Wrote individual milestone report||
+| Wrote the part 1.1, Executive Summary, of this group review|[#509](https://github.com/bounswe/bounswe2022group7/issues/509)|
+| Sample Data Formation For Milestone 2 |  [#496](https://github.com/bounswe/bounswe2022group7/issues/496) |
+| Implementing Unit Tests on Backend | [#531](https://github.com/bounswe/bounswe2022group7/issues/531) |
+| Implementation of Recommendation Algorithm |  [#550](https://github.com/bounswe/bounswe2022group7/issues/550) |
+| Update User Level with Actions | [#552](https://github.com/bounswe/bounswe2022group7/issues/552) |
+| Auction and Bidding Endpoints  | [#572](https://github.com/bounswe/bounswe2022group7/issues/572) |
+| Sample Data Formation For The Final Milestone | |
+| Team Meeting to Distribute Tasks For Final Deliverables  ||
+| Data Formation For Final Deliverables | |
+| Writing Executive Summary for Final Deliverables | |
+| Revision of 4 backend PR | [#PR549](https://github.com/bounswe/bounswe2022group7/pull/549), [#PR560](https://github.com/bounswe/bounswe2022group7/pull/560), [#PR571](https://github.com/bounswe/bounswe2022group7/pull/571), [#PR575](https://github.com/bounswe/bounswe2022group7/pull/575) |
+
 ### Cahid Arda Öz
 
 ### Musa Şimşek
