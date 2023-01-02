@@ -421,10 +421,9 @@ Fix
 | Complete Image Annotation UI | [#507](https://github.com/bounswe/bounswe2022group7/issues/507), [PR #610](https://github.com/bounswe/bounswe2022group7/pull/610) |
 | Complete Image Annotation network connections | [#611],(https://github.com/bounswe/bounswe2022group7/issues/611), [PR #619](https://github.com/bounswe/bounswe2022group7/pull/619)|
 | Contribute to Event Page UI arrangement | [cce979f](https://github.com/bounswe/bounswe2022group7/pull/629/commits/cce979f5f71de1615c04e984f08fb496a2b46bcf), [eefdeea](https://github.com/bounswe/bounswe2022group7/pull/629/commits/eefdeea1ea4cdb34a62109fcacaf20f365a41fee) | 
-| Contribute to Event Page UI arrangement | [cce979f](https://github.com/bounswe/bounswe2022group7/pull/629/commits/cce979f5f71de1615c04e984f08fb496a2b46bcf), [eefdeea](https://github.com/bounswe/bounswe2022group7/pull/629/commits/eefdeea1ea4cdb34a62109fcacaf20f365a41fee) | 
 | Build and add the `.apk` file to the Final Milestone Tag | [0.9.0](https://github.com/bounswe/bounswe2022group7/releases/tag/customer-presentation-3) |
-| Review and fill mobile requirements status in the Final Milestone Report | [367013e9c355f2019d8190e21335ca77ed2fc9e2](https://github.com/bounswe/bounswe2022group7/commit/367013e9c355f2019d8190e21335ca77ed2fc9e2)|
-| Fill mobile annotations part in the Final Milestone Report | [c13f8afe135028e7923e0b79774d16c792cfe7da](https://github.com/bounswe/bounswe2022group7/commit/c13f8afe135028e7923e0b79774d16c792cfe7da)|
+| Review and fill mobile requirements status in the Final Milestone Report | [367013e](https://github.com/bounswe/bounswe2022group7/commit/367013e9c355f2019d8190e21335ca77ed2fc9e2)|
+| Fill mobile annotations part in the Final Milestone Report | [c13f8af](https://github.com/bounswe/bounswe2022group7/commit/c13f8afe135028e7923e0b79774d16c792cfe7da)|
 | *Review Home page image caching* | [PR #546](https://github.com/bounswe/bounswe2022group7/pull/546) |
 | *Review Profile Page revision* | [PR #578](https://github.com/bounswe/bounswe2022group7/pull/578), [Requested changes](https://github.com/bounswe/bounswe2022group7/pull/578#pullrequestreview-1229717260) |
 | *Review null bug fix* | [PR #589](https://github.com/bounswe/bounswe2022group7/pull/589) |
