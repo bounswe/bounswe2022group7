@@ -369,6 +369,76 @@ Fix
 
 ### Can Atakan Uğur
 
+| **Task** | **Link** |
+| --- | --- |
+| Update the team members | [#237](https://github.com/bounswe/bounswe2022group7/issues/237) |
+| Create General Meeting Notes #1 | [#238](https://github.com/bounswe/bounswe2022group7/issues/238), [Meeting Notes](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%231) |
+| Revise and update the Class Diagram with Demet Yayla | [#239](https://github.com/bounswe/bounswe2022group7/issues/239), [Revision](https://github.com/bounswe/bounswe2022group7/wiki/Class-Diagram/04bda57e0d18677bd7d7c60d80e98828d021a563) |
+| Revise and update the Sequence Diagram for Annotations | [#240](https://github.com/bounswe/bounswe2022group7/issues/240), [Revision](https://github.com/bounswe/bounswe2022group7/wiki/Sequence-Diagrams/2344643f2abdfa2eee7fe913c178b1565187a77c) |
+| Revise and update the Project Plan | [#241](https://github.com/bounswe/bounswe2022group7/issues/241), [Revision](https://github.com/bounswe/bounswe2022group7/wiki/Project-Plan/03d61571239dc664fe6035cd0ea91bb4c6a4b91c) |
+| Create Mobile Meeting Notes #1 | [#260](https://github.com/bounswe/bounswe2022group7/issues/260), [Meeting Notes](https://github.com/bounswe/bounswe2022group7/wiki/MOBILE--Meeting-Notes-%231) |
+| Implement Home Page UI | [#265](https://github.com/bounswe/bounswe2022group7/issues/265), [PR #266](https://github.com/bounswe/bounswe2022group7/pull/266) |
+| Create Mobile Meeting Notes #2 | [#285](https://github.com/bounswe/bounswe2022group7/issues/285), [Meeting Notes](https://github.com/bounswe/bounswe2022group7/wiki/MOBILE-Meeting-Notes-%232) |
+| Fix Comment and Discussion Post structure designs | [#296](https://github.com/bounswe/bounswe2022group7/issues/296)|
+| Customize the Home Page for Guest Users | [#313](https://github.com/bounswe/bounswe2022group7/issues/313)|
+| Implement Event Page with endpoint integrations | [#316](https://github.com/bounswe/bounswe2022group7/issues/316), [#330](https://github.com/bounswe/bounswe2022group7/issues/330), [PR #348](https://github.com/bounswe/bounswe2022group7/pull/348) |
+| Add tests for the Event Page | [#361](https://github.com/bounswe/bounswe2022group7/issues/361), [PR #364](https://github.com/bounswe/bounswe2022group7/pull/364) |
+| Implement Art Item Page UI and models | [#316](https://github.com/bounswe/bounswe2022group7/issues/316), [#331](https://github.com/bounswe/bounswe2022group7/issues/331), [PR #365](https://github.com/bounswe/bounswe2022group7/pull/365) |
+| Merge the development on android into the develop branch | [PR #328](https://github.com/bounswe/bounswe2022group7/pull/328) |
+| Update the App Name and design for Mobile | [#350](https://github.com/bounswe/bounswe2022group7/issues/350), [PR #352](https://github.com/bounswe/bounswe2022group7/pull/352) |
+| Prepare for the Customer Presentation and present it | [#353](https://github.com/bounswe/bounswe2022group7/issues/353) |
+| Prepare the Use Case and Class Diagram deliverables and upload them | [#329](https://github.com/bounswe/bounswe2022group7/issues/329) |
+| Write Part 3 of Milestone Group Review | [#370](https://github.com/bounswe/bounswe2022group7/issues/370)|
+| *Review the questions prepared for the Customer Meeting* | [#242](https://github.com/bounswe/bounswe2022group7/issues/242), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/242#issuecomment-1273758425) |
+| *Review the Sequence Diagram for Discussion Posts* | [#245](https://github.com/bounswe/bounswe2022group7/issues/245), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/245#issuecomment-1277495036) |
+| *Review the Profile Page implementation* | [#262](https://github.com/bounswe/bounswe2022group7/issues/262), [PR #279](https://github.com/bounswe/bounswe2022group7/pull/279), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/262#issuecomment-1284984563) |
+| *Review the User Provider implementation for authentication* | [#292](https://github.com/bounswe/bounswe2022group7/issues/292), [PR #293](https://github.com/bounswe/bounswe2022group7/pull/293) |
+| *Review the merging of the development on front-end into the develop* branch | [PR #324](https://github.com/bounswe/bounswe2022group7/pull/324) |
+| *Review Art Item endpoint integrations* | [#339](https://github.com/bounswe/bounswe2022group7/issues/339), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/339#issuecomment-1297655311) |
+| *Review the back-end connections for the Register form* | [#318](https://github.com/bounswe/bounswe2022group7/issues/318), [PR #320](https://github.com/bounswe/bounswe2022group7/pull/320) |
+| *Review the tests for Regiter Page* | [#359](https://github.com/bounswe/bounswe2022group7/issues/359), [PR #360](https://github.com/bounswe/bounswe2022group7/pull/363) |
+| *Review Home Page endpoint  integrations* | [#351](https://github.com/bounswe/bounswe2022group7/issues/351), [PR #362](https://github.com/bounswe/bounswe2022group7/pull/362), [Requested changes](https://github.com/bounswe/bounswe2022group7/pull/362#pullrequestreview-1162617659), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/351#issuecomment-1297754241) |
+| *Review .env file configuration* | [#357](https://github.com/bounswe/bounswe2022group7/issues/357), [PR #363](https://github.com/bounswe/bounswe2022group7/pull/363) |
+| *Review the tag created for our release* | [#368](https://github.com/bounswe/bounswe2022group7/issues/368), [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/368#issuecomment-1299670259) |
+| Create Mobile Metting Notes #4 | [#409](https://github.com/bounswe/bounswe2022group7/issues/409) |
+| Review and contribute to the Project Plan updates |[#402](https://github.com/bounswe/bounswe2022group7/issues/402) |
+| Complete post widgets in homepage | [#442](https://github.com/bounswe/bounswe2022group7/issues/442), [PR #444](https://github.com/bounswe/bounswe2022group7/pull/444) |
+| Update Home Page endpoints & images | [#445](https://github.com/bounswe/bounswe2022group7/issues/442), [PR #471](https://github.com/bounswe/bounswe2022group7/pull/471) | 
+|Implement user profile settings | [#481](https://github.com/bounswe/bounswe2022group7/issues/481), [PR #505](https://github.com/bounswe/bounswe2022group7/pull/505)|
+| Implement the UI for Image Annotations | [#507](https://github.com/bounswe/bounswe2022group7/issues/507), [PR #524](https://github.com/bounswe/bounswe2022group7/pull/524)|
+| Add widget tests for Settings Page | [#528](https://github.com/bounswe/bounswe2022group7/issues/528), [PR #529](https://github.com/bounswe/bounswe2022group7/pull/529)|
+| Prepare the scenario for the presentation and present the mobile part | [Issue comment](https://github.com/bounswe/bounswe2022group7/issues/497#issuecomment-1336476540)| 
+| Contribute to fixing the image processing issue | [Commit](https://github.com/bounswe/bounswe2022group7/commit/8d79b5fd26ce676918dc16a84ff8772fea0afad9), [PR #494](https://github.com/bounswe/bounswe2022group7/pull/494)|
+| Fill the Mobile Annotations part in the Milestone 2 Group Report | [#512](https://github.com/bounswe/bounswe2022group7/issues/512)|
+| *Review Android CI workflow* | [PR #412](https://github.com/bounswe/bounswe2022group7/pull/412)|
+| *Review the Removal of Optional Fields in Signup Page* | [#410](https://github.com/bounswe/bounswe2022group7/issues/410)|
+| *Review the Follow feature* | [#435](https://github.com/bounswe/bounswe2022group7/issues/435), [PR #499](https://github.com/bounswe/bounswe2022group7/pull/499), [Approval with feedback](https://github.com/bounswe/bounswe2022group7/pull/499#pullrequestreview-1203698532) |
+| *Review the Geotagging feature* | [#439](https://github.com/bounswe/bounswe2022group7/issues/439), [PR #443](https://github.com/bounswe/bounswe2022group7/pull/443)|
+| *Review the Art Item model fix* | [#484](https://github.com/bounswe/bounswe2022group7/issues/484), [PR #485](https://github.com/bounswe/bounswe2022group7/pull/485), [Approval with feedback](https://github.com/bounswe/bounswe2022group7/pull/485#pullrequestreview-1203465465) |
+| *Review updates in develop branch into master for deployment* | [PR #478](https://github.com/bounswe/bounswe2022group7/pull/478) |
+| *Review the Comment feature* | [#486](https://github.com/bounswe/bounswe2022group7/issues/486), [PR #519](https://github.com/bounswe/bounswe2022group7/pull/519), [Requested changes](https://github.com/bounswe/bounswe2022group7/pull/519#pullrequestreview-1205223883), [Final approval](https://github.com/bounswe/bounswe2022group7/pull/519#pullrequestreview-1205555360)|
+| Build and add the `.apk` file to the Milestone 2 Tag | [0.2.0-alpha](https://github.com/bounswe/bounswe2022group7/releases/tag/customer-presentation-2) |
+| Complete Image Annotation UI | [#507](https://github.com/bounswe/bounswe2022group7/issues/507), [PR #610](https://github.com/bounswe/bounswe2022group7/pull/610) |
+| Complete Image Annotation network connections | [#611],(https://github.com/bounswe/bounswe2022group7/issues/611), [PR #619](https://github.com/bounswe/bounswe2022group7/pull/619)|
+| Contribute to Event Page UI arrangement | [cce979f](https://github.com/bounswe/bounswe2022group7/pull/629/commits/cce979f5f71de1615c04e984f08fb496a2b46bcf), [eefdeea](https://github.com/bounswe/bounswe2022group7/pull/629/commits/eefdeea1ea4cdb34a62109fcacaf20f365a41fee) | 
+| Contribute to Event Page UI arrangement | [cce979f](https://github.com/bounswe/bounswe2022group7/pull/629/commits/cce979f5f71de1615c04e984f08fb496a2b46bcf), [eefdeea](https://github.com/bounswe/bounswe2022group7/pull/629/commits/eefdeea1ea4cdb34a62109fcacaf20f365a41fee) | 
+| Build and add the `.apk` file to the Final Milestone Tag | [0.9.0](https://github.com/bounswe/bounswe2022group7/releases/tag/customer-presentation-3) |
+| Review and fill mobile requirements status in the Final Milestone Report | [367013e9c355f2019d8190e21335ca77ed2fc9e2](https://github.com/bounswe/bounswe2022group7/commit/367013e9c355f2019d8190e21335ca77ed2fc9e2)|
+| Fill mobile annotations part in the Final Milestone Report | [c13f8afe135028e7923e0b79774d16c792cfe7da](https://github.com/bounswe/bounswe2022group7/commit/c13f8afe135028e7923e0b79774d16c792cfe7da)|
+| *Review Home page image caching* | [PR #546](https://github.com/bounswe/bounswe2022group7/pull/546) |
+| *Review Profile Page revision* | [PR #578](https://github.com/bounswe/bounswe2022group7/pull/578), [Requested changes](https://github.com/bounswe/bounswe2022group7/pull/578#pullrequestreview-1229717260) |
+| *Review null bug fix* | [PR #589](https://github.com/bounswe/bounswe2022group7/pull/589) |
+| *Review Report feature* | [PR #596](https://github.com/bounswe/bounswe2022group7/pull/596) |
+| *Review Follow fix* | [PR #604](https://github.com/bounswe/bounswe2022group7/pull/604) |
+| *Review Search feature* | [PR #618](https://github.com/bounswe/bounswe2022group7/pull/618) |
+| *Review Search feature* | [PR #618](https://github.com/bounswe/bounswe2022group7/pull/618) |
+| *Review Auction feature* | [PR #620](https://github.com/bounswe/bounswe2022group7/pull/620) |
+| *Review Text Annotations*| [PR #622](https://github.com/bounswe/bounswe2022group7/pull/622), [Requested changes](https://github.com/bounswe/bounswe2022group7/pull/622#pullrequestreview-1230404988) |
+| *Review and merge Event Page UI updates* | [PR #629](https://github.com/bounswe/bounswe2022group7/pull/629) |
+| *Review back-end connections for Bidding* | [#PR 632](https://github.com/bounswe/bounswe2022group7/pull/632)|
+| *Review the merge to master for Final Milestone* | [PR #638](https://github.com/bounswe/bounswe2022group7/pull/638)|
+
+
 ### Demet Yayla
 
 ### Demet Yayla
