@@ -50,10 +50,10 @@ Ideart. is an art platform that was created to engage artists and art lovers by 
 ### 1.1.2 Status of the Deliverables
 | **Deliverable** | **Last Edit Date** | **Status** | 
 | -------- | ------------ | ---------------- |
-|Group Milestone Report | | |
-|Project Artifacts | | |
-|Software Package| | |
-|Individual Milestone Report | | |
+|Group Milestone Report | 02.01.22 | completed |
+|Project Artifacts | 02.01.22 | completed |
+|Software Package| 02.01.22 | completed |
+|Individual Milestone Report | 02.01.22 | completed |
 
 ### 1.1.3 Release Notes
 New
