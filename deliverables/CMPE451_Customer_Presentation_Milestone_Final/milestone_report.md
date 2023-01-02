@@ -834,6 +834,47 @@ I have worked on frontend development infrastructure and implementation of the h
 
 ## Başak Önder
 
+### Member
+
+My name is Başak Önder . Contacts can be found on [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Başak-Önder). You can also find [my time tracking on the wiki](https://github.com/bounswe/bounswe2022group7/wiki/Başak-Önder-(Effort-Tracking)).
+
+### Responsibilities
+
+I am a member of the backend team. I worked on research and implementation, and also debugging according to the reports and feedbacks from Frontend and Mobile team. 
+
+### Main Contributions
+
+I implemented the recommendation algorithm for the registered users. I implemented many endpoints such as Event/Art Item creations by communicating with the frontend and mobile teams about the structure of these endpoints. Also, I completed the backend classes by implementing many entities of the application.
+
+Implementation related significant issues:
+- [#550 [BE] Recommendation Algorithm Implementation for Homepage](https://github.com/bounswe/bounswe2022group7/issues/382): I implemented the remaining nine classes which are needed for Milestone 2.
+- [#552 [BE] Update User Level With Actions](https://github.com/bounswe/bounswe2022group7/issues/394): I implemented six creating and deleting endpoints for art items, online galleries and physical exhibitions.
+- [#572 [BE] Auction and Bidding Features](https://github.com/bounswe/bounswe2022group7/issues/438): I implemented five getting and creating endpoints for discussion posts and comments.
+ - [#382 Remaining Classes Implementation](https://github.com/bounswe/bounswe2022group7/issues/382): I implemented the remaining nine classes which are needed for Milestone 2.
+- [#394 Implementing Post/Delete Endpoints for Event/ArtItem](https://github.com/bounswe/bounswe2022group7/issues/394): I implemented six creating and deleting endpoints for art items, online galleries and physical exhibitions.
+- [#438 Implementing Get/Post Endpoints for DiscussionPost/Comment](https://github.com/bounswe/bounswe2022group7/issues/438): I implemented five getting and creating endpoints for discussion posts and comments.
+- [#389 Backend Implementation of Base64 Image](https://github.com/bounswe/bounswe2022group7/issues/389): I implemented a new class for images which has a field that is long enough to store base64 strings. I also implemented GET/POST/DELETE endpoints for this image class.
+
+Debugging related significant issues:
+- [#376 Editing the HTTP Status in Responses](https://github.com/bounswe/bounswe2022group7/issues/376): We had been returning HTTP 200 for every endpoint before Milestone 1. I updated the Json response of the endpoints to return the corresponding HTTP response error and message in case of any failure. This is updated to facilitate the job of frontend and mobile teams and also have a more consistent endpoint structure.
+- [#388 Editing the Json Response of Artist User](https://github.com/bounswe/bounswe2022group7/issues/388): I debugged the duplicate fields bug and also the issue of returning user credentials in the Json Response. I deprecated the credentials and duplicate fields from response.
+
+### Pull Requests
+
+[#PR574](https://github.com/bounswe/bounswe2022group7/pull/574), [#PR557](https://github.com/bounswe/bounswe2022group7/pull/557), [#PR551](https://github.com/bounswe/bounswe2022group7/pull/551), [#PR539](https://github.com/bounswe/bounswe2022group7/pull/539), [#PR540](https://github.com/bounswe/bounswe2022group7/pull/540).[#PR345](https://github.com/bounswe/bounswe2022group7/pull/345), [#PR380](https://github.com/bounswe/bounswe2022group7/pull/380), [#PR383](https://github.com/bounswe/bounswe2022group7/pull/383), [#PR385](https://github.com/bounswe/bounswe2022group7/pull/385), [#PR386](https://github.com/bounswe/bounswe2022group7/pull/386), [#PR413](https://github.com/bounswe/bounswe2022group7/pull/413), [#PR440](https://github.com/bounswe/bounswe2022group7/pull/440), [#PR451](https://github.com/bounswe/bounswe2022group7/pull/451), [#PR461](https://github.com/bounswe/bounswe2022group7/pull/461), [#PR462](https://github.com/bounswe/bounswe2022group7/pull/462), [#PR474](https://github.com/bounswe/bounswe2022group7/pull/474)
+
+As Reviewer:
+[#PR549](https://github.com/bounswe/bounswe2022group7/pull/549), [#PR560](https://github.com/bounswe/bounswe2022group7/pull/560), [#PR571](https://github.com/bounswe/bounswe2022group7/pull/571), [#PR575](https://github.com/bounswe/bounswe2022group7/pull/575),[#PR404](https://github.com/bounswe/bounswe2022group7/pull/404), [#PR424](https://github.com/bounswe/bounswe2022group7/pull/424), [#PR436](https://github.com/bounswe/bounswe2022group7/pull/436), [#PR448](https://github.com/bounswe/bounswe2022group7/pull/448), [#PR456](https://github.com/bounswe/bounswe2022group7/pull/456), [#PR463](https://github.com/bounswe/bounswe2022group7/pull/463), [#PR464](https://github.com/bounswe/bounswe2022group7/pull/464), [#PR468](https://github.com/bounswe/bounswe2022group7/pull/468), [#PR473](https://github.com/bounswe/bounswe2022group7/pull/473)
+
+### Unit Tests
+[Comment Controller Tests](https://github.com/bounswe/bounswe2022group7/pull/532) 
+
+[Following Feature Tests](https://github.com/bounswe/bounswe2022group7/pull/540) 
+
+[Art Item Controller Tests](https://github.com/bounswe/bounswe2022group7/pull/535)
+
+[Profile Controller Tests](https://github.com/bounswe/bounswe2022group7/pull/539)
+
 ## Cahid Arda Öz
 
 ## Musa Şimşek
