@@ -768,6 +768,224 @@ Users can click and draw on event posters and art items to create image annotati
 
 ### 2.1.2 System Manual
 
+
+Following instructions are given assuming the user is in the root directory of the repository.
+
+#### Docker-Compose
+
+**System Requirements**
+- Docker
+- Docker Compose V2 
+
+**Building & Running:**
+
+All services for backend API, annotation and databases can be directly built and ran with the given docker-compose settings in **development** profile. 
+
+
+The following command will build and run the services with the default values given in `.env` file located in `docker` folder.
+```bash
+cd docker
+docker-compose up -d
+```
+
+If the frontend container doesn't work properly edit the `./docker/docker-compose.yml` file, commenting out the following out in `frontend`:
+```yaml
+    volumes:
+      # Hot reload
+      - ../frontend:/app
+```
+
+to 
+```yaml
+    # volumes:
+    #   # Hot reload
+    #   - ../frontend:/app
+```
+
+
+#### Initialization for all services
+
+As the services need to communicate with each other over containers we need to firstly create a docker network that will contain these instances:
+```bash
+docker network create -d bridge ideart-production
+```
+
+#### Annotation Service
+
+**System Requirements:**
+- MongoDB Database
+- Docker
+
+**Build & Run Instructions:**
+
+For Annotation service to run, a MongoDB database should be running and connected to the service. 
+
+The following environment variables will be used by the service to connect to MongoDB database.
+```bash
+MONGO_HOST=ideart-mongodb
+MONGO_PORT=27017
+MONGO_DB=annotations
+MONGO_USER=ideart
+MONGO_PASS=placeholderpassword
+```
+
+Steps for building without Docker Compose:
+- *Optional Step:* Installing MongoDB with docker. The fields between the quotes should be defined and match with given environment variables.
+```bash
+docker pull mongo
+docker run --name "ideart-mongodb" -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME="ideart" -e MONGO_INITDB_ROOT_PASSWORD="placeholderpassword" --network "ideart-production" mongo
+```
+
+- Build the docker image for the annotation service. 
+```bash
+cd docker
+docker build -f annotation.development.Dockerfile -t "production-annotation-image"  ../annotations
+```
+
+- Run the container with environment variables. *(Change the --env-file parameter with an `.env` file containing necessary parameters )*
+```bash
+docker run --name "ideart-annotation-service" -p 3001:3001 -d --env-file="mongo-file.env" --network "ideart-production" -t "production-annotation-image"
+```
+
+To make sure MongoDB and Annotation service instances can connect to each other `MONGO_HOST` variable should be the name of MongoDB container, and they should be placed in the same network. If you follow the commands without any change, the containers should automatically bind to our "ideart-production" network.
+
+The annotation service will start running in `http://localhost:3001/annotations` address.
+
+----
+
+#### API (backend)
+
+**System Requirements:**
+- MySQL 8.x
+- Docker
+
+**Build & Run Instructions:**
+
+For the API service, a previously configured MySQL 8.x server should be running.
+
+The following environment variables will be used for configuring the API service:
+```bash
+MYSQL_USER=mysqluser
+MYSQL_PASSWORD=placeholderpw
+MYSQL_ROOT_PASSWORD=rootpw
+MYSQL_DATABASE=dbname
+MYSQL_HOST=ideart-mysql
+MYSQL_PORT=3306
+JWT_SECRET_KEY=atleast128bitsecretpassport
+```
+
+Steps for production version with Docker:
+- *Optional Step:* Setup MySQL to be used with the API service. The fields between the quotes should be defined and match with given environment variables.
+```bash
+docker pull mysql:8.0.31
+docker run --name="ideart-mysql" -p 3306:3306 -e MYSQL_USER="mysqluser" -e MYSQL_PASSWORD="placeholderpw" -e MYSQL_ROOT_PASSWORD="rootpw" -e MYSQL_DATABASE="dbname" -e MYSQL_TCP_PORT="3306" -d --network "ideart-production" mysql:8.0.31
+```
+- Build docker image of backend application for production
+```bash
+cd docker
+docker build -f backend.production.Dockerfile -t "backend-image-name" ../backend
+```
+
+- Run the backend application. For the parameter **"production-env-file.env"** create an environment variable file, you can use the current `.env` file in `docker` folder as the template.
+```bash
+docker run --name "ideart-api" --env-file="production-env-file.env" -p 8080:8080 --network "ideart-production" -d -t "backend-image-name"
+```
+
+To make sure MySQL and API service instances can connect to each other `MYSQL_HOST` variable should be the name of MySQL container, and they should be placed in the same network. To ensure the containers can reach each other, it is important to bind to previously created network named `"ideart-production"`. The given command automatically binds to this network, if you changed the name of the network in creation step feel free to change the command with the name of your network.
+
+The API service will start running in the following address: `http://localhost:8080/api`
+
+---
+
+#### Web (frontend)
+
+**System Requirements:**
+- API server
+- Annotation server
+- Docker
+
+**Build & Run Instructions:**
+
+The web/frontend service in production version works differently than the development version. In production version the files are compiled and served as static files from a NGINX server. This NGINX server also works as a reverse proxy for API and annotation services.
+
+Necessary NGINX configuration file is located in `./frontend/nginx.conf` file. This file should be edited before building to ensure connection between API, Annotation service and NGINX works.
+
+1. In the following part edit `/api/`'s `proxy_pass` parameter's `localhost` with the container name of API/Backend service ("ideart-api")
+```nginx
+  location /api/ {
+
+    proxy_pass http://localhost:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+
+  }
+```
+Edited:
+```nginx
+  location /api/ {
+
+    proxy_pass http://ideart-api:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+
+  }
+  ```
+2. In the following part edit `/annotations/`'s `proxy_pass` parameter's `localhost` with the container name of Annotation service ("ideart-annotation-service")
+```nginx
+  location /annotations/ {
+
+    proxy_pass http://localhost:3001;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+
+  }
+```
+
+Edited:
+```nginx
+  location /annotations/ {
+
+    proxy_pass http://ideart-annotation-service:3001;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+
+  }
+```
+
+
+
+Steps for the production version with Docker:
+- Build production image
+```bash
+cd docker
+docker build -f frontend.production.Dockerfile -t "production-frontend-image" ../frontend
+```
+- Run the production image of web service
+```bash
+docker run --name "nginx-server" -p 80:80 -d --network "ideart-production" -t "production-frontend-image"
+```
+
+To ensure the reverse proxy and api connections works with docker containers it is important to bind to previously created network named `"ideart-production"`. The given command automatically binds to this network, if you changed the name of the network in creation step feel free to change the command with the name of your network.
+
+The service will start running in the following address: `http://localhost/`.
+
+The proxied API and Annotation services will be available in the order at `http://localhost/api/` and `http://localhost/annotations` addresses.
+
+
+---
+
 ### Mobile
 - System Requirements:
 
