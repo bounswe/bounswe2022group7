@@ -362,6 +362,27 @@ Fix
 
 | Task | Link |
 | --- | --- |
+|Created project structure and implemented an example page navigation for mobile|[#258](https://github.com/bounswe/bounswe2022group7/issues/258)|
+|Worked in updating the project plan|[#241](https://github.com/bounswe/bounswe2022group7/issues/241)|
+|Implemented the register page UI of the mobile application|[#263](https://github.com/bounswe/bounswe2022group7/issues/263), [PR #267](https://github.com/bounswe/bounswe2022group7/pull/267), [#294](https://github.com/bounswe/bounswe2022group7/issues/294), [PR #298](https://github.com/bounswe/bounswe2022group7/pull/298)|
+|Reviewed login page UI implementation in mobile app|[#280](https://github.com/bounswe/bounswe2022group7/issues/280), [PR #281](https://github.com/bounswe/bounswe2022group7/pull/281)|
+|Implemented saving user information in local storage in mobile app|[#292](https://github.com/bounswe/bounswe2022group7/issues/292), [PR #293](https://github.com/bounswe/bounswe2022group7/pull/293)|
+|Reviewed homepage implementation in mobile app|[#313](https://github.com/bounswe/bounswe2022group7/issues/313)|
+|Connected register form to the backend in mobile app|[#318](https://github.com/bounswe/bounswe2022group7/issues/318), [PR #320](https://github.com/bounswe/bounswe2022group7/pull/320)|
+|Implemented widget tests for register form in mobile app|[#359](https://github.com/bounswe/bounswe2022group7/issues/359), [PR #360](https://github.com/bounswe/bounswe2022group7/pull/360)|
+|Implemented logout in mobile app|[#321](https://github.com/bounswe/bounswe2022group7/issues/321)|
+|Reviewed login backend connection implementation in mobile app|[#314](https://github.com/bounswe/bounswe2022group7/issues/314), [PR #340](https://github.com/bounswe/bounswe2022group7/pull/340)|
+|Reviewed app name change in mobile app|[#350](https://github.com/bounswe/bounswe2022group7/issues/350), [PR #352](https://github.com/bounswe/bounswe2022group7/pull/352)|
+|Implemented art item network connection and models in mobile app|[#339](https://github.com/bounswe/bounswe2022group7/issues/339), [PR #365](https://github.com/bounswe/bounswe2022group7/pull/365)|
+|Setup server connection configuration in mobile app|[#357](https://github.com/bounswe/bounswe2022group7/issues/357), [PR #363](https://github.com/bounswe/bounswe2022group7/pull/363)|
+|Write an evaluation of tools and processes used in mobile application for the team report|[#375](https://github.com/bounswe/bounswe2022group7/issues/375)|
+| Research about base 64 image implementation |[Issue #389](https://github.com/bounswe/bounswe2022group7/issues/389)|
+| Implementing Create Art Item Page UI |[Issue #403](https://github.com/bounswe/bounswe2022group7/issues/403), [PR #406](https://github.com/bounswe/bounswe2022group7/pull/406)|
+| Implementing Geotagging in Create Event Page |[Issue #439](https://github.com/bounswe/bounswe2022group7/issues/439), [PR #443](https://github.com/bounswe/bounswe2022group7/pull/443)|
+| Implementing Create Art Item Page Network Functionality |[Issue #484](https://github.com/bounswe/bounswe2022group7/issues/484), [PR #485](https://github.com/bounswe/bounswe2022group7/pull/485)|
+| Error Fix when Backend Sends JPG Images |[Issue #493](https://github.com/bounswe/bounswe2022group7/issues/493), [PR #494](https://github.com/bounswe/bounswe2022group7/pull/494)|
+| Implementing Text Annotaton UI |[Issue #495](https://github.com/bounswe/bounswe2022group7/issues/482), [PR #511](https://github.com/bounswe/bounswe2022group7/pull/511)|
+| Pull Requests I Reviewed |[PR #407](https://github.com/bounswe/bounswe2022group7/pull/407), [PR #426](https://github.com/bounswe/bounswe2022group7/pull/426), [PR #430](https://github.com/bounswe/bounswe2022group7/pull/430), [PR #444](https://github.com/bounswe/bounswe2022group7/pull/444), [PR #529](https://github.com/bounswe/bounswe2022group7/pull/529) |
 |  Connect mobile text annotations to the backend | [#576](https://github.com/bounswe/bounswe2022group7/issues/576) |
 |  Implementing art item auction | [#599](https://github.com/bounswe/bounswe2022group7/issues/599) |
 | Write the system manual for the mobile application in the final report | [Report section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#21-manuals) |
