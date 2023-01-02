@@ -65,7 +65,11 @@ New
 * Report functionality
 
 Fix
-* Backend integration of annotation feature
+* Backend integration of annotation feature 
+
+Known Bugs / Limitations
+* Integration bugs between mobile and web annotation
+* Character limit is 256 for all text fields.
 
 ### 1.1.4 Changes
 * Copyright system is modified. Instead of providing an additional copyright feature, all art items are copyright protected by default and all users can report suspicious art items.
