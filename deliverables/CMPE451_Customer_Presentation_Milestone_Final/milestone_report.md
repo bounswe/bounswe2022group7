@@ -363,6 +363,41 @@ Known Bugs / Limitations
 
 ### Musa Şimşek
 
+| Task | Link |
+| ---- | ---- |
+| Research on Testing Fluttter Apps | [#261](https://github.com/bounswe/bounswe2022group7/issues/261) |
+| Implementation of Profile Page | [#263](https://github.com/bounswe/bounswe2022group7/issues/263) |
+| Integration of Login Page wtih Backend | [#314](https://github.com/bounswe/bounswe2022group7/issues/314) |
+| Update the App according to the new CurrrentUser Structure | [#333](https://github.com/bounswe/bounswe2022group7/issues/333) |
+| Revising the Mock-ups | [#247](https://github.com/bounswe/bounswe2022group7/issues/247) |
+| Issues reviewed | [#359](https://github.com/bounswe/bounswe2022group7/issues/359), [#335](https://github.com/bounswe/bounswe2022group7/issues/335), [#334](https://github.com/bounswe/bounswe2022group7/issues/334), [#331](https://github.com/bounswe/bounswe2022group7/issues/331), [#294](https://github.com/bounswe/bounswe2022group7/issues/294), [#265](https://github.com/bounswe/bounswe2022group7/issues/265) |
+| [Mobile] Add Widget Test for Register Page | [#360](https://github.com/bounswe/bounswe2022group7/pull/360) |
+| [Mobile] Merge Event Page integrations to Develop | [#348](https://github.com/bounswe/bounswe2022group7/pull/348) |
+| final version of the login | [#340](https://github.com/bounswe/bounswe2022group7/pull/340) |
+| Updated the Register Network Function According to Backend Implementation | [#336](https://github.com/bounswe/bounswe2022group7/pull/336) |
+| Update register page | [#298](https://github.com/bounswe/bounswe2022group7/pull/298) |
+| Dev/profilepage musa | [#279](https://github.com/bounswe/bounswe2022group7/pull/279) |
+| Merge android/homepage to android | [#266](https://github.com/bounswe/bounswe2022group7/pull/266) |
+| Milestone 1 | --- |
+| Removal of Optional Fields in Signup Page | [#410](https://github.com/bounswe/bounswe2022group7/issues/410) |
+| Final Version of the Profile Page | [#446](https://github.com/bounswe/bounswe2022group7/issues/446) |
+| Comment Feature | [#486](https://github.com/bounswe/bounswe2022group7/issues/486) |
+| Navigation From Signup Page | [#518](https://github.com/bounswe/bounswe2022group7/issues/518) |
+| Review of several issues | [#335](https://github.com/bounswe/bounswe2022group7/issues/335), [#359](https://github.com/bounswe/bounswe2022group7/issues/359), [#374](https://github.com/bounswe/bounswe2022group7/issues/374), [#379](https://github.com/bounswe/bounswe2022group7/issues/375), [#398](https://github.com/bounswe/bounswe2022group7/issues/398), [#479](https://github.com/bounswe/bounswe2022group7/issues/479), [#495](https://github.com/bounswe/bounswe2022group7/issues/495), [#504](https://github.com/bounswe/bounswe2022group7/issues/504) |
+| Review of several pull requests | [#465](https://github.com/bounswe/bounswe2022group7/pull/465), [#480](https://github.com/bounswe/bounswe2022group7/pull/480), [#506](https://github.com/bounswe/bounswe2022group7/pull/506), [#511](https://github.com/bounswe/bounswe2022group7/pull/511), [#524](https://github.com/bounswe/bounswe2022group7/pull/524) |
+| Pull requests | [#414](https://github.com/bounswe/bounswe2022group7/pull/414), [#475](https://github.com/bounswe/bounswe2022group7/pull/475), [#508](https://github.com/bounswe/bounswe2022group7/pull/508), [#519](https://github.com/bounswe/bounswe2022group7/pull/519) |
+| Milestone 2 | --- |
+| [Mobile] Bidding Network | [#633](https://github.com/bounswe/bounswe2022group7/issues/633) |
+| [Mobile] Search Functionality | [#593](https://github.com/bounswe/bounswe2022group7/issues/593) |
+| [Mobile] Profile Page Revision | [#577](https://github.com/bounswe/bounswe2022group7/issues/577) |
+| Review of several issues | [#562](https://github.com/bounswe/bounswe2022group7/issues/562), [#507](https://github.com/bounswe/bounswe2022group7/issues/507), [#506](https://github.com/bounswe/bounswe2022group7/pull/506), [#568](https://github.com/bounswe/bounswe2022group7/issues/568) |
+| Review of several pull requests | [PR#569](https://github.com/bounswe/bounswe2022group7/pull/569), [PR#563](https://github.com/bounswe/bounswe2022group7/pull/563) |
+| Dev/android/profile page revision | [PR#578](https://github.com/bounswe/bounswe2022group7/pull/578) |
+| length on null fix | [PR#589](https://github.com/bounswe/bounswe2022group7/pull/589) |
+| Dev/android/search | [PR#618](https://github.com/bounswe/bounswe2022group7/pull/618) |
+| backend integration of bidding is completed | [PR#632](https://github.com/bounswe/bounswe2022group7/pull/632) |
+| user manual is ready | [PR#639](https://github.com/bounswe/bounswe2022group7/pull/639) |
+
 ### Atilla Türkmen
 
 | Task | Link |
