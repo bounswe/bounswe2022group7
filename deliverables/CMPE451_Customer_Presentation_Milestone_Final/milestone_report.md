@@ -167,8 +167,11 @@ Fix
 | Displaying bookmarked events, bookmarked art items and participating events for profile page | [#606](https://github.com/bounswe/bounswe2022group7/issues/606), [PR #601](https://github.com/bounswe/bounswe2022group7/pull/601) |
 | Preparing tests for profile page | [#616](https://github.com/bounswe/bounswe2022group7/issues/616), [PR #614](https://github.com/bounswe/bounswe2022group7/pull/614) |
 | Displaying following users on profile page | [#625](https://github.com/bounswe/bounswe2022group7/issues/625), [PR #624](https://github.com/bounswe/bounswe2022group7/pull/624) |
-| Creating Final Milestone Report Document and Setting Titles |  |
-| Adding Software Requirements Specification,Software Design Documents,User Scenarios And Mockups,Project Plan Parts to Final Milestone Report | |
+| Creating Final Milestone Report Document and Setting Titles | [Commit](https://github.com/bounswe/bounswe2022group7/commit/379ff571006a20ab1072f6ac45039e5dcd1a6bc8)  |
+| Adding Software Requirements Specification Parts to Final Milestone Report | [Report Section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#22-software-requirements-specification) |
+| Adding Software Design Documents Parts to Final Milestone Report | [Report Section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#23-software-design-documents) |
+| Adding User Scenarios And Mockups Parts to Final Milestone Report | [Report Section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#24-user-scenarios-and-mockups) |
+| Adding Project Plan Parts to Final Milestone Report | [Report Section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#25-project-plan) |
 | Attending Team Meetings ||
 | Preparing individual Final milestone report | |
 
