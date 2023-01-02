@@ -407,7 +407,7 @@ Fix
 | ----- | ------ | ------ |
 | 1.1.4.1: Registered users and artists shall be able to view comments that belong to art items or exhibitions |Completed|Completed|
 | 1.1.4.2: Registered users and artists shall be able to create comments on the discussion page. |Completed|Completed|
-| 1.1.4.2.1: Registered users and artists shall be able to edit their comments in the discussion page. |Not implemented|Completed|
+| 1.1.4.2.1: Registered users and artists shall be able to edit their comments in the discussion page. |Not implemented|Not implemented|
 |1.1.4.2.2: Registered users and artists shall be able to remove their comments in the discussion page.|Not implemented|Not implemented|
 
 #### 1.1.5 Events
@@ -446,7 +446,7 @@ Fix
 | ----- | ------ | ------ |
 |1.1.8.1: Artists shall be able to sell their copyrighted art items with a bidding system.|Completed|Completed|
 |1.1.8.2: Users and artists shall be able to bid for art items on the bidding system.|Completed|Completed|
-|1.1.8.2.1: An artist shall be able to determine a minimum limit that buyer can't bid below.|Not implemented|Not implemented|
+|1.1.8.2.1: An artist shall be able to determine a minimum limit that buyer can't bid below.|Not implemented|Completed|
 |1.1.8.2.2: Bidders shall not be able to bid below the last offer but can increase it.|Completed|Completed|
 |1.1.8.3: If an artist accepts an offer given, s/he can put a deadline for the owner of the winning offer to complete the payment so that fake bids, bid rigging, etc. can be prevented.|Not Implemented|Not Implemented|
 |1.1.8.4: Artists shall not be able to end the bidding by withdrawing the item and not selling it at all.|Not implemented|Not implemented|
@@ -460,7 +460,7 @@ Fix
 | Requirement | Status for Web| Status for Mobile|
 | ----- | ------ | ------ |
 | 1.1.9.1: The home page shall highlight the most popular artworks and events of the previous week as well as the events in the coming days that are highly anticipated by the users for the guests.|Completed|Completed|
-|1.1.9.2: The home page shall be customized for registered users with upcoming events and artworks of the followed artists.|Completed|Completed|
+|1.1.9.2: The home page shall be customized for registered users with upcoming events and artworks of the followed artists.|Completed|Not implemented|
 |1.1.9.3: Guest users shall be able to see popular artworks and events in the home page.|Completed | Completed|
 
 **PS:** 
@@ -496,8 +496,8 @@ Fix
 
 | Requirement | Status for Web| Status for Mobile|
 | ----- | ------ | ------ |
-|1.1.13.1: Users shall be able to annotate text content on the platform. (Should be marked as In progress)|Completed|Completed|
-|1.1.13.2: Users shall be able to annotate images on the platform. (Should be marked as In progress)|Completed|Completed|
+|1.1.13.1: Users shall be able to annotate text content on the platform.|Completed|Completed|
+|1.1.13.2: Users shall be able to annotate images on the platform.|Completed|Completed|
 |1.1.13.3: Registered users shall be able to bookmark discussion comments, art items, exhibitions and online galleries.|Completed|Completed|
 
 #### 1.1.14 Search and Filter
@@ -525,8 +525,8 @@ Fix
 | ----- | ------ | ------ |
 |1.2.1.1: System shall keep track of the artists followed by the user or artist.|Completed|Completed|
 |1.2.1.2: System shall track certain activities and calculate interaction level|Completed|Completed|
-|1.2.1.2.1: Replies under comments shall be tracked.|Completed|Completed|
-|1.2.1.2.2: comments about exhibitions, online galleries, collections or pieces of art shall be tracked.|Completed|Competed|
+|1.2.1.2.1: Replies under comments shall be tracked.|Completed|Not implemented|
+|1.2.1.2.2: Comments about exhibitions, online galleries, collections or pieces of art shall be tracked.|Completed|Competed|
 |1.2.1.3: System shall keep track of number of followers, number of copyrighted items and number of art exhibitions. Using these data, system shall calculate a popularity level.|Completed|Completed|
 |1.2.1.6: System shall enable or disable a user's certain activities according to the user's level.|Not implemented|Not implemented|
 
@@ -548,14 +548,14 @@ Fix
 #### 1.2.5 Recommendation
 | Requirement | Status for Web| Status for Mobile|
 | ----- | ------ | ------ |
-|1.2.5.1: System shall be able to recommend users artworks or artists based on their activities|Completed|Completed|
+|1.2.5.1: System shall be able to recommend users artworks or artists based on their activities|Completed|Not implemented|
 |1.2.5.2: System shall be able to recommend the user events using the data about the events attended by the user.|Not implemented|Not implemented|
 
 #### 1.2.6 Artistic Value Calculation
 | Requirement | Status for Web| Status for Mobile|
 | ----- | ------ | ------ |
 |1.2.6.1: System shall calculate artistic values of its users so that additional functionalities are provided to those users who have sufficient artistic value.|Half completed|Half completed|
-|1.2.6.1.1: The artistic value calculations include the number of online galleries hosted and the interaction those online galleries have got|Half ompleted|Half Completed|
+|1.2.6.1.1: The artistic value calculations include the number of online galleries hosted and the interaction those online galleries have got|Half completed|Half completed|
 |1.2.6.1.2: The artistic value calculations include the number of physical exhibitions attended and the interest in those physical exhibitions|Not implemented|Not implemented|
 |1.2.6.1.3: The artistic value calculations include the number of artworks published on the online platform and the interaction those artworks have got|Half completed|Half completed|
 |1.2.6.1.4: The artistic value calculations include the participation in the discussions that take place on the online platform|Completed|Completed|
@@ -571,8 +571,8 @@ Fix
 #### 2.1 Annotations
 | Requirement | Status for Web| Status for Mobile|
 | ----- | ------ | ------ |
-| 2.1.1 Annotations shall comply with the [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#annotations).|In progress|In progress|
-| 2.1.2 Annotations shall follow [W3C standards](https://www.w3.org/TR/annotation-model/#annotations).|In progress|In progress|
+| 2.1.1 Annotations shall comply with the [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#annotations).|Completed|Completed|
+| 2.1.2 Annotations shall follow [W3C standards](https://www.w3.org/TR/annotation-model/#annotations).|Completed|Completed|
 
 #### 2.2 Accessibility
 
@@ -590,8 +590,8 @@ Fix
 | Requirement | Status for Web| Status for Mobile|
 | ----- | ------ | ------ |
 | 2.3.1 The uptime shall be at least 99%. |Completed|Completed|
-| 2.3.2 The response time shall be as short as possible(maximum limit 3 sec). |In progress|In progress| //what shall we say?
-| 2.3.3 The platform shall support at least 5000 users actively using it at the same time. |In progress|In progress| //what shall we say?
+| 2.3.2 The response time shall be as short as possible(maximum limit 3 sec). |Not implemented|Not implemented |
+| 2.3.3 The platform shall support at least 5000 users actively using it at the same time. |Not tested|Not tested |
 | 2.3.4 The platform shall have 85 percent maintainability for 24 hours. |Completed|Completed|
 
 #### 2.4 Security
@@ -601,7 +601,7 @@ Fix
 | 2.4.1 The platform shall support HTTPS protocol |Completed|Completed|
 | 2.4.2 The passwords of users shall be encrypted in the database |Completed|Completed|
 | 2.4.3 The password shall be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter and 1 special symbol. |Completed|Completed|
-| 2.4.4 A verification email shall be sent for the verification of the user email address. |Completed|Completed|
+| 2.4.4 A verification email shall be sent for the verification of the user email address. |Completed|Not implemented|
 
 #### 2.5 Legal and Ethical Issues
 | Requirement | Status for Web| Status for Mobile|
