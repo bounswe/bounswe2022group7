@@ -786,11 +786,15 @@ They can view their ‘feed’. There are two types of feeds. First one is the �
 
 ![image](https://user-images.githubusercontent.com/57228345/210236234-61f744e5-38ce-4555-ab7f-20086feff992.png)
 
-By clicking on an art item, user can navigate to an art item page. On this page, they can view the title, description, creator, collaborators, labels and categories of the art item. Additionlly, they can view the auction status of the art item. If the art item is on auction, they can make a bid to buy the item. If the user is the artist who created the art item, then they will see buttons to start/end the auction instead. They can also view comments and add their own comment. By clicking on the displayed user names, they can also navigate to the profile page of these users. 
+By clicking on an art item, user can navigate to an art item page. On this page, they can view the title, description, creator, collaborators, labels and categories of the art item. Additionlly, they can view the auction status of the art item. If the art item is on auction, they can make a bid to buy the item. If the user is the artist who created the art item, then they will see buttons to start/end the auction instead. They can also view comments and add their own comment. By clicking on the displayed user names, they can also navigate to the profile page of these users. Users can also click on the settings button to the right of the title and share or report the art item.
+
+If the user is the artist who created the art item, they can go to the bottom of the page and click the "Delete Art Item" button.
 
 ![image](https://user-images.githubusercontent.com/57228345/210236271-ed392cf5-9ed4-4f45-98bc-a8571b7c9880.png)
 
 By clicking on an event, users can view the page of an event. There are two types of events: online and physical. On the physical event page; users can see the title, poster, description, organizer, time, label, category, rules, collaborators, address and comments of the event.
+
+If the user is the artist who created the event, they can go to the bottom of the page and click the "Delete Event" button.
 
 ![image](https://user-images.githubusercontent.com/57228345/210236370-3b37d34f-1459-4a20-9ded-48390192e543.png)
 
