@@ -178,6 +178,7 @@ Known Bugs / Limitations
 | Adding Project Plan Parts to Final Milestone Report | [Report Section](https://github.com/bounswe/bounswe2022group7/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_Final/milestone_report.md#25-project-plan) |
 | Attending Team Meetings ||
 | Preparing individual Final milestone report | |
+| Data creation for Application||
 
 ### Erim Erkin Doğan
 | Task | Link |
@@ -1302,6 +1303,80 @@ For liking and bookmarking art items and bookmarking events: [#PR560](https://gi
 For report endpoint: [#PR561](https://github.com/bounswe/bounswe2022group7/pull/561)
 
 ## Enes Aydoğduoğlu
+
+
+### Member
+
+I am a member of frontend team. This is [My Wiki Page](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu) You can find my weekly contributions on [My Effort Page](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu-(Effort-Tracking)).
+
+### Responsibilities
+
+Member of Frontend Team, Implementation and testing the Profile Page for frontend. Re-preparation of the project plan.
+
+### Main Contributions
+
+I actively participated in the weekly team meetings, implemented the Profile Page for the Frontend part, and updated the Project Plan several times and prepared the final version. I participated in research, task tracking, planning, testing and implementation processes. Creating data for final application.
+
+### Milestone 1
+
+#### Code related significant issues:
+
+- [Adding Event Page to frontend [#356]](https://github.com/bounswe/bounswe2022group7/issues/356)
+
+#### Management related significant issues:
+
+- [Revising System Requirements [#254]](https://github.com/bounswe/bounswe2022group7/issues/254)
+
+#### Pull requests
+
+#### As Reviewers
+
+- [#324](https://github.com/bounswe/bounswe2022group7/pull/324)
+
+### Milestone 2
+
+#### Code related significant issues:
+
+- [Frontend of profile page #400](https://github.com/bounswe/bounswe2022group7/issues/400)
+
+#### Management related significant issues:
+
+- [Update the Project Plan after Milestone 1 #402](https://github.com/bounswe/bounswe2022group7/issues/402)
+- [Prepare the scenarios for Milestone-2 Presentation #497](https://github.com/bounswe/bounswe2022group7/issues/497)
+- [Prepare Executive Summary For Group Milestone 2 Report #509](https://github.com/bounswe/bounswe2022group7/issues/509)
+- [Prepare the Annotations Documentation Part for Milestone 2 Report #510](https://github.com/bounswe/bounswe2022group7/issues/510)
+
+#### Pull requests
+
+- [#513](https://github.com/bounswe/bounswe2022group7/pull/513)
+- [#514](https://github.com/bounswe/bounswe2022group7/pull/514)
+- [#516](https://github.com/bounswe/bounswe2022group7/pull/516)
+
+### Final Milestone
+
+#### Code related significant issues:
+
+- [#579](https://github.com/bounswe/bounswe2022group7/issues/579)
+- [#606](https://github.com/bounswe/bounswe2022group7/issues/606)
+- [#616](https://github.com/bounswe/bounswe2022group7/issues/616)
+- [#625](https://github.com/bounswe/bounswe2022group7/issues/625)
+
+#### Management related significant issues:
+
+- [Prepare the scenarios for the Final Milestone Presentation #607](https://github.com/bounswe/bounswe2022group7/issues/607)
+
+#### Pull Requests:
+
+- [[Frontend] User Level #598](https://github.com/bounswe/bounswe2022group7/pull/598)
+- [[Frontend] Bookmarked events,Bookmarked artitems and participating events on Profile page #601](https://github.com/bounswe/bounswe2022group7/pull/601)
+- [[FE] Profile page test #614](https://github.com/bounswe/bounswe2022group7/pull/614)
+- [[FE] Display following users on profile page #624](https://github.com/bounswe/bounswe2022group7/pull/624)
+
+#### Unit Tests: 
+
+- [Profile Page Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/Profile.test.js)
+
+#### Additional information:
 
 ## Erim Erkin Doğan
 ### Member
