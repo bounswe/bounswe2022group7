@@ -255,6 +255,49 @@ Fix
 
 ### Cahid Arda Öz
 
+| Task | Link |
+| --- | --- |
+| Revision of Requirements. New members in the team took notes and wrote questions. I answered these questions and made an action plan | [#243](https://github.com/bounswe/bounswe2022group7/issues/243) |
+| Preparing Customer Questions. I used the notes I took in [#243](https://github.com/bounswe/bounswe2022group7/issues/243) to prepare questions for the TA. | [#242](https://github.com/bounswe/bounswe2022group7/issues/242) |   
+| Prepared meeting report for our meeting on tuesday | [#249](https://github.com/bounswe/bounswe2022group7/issues/249) |
+| Attended the frontend team meeting and wrote [the report on wiki](https://github.com/bounswe/bounswe2022group7/wiki/FRONTEND-Meeting-Notes-%231---15-10-2022). Planned the system requirements revision during the meeting. | [#254](https://github.com/bounswe/bounswe2022group7/issues/254) |
+| Implemented router for the frontend | [#268](https://github.com/bounswe/bounswe2022group7/issues/268), [#269](https://github.com/bounswe/bounswe2022group7/pull/269) |
+| Implemented comment section for the frontend | [#270](https://github.com/bounswe/bounswe2022group7/issues/270), [#269](https://github.com/bounswe/bounswe2022group7/pull/269) |
+| Implemented static signup and signin pages. Had to learn about handling user inputs and button submits with react hooks. | [#284](https://github.com/bounswe/bounswe2022group7/issues/284), [#288](https://github.com/bounswe/bounswe2022group7/pull/288) |
+| Extended the Comment component by replacing it with UserCard component. Created the art item page with mock data using the UserCard component to demonstrate it. Had to learn more about hooks and how buttons work | [#289](https://github.com/bounswe/bounswe2022group7/issues/289) |
+| Implemented authentication and token handling. Had to learn more about hooks, contexts and routers. | [#290](https://github.com/bounswe/bounswe2022group7/issues/290), [#291](https://github.com/bounswe/bounswe2022group7/pull/291) |
+| Research and testing text/image annotations. Planned future steps for adding Annotations. | [#297](https://github.com/bounswe/bounswe2022group7/issues/297) |
+| Preparing deliverables for the milestone | [#329](https://github.com/bounswe/bounswe2022group7/issues/329) |
+| Finding out, debugging and reporting an error in the database | [#344](https://github.com/bounswe/bounswe2022group7/issues/344) |
+| Integrating art item page to the endpoints | [#343](https://github.com/bounswe/bounswe2022group7/issues/343), [#349](https://github.com/bounswe/bounswe2022group7/pull/349) | 
+| Updating app name in the frontend and tracking the change in mobile | [#350](https://github.com/bounswe/bounswe2022group7/issues/350) |
+| Planning and preparing for the presentation as a presenter | [#353](https://github.com/bounswe/bounswe2022group7/issues/353) |
+| Adding the event page to the frontend | [#356](https://github.com/bounswe/bounswe2022group7/issues/356), [#367](https://github.com/bounswe/bounswe2022group7/pull/367) | 
+| Creating tag for the first milestone | [#368](https://github.com/bounswe/bounswe2022group7/issues/368) |
+| Milestone 1 | |
+| Adding Form Layout to Sign-up and Sign-in Pages | [#387](https://github.com/bounswe/bounswe2022group7/pull/387) |
+| Learning about storing images as Base64, testing it on frontend and reviewing it on backend and mobile. | [#389](https://github.com/bounswe/bounswe2022group7/issues/389) |
+| Create event and create art item implementation for frontend | [#401](https://github.com/bounswe/bounswe2022group7/issues/401) |
+| Adding a layout for content on the app, fixing endpoints of homepage and improved error page. | [#417](https://github.com/bounswe/bounswe2022group7/pull/417) |
+| Completed integration of the new art item and new physical event pages with the endpoints | [#401](https://github.com/bounswe/bounswe2022group7/issues/401), [PR #459](https://github.com/bounswe/bounswe2022group7/pull/459) | 
+| Integrated comment section with the endpoints | [#460](https://github.com/bounswe/bounswe2022group7/issues/460), [PR #476](https://github.com/bounswe/bounswe2022group7/pull/476) |
+| Reported owner null bug in art item creation | [#457](https://github.com/bounswe/bounswe2022group7/issues/457) |
+| Reported duplicate comments bug | [#458](https://github.com/bounswe/bounswe2022group7/issues/458) |
+| Reported discussion page GET token requirement bug | [#469](https://github.com/bounswe/bounswe2022group7/issues/469) |
+| Reported bugs in comment list fields of event and discussion page endpoints | [#470](https://github.com/bounswe/bounswe2022group7/issues/470) |
+| Removed poster id field from the discussion post in the backend | [PR #474](https://github.com/bounswe/bounswe2022group7/pull/474) |
+| Merged updates in develop branch into master for deployment | [PR #478](https://github.com/bounswe/bounswe2022group7/pull/478) |
+| Added color theme to the app. Styled event, art item and discussion pages. Styled comment section component. Added start&end time selection to create physical event page | [#490](https://github.com/bounswe/bounswe2022group7/issues/490), [PR #491](https://github.com/bounswe/bounswe2022group7/pull/491) |
+| CommentSection Component unit tests | [PR #521](https://github.com/bounswe/bounswe2022group7/pull/521) |       
+| Mock Text Annotation for Frontend | [PR #522](https://github.com/bounswe/bounswe2022group7/pull/522) |
+| Tag for milestone 2 | [#526](https://github.com/bounswe/bounswe2022group7/issues/526) |
+| Milestone 2 |  |
+| Updating the image & text annotation editor by removing the tag field | [#580](https://github.com/bounswe/bounswe2022group7/issues/580), [PR #586](https://github.com/bounswe/bounswe2022group7/pull/586) |
+| Adding art item auction to the frontend | [#583](https://github.com/bounswe/bounswe2022group7/issues/583), [PR #585](https://github.com/bounswe/bounswe2022group7/pull/585) |
+| Adding downvote upvote to comments | [#588](https://github.com/bounswe/bounswe2022group7/issues/588), [PR #592](https://github.com/bounswe/bounswe2022group7/pull/592) |
+| Adding online events | [#595](https://github.com/bounswe/bounswe2022group7/issues/595), [PR #597](https://github.com/bounswe/bounswe2022group7/pull/597) |
+| Add delete, participate, like, upvote functionality to content pages | [#608](https://github.com/bounswe/bounswe2022group7/issues/608), [PR #609](https://github.com/bounswe/bounswe2022group7/pull/609) |
+
 ### Musa Şimşek
 
 ### Atilla Türkmen
@@ -1279,6 +1322,78 @@ As Reviewer:
 [Profile Controller Tests](https://github.com/bounswe/bounswe2022group7/pull/539)
 
 ## Cahid Arda Öz
+
+### Member:
+
+Group communicator and frontend team member. Links to [wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Cahid-Arda-%C3%96z) and [time tracking page](https://github.com/bounswe/bounswe2022group7/wiki/Cahid-Arda-%C3%96z-(Effort-Tracking)).
+
+### Responsibilities:
+
+- Group communicator
+- Frontend team member
+- Customer meeting frontend presenter
+- Developing content (art item, event, discussion post) view and create pages.
+
+### Main Contribution:
+
+Code related significant issues:
+- [#268 Using Router in Frontend](https://github.com/bounswe/bounswe2022group7/issues/268): Güney had created the initial project files but there was a single route on the app. I used Router to manage more pages. I also changed folder structure of the project directory. I also added an art item page with a comment section.
+- [#289 Extending Comments component to Cover any User Related Component](https://github.com/bounswe/bounswe2022group7/issues/289): I replaced the comment component I wrote in [#268](https://github.com/bounswe/bounswe2022group7/issues/268) as UserCard to handle comments and user components together. Then I prepared a mock data and rendered this data on the art item page.
+- [#290 Token Handling in the Frontend](https://github.com/bounswe/bounswe2022group7/issues/290): I learned about token handling in React and added token handling to our frontend.
+- [#343 Art Item Page Endpoint Integration](https://github.com/bounswe/bounswe2022group7/issues/343): I replaced the mock data I had put in the art item page with a fetch request to the API endpoint.
+- [#344 Recursion Problem in Art Items ](https://github.com/bounswe/bounswe2022group7/issues/344): I realised that there was a bug in the database usage. The backend team was aware of this issue and I provided some details about the problem.
+- [#356 Adding Event Page to frontend](https://github.com/bounswe/bounswe2022group7/issues/356): I worked on adding the event page to the frontend using the art item page I had created as reference.
+- **MILESTONE 1**
+- [#421](https://github.com/bounswe/bounswe2022group7/issues/421): In this issue, I worked on adding create art item and physical event pages.
+- [#457](https://github.com/bounswe/bounswe2022group7/issues/457): In this issue, I reported a bug I noticed in the create art item endpoint.
+- [#458](https://github.com/bounswe/bounswe2022group7/issues/458): In this issue, I reported a bug I noticed in the create comment endpoint.
+- [#460](https://github.com/bounswe/bounswe2022group7/issues/460): In this issue, I worked on integrating the comment section I had written for milestone 1 to the new endpoints.
+- [#469](https://github.com/bounswe/bounswe2022group7/issues/469): In this issue, I reported a bug I noticed in the get discussion post endpoint.
+- [#470](https://github.com/bounswe/bounswe2022group7/issues/470): In this issue, I reported a bug I noticed in the create comment endpoint.
+- [#490](https://github.com/bounswe/bounswe2022group7/issues/490): In this issue, I worked on restyling content pages (art item, discussion post and physical event pages). I also styled the comment section.
+- **MILESTONE 2**
+- [#580](https://github.com/bounswe/bounswe2022group7/issues/580): Updating the image & text annotation editor by removing the tag field
+- [#583](https://github.com/bounswe/bounswe2022group7/issues/583): Adding art item auction to the frontend
+- [#588](https://github.com/bounswe/bounswe2022group7/issues/588): Adding downvote upvote to comments
+- [#595](https://github.com/bounswe/bounswe2022group7/issues/595): Adding online events
+- [#608](https://github.com/bounswe/bounswe2022group7/issues/608): Add delete, participate, like, upvote functionality to content pages
+
+Management related significant issues:
+- [#242 Preparing Questions for the Customer Meeting](https://github.com/bounswe/bounswe2022group7/issues/242) and [#243 Revision of Requirements](https://github.com/bounswe/bounswe2022group7/issues/243): I worked with some of the new members in the team on the revision of requirements. They read the requirements and wrote their questions. I answered these questions and compiled some of their questions with other questions to prepare a question list. I also prepared an action item list for updating the requirements.
+- [#329 Preparing Deliverables for Milestone](https://github.com/bounswe/bounswe2022group7/issues/329): I handled the deliverable preparation and tracking together with @canatakan
+- **MILESTONE 1**
+- [#389](https://github.com/bounswe/bounswe2022group7/issues/389): In this issue, we looked into the possibilty of using base64 encoding when passing images.
+- [#526](https://github.com/bounswe/bounswe2022group7/issues/389): In this issue, we worked on creating a tag for milestone 2.
+- **MILESTONE 2**
+
+### Pull Requests
+
+- [#269](https://github.com/bounswe/bounswe2022group7/pull/269): With this PR, I added the router implemenetation and the new folder structure.
+- [#288](https://github.com/bounswe/bounswe2022group7/pull/288): With this PR, I added the static sign-up and sign-in pages.
+- [#291](https://github.com/bounswe/bounswe2022group7/pull/291): With this PR, I added token handling to the frontend.
+- [#324](https://github.com/bounswe/bounswe2022group7/pull/324): With this PR, we merged the changes we made in the frontend to the develop branch.
+- [#349](https://github.com/bounswe/bounswe2022group7/pull/349): With this PR, I integrated the art item page with the API endpoint.
+- [#367](https://github.com/bounswe/bounswe2022group7/pull/367): With this PR, I added the event page in the frontend.
+- **MILESTONE 1**
+- [#387](https://github.com/bounswe/bounswe2022group7/pull/387): I created a form layout to contain the sign-in and sign-up forms.
+- [#417](https://github.com/bounswe/bounswe2022group7/pull/417): I added another layout to contain content pages. I also improved the error page and fixed endpoint requests in the home page.
+- [#459](https://github.com/bounswe/bounswe2022group7/pull/459): I added create art item and physical event pages.
+- [#474](https://github.com/bounswe/bounswe2022group7/pull/474): I removed an unnecessary field from a table in the backend and updated the requests. Field was `posterId` for discussion posts.
+- [#476](https://github.com/bounswe/bounswe2022group7/pull/476): Updated discussion post get respose of the endpoint and added create/view art item pages.
+- [#478](https://github.com/bounswe/bounswe2022group7/pull/478): We created a PR to transfer all changes to master branch.
+- [#491](https://github.com/bounswe/bounswe2022group7/pull/491): I restyled the content pages.
+- [#521](https://github.com/bounswe/bounswe2022group7/pull/521): I added unit tests to the CommentSection component.
+- [#522](https://github.com/bounswe/bounswe2022group7/pull/522): I added mock text annotation for milestone presentation.
+- **MILESTONE 2**
+- [PR #586](https://github.com/bounswe/bounswe2022group7/pull/586): Updating the image & text annotation editor by removing the tag field
+- [PR #585](https://github.com/bounswe/bounswe2022group7/pull/585): Adding art item auction to the frontend
+- [PR #592](https://github.com/bounswe/bounswe2022group7/pull/592): Adding downvote upvote to comments
+- [PR #597](https://github.com/bounswe/bounswe2022group7/pull/597): Adding online events
+- [PR #609](https://github.com/bounswe/bounswe2022group7/pull/609): Add delete, participate, like, upvote functionality to content pages
+
+### Unit tests:
+
+I have written unittests for the comment section component I wrote to display comments and new comment functionality under content pages of our application.
 
 ## Musa Şimşek
 
