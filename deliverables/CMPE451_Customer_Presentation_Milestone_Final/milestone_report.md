@@ -511,7 +511,7 @@ Fix
 #### 2.5 Legal and Ethical Issues
 | Requirement | Status for Web| Status for Mobile|
 | ----- | ------ | ------ |
-|2.5.1 Usage of personal information should shall comply with the rules of [GDPR](https://gdpr.eu/) and [KVKK](https://www.kvkk.gov.tr/).|||
+|2.5.1 Usage of personal information should shall comply with the rules of [GDPR](https://gdpr.eu/) and [KVKK](https://www.kvkk.gov.tr/).|Not implemented|Not implemented|
 |2.5.2 Users shall read and accept “Terms of Use” and “Privacy Policy” before signing up|Not implemented|Not implemented|
 
 
