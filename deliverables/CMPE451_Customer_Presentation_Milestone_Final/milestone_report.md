@@ -444,7 +444,7 @@ Known Bugs / Limitations
 | *Review the Comment feature* | [#486](https://github.com/bounswe/bounswe2022group7/issues/486), [PR #519](https://github.com/bounswe/bounswe2022group7/pull/519), [Requested changes](https://github.com/bounswe/bounswe2022group7/pull/519#pullrequestreview-1205223883), [Final approval](https://github.com/bounswe/bounswe2022group7/pull/519#pullrequestreview-1205555360)|
 | Build and add the `.apk` file to the Milestone 2 Tag | [0.2.0-alpha](https://github.com/bounswe/bounswe2022group7/releases/tag/customer-presentation-2) |
 | Complete Image Annotation UI | [#507](https://github.com/bounswe/bounswe2022group7/issues/507), [PR #610](https://github.com/bounswe/bounswe2022group7/pull/610) |
-| Complete Image Annotation network connections | [#611],(https://github.com/bounswe/bounswe2022group7/issues/611), [PR #619](https://github.com/bounswe/bounswe2022group7/pull/619)|
+| Complete Image Annotation network connections | [#611](https://github.com/bounswe/bounswe2022group7/issues/611), [PR #619](https://github.com/bounswe/bounswe2022group7/pull/619)|
 | Contribute to Event Page UI arrangement | [cce979f](https://github.com/bounswe/bounswe2022group7/pull/629/commits/cce979f5f71de1615c04e984f08fb496a2b46bcf), [eefdeea](https://github.com/bounswe/bounswe2022group7/pull/629/commits/eefdeea1ea4cdb34a62109fcacaf20f365a41fee) | 
 | Build and add the `.apk` file to the Final Milestone Tag | [0.9.0](https://github.com/bounswe/bounswe2022group7/releases/tag/customer-presentation-3) |
 | Review and fill mobile requirements status in the Final Milestone Report | [367013e](https://github.com/bounswe/bounswe2022group7/commit/367013e9c355f2019d8190e21335ca77ed2fc9e2)|
@@ -1742,7 +1742,126 @@ Management related significant issues:
 - [Unit Test for email validator function](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/unit_test/validator_test.dart)
 - [Widget Test for register page](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/register_test.dart)
 
+
 ## Can Atakan Uğur
+
+### Member
+
+Member of the Group 7's Mobile Team. [Wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Can-Atakan-U%C4%9Fur) and [time tracking page](https://github.com/bounswe/bounswe2022group7/wiki/Can-Atakan-U%C4%9Fur-(Effort-Tracking)) can be found in these links.
+
+### Responsibilities
+
+- Member of the Mobile Team
+- Actively participating in the planning process 
+- Milestone 1, Milestone 2, and Final Milestone mobile presenter
+- Implementing fundamental Home Page and Post models and connections
+- Implementing Event & Art Item Pages with endpoint integrations
+- Implementing Profile Settings and Account Information pages with integrations
+- Implementing Image Annotation UI
+- Implementing Image Annotation Network with compliance with the W3C Annotation Standards
+- Reviewing majority of the pull requests and following the development in the Mobile Team
+
+### Main Contributions
+
+**Code Related Significant Issues:**
+* [Implement Home Page #265](https://github.com/bounswe/bounswe2022group7/issues/265)
+* [Customize the Home Page for Guest Users #313](https://github.com/bounswe/bounswe2022group7/issues/313)
+* [Implement Event page with endpoint integrations #330](https://github.com/bounswe/bounswe2022group7/issues/330)
+* [Implement the Art Item page with endpoint integrations #331](https://github.com/bounswe/bounswe2022group7/issues/331)
+* [Add tests for the Event Page #361](https://github.com/bounswe/bounswe2022group7/issues/361)
+* [Complete post widgets in homepage #442](https://github.com/bounswe/bounswe2022group7/issues/442)
+* [Update Home Page endpoints & images #445](https://github.com/bounswe/bounswe2022group7/issues/442)
+* [Implement user profile settings #481](https://github.com/bounswe/bounswe2022group7/issues/481)
+* [Add widget tests for Settings Page #528](https://github.com/bounswe/bounswe2022group7/issues/528)
+* [Complete the UI for Image Annotations #507](https://github.com/bounswe/bounswe2022group7/issues/507)
+* [Complete Image Annotation network connections #611](https://github.com/bounswe/bounswe2022group7/issues/611)
+* [Contribute to final Event Page UI arrangement #630](https://github.com/bounswe/bounswe2022group7/issues/630)
+
+**Management Related Significant Issues:**
+* [Revise and update the Class Diagram #239](https://github.com/bounswe/bounswe2022group7/issues/239)
+* [Revise and update the Sequence Diagram for Annotations #240](https://github.com/bounswe/bounswe2022group7/issues/240)
+* [Revise and update the Project Plan #241](https://github.com/bounswe/bounswe2022group7/issues/241)
+* [Fix Comment and Discussion Post class structures #296](https://github.com/bounswe/bounswe2022group7/issues/296)
+* [Prepare Deliverables for Milestone #329](https://github.com/bounswe/bounswe2022group7/issues/329)
+* [Customer Meeting Presentation Preparation for M1 #353](https://github.com/bounswe/bounswe2022group7/issues/353)
+* [Update the Project Plan after Milestone 1 #402](https://github.com/bounswe/bounswe2022group7/issues/402)
+* [Customer Meeting Presentations Preparation for M2 #497](https://github.com/bounswe/bounswe2022group7/issues/497) 
+* [Fill the Mobile Annotations part in the Milestone 2 Group Report #512](https://github.com/bounswe/bounswe2022group7/issues/512)
+
+
+### Pull Requests
+
+**PRs I created:**
+* [Homepage fundamentals #266](https://github.com/bounswe/bounswe2022group7/pull/266)
+* [Merging android into develop #328](https://github.com/bounswe/bounswe2022group7/pull/328)
+* [Event Page integrations into Develop #348](https://github.com/bounswe/bounswe2022group7/pull/348)
+* [Merge app name updates into develop #352](https://github.com/bounswe/bounswe2022group7/pull/352)
+* [Merge Event Page tests into Develop #364](https://github.com/bounswe/bounswe2022group7/pull/364)
+* [Merge Art Item updates into Develop #365](https://github.com/bounswe/bounswe2022group7/pull/365)
+* [Post model fix #444](https://github.com/bounswe/bounswe2022group7/pull/444)
+* [Homepage integration #471](https://github.com/bounswe/bounswe2022group7/pull/471)
+* [Profile Settings #505](https://github.com/bounswe/bounswe2022group7/pull/505)
+* [Partial implementation of Image Annotations #524](https://github.com/bounswe/bounswe2022group7/pull/524)
+* [Settings Page widget tests #529](https://github.com/bounswe/bounswe2022group7/pull/529)
+* [Complete Image Annotation UI #610](https://github.com/bounswe/bounswe2022group7/pull/610)
+* [Complete Image Annotation network connections](https://github.com/bounswe/bounswe2022group7/pull/619)
+
+
+**PRs I reviewed:**
+* [Dev/profilepage musa #279](https://github.com/bounswe/bounswe2022group7/pull/279#pullrequestreview-1153602119)
+* [Implemented user provider #293](https://github.com/bounswe/bounswe2022group7/pull/293#pullrequestreview-1154478646)
+* [Connected register form to backend #320](https://github.com/bounswe/bounswe2022group7/pull/320#pullrequestreview-1161024425)
+* [Merge Changes in Frontend into Develop #324](https://github.com/bounswe/bounswe2022group7/pull/324#pullrequestreview-1161020804)
+* [[Mobile] Add Widget Test for Register Page #360](https://github.com/bounswe/bounswe2022group7/pull/360#pullrequestreview-1162523766)
+* [Dev/android/home page #362](https://github.com/bounswe/bounswe2022group7/pull/362#pullrequestreview-1162617659)
+* [[Mobile] Added .env file for server configuration #363](https://github.com/bounswe/bounswe2022group7/pull/363#pullrequestreview-1162447300)
+* [Android continuous workflow to master #411](https://github.com/bounswe/bounswe2022group7/pull/411)
+* [Android continuous workflow to develop #412](https://github.com/bounswe/bounswe2022group7/pull/412)
+* [Removal of Optional Fields from Register Page #414](https://github.com/bounswe/bounswe2022group7/pull/414)
+* [Geotagging for the Create Event Page #443](https://github.com/bounswe/bounswe2022group7/pull/443)
+* [String to list implementation of back-end #456](https://github.com/bounswe/bounswe2022group7/pull/456)
+* [Milestone II Deployment Test #478](https://github.com/bounswe/bounswe2022group7/pull/478)
+* [Event creation unit tests #483](https://github.com/bounswe/bounswe2022group7/pull/483)
+* [Art Item model fix #485](https://github.com/bounswe/bounswe2022group7/pull/485)
+* [Art Item category fix in homepage #492](https://github.com/bounswe/bounswe2022group7/pull/492)
+* [Fix image handling #494](https://github.com/bounswe/bounswe2022group7/pull/494)
+* [Follow & Discussion Page features #499](https://github.com/bounswe/bounswe2022group7/pull/499)
+* [Comment feature #519](https://github.com/bounswe/bounswe2022group7/pull/519)
+* [Home page image caching #546](https://github.com/bounswe/bounswe2022group7/pull/546)
+* [Profile Page revision #578](https://github.com/bounswe/bounswe2022group7/pull/578)
+* [Null bug fix #589](https://github.com/bounswe/bounswe2022group7/pull/589)
+* [Report feature #596](https://github.com/bounswe/bounswe2022group7/pull/596)
+* [Follow fix #604](https://github.com/bounswe/bounswe2022group7/pull/604)
+* [Search feature #618](https://github.com/bounswe/bounswe2022group7/pull/618)
+* [Auction feature #620](https://github.com/bounswe/bounswe2022group7/pull/620)
+* [Review Text Annotations #622](https://github.com/bounswe/bounswe2022group7/pull/622)
+* [Event Page UI updates #629](https://github.com/bounswe/bounswe2022group7/pull/629)
+* [Back-end connections for Bidding #632](https://github.com/bounswe/bounswe2022group7/pull/632)|
+* [The merge to master for Final Milestone #638](https://github.com/bounswe/bounswe2022group7/pull/638)|
+
+
+### Tests
+
+**Unit Tests**
+
+- [String conversion unit tests](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/unit_test/string_helpers_test.dart): Set of unit tests for a function that converts the string representation of an array of strings to an actual array of strings.
+
+**Widget Tests**
+
+As explained in my Milestone 2 Report, I have written Widget Tests for the pages mentioned below, mocking the HTTP requests and using mock image data, in addition to the custom request/response objects.
+
+- Widget tests for Event Page ([#361](https://github.com/bounswe/bounswe2022group7/issues/361), [Test file](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/event_page_test.dart))
+- Widget tests for Settings Page ([#528](https://github.com/bounswe/bounswe2022group7/issues/528), [PR #529](https://github.com/bounswe/bounswe2022group7/pull/529), [Test file](https://github.com/bounswe/bounswe2022group7/blob/develop/android/test/widget_test/settings_page_test.dart))
+
+Unfortunately, since the time window for the Final Milestone was very tight, I could not add tests for the Image Annotations.
+
+
+### Additional Information
+
+In addition to my responsibilities, I also followed the development process both in Mobile Team and the other sub-teams. I was in touch with my friends all time and having discussions as to the implementation details and standards that we should follow. I was crucial for combining everyone's code together and getting our software package ready before the presentation, especially in the Mobile Team. On top of those, I did my best to attend classes and lab sessions in which I provided my team with detailed plans for our development, and actively discussed key points for our implementation process.
+
+
+
 
 ## Demet Yayla
 
