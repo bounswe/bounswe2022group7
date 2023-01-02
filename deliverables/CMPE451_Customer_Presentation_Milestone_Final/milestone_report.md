@@ -821,6 +821,61 @@ To build using Android Studio interface:
 
 ## Sabri Mete Akyüz
 
+### Member
+My name is Sabri Mete Akyuz . Contacts can be found on [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Sabri-Mete-Akyüz). You can also find [my time tracking on the wiki](https://github.com/bounswe/bounswe2022group7/wiki/Sabri-Mete-Akyüz-(Effort-Tracking)).
+
+### Responsibilities
+
+- I am a member of the backend team. I worked on research, planning and implementation. I also helped managing the backend team.
+
+### Main Contributions
+
+Before starting the project we decided to use Kotlin with Sprin Boot and MySql. To start the project, I created the backend branch with initial code for the backend. I created temporary databases for the backend team to test their code. I also looked into authentication/authorization and implemented authentication handling. I implemented the login and signup endpoints.
+I implemented some of the Data Transfer Objects which are needed for Milestone-2 features. I implemented functionalities for signup endpoint. Communicated with the frontend and mobile teams and decided to create one endpoint for each feature with ability to understand the requester by their JWT token and work accordingly. I created the structure and implemented it. Also, I fixed some issues on the existing code. 
+I implemented like, participate, bookmark, downvote and upvote functionalities for corresponding classes.
+
+Implementation related significant issues:
+- [#251 Backend Code Initialization](https://github.com/bounswe/bounswe2022group7/issues/251): I initialized the backend codebase in Kotlin. 
+-  [#271 Implementation of Authentication Part](https://github.com/bounswe/bounswe2022group7/issues/271): For enpoint accesses, created authentication mechanism.
+-  [#308 Implementation of Login and Signup Endpoints](https://github.com/bounswe/bounswe2022group7/issues/308): To eable users to signup and login, enpoints are implemented. They provide JWT token as response.
+- [#393 Combine generic and user specific endpoints](https://github.com/bounswe/bounswe2022group7/issues/393): I created and implemented the structure for endpoints to make them able to understand the requester by their JWT token and work accordingly.
+- [#416 Create an endpoint to return a user](https://github.com/bounswe/bounswe2022group7/issues/416): I implemented an endpoint for returning user information.
+- [#455 Implement Discussion Post DTO](https://github.com/bounswe/bounswe2022group7/issues/455): I implemented a new DTO class for discussion posts to use while returning classes to other teams
+- [#472 Implement Event DTO](https://github.com/bounswe/bounswe2022group7/issues/472): I implemented a new DTO class for events to use while returning classes to other teams
+- [#532 Implementing Unit Tests on Backend](https://github.com/bounswe/bounswe2022group7/issues/532): I created unit test environment and implemented tests for image controller.
+- [#534 Upvote/Downvote Comment Feature](https://github.com/bounswe/bounswe2022group7/issues/534): I implemented upvote and downvote functionality for comments.
+- [#537 Upvote/Downvote Discussion Post Feature](https://github.com/bounswe/bounswe2022group7/issues/537): I implemented upvote and downvote functionality for discussion posts.
+- [#553 Art Item Like/Bookmark and Event Bookmark Endpoint](https://github.com/bounswe/bounswe2022group7/issues/553): I implemented like and bookmark functionalities for art items and also bookmark functionality for events.
+- [#554 Event Participation Endpoint](https://github.com/bounswe/bounswe2022group7/issues/554): I implemented participation functionality for events.
+- [#555 Report Functionality Endpoint](https://github.com/bounswe/bounswe2022group7/issues/555): I implemented an endpoint for creating reports.
+- [#558 Creating DTO for Registered User](https://github.com/bounswe/bounswe2022group7/issues/558): I implemented a new DTO class for Users to use while returning classes to other teams
+- [#573 Collaborator Implementation](https://github.com/bounswe/bounswe2022group7/issues/573): I added collaborators field into event creation endpoint. Updated required parts of the codebase to support this feauture.
+
+Debugging related significant issues:
+- [#384 Adding Json Related Indicators](https://github.com/bounswe/bounswe2022group7/issues/384): There was a recursion problem while trying to convert the class into json. I fixed the problem using annotation JsonIdentityInfo.
+- [#390 Update endpoints to return JSON](https://github.com/bounswe/bounswe2022group7/issues/390): Some of our endpoints weren't returning response in json format. I updated them.
+- [#391 Update signup endpoint according to customer feedback](https://github.com/bounswe/bounswe2022group7/issues/391): Removed optional fields from signup request and endpoint.
+- [#419 Return token directly after signup](https://github.com/bounswe/bounswe2022group7/issues/419): After signup, I directly made the users logged in and returned the jwt token in response of the signup request.
+- [#469 Fix a bug related with authentication of a discussion post endpoint](https://github.com/bounswe/bounswe2022group7/issues/469): There was a bug related with security configurations. It was a quick fix.
+
+### Pull Requests
+
+[#PR317](https://github.com/bounswe/bounswe2022group7/pull/317),[#PR342](https://github.com/bounswe/bounswe2022group7/pull/342),[#PR395](https://github.com/bounswe/bounswe2022group7/pull/395), [#PR396](https://github.com/bounswe/bounswe2022group7/pull/396), [#PR421](https://github.com/bounswe/bounswe2022group7/pull/421), [#PR424](https://github.com/bounswe/bounswe2022group7/pull/424), [#PR427](https://github.com/bounswe/bounswe2022group7/pull/427), [#PR463](https://github.com/bounswe/bounswe2022group7/pull/463), [#PR464](https://github.com/bounswe/bounswe2022group7/pull/464), [#PR473](https://github.com/bounswe/bounswe2022group7/pull/473), [#PR461](https://github.com/bounswe/bounswe2022group7/pull/461), [#PR532](https://github.com/bounswe/bounswe2022group7/pull/532),[#PR536](https://github.com/bounswe/bounswe2022group7/pull/536), [#PR538](https://github.com/bounswe/bounswe2022group7/pull/538), [#PR549](https://github.com/bounswe/bounswe2022group7/pull/549), [#PR556](https://github.com/bounswe/bounswe2022group7/pull/556), [#PR560](https://github.com/bounswe/bounswe2022group7/pull/560), [#PR561](https://github.com/bounswe/bounswe2022group7/pull/561), [#PR571](https://github.com/bounswe/bounswe2022group7/pull/571), [#PR575](https://github.com/bounswe/bounswe2022group7/pull/575)
+
+As Reviewer:
+[PR#276](https://github.com/bounswe/bounswe2022group7/pull/276),[PR#277](https://github.com/bounswe/bounswe2022group7/pull/277),[PR#300](https://github.com/bounswe/bounswe2022group7/pull/300), [PR#307](https://github.com/bounswe/bounswe2022group7/pull/307), [PR#311](https://github.com/bounswe/bounswe2022group7/pull/311), [PR#322](https://github.com/bounswe/bounswe2022group7/pull/322), [PR#325](https://github.com/bounswe/bounswe2022group7/pull/325), [PR#327](https://github.com/bounswe/bounswe2022group7/pull/327),[PR#345](https://github.com/bounswe/bounswe2022group7/pull/345),
+[#PR380](https://github.com/bounswe/bounswe2022group7/pull/380), [#PR383](https://github.com/bounswe/bounswe2022group7/pull/383), [#PR385](https://github.com/bounswe/bounswe2022group7/pull/385), [#PR386](https://github.com/bounswe/bounswe2022group7/pull/386), [#PR413](https://github.com/bounswe/bounswe2022group7/pull/413), [#PR428](https://github.com/bounswe/bounswe2022group7/pull/428), [#PR448](https://github.com/bounswe/bounswe2022group7/pull/448), [#PR451](https://github.com/bounswe/bounswe2022group7/pull/451), [#PR462](https://github.com/bounswe/bounswe2022group7/pull/452), [#PR474](https://github.com/bounswe/bounswe2022group7/pull/474), [#PR476](https://github.com/bounswe/bounswe2022group7/pull/476), [#PR477](https://github.com/bounswe/bounswe2022group7/pull/477),[#PR551](https://github.com/bounswe/bounswe2022group7/pull/551), [#PR557](https://github.com/bounswe/bounswe2022group7/pull/557), [#PR559](https://github.com/bounswe/bounswe2022group7/pull/559), [#PR574](https://github.com/bounswe/bounswe2022group7/pull/574)
+
+### Unit Tests
+
+I wrote unit tests for **Image Controller**: get/post/delete endpoints.
+They can be seen here [#PR532](https://github.com/bounswe/bounswe2022group7/pull/532)
+
+For discussion post and comment voting in these PRs: [#PR536](https://github.com/bounswe/bounswe2022group7/pull/536), [#PR538](https://github.com/bounswe/bounswe2022group7/pull/538) 
+For participating events: [#PR556](https://github.com/bounswe/bounswe2022group7/pull/556)
+For liking and bookmarking art items and bookmarking events: [#PR560](https://github.com/bounswe/bounswe2022group7/pull/560)
+For report endpoint: [#PR561](https://github.com/bounswe/bounswe2022group7/pull/561)
+
 ## Enes Aydoğduoğlu
 
 ## Erim Erkin Doğan
