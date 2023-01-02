@@ -1574,16 +1574,16 @@ I am a frontend team member also working on DevOps related tasks. My profile can
 
 #### Code Related Significant Issues:
 
-**Milestone 1:**
+Milestone 1:
 - [Frontend Dockerization and CI/CD setup #283](https://github.com/bounswe/bounswe2022group7/issues/282)
 - [Revising and finishing integration with API for sign-in and sign-up pages for frontend #338](https://github.com/bounswe/bounswe2022group7/issues/338)
 
-**Milestone 2:**
+Milestone 2:
 - [Revising sign-up experience in frontend #418](https://github.com/bounswe/bounswe2022group7/issues/418)
 - [Updating frontend homepage's visual style and fixing the api connection #487](https://github.com/bounswe/bounswe2022group7/issues/487)
 - [Revising the frontend's navigation bar design #489](https://github.com/bounswe/bounswe2022group7/issues/489)
 
-**Final Milestone:**
+Final Milestone:
 - [Implementing copyright reporting to frontend #581](https://github.com/bounswe/bounswe2022group7/issues/581)
 - [Adding like, participate, bookmark and follow functionalities to frontend's homepage #582](https://github.com/bounswe/bounswe2022group7/issues/582)
 - [Implementing search functionality to web application #617](https://github.com/bounswe/bounswe2022group7/issues/617)
@@ -1595,7 +1595,7 @@ I am a frontend team member also working on DevOps related tasks. My profile can
 - [Creating tag for milestone 2 #526](https://github.com/bounswe/bounswe2022group7/issues/526)
 - [Setup Swagger for endpoint documentation #399](https://github.com/bounswe/bounswe2022group7/issues/399)
 
-**Infrastructure & Deployment:**
+Infrastructure & Deployment:
 - [Setting up Dockerization, AWS deployment, CI/CD for web and API #282](https://github.com/bounswe/bounswe2022group7/issues/282)
 - [Setup deployment & tests for Annotation microservice #517](https://github.com/bounswe/bounswe2022group7/issues/526)
 
@@ -1603,6 +1603,10 @@ I am a frontend team member also working on DevOps related tasks. My profile can
 
 #### Pull Requests opened by me
 
+- [Merge docker implementation with frontend branch #286](https://github.com/bounswe/bounswe2022group7/pull/286)
+- [[Frontend] Merge revised signup and signing pages to develop #346](https://github.com/bounswe/bounswe2022group7/pull/346)
+- [[Frontend] Merge configuration changes for AWS deployment #354](https://github.com/bounswe/bounswe2022group7/pull/354)
+- [[Backend] Merge docker and AWS deployment configurations #355](https://github.com/bounswe/bounswe2022group7/pull/355)
 - [Merge swagger configuration to develop #404](https://github.com/bounswe/bounswe2022group7/pull/404)
 - [Merge android continuous workflow to master #411](https://github.com/bounswe/bounswe2022group7/pull/411)
 - [Merge android continuous integration workflow to develop #412](https://github.com/bounswe/bounswe2022group7/pull/412)
@@ -1626,6 +1630,12 @@ I am a frontend team member also working on DevOps related tasks. My profile can
 
 #### Reviewed Pull Requests
 
+- [Dockerization of backend application #276](https://github.com/bounswe/bounswe2022group7/pull/276)
+- [Add sign-up and sign-in pages (FE, #284) #288](https://github.com/bounswe/bounswe2022group7/pull/288)
+- [Add authentication (FE) #291](https://github.com/bounswe/bounswe2022group7/pull/291)
+- [Adding key to application properties #325](https://github.com/bounswe/bounswe2022group7/pull/325)
+- [Merge changes in Android to Develop #328](https://github.com/bounswe/bounswe2022group7/pull/328)
+- [Add event page #367 ](https://github.com/bounswe/bounswe2022group7/pull/367)
 - [Content Layout and Improvements #417](https://github.com/bounswe/bounswe2022group7/pull/417)
 - [return token after signup #421](https://github.com/bounswe/bounswe2022group7/pull/421)
 - [Add Create Physical Event And Art Item Pages #459](https://github.com/bounswe/bounswe2022group7/pull/459)
