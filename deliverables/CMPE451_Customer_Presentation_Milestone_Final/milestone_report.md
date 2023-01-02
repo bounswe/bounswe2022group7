@@ -1433,7 +1433,7 @@ For report endpoint: [#PR561](https://github.com/bounswe/bounswe2022group7/pull/
 
 ### Member
 
-I am a member of frontend team. This is [My Wiki Page](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu) You can find my weekly contributions on [My Effort Page](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu-(Effort-Tracking)).
+I am a member of frontend team. This is [My Wiki Page](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu). You can find my weekly contributions on [My Effort Page](https://github.com/bounswe/bounswe2022group7/wiki/Enes-Aydo%C4%9Fduo%C4%9Flu-(Effort-Tracking)).
 
 ### Responsibilities
 
@@ -1503,6 +1503,8 @@ I actively participated in the weekly team meetings, implemented the Profile Pag
 - [Profile Page Test](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/Profile.test.js)
 
 #### Additional information:
+
+Since I was involved in the project this term, I first examined every document of the project on github. I reviewed all the project related materials on github. I had not dealt with frontend much before. During this period, I tried to improve myself and implement the project in the frontend team. I tried to add the event page on the frontend, but I could not add it successfully. My main responsibility was to implement the profile page. I created my own wiki and effort tracking pages, contributed to the updating of requirements and diagrams. I re-prepared the project plan and added it to github.
 
 ## Erim Erkin Doğan
 ### Member
