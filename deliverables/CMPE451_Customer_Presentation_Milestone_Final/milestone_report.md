@@ -44,6 +44,47 @@
 
 ## 1.1. Executive Summary
 
+### 1.1.1 What is Ideart. / Summary
+Ideart. is an art platform that was created to engage artists and art lovers by sharing events, art items, and discussion posts. Everyone can sign up as a regular user or an artist, but by remaining as a regular user you can still view the public pages as a guest without the additional functionalities enabled to you. Regular users have the ability to follow other user profiles (both types), create bidding on auctioned art items, attend physical exhibitions or online galleries, post discussions and leave comments on events, art items, and discussion posts. The following users have also come with the additional feature as recommendation. Items of followed users are prioritized on the homepage. In addition, users can interact with others by liking art items, participating in events and voting on discussion posts and comments. Along with the above-mentioned benefits available to regular users; artists may publish their artworks, host physical exhibitions and arrange online galleries. All uploaded art items to our site are copyright protected; report functionality can be used to inform suspicious art items and our admin shall deal with them. Moreover, artists are able to put their art items on auction and get biddings from other users. Our application is run both on mobile and the web with an additional annotation feature! You can indicate what you are thinking with increased expressiveness by annotating text and image pieces. Our search function also uses the necessary algorithms that enable semantic search for our user not only lexical one.
+
+### 1.1.2 Status of the Deliverables
+| **Deliverable** | **Last Edit Date** | **Status** | 
+| -------- | ------------ | ---------------- |
+|Group Milestone Report | | |
+|Project Artifacts | | |
+|Software Package| | |
+|Individual Milestone Report | | |
+
+### 1.1.3 Release Notes
+New
+* Online gallery event
+* Search feature found upon MySQL's full-text-index in natural language mode
+* Recommendation algorithm
+* Bidding system
+* Like/Participate/Report/Bookmark features
+* Report functionality
+
+Fix
+* Backend integration of annotation feature
+
+### 1.1.4 Changes
+* Copyright system is modified. Instead of providing an additional copyright feature, all art items are copyright protected by default and all users can report suspicious art items.
+* Recommendation system is concluded. Since not specified, by default we arranged the system such that it prioritizes the following artists' items first, and then sorts the items by their popularities which is basically related to the like count of an art item and participant number of an event. The default specification for prioritization can be changed according to the needs of the customer in future releases.
+* User level is updated. We are using a simple algorithm for calculating user level; uploading art items and writing discussion posts are 1 point by each and arranging events is 2 points. The user level is shown on profile pages but it is not used as a decision mechanism for enabling features in our platform to users yet. More explicitly speaking, we created this "level" feature in order to indicate a barrier so that we can modify this levelling algorithm and "level" can be used for gradual enabling features a user is enabled to access. The main aim of this is to escalate a user's eagerness to interact with the platform.
+* For the search mechanism, we did a literature scan. With the limited time and money (which could have elevated our system capacities) we had, we refrained from using an ML algorithm built on our local. Also, we didn't want to use an external API call because it would require a bulk send of many items along with their wide textual fields to be searched. These all would be too slow and it would create a bad user experience. We selected MySQL's full-text-search index. The search has many modes, we selected the mode most appropriate for our case to be **IN NATURAL LANGUAGE MODE**. Also, we can specify which fields of a database object we can do the research on with MySQL full-text-indexes.
+
+### 1.1.5 Reflections
+* Overall group communication and meetings were structured and effective. After experiencing a shortage of time for the first milestone on the frontend and mobile team side because of the backend changes, we decided to have a stricter backend deadline that is also shortened for the other milestones to give the other teams enough time for developing.
+* Meetings are generally really effective. First, we start the meeting by evaluating the past week, and any remaining tasks or issues that should be mentioned to the whole team. Then the upcoming week's task is decided and the blurry parts are discussed if there are any. Usually, we have enough time to divide the tasks between the members, i.e allocating the backend tasks among the backend team members. Hence, we do not need additional team meetings for this purpose.
+* Labeling is a great way to track the progress and also filter the related issues/PRs to detect the changes in a specific feature.
+* Linking the PR and the corresponding issue also facilitates the workflow of the specific feature.
+* For new endpoints, one member from each frontend and the mobile team is added to the backend PR to inform the request/response structures of the endpoint and get feedback about them. If any changes are needed, the backend gets informed immediately and changes are made before the PR merges. This prevents us from creating unnecessary additional fix PRs.
+* In weekly team meetings, we bargain on technical details mutually affecting the workload and workflow of teams. We managed this well. Teams equilibrate and sometimes even curb each other if necessary. By this, as mentioned before, we also provide that the frontend doesn't have to redo parts that utilized the prior structure of the modified data and thus reduce workload.
+ 
+
+### 1.1.6 What Could be Done Differently
+* We could choose a different environment other than Kotlin / Spring Boot. We decided to work on that environment because the majority of the backend team has experience there. However, implementing the class structure at first and dealing with the SQL relations of spring boot was challenging. 
+
 ## 1.2. Summary of work performed by each team member
 
 ### Sabri Mete Akyüz
