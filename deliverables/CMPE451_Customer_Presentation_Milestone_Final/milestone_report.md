@@ -550,14 +550,33 @@ TOKEN should be obtained by signing up as Artist user
 
 - [Art Item Page](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/pages/ArtItemPage/ArtItemPage.js)
 ![image](https://user-images.githubusercontent.com/56518500/210166449-0f457063-0dbd-4f4c-952a-2606d2972b99.png)
-![image](https://user-images.githubusercontent.com/56518500/210166476-e9e3f564-824b-4924-abe4-45b6a0c7b99f.png)
+![image](Front_UI_UX/art_item.PNG)
 
-- [Event Page](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/pages/EventPage/EventPage.js)
+- [New Art Item Page](../../frontend/src/pages/ArtItemPage/CreateArtItemPage.js)
+-[image](Front_UI_UX/new-art-item.PNG)
+
+- [Physical Event Page](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/pages/EventPage/EventPage.js)
 ![image](https://user-images.githubusercontent.com/56518500/210166506-9e360b02-b921-44d8-ab6b-df7c116181a5.png)
 ![image](https://user-images.githubusercontent.com/56518500/210166545-66d73ef7-ea87-4d2f-9f79-e75334cc07ab.png)
 
+- [Create Physical Event Page](../../frontend/src/pages/EventPage/CreatePhysicalEventForm)
+![image](Front_UI_UX/new-physical-event.PNG)
+![image](Front_UI_UX/new-physical-event-2.PNG)
+
+- [Online Event Page](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/pages/EventPage/EventPage.js)
+![image](Front_UI_UX/online-event-1.PNG)
+![image](Front_UI_UX/online-event-2.PNG)
+![image](Front_UI_UX/online-event-3.PNG)
+
+- [Create Online Event Page](../../frontend/src/pages/EventPage/CreatePhysicalEventForm)
+![image](Front_UI_UX/new-online-event.PNG)
+![image](Front_UI_UX/new-online-event-2.PNG)
+
 - [Discussion Post](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/pages/DiscussionPage/DiscussionPostPage.js)
 ![image](https://user-images.githubusercontent.com/56518500/210166575-c324d9a9-e0ab-4f9f-b4be-426955ae0ee2.png)
+
+- [Create New Discussion Post](../../frontend/src/pages/DiscussionPage/CreateDiscussionPostPage.js)
+![image](Front_UI_UX/new-discussion.PNG)
 
 - [Image Annotation](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/components/ImageComponent.js)
 ![image](https://user-images.githubusercontent.com/56518500/210177400-473913da-6c78-4b6c-9f89-459f1655a87c.png)
