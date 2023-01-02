@@ -144,6 +144,34 @@ Fix
 
 ### Enes Aydoğduoğlu
 
+| Task | Link |
+| --- | --- |
+| Milestone 1 | --- |
+| Revising System Requirements | [#254](https://github.com/bounswe/bounswe2022group7/issues/254)|
+| Adding Event Page to frontend | [#356](https://github.com/bounswe/bounswe2022group7/issues/356)|
+| Preparing Part 2 of Customer Milestone-1 Group Review|[#371](https://github.com/bounswe/bounswe2022group7/issues/371)|
+| Reviewing PR|[#324](https://github.com/bounswe/bounswe2022group7/pull/324)
+| Filling out of my personal page||
+| Create my effort-tracking page||
+| Writing individual milestone report||
+| Writing my own responsibilities for Part 6 and 7 of Milestone Group Review|[#373](https://github.com/bounswe/bounswe2022group7/issues/373)|
+| Attending Team Meetings ||
+| Milestone 2 | --- |
+|Attending weekly group meetings||
+|Implementing Profile Page for Frontend|[#400](https://github.com/bounswe/bounswe2022group7/issues/400)|
+|Preparing the Final version of the Project Plan|[#402](https://github.com/bounswe/bounswe2022group7/issues/402)|
+|Reviewing and task management|[#497](https://github.com/bounswe/bounswe2022group7/issues/497),[#509](https://github.com/bounswe/bounswe2022group7/issues/509),[#510](https://github.com/bounswe/bounswe2022group7/issues/510)|
+|Writing individual milestone report||
+| Milestone 3 | --- |
+| Adding User Level to Profile Page | [#579](https://github.com/bounswe/bounswe2022group7/issues/579), [PR #598](https://github.com/bounswe/bounswe2022group7/pull/598) |
+| Displaying bookmarked events, bookmarked art items and participating events for profile page | [#606](https://github.com/bounswe/bounswe2022group7/issues/606), [PR #601](https://github.com/bounswe/bounswe2022group7/pull/601) |
+| Preparing tests for profile page | [#616](https://github.com/bounswe/bounswe2022group7/issues/616), [PR #614](https://github.com/bounswe/bounswe2022group7/pull/614) |
+| Displaying following users on profile page | [#625](https://github.com/bounswe/bounswe2022group7/issues/625), [PR #624](https://github.com/bounswe/bounswe2022group7/pull/624) |
+| Creating Final Milestone Report Document and Setting Titles |  |
+| Adding Software Requirements Specification,Software Design Documents,User Scenarios And Mockups,Project Plan Parts to Final Milestone Report | |
+| Attending Team Meetings ||
+| Preparing individual Final milestone report | |
+
 ### Erim Erkin Doğan
 
 ### Güney İzol
