@@ -659,8 +659,63 @@ Different type of annotations and different type of contents that are being anno
 # 2. Project Artifacts
 
 ## 2.1. Manuals
-### System Manual
-#### Mobile
+
+### 2.1.1. User Manual
+
+### Frontend
+
+To use all functionalities offered in the application, one should first create an account by clicking the sign up button on the navigation bar 
+
+![image](https://user-images.githubusercontent.com/57228345/210236122-9017798f-6873-418c-99a0-e7882b17c24c.png)
+
+After signing up, user will be back on the home page. On the home page, user can use the features we offer to our registered users.
+
+Here is a quick list of the functionality we offer:
+
+On the navbar, they can access the create content functionality by clickling the create button. You can navigate to these pages and create your own content. Mind that when creating content with images (art item or an event), there is a limit to the image size you can upload. This error is not currently shown in the frontend. Another thing to keep in mind when using these pages is that when you are filling the collaborator field, frontend will not show you any suggestions. You must know the collaborator username in advance and write usernames to the collaborator field by seperating the usernames with “,”.
+
+![image](https://user-images.githubusercontent.com/57228345/210236172-1332095b-96a7-496a-815e-42db6ce3a1de.png)
+
+On the navbar, they can click the profile icon log out, edit their profile or access their profile page
+
+![image](https://user-images.githubusercontent.com/57228345/210236197-94599dd5-12f3-434e-9726-fa56f01249c0.png)
+
+On the profile page, you can view user information and content created by the user
+
+![image](https://user-images.githubusercontent.com/57228345/210236211-161c18f8-64db-4e4d-a0d9-d385f41422ab.png)
+
+They can view their ‘feed’. There are two types of feeds. First one is the “Recommended”, where the user is shown content they are recommended. Second one is “All Posts” where user is shown a generic content on the platform sorted by time. Users can click on the filters to filter out content they wish to not view. They can click on content shown to see their page or they can interact with content from the home page. They can participate in events, like art items and discussion posts. They can also follow users; bookmark, report or share content.
+
+![image](https://user-images.githubusercontent.com/57228345/210236234-61f744e5-38ce-4555-ab7f-20086feff992.png)
+
+By clicking on an art item, user can navigate to an art item page. On this page, they can view the title, description, creator, collaborators, labels and categories of the art item. Additionlly, they can view the auction status of the art item. If the art item is on auction, they can make a bid to buy the item. If the user is the artist who created the art item, then they will see buttons to start/end the auction instead. They can also view comments and add their own comment. By clicking on the displayed user names, they can also navigate to the profile page of these users. 
+
+![image](https://user-images.githubusercontent.com/57228345/210236271-ed392cf5-9ed4-4f45-98bc-a8571b7c9880.png)
+
+By clicking on an event, users can view the page of an event. There are two types of events: online and physical. On the physical event page; users can see the title, poster, description, organizer, time, label, category, rules, collaborators, address and comments of the event.
+
+![image](https://user-images.githubusercontent.com/57228345/210236370-3b37d34f-1459-4a20-9ded-48390192e543.png)
+
+On the online art item page, address of the physical event is replaced with a collection of images that belong to the online event. Users can click on the art items to view navigate to their pages.
+
+![image](https://user-images.githubusercontent.com/57228345/210236426-6dcbcbad-8fa1-40d7-8857-d65b241b88de.png)
+
+Users can click on discussion post contents to view their pages. They can see the title, body, writer and the comments of the post. They can upvote and downvote the discussion post and the comments. 
+
+![image](https://user-images.githubusercontent.com/57228345/210236452-f43fcbe5-4db2-44af-b0bf-6a5a497491e4.png)
+
+By selecting text in the descriptions of art items, events and discussion posts; users can create text annotations. An editor will pop up once the text is selected and user will be able to annotate the text. Text will appear highlighted once annotated. If you click a highlighted text, you will be able to view the created annotation.
+
+![image](https://user-images.githubusercontent.com/57228345/210236479-99ddcd43-934e-4279-8948-2b5bf6149152.png)
+
+Users can click and draw on event posters and art items to create image annotations. An editor will pop up and user will be able to enter their annotation. Once created, annotation will appear as a gray box on the image. By clicking on the gray box, user can view a previously created annotation.
+
+![image](https://user-images.githubusercontent.com/57228345/210236499-f74aeb4e-5f26-4665-afb4-eda92ff3a06a.png)
+
+
+### 2.1.2 System Manual
+
+### Mobile
 - System Requirements:
 
 This application only runs on Android devices and requires Android 5.0 or higher.
