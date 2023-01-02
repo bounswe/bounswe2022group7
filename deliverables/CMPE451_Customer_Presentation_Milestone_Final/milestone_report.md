@@ -769,7 +769,7 @@ Users can click and draw on event posters and art items to create image annotati
 ### 2.1.2 System Manual
 
 
-Following instructions are given assuming the user is in the root directory of the repository.
+Following instructions are given assuming the user is in the root directory of the repository. There are two methods for building & running the application: Docker-Compose or manual building & running with docker. The following titles will walk you through first docker-compose and then the manual options.
 
 #### Docker-Compose
 
@@ -802,6 +802,9 @@ to
     #   - ../frontend:/app
 ```
 
+If docker-compose is used for building & running the application, you can skip the next steps and jump to `mobile` part of the document.
+
+----
 
 #### Initialization for all services
 
