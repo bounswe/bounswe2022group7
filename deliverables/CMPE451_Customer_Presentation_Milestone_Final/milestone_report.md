@@ -945,6 +945,17 @@ However, mobile text annotations have a different format than the one in the imp
 [The W3 Web Annotation Data Model](https://www.w3.org/TR/annotation-model/) standard precisely describes what web annotations are and includes clear examples of various ways they can be represented and modelled. In order not to reinvent the wheel, we used an existing library that complies with the W3 standard, called [Recogito](https://github.com/recogito/recogito-js). Using this library in our implementation of annotations in the web client of our app helped us tremendously in that it is used by many people and thus tested extensively. This way we delivered a standards-compliant web implementation of Web Annotation Data Model in a faster and more stable way.
 ## 1.8. Scenarios
 
+Mr. Tan Tenekecioğlu logs in to our platform two weeks before his exhibition. Since he wants to create an event, on the home page he pushes on the "New Event" button. A form for creating the event is shown. He enters the following information for the event in the form:
+
+    Name: Whispers of the Winter Winds
+    Description: A cold slap in the face amidst the dark: The Winter
+    Event Poster:
+    Start Date: 02/04/2022
+    End Date: 23/04/2022
+    Location: Tenekecioğlu Art Studio (Selects on the map)
+
+After creating the exhibition, Mr. Tenekecioglu wants to choose an art gallery to go to with a friend this weekend. His friend likes pop art and wants to visit a pop art exhibition. After opening the website the personalized home page appears. In this page there are multiple art items, events and discussions present catered to him. He sees a familiar art item in which he recognizes the original owner. So he decides to report the art item because of copyright infringement, he clicks on the three dot menu in the right corner of the post and selects report. A popup opens up, in this popup he enters that "this art piece is owned by xxx" and sends. After sending a success message is seen on the left bottom corner. He uses a search bar to find some pop art galleries.(Enters “pop art physical”). At first he wants to read more about what exactly is pop art, and looks at the discussions about "pop art". He carefully reads the discussion. At the same time he upvotes the ones he liked the most. Then he returns to the search results to finally choose the exhibition. He gets interested in one of the exhibitions happening this weekend, and clicks on it to find out more about it. After reading the reviews in the comments section, he clicks on the “Participate” button to mark his participation to it.
+
 # 2. Project Artifacts
 
 ## 2.1. Manuals
