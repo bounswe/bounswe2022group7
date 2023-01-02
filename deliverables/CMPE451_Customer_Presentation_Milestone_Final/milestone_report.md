@@ -991,58 +991,109 @@ After logging in successfully, following actions is possible:
      - Users can go to the search page by tapping the _search icon_ and to the profile page by tapping the _profile icon_ on the app bar.
          <img src="https://user-images.githubusercontent.com/74203551/210261222-785fc3b0-ca3d-404a-8737-b22eb4bb5607.jpg" width="350" height="120">
  2. Users can create posts as events(physical exhibitions and online galleries), art items and discussion posts by giving wanted information. All these types of posts can be created via menu in the homepage, which is shown above. Here is an art item creation example:
-	 - After filling the fields, the art item is ready to be created:
-	     <img src="https://user-images.githubusercontent.com/74203551/210261953-f9fde97c-3152-4df4-b3e8-2f6c5ea1f9ed.jpg" width="350" height="700"> 
-	 - User is navigated to the page of post after the creation process:
-	     <img src="https://user-images.githubusercontent.com/74203551/210262140-a147455d-2796-420e-8a68-a8b20b4705ea.jpg" width="350" height="700">
- 3. In the page of a post created in the platform, users can comment to the post, upvote/downvote previously created comments, give a reaction to the post(like, save, participate for events; like, save for art items; upvote/downvote for discussion posts), annotate a part of the post(image and text annotation for events and art items, text annotation for discussion posts), view annotations, operate on auctions(start/end an auction or place a bid, both are only for art items), report copyright infringements. Here are some examples of these functionalities:
-	 - Users can save events:
-	     <img src="https://user-images.githubusercontent.com/74203551/210262754-bd1e35d2-5324-4ad8-8083-cbc4a51f1538.jpg" width=350 height=700>
-	 - Users can comment on posts:
-		 1. Writing a comment:
-		     <img src="https://user-images.githubusercontent.com/74203551/210262933-76289493-220c-429b-8ef5-7fc75f80d9ea.jpg" width=350 height=700>
-		 2. Comment created and downvoted by the creator:
-		     <img src="https://user-images.githubusercontent.com/74203551/210262990-1f1ecc54-39d3-4aca-87df-ca7aaac60557.jpg" width=350 height=700>
+    
+    - After filling the fields, the art item is ready to be created:
+    
+        <img src="https://user-images.githubusercontent.com/74203551/210261953-f9fde97c-3152-4df4-b3e8-2f6c5ea1f9ed.jpg" width="350" height="700"> 
+    
+    - User is navigated to the page of post after the creation process:
+    
+        <img src="https://user-images.githubusercontent.com/74203551/210262140-a147455d-2796-420e-8a68-a8b20b4705ea.jpg" width="350" height="700">
+3. In the page of a post created in the platform, users can comment to the post, upvote/downvote previously created comments, give a reaction to the post(like, save, participate for events; like, save for art items; upvote/downvote for discussion posts), annotate a part of the post(image and text annotation for events and art items, text annotation for discussion posts), view annotations, operate on auctions(start/end an auction or place a bid, both are only for art items), report copyright infringements. Here are some examples of these functionalities:
+
+    - Users can save events:
+    
+        <img src="https://user-images.githubusercontent.com/74203551/210262754-bd1e35d2-5324-4ad8-8083-cbc4a51f1538.jpg" width=350 height=700>
+    
+    - Users can comment on posts:
+        
+	1. Writing a comment:
+            
+	    <img src="https://user-images.githubusercontent.com/74203551/210262933-76289493-220c-429b-8ef5-7fc75f80d9ea.jpg" width=350 height=700>
+        
+	2. Comment created and downvoted by the creator:
+        
+	    <img src="https://user-images.githubusercontent.com/74203551/210262990-1f1ecc54-39d3-4aca-87df-ca7aaac60557.jpg" width=350 height=700>
+ 
  4. Users can annotate parts of the posts and view annotations.
-	 - Users can create image annotations. After clicking _pen icon_ on the post page, users should select a corner of the annotation by pressing the corresponding point in the image and drag to the diagonal corner of the annotation. After the part that will be annotated is selected, users must tap to the rectangle and add a description. Then, they should approve the description. After the approval, annotation is created.
-		 1.  Provide a description to your annotation:
-		     <img src="https://user-images.githubusercontent.com/74203551/210263778-a2a3a09e-28a0-4682-a10b-ada6b006d071.jpg" width=350 height=700>
-		 2. Image annotation created after approving the description:
-		     <img src="https://user-images.githubusercontent.com/74203551/210263944-d6953315-4fd6-4908-bd10-1517b6f62d91.jpg" width=350 height=700>
-	 - Users can view previously created image annotations and close annotation view. Simply tapping _eye icon_ on the page of the post activates annotation view. Tapping again will deactivate annotation view.
-		 1. Annotation view activated:
-		     <img src="https://user-images.githubusercontent.com/74203551/210263944-d6953315-4fd6-4908-bd10-1517b6f62d91.jpg" width=350 height=700>
-		 2. Deactivating annotation view:
-		     <img src="https://user-images.githubusercontent.com/74203551/210264267-0978dab1-2633-4625-8d09-320d3cfdc485.jpg" width=350 height=700>
-	 - Users can create text annotations. After selecting a text from a post, users are offered an option to create a text annotation. If the user decides to create text annotation, s/he provides a description to the annotation and a text annotation will be created.
-		 1. Selecting text from a post:
-		     <img src="https://user-images.githubusercontent.com/74203551/210264713-9696b46a-e95d-4bf5-bfd9-04cef68cd5de.jpg" width=350 height=700>
-		 2. Providing a description after deciding to annotate the selected text:
-		     <img src="https://user-images.githubusercontent.com/74203551/210264874-2c4fac5b-fa91-4a0b-b5ee-26357fa15727.jpg" width=350 height=700>
-		 3. Text annotation created successfully:
-		     <img src="https://user-images.githubusercontent.com/74203551/210264984-419e3a87-f925-4c7e-b609-51269836dda7.jpg" width=350 height=700>
-	 - Users can view previously created text annotation by tapping the highlighted text on a post page. The description of the annotation will be showed by a pop-up window.
-		 1. Post page with text annotation:
-		     <img src="https://user-images.githubusercontent.com/74203551/210264984-419e3a87-f925-4c7e-b609-51269836dda7.jpg" width=350 height=700>
-		 2. View the annotation by tapping the highlighted text:
-		     <img src="https://user-images.githubusercontent.com/74203551/210265238-7c6af981-485b-4c2d-8a6a-ed4f2c798235.jpg" width=350 height=700>
- 5. Users can operate on auctions. Auction is a feature that is enabled only for art items. The owner of an art item can start/end an auction and other users can place bids to that art item.
-	 - The owner can start an auction for one of his/her art items by pressing the red _Start Auction!_ button in the page of the specified art item.
-	     <img src="https://user-images.githubusercontent.com/74203551/210265663-60934867-bd5a-4fb6-90c9-1c48f7bc1fa1.jpg" width=350 height=700>
-	 - Other users can place bids for an art item which has an active auction by pressing the red _Place Bid_ button in the page of the specified art item
-	     <img src="https://user-images.githubusercontent.com/74203551/210265759-ba61b8dc-1dd5-49f9-bc12-de4ebd1f116d.jpg" width=350 height=700>
+ 
+    - Users can create image annotations. After clicking _pen icon_ on the post page, users should select a corner of the annotation by pressing the corresponding point in the image and drag to the diagonal corner of the annotation. After the part that will be annotated is selected, users must tap to the rectangle and add a description. Then, they should approve the description. After the approval, annotation is created.
+        
+	1.  Provide a description to your annotation:
+
+          <img src="https://user-images.githubusercontent.com/74203551/210263778-a2a3a09e-28a0-4682-a10b-ada6b006d071.jpg" width=350 height=700>
+        
+	2. Image annotation created after approving the description:
+
+          <img src="https://user-images.githubusercontent.com/74203551/210263944-d6953315-4fd6-4908-bd10-1517b6f62d91.jpg" width=350 height=700>
+
+    - Users can view previously created image annotations and close annotation view. Simply tapping _eye icon_ on the page of the post activates annotation view. Tapping again will deactivate annotation view.
+
+        1. Annotation view activated:
+
+            <img src="https://user-images.githubusercontent.com/74203551/210263944-d6953315-4fd6-4908-bd10-1517b6f62d91.jpg" width=350 height=700>
+
+        2. Deactivating annotation view:
+
+            <img src="https://user-images.githubusercontent.com/74203551/210264267-0978dab1-2633-4625-8d09-320d3cfdc485.jpg" width=350 height=700>
+
+    - Users can create text annotations. After selecting a text from a post, users are offered an option to create a text annotation. If the user decides to create text annotation, s/he provides a description to the annotation and a text annotation will be created.
+
+        1. Selecting text from a post:
+
+            <img src="https://user-images.githubusercontent.com/74203551/210264713-9696b46a-e95d-4bf5-bfd9-04cef68cd5de.jpg" width=350 height=700>
+
+        2. Providing a description after deciding to annotate the selected text:
+
+            <img src="https://user-images.githubusercontent.com/74203551/210264874-2c4fac5b-fa91-4a0b-b5ee-26357fa15727.jpg" width=350 height=700>
+
+        3. Text annotation created successfully:
+
+            <img src="https://user-images.githubusercontent.com/74203551/210264984-419e3a87-f925-4c7e-b609-51269836dda7.jpg" width=350 height=700>
+
+    - Users can view previously created text annotation by tapping the highlighted text on a post page. The description of the annotation will be showed by a pop-up window.
+
+        1. Post page with text annotation:
+          
+            <img src="https://user-images.githubusercontent.com/74203551/210264984-419e3a87-f925-4c7e-b609-51269836dda7.jpg" width=350 height=700>
+    
+        2. View the annotation by tapping the highlighted text:
+
+            <img src="https://user-images.githubusercontent.com/74203551/210265238-7c6af981-485b-4c2d-8a6a-ed4f2c798235.jpg" width=350 height=700>
+ 
+5. Users can operate on auctions. Auction is a feature that is enabled only for art items. The owner of an art item can start/end an auction and other users can place bids to that art item.
+
+    - The owner can start an auction for one of his/her art items by pressing the red _Start Auction!_ button in the page of the specified art item.
+
+      <img src="https://user-images.githubusercontent.com/74203551/210265663-60934867-bd5a-4fb6-90c9-1c48f7bc1fa1.jpg" width=350 height=700>
+
+    - Other users can place bids for an art item which has an active auction by pressing the red _Place Bid_ button in the page of the specified art item
+
+      <img src="https://user-images.githubusercontent.com/74203551/210265759-ba61b8dc-1dd5-49f9-bc12-de4ebd1f116d.jpg" width=350 height=700>
+ 
  6. Users can go to the settings page via the menu, as described above. Settings page has sections for editing profile information and logging out. 
-	 - By default; the fullname, country, birth date and profile picture fields of the users are empty.
-	     <img src="https://user-images.githubusercontent.com/74203551/210266190-f6786d00-3d45-41b5-8e42-2947a6b4a184.jpg" width=350 height=700>
-	 - Users may decide to provide more information about themselves and this page serves for this feature. After tapping _Edit Account Info_ button in the bottom, users are navigated to page where they can edit they personal information. After this process finishes, the user can save the new version of the profile.
-	     <img src="https://user-images.githubusercontent.com/74203551/210266470-7c710603-e4d6-43da-bec9-fd4d3d044c0a.jpg" width=350 height=700>
- 7. Users can view profile page of any user, including themselves. A profile page includes a button to navigate to the settings page, a follow button(exists when profile page of another user is visited), list of created items of selected type(event, art item or auctions) and a dropdown button to select the mentioned type.
-	     <img src="https://user-images.githubusercontent.com/74203551/210267253-aa7b7e10-9ccf-44bb-b115-0cc029ac8b77.jpg" width=350 height=700>
- 8. Users can search users, physical exhibitons, online galleries, discussion posts and art items on the search page. As explained above, users are navigated to search page when they pressed the _search icon_ on the appbar of the homepage. Users should provide keywords for search operation and decide which data type they want to search(user, art item etc.). After that, tapping the icon at the end of the searchbar will bring the search results. Tapping a result item will navigate the user to the page of that item.
-	 - _Search users with keyword "musasimsek"_
-       <img src="https://user-images.githubusercontent.com/74203551/210267753-30634eba-ff1e-40a5-8add-c38e95c96e39.jpg" width=350 height=700>
-	 - _Search art items with keyword "parrot"_
-	     <img src="https://user-images.githubusercontent.com/74203551/210267850-576115a6-634d-4333-9182-85fe3de30104.jpg" width=350 height=700>
+
+    - By default; the fullname, country, birth date and profile picture fields of the users are empty.
+
+      <img src="https://user-images.githubusercontent.com/74203551/210266190-f6786d00-3d45-41b5-8e42-2947a6b4a184.jpg" width=350 height=700>
+
+    - Users may decide to provide more information about themselves and this page serves for this feature. After tapping _Edit Account Info_ button in the bottom, users are navigated to page where they can edit they personal information. After this process finishes, the user can save the new version of the profile.
+
+      <img src="https://user-images.githubusercontent.com/74203551/210266470-7c710603-e4d6-43da-bec9-fd4d3d044c0a.jpg" width=350 height=700>
+ 
+7. Users can view profile page of any user, including themselves. A profile page includes a button to navigate to the settings page, a follow button(exists when profile page of another user is visited), list of created items of selected type(event, art item or auctions) and a dropdown button to select the mentioned type.
+
+    <img src="https://user-images.githubusercontent.com/74203551/210267253-aa7b7e10-9ccf-44bb-b115-0cc029ac8b77.jpg" width=350 height=700>
+
+8. Users can search users, physical exhibitons, online galleries, discussion posts and art items on the search page. As explained above, users are navigated to search page when they pressed the _search icon_ on the appbar of the homepage. Users should provide keywords for search operation and decide which data type they want to search(user, art item etc.). After that, tapping the icon at the end of the searchbar will bring the search results. Tapping a result item will navigate the user to the page of that item.
+
+    - _Search users with keyword "musasimsek"_
+
+      <img src="https://user-images.githubusercontent.com/74203551/210267753-30634eba-ff1e-40a5-8add-c38e95c96e39.jpg" width=350 height=700>
+
+    - _Search art items with keyword "parrot"_
+
+      <img src="https://user-images.githubusercontent.com/74203551/210267850-576115a6-634d-4333-9182-85fe3de30104.jpg" width=350 height=700>
 
 
 ### 2.1.2 System Manual
