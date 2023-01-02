@@ -89,6 +89,59 @@ Fix
 
 ### Sabri Mete Akyüz
 
+| Task | Link |
+| ----- | ------|
+| Created the personal wiki page and effort tracker | [#237](https://github.com/bounswe/bounswe2022group7/issues/237) | 
+| Revised the requirements of the project and noted the questions about them. | [#243](https://github.com/bounswe/bounswe2022group7/issues/243) | 
+| Attended the backend team meeting [#1](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%231---12-10-2022). Discussed the structure of the backend by using Class Diagrams. Chose the techs that we use |  |
+| Researched about Kotlin and Spring Boot, watched related videos|  |
+| Initialized the backend code | [#251](https://github.com/bounswe/bounswe2022group7/issues/251)|
+| Implemented the Authentication and Authorization mechanism| [#271](https://github.com/bounswe/bounswe2022group7/issues/271), [#273](https://github.com/bounswe/bounswe2022group7/issues/273), [PR #317](https://github.com/bounswe/bounswe2022group7/pull/317)|
+| Researched about inheritance and Hibernate integration| [#310](https://github.com/bounswe/bounswe2022group7/issues/310)|
+| Implemented the signup and login endpoints| [#308](https://github.com/bounswe/bounswe2022group7/issues/308), [PR #317](https://github.com/bounswe/bounswe2022group7/pull/317)|
+| Disable token requirements for some of the endpoints| [#341](https://github.com/bounswe/bounswe2022group7/issues/341), [PR #342](https://github.com/bounswe/bounswe2022group7/pull/342)|
+| Attended the backend team meetings [#2](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%232-20-10-2022) [#3](https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%233). | |
+| Attended the general meetings and wrote the meeting report for [#3](https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%233) | |
+| Revision of multiple backend issues | [#243](https://github.com/bounswe/bounswe2022group7/issues/243), [#287](https://github.com/bounswe/bounswe2022group7/issues/287), [#295](https://github.com/bounswe/bounswe2022group7/issues/295), [#299](https://github.com/bounswe/bounswe2022group7/issues/299), [#305](https://github.com/bounswe/bounswe2022group7/issues/305), [#306](https://github.com/bounswe/bounswe2022group7/issues/306), [#323](https://github.com/bounswe/bounswe2022group7/issues/323), [#344](https://github.com/bounswe/bounswe2022group7/issues/344)   |
+| Revision of backend related pull requests | [PR #276](https://github.com/bounswe/bounswe2022group7/pull/276), [PR #277](https://github.com/bounswe/bounswe2022group7/pull/277), [PR #300](https://github.com/bounswe/bounswe2022group7/pull/300), [PR #307](https://github.com/bounswe/bounswe2022group7/pull/307), [PR #311](https://github.com/bounswe/bounswe2022group7/pull/311), [PR #322](https://github.com/bounswe/bounswe2022group7/pull/322), [PR #325](https://github.com/bounswe/bounswe2022group7/pull/325), [PR #327](https://github.com/bounswe/bounswe2022group7/pull/327), [PR #345](https://github.com/bounswe/bounswe2022group7/pull/345)  |
+| One of the notetakers during the Customer Milestone 1||
+| Wrote individual milestone report||
+| Wrote the explanation for the tools of backend team for group review and my sections for part 6 & part 7|[#372](https://github.com/bounswe/bounswe2022group7/issues/372), [#373](https://github.com/bounswe/bounswe2022group7/issues/373)|
+| Meeting for planning the group report in first milestone | - |
+| Attended weekly group meeting. | https://github.com/bounswe/bounswe2022group7/wiki/CMPE451-Meeting-Notes-%235 |
+| Attended backend group meeting. | https://github.com/bounswe/bounswe2022group7/wiki/BACKEND-Meeting-Notes-%234 |
+| Fix HTTP Token Error |  https://github.com/bounswe/bounswe2022group7/issues/379 |
+| Update endpoints to return JSON |  https://github.com/bounswe/bounswe2022group7/issues/390 |
+| Update signup endpoint according to customer feedback | https://github.com/bounswe/bounswe2022group7/issues/391 |
+| Combine generic and user specific endpoints |  https://github.com/bounswe/bounswe2022group7/issues/393 |
+| Create an endpoint to return a user |  https://github.com/bounswe/bounswe2022group7/issues/416 |
+| Return token directly after signup | https://github.com/bounswe/bounswe2022group7/issues/419 |
+| Add Artist user signup | https://github.com/bounswe/bounswe2022group7/issues/423 |
+| Implement Discussion Post DTO | https://github.com/bounswe/bounswe2022group7/issues/455 |
+| Fix a bug related with authentication of a discussion post endpoint | https://github.com/bounswe/bounswe2022group7/issues/469 |
+| Implement Event DTO | https://github.com/bounswe/bounswe2022group7/issues/472 |
+| Add Json related annotations | https://github.com/bounswe/bounswe2022group7/issues/384 |
+| Review of multiple issues of backend team | [#377](https://github.com/bounswe/bounswe2022group7/issues/377), [#379](https://github.com/bounswe/bounswe2022group7/issues/379), [#382](https://github.com/bounswe/bounswe2022group7/issues/382), [#394](https://github.com/bounswe/bounswe2022group7/issues/394), [#420](https://github.com/bounswe/bounswe2022group7/issues/420), [#449](https://github.com/bounswe/bounswe2022group7/issues/449), [#450](https://github.com/bounswe/bounswe2022group7/issues/450), [#454](https://github.com/bounswe/bounswe2022group7/issues/454), [#477](https://github.com/bounswe/bounswe2022group7/issues/477)|
+| Review of multiple PR's of backend team | [#PR380](https://github.com/bounswe/bounswe2022group7/pull/380), [#PR383](https://github.com/bounswe/bounswe2022group7/pull/383), [#PR385](https://github.com/bounswe/bounswe2022group7/pull/385), [#PR386](https://github.com/bounswe/bounswe2022group7/pull/386), [#PR413](https://github.com/bounswe/bounswe2022group7/pull/413), [#PR428](https://github.com/bounswe/bounswe2022group7/pull/428), [#PR448](https://github.com/bounswe/bounswe2022group7/pull/448), [#PR451](https://github.com/bounswe/bounswe2022group7/pull/451), [#PR462](https://github.com/bounswe/bounswe2022group7/pull/452), [#PR474](https://github.com/bounswe/bounswe2022group7/pull/474), [#PR476](https://github.com/bounswe/bounswe2022group7/pull/476), [#PR477](https://github.com/bounswe/bounswe2022group7/pull/477)
+| One of the notetakers during the Customer Milestone 2||
+| Wrote individual milestone report||
+| Wrote the API documentation part of the deliverables||
+| Sample Data Formation For Milestone 2 |  https://github.com/bounswe/bounswe2022group7/issues/496 |
+| Implementing Unit Tests on Backend | https://github.com/bounswe/bounswe2022group7/issues/531 |
+| Upvote/Downvote Comment Feature | https://github.com/bounswe/bounswe2022group7/issues/534 |
+| Upvote/Downvote Discussion Post Feature | https://github.com/bounswe/bounswe2022group7/issues/537 |
+| Add Removing Vote Functionality | https://github.com/bounswe/bounswe2022group7/issues/548 |
+| Art Item Like Endpoint | https://github.com/bounswe/bounswe2022group7/issues/553 |
+| Event Participation Endpoint | https://github.com/bounswe/bounswe2022group7/issues/554 |
+| Report Functionality Endpoint | https://github.com/bounswe/bounswe2022group7/issues/555 |
+| Creating DTO for Registered User | https://github.com/bounswe/bounswe2022group7/issues/558 |
+| Collaborator Implementation | https://github.com/bounswe/bounswe2022group7/issues/573 |
+| Sample Data Formation For The Final Milestone |  | |
+| Note taking in Final Milestone | |
+| Data Formation For Final Deliverables | |
+| Team Meeting to Distribute Tasks For Final Deliverables  | |
+| Multiple PR Reviews | [#PR551](https://github.com/bounswe/bounswe2022group7/pull/551), [#PR557](https://github.com/bounswe/bounswe2022group7/pull/557), [#PR559](https://github.com/bounswe/bounswe2022group7/pull/559), [#PR574](https://github.com/bounswe/bounswe2022group7/pull/574) |
+
 ### Enes Aydoğduoğlu
 
 ### Erim Erkin Doğan
