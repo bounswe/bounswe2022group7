@@ -1650,6 +1650,98 @@ I have written [unittests for the comment section component](https://github.com/
 
 ## Atilla Türkmen
 
+### Member
+
+My name is Atilla Türkmen. Contacts can be found on [my personal wiki page](https://github.com/bounswe/bounswe2022group7/wiki/Atilla-Türkmen). You can also find [my time tracking on the wiki](https://github.com/bounswe/bounswe2022group7/wiki/Atilla-Türkmen-(Effort-Tracking)).
+
+### Responsibilities
+
+- I am a member of the mobile team. I worked on research and implementation. I also helped managing the mobile team.
+
+### First Milestone
+
+### Main Contributions
+
+I have created the structure of the mobile Flutter application and generally created a foundation for my teammates' implementation. I have implemented register page UI and network connection with tests, form validators and implemented models and network connection for art item page. I also have implemented the class that stores user data in local storage and provides it to pages.
+
+Code related significant issues:
+- Register Form Implementation: [#263 Form Validators with Unit Tests](https://github.com/bounswe/bounswe2022group7/issues/263) [#294 Register Form UI](https://github.com/bounswe/bounswe2022group7/issues/294) [#318 Connecting Register Form to Backend](https://github.com/bounswe/bounswe2022group7/issues/318)
+- Implementation of Storing User data in Local Storage: [#292 Save user data on login, user provider implementation](https://github.com/bounswe/bounswe2022group7/issues/292)
+- Logout functionality with confirmation pop up: [#321](https://github.com/bounswe/bounswe2022group7/issues/321)
+- Implementation of art item page network connection and models: [#339](https://github.com/bounswe/bounswe2022group7/issues/339)
+
+Management related significant issues:
+- [#241 Updating the Project Plan](https://github.com/bounswe/bounswe2022group7/issues/241): I worked on updating the project plan specifically about updating the tasks for the mobile team and estimating their time.
+
+### Pull Requests
+
+- [#267](https://github.com/bounswe/bounswe2022group7/pull/267): With this PR, I added the basic UI of the register page and validators with unit tests.
+- [#293](https://github.com/bounswe/bounswe2022group7/pull/293): With this PR, I added the functionality for storing user information in local storage and providing it to pages.
+- [#320](https://github.com/bounswe/bounswe2022group7/pull/320): With this PR, I connected the register form to backend endpoint.
+- [#360](https://github.com/bounswe/bounswe2022group7/pull/360): With this PR, I added extra tests for register form.
+- [#363](https://github.com/bounswe/bounswe2022group7/pull/363): With this PR, I added an .env file for storing our server connection information such as IP address and port number.
+
+### Pull Requests I Reviewed
+
+- [#281](https://github.com/bounswe/bounswe2022group7/pull/281): Reviewed login page UI implementation by Ali Can
+- [#340](https://github.com/bounswe/bounswe2022group7/pull/340): Reviewed login page network implementation by Musa
+- [#352](https://github.com/bounswe/bounswe2022group7/pull/352): Reviewed app name change by Atakan
+- [#364](https://github.com/bounswe/bounswe2022group7/pull/364): Reviewed event page tests by Atakan
+- [#365](https://github.com/bounswe/bounswe2022group7/pull/365): Reviewed art item page implementation by Atakan
+
+### Second Milestone
+
+### Main Contributions
+#### &emsp; My Code Related Issues
+- [Research about base 64 image implementation #389](https://github.com/bounswe/bounswe2022group7/issues/389)
+- [Implementing Create Art Item Page UI #403](https://github.com/bounswe/bounswe2022group7/issues/403)
+- [Implementing Geotagging in Create Event Page #439](https://github.com/bounswe/bounswe2022group7/issues/439)
+- [Implementing Create Art Item Page Network Functionality #484](https://github.com/bounswe/bounswe2022group7/issues/484)
+- [Error Fix when Backend Sends JPG Images #493](https://github.com/bounswe/bounswe2022group7/issues/493)
+- [Implementing Text Annotaton UI #495](https://github.com/bounswe/bounswe2022group7/issues/495)
+
+#### &emsp; My Management Related Issues
+- [Write Status of the Deliverables of Milestone 1 #541](https://github.com/bounswe/bounswe2022group7/issues/541)
+
+### Pull Requests
+#### &emsp; Pull requests I Opened
+- [#406](https://github.com/bounswe/bounswe2022group7/pull/406)
+- [#443](https://github.com/bounswe/bounswe2022group7/pull/443)
+- [#485](https://github.com/bounswe/bounswe2022group7/pull/485)
+- [#494](https://github.com/bounswe/bounswe2022group7/pull/494)
+- [#511](https://github.com/bounswe/bounswe2022group7/pull/511)
+#### &emsp; Pull requests I Reviewed
+- [#407](https://github.com/bounswe/bounswe2022group7/pull/407)
+- [#426](https://github.com/bounswe/bounswe2022group7/pull/426)
+- [#430](https://github.com/bounswe/bounswe2022group7/pull/430)
+- [444](https://github.com/bounswe/bounswe2022group7/pull/444)
+- [529](https://github.com/bounswe/bounswe2022group7/pull/529)
+
+### Final Milestone
+
+#### Issues
+
+- [Implement Backend Connection for Text Annotation #576](https://github.com/bounswe/bounswe2022group7/issues/576)
+- [Implement Art Item Auction #599](https://github.com/bounswe/bounswe2022group7/issues/599)
+
+#### Pull Requests I Opened
+
+- [#622](https://github.com/bounswe/bounswe2022group7/pull/622)
+- [#620](https://github.com/bounswe/bounswe2022group7/pull/620)
+
+#### Pull Requests I Reviewed
+
+- [#565](https://github.com/bounswe/bounswe2022group7/pull/565)
+- [#567](https://github.com/bounswe/bounswe2022group7/pull/567)
+- [#603](https://github.com/bounswe/bounswe2022group7/pull/603)
+- [#605](https://github.com/bounswe/bounswe2022group7/pull/605)
+- [#619](https://github.com/bounswe/bounswe2022group7/pull/619)
+- [#621](https://github.com/bounswe/bounswe2022group7/pull/621)
+
+### Unit Tests
+- [Unit Test for email validator function](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/unit_test/validator_test.dart)
+- [Widget Test for register page](https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/register_test.dart)
+
 ## Can Atakan Uğur
 
 ## Demet Yayla
