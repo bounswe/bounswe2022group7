@@ -1404,7 +1404,17 @@ To build using Android Studio interface:
 
 ## 2.6. Unit Tests
 
+Unit tests for backend: https://github.com/bounswe/bounswe2022group7/tree/master/backend/src/test/kotlin/com/group7/artshare
 
+Unit tests for frontend: https://github.com/bounswe/bounswe2022group7/tree/master/frontend/src/tests
+
+Unit tests for mobile: 
+- https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/create_event_test.dart
+- https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/event_page_test.dart
+- https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/register_test.dart
+- https://github.com/bounswe/bounswe2022group7/blob/master/android/test/widget_test/settings_page_test.dart
+- https://github.com/bounswe/bounswe2022group7/blob/master/android/test/unit_test/string_helpers_test.dart
+- https://github.com/bounswe/bounswe2022group7/blob/master/android/test/unit_test/validator_test.dart
 
 # 3. Individual Contribution Reports
 
