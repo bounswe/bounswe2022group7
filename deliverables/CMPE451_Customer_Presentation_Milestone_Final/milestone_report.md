@@ -1393,7 +1393,7 @@ Management related significant issues:
 
 ### Unit tests:
 
-I have written unittests for the comment section component I wrote to display comments and new comment functionality under content pages of our application.
+I have written [unittests for the comment section component](https://github.com/bounswe/bounswe2022group7/blob/master/frontend/src/tests/CommentSection.test.js) I wrote to display comments and new comment functionality under content pages of our application.
 
 ## Musa Şimşek
 
